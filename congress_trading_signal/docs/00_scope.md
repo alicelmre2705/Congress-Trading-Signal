@@ -9,7 +9,7 @@ Phase actuelle : construire uniquement la fondation data officielle House.
 - URLs PDF via `year + DocID`.
 - Téléchargement PDF relançable avec manifest.
 - Audit qualité texte/PDF.
-- Validation Quiver 2024 au niveau couverture déclarants/dates.
+- Validation Quiver 2025 au niveau couverture déclarants/dates.
 
 ## Exclus
 

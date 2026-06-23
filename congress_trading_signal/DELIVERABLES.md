@@ -8,7 +8,7 @@ Livrables créés pour la phase House J1–J4 + validation Quiver.
 2. `notebooks/01_house_index_audit.ipynb` — download/parsing XML House 2013–2026, filtre `FilingType = P`, index PTR.
 3. `notebooks/02_house_pdf_download_manifest.ipynb` — téléchargement PDF PTR, manifest de complétude, checkpoint.
 4. `notebooks/03_house_pdf_quality_smoke_test.ipynb` — audit qualité PDF/texte, smoke test regex sur échantillon.
-5. `notebooks/04_quiver_access_validation_2024.ipynb` — diagnostic Quiver, normalisation, comparaison House/Quiver 2024.
+5. `notebooks/04_quiver_access_validation_2025.ipynb` — diagnostic Quiver, normalisation, comparaison House/Quiver 2025.
 
 ## Code réutilisable
 

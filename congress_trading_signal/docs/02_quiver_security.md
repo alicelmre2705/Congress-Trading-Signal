@@ -18,6 +18,6 @@ Quiver sert uniquement de validation externe :
 
 - diagnostic d’accès réel ;
 - inspection des champs présents ;
-- comparaison déclarants/dates sur 2024.
+- comparaison déclarants/dates sur 2025.
 
 Quiver ne corrige jamais automatiquement la source House.

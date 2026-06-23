@@ -6,7 +6,7 @@ Exécuter les notebooks dans cet ordre depuis la racine du projet.
 2. `notebooks/01_house_index_audit.ipynb`
 3. `notebooks/02_house_pdf_download_manifest.ipynb`
 4. `notebooks/03_house_pdf_quality_smoke_test.ipynb`
-5. `notebooks/04_quiver_access_validation_2024.ipynb`
+5. `notebooks/04_quiver_access_validation_2025.ipynb`
 
 ## Contrôles attendus
 

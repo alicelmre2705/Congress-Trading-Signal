@@ -9,7 +9,7 @@ Ce dépôt construit la fondation data officielle **House** pour le projet Ramif
 - Source officielle : House XML + PDF.
 - Période : 2013–2026.
 - Dépôts retenus : PTR uniquement, `FilingType = P`.
-- Validation externe : Quiver 2024 uniquement.
+- Validation externe : Quiver 2025 uniquement.
 - Livrables principaux : notebooks Jupyter courts et auditables.
 
 ## Hors scope volontaire
@@ -52,7 +52,7 @@ Ne jamais mettre le token en dur dans un notebook ou dans `src/`.
 2. `notebooks/01_house_index_audit.ipynb`
 3. `notebooks/02_house_pdf_download_manifest.ipynb`
 4. `notebooks/03_house_pdf_quality_smoke_test.ipynb`
-5. `notebooks/04_quiver_access_validation_2024.ipynb`
+5. `notebooks/04_quiver_access_validation_2025.ipynb`
 
 ## Fichiers produits
 
@@ -77,8 +77,8 @@ Ne jamais mettre le token en dur dans un notebook ou dans `src/`.
 ### Notebook 04
 
 - `data/audit/quiver_api_access_diagnostic.json`
-- `data/external/quiver/quiver_congress_trading_2024.csv` si accès disponible
-- `data/audit/quiver_house_validation_2024.csv` si accès disponible
+- `data/external/quiver/quiver_congress_trading_2025.csv` si accès disponible
+- `data/audit/quiver_house_validation_2025.csv` si accès disponible
 - `reports/house_quiver_validation_report.md`
 
 ## Règles critiques
