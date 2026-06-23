@@ -154,9 +154,11 @@ def filter_house_year(df: pd.DataFrame, year: int) -> pd.DataFrame:
     return out[is_house & is_year].drop(columns=['disclosure_date_dt']).reset_index(drop=True)
 
 
-def compare_house_quiver_coverage(house_ptr_2024: pd.DataFrame, quiver_house_2024: pd.DataFrame, output_path: Path = AUDIT_DIR / 'quiver_house_validation_2024.csv') -> tuple[pd.DataFrame, dict[str, Any]]:
-    house = house_ptr_2024.copy()
-    quiver = quiver_house_2024.copy()
+def compare_house_quiver_coverage(house_ptr_df: pd.DataFrame, quiver_house_df: pd.DataFrame, year: int = 2025, output_path: Path | None = None) -> tuple[pd.DataFrame, dict[str, Any]]:
+    if output_path is None:
+        output_path = AUDIT_DIR / f'quiver_house_validation_{year}.csv'
+    house = house_ptr_df.copy()
+    quiver = quiver_house_df.copy()
     house['declarant_key'] = house['declarant_name_raw'].apply(normalize_text_key)
     quiver['declarant_key'] = quiver['name'].apply(normalize_text_key)
     house_keys = set(house['declarant_key'].dropna()) - {''}
@@ -164,10 +166,10 @@ def compare_house_quiver_coverage(house_ptr_2024: pd.DataFrame, quiver_house_202
     overlap = house_keys & quiver_keys
     metrics = {
         'timestamp': utc_now_iso(),
-        'n_house_ptr_filings_2024': int(len(house)),
-        'n_quiver_house_transactions_2024': int(len(quiver)),
-        'n_unique_house_declarants_2024': int(len(house_keys)),
-        'n_unique_quiver_declarants_2024': int(len(quiver_keys)),
+        f'n_house_ptr_filings_{year}': int(len(house)),
+        f'n_quiver_house_transactions_{year}': int(len(quiver)),
+        f'n_unique_house_declarants_{year}': int(len(house_keys)),
+        f'n_unique_quiver_declarants_{year}': int(len(quiver_keys)),
         'overlap_declarants_count': int(len(overlap)),
         'house_only_declarants_count': int(len(house_keys - quiver_keys)),
         'quiver_only_declarants_count': int(len(quiver_keys - house_keys)),
@@ -183,7 +185,7 @@ def compare_house_quiver_coverage(house_ptr_2024: pd.DataFrame, quiver_house_202
     return result, metrics
 
 
-def write_quiver_report(diagnostic: dict[str, Any], metrics: dict[str, Any] | None = None, report_path: Path = REPORTS_DIR / 'house_quiver_validation_report.md') -> Path:
+def write_quiver_report(diagnostic: dict[str, Any], metrics: dict[str, Any] | None = None, year: int = 2025, report_path: Path = REPORTS_DIR / 'house_quiver_validation_report.md') -> Path:
     lines = [
         '# House vs Quiver validation', '',
         f"Generated at: `{utc_now_iso()}`", '',
@@ -195,11 +197,11 @@ def write_quiver_report(diagnostic: dict[str, Any], metrics: dict[str, Any] | No
         f"- Endpoint: `{diagnostic.get('endpoint')}`", '',
     ]
     if metrics:
-        lines += ['## 2024 coverage metrics']
+        lines += [f'## {year} coverage metrics']
         for key, value in metrics.items():
             lines.append(f'- {key}: `{value}`')
     else:
-        lines += ['## 2024 coverage metrics', 'Skipped because Quiver access or House 2024 input was unavailable.']
+        lines += [f'## {year} coverage metrics', f'Skipped because Quiver access or House {year} input was unavailable.']
     lines += ['', '## Interpretation', '- A Quiver mismatch is not automatically a House error.', '- No transaction-level match is claimed at this stage.']
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
