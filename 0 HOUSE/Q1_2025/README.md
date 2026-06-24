@@ -25,7 +25,7 @@ Ce ne sont pas des versions concurrentes, mais des **périmètres** différents 
 
 ## Chronologie / comment reproduire
 
-Environnement Python : `../semaine 1/.venv` (kernel Jupyter `jupiter-house-ocr` ; contient
+Environnement Python : `../../semaine 1/.venv` (kernel Jupyter `jupiter-house-ocr` ; contient
 `anthropic`, `pymupdf`, `pandas`, `openpyxl`). Clé `ANTHROPIC_API_KEY` + `QUIVER_API_KEY` dans
 `../.env`.
 
