@@ -1,10 +1,29 @@
-[
-  {
-    "asset_description": "USA Treasury Bonds",
-    "transaction_type": "Purchase",
-    "transaction_date": "2025-02-19",
-    "notification_date": "2025-02-20",
-    "amount_code": "A",
-    "owner": "Self"
-  }
-]
+{
+  "doc_id": "8220770",
+  "member": "Brad Sherman",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "608a8597d2d4",
+  "dpi": 200,
+  "max_img_per_call": 3,
+  "n_pages": 1,
+  "created_utc": "2026-06-24T21:58:50.755402+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 1,
+      "status": "ok",
+      "n": 1
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "USA Treasury Bonds",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2025-02-19",
+      "notification_date": "2025-02-20",
+      "amount_code": "B"
+    }
+  ]
+}

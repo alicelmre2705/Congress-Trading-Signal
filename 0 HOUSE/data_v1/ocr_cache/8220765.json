@@ -1,18 +1,37 @@
-[
-  {
-    "asset_description": "Dallas TX ISD 5% 2/15/2031",
-    "transaction_type": "Purchase",
-    "transaction_date": "2025-01-21",
-    "notification_date": "2025-01-22",
-    "amount_code": "D",
-    "owner": "Joint"
-  },
-  {
-    "asset_description": "Pecis Barstow Toyah TX 4% 2/15/2030",
-    "transaction_type": "Sale",
-    "transaction_date": "2025-01-21",
-    "notification_date": "2025-01-22",
-    "amount_code": "D",
-    "owner": "Joint"
-  }
-]
+{
+  "doc_id": "8220765",
+  "member": "Ann Wagner",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "608a8597d2d4",
+  "dpi": 200,
+  "max_img_per_call": 3,
+  "n_pages": 2,
+  "created_utc": "2026-06-24T21:59:02.190243+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 2,
+      "status": "ok",
+      "n": 2
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "Dallas TX ISD 5% 2/15/2031",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-01-21",
+      "notification_date": "2025-01-22",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Pacis Barstow Toyah TX 4% 2/15/2030",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-01-21",
+      "notification_date": "2025-01-22",
+      "amount_code": "D"
+    }
+  ]
+}

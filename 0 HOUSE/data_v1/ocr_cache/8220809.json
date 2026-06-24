@@ -1,10 +1,29 @@
-[
-  {
-    "asset_description": "Example Mega Corp. Common Stock",
-    "transaction_type": "Sale",
-    "transaction_date": "2024-02-17",
-    "notification_date": "2024-03-08",
-    "amount_code": "D",
-    "owner": "Self"
-  }
-]
+{
+  "doc_id": "8220809",
+  "member": "Vicente Gonzalez",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "608a8597d2d4",
+  "dpi": 200,
+  "max_img_per_call": 3,
+  "n_pages": 1,
+  "created_utc": "2026-06-24T21:44:49.829738+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 1,
+      "status": "ok",
+      "n": 1
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "Example Mega Corp. Common Stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2024-02-17",
+      "notification_date": "2024-03-08",
+      "amount_code": "D"
+    }
+  ]
+}
