@@ -79,8 +79,8 @@ Genuine Parts, Merck, NVIDIA, Pepsi) — **pas des erreurs OCR**.
 | Fausses lignes « Mega Corp » | 3 | **0** |
 | Échecs de batch silencieux | cachés | **0** (journalisés) |
 | ticker / asset_type (OCR) | 0 % / 0 % | **46 % / 95 %** |
-| ticker / asset_type (table v2) | 45 % / 50 % | **68 % / 97 %** |
-| Table combinée v2 | 2210 lignes | **2272 lignes** (1167 OCR + 1105 élec.) |
+| ticker / asset_type (table FINALE) | 45 % / 50 % | **68 % / 97 %** |
+| Table combinée FINALE | 2210 lignes | **2272 lignes** (1167 OCR + 1105 élec.) |
 | Validation Quiver | absente | intégrée, OCR ≥ Quiver |
 
 ---
@@ -104,7 +104,7 @@ Genuine Parts, Merck, NVIDIA, Pepsi) — **pas des erreurs OCR**.
 ## 6. Fichiers
 
 - **Modifié** : `notebook_v1_house_2025q1_ocr.ipynb` ; format `data_v1/ocr_cache/*.json` (versionné).
-- **Régénérés** : `06b_…ocr_transactions.csv` (1167), `06_…_v2.csv` (2272).
+- **Régénérés** : `06b_…ocr_transactions.csv` (1167), `06_…_FINAL.csv` (2272), `house_2025q1_FINAL.xlsx`.
 - **Nouveaux** : `06c_ocr_failures.csv` (vide), `06c_ocr_qa_flags.csv` (1), `06d_ocr_quiver_comparison.csv`.
 - **Lecture seule réutilisée** : `06_…transactions.csv` (dict ticker), Quiver
   `jour 3 4 /data/external/quiver/quiver_congress_trading_2025.csv`, PDFs `non_lisibles/`.
