@@ -14,7 +14,7 @@ sys.path.insert(0, str(REPO))
 
 
 def main():
-    import house_ocr_multiyear as ho
+    import house.ocr as ho
     from congress_core.vision_ocr import VisionExtractor
 
     ve = VisionExtractor(ho.MODEL, ho.OCR_PROMPT, ho.TXN_TOOL, ho.PIPELINE_TAG)

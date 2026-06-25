@@ -24,7 +24,7 @@ YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 
 
 def main():
-    import house_multiyear as hm
+    import house.digital as hm
     hm.build_reference()  # référentiel live → globals + hm.match_bioguide (l'original)
 
     from congress_core.identity import load_reference, make_matcher
