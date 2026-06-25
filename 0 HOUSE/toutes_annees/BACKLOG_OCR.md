@@ -1,0 +1,54 @@
+# Backlog OCR — PTR House scannés (non lisibles)
+
+> **Statut : NON TRAITÉ (différé).** Ces PDF n'ont pas de couche texte (scans/dépôts papier, DocID commençant par `8`/`9`). Le pipeline digital `house_multiyear.py` les **inventorie mais ne les extrait pas**.
+
+> **Méthode prévue (ultérieure) :** OCR PDF/Vision de Claude (`claude-sonnet-4-6`, tool_use `record_transactions`), cf. `notebook_v1_house_2025q1_ocr.ipynb` qui le fait déjà pour 2025 T1.
+
+
+**Total inventorié : 547 PDF / 52 déclarants distincts.**
+
+
+## Volume par année
+
+| Année | PDF non lisibles | Déclarants | Pages (≈ coût OCR) |
+|---|---|---|---|
+| 2020 | 125 | 24 | 646 |
+| 2021 | 109 | 20 | 425 |
+| 2022 | 108 | 21 | 594 |
+| 2023 | 69 | 16 | 388 |
+| 2024 | 48 | 9 | 399 |
+| 2025 | 61 | 14 | 421 |
+| 2026 | 27 | 6 | 264 |
+| **Total** | **547** | — | **3137** |
+
+_Estimation coût OCR Claude Vision ≈ 3137 pages × ~0,006 $ ≈ **19 $**._
+
+
+## Top déposants papier (priorité OCR)
+
+| Déclarant | PDF scannés | Pages |
+|---|---|---|
+| Rohit Khanna | 73 | 1481 |
+| Harold Dallas Rogers | 73 | 84 |
+| Michael T. McCaul | 71 | 456 |
+| Kurt Schrader | 36 | 101 |
+| Charles J. "Chuck" Fleischmann | 34 | 88 |
+| Doug Lamborn | 30 | 55 |
+| Diana Harshbarger | 25 | 247 |
+| Trey Hollingsworth | 23 | 42 |
+| Ann Wagner | 20 | 38 |
+| Mike Kelly | 20 | 21 |
+| Fred Upton | 16 | 29 |
+| David Kustoff | 13 | 18 |
+| Francis Rooney | 12 | 23 |
+| David P. Roe | 11 | 249 |
+| Tony Wied | 10 | 17 |
+| Nicole Malliotakis | 7 | 7 |
+| Scott Franklin | 6 | 15 |
+| Tom Cole | 5 | 6 |
+| Billy Long | 4 | 6 |
+| George Holding | 4 | 8 |
+
+## Détail complet
+
+Voir `data_v1/tables/00_backlog_ocr.csv` (year, doc_id, declarant_name, state_district, disclosure_date, n_pages).
