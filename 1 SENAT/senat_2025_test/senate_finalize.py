@@ -33,20 +33,8 @@ import yaml
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "data_v1_senate"
 TAB = OUT / "tables"
+REF = OUT / "reference"   # référentiel législateurs vendu localement (dossier 100 % autonome)
 TAB.mkdir(parents=True, exist_ok=True)
-
-
-def _find_repo_root(start):
-    """Racine du dépôt = premier parent contenant « semaine 1 » (robuste à la profondeur)."""
-    p = start
-    while p != p.parent:
-        if (p / "semaine 1").exists():
-            return p
-        p = p.parent
-    return start.parent
-
-
-ROOT = _find_repo_root(HERE)
 
 WIN_START = pd.Timestamp("2025-01-01")
 WIN_END = pd.Timestamp("2025-03-31")
@@ -56,8 +44,8 @@ KEY_COMMITTEES = ("Finance", "Armed Services", "Intelligence", "Banking")
 SCHEMA = ["bioguide_id", "declarant_name", "chamber", "party", "state_district",
           "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
           "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
-          "amount_midpoint", "owner", "doc_id", "source_url", "natural_key_hash",
-          "provenance", "ticker_source"]
+          "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url",
+          "natural_key_hash", "provenance", "ticker_source", "occurrence_index"]
 
 
 # --------------------------------------------------------------------------- identité
@@ -84,8 +72,8 @@ def split_name(declarant):
 
 
 def load_reference():
-    cur = yaml.safe_load(open(ROOT / "semaine 1/data/reference/raw/legislators-current.yaml"))
-    his = yaml.safe_load(open(ROOT / "semaine 1/data/reference/raw/legislators-historical.yaml"))
+    cur = yaml.safe_load(open(REF / "legislators-current.yaml"))
+    his = yaml.safe_load(open(REF / "legislators-historical.yaml"))
     current_bios = {p["id"]["bioguide"] for p in cur if p.get("id", {}).get("bioguide")}
 
     ref, name_exact, name_by_last = {}, {}, defaultdict(list)
@@ -108,8 +96,8 @@ def load_reference():
     # commissions (flag clé)
     bio_to_committees, key_flag = defaultdict(set), {}
     try:
-        committees = yaml.safe_load(open(ROOT / "semaine 1/data/reference/raw/committees-current.yaml"))
-        membership = yaml.safe_load(open(ROOT / "semaine 1/data/reference/raw/committee-membership-current.yaml"))
+        committees = yaml.safe_load(open(REF / "committees-current.yaml"))
+        membership = yaml.safe_load(open(REF / "committee-membership-current.yaml"))
         code_to_name = {c["thomas_id"]: c["name"] for c in committees if "thomas_id" in c}
         for code, members in membership.items():
             cname = code_to_name.get(code, code)
@@ -200,21 +188,44 @@ def main():
         return hashlib.sha256(raw.encode("utf-8")).hexdigest()
     df["natural_key_hash"] = df.apply(nk, axis=1)
     df["amount_midpoint"] = pd.to_numeric(df["amount_midpoint"], errors="coerce")
+    # parité schéma House : l'eFD fournit une fourchette unique par ligne (jamais éclatée sur
+    # plusieurs lignes comme les PDF House) → amount_split_flag toujours False côté Sénat.
+    df["amount_split_flag"] = False
+    # occurrence_index : préservé depuis l'extraction (lots répétés intra-rapport, ex. Moody
+    # SYM/NCLH/SMCI CALL vendus 2× le même jour). Dédup non destructrice. 0 par défaut.
+    if "occurrence_index" not in df.columns:
+        df["occurrence_index"] = 0
+    df["occurrence_index"] = pd.to_numeric(df["occurrence_index"], errors="coerce").fillna(0).astype(int)
     df = df.reindex(columns=SCHEMA)
 
-    # écriture table finale (fichier de travail + table numérotée)
+    # écriture table ÉLECTRONIQUE (fichier de travail idempotent + table numérotée 06)
     df.to_csv(OUT / "senate_2025q1_transactions.csv", index=False)
     df.to_csv(TAB / "06_senate_2025q1_transactions.csv", index=False)
-    print(f"→ table finale : {len(df)} lignes, {df['declarant_name'].nunique()} sénateurs")
+    print(f"→ table électronique : {len(df)} lignes, {df['declarant_name'].nunique()} sénateurs")
+
+    # 2b) fusion OCR papier (si senate_ocr.py a produit 06b) — table FINALE digital + OCR
+    n_elec = len(df)
+    ocr_path = TAB / "06b_senate_2025q1_ocr_transactions.csv"
+    if ocr_path.exists():
+        ocr = pd.read_csv(ocr_path, dtype=str)
+        ocr["amount_midpoint"] = pd.to_numeric(ocr["amount_midpoint"], errors="coerce")
+        ocr["amount_split_flag"] = ocr["amount_split_flag"].map(lambda x: str(x).strip().lower() == "true")
+        ocr["committees_key_flag"] = ocr["committees_key_flag"].map(lambda x: str(x).strip().lower() == "true")
+        ocr["occurrence_index"] = pd.to_numeric(ocr["occurrence_index"], errors="coerce").fillna(0).astype(int)
+        df = pd.concat([df, ocr.reindex(columns=SCHEMA)], ignore_index=True)
+        # dédup inter-sources (filet) sur (natural_key_hash, occurrence_index)
+        df = df.drop_duplicates(["natural_key_hash", "occurrence_index"], keep="first").reset_index(drop=True)
+        print(f"→ fusion digital+OCR : {len(df)} lignes ({n_elec} électro + {len(df) - n_elec} OCR papier)")
+    df.to_csv(OUT / "senate_2025q1_FINAL.csv", index=False)
+    df.to_csv(TAB / "06_senate_2025q1_FINAL.csv", index=False)
 
     # 3) validation Quiver -------------------------------------------------------
-    token = None
-    for cand in [ROOT / ".env", ROOT / "semaine 1/.env"]:
-        if cand.exists():
-            for line in open(cand):
-                if line.startswith("QUIVER_API_KEY="):
-                    token = line.split("=", 1)[1].strip()
-    token = token or os.environ.get("QUIVER_API_KEY")
+    token = os.environ.get("QUIVER_API_KEY")
+    envf = HERE / ".env"   # secrets locaux au dossier (autonome) — voir .env.example
+    if not token and envf.exists():
+        for line in open(envf):
+            if line.startswith("QUIVER_API_KEY="):
+                token = line.split("=", 1)[1].strip() or None
     cmp_df = None
     if not token:
         print("QUIVER_API_KEY absent → validation sautée (table inchangée).")
@@ -292,23 +303,29 @@ def main():
                for b, v in ref.items()
                if v["chamber"] == "senate" and key_flag.get(b)]
     pd.DataFrame(sen_key).to_csv(TAB / "02_ref_senate_key.csv", index=False)
-    # 03 index PTR (électroniques parsés + papier backlog)
-    elec = (df.groupby("doc_id").agg(declarant_name=("declarant_name", "first"),
-                                     disclosure_date=("disclosure_date", "first"),
-                                     source_url=("source_url", "first"),
-                                     n_txns=("doc_id", "size")).reset_index())
-    elec["kind"] = "ptr"
+    # 03 index PTR — kind dérivé de la provenance (électronique / papier OCRisé / backlog restant)
+    perdoc = (df.groupby("doc_id").agg(declarant_name=("declarant_name", "first"),
+                                       disclosure_date=("disclosure_date", "first"),
+                                       source_url=("source_url", "first"),
+                                       n_txns=("doc_id", "size"),
+                                       provenance=("provenance", "first")).reset_index())
+    perdoc["kind"] = perdoc["provenance"].map(lambda p: "paper_ocr" if "ocr" in str(p) else "ptr")
+    have = set(perdoc["doc_id"])
     backlog = pd.read_csv(OUT / "backlog.csv") if (OUT / "backlog.csv").exists() else pd.DataFrame()
-    paper_rows = []
-    for _, r in backlog.iterrows():
-        paper_rows.append({"doc_id": r["uuid"], "declarant_name": None, "disclosure_date": None,
-                           "source_url": r["url"], "n_txns": 0, "kind": "paper"})
-    ptr_index = pd.concat([elec, pd.DataFrame(paper_rows)], ignore_index=True)
+    paper_rows = [{"doc_id": r["uuid"], "declarant_name": None, "disclosure_date": None,
+                   "source_url": r["url"], "n_txns": 0, "kind": "paper"}
+                  for _, r in backlog.iterrows() if r["uuid"] not in have]
+    cols_idx = ["doc_id", "declarant_name", "disclosure_date", "source_url", "n_txns", "kind"]
+    ptr_index = pd.concat([perdoc[cols_idx], pd.DataFrame(paper_rows, columns=cols_idx)],
+                          ignore_index=True)
     ptr_index.to_csv(TAB / "03_ptr_index.csv", index=False)
     # 04 manifest
     manifest = ptr_index[["doc_id", "kind", "n_txns"]].copy()
-    manifest["statut"] = manifest["kind"].map({"ptr": "electronique_parsé", "paper": "backlog_ocr"})
+    manifest["statut"] = manifest["kind"].map({"ptr": "electronique_parsé", "paper_ocr": "ocr_parsé",
+                                               "paper": "backlog_ocr"})
     manifest.to_csv(TAB / "04_report_manifest.csv", index=False)
+    n_elec_docs = int((perdoc["kind"] == "ptr").sum())
+    n_ocr_docs = int((perdoc["kind"] == "paper_ocr").sum())
     # 05 échecs de parsing (aucun électronique en échec)
     pd.DataFrame(columns=["doc_id", "raison"]).to_csv(TAB / "05_parse_failures.csv", index=False)
 
@@ -322,7 +339,8 @@ def main():
                        "asset_description": r["asset_description"], "flags": ",".join(probs)})
     pd.DataFrame(qa, columns=["doc_id", "declarant_name", "asset_description", "flags"]).to_csv(
         TAB / "06c_qa_flags.csv", index=False)
-    print(f"QA flags : {len(qa)}  |  PTR index : {len(ptr_index)} ({len(elec)} élec + {len(paper_rows)} papier)")
+    print(f"QA flags : {len(qa)}  |  PTR index : {len(ptr_index)} "
+          f"({n_elec_docs} élec + {n_ocr_docs} papier OCR + {len(paper_rows)} backlog)")
 
     # 5) Excel multi-onglets -----------------------------------------------------
     write_excel(df, cmp_df, qa, ptr_index, sen_key)
@@ -332,11 +350,13 @@ def main():
 
 def write_excel(df, cmp_df, qa, ptr_index, sen_key):
     path = TAB / "senate_2025q1_FINAL.xlsx"
+    n_elec = int((df["provenance"] == "senate-efd-electronic").sum())
+    n_ocr = int((df["provenance"] == "senate-efd-ocr").sum())
     lisez = pd.DataFrame({"Sénat — PTR Q1 2025": [
         "Transactions boursières déclarées par les sénateurs (eFD direct), 1er trim. 2025.",
-        f"{len(df)} transactions électroniques · {df['declarant_name'].nunique()} sénateurs · "
-        f"{ptr_index[ptr_index['kind']=='ptr'].shape[0]} PTR.",
-        "4 rapports papier en backlog (OCR à venir) — voir backlog.csv.",
+        f"{len(df)} transactions ({n_elec} électroniques + {n_ocr} OCR papier) · "
+        f"{df['declarant_name'].nunique()} sénateurs · {len(ptr_index)} PTR.",
+        "Rapports papier traités par OCR (Claude Vision) — provenance=senate-efd-ocr.",
         "Quiver = vérification externe seulement (jamais réinjecté). Voir onglet validation_quiver.",
         "Onglet transactions = table de référence. Colonnes : voir README.md.",
     ]})
