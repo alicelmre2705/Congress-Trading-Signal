@@ -21,5 +21,4 @@ dependencies = [
 
 [tool.setuptools]
 # Liste explicite (l'arbo racine contient des dossiers non-packages : « 0 HOUSE », « 1 SENAT »…).
-# `house` sera ajouté en Phase 6 quand les orchestrateurs existeront.
-packages = ["congress_core"]
+packages = ["congress_core", "house"]

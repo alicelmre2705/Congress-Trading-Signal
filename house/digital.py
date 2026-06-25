@@ -30,8 +30,11 @@ except Exception:
 # ───────────────────────── Chemins & constantes (DOSSIER AUTONOME) ─────────────────────────
 # Ancrage par marqueur : BASE_DIR = le dossier qui contient data_v1/ (peu importe d'où on lance).
 # Aucune dépendance à 'semaine 1' : PDF/index/YAML/baseline/Quiver sont embarqués dans data_v1/.
-HERE = Path(__file__).resolve().parent
-BASE_DIR = next((p for p in [HERE, *HERE.parents] if (p / "data_v1").is_dir()), HERE)
+HERE = Path(__file__).resolve().parent           # <repo>/house
+REPO = HERE.parent                                # racine du dépôt
+# Transitoire : les données ne sont PAS encore déplacées (Phase 7 = data/house/). On pointe donc
+# explicitement vers l'emplacement actuel — une seule ligne à changer le jour du git mv des données.
+BASE_DIR = REPO / "0 HOUSE" / "toutes_annees"
 load_dotenv(BASE_DIR / ".env")
 if not os.getenv("ANTHROPIC_API_KEY"):
     load_dotenv()  # repli : .env ailleurs dans l'arbre

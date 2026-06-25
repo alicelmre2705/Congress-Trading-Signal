@@ -20,7 +20,7 @@ import pymupdf
 import anthropic
 from PIL import Image
 
-import house_multiyear as hm   # référentiel, match_bioguide, resolve_pdf_path, fetch_quiver, TABROOT
+import house.digital as hm   # référentiel, match_bioguide, resolve_pdf_path, fetch_quiver, TABROOT
 
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 

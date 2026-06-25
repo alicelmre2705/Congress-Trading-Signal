@@ -15,8 +15,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pymupdf, pandas as pd, anthropic
 
-import house_ocr_multiyear as ocr
-import house_multiyear as hm
+import house.ocr as ocr
+import house.digital as hm
 
 # ───── prompt DURCI (validé A/B : garde-fou date, transcription fidèle, 1 ligne = 1 txn) ─────
 HARDENED = """\
