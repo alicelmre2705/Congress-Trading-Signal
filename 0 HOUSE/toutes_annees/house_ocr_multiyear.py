@@ -347,10 +347,9 @@ def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, year, force=False
 
 # ───────────────────────── Normalisation + enrichissement (port cellules 16, 21) ─────────────
 def natural_key_hash(row):
-    key = "|".join(["house", str(row.get("declarant_name", "")), str(row.get("transaction_date", "")),
-                    str(row.get("asset_description", "")), str(row.get("operation_type", "")),
-                    str(row.get("amount_range", "")), str(row.get("owner", ""))])
-    return hashlib.sha256(key.encode()).hexdigest()
+    # Délègue au cœur partagé (drop-in exact, prouvé par tests/regression/test_schema.py).
+    from congress_core.schema import natural_key_hash as _core
+    return _core(row, "house")
 
 # Fenêtre légale STOCK Act : un PTR se dépose dans les ~45 j suivant la transaction. On garde 75 j de
 # marge (dépôts tardifs / amendements). Une transaction APRÈS le dépôt, ou > 75 j avant, est quasi

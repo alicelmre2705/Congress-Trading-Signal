@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "congress-trading"
+version = "0.1.0"
+description = "Pipeline données Congress Trading (House + Sénat) — cœur partagé + pipelines par chambre"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "pdfplumber>=0.11",
+    "pymupdf>=1.24",
+    "anthropic>=0.40",
+    "openpyxl>=3.1",
+    "python-dotenv>=1.0",
+    "Pillow>=10.0",
+]
+
+[tool.setuptools]
+# Liste explicite (l'arbo racine contient des dossiers non-packages : « 0 HOUSE », « 1 SENAT »…).
+# `house` sera ajouté en Phase 6 quand les orchestrateurs existeront.
+packages = ["congress_core"]

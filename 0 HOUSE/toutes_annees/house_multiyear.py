@@ -501,10 +501,9 @@ SCHEMA = ["bioguide_id", "declarant_name", "chamber", "party", "state_district",
           "natural_key_hash", "occurrence_index"]
 
 def _legacy_key(r):
-    raw = "|".join(str(x) for x in [r["chamber"], r["declarant_name"], r["transaction_date"],
-                                    r["asset_description"], r["operation_type"],
-                                    r["amount_range"], r["owner"]])
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+    # Délègue au cœur partagé (drop-in exact, prouvé par tests/regression/test_schema.py).
+    from congress_core.schema import natural_key_hash
+    return natural_key_hash(r, "house")
 
 def finalize(parsed_df, year):
     """Normalise + déduplique. Dédup CANONIQUE (préserve les lots identiques intra-dépôt via
