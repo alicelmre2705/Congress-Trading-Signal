@@ -2,17 +2,40 @@
   "doc_id": "8216961",
   "member": "Ann Wagner",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:02:55.157309+00:00",
+  "created_utc": "2026-06-25T20:28:37.085396+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 3
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "CONNECTICUT ST 5% 11/15/2021",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PERTH AMBOY N J 4% 05/01/2021",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "GREENDALE WIS SCH DIST 3% 03/01/2022",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-17",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -21,15 +44,13 @@
       "transaction_type": "Purchase",
       "owner": "Joint",
       "transaction_date": "2020-01-06",
-      "notification_date": null,
       "amount_code": "C"
     },
     {
       "asset_description": "PERTH AMBOY N J 4% 05/01/2021",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2020-01-08",
-      "notification_date": null,
+      "transaction_date": "2020-01-06",
       "amount_code": "C"
     },
     {
@@ -37,7 +58,6 @@
       "transaction_type": "Purchase",
       "owner": "Joint",
       "transaction_date": "2020-01-17",
-      "notification_date": null,
       "amount_code": "D"
     }
   ]

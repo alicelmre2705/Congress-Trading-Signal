@@ -2,18 +2,277 @@
   "doc_id": "8217927",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:24:19.770582+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T21:07:43.111992+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 50 requests per "
+      "status": "ok",
+      "n": 16,
+      "transactions": [
+        {
+          "asset_description": "Pepsico",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-01",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Microsoft",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-01",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Tech SPDR",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-16",
+          "notification_date": "2021-04-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Enterprise",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-16",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Chevron",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-16",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Western Asset Muni",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-29",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AT&T",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-03",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "General Electric",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-03",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Seagate",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-04",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Nuveen",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-08",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Calvert US LCV",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-08",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Digital Realty",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-12",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-12",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-03-15",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Deere Co",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-15",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Deere Co",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-03-17",
+          "notification_date": "2021-04-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Pepsico",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-01",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Microsoft",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-01",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Tech SPDR",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-16",
+      "notification_date": "2021-04-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Enterprise",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-16",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Chevron",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-16",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Western Asset Muni",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-29",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AT&T",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-03",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "General Electric",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-03",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Seagate",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-04",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Nuveen",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-08",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Calvert US LCV",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-08",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Digital Realty",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-12",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-12",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-03-15",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Deere Co",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-15",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Deere Co",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-03-17",
+      "notification_date": "2021-04-01",
+      "amount_code": "A"
+    }
+  ]
 }

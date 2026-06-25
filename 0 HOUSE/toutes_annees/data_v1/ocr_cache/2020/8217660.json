@@ -2,17 +2,27 @@
   "doc_id": "8217660",
   "member": "Joseph P. Kennedy",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-24T23:29:28.719534+00:00",
+  "created_utc": "2026-06-25T20:11:46.426141+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 1
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Marriott International Inc.",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-09-15",
+          "notification_date": "2020-09-18",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -20,9 +30,9 @@
       "asset_description": "Marriott International Inc.",
       "transaction_type": "Sale",
       "owner": "Joint",
-      "transaction_date": "2012-08-14",
-      "notification_date": "2012-09-18",
-      "amount_code": "B"
+      "transaction_date": "2020-09-15",
+      "notification_date": "2020-09-18",
+      "amount_code": "A"
     }
   ]
 }

@@ -2,33 +2,99 @@
   "doc_id": "8217051",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:00:03.129171+00:00",
+  "created_utc": "2026-06-25T20:28:10.565439+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 8
+      "n": 8,
+      "transactions": [
+        {
+          "asset_description": "LVMH Moet Hennessy Vuitton",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-02-11",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Citigroup Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-02-24",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bank of America Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-02-24",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Chubb Limited",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-02-11",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DW Large Cap Strategies Fd",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-02-11",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Blackrock Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-02-17",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MSCI Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-02-24",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Service Now Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-02-24",
+          "notification_date": "2020-02-28",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "LVM Moet Hennessy Vitton",
+      "asset_description": "LVMH Moet Hennessy Vuitton",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-02-10",
+      "transaction_date": "2020-02-11",
       "notification_date": "2020-02-28",
       "amount_code": "A"
     },
     {
-      "asset_description": "Cisco Inc",
+      "asset_description": "Citigroup Inc",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-02-14",
+      "transaction_date": "2020-02-24",
       "notification_date": "2020-02-28",
       "amount_code": "A"
     },
@@ -36,7 +102,7 @@
       "asset_description": "Bank of America Corp",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-02-14",
+      "transaction_date": "2020-02-24",
       "notification_date": "2020-02-28",
       "amount_code": "A"
     },
@@ -44,15 +110,15 @@
       "asset_description": "Chubb Limited",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-02-10",
+      "transaction_date": "2020-02-11",
       "notification_date": "2020-02-28",
       "amount_code": "A"
     },
     {
-      "asset_description": "DW Large Cap Strategies",
+      "asset_description": "DW Large Cap Strategies Fd",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-02-14",
+      "transaction_date": "2020-02-11",
       "notification_date": "2020-02-28",
       "amount_code": "A"
     },
@@ -61,7 +127,7 @@
       "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-02-17",
-      "notification_date": "2020-02-24",
+      "notification_date": "2020-02-28",
       "amount_code": "A"
     },
     {
@@ -76,8 +142,8 @@
       "asset_description": "Service Now Inc",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-02-29",
-      "notification_date": "2020-02-29",
+      "transaction_date": "2020-02-24",
+      "notification_date": "2020-02-28",
       "amount_code": "A"
     }
   ]

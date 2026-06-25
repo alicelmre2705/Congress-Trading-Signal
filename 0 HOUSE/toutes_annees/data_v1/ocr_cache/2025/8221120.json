@@ -2,18 +2,543 @@
   "doc_id": "8221120",
   "member": "Michael T. McCaul",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:26.971416+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:02:55.637493+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 33,
+      "transactions": [
+        {
+          "asset_description": "LLM FAMILY INVESTMENTS LP",
+          "transaction_type": "Exchange",
+          "owner": "Spouse"
+        },
+        {
+          "asset_description": "RECURRING CAPITAL FUND IV LP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-07",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "NUCOR CORPORATION",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-12",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "GREATER ORLANDO AVTN AT",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-21",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "STANLEY BLACK & DECKER",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "TENNESSEE ST GO BDS B",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-09",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-20",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LOUISIANA-PAC Corp Com",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-15",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MERCK AND CO INC SHS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "HUMANA INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PALM BEACH CNTY FLA SCH",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-30",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-16",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "DYNATRACE INC REG SHS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-15",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HUMANA INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MAYS-ALLOCATE",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-02",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Zions Bancorporation NA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-01",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MAYS-ALLOCATE",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-26",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HUMANA INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-28",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WORKDAY INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-28",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MAYS-ALLOCATE",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-13",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MAYS-ALLOCATE 2025 LP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-06",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MAYS-ALLOCATE",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD LONG TERM TAX",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-01",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CAPITAL ONE FINANCIAL CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-28",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WELLS FARGO & CO",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-21",
+          "notification_date": "2025-06-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROSUS NV",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-01",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PROSUS NV",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-14",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "VISA INC CL A SHRS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-15",
+          "notification_date": "2025-06-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SENSATA TECHNOLOGIES",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TENNESSEE HSG DEV AGY",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-29",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "GLOBAL PMTS INC GEORGIA",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-12",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "KRAFT (THE) HEINZ CO SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-19",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "OHIO ST HIGHER ED GO BDS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-05-01",
+          "notification_date": "2025-06-05",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "LLM FAMILY INVESTMENTS LP",
+      "transaction_type": "Exchange",
+      "owner": "Spouse"
+    },
+    {
+      "asset_description": "RECURRING CAPITAL FUND IV LP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-07",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "NUCOR CORPORATION",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-12",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "GREATER ORLANDO AVTN AT",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-21",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "STANLEY BLACK & DECKER",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "TENNESSEE ST GO BDS B",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-09",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-20",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LOUISIANA-PAC Corp Com",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-15",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MERCK AND CO INC SHS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "HUMANA INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PALM BEACH CNTY FLA SCH",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-30",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-16",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "DYNATRACE INC REG SHS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-15",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HUMANA INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MAYS-ALLOCATE",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-02",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Zions Bancorporation NA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-01",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MAYS-ALLOCATE",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-26",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HUMANA INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-28",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WORKDAY INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-28",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MAYS-ALLOCATE",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-13",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MAYS-ALLOCATE 2025 LP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-06",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MAYS-ALLOCATE",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD LONG TERM TAX",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-01",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CAPITAL ONE FINANCIAL CORP",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-28",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WELLS FARGO & CO",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-21",
+      "notification_date": "2025-06-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROSUS NV",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-01",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PROSUS NV",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-14",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "VISA INC CL A SHRS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-15",
+      "notification_date": "2025-06-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SENSATA TECHNOLOGIES",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TENNESSEE HSG DEV AGY",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-29",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "GLOBAL PMTS INC GEORGIA",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-12",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "KRAFT (THE) HEINZ CO SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-19",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "OHIO ST HIGHER ED GO BDS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-05-01",
+      "notification_date": "2025-06-05",
+      "amount_code": "D"
+    }
+  ]
 }

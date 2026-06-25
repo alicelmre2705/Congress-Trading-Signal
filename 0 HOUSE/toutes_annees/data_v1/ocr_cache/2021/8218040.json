@@ -2,27 +2,37 @@
   "doc_id": "8218040",
   "member": "Scott Franklin",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:05:44.196741+00:00",
+  "created_utc": "2026-06-25T19:25:56.123085+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 1
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "BRP GROUP INC COM CL A",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-04-27",
+          "notification_date": "2021-04-28",
+          "amount_code": "J"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "BRP GROUP INC COM CL A",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2021-04-27",
       "notification_date": "2021-04-28",
-      "amount_code": "B"
+      "amount_code": "J"
     }
   ]
 }

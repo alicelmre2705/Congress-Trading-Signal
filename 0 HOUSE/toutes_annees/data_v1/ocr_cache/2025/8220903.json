@@ -2,18 +2,181 @@
   "doc_id": "8220903",
   "member": "Tony Wied",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:37.824180+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:06:29.424696+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 10,
+      "transactions": [
+        {
+          "asset_description": "MERCADOLIBRE INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-04-04",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-04-04",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "RH",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-04",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "THE TRADE DESK INC CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-04",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMERICAN EXPRESS 3.95%25 DUE 08/01/25",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-04-09",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US TREASURY BILL25U S T BILL DUE 06/26/25",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-04-15",
+          "notification_date": "2025-05-13",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "US TREASURY BILL25U S T BILL DUE 08/12/25",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-30",
+          "notification_date": "2025-05-13",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-30",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "LAM RESH CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-30",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "KINSALE CAP GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-04-30",
+          "notification_date": "2025-05-13",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "MERCADOLIBRE INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-04-04",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-04-04",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "RH",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-04",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "THE TRADE DESK INC CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-04",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMERICAN EXPRESS 3.95%25 DUE 08/01/25",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-04-09",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "US TREASURY BILL25U S T BILL DUE 06/26/25",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-04-15",
+      "notification_date": "2025-05-13",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "US TREASURY BILL25U S T BILL DUE 08/12/25",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-30",
+      "notification_date": "2025-05-13",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-30",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LAM RESH CORP",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-30",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "KINSALE CAP GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-04-30",
+      "notification_date": "2025-05-13",
+      "amount_code": "B"
+    }
+  ]
 }

@@ -2,25 +2,35 @@
   "doc_id": "8217678",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-24T23:28:50.854691+00:00",
+  "created_utc": "2026-06-25T20:11:34.037146+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
       "status": "ok",
-      "n": 1
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-09-11",
+          "notification_date": "2020-09-11",
+          "amount_code": "C"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
       "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2020-02-06",
+      "owner": "Joint",
+      "transaction_date": "2020-09-11",
       "notification_date": "2020-09-11",
       "amount_code": "C"
     }

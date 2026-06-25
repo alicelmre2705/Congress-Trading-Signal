@@ -2,18 +2,69 @@
   "doc_id": "8220844",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T06:06:33.062677+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:05:52.617783+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "Sell Vng Value Index @175.05",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-03-27",
+          "notification_date": "2025-04-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Sell Vng FTSE Dev Mkt @ 52.0304",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-03-27",
+          "notification_date": "2025-04-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Buy Ish Core S&P 500 @ 577.03",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-03-27",
+          "notification_date": "2025-04-28",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Sell Vng Value Index @175.05",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-03-27",
+      "notification_date": "2025-04-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Sell Vng FTSE Dev Mkt @ 52.0304",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-03-27",
+      "notification_date": "2025-04-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Buy Ish Core S&P 500 @ 577.03",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-03-27",
+      "notification_date": "2025-04-28",
+      "amount_code": "A"
+    }
+  ]
 }

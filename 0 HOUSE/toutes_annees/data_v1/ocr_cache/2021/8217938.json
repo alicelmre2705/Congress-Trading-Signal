@@ -2,209 +2,859 @@
   "doc_id": "8217938",
   "member": "Rohit Khanna",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 4,
-  "created_utc": "2026-06-25T00:12:59.570501+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:28:28.924387+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
       "status": "ok",
-      "n": 23
+      "n": 20,
+      "transactions": [
+        {
+          "asset_description": "Snap Inc.",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME Group Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-08",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Match Group Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-09",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IHS Markit Ltd.",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-16",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Snap Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Nvidia Corporation",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Estee Lauder Co",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Chipotle Mexican Grill Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Estee Lauder Co",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Snap Inc.",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME Group Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-08",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Match Group Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-09",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IHS Markit Ltd",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-16",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IHS Markit Ltd",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Snap Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Nvidia Corp",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Estee Lauder Co",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-24",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Chipotle Mexican Grill Inc.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 32,
+      "transactions": [
+        {
+          "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-12",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AT&T INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-05",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-17",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-20",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-25",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-10",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-18",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-11",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-19",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VIACOMCBS INC CMN CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-10",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "VIACOMCBS INC CMN CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-11",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-03-21",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TALLAHASSEE FLA ENERGY SYS REV REV 5% 10/01/21 AO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "OHIO ST WTR DEV AUTH REV REV 8% 12/01/21 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOUSTON TEX GO 5 0000% 03/01/22 MS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HAYS CNTY TEX GO 5% 02/15/22 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUNTSVILLE ALA GO 5% 05/01/22-CA MN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06"
+        },
+        {
+          "asset_description": "FACEBOOK, INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-08",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZYNGA INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-20",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ZYNGA INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ZYNGA INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-25",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-04",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-05",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUMANA INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-02",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-11",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JPMORGAN CHASE & CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-29",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "O'REILLY AUTOMOTIVE, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-30",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-26",
+          "notification_date": "2021-04-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "METLIFE, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-03-29",
+          "notification_date": "2021-04-06",
+          "amount_code": "J"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "Snap Tree P&D Business Children",
-      "transaction_type": "Purchase",
+      "asset_description": "Snap Inc.",
+      "transaction_type": "Sale",
       "owner": "Dependent Child",
-      "transaction_date": "2021-03-07",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "CNK Group Inc.",
-      "transaction_type": "Sale",
+      "asset_description": "CME Group Inc.",
+      "transaction_type": "Purchase",
       "owner": "Dependent Child",
       "transaction_date": "2021-03-08",
-      "notification_date": "2021-04-08",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
       "asset_description": "Match Group Inc.",
       "transaction_type": "Purchase",
       "owner": "Dependent Child",
-      "transaction_date": "2021-01-07",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-09",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IHS Markit Ltd.",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-16",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Adobe Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Snap Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Nvidia Corporation",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Estee Lauder Co",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Chipotle Mexican Grill Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Estee Lauder Co",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Snap Inc.",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME Group Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-08",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Match Group Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-09",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
       "asset_description": "IHS Markit Ltd",
-      "transaction_type": "Purchase",
+      "transaction_type": "Sale",
       "owner": "Dependent Child",
-      "transaction_date": "2021-01-07",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-16",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "iRobot Ltd",
+      "asset_description": "Adobe Inc.",
       "transaction_type": "Purchase",
       "owner": "Dependent Child",
-      "transaction_date": "2021-01-07",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IHS Markit Ltd",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
       "asset_description": "Snap Inc.",
       "transaction_type": "Purchase",
       "owner": "Dependent Child",
-      "transaction_date": "2021-01-07",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-24",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "Nuidi Group Inc.",
+      "asset_description": "Nvidia Corp",
       "transaction_type": "Purchase",
       "owner": "Dependent Child",
       "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-08",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "Elara Loader Co.",
-      "transaction_type": "Purchase",
+      "asset_description": "Estee Lauder Co",
+      "transaction_type": "Sale",
       "owner": "Dependent Child",
       "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-08",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
       "asset_description": "Chipotle Mexican Grill Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-12",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AT&T INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-05",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-17",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-20",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-25",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-10",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-18",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-11",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-03-19",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VIACOMCBS INC CMN CLASS B",
       "transaction_type": "Sale",
       "owner": "Dependent Child",
-      "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-08",
+      "transaction_date": "2021-03-10",
+      "notification_date": "2021-04-06",
       "amount_code": "B"
     },
     {
-      "asset_description": "Elara Loader Co. (2nd)",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-02-24",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Adec Trust Partnership",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-07",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "2089 Trust P&D Business Children",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-07",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "CNK Group Inc.",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-09",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Snap Inc.",
+      "asset_description": "VIACOMCBS INC CMN CLASS B",
       "transaction_type": "Sale",
       "owner": "Dependent Child",
-      "transaction_date": "2021-03-09",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
+      "transaction_date": "2021-03-11",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
     },
     {
-      "asset_description": "Match Group Inc.",
+      "asset_description": "AMERICAN INTL GROUP, INC. CMN",
       "transaction_type": "Sale",
       "owner": "Dependent Child",
-      "transaction_date": "2021-03-14",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
+      "transaction_date": "2021-03-21",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
     },
     {
-      "asset_description": "IHS MarKit Ltd",
-      "transaction_type": "Sale",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-14",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "iRobot Inc.",
-      "transaction_type": "Sale",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Snap Inc.",
+      "asset_description": "TALLAHASSEE FLA ENERGY SYS REV REV 5% 10/01/21 AO",
       "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-09",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "OHIO ST WTR DEV AUTH REV REV 8% 12/01/21 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "Snap Inc.",
+      "asset_description": "HOUSTON TEX GO 5 0000% 03/01/22 MS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HAYS CNTY TEX GO 5% 02/15/22 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUNTSVILLE ALA GO 5% 05/01/22-CA MN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06"
+    },
+    {
+      "asset_description": "FACEBOOK, INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-08",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZYNGA INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-20",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ZYNGA INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ZYNGA INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-25",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-04",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-05",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUMANA INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-02",
+      "notification_date": "2021-04-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN INTL GROUP, INC. CMN",
       "transaction_type": "Sale",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-09",
-      "amount_code": "A"
+      "owner": "Spouse",
+      "transaction_date": "2021-03-11",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
     },
     {
-      "asset_description": "Nuidi Corp",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-03-24",
-      "notification_date": "2021-04-09",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Snap Inc.",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-07-24",
-      "notification_date": "2021-04-08",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Elara Loader Co.",
+      "asset_description": "JPMORGAN CHASE & CO CMN",
       "transaction_type": "Sale",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-07-24",
-      "notification_date": "2021-04-09",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-29",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
     },
     {
-      "asset_description": "Chipotle Mexican Grill Inc.",
-      "transaction_type": "Purchase",
-      "owner": "Dependent Child",
-      "transaction_date": "2021-07-29",
-      "notification_date": "2021-04-08",
+      "asset_description": "O'REILLY AUTOMOTIVE, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-30",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-26",
+      "notification_date": "2021-04-06",
       "amount_code": "A"
+    },
+    {
+      "asset_description": "METLIFE, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-03-29",
+      "notification_date": "2021-04-06",
+      "amount_code": "J"
     }
   ]
 }

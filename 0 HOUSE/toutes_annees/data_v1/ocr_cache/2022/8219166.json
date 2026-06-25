@@ -2,18 +2,117 @@
   "doc_id": "8219166",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:38.522919+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:16:33.086933+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 6,
+      "transactions": [
+        {
+          "asset_description": "COPART INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOWMET AEROSPACE INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-26",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAKE-2 INTERACTIVE",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-26",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CINTAS CORP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NIKE INC CL B",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-26",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SAFRAN SA",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-27",
+          "notification_date": "2022-08-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "COPART INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOWMET AEROSPACE INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-26",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAKE-2 INTERACTIVE",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-26",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CINTAS CORP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NIKE INC CL B",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-26",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SAFRAN SA",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-27",
+      "notification_date": "2022-08-01",
+      "amount_code": "A"
+    }
+  ]
 }

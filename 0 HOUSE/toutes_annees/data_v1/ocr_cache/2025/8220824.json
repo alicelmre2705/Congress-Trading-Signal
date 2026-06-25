@@ -2,18 +2,69 @@
   "doc_id": "8220824",
   "member": "Tony Wied",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T06:06:37.303002+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:06:16.263534+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "THE TRADE DESK INC CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-03-31",
+          "notification_date": "2025-04-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ADVANCED MICRO DEVIC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-03-31",
+          "notification_date": "2025-04-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US TREASURY BILXXX**MATURED**",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-03-20",
+          "notification_date": "2025-04-02",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "THE TRADE DESK INC CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-03-31",
+      "notification_date": "2025-04-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ADVANCED MICRO DEVIC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-03-31",
+      "notification_date": "2025-04-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "US TREASURY BILXXX**MATURED**",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-03-20",
+      "notification_date": "2025-04-02",
+      "amount_code": "B"
+    }
+  ]
 }

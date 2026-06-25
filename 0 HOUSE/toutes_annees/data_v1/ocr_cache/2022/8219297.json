@@ -2,18 +2,133 @@
   "doc_id": "8219297",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:36.689424+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:16:03.063817+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 7,
+      "transactions": [
+        {
+          "asset_description": "Artisan INTL Value 1 @32.62 as of 11/18/22",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Large Value @ 16.25",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Core Plus Bond @ 8.70",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Goldman FS Government 1 @ 1.00",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Lg. Growth @17.75 as of 11/18",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder INTL Equity @ 10.83",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vanguard FTSE Dev Mkts ETF @ 42.11",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-12",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Artisan INTL Value 1 @32.62 as of 11/18/22",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Large Value @ 16.25",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Core Plus Bond @ 8.70",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Goldman FS Government 1 @ 1.00",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Lg. Growth @17.75 as of 11/18",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder INTL Equity @ 10.83",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vanguard FTSE Dev Mkts ETF @ 42.11",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-12",
+      "amount_code": "A"
+    }
+  ]
 }

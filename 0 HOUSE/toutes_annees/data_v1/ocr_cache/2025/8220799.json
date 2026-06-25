@@ -2,18 +2,165 @@
   "doc_id": "8220799",
   "member": "Tony Wied",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:37.191809+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:06:21.409660+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 9,
+      "transactions": [
+        {
+          "asset_description": "CANADIAN NATL RY CO F",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-02-24",
+          "notification_date": "2025-03-13",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TRACTOR SUPPLY CO",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-02-24",
+          "notification_date": "2025-03-13",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "HIMS & HERS HEALTH INC CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-02-24",
+          "notification_date": "2025-03-13",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "HIMS & HERS HEALTH INC CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-02-25",
+          "notification_date": "2025-03-13",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CHARLES SCHWAB CORP",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-02-28",
+          "notification_date": "2025-03-13",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "TRACTOR SUPPLY CO",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-02-28",
+          "notification_date": "2025-03-13",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "BLOCK INC CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-02-28",
+          "notification_date": "2025-03-13",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MONSTER BEVERAGE CORP NE",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-02-28",
+          "notification_date": "2025-03-13",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-02-28",
+          "notification_date": "2025-03-13",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "CANADIAN NATL RY CO F",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-02-24",
+      "notification_date": "2025-03-13",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TRACTOR SUPPLY CO",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-02-24",
+      "notification_date": "2025-03-13",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "HIMS & HERS HEALTH INC CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-02-24",
+      "notification_date": "2025-03-13",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "HIMS & HERS HEALTH INC CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-02-25",
+      "notification_date": "2025-03-13",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CHARLES SCHWAB CORP",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-02-28",
+      "notification_date": "2025-03-13",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "TRACTOR SUPPLY CO",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-02-28",
+      "notification_date": "2025-03-13",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "BLOCK INC CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-02-28",
+      "notification_date": "2025-03-13",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MONSTER BEVERAGE CORP NE",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-02-28",
+      "notification_date": "2025-03-13",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-02-28",
+      "notification_date": "2025-03-13",
+      "amount_code": "D"
+    }
+  ]
 }

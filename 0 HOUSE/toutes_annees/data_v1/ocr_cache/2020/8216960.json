@@ -2,17 +2,107 @@
   "doc_id": "8216960",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-24T23:59:39.568336+00:00",
+  "created_utc": "2026-06-25T20:28:11.890368+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 11
+      "n": 11,
+      "transactions": [
+        {
+          "asset_description": "Exxon Mobil Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-01-07",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Blackrock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-07",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ishares Russell 3000",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-07",
+          "notification_date": "2020-02-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Abbvie",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-07",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Blackstone Group Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-01-21",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Hilton Worldwide Holdings",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-01-21",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Sea Ltd Adr",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-01-24",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DW Large Cap Strat. Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-10",
+          "notification_date": "2020-02-04",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Discover Financial Services",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-21",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bookings Hldgs Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-21",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Activision Blizzard Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-24",
+          "notification_date": "2020-02-04",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -20,39 +110,39 @@
       "asset_description": "Exxon Mobil Corp",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-01-04",
-      "notification_date": "2020-01-02",
+      "transaction_date": "2020-01-07",
+      "notification_date": "2020-02-01",
       "amount_code": "A"
     },
     {
       "asset_description": "Blackrock",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-01-04",
-      "notification_date": "2020-01-02",
+      "transaction_date": "2020-01-07",
+      "notification_date": "2020-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ishares Russell 3000",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2020-01-07",
+      "notification_date": "2020-02-01",
       "amount_code": "B"
     },
     {
-      "asset_description": "iShares Russell 3000",
+      "asset_description": "Abbvie",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-01-04",
-      "notification_date": "2020-01-02",
+      "transaction_date": "2020-01-07",
+      "notification_date": "2020-02-01",
       "amount_code": "A"
     },
     {
-      "asset_description": "iShares Russell 3000",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2020-01-04",
-      "notification_date": "2020-01-02",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Blackgton Energy Inc",
+      "asset_description": "Blackstone Group Inc",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-01-14",
+      "transaction_date": "2020-01-21",
       "notification_date": "2020-02-04",
       "amount_code": "A"
     },
@@ -60,12 +150,12 @@
       "asset_description": "Hilton Worldwide Holdings",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2020-01-12",
+      "transaction_date": "2020-01-21",
       "notification_date": "2020-02-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "Sea Ltd ADR",
+      "asset_description": "Sea Ltd Adr",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2020-01-24",
@@ -73,7 +163,7 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "Owl Rock Cap Shld. Corp",
+      "asset_description": "DW Large Cap Strat. Fund",
       "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-01-10",
@@ -84,20 +174,20 @@
       "asset_description": "Discover Financial Services",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-01-12",
+      "transaction_date": "2020-01-21",
       "notification_date": "2020-02-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "Bookings Holdings Inc",
+      "asset_description": "Bookings Hldgs Inc",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2020-01-12",
+      "transaction_date": "2020-01-21",
       "notification_date": "2020-02-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "AbVision Blizzard Sr",
+      "asset_description": "Activision Blizzard Inc",
       "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-01-24",

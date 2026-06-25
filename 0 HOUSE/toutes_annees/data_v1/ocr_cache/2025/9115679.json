@@ -2,54 +2,4949 @@
   "doc_id": "9115679",
   "member": "Rohit Khanna",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 20,
-  "created_utc": "2026-06-25T06:06:25.177407+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:05:04.614099+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 46,
+      "transactions": [
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS C",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MORGAN STANLEY FINANCE LLC LINKED TO BASKET OF INDICES",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-30",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ROYAL BANK OF CANADA LINKED TO S&P 500 INDEX",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-11",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "T-MOBILE US, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROADCOM INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CAPITAL ONE FINANCIAL CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA EUROPEAN PARTNERS PL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-28",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUITABLE HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUITABLE HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-12",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WELLS FARGO & COMPANY HYBRID PERPETUAL USD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CAPITAL ONE FINANCIAL CORPORAT HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUNTINGTON BANCSHARES INCORPOR HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHARLES SCHWAB CORPORATION (TH HYBRID PERPETUAL USD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALL/AAPL FLEX EURO PM 220 EXP 09/05/2025",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN EXPRESS CO. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ACCENTURE PLC CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GE VERNOVA LLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PFIZER INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MARVELL TECHNOLOGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LULULEMON ATHLETICA INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NVIDIA CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-10",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARMAX, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AIR LEASE CORPORATION HYBRID PERPETUAL USD",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GE VERNOVA LLC CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MARVELL TECHNOLOGY, INC. CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NVIDIA CORPORATION CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-10",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Exchange",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 48,
+      "transactions": [
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-30",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOLOGIC INCORPORATED CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-04",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-22",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PFIZER INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LULULEMON ATHLETICA INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-23",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF MONTREAL LINKED TO S&P 500 INDEX",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-11",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "OHIO ST GO 5% 03/01/32 MS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "APPOLOVIN CORPORATION CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "THE PROCTER & GAMBLE COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "STARBUCKS CORP. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MARSH & MCLENNAN CO INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ACCENTURE PLC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SALESFORCE INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROBINHOOD MARKETS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITED PARCEL SERVICE, INC. CLASS B COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MSCI INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PALO ALTO NETWORKS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUINIX, INC. REIT",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "METLIFE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARRIER GLOBAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORPORATION CMN CLASS A VOTING",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PHILIP MORRIS INTL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FACTSET RESEARCH SYSTEMS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOKING HOLDINGS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TESLA, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOORDASH INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME GROUP INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCHEX, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOLINA HEALTHCARE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISK ANALYTICS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TRADE DESK, INC. (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AGILENT TECHNOLOGIES, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CLOROX CO (THE) (DELAWARE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BECTON, DICKINSON AND COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IQVIA HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARCH CAPITAL GROUP LTD. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 60,
+      "transactions": [
+        {
+          "asset_description": "PAYPAL HOLDINGS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IRON MOUNTAIN INCORPORATED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EXTRA SPACE STORAGE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UDR INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMCOR PLC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WARNER BROS DISCOVERY INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHURCH & DWIGHT CO., INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CONAGRA BRANDS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FORTIVE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KENVUE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COOPER COS INC/THE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BEST BUY CO INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "REVVITY INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AVERY DENNISON CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WATERS CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTL BUSINESS MACHINES CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DANAHER CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COSTCO WHOLESALE CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COGNIZANT TECHNOLOGY SOLUTIONS CORP CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCKESSON CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AIRBNB, INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CIGNA GROUP/THE CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "REGENERON PHARMACEUTICAL INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APOLLO GLOBAL MANAGEMENT INC CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMGEN INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BLACKSTONE GROUP INC/THE CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BLOCK, INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTERCONTINENTAL EXCHANGE INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MERCK & CO., INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ERIE INDEMNITY COMPANY CL-A CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COPART, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN TOWER CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AIR PRODUCTS & CHEMICALS INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TARGET CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARNIVAL CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "W.W. GRAINGER INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOLLAR TREE STORES, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AON PUBLIC LIMITED COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FRANKLIN RESOURCES INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MGM RESORTS INTERNATIONAL CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROWN & BROWN, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTERNATIONAL PAPER CO. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LKQ CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MASCO CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PRUDENTIAL FINANCIAL INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THE CAMPBELL'S COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EPAM SYSTEMS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 42,
+      "transactions": [
+        {
+          "asset_description": "BALL CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CORPAY INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CROWN CASTLE INTL CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEXCOM, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GARTNER, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FISERV, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOODY'S CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-29",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WASHINGTON D C MET AREA TRAN REV 5% 07/15/29 JJ",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-11",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-30",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TENABLE HOLDINGS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOORS CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOLOGIC INCORPORATED CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-04",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-22",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-23",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-22",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MORGAN STANLEY FINANCE LLC LINKED TO BASKET OF INDICES",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-30",
+          "notification_date": "2025-10-02",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PHILIP MORRIS INTL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SERVICENOW INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "THE PROCTER & GAMBLE COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MARSH & MCLENNAN CO INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "INTUITIVE SURGICAL, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PALO ALTO NETWORKS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FISERV, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITED PARCEL SERVICE, INC. CLASS B COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TESLA, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACCENTURE PLC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WORKDAY, INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUBLIC STORAGE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 4,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 60,
+      "transactions": [
+        {
+          "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOTOROLA SOLUTIONS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERIZON COMMUNICATIONS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUINIX, INC. REIT",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FACTSET RESEARCH SYSTEMS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AON PUBLIC LIMITED COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORPORATION CMN CLASS A VOTING",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CIGNA GROUP/THE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GLOBAL PAYMENTS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DANAHER CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUITY RESIDENTIAL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARTHUR J GALLAGHER & CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EXTRA SPACE STORAGE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "YUM BRANDS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SYSCO CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHUBB LIMITED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCHEX, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALL/EWJ FLEX EURO PM @ 77 EXP 09/12/2025",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-12",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALL/CRH FLEX EURO PM @ 104 EXP 09/12/2025",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-12",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALL/ING FLEX EURO PM @ 24 EXP 09/12/2025",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-12",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 599 EXP 11/21/2025",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-02",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 630 EXP 11/14/2025",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 629 EXP 10/24/2025",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-10",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 635 EXP 11/07/2025",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 625 EXP 11/21/2025",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-10",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SALESFORCE INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MC DONALDS CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "INTUIT INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "T-MOBILE US, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMERICAN TOWER CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. BANCORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ECOLAB INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WASTE MANAGEMENT INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PARKER-HANNIFIN CORP. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KROGER COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISK ANALYTICS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHARTER COMMUNICATIONS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMCOR PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "RALPH LAUREN CORP CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EBAY INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARDINAL HEALTH, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNION PACIFIC CORP. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IDEXX LABORATORIES CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CORPAY INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CINTAS CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VENTAS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PFIZER INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CF INDUSTRIES HOLDINGS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MSCI INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TYLER TECHNOLOGIES, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DAVITA INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COOPER COS INC/THE CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 5,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 30,
+      "transactions": [
+        {
+          "asset_description": "CONAGRA BRANDS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KKR & CO. INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DATADOG, INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AIRBNB, INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WEYERHAEUSER COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CROWDSTRIKE HOLDINGS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FORTINET, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TRADE DESK, INC. (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KEYCORP HYBRID PERPETUAL USD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-30",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CAPITAL ONE FINANCIAL CORPORAT HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUNTINGTON BANCSHARES INCORPORATED HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORPORATION HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUNTINGTON BANCSHARES INCORPORATED HYBRID PERPETUAL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-09",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHARLES SCHWAB CORPORATION (THE) HYBRID PERPETUAL USD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-17",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUITABLE HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EQUITABLE HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOETIS INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PFIZER INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-15",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LULULEMON ATHLETICA INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-05",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARMAX, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-08",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AIR LEASE CORPORATION HYBRID PERPETUAL USD",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NASDAQ INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 6,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 19,
+      "transactions": [
+        {
+          "asset_description": "WILLOUGHBY-EASTLAKE OHIO CITY GO 5% 12/01/46-CA JD SCH DIST",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CINCINNATI OHIO WTR SYS REV REV 5% 12/01/25 JD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-10-02",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MARTIN MARIETTA MATERIALS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MIRION TECHNOLOGIES INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CLARK CNTY NEV PASSENGER FAC REV 5% 07/01/26 JJ",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARISTA NETWORKS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR MFG ADS LTD ADS 1ADS EQUALS 5ORD5",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HONEYWELL INTL INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GE VERNOVA LLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-24",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APPLOVIN CORPORATION CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APPLE INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PALANTIR TECHNOLOGIES INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-19",
+          "notification_date": "2025-10-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-09-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC COM USD0.0033 CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-09-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-09-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC COM USD0.0033 CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-09-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2025-09-03",
+          "notification_date": "2025-09-04",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS C",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MORGAN STANLEY FINANCE LLC LINKED TO BASKET OF INDICES",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-30",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ROYAL BANK OF CANADA LINKED TO S&P 500 INDEX",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-11",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "T-MOBILE US, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROADCOM INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CAPITAL ONE FINANCIAL CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA EUROPEAN PARTNERS PL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-28",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUITABLE HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUITABLE HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-12",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WELLS FARGO & COMPANY HYBRID PERPETUAL USD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CAPITAL ONE FINANCIAL CORPORAT HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUNTINGTON BANCSHARES INCORPOR HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARLES SCHWAB CORPORATION (TH HYBRID PERPETUAL USD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALL/AAPL FLEX EURO PM 220 EXP 09/05/2025",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN EXPRESS CO. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ACCENTURE PLC CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GE VERNOVA LLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PFIZER INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MARVELL TECHNOLOGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LULULEMON ATHLETICA INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NVIDIA CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-10",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARMAX, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIR LEASE CORPORATION HYBRID PERPETUAL USD",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GE VERNOVA LLC CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MARVELL TECHNOLOGY, INC. CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NVIDIA CORPORATION CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-10",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Exchange",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-30",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOLOGIC INCORPORATED CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-04",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-22",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PFIZER INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LULULEMON ATHLETICA INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-23",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF MONTREAL LINKED TO S&P 500 INDEX",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-11",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "OHIO ST GO 5% 03/01/32 MS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "APPOLOVIN CORPORATION CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "THE PROCTER & GAMBLE COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "STARBUCKS CORP. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MARSH & MCLENNAN CO INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ACCENTURE PLC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SALESFORCE INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROBINHOOD MARKETS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITED PARCEL SERVICE, INC. CLASS B COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MSCI INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALO ALTO NETWORKS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUINIX, INC. REIT",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "METLIFE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARRIER GLOBAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON & JOHNSON CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAL MILLS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORPORATION CMN CLASS A VOTING",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PHILIP MORRIS INTL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FACTSET RESEARCH SYSTEMS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TESLA, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOORDASH INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME GROUP INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCHEX, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOLINA HEALTHCARE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERISK ANALYTICS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TRADE DESK, INC. (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AGILENT TECHNOLOGIES, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CLOROX CO (THE) (DELAWARE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BECTON, DICKINSON AND COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IQVIA HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARCH CAPITAL GROUP LTD. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IRON MOUNTAIN INCORPORATED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EXTRA SPACE STORAGE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UDR INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMCOR PLC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WARNER BROS DISCOVERY INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHURCH & DWIGHT CO., INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONAGRA BRANDS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FORTIVE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KENVUE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COOPER COS INC/THE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BEST BUY CO INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "REVVITY INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AVERY DENNISON CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WATERS CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTL BUSINESS MACHINES CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "S&P GLOBAL INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COSTCO WHOLESALE CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COGNIZANT TECHNOLOGY SOLUTIONS CORP CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCKESSON CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIRBNB, INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CIGNA GROUP/THE CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "REGENERON PHARMACEUTICAL INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APOLLO GLOBAL MANAGEMENT INC CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMGEN INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BLACKSTONE GROUP INC/THE CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BLOCK, INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTERCONTINENTAL EXCHANGE INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MERCK & CO., INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ERIE INDEMNITY COMPANY CL-A CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COPART, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN TOWER CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIR PRODUCTS & CHEMICALS INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TARGET CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARNIVAL CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "W.W. GRAINGER INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOLLAR TREE STORES, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AON PUBLIC LIMITED COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FRANKLIN RESOURCES INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MGM RESORTS INTERNATIONAL CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROWN & BROWN, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTERNATIONAL PAPER CO. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LKQ CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASCO CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRUDENTIAL FINANCIAL INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THE CAMPBELL'S COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EPAM SYSTEMS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BALL CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CORPAY INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CROWN CASTLE INTL CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEXCOM, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GARTNER, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FISERV, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOODY'S CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-29",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WASHINGTON D C MET AREA TRAN REV 5% 07/15/29 JJ",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-11",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-30",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TENABLE HOLDINGS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOORS CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOLOGIC INCORPORATED CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-04",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-22",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-23",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-22",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MORGAN STANLEY FINANCE LLC LINKED TO BASKET OF INDICES",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-30",
+      "notification_date": "2025-10-02",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PHILIP MORRIS INTL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SERVICENOW INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "THE PROCTER & GAMBLE COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MARSH & MCLENNAN CO INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "INTUITIVE SURGICAL, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALO ALTO NETWORKS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FISERV, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITED PARCEL SERVICE, INC. CLASS B COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TESLA, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACCENTURE PLC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WORKDAY, INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUBLIC STORAGE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOTOROLA SOLUTIONS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERIZON COMMUNICATIONS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUINIX, INC. REIT",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FACTSET RESEARCH SYSTEMS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AON PUBLIC LIMITED COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORPORATION CMN CLASS A VOTING",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CIGNA GROUP/THE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GLOBAL PAYMENTS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUITY RESIDENTIAL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARTHUR J GALLAGHER & CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EXTRA SPACE STORAGE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "YUM BRANDS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SYSCO CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHUBB LIMITED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCHEX, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALL/EWJ FLEX EURO PM @ 77 EXP 09/12/2025",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-12",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALL/CRH FLEX EURO PM @ 104 EXP 09/12/2025",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-12",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALL/ING FLEX EURO PM @ 24 EXP 09/12/2025",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-12",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 599 EXP 11/21/2025",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-02",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 630 EXP 11/14/2025",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 629 EXP 10/24/2025",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-10",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 635 EXP 11/07/2025",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 625 EXP 11/21/2025",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-10",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SALESFORCE INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MC DONALDS CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "INTUIT INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "T-MOBILE US, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMERICAN TOWER CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. BANCORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ECOLAB INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WASTE MANAGEMENT INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PARKER-HANNIFIN CORP. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KROGER COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERISK ANALYTICS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARTER COMMUNICATIONS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMCOR PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "RALPH LAUREN CORP CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EBAY INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARDINAL HEALTH, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNION PACIFIC CORP. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IDEXX LABORATORIES CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CORPAY INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CINTAS CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VENTAS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PFIZER INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CF INDUSTRIES HOLDINGS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MSCI INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TYLER TECHNOLOGIES, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DAVITA INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COOPER COS INC/THE CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONAGRA BRANDS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KKR & CO. INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DATADOG, INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIRBNB, INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WEYERHAEUSER COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CROWDSTRIKE HOLDINGS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FORTINET, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TRADE DESK, INC. (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KEYCORP HYBRID PERPETUAL USD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-30",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CAPITAL ONE FINANCIAL CORPORAT HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUNTINGTON BANCSHARES INCORPORATED HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORPORATION HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUNTINGTON BANCSHARES INCORPORATED HYBRID PERPETUAL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-09",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARLES SCHWAB CORPORATION (THE) HYBRID PERPETUAL USD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-17",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUITABLE HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EQUITABLE HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOETIS INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PFIZER INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-15",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LULULEMON ATHLETICA INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-05",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARMAX, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-08",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HARTFORD INSURANCE GROUP INC/T CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIR LEASE CORPORATION HYBRID PERPETUAL USD",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NASDAQ INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WILLOUGHBY-EASTLAKE OHIO CITY GO 5% 12/01/46-CA JD SCH DIST",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CINCINNATI OHIO WTR SYS REV REV 5% 12/01/25 JD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-10-02",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MARTIN MARIETTA MATERIALS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MIRION TECHNOLOGIES INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CLARK CNTY NEV PASSENGER FAC REV 5% 07/01/26 JJ",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARISTA NETWORKS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR MFG ADS LTD ADS 1ADS EQUALS 5ORD5",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HONEYWELL INTL INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GE VERNOVA LLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-24",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APPLOVIN CORPORATION CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APPLE INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALANTIR TECHNOLOGIES INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-19",
+      "notification_date": "2025-10-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-09-04",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC COM USD0.0033 CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-09-04",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-09-04",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC COM USD0.0033 CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-09-04",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2025-09-03",
+      "notification_date": "2025-09-04",
+      "amount_code": "A"
+    }
+  ]
 }

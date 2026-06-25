@@ -2,17 +2,26 @@
   "doc_id": "8218083",
   "member": "Ann Wagner",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:26:59.736062+00:00",
+  "created_utc": "2026-06-25T21:08:42.983716+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 1
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Trempealeau County WI Justice Center Series A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-05-26",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -20,8 +29,7 @@
       "asset_description": "Trempealeau County WI Justice Center Series A",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2021-02-05",
-      "notification_date": "2021-03-07",
+      "transaction_date": "2021-05-26",
       "amount_code": "D"
     }
   ]

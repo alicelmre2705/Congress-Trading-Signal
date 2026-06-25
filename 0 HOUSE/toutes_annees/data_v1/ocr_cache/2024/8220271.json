@@ -2,18 +2,117 @@
   "doc_id": "8220271",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:07:19.224376+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:48:09.932794+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 6,
+      "transactions": [
+        {
+          "asset_description": "Bridge Builder Core Bond @ 8.75",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Large Growth @24.15",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vng FTSE Dev Mkt @ 48.8502",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ish Core S&P 500 @ 517.6898",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ish RS MD-C ETF @ 81.24",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vng Growth Index @ 344.33",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2024-04-16",
+          "notification_date": "2024-05-09",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Bridge Builder Core Bond @ 8.75",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Large Growth @24.15",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vng FTSE Dev Mkt @ 48.8502",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ish Core S&P 500 @ 517.6898",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ish RS MD-C ETF @ 81.24",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vng Growth Index @ 344.33",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2024-04-16",
+      "notification_date": "2024-05-09",
+      "amount_code": "A"
+    }
+  ]
 }

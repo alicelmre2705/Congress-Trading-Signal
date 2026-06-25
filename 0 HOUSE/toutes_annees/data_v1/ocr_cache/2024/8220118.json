@@ -2,18 +2,37 @@
   "doc_id": "8220118",
   "member": "Anna Paulina Luna",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T06:07:17.665621+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:47:52.448795+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Lineage Cell Therapeutics Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-01-02",
+          "notification_date": "2024-01-04",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Lineage Cell Therapeutics Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-01-02",
+      "notification_date": "2024-01-04",
+      "amount_code": "A"
+    }
+  ]
 }

@@ -2,18 +2,693 @@
   "doc_id": "8218460",
   "member": "Michael T. McCaul",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:23:09.362935+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T21:07:04.329908+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 42,
+      "transactions": [
+        {
+          "asset_description": "MERRIMACK CNTY N H",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-27",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MICHIGAN ST",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-15",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "FISERV INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LANCASTER CNTY NEB CORRECTIONA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-22",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-05",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "LINDE PLC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-08",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-08",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "LINDE PLC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-12",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TJX COS INC NEW",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CURATORS UNIV MO SYS FACS REV",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-14",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-19",
+          "notification_date": "2021-11-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "RHODE ISLAND HSG & MTG FIN COR",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EPAM SYS INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FORTINET INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PENNSYLVANIA HSG FIN AGY SINGL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "PORT AUTH N Y & N J",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-21",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MERRIMACK CNTY N H",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-27",
+          "notification_date": "2021-11-05",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "MICHIGAN ST",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-15",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "FISERV INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LANCASTER CNTY NEB CORRECTIONA",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-22",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-05",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "LINDE PLC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-08",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-08",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "LINDE PLC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-12",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TJX COS INC NEW",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CURATORS UNIV MO SYS FACS REV",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-14",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MICRON TECHNOLOGY INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-19",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "RHODE ISLAND HSG & MTG FIN COR",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "EPAM SYS INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FORTINET INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "PENNSYLVANIA HSG FIN AGY SINGL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-01",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "PORT AUTH N Y & N J",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-21",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "INTERNATIONAL BUSINESS MACHINES CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-07",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-10-05",
+          "notification_date": "2021-11-05",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "INTERNATIONAL BUSINESS MACHINES CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-07",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-04",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Murphy Oil",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-10-05",
+          "notification_date": "2021-11-05",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "MERRIMACK CNTY N H",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-27",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MICHIGAN ST",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-15",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "FISERV INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LANCASTER CNTY NEB CORRECTIONA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-22",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-05",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "LINDE PLC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-08",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-08",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LINDE PLC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-12",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TJX COS INC NEW",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CURATORS UNIV MO SYS FACS REV",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-14",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-19",
+      "notification_date": "2021-11-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "RHODE ISLAND HSG & MTG FIN COR",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EPAM SYS INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FORTINET INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PENNSYLVANIA HSG FIN AGY SINGL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "PORT AUTH N Y & N J",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-21",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MERRIMACK CNTY N H",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-27",
+      "notification_date": "2021-11-05",
+      "amount_code": "E"
+    },
+    {
+      "asset_description": "MICHIGAN ST",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-15",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "FISERV INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LANCASTER CNTY NEB CORRECTIONA",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-22",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-05",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LINDE PLC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-08",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-08",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LINDE PLC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-12",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TJX COS INC NEW",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CURATORS UNIV MO SYS FACS REV",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-14",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MICRON TECHNOLOGY INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-19",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "RHODE ISLAND HSG & MTG FIN COR",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "EPAM SYS INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FORTINET INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "PENNSYLVANIA HSG FIN AGY SINGL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-01",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "PORT AUTH N Y & N J",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-21",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-07",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-10-05",
+      "notification_date": "2021-11-05",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-07",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-04",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Murphy Oil",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2021-10-05",
+      "notification_date": "2021-11-05",
+      "amount_code": "B"
+    }
+  ]
 }

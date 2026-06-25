@@ -2,18 +2,53 @@
   "doc_id": "8218433",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T00:09:17.937441+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:26:55.062768+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Magellan Midstream Partners LTD (MMP) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-10-29",
+          "notification_date": "2021-10-29",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Enterprise Products Partners LTD (EPD) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-10-29",
+          "notification_date": "2021-10-29",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Magellan Midstream Partners LTD (MMP) (via HGI, LLC)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2021-10-29",
+      "notification_date": "2021-10-29",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Enterprise Products Partners LTD (EPD) (via HGI, LLC)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2021-10-29",
+      "notification_date": "2021-10-29",
+      "amount_code": "D"
+    }
+  ]
 }

@@ -2,27 +2,45 @@
   "doc_id": "8218379",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:04:32.112548+00:00",
+  "created_utc": "2026-06-25T19:25:48.419920+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 2
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "DRAFTKINGS INC CL A (DKNG)",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-08-06",
+          "notification_date": "2021-09-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZIMMER BIOMET HLDGS INC COM (ZBH)",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2021-08-06",
+          "notification_date": "2021-09-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "DRAFTKINGS INC CL A (DKNG)",
-      "transaction_type": "Sale",
+      "transaction_type": "Purchase",
       "owner": "Dependent Child",
       "transaction_date": "2021-08-06",
       "notification_date": "2021-09-01",
-      "amount_code": "B"
+      "amount_code": "A"
     },
     {
       "asset_description": "ZIMMER BIOMET HLDGS INC COM (ZBH)",

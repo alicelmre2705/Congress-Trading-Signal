@@ -2,17 +2,35 @@
   "doc_id": "8218397",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:03:44.231974+00:00",
+  "created_utc": "2026-06-25T19:25:49.449993+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 3
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "PIMCO INCOME FUND INSTITUTION (PIMIX)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-09-09",
+          "notification_date": "2021-10-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PIMCO INCOME FUND CLASS I-2 (PONPX)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-09-09",
+          "notification_date": "2021-10-01",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -20,23 +38,15 @@
       "asset_description": "PIMCO INCOME FUND INSTITUTION (PIMIX)",
       "transaction_type": "Sale",
       "owner": "Joint",
-      "transaction_date": "2012-08-14",
-      "notification_date": "2012-08-14",
+      "transaction_date": "2021-09-09",
+      "notification_date": "2021-10-01",
       "amount_code": "B"
     },
     {
       "asset_description": "PIMCO INCOME FUND CLASS I-2 (PONPX)",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2021-09-08",
-      "notification_date": "2021-10-01",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "PIMCO INCOME FUND CLASS I-2 (PONPX)",
-      "transaction_type": "Sale",
-      "owner": "Joint",
-      "transaction_date": "2021-09-08",
+      "transaction_date": "2021-09-09",
       "notification_date": "2021-10-01",
       "amount_code": "B"
     }

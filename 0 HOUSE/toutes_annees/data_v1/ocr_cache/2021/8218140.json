@@ -2,31 +2,161 @@
   "doc_id": "8218140",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:25:34.397618+00:00",
+  "created_utc": "2026-06-25T21:08:07.266202+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
       "status": "ok",
-      "n": 17
+      "n": 17,
+      "transactions": [
+        {
+          "asset_description": "Verizon",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-10",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PepsiCo",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-10",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NRG Energy",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-10",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Verizon",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-16",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NRG Energy",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-16",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AT&T",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Johnson & Johnson",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Exxon Mobil",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "United Health",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Exxon Mobil",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-09",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Exxon Mobil",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-10",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAFWX Brown Sustainable Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-14",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ESGD, I-Shares Trust ESG Aware",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-14",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NULG/Nuveen ESG Large Cap Growth Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-14",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JP Morgan",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-21",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Citigroup",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-21",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "United Health",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-21",
+          "notification_date": "2021-07-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "Verizon",
       "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2021-06-16",
-      "notification_date": "2021-07-01",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "NRG Energy",
-      "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2021-06-10",
       "notification_date": "2021-07-01",
@@ -41,10 +171,18 @@
       "amount_code": "A"
     },
     {
+      "asset_description": "NRG Energy",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-06-10",
+      "notification_date": "2021-07-01",
+      "amount_code": "A"
+    },
+    {
       "asset_description": "Verizon",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2021-06-10",
+      "transaction_date": "2021-06-16",
       "notification_date": "2021-07-01",
       "amount_code": "A"
     },
@@ -138,7 +276,7 @@
     },
     {
       "asset_description": "Citigroup",
-      "transaction_type": "Purchase",
+      "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2021-06-21",
       "notification_date": "2021-07-01",
@@ -146,7 +284,7 @@
     },
     {
       "asset_description": "United Health",
-      "transaction_type": "Sale",
+      "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2021-06-21",
       "notification_date": "2021-07-01",

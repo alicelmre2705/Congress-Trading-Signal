@@ -2,18 +2,213 @@
   "doc_id": "8219250",
   "member": "Thomas Suozzi",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:39.056703+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:16:46.748933+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 12,
+      "transactions": [
+        {
+          "asset_description": "Valero Energy Corp. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-13",
+          "notification_date": "2022-09-16",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "International Paper Co. common stock",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-09-13",
+          "notification_date": "2022-09-16",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Advanced Micro Devices, Inc. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Generac Holdings Inc. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NVIDIA Corp. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Domino's Pizza Inc. common stock",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Jazz Pharmaceuticals PLC common stock",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Advanced Micro Devices, Inc. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Boeing Co. common stock",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Advanced Micro Devices, Inc. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Generac Holdings Inc. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NVIDIA Corp. common stock",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-26",
+          "notification_date": "2022-10-01",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Valero Energy Corp. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-13",
+      "notification_date": "2022-09-16",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "International Paper Co. common stock",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-09-13",
+      "notification_date": "2022-09-16",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Advanced Micro Devices, Inc. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Generac Holdings Inc. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NVIDIA Corp. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Domino's Pizza Inc. common stock",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Jazz Pharmaceuticals PLC common stock",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Advanced Micro Devices, Inc. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Boeing Co. common stock",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Advanced Micro Devices, Inc. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Generac Holdings Inc. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NVIDIA Corp. common stock",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-09-26",
+      "notification_date": "2022-10-01",
+      "amount_code": "B"
+    }
+  ]
 }

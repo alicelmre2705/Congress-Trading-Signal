@@ -2,40 +2,82 @@
   "doc_id": "8218029",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:25:30.270101+00:00",
+  "created_utc": "2026-06-25T21:07:51.996033+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 5
+      "n": 5,
+      "transactions": [
+        {
+          "asset_description": "Vulcan Materials",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-04-23",
+          "notification_date": "2021-04-30",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Eaton Corp PLC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2021-04-23",
+          "notification_date": "2021-04-30",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Fortive Co",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-04-23",
+          "notification_date": "2021-04-30",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Iqvia Holding Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-04-23",
+          "notification_date": "2021-04-30",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Sea Ltd ADR",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-04-23",
+          "notification_date": "2021-04-30",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "VULCAN MATERIALS",
+      "asset_description": "Vulcan Materials",
       "transaction_type": "Purchase",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2021-04-23",
       "notification_date": "2021-04-30",
       "amount_code": "A"
     },
     {
-      "asset_description": "EATON CORP PLC",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "asset_description": "Eaton Corp PLC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
       "transaction_date": "2021-04-23",
       "notification_date": "2021-04-30",
       "amount_code": "A"
     },
     {
-      "asset_description": "FORTIVE CO",
+      "asset_description": "Fortive Co",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2021-04-23",
       "notification_date": "2021-04-30",
       "amount_code": "A"
@@ -43,15 +85,15 @@
     {
       "asset_description": "Iqvia Holding Inc",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2021-04-23",
       "notification_date": "2021-04-30",
       "amount_code": "A"
     },
     {
-      "asset_description": "SEA LTD ADR",
+      "asset_description": "Sea Ltd ADR",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2021-04-23",
       "notification_date": "2021-04-30",
       "amount_code": "A"

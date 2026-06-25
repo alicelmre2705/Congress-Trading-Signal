@@ -2,24 +2,333 @@
   "doc_id": "8218587",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 4,
-  "created_utc": "2026-06-25T00:50:37.575228+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:16:29.811285+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 18,
+      "transactions": [
+        {
+          "asset_description": "S&P 500 DEP RCPTS",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-09",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P 500 DEP RCPTS",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-15",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NVIDIA CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-22",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COSTCO",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-28",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P GLOBAL",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-28",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROLOGIS INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-28",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-09",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BLACKSTONE INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-22",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-15",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-22",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Iqvia Holdings Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-28",
+          "notification_date": "2022-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERIZON",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-25",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEERE CO",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-25",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALMART",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-25",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EXXON MOBIL CORP",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-25",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DELAWARE CORPORATE BOND",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-11",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TIAA CREF",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-02-11",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALVERT SMALL CAP FUND",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-02-07",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "NUVEEN ESG LARGE CAP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-02-07",
+          "notification_date": "2022-03-02",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "S&P 500 DEP RCPTS",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-09",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P 500 DEP RCPTS",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-15",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NVIDIA CORP",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-22",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COSTCO",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-28",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P GLOBAL",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-28",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROLOGIS INC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-28",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-09",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BLACKSTONE INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-22",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHROP GRUMMAN CORP",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-15",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-22",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Iqvia Holdings Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-28",
+      "notification_date": "2022-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERIZON",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-25",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEERE CO",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-25",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALMART",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-25",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EXXON MOBIL CORP",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-25",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DELAWARE CORPORATE BOND",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-11",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TIAA CREF",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-02-11",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALVERT SMALL CAP FUND",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-02-07",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NUVEEN ESG LARGE CAP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-02-07",
+      "notification_date": "2022-03-02",
+      "amount_code": "A"
+    }
+  ]
 }

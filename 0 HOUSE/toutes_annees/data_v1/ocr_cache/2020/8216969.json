@@ -2,17 +2,87 @@
   "doc_id": "8216969",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-24T23:27:09.086212+00:00",
+  "created_utc": "2026-06-25T20:11:28.860015+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 9
+      "n": 9,
+      "transactions": [
+        {
+          "asset_description": "ISHARES TR 20+ YR TREAS BD (TLT)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES TR LONG-TERM CORP BD (IGLB)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES DEC 2023 TERM CORP (IBDO)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES DEC 2024 TERM CORP (IBDP)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES TR DEC 2026 TERM CORP (IBDR)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES TR DEC 2029 TERM CORP (IBDU)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01"
+        },
+        {
+          "asset_description": "SPDR SER TR PORTFOLIO INTER (SPTI)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01"
+        },
+        {
+          "asset_description": "SELECT SPDR TR CONSUMER STAP (XLP)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01"
+        },
+        {
+          "asset_description": "SELECT SPDR TR COMMUNICATION (XLC)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2020-01-23",
+          "notification_date": "2020-02-01"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -22,7 +92,7 @@
       "owner": "Joint",
       "transaction_date": "2020-01-23",
       "notification_date": "2020-02-01",
-      "amount_code": "B"
+      "amount_code": "A"
     },
     {
       "asset_description": "ISHARES TR LONG-TERM CORP BD (IGLB)",
@@ -61,32 +131,28 @@
       "transaction_type": "Purchase",
       "owner": "Joint",
       "transaction_date": "2020-01-23",
-      "notification_date": "2020-02-01",
-      "amount_code": "A"
+      "notification_date": "2020-02-01"
     },
     {
       "asset_description": "SPDR SER TR PORTFOLIO INTER (SPTI)",
       "transaction_type": "Sale",
       "owner": "Joint",
       "transaction_date": "2020-01-23",
-      "notification_date": "2020-02-01",
-      "amount_code": "A"
+      "notification_date": "2020-02-01"
     },
     {
       "asset_description": "SELECT SPDR TR CONSUMER STAP (XLP)",
       "transaction_type": "Sale",
       "owner": "Joint",
       "transaction_date": "2020-01-23",
-      "notification_date": "2020-02-01",
-      "amount_code": "A"
+      "notification_date": "2020-02-01"
     },
     {
       "asset_description": "SELECT SPDR TR COMMUNICATION (XLC)",
       "transaction_type": "Purchase",
       "owner": "Joint",
       "transaction_date": "2020-01-23",
-      "notification_date": "2020-02-01",
-      "amount_code": "A"
+      "notification_date": "2020-02-01"
     }
   ]
 }

@@ -2,32 +2,58 @@
   "doc_id": "8217322",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T04:02:46.823846+00:00",
+  "created_utc": "2026-06-25T20:11:28.525414+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 4
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "Call Vanguard Total Stock Market ETF Strike $145 EXP 5/15/20",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-05-13",
+          "notification_date": "2020-05-13",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Put Vanguard Total Stock Market ETF Strike $139 EXP 6/19/20",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-05-13",
+          "notification_date": "2020-05-13",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Call Vanguard Total Stock Market ETF Strike $151 EXP 6/19/20",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-05-20",
+          "notification_date": "2020-05-20",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "Call Vanguard Total Stock Market ETF Strike $145 EXP 5/15/20",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2020-05-13",
       "notification_date": "2020-05-13",
-      "amount_code": "B"
+      "amount_code": "A"
     },
     {
       "asset_description": "Put Vanguard Total Stock Market ETF Strike $139 EXP 6/19/20",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2020-05-13",
       "notification_date": "2020-05-13",
       "amount_code": "A"
@@ -35,15 +61,7 @@
     {
       "asset_description": "Call Vanguard Total Stock Market ETF Strike $151 EXP 6/19/20",
       "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2020-05-20",
-      "notification_date": "2020-05-20",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "Put Vanguard Total Stock Market ETF Strike $139 EXP 6/19/20",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2020-05-20",
       "notification_date": "2020-05-20",
       "amount_code": "A"

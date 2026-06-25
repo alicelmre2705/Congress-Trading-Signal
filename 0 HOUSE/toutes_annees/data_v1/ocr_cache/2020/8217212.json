@@ -2,17 +2,35 @@
   "doc_id": "8217212",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-24T23:53:36.682879+00:00",
+  "created_utc": "2026-06-25T20:26:29.155306+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
       "status": "ok",
-      "n": 2
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Sell Bridge Builder Core Bond",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-03-26",
+          "notification_date": "2020-04-10",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Sell Bridge Builder Core Bond",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2020-03-26",
+          "notification_date": "2020-04-10",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -27,10 +45,10 @@
     {
       "asset_description": "Sell Bridge Builder Core Bond",
       "transaction_type": "Sale",
-      "owner": "Spouse",
+      "owner": "Joint",
       "transaction_date": "2020-03-26",
       "notification_date": "2020-04-10",
-      "amount_code": "B"
+      "amount_code": "A"
     }
   ]
 }

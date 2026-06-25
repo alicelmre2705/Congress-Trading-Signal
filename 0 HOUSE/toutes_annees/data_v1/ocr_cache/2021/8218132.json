@@ -2,18 +2,293 @@
   "doc_id": "8218132",
   "member": "Doug Lamborn",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:16:49.630089+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:30:59.970764+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 17,
+      "transactions": [
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-17",
+          "notification_date": "2021-05-17",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-28",
+          "notification_date": "2021-05-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-28",
+          "notification_date": "2021-05-28",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. 6/4/21 Call",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-28",
+          "notification_date": "2021-05-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-07",
+          "notification_date": "2021-06-07",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-17",
+          "notification_date": "2021-06-17",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-28",
+          "notification_date": "2021-06-28",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-05-17",
+          "notification_date": "2021-05-17",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-05-28",
+          "notification_date": "2021-05-28",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-07",
+          "notification_date": "2021-06-07",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2021-06-17",
+          "notification_date": "2021-06-17",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2021-06-28",
+          "notification_date": "2021-06-28",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-17",
+          "notification_date": "2021-05-17",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-05-28",
+          "notification_date": "2021-05-28",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-07",
+          "notification_date": "2021-06-07",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-17",
+          "notification_date": "2021-06-17",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Net App, Inc. stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2021-06-28",
+          "notification_date": "2021-06-28",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-17",
+      "notification_date": "2021-05-17",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-28",
+      "notification_date": "2021-05-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-28",
+      "notification_date": "2021-05-28",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. 6/4/21 Call",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-28",
+      "notification_date": "2021-05-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-07",
+      "notification_date": "2021-06-07",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-17",
+      "notification_date": "2021-06-17",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-28",
+      "notification_date": "2021-06-28",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-05-17",
+      "notification_date": "2021-05-17",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-05-28",
+      "notification_date": "2021-05-28",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-06-07",
+      "notification_date": "2021-06-07",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2021-06-17",
+      "notification_date": "2021-06-17",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2021-06-28",
+      "notification_date": "2021-06-28",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-17",
+      "notification_date": "2021-05-17",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-05-28",
+      "notification_date": "2021-05-28",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-07",
+      "notification_date": "2021-06-07",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-17",
+      "notification_date": "2021-06-17",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Net App, Inc. stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2021-06-28",
+      "notification_date": "2021-06-28",
+      "amount_code": "B"
+    }
+  ]
 }

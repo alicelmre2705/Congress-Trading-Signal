@@ -2,17 +2,123 @@
   "doc_id": "8217634",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-24T23:30:00.813781+00:00",
+  "created_utc": "2026-06-25T20:11:43.250534+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
       "status": "ok",
-      "n": 13
+      "n": 13,
+      "transactions": [
+        {
+          "asset_description": "Put Enterprise Product Partners L.P. Strike $17.00 EXP 8/14/20",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-04",
+          "notification_date": "2020-08-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Call Vanguard Total Int'l Stock ETF Strike $54.00 EXP 8/21/20",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-05",
+          "notification_date": "2020-08-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Call Vanguard Total Stock Market ETF Strike $172 EXP 8/21/20",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-04",
+          "notification_date": "2020-08-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Put Enterprise Product Partners L.P. Strike $18.00 EXP 8/28/20",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-17",
+          "notification_date": "2020-08-17",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P.",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-28",
+          "notification_date": "2020-08-28",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P.",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-29",
+          "notification_date": "2020-08-29",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-18",
+          "notification_date": "2020-08-18",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Call Enterprise Product Partners L.P. Strike $18.00 EXP 8/14/20 (via HGI, LLC)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-05",
+          "notification_date": "2020-08-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Call Enterprise Product Partners L.P. Strike $18.50 EXP 8/14/20 (via HGI, LLC)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-06",
+          "notification_date": "2020-08-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-11",
+          "notification_date": "2020-08-11",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2020-08-15",
+          "notification_date": "2020-08-15",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-18",
+          "notification_date": "2020-08-18",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-08-18",
+          "notification_date": "2020-08-18",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -73,7 +179,7 @@
       "amount_code": "D"
     },
     {
-      "asset_description": "Call Enterprise Product Partners L.P. (via HGI, LLC) Strike $18.00 EXP 8/14/20 (via HGI)",
+      "asset_description": "Call Enterprise Product Partners L.P. Strike $18.00 EXP 8/14/20 (via HGI, LLC)",
       "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-08-05",
@@ -81,7 +187,7 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC) Strike $18.50 EXP 8/14/20 (via HGI)",
+      "asset_description": "Call Enterprise Product Partners L.P. Strike $18.50 EXP 8/14/20 (via HGI, LLC)",
       "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-08-06",
@@ -90,15 +196,15 @@
     },
     {
       "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
-      "transaction_type": "Sale",
+      "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2020-08-11",
       "notification_date": "2020-08-11",
-      "amount_code": "E"
+      "amount_code": "D"
     },
     {
       "asset_description": "Enterprise Product Partners L.P. (via HGI, LLC)",
-      "transaction_type": "Purchase",
+      "transaction_type": "Sale",
       "owner": "Self",
       "transaction_date": "2020-08-15",
       "notification_date": "2020-08-15",

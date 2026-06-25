@@ -2,18 +2,37 @@
   "doc_id": "8219057",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T00:50:36.005459+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:15:48.236466+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Buy Beechwood KY Indp Sch District @ 99.122 due 08/01/2038 04.125% Subj to Extra Ord Call",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-06-07",
+          "notification_date": "2022-06-30",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Buy Beechwood KY Indp Sch District @ 99.122 due 08/01/2038 04.125% Subj to Extra Ord Call",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-06-07",
+      "notification_date": "2022-06-30",
+      "amount_code": "A"
+    }
+  ]
 }

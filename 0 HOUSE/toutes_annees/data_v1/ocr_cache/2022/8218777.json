@@ -2,18 +2,181 @@
   "doc_id": "8218777",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:37.680524+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:16:22.630605+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 10,
+      "transactions": [
+        {
+          "asset_description": "AON PLC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-04",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRKFLD ASSET MGMT",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-05",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPMORGAN CHASE",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-05",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CONSUMER STAPLES INDEX",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-08",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HEALTH CARE SELECT",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-08",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOLLAR GENERAL",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-21",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Aptiv PLC",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-04",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-05",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P 500 DEP RCPTS",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-08",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APPLE INC",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-21",
+          "notification_date": "2022-05-02",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "AON PLC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-04",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRKFLD ASSET MGMT",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-05",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPMORGAN CHASE",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-05",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONSUMER STAPLES INDEX",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-08",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HEALTH CARE SELECT",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-08",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOLLAR GENERAL",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-21",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Aptiv PLC",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-04-04",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-04-05",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P 500 DEP RCPTS",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-04-08",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APPLE INC",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-04-21",
+      "notification_date": "2022-05-02",
+      "amount_code": "A"
+    }
+  ]
 }

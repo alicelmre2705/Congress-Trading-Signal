@@ -2,24 +2,291 @@
   "doc_id": "9115689",
   "member": "Harold Dallas Rogers",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 4,
-  "created_utc": "2026-06-25T06:06:34.990991+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:06:27.938791+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 12,
+      "transactions": [
+        {
+          "asset_description": "Vng Growth Index @ 473.42",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vng Value Index @ 185.62",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vng FTSE Dev Mkt @ 59.09",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder INTL Equity @ 15.28",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-22",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Small/Mid Grw @ 17.15",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vng Growth Index @ 478.6892",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-22",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Amrc Avnt SC ETF @ 87.68",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Core Bond @ 9.10",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Large Value @ 18.32",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bridge Builder Large Growth @ 28.08",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ish Rsl 1000 @ 361.30",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ish Core S&P 500 @ 661.15",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 5,
+      "transactions": [
+        {
+          "asset_description": "Sell Bridge BuilderSm/Mid Value @ 15.13",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08"
+        },
+        {
+          "asset_description": "Sell Bridge Builder Core Plus Bond @ 8.97",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08"
+        },
+        {
+          "asset_description": "Sell Bridge Builder INTL Equity @ 15.12",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08"
+        },
+        {
+          "asset_description": "Sell Blackrock High Yield K @ 7.25",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-09-26",
+          "notification_date": "2025-10-08"
+        },
+        {
+          "asset_description": "Sell Grandeur Peak INTL Stalwarts I @ 17.76",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-09-25",
+          "notification_date": "2025-10-08"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Vng Growth Index @ 473.42",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vng Value Index @ 185.62",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vng FTSE Dev Mkt @ 59.09",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder INTL Equity @ 15.28",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-22",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Small/Mid Grw @ 17.15",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vng Growth Index @ 478.6892",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-22",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Amrc Avnt SC ETF @ 87.68",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Core Bond @ 9.10",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Large Value @ 18.32",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bridge Builder Large Growth @ 28.08",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ish Rsl 1000 @ 361.30",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ish Core S&P 500 @ 661.15",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Sell Bridge BuilderSm/Mid Value @ 15.13",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08"
+    },
+    {
+      "asset_description": "Sell Bridge Builder Core Plus Bond @ 8.97",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08"
+    },
+    {
+      "asset_description": "Sell Bridge Builder INTL Equity @ 15.12",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08"
+    },
+    {
+      "asset_description": "Sell Blackrock High Yield K @ 7.25",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-09-26",
+      "notification_date": "2025-10-08"
+    },
+    {
+      "asset_description": "Sell Grandeur Peak INTL Stalwarts I @ 17.76",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-09-25",
+      "notification_date": "2025-10-08"
+    }
+  ]
 }

@@ -2,18 +2,181 @@
   "doc_id": "8220317",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:39.695578+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:37:07.106755+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 10,
+      "transactions": [
+        {
+          "asset_description": "Franklin Templeton ETF (FLJP)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Invesco ETF (XMHQ)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IShares Tr 1-3 Yr (SHY)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IShares Tr 1-5 Yr (IGSB)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ishares Tr BB Rated Corp Bd ETF (HYBB)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Pacer Fds Tr Pacer US Small Cap (CALF)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Index Shs Fds (SPDW)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Gwth (MDYG)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Value (MDYV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "World Gold Tr Spdr (GLDM)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2024-04-25",
+          "notification_date": "2024-05-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Franklin Templeton ETF (FLJP)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Invesco ETF (XMHQ)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IShares Tr 1-3 Yr (SHY)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IShares Tr 1-5 Yr (IGSB)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ishares Tr BB Rated Corp Bd ETF (HYBB)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Pacer Fds Tr Pacer US Small Cap (CALF)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Index Shs Fds (SPDW)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Gwth (MDYG)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Value (MDYV)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "World Gold Tr Spdr (GLDM)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2024-04-25",
+      "notification_date": "2024-05-01",
+      "amount_code": "A"
+    }
+  ]
 }

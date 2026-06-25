@@ -2,36 +2,1101 @@
   "doc_id": "8219294",
   "member": "Kurt Schrader",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 11,
-  "created_utc": "2026-06-25T00:50:41.158886+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:17:55.344112+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 18,
+      "transactions": [
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPMORGAN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NUVEEN ESG LARGE-CAP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MAGNA INTL INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOME DEPOT",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-25",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EXXON MOBIL",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-22",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PRINCIPAL FINANCIAL",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-11",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALVERT US LRG CAP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CALVERT SMALL CAP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CSX CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROADCOM INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD INTRMDIATE-TERM",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SEAGATE TECH",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF NOVA SCOTIA",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BLACKROCK",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FIFTH THIRD BANCORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD REAL ESTATE ETF",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 21,
+      "transactions": [
+        {
+          "asset_description": "ENTERGY CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENL DYNAMICS",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SYNCHRONY FINL",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMER EXPRESS",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES RUSSELL 1000",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HEWLETT PACKARD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD MORTGAGE-BACKED",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "REALTY INCM CRP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES US TREASURY BOND",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KINDER MORGAN INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES RUSSELL 1000",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MEDTRONIC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CROWN CASTLE INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PEPSICO INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR BLOOMBERG",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD TOTAL INTERNATL BOND",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NUVEEN ESG LARGE CAP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES ESG AWARE",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 19,
+      "transactions": [
+        {
+          "asset_description": "Crown Castle Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bristol-Myers Squibb",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PepsiCo Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Bloomberg",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vanguard Total Internatl Bond",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Nuveen ESG Large Cap",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "iShares ESG Aware",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Brown Adv Sustainable Growth",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CCM Community Impact Bond Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Delaware Corporate Bond",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TIAA CREF Core Impact Bond Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JP Morgan Strategic Income Opp Fund",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BlackRock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "T Rowe Price Emerging Markets",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MFS Value FD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Oakmark Intl FD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Delaware Small Cap",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Edgewood Growth Fund",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GS GQG Partners Intl",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-08",
+          "notification_date": "2022-12-01",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 8,
+      "transactions": [
+        {
+          "asset_description": "Nextera Energy Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-03",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Schlumberger LTD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-15",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Oracle",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-11-23",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "American Water Works Co",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-03",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Conocophillips",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-15",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Catalent Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-21",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-23",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Microsoft Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-11-23",
+          "notification_date": "2022-12-02",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPMORGAN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NUVEEN ESG LARGE-CAP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MAGNA INTL INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOME DEPOT",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-25",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EXXON MOBIL",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-22",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRINCIPAL FINANCIAL",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-11",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALVERT US LRG CAP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CALVERT SMALL CAP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CSX CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROADCOM INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD INTRMDIATE-TERM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SEAGATE TECH",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF NOVA SCOTIA",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BLACKROCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIFTH THIRD BANCORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD REAL ESTATE ETF",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ENTERGY CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENL DYNAMICS",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SYNCHRONY FINL",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMER EXPRESS",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES RUSSELL 1000",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HEWLETT PACKARD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD MORTGAGE-BACKED",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "REALTY INCM CRP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES US TREASURY BOND",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KINDER MORGAN INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON & JOHNSON",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES RUSSELL 1000",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MEDTRONIC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CROWN CASTLE INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PEPSICO INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR BLOOMBERG",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD TOTAL INTERNATL BOND",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NUVEEN ESG LARGE CAP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES ESG AWARE",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Crown Castle Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bristol-Myers Squibb",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PepsiCo Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Bloomberg",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vanguard Total Internatl Bond",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Nuveen ESG Large Cap",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "iShares ESG Aware",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Brown Adv Sustainable Growth",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CCM Community Impact Bond Fund",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Delaware Corporate Bond",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TIAA CREF Core Impact Bond Fund",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JP Morgan Strategic Income Opp Fund",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BlackRock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "T Rowe Price Emerging Markets",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MFS Value FD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Oakmark Intl FD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Delaware Small Cap",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Edgewood Growth Fund",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GS GQG Partners Intl",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-08",
+      "notification_date": "2022-12-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Nextera Energy Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-03",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Schlumberger LTD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-15",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Oracle",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-11-23",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "American Water Works Co",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-03",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Conocophillips",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-15",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Catalent Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-21",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Adobe Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-23",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Microsoft Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-11-23",
+      "notification_date": "2022-12-02",
+      "amount_code": "A"
+    }
+  ]
 }

@@ -2,18 +2,197 @@
   "doc_id": "8221233",
   "member": "Tony Wied",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:38.568573+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T20:06:40.323968+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 11,
+      "transactions": [
+        {
+          "asset_description": "Salesforce Inc",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Servicenow Inc",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Hubspot Inc",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Fortinet Inc",
+          "transaction_type": "Partial Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Western Alliance Bancorp",
+          "transaction_type": "Partial Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Broadcom Inc",
+          "transaction_type": "Partial Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Arista Networks Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Disney Co",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Five Below Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "LCI Inds",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "US Treasury Bill Due 1/22/26",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-10-27",
+          "notification_date": "2025-11-10",
+          "amount_code": "G"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Salesforce Inc",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Servicenow Inc",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Hubspot Inc",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Fortinet Inc",
+      "transaction_type": "Partial Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Western Alliance Bancorp",
+      "transaction_type": "Partial Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Broadcom Inc",
+      "transaction_type": "Partial Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Arista Networks Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Disney Co",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Five Below Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "LCI Inds",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "US Treasury Bill Due 1/22/26",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-10-27",
+      "notification_date": "2025-11-10",
+      "amount_code": "G"
+    }
+  ]
 }

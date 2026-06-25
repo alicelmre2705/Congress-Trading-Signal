@@ -2,33 +2,49 @@
   "doc_id": "8217006",
   "member": "Francis Rooney",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-24T23:55:52.543567+00:00",
+  "created_utc": "2026-06-25T20:27:07.276690+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 2
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Brown Advisory - Federated Municipal Ultrashort Bond Fund Inst",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2020-01-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Rooney Capital, LLC (Private Investments, Naples, FL): Due from Energy Holdings, LLC (partial payment)",
+          "transaction_type": "Partial Sale",
+          "owner": "Self",
+          "transaction_date": "2020-01-31",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "Rooney Advisory - Federated Municipal Ultrashort Bond Fund Inst",
+      "asset_description": "Brown Advisory - Federated Municipal Ultrashort Bond Fund Inst",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2020-01-24",
-      "amount_code": "A"
+      "amount_code": "C"
     },
     {
-      "asset_description": "Due from Derry Holdings, LLC (partial payment)",
+      "asset_description": "Rooney Capital, LLC (Private Investments, Naples, FL): Due from Energy Holdings, LLC (partial payment)",
       "transaction_type": "Partial Sale",
       "owner": "Self",
       "transaction_date": "2020-01-31",
-      "amount_code": "C"
+      "amount_code": "A"
     }
   ]
 }

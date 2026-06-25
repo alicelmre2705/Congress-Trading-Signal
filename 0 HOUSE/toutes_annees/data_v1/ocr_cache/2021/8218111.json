@@ -2,17 +2,35 @@
   "doc_id": "8218111",
   "member": "Scott Franklin",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:05:07.452433+00:00",
+  "created_utc": "2026-06-25T19:26:05.821456+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 2
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Organon & Co",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-06-15",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Organon & Co",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2021-06-08",
+          "notification_date": "2021-06-15",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -30,7 +48,7 @@
       "owner": "Joint",
       "transaction_date": "2021-06-08",
       "notification_date": "2021-06-15",
-      "amount_code": "B"
+      "amount_code": "A"
     }
   ]
 }
