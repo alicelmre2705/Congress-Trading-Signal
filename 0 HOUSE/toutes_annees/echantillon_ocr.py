@@ -42,10 +42,10 @@ RÈGLES CRITIQUES :
      pas et ne remplace JAMAIS par une société ressemblante (ex. ne confonds pas « Becton » avec
      « Blackstone », « KKR » avec « KnR », « Rooney » avec « Rooster », « 1831 » avec « 1351 »). Si une
      partie est illisible, transcris seulement ce que tu lis, sans inventer.
-  6. DATES — GARDE-FOU : ce dépôt date de {filing_year}. Les transactions sont récentes : leur année est
-     quasiment toujours {filing_year} ou {prev_year}. Si tu crois lire une année très différente
-     (autre décennie, ou postérieure au dépôt), c'est une ERREUR de lecture des chiffres manuscrits
-     — relis le chiffre attentivement (un « 1 » se confond avec « 7 », « 5 » avec « 9 », « 0 » avec « 8 »).
+  6. DATES — GARDE-FOU : ce dépôt date de {filing_year}. L'année de TOUTE transaction doit être
+     {filing_year} ou {prev_year} — c'est quasi-certain. Si tu lis une autre année, c'est une ERREUR
+     de lecture : relis le dernier chiffre de l'année attentivement (sur un formulaire tourné 90°,
+     « 4 » ressemble à « 1 », « 3 » à « 8 »). Corrige vers {filing_year} ou {prev_year} selon le contexte.
      Convertis MM/DD/YY → YYYY-MM-DD. Lis transaction_date ET notification_date ligne par ligne.
   7. amount_code = UNIQUEMENT la lettre cochée (A–K). Si illisible, omets le champ.
 """
@@ -228,6 +228,59 @@ def compare_quiver(df):
     pd_df = pd.DataFrame(per_doc)
     pd_df.to_csv(hm.TABROOT / "_ocr_echantillon_quiver_doc.csv", index=False)
     return pd_df
+
+
+def detailed_quiver_diff(df):
+    """Diff transaction par transaction contre Quiver.
+    Statuts : match | ticker_ok_date_wrong | ticker_wrong | no_gt | no_ticker.
+    Écrit _ocr_echantillon_diff.csv et retourne le DataFrame."""
+    q = hm.fetch_quiver().copy()
+    q["_tk"] = q["Ticker"].astype(str).str.upper()
+    q["_ty"] = pd.to_datetime(q["traded"], errors="coerce")
+    q["_yr"] = q["_ty"].dt.strftime("%Y-%m-%d").str[:4]
+    rows = []
+    for (did, y, cl), g in df.groupby(["doc_id", "year", "cluster"]):
+        bio = g["bioguide_id"].iloc[0]
+        has_bio = isinstance(bio, str) and bio.strip()
+        qbio = q[q["BioGuideID"] == bio] if has_bio else q.iloc[:0]
+        win = {str(int(y)), str(int(y) - 1)}
+        qm = qbio[qbio["_yr"].isin(win)]
+        has_gt = len(qm) > 0
+        qtick_all = set(qbio["_tk"])
+        qtd_set = {(r["_tk"], r["_ty"].strftime("%Y-%m-%d")) for _, r in qm.iterrows() if pd.notna(r["_ty"])}
+        for _, row in g.iterrows():
+            tk_raw = row.get("ticker", "")
+            tk = str(tk_raw).upper().strip() if pd.notna(tk_raw) and str(tk_raw).strip() else ""
+            dt_raw = row.get("transaction_date", "")
+            dt = str(dt_raw) if pd.notna(dt_raw) and str(dt_raw) not in ("nan", "NaT") else ""
+            base = {"doc_id": did, "year": y, "cluster": cl, "ticker": tk or None,
+                    "transaction_date": dt or None, "asset_description": str(row.get("asset_description", "")),
+                    "ticker_source": str(row.get("ticker_source", "")), "quiver_date_nearest": None, "status": None}
+            if not tk:
+                base["status"] = "no_ticker"
+            elif not has_gt:
+                base["status"] = "no_gt"
+            elif (tk, dt) in qtd_set:
+                base["status"] = "match"
+                base["quiver_date_nearest"] = dt
+            elif tk in qtick_all:
+                base["status"] = "ticker_ok_date_wrong"
+                qtk_dates = qm[qm["_tk"] == tk]["_ty"].dropna()
+                if len(qtk_dates) and dt:
+                    try:
+                        our_ts = pd.Timestamp(dt)
+                        nearest = qtk_dates.iloc[(qtk_dates - our_ts).abs().values.argmin()]
+                        base["quiver_date_nearest"] = nearest.strftime("%Y-%m-%d")
+                    except Exception:
+                        pass
+            else:
+                base["status"] = "ticker_wrong"
+            rows.append(base)
+    cols = ["doc_id", "year", "cluster", "ticker", "transaction_date", "asset_description",
+            "ticker_source", "quiver_date_nearest", "status"]
+    result = pd.DataFrame(rows) if rows else pd.DataFrame(columns=cols)
+    result.to_csv(hm.TABROOT / "_ocr_echantillon_diff.csv", index=False)
+    return result
 
 
 if __name__ == "__main__":

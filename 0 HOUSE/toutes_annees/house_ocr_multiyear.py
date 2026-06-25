@@ -66,8 +66,11 @@ RÈGLES CRITIQUES :
   5. Reporte CHAQUE ligne dont une case TYPE est cochée, Y COMPRIS des lignes strictement identiques
      répétées (même actif, même date, même montant, même propriétaire) : ce sont des transactions
      réelles distinctes, jamais des doublons à fusionner.
-  6. Convertis MM/DD/YY → YYYY-MM-DD (siècle 2000+). Lis transaction_date ET notification_date
-     ligne par ligne ; ne recopie pas une date unique sur toutes les lignes.
+  6. DATES — GARDE-FOU : ce dépôt date de {filing_year}. L'année de TOUTE transaction doit être
+     {filing_year} ou {prev_year} — quasi-certain. Toute autre année est une ERREUR de lecture
+     (sur un formulaire tourné 90°, « 4 » ressemble à « 1 », « 3 » à « 8 »). Corrige vers
+     {filing_year} ou {prev_year} selon le contexte.
+     Convertis MM/DD/YY → YYYY-MM-DD. Lis transaction_date ET notification_date ligne par ligne.
   7. amount_code = UNIQUEMENT la lettre de la case cochée (A–K). Si illisible, omets le champ.
 """
 TXN_TOOL = {
@@ -188,10 +191,11 @@ def pdf_to_b64_images(pdf_path, dpi=DPI):
 class OcrError(Exception):
     pass
 
-def _call_vision_tool(client, images_b64, member_name, max_retries=7):
+def _call_vision_tool(client, images_b64, member_name, filing_year, max_retries=7):
     content = [{"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b}}
                for b in images_b64]
-    content.append({"type": "text", "text": OCR_PROMPT.format(member_name=member_name)})
+    content.append({"type": "text", "text": OCR_PROMPT.format(
+        member_name=member_name, filing_year=filing_year, prev_year=filing_year - 1)})
     last_err = None
     for attempt in range(max_retries):
         try:
@@ -211,7 +215,7 @@ def _call_vision_tool(client, images_b64, member_name, max_retries=7):
             raise OcrError(f"appel API échoué : {type(e).__name__} {status} {e}") from e
     raise OcrError(f"échec après {max_retries} tentatives : {last_err}")
 
-def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, force=False):
+def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, year, force=False):
     """Extraction avec cache versionné et REPRISE AU NIVEAU BATCH : un PDF partiellement traité ne
     re-paie QUE ses batches en erreur ; les batches déjà 'ok' (et leurs transactions) sont conservés."""
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -248,7 +252,7 @@ def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, force=False):
     new_log, status = [], "ok"
     for n, idx in enumerate(todo):
         try:
-            txns = _call_vision_tool(client, batches[idx], member_name)
+            txns = _call_vision_tool(client, batches[idx], member_name, int(year))
             all_txns.extend(txns)
             new_log.append({"batch": idx, "pages": len(batches[idx]), "status": "ok", "n": len(txns), "transactions": txns})
         except OcrError as e:
@@ -344,7 +348,7 @@ def run_ocr_year(year, force=False):
         path = hm.resolve_pdf_path(year, doc_id)
         if path is None:
             return doc_id, member, [], {"status": "pdf_manquant", "batches": []}
-        txns, cache_obj = extract_from_pdf(path, doc_id, member, cache_dir, force=force)
+        txns, cache_obj = extract_from_pdf(path, doc_id, member, cache_dir, year, force=force)
         return doc_id, member, txns, cache_obj
 
     with ThreadPoolExecutor(max_workers=CONCURRENCY) as ex:

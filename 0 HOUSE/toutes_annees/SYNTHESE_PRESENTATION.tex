@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 
-% ---------- Encodage & langue (portable : pdflatex / xelatex / tectonic) ----------
+% ---------- Encodage & langue ----------
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[utf8]{inputenc}
@@ -14,7 +14,6 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{booktabs}
 \usepackage{array}
-\usepackage{longtable}
 \usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc,arrows.meta}
@@ -38,36 +37,34 @@
   \end{center}}
 
 \title{\textbf{\color{accent} Pipeline House --- Transactions boursières des représentants}\\[2mm]
-\large Volume 2 : années 2020$\rightarrow$2026 (électronique) + OCR par échantillon}
+\large Volume 2 : années 2020$\rightarrow$2026 --- synthèse complète}
 \author{}
-\date{\today\\[1mm]\small\emph{suite du pilote « Test » du 1\textsuperscript{er} trimestre 2025}}
+\date{\today}
 
 \begin{document}
 \tolerance=4000 \hbadness=4000 \setlength{\emergencystretch}{6em}
 \maketitle
-\vspace{-0.8cm}
+\vspace{-1.0cm}
 
 % =====================================================================
-\section{Ce document est la suite du pilote 2025}
+\section{Résultat à utiliser}
 % =====================================================================
 
 \boite{%
-\textbf{\color{accent}À lire d'abord.} Ce document est le \textbf{Volume 2}. Le pilote
-\file{../2025\_test/} (T1 2025) a déjà décrit \emph{toute la méthodologie} ; on ne la répète pas ici. On
-y \textbf{renvoie} pour : le vocabulaire (PTR, OCR, Quiver), la mécanique du pipeline (\texttt{pdfplumber}
-+ regex ; OCR Claude Vision en sortie structurée ; cache versionné), le \emph{mécanisme} de la passe LLM
-nom$\rightarrow$ticker, le schéma des 22 colonnes et le dictionnaire \texttt{provenance}/\texttt{ticker\_source}.}
-
-\noindent Ce volume couvre uniquement le \textbf{nouveau} : (1) le passage à l'échelle de l'extraction
-\textbf{électronique sur 2020$\rightarrow$2026 (totale)}, validée contre Quiver année par année ; (2) l'\textbf{OCR
-repensé} --- recensement complet des 547 PDF scannés, puis OCR d'un \textbf{échantillon représentatif par
-année} (et non des 547), comparé à Quiver. Tous les chiffres sont recalculés depuis \file{data\_v1/}.
+\textbf{\color{accent}Les tables finales.}\\[4pt]
+$\bullet$~\textbf{Électronique (total)} ---
+\file{data\_v1/tables/\{année\}/06\_house\_\{année\}\_transactions.csv} $\times$ 7~:
+\nb{32\,676 transactions} 2020$\rightarrow$2026. Complètes, validées.\\[2pt]
+$\bullet$~\textbf{OCR (échantillon)} ---
+\file{data\_v1/tables/\_ocr\_echantillon\_resultats.csv}~:
+\nb{4\,103 transactions} sur 70~docs. Sert à mesurer la qualité de la méthode OCR,
+pas à remplacer le digital.}
 
 \tableofcontents
 \vspace{2mm}
 
 % =====================================================================
-\section{Vue d'ensemble (Volume 2)}
+\section{Vue d'ensemble}
 % =====================================================================
 
 \subsection*{Le flux en un schéma}
@@ -76,32 +73,27 @@ année} (et non des 547), comparé à Quiver. Tous les chiffres sont recalculés
 \begin{tikzpicture}[
   >={Stealth[length=2.2mm]},
   box/.style={draw, rounded corners=2pt, align=center, font=\footnotesize,
-              minimum height=0.85cm, text width=3.1cm, inner sep=3pt},
+              minimum height=0.85cm, text width=2.7cm, inner sep=3pt},
   src/.style={box, fill=blue!8},
   proc/.style={box, fill=black!6},
-  res/.style={box, fill=okgreen!10, very thick},
-  val/.style={box, fill=red!8, text width=4.6cm},
+  res/.style={box, fill=okgreen!10},
+  val/.style={box, fill=red!8, text width=4.8cm},
   ar/.style={->, thick, draw=accent}
 ]
 \node[src] (clerk) {\textbf{House Clerk} 2020--2026\\PDF des PTR (déjà téléchargés)};
-\node[box, below left=0.9cm and 0.2cm of clerk] (lis) {PDF \textbf{lisibles}\\(texte)};
+\node[box, below left=0.9cm and 0.2cm of clerk]  (lis)  {PDF \textbf{lisibles}\\(texte)};
 \node[box, below right=0.9cm and 0.2cm of clerk] (scan) {\textbf{547} PDF \textbf{scannés}};
-\node[proc, below=0.7cm of lis] (parse) {Parsing texte\\7 années};
+\node[proc, below=0.7cm of lis]  (parse)  {Parsing texte\\7 années};
 \node[proc, below=0.7cm of scan] (census) {Census visuel\\3 clusters A/B/C};
 \node[res, below=0.7cm of parse] (elec) {\textbf{32\,676}\\transactions élec.\\(TOTAL)};
 \node[proc, below=0.7cm of census] (ech) {Échantillon\\\textbf{10 docs / an}};
-\node[res, below=0.7cm of ech] (ocr) {OCR échantillon\\\textbf{4\,596} txns};
+\node[res, below=0.7cm of ech] (ocr) {OCR échantillon\\\textbf{4\,103} txns};
 \node[val] (valid) at ($(elec)!0.5!(ocr) + (0,-1.5cm)$)
       {Validation \textbf{QuiverQuant}\\(arbitre indépendant)};
-
-\draw[ar] (clerk) -- (lis);
-\draw[ar] (clerk) -- (scan);
-\draw[ar] (lis) -- (parse);
-\draw[ar] (scan) -- (census);
-\draw[ar] (parse) -- (elec);
-\draw[ar] (census) -- (ech);
-\draw[ar] (ech) -- (ocr);
-\draw[ar] (elec) -- (valid);
+\draw[ar] (clerk) -- (lis);  \draw[ar] (clerk) -- (scan);
+\draw[ar] (lis) -- (parse);  \draw[ar] (scan) -- (census);
+\draw[ar] (parse) -- (elec); \draw[ar] (census) -- (ech);
+\draw[ar] (ech) -- (ocr);    \draw[ar] (elec) -- (valid);
 \draw[ar] (ocr) -- (valid);
 \end{tikzpicture}
 \end{center}
@@ -116,111 +108,144 @@ année} (et non des 547), comparé à Quiver. Tous les chiffres sont recalculés
 Période & 2020 $\rightarrow$ 2026 (7 années) \\
 \textbf{Transactions électroniques (TOTAL)} & \textbf{32\,676} \\
 Concordance Quiver (élec, transaction) & 99,01\,\% \\
-Trades « vraiment absents » (élec, 6 ans) & 9 \\
-PDF scannés recensés (census) & 547 \\
-\quad clusters A / B / C & 74 / 322 / 151 \\
+Trades vraiment absents (6 ans) & 9 \\
+\midrule
+PDF scannés recensés & 547 \quad(clusters A\,/\,B\,/\,C : 74\,/\,322\,/\,151) \\
 OCR : échantillon traité & 70 docs (10/an) \\
-\quad transactions OCR (échantillon) & 4\,596 \\
-\quad couverture \texttt{ticker} (avec passe LLM) & 78\,\% \\
+\quad transactions OCR & 4\,103 \\
+\quad couverture \texttt{ticker} & 74\,\% \\
+\quad concordance Quiver (match exact) & 59,7\,\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 % =====================================================================
-\section{Électronique 2020$\rightarrow$2026 (extraction totale)}
+\section{Électronique 2020$\rightarrow$2026}
 % =====================================================================
 
-Les PDF lisibles de chaque année sont parsés et figés dans \file{06\_house\_\{année\}\_transactions.csv}.
-La concordance ci-dessous est mesurée par la \textbf{méthode honnête « standard Q1 »} (dédup des amendements
-Quiver, exclusion des déposants papier des deux côtés, cross-check « ticker raté » vs « vraiment absent » ;
-\emph{cf.\ pilote 2025 pour le détail}). Reproduite par \file{notebook\_digital.ipynb}.
+Extraction texte (\texttt{pdfplumber} + regex), concordance mesurée par la
+\textbf{méthode honnête « standard Q1 »} : dédup des amendements Quiver, exclusion
+des déposants papier des deux côtés, cross-check « ticker raté » vs « vraiment absent ».
+Reproduite par \file{notebook\_digital.ipynb}.
 
 \begin{center}
 \begin{tabular}{@{}l r r r r r@{}}
 \toprule
-\textbf{Année} & \textbf{txns} & \textbf{déclarants} & \textbf{ticker \%} & \textbf{concordance Quiver} & \textbf{vrais-absents} \\
+\textbf{Année} & \textbf{txns} & \textbf{déclarants} & \textbf{ticker\,\%}
+  & \textbf{concordance Quiver} & \textbf{vrais-absents} \\
 \midrule
-2020 & 6\,886 & 96 & 91,0 & 99,71\,\% & 0 \\
+2020 & 6\,886 & 96  & 91,0 & 99,71\,\% & 0 \\
 2021 & 5\,457 & 105 & 91,1 & 99,68\,\% & 1 \\
-2022 & 3\,601 & 97 & 86,8 & 98,88\,\% & 0 \\
-2023 & 4\,161 & 88 & 86,9 & 98,10\,\% & 3 \\
-2024 & 2\,694 & 90 & 81,8 & 98,01\,\% & 2 \\
-2025 & 7\,577 & 96 & 90,5 & 98,93\,\% & 1 \\
-2026 & 2\,300 & 79 & 84,0 & 98,64\,\% & 2 \\
+2022 & 3\,601 & 97  & 86,8 & 98,88\,\% & 0 \\
+2023 & 4\,161 & 88  & 86,9 & 98,10\,\% & 3 \\
+2024 & 2\,694 & 90  & 81,8 & 98,01\,\% & 2 \\
+2025 & 7\,577 & 96  & 90,5 & 98,93\,\% & 1 \\
+2026 & 2\,300 & 79  & 84,0 & 98,64\,\% & 2 \\
 \midrule
-\textbf{Total} & \textbf{32\,676} & --- & \textbf{88,6} & \textbf{99,01\,\%} & \textbf{9} \\
+\textbf{Total} & \textbf{32\,676} & --- & 88,6 & \textbf{99,01\,\%} & \textbf{9} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent\textbf{Lecture de l'écart.} Sur 6 ans, \texttt{only-Quiver} = 241 trades, dont \textbf{232
-« ticker-raté »} (présents chez nous mais sans ticker boursier extrait : préférentielles, Trésor, fonds)
-et seulement \textbf{9 « vraiment absents »}. Ces 9, tous expliqués (aucun bug d'extraction) :
-Malinowski (ANIK, 2020) ; Schrader (VRNG/ELN/MSCI, 2022) ; Calhoun (AFRM/IBM, 2024) ;
-Gottheimer (IFNNY, 2025) ; Pelosi (INTC/UBER, 2026).
-
-\medskip
-\noindent\textbf{Dérives de format corrigées} (trouvées en validant contre Quiver) : casse des PDF pré-2021
-(rendement 2020 \textbf{84\,\% $\rightarrow$ 100\,\%}) ; pollution de descriptions (lignes d'annotation
-écartées) ; MLP sans code \texttt{[XX]} (manques 2020 \textbf{183 $\rightarrow$ 15}).
+\noindent Les \textbf{9 vrais-absents} (sur 6 ans) sont tous expliqués : Malinowski (ANIK\,2020),
+Schrader (VRNG/ELN/MSCI\,2022), Calhoun (AFRM/IBM\,2024), Gottheimer (IFNNY\,2025),
+Pelosi (INTC/UBER\,2026). Causes : dépôt papier$\to$OCR, snapshot post-dépôt, variante de
+date $\pm$1\,j, étiquetage Quiver. Le reste de l'écart \texttt{only-Quiver} ($\approx$232)
+= ticker raté (préférentielles \texttt{DUK\$A}, Trésor, fonds) --- cosmétique.
 
 \boite{%
-\textbf{\color{accent}Électronique = prêt.} 32\,676 transactions 2020$\rightarrow$2026, concordance Quiver
-\textbf{99,01\,\%} ($\ge$ 98\,\% chaque année), \textbf{9 vrais-absents} sur 6 ans. Quiver n'est jamais réinjecté.}
+\textbf{\color{accent}Électronique = prêt.}
+32\,676 transactions 2020$\rightarrow$2026, concordance Quiver \textbf{99,01\,\%}
+($\ge$ 98\,\% chaque année), \textbf{9 vrais-absents} sur 6 ans.
+Quiver n'est jamais réinjecté.}
 
 % =====================================================================
-\section{L'OCR repensé : census des scannés + échantillon par année}
+\section{OCR --- census + échantillon}
 % =====================================================================
 
-\subsection{Census complet des 547 PDF scannés}
-
-Recensement visuel des \textbf{547} PDF sans texte (\file{data\_v1/tables/\_scan\_census\_547.csv}).
-Constat structurant : il n'existe \textbf{qu'un seul type de document} (le formulaire officiel House) ;
-ce qui varie, c'est l'\emph{orientation} et la \emph{saisie}. Trois clusters :
+\subsection*{Census complet des 547 PDF scannés}
 
 \begin{center}
 \begin{tabular}{@{}l r r >{\raggedright\arraybackslash}p{7.4cm}@{}}
 \toprule
 \textbf{Cluster} & \textbf{docs} & \textbf{part} & \textbf{Profil OCR} \\
 \midrule
-A --- tapé droit & 74 & 13,5\,\% & le plus propre ; lecture directe \\
+A --- tapé droit      & 74  & 13,5\,\% & le plus propre ; lecture directe \\
 B --- tapé tourné 90° & 322 & 58,9\,\% & le gros du corpus ; lisible une fois redressé \\
-C --- manuscrit & 151 & 27,6\,\% & le point dur ; concentré 2020-2021, quasi nul en 2026 \\
+C --- manuscrit       & 151 & 27,6\,\% & le point dur ; concentré 2020--2021 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent \textbf{543/547} sont le même formulaire officiel ; les \textbf{2 seuls} vrais relevés externes sont
-les dépôts de Ted Yoho (2020, Morgan Stanley). \textbf{81\,\%} des scans sont \emph{tournés} ; seulement
-\textbf{6} sont réellement illisibles.
+\noindent 543/547 sont le même formulaire officiel House. 81\,\% des scans sont tournés.
+6 sont réellement illisibles.
 
-\subsection{Décision : un échantillon représentatif par année (pas les 547)}
+\subsection*{Volumétrie de l'échantillon OCR}
 
-Le livrable OCR n'est \textbf{pas} l'OCR des 547. On OCR un \textbf{échantillon représentatif de
-\textasciitilde10 documents par année}, stratifié par cluster et priorisant les déposants couverts par
-Quiver. Pourquoi : (i) le \textbf{coût} d'un OCR exhaustif des 547 (souvent denses) n'est pas justifié pour
-établir la \emph{justesse} de la méthode ; (ii) le \textbf{manuscrit} (cluster C) est intrinsèquement dur
-\emph{et} peu vérifiable (Quiver y est quasi absent), donc un sur-investissement OCR n'y serait pas validable.
+70~docs (10/an~: 2~A\,/\,6~B\,/\,2~C~; 2026~= 8~A\,/\,2~C faute de cluster~B),
+\textbf{4\,103 transactions} (\file{echantillon\_ocr.py}~: prompt durci + garde-fou date,
+cap 8~pages, cache dédié \file{ocr\_cache\_echantillon/}).
 
-\subsection{Résultats de l'échantillon}
+\begin{center}
+\begin{tabular}{@{}l r@{}}
+\toprule
+\textbf{Champ} & \textbf{Couverture} \\
+\midrule
+Transactions totales & 4\,103 \\
+\texttt{ticker} (avec passe LLM) & 3\,032\,/\,4\,103 = 74\,\% \\
+\quad \texttt{explicit} & 176 \\
+\quad \texttt{elec\_dict} & 1\,962 \\
+\quad \texttt{llm} & 894 \\
+\quad \texttt{none} (non-cotés~: munis, obligations, options) & 1\,071 \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-70 docs (10/an : 2 A / 6 B / 2 C ; 2026 = 8 A / 2 C faute de cluster B), \textbf{4\,596 transactions}
-(\file{echantillon\_ocr.py} : prompt durci, cap de pages, cache dédié ; restitué par \file{notebook\_ocr.ipynb}).
-Couverture \texttt{ticker} = \textbf{78\,\%} (3\,565/4\,596) après la \textbf{passe LLM nom$\rightarrow$ticker}
-(\emph{mécanisme : cf.\ pilote 2025}) --- sources : \texttt{explicit} 170 $\cdot$ \texttt{elec\_dict} 2\,399
-$\cdot$ \texttt{llm} 996 $\cdot$ \texttt{none} 1\,031 (vrais non-cotés : munis, obligations, options).
+% =====================================================================
+\section{Validation contre QuiverQuant}
+% =====================================================================
 
-\medskip
-\noindent\textbf{Concordance Quiver fenêtrée} (part de nos couples confirmés par Quiver) :
+\subsection*{Côté électronique}
+
+Voir tableau §\,3 : concordance $\ge$ 98\,\% sur chaque année, 99,01\,\% global.
+\textbf{0 cas} où Quiver a plus de transactions que nous.
+
+\subsection*{Côté OCR --- diff transaction par transaction}
+
+Chaque transaction avec ticker est classée en trois statuts
+(\file{\_ocr\_echantillon\_diff.csv}, \file{notebook\_ocr.ipynb} §\,4b) :
+
+\begin{center}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+\textbf{Cluster} & \textbf{vérif.} & \textbf{match} & \textbf{ticker ok, date fausse}
+  & \textbf{ticker absent Quiver} & \textbf{match\,\%} \\
+\midrule
+A --- tapé droit  & 1\,157 &   877 & 213 &  67 & \textbf{75,8\,\%} \\
+B --- tapé tourné & 1\,704 &   923 & 550 & 231 & \textbf{54,2\,\%} \\
+C --- manuscrit   &    158 &     1 & 115 &  42 &  \textbf{0,6\,\%} \\
+\midrule
+\textbf{Total}    & \textbf{3\,019} & \textbf{1\,801} & \textbf{878}
+  & \textbf{340} & \textbf{59,7\,\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Lecture.} \emph{Ticker absent Quiver} (340, 11\,\%) = actifs que Quiver
+ne trace pas (ETFs~OTC, tickers delistés, petits déposants non couverts) --- pas des
+hallucinations. \emph{Ticker ok, date fausse} (878, 29\,\%) confirme que le problème
+résiduel est la \textbf{lecture des dates}, pas des tickers.
+
+\subsection*{Concordance (ticker, date) par cluster et par année}
 
 \begin{center}
 \begin{tabular}{@{}l r r@{}}
 \toprule
 \textbf{Cluster} & \textbf{préc. ticker} & \textbf{préc. (ticker, date)} \\
 \midrule
-A --- tapé droit & 0,78 & 0,58 \\
+A --- tapé droit  & 0,79 & 0,58 \\
 B --- tapé tourné & 0,74 & 0,45 \\
-C --- manuscrit & 0,76 & 0,02\,$^{*}$ \\
+C --- manuscrit   & 0,79 & 0,01\,$^{*}$ \\
 \bottomrule
 \end{tabular}
 \hspace{1.2cm}
@@ -228,62 +253,101 @@ C --- manuscrit & 0,76 & 0,02\,$^{*}$ \\
 \toprule
 \textbf{Année} & \textbf{préc. (ticker, date)} \\
 \midrule
-2020 & 0,38 \\
+2020 & 0,40 \\
+2021 & 0,31 \\
 2022 & 0,25 \\
+2023 & 0,33 \\
 2024 & 0,44 \\
 2025 & 0,54 \\
 \textbf{2026} & \textbf{0,77} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\noindent\footnotesize $^{*}$ Cluster C : Quiver quasi absent sur ces petits déposants manuscrits
-$\rightarrow$ non vérifiable (et non un échec OCR). \normalsize
+
+\noindent\footnotesize $^{*}$~Cluster~C~: Quiver quasi absent sur ces petits déposants
+$\to$ non vérifiable (et non un échec OCR).\normalsize
 
 \medskip
-\noindent La \textbf{précision ticker} est élevée partout (0,74--0,78 : on n'invente pas d'instrument) ; la
-précision \textbf{(ticker, date)} décroît sur les scans anciens/dégradés --- l'écart vient de la \emph{lecture
-des dates}, pas des tickers. Les scans récents et propres (2026) atteignent \textbf{0,77}. À noter : 2020 et
-2026 sont par ailleurs OCR à 100\,\% hors échantillon (7\,764 / 3\,850 txns), déjà sur disque.
+\noindent La \textbf{précision ticker est haute partout} (0,74--0,79~: on n'invente pas
+d'instrument). La précision (ticker, date) décroît sur les vieux scans~: les deux modes
+d'échec résiduels sont la \emph{confusion 4$\leftrightarrow$1} sur les docs tournés
+(année lue avec 3~ans d'écart malgré le garde-fou) et la \emph{date répliquée} sur toutes
+les lignes d'un doc. Les années 2025--2026 sont quasi exemptes (0,54 / 0,77).
+
+\subsection*{Audit de la passe LLM ticker (\file{\_ocr\_echantillon\_diff.csv})}
+
+Sur les \textbf{894 tickers LLM}, tous rapprochables d'un bioguide Quiver~:
+\textbf{743 concordants = 83,2\,\%} (pilote 2025~: 93\,\%).
+L'écart de 10~pts s'explique par les membres absents de Quiver (trusts familiaux Harshbarger)
+et les tickers delistés (XLNX absorbé par AMD\,2022, CTL rebrandé LUMN)~---
+\textbf{aucun faux ticker LLM détecté}.
+
+\boite{%
+\textbf{\color{accent}À retenir.}
+Côté électronique~: \textbf{0 cas} où Quiver a plus que nous~; 9~vrais-absents expliqués.
+Côté OCR~: \textbf{la précision ticker est fiable} (0,74--0,79)~; la précision date décroît
+sur les scans anciens/tournés (modes~: confusion~4$\leftrightarrow$1, date répliquée).
+\textbf{2025--2026 = propres}~: prec.~date 0,54--0,77.}
 
 % =====================================================================
-\section{Limites connues (honnêteté)}
+\section{Limites connues}
 % =====================================================================
 
 \begin{itemize}
-  \item \textbf{OCR = échantillon, pas exhaustif.} Les 547 scannés ne sont \emph{pas} tous extraits au
-        niveau transaction --- choix assumé (cf.\ §4.2). Le livrable OCR est un échantillon représentatif
-        par année, destiné à \emph{mesurer} la justesse, pas à fournir l'intégralité des trades papier.
-  \item \textbf{Manuscrit (cluster C).} Intrinsèquement difficile, \textbf{et} peu vérifiable : Quiver ne
-        couvre quasiment pas ces petits déposants. La qualité y est mesurée par stabilité, pas par Quiver.
-  \item \textbf{Concordance (ticker, date) gatée par les dates.} La précision \emph{ticker} est haute, mais
-        la précision \emph{(ticker, date)} chute sur les vieux scans / le manuscrit, car la lecture des
-        \textbf{dates} manuscrites/dégradées est l'étape fragile.
-  \item \textbf{Tickers non-cotés laissés vides.} Munis, obligations, options : \texttt{ticker} null à
-        dessein (jamais deviné).
+  \item \textbf{OCR = échantillon, pas exhaustif.}
+        Les 547~scannés ne sont \emph{pas} tous extraits. Livrable OCR = 70~docs pour
+        \emph{mesurer} la qualité, pas fournir tous les trades papier.
+  \item \textbf{Cluster~C non vérifiable.}
+        Quiver couvre quasi-aucun petit déposant manuscrit~: prec.~date 0,01 reflète
+        l'absence de vérité-terrain, pas un échec OCR.
+  \item \textbf{Dates résiduelles (2021--2024).}
+        Deux modes persistants après garde-fou~: confusion 4$\leftrightarrow$1 sur doc
+        tourné (année lue à --3~ans)~; date copiée sur toutes les lignes. Non corrigés
+        car correction heuristique masquerait des erreurs réelles.
+  \item \textbf{Tickers non-cotés laissés vides.}
+        Munis, obligations, options, trusts privés~: \texttt{ticker}~null à dessein,
+        jamais deviné.
 \end{itemize}
 
 % =====================================================================
 \section{Reproductibilité \& fichiers}
 % =====================================================================
 
-\textbf{Dossier autonome} (modèle 2025) : \file{.venv} local + kernel \texttt{jupiter-house-toutes-annees},
-\file{.env}/\file{.env.example}/\file{requirements.txt} ; \textbf{547 PDF scannés + index + YAML + baseline +
-cache Quiver embarqués} dans \file{data\_v1/} ; moteurs \file{house\_multiyear.py} /
-\file{house\_ocr\_multiyear.py} à la racine, chemins ancrés par \texttt{BASE\_DIR} ; \texttt{grep "semaine 1"}
-= 0 ; l'écarté (scripts one-shot, intermédiaires, doublon 2025q1) rangé dans \file{\_archive/}.
+\textbf{Dossier autonome}~: \file{.venv} local + kernel \texttt{jupiter-house-toutes-annees},
+\file{.env} / \file{.env.example} / \file{requirements.txt}~;
+547~PDF scannés + index + YAML + baseline + cache Quiver dans \file{data\_v1/}~;
+moteurs \file{house\_multiyear.py} / \file{house\_ocr\_multiyear.py} à la racine.
 
 \medskip
 \noindent\textbf{Deux notebooks} (source de vérité) :
 \begin{enumerate}
-  \item \file{notebook\_digital.ipynb} --- électronique total + concordance Quiver (reproduit les 99,01\,\%).
-  \item \file{notebook\_ocr.ipynb} --- census 547 + aperçus visuels A/B/C + OCR de l'échantillon + concordance.
+  \item \file{notebook\_digital.ipynb} --- électronique total + concordance Quiver.
+  \item \file{notebook\_ocr.ipynb} --- census + aperçus A/B/C + OCR échantillon
+        + diff Quiver (§\,4b--4d).
 \end{enumerate}
-Pour le reste (mécanique détaillée, schéma des colonnes) : \emph{cf.\ synthèse du pilote 2025}.
+
+\begin{center}
+\begin{tabular}{@{}p{7.5cm} >{\raggedright\arraybackslash}p{6.7cm}@{}}
+\toprule
+\textbf{Fichier} & \textbf{Rôle} \\
+\midrule
+\file{tables/\{an\}/06\_house\_\{an\}\_transactions.csv} $\times$7 & Tables digitales finales \\
+\file{tables/\_ocr\_echantillon\_resultats.csv} (4\,103) & Transactions OCR échantillon \\
+\file{tables/\_ocr\_echantillon\_diff.csv} & Diff Quiver par transaction \\
+\file{tables/\_ocr\_echantillon\_quiver\_doc.csv} & Concordance par doc \\
+\file{tables/\_scan\_census\_547.csv} & Census des 547 scannés \\
+\file{ocr\_cache/} \& \file{ocr\_cache\_echantillon/} & Caches versionnés (re-run gratuit) \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \boite{%
-\textbf{\color{accent}Message en une ligne.} Électronique \textbf{total} 2020$\rightarrow$2026
-(\textbf{32\,676} transactions, \textbf{99\,\%} de concordance Quiver, 9 vrais-absents) et OCR \textbf{validé
-par échantillon représentatif par année} (census 547 $\rightarrow$ 3 clusters $\rightarrow$ 10 docs/an) ---
-suite directe du pilote 2025, dans un dossier entièrement autonome.}
+\textbf{\color{accent}Message en une ligne.}
+Électronique \textbf{complet} 2020$\rightarrow$2026~:
+\textbf{32\,676 transactions}, \textbf{99,01\,\%} concordance Quiver, 9~vrais-absents.
+OCR échantillon~: \textbf{4\,103 transactions}, ticker \textbf{74\,\%},
+précision ticker \textbf{0,74--0,79}, audit LLM \textbf{83,2\,\%}.
+Point dur résiduel~: dates sur scans anciens/tournés (2021--2024)~;
+\textbf{2025--2026 propres} (prec.~date 0,77).}
 
 \end{document}
