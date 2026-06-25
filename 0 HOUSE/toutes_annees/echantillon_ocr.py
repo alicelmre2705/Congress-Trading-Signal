@@ -49,20 +49,39 @@ RÈGLES CRITIQUES :
      Convertis MM/DD/YY → YYYY-MM-DD. Lis transaction_date ET notification_date ligne par ligne.
   7. amount_code = UNIQUEMENT la lettre cochée (A–K). Si illisible, omets le champ.
 """
-PROMPT_SHA = hashlib.sha256((HARDENED + json.dumps(ocr.TXN_TOOL, sort_keys=True) + ocr.MODEL).encode()).hexdigest()[:12]
+# PIPELINE_TAG : versionne le cache OCR. Toute modif de l'IMAGE envoyée (ici : deskew des scans
+# tournés) doit changer ce tag pour invalider l'ancien cache non-redressé et forcer un re-run propre.
+PIPELINE_TAG = "deskew_v1"
+PROMPT_SHA = hashlib.sha256((HARDENED + json.dumps(ocr.TXN_TOOL, sort_keys=True) + ocr.MODEL + PIPELINE_TAG).encode()).hexdigest()[:12]
 CACHE_DIR = hm.OUTDIR / "ocr_cache_echantillon"
 MAX_PAGES = 8           # cap pour le coût sur les gros docs denses (échantillon, pas run complet)
+# Tolérance d'appariement de date OCR↔Quiver. Quiver bruite la date de ±1-2 j (amendements, date de
+# saisie côté QuiverQuant) : une égalité STRICTE comptait ces écarts comme des erreurs. ±3 j ferme cet
+# artefact sans masquer les vrais misreads (queue à plusieurs semaines visible via date_delta_days).
+DATE_TOL_DAYS = 3
 
 
 def _route(n_pages):
     return (300, 1) if n_pages >= 5 else (250, 3)   # dense → DPI haut, 1 page/appel
 
 
-def _render(path, dpi, cap):
+def _render(path, dpi, cap, cli=None):
+    """Rend les pages (cap max) en PNG b64. Avec cli : détecte l'orientation de CHAQUE page (basse DPI,
+    montage 4-rotations) et la REDRESSE — détection page par page car 27 % des docs sont 'mixed' (pages
+    d'orientations différentes). Renvoie (images, angles) avec angles = liste des angles appliqués."""
     d = pymupdf.open(path)
-    imgs = [base64.b64encode(p.get_pixmap(dpi=dpi).tobytes("png")).decode() for p in d][:cap]
+    pages = list(d)[:cap]
+    imgs, angles = [], []
+    for p in pages:
+        full = base64.b64encode(p.get_pixmap(dpi=dpi).tobytes("png")).decode()
+        if cli is not None:
+            low = base64.b64encode(p.get_pixmap(dpi=ocr.ROT_DETECT_DPI).tobytes("png")).decode()
+            ang = ocr.detect_rotation(cli, low)
+        else:
+            ang = 0
+        imgs.append(ocr.rotate_b64_png(full, ang)); angles.append(ang)
     d.close()
-    return imgs
+    return imgs, angles
 
 
 def _call(cli, imgs, member, year, retries=6):
@@ -84,35 +103,29 @@ def _call(cli, imgs, member, year, retries=6):
 
 
 def _ocr_doc(rec, cli):
-    """OCR d'un doc de l'échantillon. Ordre : cache durci → repli cache principal (gratuit) → API (si crédit).
-    Ne lève jamais : si rien n'est disponible et l'API échoue, renvoie [] (le doc est juste sauté)."""
+    """OCR d'un doc de l'échantillon. Ordre : cache durci (versionné PIPELINE_TAG) → API (si crédit).
+    NOTE : le repli sur le cache OCR PRINCIPAL est volontairement désactivé ici — il contient des
+    extractions NON redressées (sideways), incompatibles avec le pipeline deskew. On ré-OCR à neuf.
+    Ne lève jamais : si l'API échoue, renvoie [] (le doc est juste sauté)."""
     y, did = str(rec["year"]), str(rec["doc_id"])
     cf = CACHE_DIR / y / f"{did}.json"; cf.parent.mkdir(parents=True, exist_ok=True)
     if cf.exists():
         o = json.loads(cf.read_text())
         if o.get("prompt_sha") == PROMPT_SHA and o.get("model") == ocr.MODEL:
             return did, o["transactions"]
-    # repli : OCR déjà présent dans le cache PRINCIPAL (2020/2026 complets, partiels) → réutilisé sans crédit
-    mc = hm.OUTDIR / "ocr_cache" / y / f"{did}.json"
-    if mc.exists():
-        try:
-            o = json.loads(mc.read_text())
-            if o.get("status") != "partial_error" and "transactions" in o:
-                return did, o["transactions"]
-        except Exception:
-            pass
-    # sinon OCR frais (peut échouer si crédit épuisé)
+    # OCR frais, redressé (peut échouer si crédit épuisé)
     try:
         path = hm.resolve_pdf_path(y, did)
         dpi, per = _route(int(rec["pages"]))
-        imgs = _render(path, dpi, MAX_PAGES)
+        imgs, angles = _render(path, dpi, MAX_PAGES, cli=cli)
         batches = [imgs[i:i + per] for i in range(0, len(imgs), per)]
         txns = []
         for b in batches:
             txns += _call(cli, b, rec["member"], int(y))
         txns = [t for t in txns if not ocr._EXAMPLE_RE.search(str(t.get("asset_description", "")))]
         cf.write_text(json.dumps({"doc_id": did, "year": y, "model": ocr.MODEL, "prompt_sha": PROMPT_SHA,
-                                  "n_pages_ocr": min(len(imgs), MAX_PAGES), "transactions": txns}, ensure_ascii=False))
+                                  "rotation_deg": angles, "n_pages_ocr": min(len(imgs), MAX_PAGES),
+                                  "transactions": txns}, ensure_ascii=False))
         return did, txns
     except Exception as e:
         print(f"  [skip {y}/{did} : {type(e).__name__}]")
@@ -141,6 +154,16 @@ def run_echantillon(verbose=True):
         raise SystemExit("ANTHROPIC_API_KEY manquante")
     hm.build_reference()
     ech = pd.read_csv(hm.TABROOT / "_ocr_echantillon.csv", dtype={"doc_id": str})
+
+    # Le cluster C (manuscrit) est une CATÉGORIE CONSERVÉE mais NON EXÉCUTÉE (cf. ocr.CLUSTERS_NON_EXECUTES) :
+    # dates OCR manuscrites peu fiables. Cet échantillon mesure la qualité A+B, donc on n'y mêle pas C.
+    # La perte Quiver-corroborée de C (concentrée sur 3 filers, cf. cross-val) se récupère via le SCALER
+    # complet (house_ocr_multiyear.FILERS_C_A_RECUPERER), pas via cet échantillon de mesure.
+    n_all = len(ech)
+    n_c = int(ech["cluster"].isin(ocr.CLUSTERS_NON_EXECUTES).sum())
+    ech = ech[~ech["cluster"].isin(ocr.CLUSTERS_NON_EXECUTES)].reset_index(drop=True)
+    if verbose:
+        print(f"  Cluster C non exécuté (catégorie conservée) : {n_c}/{n_all} docs écartés → mesure A+B sur {len(ech)}")
 
     # meta par doc (declarant/last/first/state_district/disclosure_date) depuis 03_ptr_index
     meta = {}
@@ -202,25 +225,48 @@ def run_echantillon(verbose=True):
     return df
 
 
-def compare_quiver(df):
-    """Concordance Quiver fenêtrée (par membre+année) → précision par cluster ET par année."""
+def _nearest_signed(our_ts, dates):
+    """(date Quiver la plus proche, écart signé our-quiver en jours) ; (None, None) si indéterminé."""
+    if our_ts is None or not dates:
+        return None, None
+    arr = pd.Series(dates)
+    near = arr.iloc[(arr - our_ts).abs().values.argmin()]
+    return near, int((our_ts - near).days)
+
+
+def compare_quiver(df, tol=DATE_TOL_DAYS):
+    """Concordance Quiver fenêtrée (par membre+année) → précision par cluster ET par année.
+    prec_ticker_date tolère un écart de date <= tol jours (cf. DATE_TOL_DAYS)."""
     q = hm.fetch_quiver().copy()
     q["_tk"] = q["Ticker"].astype(str).str.upper()
-    q["_ty"] = pd.to_datetime(q["traded"], errors="coerce").dt.strftime("%Y-%m-%d")
-    q["_yr"] = q["_ty"].str[:4]
+    q["_ty"] = pd.to_datetime(q["traded"], errors="coerce")
+    q["_yr"] = q["_ty"].dt.strftime("%Y-%m-%d").str[:4]
     per_doc = []
     for (did, y, cl), g in df.groupby(["doc_id", "year", "cluster"]):
         bio = g["bioguide_id"].iloc[0]
         our = [(str(tk).upper(), str(dt)) for tk, dt in zip(g["ticker"], g["transaction_date"]) if pd.notna(tk) and str(tk).strip()]
         n_tk = len(our)
         win = {str(int(y)), str(int(y) - 1)}
-        qm = q[(q["BioGuideID"] == bio) & (q["_yr"].isin(win))]
+        qbio = q[q["BioGuideID"] == bio]
+        qm = qbio[qbio["_yr"].isin(win)]
         has_gt = len(qm) > 0 and n_tk > 0
         if has_gt:
-            qtick = set(q[q["BioGuideID"] == bio]["_tk"])
-            qtd = set(zip(qm["_tk"], qm["_ty"]))
+            qtick = set(qbio["_tk"])
+            byt = {}                                          # ticker → dates Quiver fenêtrées
+            for _, r in qm.iterrows():
+                if pd.notna(r["_ty"]):
+                    byt.setdefault(r["_tk"], []).append(r["_ty"])
+            def _date_ok(tk, dt):
+                ds = byt.get(tk)
+                if not ds:
+                    return False
+                try:
+                    o = pd.Timestamp(dt)
+                except Exception:
+                    return False
+                return any(abs((o - d).days) <= tol for d in ds)
             prec_t = sum(1 for tk, _ in our if tk in qtick) / n_tk
-            prec_td = sum(1 for tk, dt in our if (tk, dt) in qtd) / n_tk
+            prec_td = sum(1 for tk, dt in our if _date_ok(tk, dt)) / n_tk
         else:
             prec_t = prec_td = None
         per_doc.append({"year": y, "cluster": cl, "doc_id": did, "n_txn": len(g), "n_ticker": n_tk,
@@ -230,10 +276,12 @@ def compare_quiver(df):
     return pd_df
 
 
-def detailed_quiver_diff(df):
+def detailed_quiver_diff(df, tol=DATE_TOL_DAYS):
     """Diff transaction par transaction contre Quiver.
     Statuts : match | ticker_ok_date_wrong | ticker_wrong | no_gt | no_ticker.
-    Écrit _ocr_echantillon_diff.csv et retourne le DataFrame."""
+    'match' tolère un écart de date <= tol jours (Quiver bruite ±1-2 j). date_delta_days = écart signé
+    (our - quiver) à la date Quiver la plus proche pour ce ticker (toutes années → révèle les confusions
+    d'année). Écrit _ocr_echantillon_diff.csv et retourne le DataFrame."""
     q = hm.fetch_quiver().copy()
     q["_tk"] = q["Ticker"].astype(str).str.upper()
     q["_ty"] = pd.to_datetime(q["traded"], errors="coerce")
@@ -246,38 +294,48 @@ def detailed_quiver_diff(df):
         win = {str(int(y)), str(int(y) - 1)}
         qm = qbio[qbio["_yr"].isin(win)]
         has_gt = len(qm) > 0
-        qtick_all = set(qbio["_tk"])
-        qtd_set = {(r["_tk"], r["_ty"].strftime("%Y-%m-%d")) for _, r in qm.iterrows() if pd.notna(r["_ty"])}
+        byt_win, byt_all = {}, {}      # ticker → dates Quiver (fenêtre / toutes années)
+        for _, r in qm.iterrows():
+            if pd.notna(r["_ty"]):
+                byt_win.setdefault(r["_tk"], []).append(r["_ty"])
+        for _, r in qbio.iterrows():
+            if pd.notna(r["_ty"]):
+                byt_all.setdefault(r["_tk"], []).append(r["_ty"])
         for _, row in g.iterrows():
             tk_raw = row.get("ticker", "")
             tk = str(tk_raw).upper().strip() if pd.notna(tk_raw) and str(tk_raw).strip() else ""
             dt_raw = row.get("transaction_date", "")
             dt = str(dt_raw) if pd.notna(dt_raw) and str(dt_raw) not in ("nan", "NaT") else ""
+            our_ts = None
+            if dt:
+                try:
+                    our_ts = pd.Timestamp(dt)
+                except Exception:
+                    our_ts = None
             base = {"doc_id": did, "year": y, "cluster": cl, "ticker": tk or None,
                     "transaction_date": dt or None, "asset_description": str(row.get("asset_description", "")),
-                    "ticker_source": str(row.get("ticker_source", "")), "quiver_date_nearest": None, "status": None}
+                    "ticker_source": str(row.get("ticker_source", "")),
+                    "quiver_date_nearest": None, "date_delta_days": None, "status": None}
             if not tk:
                 base["status"] = "no_ticker"
             elif not has_gt:
                 base["status"] = "no_gt"
-            elif (tk, dt) in qtd_set:
+            elif tk in byt_win and our_ts is not None and any(abs((our_ts - d).days) <= tol for d in byt_win[tk]):
                 base["status"] = "match"
-                base["quiver_date_nearest"] = dt
-            elif tk in qtick_all:
+                near, delta = _nearest_signed(our_ts, byt_win[tk])
+                base["quiver_date_nearest"] = near.strftime("%Y-%m-%d") if near is not None else dt
+                base["date_delta_days"] = delta
+            elif tk in byt_all:
                 base["status"] = "ticker_ok_date_wrong"
-                qtk_dates = qm[qm["_tk"] == tk]["_ty"].dropna()
-                if len(qtk_dates) and dt:
-                    try:
-                        our_ts = pd.Timestamp(dt)
-                        nearest = qtk_dates.iloc[(qtk_dates - our_ts).abs().values.argmin()]
-                        base["quiver_date_nearest"] = nearest.strftime("%Y-%m-%d")
-                    except Exception:
-                        pass
+                near, delta = _nearest_signed(our_ts, byt_all[tk])
+                if near is not None:
+                    base["quiver_date_nearest"] = near.strftime("%Y-%m-%d")
+                    base["date_delta_days"] = delta
             else:
                 base["status"] = "ticker_wrong"
             rows.append(base)
     cols = ["doc_id", "year", "cluster", "ticker", "transaction_date", "asset_description",
-            "ticker_source", "quiver_date_nearest", "status"]
+            "ticker_source", "quiver_date_nearest", "date_delta_days", "status"]
     result = pd.DataFrame(rows) if rows else pd.DataFrame(columns=cols)
     result.to_csv(hm.TABROOT / "_ocr_echantillon_diff.csv", index=False)
     return result

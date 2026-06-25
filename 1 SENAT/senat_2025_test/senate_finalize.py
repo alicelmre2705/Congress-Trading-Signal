@@ -147,6 +147,58 @@ def recover_ticker(desc):
     return m.group(1) if m else None
 
 
+# ---------------------------------------------------------------- traitement réutilisable
+def natural_key(r):
+    """SHA-256 stable d'une transaction (n'inclut pas le ticker — robuste à l'enrichissement)."""
+    raw = "|".join(str(r[c]) for c in ["chamber", "declarant_name", "transaction_date",
+                                       "asset_description", "operation_type", "amount_range", "owner"])
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def enrich(raw, ref, bio_to_committees, key_flag, match):
+    """Transforme une table électronique BRUTE (sortie de parse_electronic + métadonnées) en table
+    au schéma final : identité bioguide, enrichissement ticker, reclassement options, natural_key +
+    occurrence_index (dédup non destructrice), schéma 23 colonnes. Source unique partagée par la
+    finalisation Q1 et le pipeline multi-années (`senat_multiyear.py`)."""
+    df = raw.copy()
+    df["chamber"] = "senate"
+    # 1) identité
+    df["bioguide_id"] = df["declarant_name"].map(match)
+    df["party"] = df["bioguide_id"].map(lambda b: ref.get(b, {}).get("party"))
+    df["state_district"] = df["bioguide_id"].map(lambda b: ref.get(b, {}).get("state"))
+    df["committee_membership"] = df["bioguide_id"].map(
+        lambda b: "; ".join(sorted(bio_to_committees.get(b, []))) if b else "")
+    df["committees_key_flag"] = df["bioguide_id"].map(lambda b: bool(key_flag.get(b, False)))
+    # 2) enrichissement ticker (déterministe, aucun Quiver injecté)
+    raw_tk = df["ticker"].astype(str).str.strip().str.upper()
+    has_tick = df["ticker"].notna() & ~raw_tk.isin(["--", "NAN", "NONE", ""])
+    df["ticker"] = df["ticker"].where(has_tick, df["asset_description"].map(recover_ticker))
+    df["ticker"] = df["ticker"].astype("string").str.upper()
+    rec_final = df["asset_description"].map(recover_ticker)
+    df["ticker_source"] = "none"
+    df.loc[df["ticker"].notna(), "ticker_source"] = "explicit"
+    df.loc[df["ticker"].notna() & (rec_final == df["ticker"]), "ticker_source"] = "asset_name"
+    # 3) options (le formulaire eFD met "Stock" même pour « X CALL/PUT »)
+    opt = df["asset_description"].astype(str).str.contains(
+        r"\b(?:CALL|PUT)\b", case=False, regex=True, na=False)
+    df.loc[opt, "asset_type"] = "Option"
+    # 4) dates normalisées
+    df["transaction_date"] = pd.to_datetime(df["transaction_date"], errors="coerce").dt.date
+    df["disclosure_date"] = pd.to_datetime(df["disclosure_date"], errors="coerce").dt.date
+    # 5) natural_key + occurrence_index (lots répétés intra-rapport préservés) + dédup cross-rapport
+    df["natural_key_hash"] = df.apply(natural_key, axis=1)
+    df["amount_midpoint"] = pd.to_numeric(df["amount_midpoint"], errors="coerce")
+    df["amount_split_flag"] = False
+    df["occurrence_index"] = df.groupby(["doc_id", "natural_key_hash"]).cumcount()
+    _disc = pd.to_datetime(df["disclosure_date"], errors="coerce")
+    df = (df.assign(_disc=_disc).sort_values("_disc", ascending=False)
+            .drop_duplicates(["natural_key_hash", "occurrence_index"], keep="first")
+            .drop(columns="_disc")
+            .sort_values(["declarant_name", "transaction_date"])
+            .reindex(columns=SCHEMA))
+    return df
+
+
 # --------------------------------------------------------------------------- main
 def main():
     print("=== Finalisation Sénat Q1 2025 ===")
@@ -180,6 +232,15 @@ def main():
     df.loc[df["ticker"].notna() & (rec_final == df["ticker"]), "ticker_source"] = "asset_name"
     after = int(df["ticker"].notna().sum())
     print(f"Ticker : {after}/{n0} ({100*after/n0:.0f}%) | sources={df['ticker_source'].value_counts().to_dict()}")
+
+    # 2b) asset_type : reclasser les options ----------------------------------------
+    # Le formulaire eFD met "Stock" dans la colonne Asset Type même pour les options ;
+    # la nature option n'apparaît que dans l'Asset Name (ex. « AMAT PUT », « MU CALL »).
+    # On la récupère pour parité avec House (qui a déjà la catégorie "Option").
+    opt_mask = df["asset_description"].astype(str).str.contains(
+        r"\b(?:CALL|PUT)\b", case=False, regex=True, na=False)
+    df.loc[opt_mask, "asset_type"] = "Option"
+    print(f"asset_type : {int(opt_mask.sum())} options reclassées (CALL/PUT, ex-'Stock')")
 
     # natural_key_hash : recalcul (inchangé en pratique — n'inclut pas le ticker)
     def nk(r):
@@ -242,7 +303,16 @@ def main():
         sen[keep].to_csv(TAB / "_quiver_senate_cache.csv", index=False)
         print(f"  cache Quiver Sénat : {len(sen)} lignes → tables/_quiver_senate_cache.csv")
 
-        qwin = sen[(sen["Filed"] >= WIN_START) & (sen["Filed"] <= WIN_END)]
+        # Filtre chambre robuste : on ne garde que les BioGuideID réellement sénateurs dans
+        # notre référentiel. Quiver classe parfois « Senate » des délégués (Norton = DC, House) ;
+        # le champ Chamber de Quiver ne suffit donc pas. Évite tout faux « quiver_seul ».
+        senate_bios = {b for b, v in ref.items() if v["chamber"] == "senate"}
+        qwin_all = sen[(sen["Filed"] >= WIN_START) & (sen["Filed"] <= WIN_END)]
+        non_sen = qwin_all[~qwin_all["BioGuideID"].isin(senate_bios)]
+        qwin = qwin_all[qwin_all["BioGuideID"].isin(senate_bios)]
+        if len(non_sen):
+            print(f"  hors-chambre exclus (délégués mal classés 'Senate' par Quiver) : "
+                  f"{len(non_sen)} ligne(s) {sorted(non_sen['BioGuideID'].dropna().unique())}")
         nous = df.groupby("bioguide_id").size()
         quiv = qwin.groupby("BioGuideID").size()
         bios = sorted(set(df["bioguide_id"].dropna()) | set(qwin["BioGuideID"]),
@@ -263,8 +333,8 @@ def main():
                 verdict = "nous_plus"
             else:
                 verdict = "quiver_plus_a_verifier"
-            rows.append({"bioguide_id": b, "name": name, "nous": n, "quiver": qv,
-                         "delta": n - qv, "verdict": verdict})
+            rows.append({"bioguide_id": b, "name": name, "is_senator": b in senate_bios,
+                         "nous": n, "quiver": qv, "delta": n - qv, "verdict": verdict})
         cmp_df = pd.DataFrame(rows)
         cmp_df.to_csv(TAB / "07_quiver_comparison.csv", index=False)
         print("  comparaison par sénateur → tables/07_quiver_comparison.csv")
@@ -291,6 +361,20 @@ def main():
             TAB / "07b_quiver_ticker_gaps.csv", index=False)
         print(f"  écarts ticker-niveau (Quiver a / nous non) : {len(gaps)} "
               f"→ tables/07b_quiver_ticker_gaps.csv")
+
+        # 3b) validation enrichie (module canonique, réutilisable année par année) ----
+        # Porte les aspects couverture-txn / sens / date / montant de l'audit dans la prod.
+        import validate_quiver_sample as vq
+        rec = vq.reconcile(df, qwin)
+        rec["txn_reco"].to_csv(TAB / "07c_quiver_txn_reconciliation.csv", index=False)
+        rec["field_agreement"].to_csv(TAB / "07d_quiver_field_agreement.csv", index=False)
+        rec["ticker_per_sen"].to_csv(TAB / "07e_quiver_ticker_per_senator.csv", index=False)
+        rec["only_quiver_txn"].to_csv(TAB / "07f_quiver_only_quiver_txn.csv", index=False)
+        m = rec["txn_reco"].set_index("metric")["value"]
+        fa = rec["field_agreement"].set_index("field")["agreement_pct"]
+        print(f"  validation enrichie → 07c/07d/07e/07f | couverture txn={m['coverage_pct']}% "
+              f"| only_quiver={int(m['only_quiver'])} | sens={fa['sense']}% "
+              f"date(Traded)={fa['date_traded']}% montant={fa['amount_bucket']}%")
 
     # 4) tables annexes ----------------------------------------------------------
     # 01 référentiel complet

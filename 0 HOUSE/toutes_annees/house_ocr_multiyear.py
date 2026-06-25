@@ -11,12 +11,14 @@ Sorties : data_v1/tables/{année}/06b_house_{année}_ocr_transactions.csv + 06c_
           + 06_house_{année}_FINAL.csv (digital + OCR) + 06d_ocr_quiver_comparison.csv
 """
 import os, re, json, time, base64, hashlib, argparse
+from io import BytesIO
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
 import pymupdf
 import anthropic
+from PIL import Image
 
 import house_multiyear as hm   # référentiel, match_bioguide, resolve_pdf_path, fetch_quiver, TABROOT
 
@@ -26,12 +28,23 @@ MODEL = "claude-sonnet-4-6"
 DPI = 200
 MAX_IMG_PER_CALL = 3
 MAX_TOKENS = 16_000
+ROT_DETECT_DPI = 110    # basse résolution pour la pré-passe d'orientation (bon marché, suffisant)
 # PDF traités en parallèle. Le palier API limite les OUTPUT tokens/min : Niveau 1 = 8K (throttle),
 # Niveau 2 = 90K pour Sonnet 4.x → marge confortable. À 8 en parallèle on reste sous 90K/min ;
 # les retries renforcés absorbent les 429 ponctuels. Monter encore si tu passes Niveau 3/4.
 CONCURRENCY = 8
 
 OCR_CACHE_ROOT = hm.OUTDIR / "ocr_cache"
+
+# ── Politique de clusters OCR (cf. cross-validation Quiver du cluster C) ──────────────────────
+# Le cluster C (manuscrit) est une CATÉGORIE CONSERVÉE (tracée au census + cache) mais NON EXÉCUTÉE
+# par défaut : dates OCR manuscrites peu fiables, et la perte Quiver-corroborée — réelle — est
+# ultra-concentrée. Cross-val : ~195-203 trades Quiver distincts (filers C) absents de notre digital
+# (le brut 267 était gonflé ~25 % par les doublons natifs de Quiver), dont ~99 % sur 3 déposants
+# quasi sans aucune trace digitale. 17/30 filers C = 0 trade Quiver (perte corroborée nulle).
+# Donc : on n'exécute pas C en bloc, MAIS on récupère en ciblé les 3 filers à forte perte.
+CLUSTERS_NON_EXECUTES = {"C_manuscrit"}
+FILERS_C_A_RECUPERER = {"S001180", "L000564", "H001086"}  # Schrader, Lamborn, Harshbarger (≈99 % de la perte dure)
 
 # ───────────────────────── Constantes OCR (port cellule 7) ─────────────────────────
 AMOUNT_MAP = {
@@ -179,14 +192,73 @@ def llm_resolve_tickers(df):
     return df
 
 
+# ───────────────────────── Redressement des scans tournés (deskew) ─────────────────────────
+# 525/547 scans sont couchés (census : rotated90/180/mixed) avec page.rotation=0 et canevas portrait
+# → aucun signal métadonnée. On envoyait l'image COUCHÉE au modèle, d'où les confusions de chiffres de
+# date (« 4 » lu « 1 » sur formulaire tourné). On détecte l'angle (pré-passe Vision bon marché) puis on
+# redresse géométriquement AVANT l'extraction. Tesseract/cv2 indisponibles (venv autonome) → on s'appuie
+# sur Vision + PIL, déjà embarqués.
+ROT_CANDIDATES = [0, 90, 180, 270]   # angles horaires testés
+# Demander au modèle « de combien tourner » est une tâche spatiale peu fiable (il répond ~toujours 90).
+# On lui montre la MÊME page aux 4 rotations et on lui fait CHOISIR celle qui est droite — une tâche de
+# reconnaissance, bien plus robuste. Le numéro choisi → l'angle horaire correspondant.
+ROT_PROMPT = ("Ci-dessus la MÊME page scannée d'un formulaire « UNITED STATES HOUSE OF REPRESENTATIVES — "
+              "Periodic Transaction Report », montrée à 4 rotations (Image 1 à 4). UNE SEULE est droite : "
+              "le titre est horizontal en haut et tout le texte se lit de gauche à droite. Donne le NUMÉRO "
+              "(1, 2, 3 ou 4) de l'image parfaitement à l'endroit. Réponds par un seul chiffre.")
+
+
+def detect_rotation(client, img_b64, retries=4):
+    """Pré-passe Vision robuste : montre la page (img_b64, basse DPI) aux 4 rotations et fait choisir au
+    modèle celle qui est droite → renvoie l'angle horaire à appliquer. 0 par défaut (dégradation gracieuse
+    si l'appel échoue) — ne lève jamais, pour ne pas casser un run OCR de 70 docs."""
+    cands = [rotate_b64_png(img_b64, a) for a in ROT_CANDIDATES]
+    content = []
+    for i, c in enumerate(cands, 1):
+        content.append({"type": "text", "text": f"Image {i} :"})
+        content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": c}})
+    content.append({"type": "text", "text": ROT_PROMPT})
+    for a in range(retries):
+        try:
+            r = client.messages.create(model=MODEL, max_tokens=8,
+                                       messages=[{"role": "user", "content": content}])
+            txt = "".join(getattr(b, "text", "") for b in r.content)
+            m = re.search(r"[1-4]", txt)
+            return ROT_CANDIDATES[int(m.group()) - 1] if m else 0
+        except (anthropic.RateLimitError, anthropic.APIStatusError, anthropic.APIConnectionError):
+            if a < retries - 1:
+                time.sleep(min(2 ** a, 30)); continue
+            return 0
+    return 0
+
+
+def rotate_b64_png(img_b64, angle):
+    """Tourne une image PNG b64 de `angle` degrés HORAIRES (PIL.rotate est anti-horaire → -angle)."""
+    if angle % 360 == 0:
+        return img_b64
+    im = Image.open(BytesIO(base64.b64decode(img_b64)))
+    im = im.rotate(-angle, expand=True)
+    buf = BytesIO(); im.save(buf, format="PNG")
+    return base64.b64encode(buf.getvalue()).decode()
+
+
 # ───────────────────────── Extraction Claude Vision (port cellule 9) ─────────────────────────
-def pdf_to_b64_images(pdf_path, dpi=DPI):
+def pdf_to_b64_images(pdf_path, dpi=DPI, client=None, deskew=False):
+    """Rend les pages en PNG b64. Si deskew + client : détecte et redresse CHAQUE page (montage
+    4-rotations, basse DPI) — par page car les docs 'mixed' ont des pages d'orientations différentes.
+    Renvoie (images, angles) si deskew, sinon images."""
     doc = pymupdf.open(pdf_path)
-    out = []
+    out, angles = [], []
     for page in doc:
-        pix = page.get_pixmap(dpi=dpi)
-        out.append(base64.b64encode(pix.tobytes("png")).decode())
-    return out
+        full = base64.b64encode(page.get_pixmap(dpi=dpi).tobytes("png")).decode()
+        if deskew and client is not None:
+            low = base64.b64encode(page.get_pixmap(dpi=ROT_DETECT_DPI).tobytes("png")).decode()
+            ang = detect_rotation(client, low)
+            out.append(rotate_b64_png(full, ang)); angles.append(ang)
+        else:
+            out.append(full)
+    doc.close()
+    return (out, angles) if deskew else out
 
 class OcrError(Exception):
     pass
@@ -279,14 +351,31 @@ def natural_key_hash(row):
                     str(row.get("amount_range", "")), str(row.get("owner", ""))])
     return hashlib.sha256(key.encode()).hexdigest()
 
+# Fenêtre légale STOCK Act : un PTR se dépose dans les ~45 j suivant la transaction. On garde 75 j de
+# marge (dépôts tardifs / amendements). Une transaction APRÈS le dépôt, ou > 75 j avant, est quasi
+# certainement un misread d'année/mois → date aberrante. Indépendant de Quiver (survit en table finale).
+DATE_WINDOW_DAYS = 75
+
+def date_confidence(transaction_date, disclosure_date):
+    """'plausible' | 'implausible' selon le délai légal dépôt-transaction. 'implausible' = date à jeter
+    (n'attrape QUE les aberrations type confusion d'année ; les misreads jour/mois restent 'plausible')."""
+    t = pd.to_datetime(transaction_date, errors="coerce")
+    d = pd.to_datetime(disclosure_date, errors="coerce")
+    if pd.isna(t) or pd.isna(d):
+        return "implausible"
+    lag = (d - t).days
+    return "plausible" if 0 <= lag <= DATE_WINDOW_DAYS else "implausible"
+
 def normalize(txn, meta, year):
     code = (txn.get("amount_code") or "").upper()
     amount_range, amount_mid = AMOUNT_MAP.get(code, ("", None))
     owner_raw = txn.get("owner") or "Self"
+    disclosure = meta.get("disclosure_date", "") or txn.get("notification_date")
     r = {"bioguide_id": None, "declarant_name": meta["declarant_name"], "chamber": "house", "party": None,
          "state_district": meta.get("state_district", ""), "committee_membership": None, "committees_key_flag": None,
          "transaction_date": txn.get("transaction_date"),
-         "disclosure_date": meta.get("disclosure_date", "") or txn.get("notification_date"),
+         "disclosure_date": disclosure,
+         "date_confidence": date_confidence(txn.get("transaction_date"), disclosure),
          "ticker": None, "asset_description": txn.get("asset_description", ""), "asset_type": None,
          "operation_type": txn.get("transaction_type", ""), "amount_range": amount_range,
          "amount_midpoint": amount_mid, "amount_split_flag": False,
@@ -326,7 +415,7 @@ def _infer_asset_type(desc):
 
 SCHEMA_COLS = ["bioguide_id", "declarant_name", "chamber", "party", "state_district",
                "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
-               "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
+               "date_confidence", "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
                "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url", "natural_key_hash"]
 
 
@@ -336,8 +425,25 @@ def run_ocr_year(year, force=False):
     man = pd.read_csv(ydir / "04_download_manifest.csv", dtype={"doc_id": str})
     ptr = pd.read_csv(ydir / "03_ptr_index.csv", dtype={"doc_id": str})
     scanned = man[man["bucket"] == "non_lisible"][["doc_id"]].merge(ptr, on="doc_id", how="left")
+    # Le cluster C (CLUSTERS_NON_EXECUTES) est CONSERVÉ comme catégorie mais NON EXÉCUTÉ par défaut.
+    # On garde une EXCEPTION : les docs des filers prioritaires (FILERS_C_A_RECUPERER) restent exécutés,
+    # car ils portent ~99 % de la perte Quiver-corroborée (cf. cross-validation). Tout reste tracé au census.
+    census_path = hm.TABROOT / "_scan_census_547.csv"
+    if census_path.exists():
+        cen = pd.read_csv(census_path, dtype={"doc_id": str})
+        non_exec_ids = set(cen.loc[cen["cluster"].isin(CLUSTERS_NON_EXECUTES), "doc_id"])
+        # exception : on n'exclut PAS les docs des filers à récupérer (résolus via le déclarant du PTR)
+        if FILERS_C_A_RECUPERER and "last" in scanned.columns:
+            hm.build_reference()
+            keep = scanned["doc_id"].isin(non_exec_ids) & scanned.apply(
+                lambda r: hm.match_bioguide(r.get("last", ""), r.get("first", "")) in FILERS_C_A_RECUPERER, axis=1)
+            non_exec_ids -= set(scanned.loc[keep, "doc_id"])
+        n_before = len(scanned)
+        scanned = scanned[~scanned["doc_id"].isin(non_exec_ids)].reset_index(drop=True)
+        if n_before != len(scanned):
+            print(f"  Cluster C non exécuté : {n_before - len(scanned)} docs écartés (catégorie conservée au census)")
     cache_dir = OCR_CACHE_ROOT / str(year)
-    print(f"\n===== OCR {year} : {len(scanned)} PDF scannés =====")
+    print(f"\n===== OCR {year} : {len(scanned)} PDF scannés (A+B + filers C prioritaires) =====")
     if scanned.empty:
         return None
 
