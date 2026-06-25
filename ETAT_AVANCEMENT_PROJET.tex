@@ -1,0 +1,309 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encodage & langue (portable : pdflatex / xelatex / tectonic) ----------
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+
+% ---------- Mise en page ----------
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% ---------- Couleurs ----------
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{accentlight}{HTML}{EAF1F8}
+\definecolor{okgreen}{HTML}{2E7D32}
+\definecolor{warn}{HTML}{B25E00}
+\definecolor{todo}{HTML}{8E0B2A}
+\definecolor{greyc}{HTML}{6B6B6B}
+\definecolor{rowtint}{HTML}{F4F7FB}
+
+\hypersetup{colorlinks=true, linkcolor=accent, urlcolor=accent}
+
+% ---------- Raccourcis ----------
+\newcommand{\file}[1]{\texttt{\small #1}}
+\newcommand{\nb}[1]{\textbf{#1}}
+
+% Badges de statut
+\newcommand{\badge}[2]{\colorbox{#1}{\textcolor{white}{\scriptsize\textbf{\,#2\,}}}}
+\newcommand{\FAIT}{\badge{okgreen}{FAIT}}
+\newcommand{\ENCOURS}{\badge{warn}{EN COURS}}
+\newcommand{\AFAIRE}{\badge{todo}{\`A FAIRE}}
+\newcommand{\NA}{\textcolor{greyc}{\scriptsize ---}}
+
+% Encadré
+\newcommand{\boite}[1]{%
+  \begin{center}%
+  \fcolorbox{accent}{accentlight}{%
+    \parbox{0.95\textwidth}{\vspace{3pt}#1\vspace{3pt}}}%
+  \end{center}}
+
+\setlist[itemize]{leftmargin=1.4em,topsep=2pt,itemsep=1pt}
+
+\title{\textbf{\color{accent} Congress Trading Signal}\\[2mm]
+\large \'Etat d'avancement \& checklist structur\'ee --- pipeline \emph{data} House \& S\'enat}
+\author{}
+\date{\today}
+
+\begin{document}
+\tolerance=4000 \hbadness=4000 \setlength{\emergencystretch}{6em}
+\maketitle
+\vspace{-0.9cm}
+
+% ======================================================================
+\section*{1.\quad Objectif et cadre du projet}
+\addcontentsline{toc}{section}{1. Objectif et cadre}
+
+\noindent\textbf{But.} Construire une strat\'egie systématique de \emph{copy trading} qui réplique les
+transactions déclarées par les membres du Congrès am\'ericain (loi STOCK Act, 2012), puis la
+backtester sur le framework Ramify. Le projet se d\'eroule en \nb{4 semaines}, dont \nb{2 enti\`erement
+consacr\'ees \`a la donn\'ee} (partie la plus critique~: un backtest sur une donn\'ee mal extraite ne
+vaut rien).
+
+\boite{%
+\textbf{\color{accent}O\`u en est-on, en une phrase.}\\[2pt]
+La \nb{couche donn\'ee} est largement construite et valid\'ee sur deux p\'erim\`etres figés (\,House
+Q1~2025 et S\'enat Q1~2025\,), \'etendue au \nb{House digital 2020\,$\to$\,2026}. Restent~: l'OCR des
+scans \`a finir, l'enrichissement \nb{secteur GICS\,$\to$\,ETF} (non commenc\'e), et \nb{toute la
+partie strat\'egie + backtest} (semaines 3--4, non commenc\'ee).}
+
+\medskip
+\noindent\textbf{L\'egende des statuts.}\quad
+\FAIT{} fait et v\'erifi\'e \quad
+\ENCOURS{} commenc\'e / partiel \quad
+\AFAIRE{} non commenc\'e \quad
+\NA{} hors p\'erim\`etre actuel
+
+% ======================================================================
+\section*{2.\quad Tableau de bord global}
+\addcontentsline{toc}{section}{2. Tableau de bord global}
+
+{\renewcommand{\arraystretch}{1.35}
+\begin{longtable}{p{4.7cm} c p{8.9cm}}
+\toprule
+\textbf{Bloc / livrable} & \textbf{Statut} & \textbf{Preuve / chiffre} \\
+\midrule
+\endhead
+\multicolumn{3}{l}{\textit{\color{accent}Semaine 1 --- exploration, sourcing, architecture}}\\[2pt]
+Audit des sources \& d\'ecision d'architecture & \FAIT & House Clerk + Quiver + eFD audit\'es~; 37\,445 d\'ep\^ots / 8\,248 PTR recens\'es (2013--2026)\\
+T\'el\'echargement automatis\'e (House) & \FAIT & PDF \& index \file{ptr\_index\_\{ann\'ee\}.csv} 2013--2026, 100\,\% succ\`es\\
+Pipeline d'extraction LLM (digital) & \FAIT & Parsing PDF lisibles, rendement 99--100\,\%\\
+Pipeline d'extraction LLM (OCR scans) & \ENCOURS & Infra Claude Vision valid\'ee~; \emph{gate} de rigueur pass\'e~; scaling partiel\\
+\midrule
+\multicolumn{3}{l}{\textit{\color{accent}Semaine 2 --- nettoyage, validation, table finale}}\\[2pt]
+R\'econciliation tickers & \ENCOURS & Passe LLM nom$\to$ticker~: House 90\,\%, S\'enat 67\,\% (le reste = actifs non cot\'es, par construction)\\
+Normalisation noms / identit\'e d\'eclarant & \FAIT & Rattachement \file{BioGuideID} 100\,\% (House \& S\'enat)\\
+D\'eduplication \& r\`egles document\'ees & \FAIT & D\'edup \emph{per-lot} canonique, r\`egles \'ecrites\\
+Validation qualit\'e (dates, montants, couverture) & \ENCOURS & Validation Quiver honn\^ete (nous\,$\geq$\,Quiver)~; rapport qualit\'e d\'edi\'e \`a formaliser\\
+Table finale --- 12 champs garantis & \ENCOURS & 10/12 champs OK~; \nb{2 absents}~: \file{sector\_gics}, \file{etf\_proxy}\\
+M\'etadonn\'ees (chambre, parti, comit\'es) & \ENCOURS & Pr\'esents via \emph{congress-legislators}~; \nb{snapshot actuel}, pas \emph{point-in-time}\\
+Mapping sectoriel GICS $\to$ ETF Ramify & \AFAIRE & Aucune trace dans le code~; \`a construire (yfinance/OpenBB)\\
+Pipeline incr\'emental (mise \`a jour test\'ee) & \AFAIRE & Non d\'emontr\'e\\
+\midrule
+\multicolumn{3}{l}{\textit{\color{accent}Semaines 3--4 --- strat\'egie \& backtest}}\\[2pt]
+Strat\'egie V1 --- actions directes & \AFAIRE & R\`egle entr\'ee/sortie sp\'ecifi\'ee, non impl\'ement\'ee\\
+Strat\'egie V2 --- ETF sectoriels & \AFAIRE & D\'epend du mapping GICS\\
+S\'election annuelle des K congressmen & \AFAIRE & Crit\`ere (Sharpe / comit\'es) \`a coder\\
+Backtest sur framework Ramify & \AFAIRE & Non commenc\'e\\
+\bottomrule
+\end{longtable}}
+
+% ======================================================================
+\section*{3.\quad Checklist d\'etaill\'ee}
+\addcontentsline{toc}{section}{3. Checklist détaillée}
+
+\subsection*{3.1\quad Semaine 1 --- exploration, sourcing, architecture}
+
+\begin{itemize}
+\item[\FAIT] \textbf{Cartographie des sources primaires.} House via \file{disclosures-clerk.house.gov}
+(PDF + index XML)~; S\'enat via \file{efts.senate.gov} (PDF souvent scann\'es)~; agr\'egateurs Quiver
+\& Capitol Trades \'evalu\'es en \emph{fallback}/validation.
+\item[\FAIT] \textbf{Audit de couverture.} 14 ann\'ees (2013--2026)~: \nb{37\,445 d\'ep\^ots},
+\nb{8\,248 PTR}. Quiver~: 113\,673 transactions, 2012--2026 (licence non commerciale $\Rightarrow$
+validation/R\&D uniquement).
+\item[\FAIT] \textbf{D\'ecision d'architecture document\'ee.} Ordre de priorit\'e~: (1) House Clerk
+source primaire, (2) S\'enat eFD, (3) Quiver = fallback/validation 2014+, (4) Capitol Trades =
+v\'erification manuelle.
+\item[\FAIT] \textbf{T\'el\'echargement automatis\'e House} (PDF + index par ann\'ee), stockage
+organis\'e par source/ann\'ee/chambre, jamais re-t\'el\'echarg\'e ensuite.
+\item[\FAIT] \textbf{Pipeline LLM --- volet digital.} Extraction structur\'ee (\emph{tool\_use},
+sans \'echec silencieux)~: d\'eclarant, dates, ticker, type d'op\'eration, fourchette de montant,
+type d'actif. Convention montant = \nb{midpoint} d\'efinie.
+\item[\ENCOURS] \textbf{Pipeline LLM --- volet OCR (scans).} Claude Vision sur formulaires scann\'es.
+\emph{Census} visuel complet des \nb{547 PDF} scann\'es (3 clusters~: A tap\'e droit 13,5\,\%,
+B tap\'e tourn\'e 58,9\,\%, C manuscrit 27,6\,\%). \emph{Gate} de validation pass\'e (pr\'ecision
+ticker A\,93\,\% / B\,89\,\%). \textit{Reste}~: finir le scaling et fusionner proprement dans les
+tables finales.
+\item[\AFAIRE] \textbf{S\'enat historique.} eFD bloqu\'e par CSRF + Akamai~; 52 s\'enateurs hors
+fen\^etre de r\'etention. Q1~2025 obtenu, mais l'historique reste \`a d\'ebloquer (Playwright).
+\end{itemize}
+
+\subsection*{3.2\quad Semaine 2 --- nettoyage, validation, table finale}
+
+\begin{itemize}
+\item[\ENCOURS] \textbf{R\'econciliation tickers.} Passe LLM nom$\to$ticker (cache versionn\'e)~:
+House 46\,\%\,$\to$\,90\,\%, S\'enat 67\,\%. Les manquants restants sont \nb{conserv\'es avec flag}
+(\file{ticker\_source}), pas jet\'es --- d\'ecision document\'ee. Quiver ne sert qu'\`a \emph{auditer},
+jamais \`a remplir.
+\item[\FAIT] \textbf{Identit\'e des d\'eclarants.} Normalisation \& rattachement \file{BioGuideID}
+\nb{100\,\%} (noms compos\'es, suffixes, surnoms g\'er\'es)~; collisions homonymes r\'esolues.
+\item[\FAIT] \textbf{D\'eduplication.} Canonique \emph{per-lot} (pr\'eserve les lots identiques
+intra-PTR via \file{occurrence\_index})~; d\'edup inter-sources seulement.
+\item[\ENCOURS] \textbf{Validation qualit\'e systématique.} M\'ethode Quiver \nb{honn\^ete}
+(comparaison per-lot, par \file{BioGuideID}, exclusion des d\'eposants papier des deux c\^ot\'es)~:
+\nb{nous\,$\geq$\,Quiver} sur $\sim$95\,\% des d\'eclarants/an, vrais-absents 0,03\,\%, tous
+expliqu\'es. \textit{Reste}~: formaliser le \nb{rapport qualit\'e synth\'etique} (coh\'erence
+\file{disclosure\_date}\,$>$\,\file{transaction\_date}, d\'elai l\'egal 45\,j, distribution des
+montants, couverture par congressman, taux de positions sans sortie).
+\item[\ENCOURS] \textbf{Table finale --- 12 champs garantis.} 10/12 pr\'esents et bien remplis sur
+les pilotes figés (cf.~\S5)~; \nb{\file{sector\_gics} et \file{etf\_proxy} absents}.
+\item[\ENCOURS] \textbf{M\'etadonn\'ees de s\'election.} \file{committee\_membership} +
+\file{committees\_key\_flag} pr\'esents via \emph{unitedstates/congress-legislators}. \nb{Limite}~:
+snapshot \emph{actuel}, pas d'historique \emph{point-in-time} (n\'ecessaire pour un backtest
+historique fid\`ele)~; parti / ann\'ees-en-poste \`a compl\'eter via \file{api.congress.gov}.
+\item[\AFAIRE] \textbf{Mapping sectoriel GICS $\to$ ETF.} Pour chaque ticker~: secteur GICS dominant
+(yfinance / OpenBB) puis ETF sectoriel cible de l'univers Ramify. \`A trancher~: univers d'ETF
+cibles~; gestion des entreprises multi-secteurs.
+\item[\AFAIRE] \textbf{Pipeline incr\'emental.} Mise \`a jour simul\'ee sans relancer l'extraction
+compl\`ete~; choix du format de stockage final (CSV / SQLite / Parquet).
+\end{itemize}
+
+\subsection*{3.3\quad Semaines 3--4 --- strat\'egie \& backtest}
+
+\noindent\emph{Sp\'ecification cible (rappel, \`a impl\'ementer)~:}
+\begin{itemize}
+\item[\AFAIRE] \textbf{Entr\'ee/sortie.} Entr\'ee \`a la \file{disclosure\_date} d'un \emph{Purchase}~;
+sortie \`a la \file{disclosure\_date} du \emph{Sale} du m\^eme d\'eclarant sur le m\^eme ticker, sinon
+sortie forc\'ee \`a +12 mois.
+\item[\AFAIRE] \textbf{Version 1 --- actions directes} (signal brut, track records individuels).
+\item[\AFAIRE] \textbf{Version 2 --- ETF sectoriels} (m\^eme logique, instrument substitu\'e via le
+mapping GICS).
+\item[\AFAIRE] \textbf{S\'election annuelle des K congressmen} ($K\!\in\![4,10]$, min.\ 10 trades,
+crit\`ere robuste = Sharpe / alpha vs SPX~; filtre comit\'es Finance/D\'efense/Renseignement sur
+$\geq$\,la moiti\'e des K).
+\item[\AFAIRE] \textbf{Backtest annot\'e sur le framework Ramify}, V1 puis V2.
+\end{itemize}
+
+% ======================================================================
+\section*{4.\quad Couverture de la donn\'ee (concret)}
+\addcontentsline{toc}{section}{4. Couverture de la donnée}
+
+{\renewcommand{\arraystretch}{1.25}
+\begin{center}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Ann\'ee} & \textbf{House digital} & \textbf{House OCR (scans)} & \textbf{S\'enat} \\
+\midrule
+2013--2015 & \AFAIRE & \AFAIRE & \AFAIRE \\
+2016--2019 & \AFAIRE\ \scriptsize(lot 2) & \AFAIRE & \AFAIRE \\
+2020 & \FAIT\ \scriptsize 6\,886 & \ENCOURS & \AFAIRE \\
+2021 & \FAIT\ \scriptsize 5\,457 & \ENCOURS & \AFAIRE \\
+2022 & \FAIT\ \scriptsize 3\,601 & \ENCOURS & \AFAIRE \\
+2023 & \FAIT\ \scriptsize 4\,161 & \ENCOURS & \AFAIRE \\
+2024 & \FAIT\ \scriptsize 2\,694 & \ENCOURS & \AFAIRE \\
+2025 & \FAIT\ \scriptsize 7\,577 & \ENCOURS & \ENCOURS\ \scriptsize Q1 \\
+2026 & \FAIT\ \scriptsize 2\,300 & \ENCOURS & \AFAIRE \\
+\midrule
+\textbf{Total digital 2020--2026} & \multicolumn{3}{l}{\nb{32\,676} transactions, rendement parse 99--100\,\%} \\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\medskip
+\noindent\textbf{Deux versions figées de r\'ef\'erence} (qualit\'e valid\'ee, OCR inclus)~:
+\begin{itemize}
+\item \textbf{House Q1 2025} (\file{0 HOUSE/2025\_test/})~: \nb{2\,272} transactions, 56 d\'eclarants
+--- pilote fiable, valid\'e vs Quiver (\'electronique 99,9\,\%).
+\item \textbf{S\'enat Q1 2025} (\file{1 SENAT/senat\_2025\_test/})~: \nb{283} transactions, 17
+s\'enateurs --- identit\'e 100\,\%, nous\,$\geq$\,Quiver, 4 rapports papier en \emph{backlog} OCR.
+\end{itemize}
+
+\subsection*{Remplissage des 12 champs obligatoires (pilotes figés)}
+
+{\renewcommand{\arraystretch}{1.2}
+\begin{center}
+\begin{tabular}{l c c}
+\toprule
+\textbf{Champ obligatoire} & \textbf{House Q1 2025} & \textbf{S\'enat Q1 2025} \\
+\midrule
+\file{declarant\_name}     & 100\,\% & 100\,\% \\
+\file{chamber}             & 100\,\% & 100\,\% \\
+\file{party}               & 100\,\% & 100\,\% \\
+\file{committee\_membership}& 90\,\% & 76\,\% \\
+\file{transaction\_date}   & 100\,\% & 100\,\% \\
+\file{disclosure\_date}    & 100\,\% & 100\,\% \\
+\file{ticker}              & 90\,\% & 67\,\% \\
+\file{sector\_gics}        & \textcolor{todo}{\textbf{absent}} & \textcolor{todo}{\textbf{absent}} \\
+\file{etf\_proxy}          & \textcolor{todo}{\textbf{absent}} & \textcolor{todo}{\textbf{absent}} \\
+\file{operation\_type}     & 100\,\% & 100\,\% \\
+\file{amount\_midpoint}    & 100\,\% & 100\,\% \\
+\file{asset\_type}         & 97\,\% & 100\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}}
+
+\noindent{\small Les champs \`a 100\,\% satisfont d\'ej\`a l'exigence « sans valeurs manquantes ». Le
+\file{ticker} et \file{committee\_membership} en de\c{c}\`a de 100\,\% correspondent \`a des actifs non
+cot\'es (obligations, fonds) ou \`a des membres hors snapshot --- \nb{flagg\'es}, pas perdus. Les
+deux champs \nb{absents} (\file{sector\_gics}, \file{etf\_proxy}) sont le verrou principal restant de
+la table finale.}
+
+% ======================================================================
+\section*{5.\quad Chemin critique --- ce qui reste, par priorit\'e}
+\addcontentsline{toc}{section}{5. Chemin critique}
+
+\begin{enumerate}[leftmargin=1.8em]
+\item \textbf{Mapping sectoriel GICS $\to$ ETF} (\AFAIRE) --- \emph{bloquant pour la table finale ET
+la V2}. Ajouter \file{sector\_gics} + \file{etf\_proxy}~; trancher l'univers ETF Ramify et le cas
+multi-secteurs.
+\item \textbf{Finir l'OCR des scans} (\ENCOURS) --- scaler le pipeline gat\'e sur les 547 PDF
+(cluster C manuscrit = point dur), fusionner dans les tables \file{\_FINAL} avec validation
+stabilit\'e + spot-check.
+\item \textbf{Rapport qualit\'e synth\'etique} (\ENCOURS) --- graphiques \& stats descriptives
+(coh\'erence dates, d\'elai 45\,j, distribution montants, couverture/congressman, taux sans sortie).
+\item \textbf{M\'etadonn\'ees point-in-time} (\ENCOURS) --- historique d'appartenance aux comit\'es
+via \file{api.congress.gov} pour un backtest fid\`ele.
+\item \textbf{Pipeline incr\'emental + format de stockage final} (\AFAIRE).
+\item \textbf{\'Etendre la couverture} (\AFAIRE) --- House digital 2013--2019~; S\'enat multi-ann\'ees
+(d\'ebloquer eFD).
+\item \textbf{Strat\'egie V1, puis V2, puis s\'election K, puis backtest Ramify} (\AFAIRE) ---
+semaines 3--4.
+\end{enumerate}
+
+% ======================================================================
+\section*{6.\quad Risques \& points durs}
+\addcontentsline{toc}{section}{6. Risques \& points durs}
+
+\begin{itemize}
+\item \textbf{OCR manuscrit (cluster C, 27,6\,\%).} Concentr\'e 2020--2021~; Quiver y est mince
+$\Rightarrow$ validation = stabilit\'e run-\`a-run + spot-check manuel, pas de v\'erit\'e-terrain
+externe.
+\item \textbf{Comit\'es non \emph{point-in-time}.} Le snapshot actuel fausse un filtre de s\'election
+appliqu\'e \`a des ann\'ees pass\'ees.
+\item \textbf{Licence Quiver non commerciale.} Usage R\&D / validation uniquement, jamais comme
+source de remplissage.
+\item \textbf{S\'enat historique.} CSRF + Akamai non contourn\'es~; 52 s\'enateurs hors fen\^etre de
+r\'etention (donn\'ees irr\'ecouvrables).
+\item \textbf{Multi-secteurs en V2.} Une entreprise \`a cheval sur plusieurs GICS demande une r\`egle
+explicite de proxy ETF.
+\item \textbf{Pi\`eges de backtest} (De Prado)~: ne pas surinterpr\'eter une s\'election sur
+performance pass\'ee (overfitting), peu d'observations par personne (Grinold--Kahn).
+\end{itemize}
+
+\vfill
+\noindent{\small\textcolor{greyc}{Document g\'en\'er\'e automatiquement \`a partir de l'\'etat r\'eel
+des dossiers \file{0 HOUSE/} et \file{1 SENAT/} (comptages de lignes, taux de remplissage, dashboards
+de statut) crois\'e avec le cahier des charges des 4 semaines. Les statuts refl\`etent le contenu du
+d\'ep\^ot \`a la date ci-dessus.}}
+
+\end{document}

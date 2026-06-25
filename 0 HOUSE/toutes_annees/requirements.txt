@@ -1,0 +1,16 @@
+# Dossier autonome — créer le venv + kernel :
+#   python3.12 -m venv .venv
+#   .venv/bin/pip install -r requirements.txt
+#   .venv/bin/python -m ipykernel install --user --name jupiter-house-toutes-annees \
+#       --display-name "Jupiter House toutes_annees"
+#   cp .env.example .env   # puis renseigner ANTHROPIC_API_KEY
+anthropic==0.112.0
+pandas==3.0.3
+pdfplumber==0.11.10
+pymupdf==1.27.2.3
+python-dotenv==1.2.2
+openpyxl==3.1.5
+requests==2.34.2
+PyYAML==6.0.2
+ipykernel
+nbconvert

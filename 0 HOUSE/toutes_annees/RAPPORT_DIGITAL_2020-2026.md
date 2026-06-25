@@ -1,86 +1,68 @@
 # Rapport — Pipeline House DIGITAL, années 2020→2026
 
 > Périmètre : **PDF lisibles uniquement** (extraction texte `pdfplumber` + parser). Les PDF scannés
-> sont différés et inventoriés dans [`BACKLOG_OCR.md`](BACKLOG_OCR.md). Quiver = vérification externe.
-> Moteur : [`house_multiyear.py`](house_multiyear.py) (réutilise les PDF/index de `semaine 1/`).
+> sont traités à part (OCR, cf. [`BACKLOG_OCR.md`](BACKLOG_OCR.md)). Quiver = vérification externe.
+> Notebook : [`notebook_digital.ipynb`](notebook_digital.ipynb) ; moteur : [`house_multiyear.py`](house_multiyear.py).
+> **Dossier autonome** (PDF/index/YAML/baseline/Quiver embarqués dans `data_v1/`).
 
 ## Résultat global
 
-**32 676 transactions digitales** extraites sur 2020→2026, **rendement de parsing 99–100 %**,
-**0 dérive de format** vs la baseline `semaine 1` (superset complet chaque année).
+**32 676 transactions digitales** extraites sur 2020→2026, rendement de parsing **99–100 %**,
+**0 dérive de format** vs la baseline historique. **Concordance Quiver (niveau transaction) : 99,01 % global**,
+≥ 98 % chaque année, **9 vrais-absents sur 6 ans**.
 
-| Année | PTR | lisibles | scannés (backlog) | txns digitales | rendement | recouvr. trades Quiver* | trades vraiment manqués** |
-|---|---|---|---|---|---|---|---|
-| 2020 | 722 | 597 | 125 | 6 886 | 100 % | 61.9 % | 15 |
-| 2021 | 674 | 565 | 109 | 5 457 | 99.6 % | 74.2 % | 26 |
-| 2022 | 613 | 505 | 108 | 3 601 | 99.6 % | 35.8 % | 39 |
-| 2023 | 457 | 388 | 69 | 4 161 | 99.2 % | 43.7 % | 65 |
-| 2024 | 442 | 394 | 48 | 2 694 | 99.5 % | 35.4 % | 40 |
-| 2025 | 510 | 449 | 61 | 7 577 | 100 % | 60.1 % | 58 |
-| 2026 | 262 | 235 | 27 | 2 300 | 99.6 % | 38.6 % | 38 |
+| Année | txns digitales | déclarants | ticker % | **concordance Quiver** | vrais-absents |
+|---|---|---|---|---|---|
+| 2020 | 6 886 | 96 | 91,0 % | **99,71 %** | 0 |
+| 2021 | 5 457 | 105 | 91,1 % | **99,68 %** | 1 |
+| 2022 | 3 601 | 97 | 86,8 % | **98,88 %** | 0 |
+| 2023 | 4 161 | 88 | 86,9 % | **98,10 %** | 3 |
+| 2024 | 2 694 | 90 | 81,8 % | **98,01 %** | 2 |
+| 2025 | 7 577 | 96 | 90,5 % | **98,93 %** | 1 |
+| 2026 | 2 300 | 79 | 84,0 % | **98,64 %** | 2 |
+| **Total** | **32 676** | — | 88,6 % | **99,01 %** | **9** |
 
-\* % des trades distincts de Quiver (clé déclarant+ticker+date+type) qu'on retrouve.
-\*\* trades que Quiver a et nous pas, pour un déclarant **sans dépôt papier** (vrai candidat-manque).
+Concordance = `matched / (matched + only-Quiver)`, clé transaction `bioguide|ticker|date|opération`.
+Reproductible dans `notebook_digital.ipynb` (et `data_v1/tables/00_quiver_q1style_status.csv`).
 
-## Pourquoi le « recouvrement Quiver » paraît bas (35–74 %) — c'est trompeur
+## Méthode de validation Quiver — honnête (standard Q1 2025)
 
-Le dénominateur Quiver inclut un **énorme volume de déposants papier** qu'on ne traite pas
-(digital-only) : Rohit Khanna seul fait des centaines de trades/an et **dépose en papier**. Ces
-trades sont chez Quiver, pas chez nous → ils plombent mécaniquement le « recouvrement », mais c'est
-le **backlog OCR assumé**, pas une erreur. Métrique honnête = les *trades vraiment manqués* (dernière
-colonne) : **15–65/an**, et même ceux-ci sont en quasi-totalité des artefacts (voir plus bas).
+La métrique fiable compare **digital-vs-digital** et neutralise les artefacts :
+1. **Dédup des amendements Quiver** (`BioGuideID|Ticker|traded|Transaction`) dans la fenêtre année.
+2. **Exclusion des déposants papier** des **deux** côtés (ils relèvent du backlog OCR, pas du digital).
+3. **Cross-check `only-Quiver`** : « ticker-raté » (on a le membre+date, ticker non extrait) vs « vraiment absent ».
 
-## Validation Quiver — méthode honnête (invariante à la dédup)
+> ⚠️ Ne PAS utiliser l'ancien `quiver_coverage_pct` (35–74 %) : son dénominateur incluait les gros
+> déposants **papier** (Khanna & co), il était mécaniquement bas et **trompeur**. La bonne métrique est
+> la concordance ci-dessus.
 
-- **Comparaison per-lot** : notre canonique vs Quiver **brut** (sous-comptes des deux côtés). Erreur
-  initiale corrigée : on dédupliquait Quiver mais pas nous → faux « on a +263 » sur Lowenthal
-  (réel : 392 vs 374 Quiver brut).
-- **Recouvrement au niveau transaction** (clé `bioguide|ticker|date|type`) : indépendant de la
-  philosophie de dédup ; mesure réelle des trades couverts.
+## Les 9 vrais-absents (résiduel, tous expliqués — aucun bug d'extraction)
 
-## Anatomie des 281 « trades manqués » (2020→2026 cumulés)
-
-| Catégorie | Nombre | Vrai manque ? |
-|---|---|---|
-| Artefacts de convention Quiver (préférentielles `DUK$A`, Trésor `3.MONTH MATURE`, fonds `GLAS FUNDS`) | 173 | **Non** — on a la transaction, Quiver invente un pseudo-ticker |
-| Ticker propre mais **présent chez nous** (ticker non extrait, dans la description) | ~70 | **Non** — refinement d'extraction ticker |
-| Réellement absents (digital, non trouvés) | ~quelques dizaines | Oui (résiduel marginal) |
-
-→ Le pipeline digital est **très complet**. L'écart résiduel vs Quiver est quasi entièrement
-**méthodologique** (backlog papier + conventions ticker de Quiver), pas de la perte de données.
+Malinowski (ANIK 2020), Schrader (VRNG/ELN/MSCI 2022), Calhoun (AFRM/IBM 2024), Gottheimer (IFNNY 2025),
+Pelosi (INTC/UBER 2026). Causes : papier→OCR, dépôt post-snapshot, variante de date ±1 j, étiquetage Quiver.
+Le reste de l'écart `only-Quiver` (≈232 sur 6 ans) = **ticker-raté** (préférentielles `DUK$A`, Trésor
+`3.MONTH MATURE`, fonds), présent chez nous sans ticker boursier — cosmétique.
 
 ## Dérives de format corrigées (trouvées en validant contre Quiver)
 
-1. **Casse** des PDF pré-2021 (`[sT]`→`[ST]`, `(aos)`→`AOS`) : `ATYPE_RE`/`TICKER_RE` rendus
-   tolérants à la casse. Rendement 2020 : **84 % → 100 %**.
-2. **Pollution de descriptions** (lignes d'annotation `FILING STATUS` / `SUBHOLDING OF` en casse
-   mixte) : ajoutées à `SKIP_RE`. Descriptions propres.
-3. **MLP / « Limited Partner Interests » sans code `[XX]`** (NGL, SHLX, USAC…) : étaient comptées
-   mais ticker NULL → maintenant le ticker en continuation suffit à valider. Manques 2020 : **183 → 15**.
+1. **Casse** des PDF pré-2021 (`[sT]`→`[ST]`, `(aos)`→`AOS`) : `ATYPE_RE`/`TICKER_RE` tolérants à la casse → rendement 2020 **84 %→100 %**.
+2. **Pollution de descriptions** (`FILING STATUS`/`SUBHOLDING OF`) ajoutées à `SKIP_RE`.
+3. **MLP sans code `[XX]`** (NGL/SHLX/USAC) : un ticker en continuation suffit désormais → manques 2020 **183→15**.
 
-Parité préservée à chaque correctif : **2025 T1 reproduit exactement les 1 105 lignes** de la table
-existante (port fidèle).
+Parité préservée à chaque correctif (2025 T1 = 1 105 lignes reproduites exactement).
 
-## Déduplication (règle canonique, conforme `CLAUDE.md` décision 2)
+## Déduplication (canonique, conforme `CLAUDE.md` décision 2)
 
-Table finale = **per-lot** : on préserve les lots distincts identiques d'un même PTR (vrais doublons
-de comptes gérés, ex. Lowenthal 73× Sunrun via ses IRA Neuberger), via `occurrence_index`. La dédup
-ne retire que les vrais doublons cross-dépôt (amendements), en gardant la divulgation la plus récente.
-Une vue « per-trade » (façon Quiver) peut être dérivée en aval pour le signal, sans toucher la table
-canonique.
+Table finale **per-lot** : lots distincts identiques d'un même PTR préservés via `occurrence_index` ;
+seuls les vrais doublons cross-dépôt (amendements) sont retirés (on garde la divulgation la plus récente).
 
 ## Sorties
 
-- `data_v1/tables/{année}/06_house_{année}_transactions.csv` — table finale digitale par année.
-- `…/07_quiver_comparison.csv` (par déclarant) + `…/07b_quiver_missing_trades.csv` (trades manqués).
-- `…/08_crosscheck_semaine1.csv` — vs baseline semaine 1.
-- `data_v1/tables/00_year_status.csv` — tableau de bord consolidé.
-- `BACKLOG_OCR.md` + `data_v1/tables/00_backlog_ocr.csv` — **547 PDF scannés** (~3 137 pages,
-  ~19 $ OCR estimé), Khanna en tête (75 PDF).
+- `data_v1/tables/{année}/06_house_{année}_transactions.csv` — table digitale par année.
+- `data_v1/tables/00_quiver_q1style_status.csv` — concordance honnête (dashboard).
+- `notebook_digital.ipynb` — narration + reproduction de la concordance.
 
-## Reste à faire
+## Reste à faire (cf. [`PLAN_ATTAQUE.md`](PLAN_ATTAQUE.md))
 
-- **Packaging notebook** transparent (convention projet).
-- **Backlog OCR** (Khanna et al.) via la méthode PDF/Vision de `notebook_v1_house_2025q1_ocr.ipynb`.
-- **Lot 2 : 2016→2019** (mêmes correctifs ; formats legacy plus scannés).
-- Refinement optionnel : extraction ticker pour préférentielles/Trésor (cosmétique, sans vrai ticker).
+- **OCR** : passe LLM nom→ticker (Stage 3), notebook OCR (Stage 4), **run complet 2021-2025** (Stage 5).
+- Lot 2 : 2016→2019 (mêmes correctifs ; formats legacy plus scannés).
