@@ -68,115 +68,28 @@ name_exact = {}
 name_by_last = defaultdict(list)
 bio_to_committees = defaultdict(set)
 ref_house_key = None
+_MATCHER = None   # closure de résolution bioguide (peuplée par build_reference depuis le cœur)
 
 
 # ───────────────────────── Normalisation noms (déléguée au cœur) ─────────────────────────
 from congress_core.identity import strip_accents, norm   # noqa: E402 (source unique partagée)
 
 
-# ───────────────────────── Référentiel identité ─────────────────────────
-def _load_people():
-    """current + historical. Live d'abord ; repli sur les YAML embarqués (data_v1/reference)."""
-    try:
-        cur = SESSION.get(LEG_CURRENT, timeout=30).json()
-        try:
-            hist = SESSION.get(LEG_HISTORICAL, timeout=60).json()
-        except Exception:
-            hist = []
-        return cur, hist, "live"
-    except Exception as e:
-        import yaml
-        cur = yaml.safe_load(open(SEM1_REF / "legislators-current.yaml"))
-        try:
-            hist = yaml.safe_load(open(SEM1_REF / "legislators-historical.yaml"))
-        except Exception:
-            hist = []
-        return cur, hist, f"local-yaml ({e})"
-
-def _load_committees():
-    try:
-        committees = SESSION.get(COMMITTEES, timeout=30).json()
-        membership = SESSION.get(COMMITTEE_MEMBERSHIP, timeout=30).json()
-        return committees, membership
-    except Exception:
-        import yaml
-        committees = yaml.safe_load(open(SEM1_REF / "committees-current.yaml"))
-        membership = yaml.safe_load(open(SEM1_REF / "committee-membership-current.yaml"))
-        return committees, membership
-
-def _last_term_key(p):
-    terms = p.get("terms") or [{}]
-    end = (terms[-1] if terms else {}).get("end", "")
-    if not end:
-        return -9999
-    try:
-        return -int(str(end)[:4])
-    except ValueError:
-        return 0
-
+# ───────────────────────── Référentiel identité (chargé via congress_core) ─────────────────────────
 def build_reference():
-    global ref_universe, name_exact, name_by_last, bio_to_committees, ref_house_key
-    cur, hist, src = _load_people()
-    people = sorted(cur + hist, key=_last_term_key)
-
-    ref_rows = []
-    name_exact = {}
-    name_by_last = defaultdict(list)
-    for p in people:
-        bio = p.get("id", {}).get("bioguide")
-        if not bio:
-            continue
-        nm = p.get("name", {})
-        last, first = nm.get("last", ""), nm.get("first", "")
-        nick, mid = nm.get("nickname", ""), nm.get("middle", "")
-        full = nm.get("official_full") or f"{first} {last}".strip()
-        last_term = (p.get("terms") or [{}])[-1]
-        chamber = "house" if last_term.get("type") == "rep" else "senate"
-        ref_rows.append({
-            "bioguide_id": bio, "declarant_name": full, "last": last, "first": first,
-            "party": last_term.get("party"), "chamber": chamber,
-            "state": last_term.get("state"), "district": last_term.get("district"),
-        })
-        name_exact.setdefault((norm(last), norm(first)), bio)
-        if nick:
-            name_exact.setdefault((norm(last), norm(nick)), bio)
-        if mid:
-            name_exact.setdefault((norm(last), norm(mid)), bio)
-        full_first = full.split()[0] if full.split() else ""
-        if full_first and norm(full_first) != norm(first):
-            name_exact.setdefault((norm(last), norm(full_first)), bio)
-        name_by_last[norm(last)].append(bio)
-        if " " in last:
-            lw = last.split()[-1]
-            name_exact.setdefault((norm(lw), norm(first)), bio)
-            if mid:
-                name_exact.setdefault((norm(lw), norm(mid)), bio)
-            if full_first and norm(full_first) != norm(first):
-                name_exact.setdefault((norm(lw), norm(full_first)), bio)
-            name_by_last[norm(lw)].append(bio)
-
-    ref_universe = pd.DataFrame(ref_rows).drop_duplicates("bioguide_id").set_index("bioguide_id")
-
-    committees, membership = _load_committees()
-    code_to_name = {c["thomas_id"]: c["name"] for c in committees if "thomas_id" in c}
-    bio_to_committees = defaultdict(set)
-    for code, members in membership.items():
-        cname = code_to_name.get(code, code)
-        for mem in members:
-            if mem.get("bioguide"):
-                bio_to_committees[mem["bioguide"]].add(cname)
-
-    def committee_category(bio):
-        cs = bio_to_committees.get(bio, set())
-        for key in KEY_COMMITTEES:
-            if any(key in cn for cn in cs):
-                return key
-        return None
-
-    ref_house = ref_universe[ref_universe["chamber"] == "house"].copy()
-    ref_house["committee_category"] = [committee_category(b) for b in ref_house.index]
-    ref_house_key = ref_house[ref_house["committee_category"].notna()].copy()
-    print(f"  référentiel : {len(ref_universe)} législateurs (source: {src}) | "
+    """Peuple les globals d'identité depuis congress_core.identity (source unique, port prouvé
+    byte-identique — cf. tests/regression/test_identity.py). `ref_house_key.index` = membres en
+    commission clé (contrat préservé pour house.ocr / join_identity)."""
+    global ref_universe, name_exact, name_by_last, bio_to_committees, ref_house_key, _MATCHER
+    from congress_core.identity import load_reference, make_matcher
+    _ref = load_reference(REF_DIR, key_committees=KEY_COMMITTEES, chamber="house", live=True)
+    ref_universe = _ref.ref_universe
+    name_exact = _ref.name_exact
+    name_by_last = _ref.name_by_last
+    bio_to_committees = _ref.bio_to_committees
+    ref_house_key = pd.DataFrame(index=sorted(_ref.key_bios))   # `.index` = commission clé
+    _MATCHER = make_matcher(_ref)
+    print(f"  référentiel : {len(ref_universe)} législateurs (source: {_ref.source}) | "
           f"House commission clé : {len(ref_house_key)}")
 
 
@@ -325,57 +238,11 @@ def parse_ptr(text):
     return out
 
 
-# ───────────────────────── match_bioguide (port cellule 25) ─────────────────────────
-_TITLE_RE = re.compile(r'\b(dr|hon|rev|gen|col)\b\.?\s*', re.IGNORECASE)
-_NICKNAMES = {
-    "richard": "rick", "william": "bill", "james": "jim", "robert": "bob",
-    "michael": "mike", "joseph": "joe", "thomas": "tom", "charles": "chuck",
-    "edward": "ed", "daniel": "dan", "donald": "don", "timothy": "tim",
-    "christopher": "chris", "steven": "steve", "stephen": "steve", "benjamin": "ben",
-    "kenneth": "ken", "anthony": "tony", "matthew": "matt", "gregory": "greg",
-    "gerald": "jerry", "lawrence": "larry", "patrick": "pat", "samuel": "sam",
-    "alexander": "alex", "andrew": "andy", "nathaniel": "nate", "theodore": "ted",
-    "jacob": "jake", "jonathan": "jon", "elizabeth": "lizzie",
-}
-# suffixes honorifiques/générationnels à retirer du nom de famille
-_SUFFIX_TOKENS = {"jr", "sr", "ii", "iii", "iv", "md", "dds", "phd", "facs", "do", "esq", "mr", "mrs", "ms"}
-# irréductibles : déposants dont le nom de dépôt ne se relie pas au référentiel par règle
-_MANUAL_BIO = {("taylor", "nicholas"): "T000479"}  # "Nicholas V. Taylor" = Van Taylor
-
+# ───────────────────────── match_bioguide (délégué au cœur) ─────────────────────────
 def match_bioguide(last, first):
-    first_clean = re.sub(r'\s+', ' ', _TITLE_RE.sub(' ', first or "")).strip()
-    # mots du nom de famille, ponctuation retirée, suffixes honorifiques exclus
-    raw = re.sub(r'[.,]', ' ', (last or "")).split()
-    last_words = [w for w in raw if norm(w) and norm(w) not in _SUFFIX_TOKENS]
-    # candidats de nom : CHAQUE mot du nom composé + le nom complet nettoyé
-    last_cands = []
-    for w in last_words + ([" ".join(last_words)] if len(last_words) > 1 else []):
-        ln = norm(w)
-        if ln and ln not in last_cands:
-            last_cands.append(ln)
-    # override manuel (clé = mot de nom + 1er prénom)
-    fn0 = norm(first_clean.split()[0]) if first_clean.split() else ""
-    for lw in last_cands:
-        if (lw, fn0) in _MANUAL_BIO:
-            return _MANUAL_BIO[(lw, fn0)]
-    seen, keys = set(), []
-    for l_n in last_cands:
-        for f_str in ([first_clean] + (first_clean.split() if ' ' in first_clean else [])):
-            f_n = norm(f_str)
-            nick = _NICKNAMES.get(f_n)
-            for candidate in ([nick] if nick else []) + [f_n]:
-                k = (l_n, candidate)
-                if k not in seen:
-                    seen.add(k); keys.append(k)
-    for k in keys:
-        if k in name_exact:
-            return name_exact[k]
-    # dernier recours : un mot de nom unique au référentiel
-    for lw in last_cands:
-        cands = name_by_last.get(lw, [])
-        if len(cands) == 1:
-            return cands[0]
-    return None
+    """Délègue au matcher du cœur (congress_core.identity.make_matcher), peuplé par build_reference.
+    Surnoms, suffixes, overrides manuels (Van Taylor) : tout vit dans congress_core.identity."""
+    return _MATCHER(last, first) if _MATCHER else None
 
 
 # ───────────────────────── Index + manifeste par année ─────────────────────────
