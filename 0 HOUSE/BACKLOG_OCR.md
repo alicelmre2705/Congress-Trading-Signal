@@ -5,7 +5,7 @@
 > **Méthode prévue (ultérieure) :** OCR PDF/Vision de Claude (`claude-sonnet-4-6`, tool_use `record_transactions`), cf. `notebook_v1_house_2025q1_ocr.ipynb` qui le fait déjà pour 2025 T1.
 
 
-**Total inventorié : 564 PDF / 52 déclarants distincts.**
+**Total inventorié : 547 PDF / 52 déclarants distincts.**
 
 
 ## Volume par année
@@ -18,37 +18,36 @@
 | 2023 | 69 | 16 | 388 |
 | 2024 | 48 | 9 | 399 |
 | 2025 | 61 | 14 | 421 |
-| 2025q1 | 17 | 11 | 90 |
 | 2026 | 27 | 6 | 264 |
-| **Total** | **564** | — | **3227** |
+| **Total** | **547** | — | **3137** |
 
-_Estimation coût OCR Claude Vision ≈ 3227 pages × ~0,006 $ ≈ **19 $**._
+_Estimation coût OCR Claude Vision ≈ 3137 pages × ~0,006 $ ≈ **19 $**._
 
 
 ## Top déposants papier (priorité OCR)
 
 | Déclarant | PDF scannés | Pages |
 |---|---|---|
-| Rohit Khanna | 75 | 1543 |
-| Harold Dallas Rogers | 75 | 86 |
-| Michael T. McCaul | 72 | 460 |
+| Rohit Khanna | 73 | 1481 |
+| Harold Dallas Rogers | 73 | 84 |
+| Michael T. McCaul | 71 | 456 |
 | Kurt Schrader | 36 | 101 |
-| Charles J. "Chuck" Fleischmann | 35 | 92 |
+| Charles J. "Chuck" Fleischmann | 34 | 88 |
 | Doug Lamborn | 30 | 55 |
 | Diana Harshbarger | 25 | 247 |
 | Trey Hollingsworth | 23 | 42 |
-| Ann Wagner | 21 | 40 |
+| Ann Wagner | 20 | 38 |
 | Mike Kelly | 20 | 21 |
 | Fred Upton | 16 | 29 |
 | David Kustoff | 13 | 18 |
 | Francis Rooney | 12 | 23 |
-| Tony Wied | 12 | 20 |
 | David P. Roe | 11 | 249 |
+| Tony Wied | 10 | 17 |
 | Nicole Malliotakis | 7 | 7 |
-| Brad Sherman | 6 | 10 |
 | Scott Franklin | 6 | 15 |
-| Vicente Gonzalez | 6 | 6 |
 | Tom Cole | 5 | 6 |
+| Billy Long | 4 | 6 |
+| George Holding | 4 | 8 |
 
 ## Détail complet
 

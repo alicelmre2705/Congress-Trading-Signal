@@ -1,0 +1,1348 @@
+{
+  "doc_id": "8218560",
+  "member": "Rohit Khanna",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "e73faaeea03f",
+  "dpi": 200,
+  "n_pages": 13,
+  "created_utc": "2026-06-25T00:39:37.728053+00:00",
+  "status": "partial_error",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 3,
+      "status": "ok",
+      "n": 60
+    },
+    {
+      "batch": 1,
+      "pages": 3,
+      "status": "ok",
+      "n": 52
+    },
+    {
+      "batch": 2,
+      "pages": 3,
+      "status": "error",
+      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+    },
+    {
+      "batch": 3,
+      "pages": 3,
+      "status": "error",
+      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 50 requests per "
+    },
+    {
+      "batch": 4,
+      "pages": 1,
+      "status": "ok",
+      "n": 51
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "M&B Trust Partnership",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Visa Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "InPlex Technologies Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Agio Technology",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Snap Inc.",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Match Group Inc.",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-02-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "iShares Commodity ETF Joint USD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class C",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class C",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class C",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class C",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Galavan TLT LTG Par 1A3 to 04/07/2037",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Richard Nathanson Inc. Com Class B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Procter & Gamble Company [TNT] Com",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bank of America Corp Com Par [TNL] USD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Caravan to Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Procter & Gamble Company [TNT] Com",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TTLE, Inc. Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Hartford Financial Sports Group Com",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Compton Inc. (First) In Partial USD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "First Republic Bank Com Uites",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "First Republic Bank Com Uites",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Republic Inc. Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-13",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "App Grandchildren's Financial Trust",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-13",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-13",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-13",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-13",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Good Systems Inc. Com Class 1",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Adv Sett USD Notional LDD",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "iShares MSCI Innovation S.A. JNK Com",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Viasat Inc. Corp Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Viasat Inc. Corp Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Viasat Inc. Corp Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "American Forbes Com Inc. Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BHI Class S Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BHI Class S Com Class B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Kategoryline Com Inc. Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "American Forbes Com Inc. Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Norton Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc. Com Class C",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Public Storage Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Public Storage Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bank of America Corp Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Procter & Gamble Company [TNT] Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Procter & Gamble Company [TNT] Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MFA Platform Inc. Com Class A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Howard City FLA CITY JNT TRV 04/09/21 TD",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Small Direct Company [FLT] JNT Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Wallmart Inc. Com",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-09-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BLACKROCK INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PHILIP MORRIS INTL INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALT DISNEY COMPANY (THE) COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARTER COMMUNICATIONS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHECKOUT.COM INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CORPOT MEDICAL CARE INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-03-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN EXPRESS CO. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THE HOME DEPOT INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTODESK INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LLLUMINA INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APTIV PLC COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&1 CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIR PRODUCTS & CHEMICALS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCCORMICK & CO INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROCHIP TECHNOLOGY INCORPORATED COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIRST CLASS B EZIO CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRIER ADVISEMENT INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEAM INSTRUMENTS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IMPINJ CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SAP GLOBAL INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ATH INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ETHER CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PEGASYSTEMS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FOUNDUR INC. EFT",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNICOM SOFTWARE INC. COM CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INVACOM CORPORATION CAP CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MEDTRONIC PUBLIC LIMITED CO COMPA COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELTRONICS ARTS COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOPAC INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-05-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HELIOS TECHNOLOGIES INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IAM FILM AND COMMUNICATION CORP COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VETERINARY LIFE COMPANY COMP COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BIO RAD LABORATORIES INC. COM CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AIR PRODUCTS & CHEMICALS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARTE COMMUNICATIONS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LATTICE INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INVACOM TECHNOLOGY INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ECOR INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PIPELINE INDUSTRIES INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "POOL CORP COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARTHUR LAULAUGHTER & CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INREPORT INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TILRAY INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIRST TECHNOLOGY COMMUNICATIONS INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALMART INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ATLIMA CAPITAL COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALMART INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALMART INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALMART INC. COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-04-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NVIDIA CORPORATION CL A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-02-01",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC CAP STK CL A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-02-01",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC COM USD1.00",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-02-01",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-02-07",
+      "notification_date": "2022-02-17",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "QUALCOMM INCORPORATED CL A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ANALOG DEVICES INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC CAP STK CL A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALO ALTO NETWORKS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC COM USD1.00",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASTERCAD INCORPORATED CL A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALO ALTO NETWORKS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC COM USD1.00",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-31",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-02-03",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASTERCARD INCORPORATED COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INCORPORATED COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-26",
+      "notification_date": "2022-01-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC COM (NDT) DO",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-27",
+      "notification_date": "2022-01-27",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-01-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-01-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-01-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-24",
+      "notification_date": "2022-01-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-24",
+      "notification_date": "2022-01-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-24",
+      "notification_date": "2022-01-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-24",
+      "notification_date": "2022-01-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-24",
+      "notification_date": "2022-01-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-25",
+      "notification_date": "2022-01-25",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-25",
+      "notification_date": "2022-01-25",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-25",
+      "notification_date": "2022-01-25",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-01-20",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-01-20",
+      "amount_code": "A"
+    }
+  ]
+}
