@@ -8,3 +8,15 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Junk OS
+.DS_Store
+
+# Artefacts LaTeX (le PDF est versionné, pas les intermédiaires)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk

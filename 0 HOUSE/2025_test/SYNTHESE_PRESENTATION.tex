@@ -40,7 +40,7 @@
   \end{center}}
 
 \title{\textbf{\color{accent} Pipeline House --- Transactions boursières des représentants}\\[2mm]
-\large Pilote « Test » du 1\textsuperscript{er} trimestre 2025 --- note de synthèse}
+\large Pilote « Test » du 1\textsuperscript{er} trimestre 2025 --- synthèse complète}
 \author{}
 \date{\today}
 
@@ -50,20 +50,25 @@
 \maketitle
 \vspace{-1.0cm}
 
-\noindent\textbf{Objectif.} Extraire toutes les transactions boursières déclarées par les membres
-de la Chambre des représentants pour le 1\textsuperscript{er} trimestre 2025, à partir des PDF
-officiels du \emph{House Clerk}. Puis valider leur exactitude contre une source indépendante
-(QuiverQuant).
+% =====================================================================
+\section{Objectif \& résultat à utiliser}
+% =====================================================================
+
+\noindent\textbf{Objectif.} Extraire \emph{toutes} les transactions boursières déclarées par les
+membres de la Chambre des représentants pour le 1\textsuperscript{er} trimestre 2025, à partir des
+PDF officiels du \emph{House Clerk}, puis valider leur exactitude contre une source indépendante
+(QuiverQuant). Deux extractions complémentaires --- texte (PDF lisibles) et vision (PDF scannés) ---
+sont fusionnées en une table unique.
 
 \boite{%
 \textbf{\color{accent}Le résultat à utiliser.}\\[2pt]
 $\bullet$ \file{data\_v1/tables/06\_house\_2025q1\_transactions\_FINAL.csv} --- la table complète :
 \nb{2\,272 transactions} (1\,105 électroniques + 1\,167 OCR).\\
 $\bullet$ \file{data\_v1/tables/house\_2025q1\_FINAL.xlsx} --- même contenu + onglets synthèse,
-validation et QA (version portable).}
+validation et QA (rendu portable).}
 
 \tableofcontents
-\vspace{4mm}
+\vspace{2mm}
 
 % =====================================================================
 \section{Vue d'ensemble}
@@ -121,9 +126,10 @@ PDF lisibles / scannés & 100 / 17 \\
 Représentants uniques & 66 \\
 \textbf{Transactions finales} & \textbf{2\,272} \\
 \quad dont électroniques / OCR & 1\,105 / 1\,167 \\
-Couverture \texttt{ticker} & 67,7\,\% \\
+Couverture \texttt{ticker} & 90,4\,\% \\
 Couverture \texttt{asset\_type} & 97,2\,\% \\
-Volume déclaré (mi-fourchette) & $\approx$ 107 M\$ \\
+Montant renseigné & 99,96\,\% (1 ligne manquante) \\
+Volume déclaré (mi-fourchette) & $\approx$ 107\,016\,376\,\$ \\
 Période (date de transaction) & 25/11/2024 $\to$ 25/03/2025 \\
 Échecs d'extraction & \textcolor{okgreen}{\textbf{0}} \\
 \bottomrule
@@ -142,8 +148,8 @@ Période (date de transaction) & 25/11/2024 $\to$ 25/03/2025 \\
 \section{D'où viennent les données}
 % =====================================================================
 
-Quatre sources. \textbf{Trois servent à construire les données} ; \textbf{une seule sert à
-valider} (QuiverQuant n'est jamais utilisé pour extraire).
+Quatre sources. \textbf{Trois construisent les données} ; \textbf{une seule valide} (QuiverQuant
+n'est jamais utilisé pour extraire ni pour remplir un champ).
 
 \begin{center}
 \begin{tabular}{@{}p{3.3cm} p{4.3cm} >{\raggedright\arraybackslash}p{6.9cm}@{}}
@@ -153,22 +159,23 @@ valider} (QuiverQuant n'est jamais utilisé pour extraire).
 House Clerk --- ZIP annuel & Index XML de tous les PTR & \nolinkurl{disclosures-clerk.house.gov/.../2025FD.zip} \\
 House Clerk --- PDF & Les 117 PTR (le contenu) & \nolinkurl{.../ptr-pdfs/2025/{doc_id}.pdf} \\
 unitedstates.github.io & Référentiel des élus (identité, parti, comités) & Fichiers JSON \texttt{legislators} / \texttt{committees} \\
-QuiverQuant (API) & \textbf{Validation seulement} & \nolinkurl{api.quiverquant.com/beta/bulk/congresstrading} \\
+QuiverQuant (API + extrait local) & \textbf{Validation seulement} & \nolinkurl{api.quiverquant.com/beta/bulk/congresstrading} ; copie \file{data\_v1/external/} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 % =====================================================================
-\section{Le pipeline en 2 étapes}
+\section{Le pipeline en détail}
 % =====================================================================
 
 \subsection*{En amont (commun aux deux étapes)}
 \begin{enumerate}
   \item Construire le référentiel des élus (bioguide, parti, comités clés) $\to$
-        \file{01\_ref\_universe.csv} (12\,767) et \file{02\_ref\_house\_key.csv} (126).
+        \file{01\_ref\_universe.csv} (12\,767) et \file{02\_ref\_house\_key.csv} (126 ; comités
+        Financial / Armed / Intelligence).
   \item Télécharger l'index des PTR et filtrer la fenêtre T1 2025 $\to$ \file{03\_ptr\_index.csv} (117).
   \item Télécharger chaque PDF, tester s'il contient du texte (\texttt{has\_text}), et le trier :
-        \textbf{lisible} ou \textbf{scanné} $\to$ \file{04\_download\_manifest.csv} (117).
+        \textbf{lisible} ou \textbf{scanné} $\to$ \file{04\_download\_manifest.csv} (117 $\to$ 100 / 17).
 \end{enumerate}
 
 \subsection{Étape 1 --- PDF électroniques (lisibles)}
@@ -182,24 +189,32 @@ QuiverQuant (API) & \textbf{Validation seulement} & \nolinkurl{api.quiverquant.c
 \textbf{Résultat :} \file{06\_house\_2025q1\_transactions.csv} --- \nb{1\,105 transactions}.
 \textbf{0 échec} de parsing (\file{05\_parse\_failures.csv} vide).
 
-\subsection{Étape 2 --- PDF scannés (OCR) + fusion}
-\textbf{17 PDF} sans texte (images). Lus par \textbf{Claude Vision}.
+\subsection{Étape 2 --- PDF scannés (OCR), enrichissement et fusion}
+\textbf{17 PDF} sans texte (images), lus par \textbf{Claude Vision} (\texttt{claude-sonnet-4-6}).
 \begin{itemize}
-  \item Chaque PDF $\to$ images $\to$ lecture par lots ; \textbf{sortie structurée forcée}
-        (\texttt{tool\_use}, champs validés) --- pas de JSON fragile dans du texte.
+  \item Chaque PDF $\to$ images (DPI 200) $\to$ lecture par lots ; \textbf{sortie structurée forcée}
+        (\texttt{tool\_use} sur \texttt{record\_transactions}, champs validés) --- pas de JSON fragile.
   \item \textbf{Cache versionné} (par \texttt{doc\_id} + empreinte du prompt) : un re-run sans
         changement ne rappelle pas l'API (gratuit).
   \item \textbf{Filtre de la ligne-exemple} pré-imprimée sur les formulaires (« Example Mega Corp »),
         écartée systématiquement.
-  \item \textbf{Enrichissement} : \texttt{ticker} (depuis le nom, ou dictionnaire bâti sur l'étape 1)
-        et \texttt{asset\_type} ; traçabilité via \texttt{ticker\_source}.
-  \item \textbf{Déduplication inter-sources uniquement} : les répétitions réelles d'un même
-        déposant (vrais trades répétés) sont conservées.
+  \item \textbf{Enrichissement \texttt{ticker} en 3 passes tracées} (\texttt{ticker\_source}) :
+        \texttt{explicit} (présent dans le nom), \texttt{elec\_dict} (dictionnaire bâti sur les lignes
+        électroniques tickées), puis \textbf{passe LLM} (Claude nom$\to$ticker, sortie structurée,
+        cache versionné \file{ticker\_llm\_cache.json} ; \nb{228 / 310} noms résolus) ; plus
+        \texttt{asset\_type} par règles.
+  \item \textbf{Déduplication inter-sources uniquement} : les répétitions réelles intra-OCR
+        (vrais trades répétés) sont conservées.
 \end{itemize}
-\textbf{Résultats :}
-\file{06b\_house\_2025q1\_ocr\_transactions.csv} (1\,167) puis \textbf{fusion} $\to$
-\file{06\_house\_2025q1\_transactions\_FINAL.csv} --- \nb{2\,272 transactions}.
-\textbf{0 échec} de lot (\file{06c\_ocr\_failures.csv} vide).
+\textbf{Résultats :} \file{06b\_house\_2025q1\_ocr\_transactions.csv} (1\,167) puis \textbf{fusion}
+$\to$ \file{06\_house\_2025q1\_transactions\_FINAL.csv} --- \nb{2\,272 transactions}.
+\textbf{0 échec} de lot (\file{06c\_ocr\_failures.csv} vide) ; packaging \file{house\_2025q1\_FINAL.xlsx}.
+
+\boite{%
+\textbf{\color{accent}La passe LLM ticker, en bref.} Le dictionnaire électronique plafonnait la
+couverture ticker OCR à 46\,\% (il ne connaît que les noms déjà tradés en électronique). La passe LLM
+résout les grandes valeurs cotées absentes du dictionnaire $\to$ \textbf{OCR 46\,\% $\to$ 90\,\%},
+auditée à \textbf{93\,\%} contre Quiver. Quiver n'est jamais utilisé pour remplir le ticker.}
 
 % =====================================================================
 \section{Statistiques de sortie}
@@ -213,15 +228,18 @@ QuiverQuant (API) & \textbf{Validation seulement} & \nolinkurl{api.quiverquant.c
 \midrule
 Transactions totales & 2\,272 \\
 \quad électroniques / OCR & 1\,105 / 1\,167 \\
-\texttt{ticker} (global) & 1\,538 / 2\,272 = 67,7\,\% \\
-\quad dont électronique & $\approx$ 90\,\% \\
-\quad dont OCR & 540 / 1\,167 = 46\,\% \\
+\texttt{ticker} (global) & 2\,053 / 2\,272 = 90,4\,\% \\
+\quad dont électronique & 998 / 1\,105 $\approx$ 90\,\% \\
+\quad dont OCR & 1\,055 / 1\,167 = 90,4\,\% \\
 \texttt{asset\_type} (global) & 2\,208 / 2\,272 = 97,2\,\% \\
-Montant renseigné & $\approx$ 100\,\% (1 ligne manquante) \\
+Montant renseigné & 2\,271 / 2\,272 = 99,96\,\% \\
 Volume total ($\Sigma$ mi-fourchette) & 107\,016\,376\,\$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\noindent\footnotesize\emph{\texttt{ticker\_source} (côté OCR, 1\,167) :
+\texttt{explicit} 23 $\cdot$ \texttt{elec\_dict} 517 $\cdot$ \texttt{llm} 515 $\cdot$ \texttt{none} 112.}\normalsize
 
 \subsection*{Répartition par type d'opération}
 \begin{center}
@@ -259,18 +277,17 @@ April McClain Delaney & 37 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\noindent\footnotesize\emph{Note : Khanna pèse à lui seul $\approx$ 46\,\% du total (1\,036 / 2\,272),
-entièrement via OCR. C'est un cas réel, pas une anomalie (voir section~5).}\normalsize
+\noindent\footnotesize\emph{Note : Khanna pèse à lui seul $\approx$ 45,6\,\% du total (1\,036 / 2\,272),
+entièrement via OCR. C'est un cas réel (confirmé par Quiver et par contrôle visuel page à page),
+pas une anomalie --- voir section~\ref{sec:limites}.}\normalsize
 
 % =====================================================================
 \section{Validation contre QuiverQuant}
 % =====================================================================
 
-\textbf{Quiver, c'est quoi ?} QuiverQuant est une base \textbf{indépendante} qui recense les mêmes
-transactions du Congrès. Elle sert ici d'\textbf{arbitre} : nos chiffres sont-ils justes et complets ?
-
-\textbf{Méthode.} Comparaison \textbf{par déposant} (nous \emph{vs} Quiver). Fenêtre alignée sur la
-\emph{date de divulgation} (sinon on comparerait des périodes différentes).
+\textbf{Quiver, c'est quoi ?} Une base \textbf{indépendante} qui recense les mêmes transactions du
+Congrès. Elle sert ici d'\textbf{arbitre} : nos chiffres sont-ils justes et complets ? Comparaison
+\textbf{par déposant}, fenêtre alignée sur la \emph{date de divulgation}.
 
 \subsection*{Côté électronique (56 déposants comparés)}
 \begin{center}
@@ -287,8 +304,8 @@ Total transactions --- Quiver & 980 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\noindent Quelques exemples : Bresnahan 235/234 ($+1$) $\cdot$ Gottheimer 186/182 ($+4$) $\cdot$
-M.\,T.\,Greene 65/59 ($+6$) $\cdot$ Tim Moore 46/31 ($+15$) $\cdot$ Julie Johnson 99/99 ($0$).
+\noindent Exemples : Bresnahan 235/234 $\cdot$ Gottheimer 186/182 $\cdot$
+M.\,T.\,Greene 65/59 $\cdot$ Tim Moore 46/31 $\cdot$ Julie Johnson 99/99.
 
 \subsection*{Côté OCR (10 déposants concernés)}
 \begin{center}
@@ -301,7 +318,7 @@ Michael T. McCaul & 1 & 82 & 56 & OCR $\ge$ Quiver \\
 Chuck Fleischmann & 1 & 21 & 13 & OCR $\ge$ Quiver \\
 Tony Wied & 2 & 11 & 4 & OCR $\ge$ Quiver \\
 Keith Self & 1 & 5 & 0 & Quiver sans donnée \\
-Vicente Gonzalez & 1 & 3 & 0 & Quiver sans donnée \\
+Vicente Gonzalez & 2 & 3 & 0 & Quiver sans donnée \\
 Brad Sherman & 3 & 3 & 0 & Quiver sans donnée \\
 Gus Bilirakis & 1 & 2 & 0 & Quiver sans donnée \\
 Adrian Smith & 1 & 2 & 0 & Quiver sans donnée \\
@@ -310,25 +327,43 @@ Ann Wagner & 1 & 2 & 0 & Quiver sans donnée \\
 \end{tabular}
 \end{center}
 
+\subsection*{Audit de la passe LLM ticker (\file{06e\_ticker\_llm\_audit.csv})}
+Sur 500 tickers LLM rapprochables d'un couple (déposant, nom) de Quiver : \textbf{466 concordants
+= 93\,\%}. Les 34 écarts sont en majorité des \textbf{artefacts Quiver} (parts préférentielles
+\texttt{-PA/-PG}, société voisine : AIG/AFG, VRTX/VERX) où notre ticker d'action ordinaire est le bon.
+
 \boite{%
 \textbf{\color{accent}À retenir.} \textbf{Aucun cas} où Quiver a \emph{plus} de transactions que nous
 (ni en électronique, ni en OCR). Là où nous avons plus, vérification visuelle faite : c'est
-\textbf{Quiver qui sous-recense} les dépôts papier denses (et fusionne des trades répétés réels).
-\textbf{0 échec d'extraction} ; \textbf{1 seule anomalie} signalée (Bilirakis, montant illisible).}
+\textbf{Quiver qui sous-recense} les dépôts papier denses. \textbf{0 échec d'extraction} ;
+\textbf{1 seule anomalie} QA signalée (Bilirakis, montant illisible).}
 
 % =====================================================================
 \section{Limites connues (honnêteté)}
+\label{sec:limites}
 % =====================================================================
 
 \begin{itemize}
-  \item \textbf{Gonzalez} : 1 transaction (TESLA, vente du 17/03/25) \textbf{manquée} sur un
-        formulaire très pâle. Quiver = 0 sur ce déposant, donc pas de référence externe.
-  \item \textbf{Bilirakis} : 1 ligne (« GE Vernova ») avec montant/date illisibles. Conservée mais
-        incomplète --- c'est le seul drapeau QA.
-  \item \textbf{Ticker OCR plafonné à 46\,\%} : limite du dictionnaire électronique + fautes de
-        lecture OCR sur certains noms.
-  \item \textbf{Surplus Khanna} ($+280$ vs Quiver) : cohérent avec les contrôles visuels, mais
-        \textbf{non audité ligne à ligne} (formulaire de 34 pages).
+  \item \textbf{Gonzalez --- 1 PTR sur 2 manqué.} Il a déposé \textbf{deux} PTR scannés. Le doc
+        \texttt{8220796} est bien capté (3 transactions : HSBC, et TESLA acheté les 01/03 et 12/03).
+        Le doc \texttt{8220809} est un \textbf{formulaire très pâle} : le modèle n'a lu que la
+        \emph{ligne-exemple} (filtrée) $\to$ \textbf{0 ligne} extraite, sa transaction réelle (vente
+        TESLA $\approx$ 17/03) est \textbf{manquée}. Quiver = 0 sur ce déposant, donc pas de référence externe.
+  \item \textbf{Bilirakis.} 1 ligne (« GE Vernova », doc \texttt{8220747}) avec montant et date
+        illisibles. Conservée mais incomplète --- \textbf{c'est le seul drapeau QA} de tout le pipeline.
+  \item \textbf{\texttt{asset\_type} non harmonisé.} Le champ est rempli à 97,2\,\%, mais
+        \textbf{hétérogène entre sources} : côté électronique, $\approx$ 39 lignes portent les
+        \emph{codes bruts} du formulaire (\texttt{CT} = crypto comme Ethereum / mèmecoins,
+        \texttt{CS} = notes corporate ou titres adossés, \texttt{HN} / \texttt{PS} / \texttt{OL}),
+        non normalisés vers les libellés (\texttt{Stock}, \texttt{Mutual Fund}, \dots).
+  \item \textbf{Ticker OCR résiduel ($\approx$ 10\,\%).} Les noms laissés vides sont des actifs
+        \textbf{non cotés} (produits structurés, perpétuelles, options) ou des noms trop dégradés par
+        l'OCR --- laissés vides à dessein, jamais devinés.
+  \item \textbf{47 doublons exacts (Khanna), conservés.} Ses déclarations couvrent plusieurs
+        \textbf{trusts familiaux} (Ahuja/Khanna) passant le même ordre le même jour, tous codés sous le
+        même propriétaire $\to$ la même clé apparaît légitimement N fois (réel, confirmé page à page :
+        Salesforce 27/02 ×4). Dédupliquer serait \textbf{destructeur} ; une minorité d'artefacts OCR
+        subsistent, non séparables automatiquement ($\approx$ 0,1--0,5\,\%, confinés à Khanna).
 \end{itemize}
 
 % =====================================================================
@@ -344,31 +379,73 @@ Ann Wagner & 1 & 2 & 0 & Quiver sans donnée \\
   \item \textbf{Opération \& montant (4)} : \texttt{operation\_type, amount\_range,
         amount\_midpoint, amount\_split\_flag}.
   \item \textbf{Traçabilité (6)} : \texttt{owner, doc\_id, source\_url, natural\_key\_hash},
-        \texttt{provenance} (\texttt{electronic} ou \texttt{ocr}),
-        \texttt{ticker\_source} (origine du ticker OCR).
+        \texttt{provenance} (\texttt{house-pdf-electronic} ou \texttt{house-pdf-ocr}),
+        \texttt{ticker\_source} (\texttt{explicit} / \texttt{elec\_dict} / \texttt{llm} /
+        \texttt{none} ; vide pour les lignes électroniques).
 \end{itemize}
 
 % =====================================================================
-\section{Fichiers \& reproductibilité}
+\section{Reproductibilité \& fichiers}
 % =====================================================================
 
+\subsection*{Environnement autonome}
+Tout est contenu dans le dossier \file{2025\_test/} :
 \begin{itemize}\raggedright
-  \item \textbf{À utiliser} : \file{06\_house\_2025q1\_transactions\_FINAL.csv} $\cdot$
-        \file{house\_2025q1\_FINAL.xlsx}.
-  \item \textbf{Étapes} : \file{notebook\_v1\_house\_2025q1.ipynb} (électronique) $\cdot$
-        \file{notebook\_v1\_house\_2025q1\_ocr.ipynb} (OCR + fusion).
-  \item \textbf{Validation / QA} : \file{07\_quiver\_comparison.csv} (élec, 56) $\cdot$
-        \file{06d\_ocr\_quiver\_comparison.csv} (OCR, 10) $\cdot$ \file{06c\_ocr\_qa\_flags.csv} (1).
-  \item \textbf{Marqueurs « 0 échec »} (fichiers vides = succès attendu) :
-        \file{05\_parse\_failures.csv} $\cdot$ \file{06c\_ocr\_failures.csv}.
-  \item \textbf{Environnement} : \file{semaine 1/.venv} (kernel \texttt{jupiter-house-ocr}) ;
-        clés \texttt{ANTHROPIC\_API\_KEY} + \texttt{QUIVER\_API\_KEY}.
+  \item \file{.venv} local + kernel \texttt{jupiter-house-2025test} (via \file{requirements.txt} :
+        \texttt{anthropic 0.112.0}, \texttt{pandas 3.0.3}, \texttt{pdfplumber 0.11.10},
+        \texttt{pymupdf 1.27.2.3}, \texttt{python-dotenv 1.2.2}, \texttt{openpyxl 3.1.5},
+        \texttt{requests 2.34.2}, + \texttt{ipykernel} / \texttt{nbconvert}).
+  \item Clés dans \file{.env} local (\texttt{ANTHROPIC\_API\_KEY} + \texttt{QUIVER\_API\_KEY} ;
+        gabarit \file{.env.example}).
+  \item Quiver embarqué : \file{data\_v1/external/quiver\_congress\_trading\_2025.csv}.
+  \item Chemins ancrés par \texttt{BASE\_DIR} (indépendant du répertoire de lancement).
 \end{itemize}
+
+\subsection*{Comment relancer}
+\begin{enumerate}
+  \item \textbf{Étape 1} : \file{notebook\_v1\_house\_2025q1.ipynb} (électronique) $\to$
+        référentiels, index, téléchargement/tri, parsing texte ($06$, $07$).
+  \item \textbf{Étape 2} : \file{notebook\_v1\_house\_2025q1\_ocr.ipynb} (OCR) $\to$ extraction vision,
+        enrichissement (dont passe LLM ticker), fusion $\to$ \file{\dots\_FINAL.csv}, validation
+        ($06d$), audit ($06e$), \file{house\_2025q1\_FINAL.xlsx}.
+\end{enumerate}
+Les caches (\file{data\_v1/ocr\_cache/}, \file{data\_v1/ticker\_llm\_cache.json}) sont versionnés :
+sans changement de prompt, le re-run est gratuit (aucun appel API).
+
+\subsection*{Carte des fichiers (\file{data\_v1/})}
+\begin{center}
+\begin{tabular}{@{}p{6.6cm} >{\raggedright\arraybackslash}p{7.6cm}@{}}
+\toprule
+\textbf{Fichier} & \textbf{Rôle} \\
+\midrule
+\file{tables/01\_ref\_universe.csv} (12\,767) & Tous les législateurs (lookup bioguide) \\
+\file{tables/02\_ref\_house\_key.csv} (126) & Membres des comités clés \\
+\file{tables/03\_ptr\_index.csv} (117) & Index des PTR T1 2025 \\
+\file{tables/04\_download\_manifest.csv} (117) & Téléchargement + \texttt{has\_text} (lisible/scanné) \\
+\file{tables/05\_parse\_failures.csv} & PDF lisibles non parsés --- \textbf{vide = 0 échec} \\
+\file{tables/06\_house\_2025q1\_transactions.csv} (1\,105) & Transactions électroniques \\
+\file{tables/06b\_…ocr\_transactions.csv} (1\,167) & Transactions OCR \\
+\file{tables/06\_…transactions\_FINAL.csv} (2\,272) & \textbf{Table complète (à utiliser)} \\
+\file{tables/house\_2025q1\_FINAL.xlsx} & Classeur Excel (transactions + synthèse + validation + QA) \\
+\file{tables/06c\_ocr\_failures.csv} & Échecs OCR --- \textbf{vide = 0} \\
+\file{tables/06c\_ocr\_qa\_flags.csv} (1) & Anomalies de cohérence OCR \\
+\file{tables/06d\_ocr\_quiver\_comparison.csv} (10) & Comparaison OCR $\leftrightarrow$ Quiver \\
+\file{tables/06e\_ticker\_llm\_audit.csv} (500) & Audit des tickers LLM $\leftrightarrow$ Quiver \\
+\file{tables/07\_quiver\_comparison.csv} (56) & Comparaison électronique $\leftrightarrow$ Quiver \\
+\file{pdfs/lisibles\_parses/} (100) $\cdot$ \file{non\_lisibles/} (17) & PDF source \\
+\file{ocr\_cache/} (17) $\cdot$ \file{ticker\_llm\_cache.json} & Caches versionnés \\
+\file{external/quiver\_congress\_trading\_2025.csv} & Quiver embarqué (validation/audit) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent\footnotesize Les fichiers/dossiers \textbf{vides} (\file{05\_parse\_failures.csv},
+\file{06c\_ocr\_failures.csv}) sont des \textbf{marqueurs « 0 échec »} --- résultat attendu, pas du
+bruit.\normalsize
 
 \boite{%
-\textbf{\color{accent}Message à retenir en une ligne.} Pipeline complet sur le T1 2025
-(117 PTR $\to$ 2\,272 transactions), \textbf{double extraction} (texte + OCR vision),
-\textbf{0 échec}, et \textbf{validé} contre une source indépendante : nos données sont
-\textbf{au moins aussi complètes que Quiver partout}.}
+\textbf{\color{accent}Message en une ligne.} Pipeline complet sur le T1 2025
+(117 PTR $\to$ 2\,272 transactions), \textbf{double extraction} (texte + OCR vision) + \textbf{passe
+LLM ticker} (couverture $\to$ 90\,\%), \textbf{0 échec}, et \textbf{validé} contre une source
+indépendante : nos données sont \textbf{au moins aussi complètes que Quiver partout}.}
 
 \end{document}
