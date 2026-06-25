@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-TABLES = REPO / "0 HOUSE" / "toutes_annees" / "data_v1" / "tables"
+TABLES = REPO / "data" / "house" / "tables"
 sys.path.insert(0, str(REPO))
 from congress_core.schema import natural_key_hash, NATURAL_KEY_FIELDS
 

@@ -15,9 +15,9 @@ from pathlib import Path
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-ENGINE = REPO / "0 HOUSE" / "toutes_annees"
-TABLES = ENGINE / "data_v1" / "tables"
-REF_DIR = ENGINE / "data_v1" / "reference"
+ENGINE = REPO / "data" / "house"
+TABLES = ENGINE / "tables"
+REF_DIR = ENGINE / "reference"
 sys.path.insert(0, str(ENGINE))
 sys.path.insert(0, str(REPO))
 YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]

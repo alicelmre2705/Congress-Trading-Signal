@@ -8,7 +8,7 @@ import sys, json, glob
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-ENGINE = REPO / "0 HOUSE" / "toutes_annees"
+ENGINE = REPO / "data" / "house"
 sys.path.insert(0, str(ENGINE))
 sys.path.insert(0, str(REPO))
 
@@ -25,7 +25,7 @@ def main():
     # Distribution des prompt_sha dans le cache (informational). L'invariant de la refonte = la
     # formule prompt_sha préservée (ci-dessus). Un cache portant un AUTRE sha est une condition
     # PRÉEXISTANTE (docs OCR-isés avec un prompt antérieur), indépendante de l'extraction du moteur.
-    caches = glob.glob(str(ENGINE / "data_v1" / "ocr_cache" / "*" / "*.json"))
+    caches = glob.glob(str(ENGINE / "ocr_cache" / "*" / "*.json"))
     shas, stale = {}, []
     for f in caches:
         try:

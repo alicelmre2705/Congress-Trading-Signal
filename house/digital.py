@@ -32,14 +32,11 @@ except Exception:
 # Aucune dépendance à 'semaine 1' : PDF/index/YAML/baseline/Quiver sont embarqués dans data_v1/.
 HERE = Path(__file__).resolve().parent           # <repo>/house
 REPO = HERE.parent                                # racine du dépôt
-# Transitoire : les données ne sont PAS encore déplacées (Phase 7 = data/house/). On pointe donc
-# explicitement vers l'emplacement actuel — une seule ligne à changer le jour du git mv des données.
-BASE_DIR = REPO / "0 HOUSE" / "toutes_annees"
-load_dotenv(BASE_DIR / ".env")
+OUTDIR = REPO / "data" / "house"                  # données (Phase 7 : data/house/)
+BASE_DIR = OUTDIR
+load_dotenv(REPO / ".env")
 if not os.getenv("ANTHROPIC_API_KEY"):
     load_dotenv()  # repli : .env ailleurs dans l'arbre
-
-OUTDIR  = BASE_DIR / "data_v1"
 TABROOT = OUTDIR / "tables"
 TABROOT.mkdir(parents=True, exist_ok=True)
 

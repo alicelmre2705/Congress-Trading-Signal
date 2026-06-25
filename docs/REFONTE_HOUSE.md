@@ -33,9 +33,9 @@ tests/regression/       FILET « zéro changement » (golden 93 fichiers + preuv
 pyproject.toml          package installable (pip install -e .)
 ```
 
-> **Données** : actuellement sous `0 HOUSE/toutes_annees/data_v1/` (déjà committées, golden).
-> Leur déplacement cosmétique vers `data/house/` est la dernière étape (Phase 7), à faire en
-> supervisé (relocalisation de centaines de Mo + repointage de chemins, sans valeur fonctionnelle).
+> **Données** : sous `data/house/` (`tables/`, `pdfs/`, `index/`, `reference/`, `ocr_cache/`) —
+> déplacées en Phase 7 (git mv, intégrité vérifiée : `check_golden` = zéro écart). Le code y accède
+> via `house.digital.OUTDIR`. (`0 HOUSE/toutes_annees/` ne garde plus que le venv + anciens notebooks.)
 
 ## 3. Vérification « zéro changement »
 
