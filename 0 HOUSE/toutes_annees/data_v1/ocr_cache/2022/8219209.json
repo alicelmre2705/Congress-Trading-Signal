@@ -2,32 +2,34 @@
   "doc_id": "8219209",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:35:28.044311+00:00",
+  "created_utc": "2026-06-25T18:58:57.422623+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 2
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "National Bank of Canada New York Linked S&P 500 Index",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-09-01",
+          "notification_date": "2022-09-01",
+          "amount_code": "F"
+        }
+      ]
     }
   ],
   "transactions": [
     {
       "asset_description": "National Bank of Canada New York Linked S&P 500 Index",
       "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2018-02-05",
-      "notification_date": "2018-03-07",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "National Bank of Canada New York Linked S&P 500 Index",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Joint",
       "transaction_date": "2022-09-01",
       "notification_date": "2022-09-01",
       "amount_code": "F"

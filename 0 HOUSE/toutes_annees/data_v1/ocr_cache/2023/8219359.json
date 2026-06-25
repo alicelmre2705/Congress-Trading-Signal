@@ -2,18 +2,245 @@
   "doc_id": "8219359",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:50:42.988531+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:34:31.134673+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 14,
+      "transactions": [
+        {
+          "asset_description": "ISHARES GOLD TR ISHARES NEW (IAU)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES TR 1-3 YR TREAS BD ETF (SHY)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ISHARES TR BB RATED CORP BD E (HYBB)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PACER FDS TR PACER US SMALL C (CALF)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PIMCO ETF TR 25+ YR ZERO CPN U (ZROZ)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR INDEX SHS FDS SPDR PORT (SPDW)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYG)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P METALS & MNG (XME)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 400 MID CAP VA (MDYV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SELECT SECTOR SPDR TR HEALTH (XLV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SELECT SECTOR SPDR TR CONSUM (XLP)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SELECT SECTOR SPDR TR INDL (XLI)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WORLD GOLD TR SPDR GOLD MINI (GLDM)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-23",
+          "notification_date": "2023-02-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "ISHARES GOLD TR ISHARES NEW (IAU)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES TR 1-3 YR TREAS BD ETF (SHY)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ISHARES TR BB RATED CORP BD E (HYBB)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PACER FDS TR PACER US SMALL C (CALF)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PIMCO ETF TR 25+ YR ZERO CPN U (ZROZ)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR INDEX SHS FDS SPDR PORT (SPDW)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYG)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYV)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P METALS & MNG (XME)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 400 MID CAP VA (MDYV)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SELECT SECTOR SPDR TR HEALTH (XLV)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SELECT SECTOR SPDR TR CONSUM (XLP)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SELECT SECTOR SPDR TR INDL (XLI)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WORLD GOLD TR SPDR GOLD MINI (GLDM)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-23",
+      "notification_date": "2023-02-01",
+      "amount_code": "A"
+    }
+  ]
 }

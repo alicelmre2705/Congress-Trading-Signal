@@ -10,7 +10,7 @@
 
 **But.** Construire une stratégie systématique de *copy trading* répliquant les transactions déclarées par les membres du Congrès américain (STOCK Act, 2012), puis la backtester sur le framework Ramify. 4 semaines, dont **2 entièrement consacrées à la donnée** (un backtest sur une donnée mal extraite ne vaut rien).
 
-> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée sur deux périmètres figés (House Q1 2025 et Sénat Q1 2025), étendue au **House digital 2020 → 2026** (32 676 txns, 99 % Quiver). Restent : l'OCR des scans à **scaler** (échantillon validé, méthode honnête établie), l'enrichissement **secteur GICS → ETF** (non commencé), et **toute la partie stratégie + backtest** (semaines 3–4, non commencé).
+> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée, étendue **toutes années 2020 → 2026** des deux côtés : **House digital 32 676 txns** (99 % Quiver) et **Sénat digital 7 161 txns** (98-100 % Quiver/an, 0 vrai raté, audit adversarial). Restent : l'OCR des scans à **scaler** (House échantillon validé ; Sénat papier ~14 % écarté, Quiver-aveugle), l'enrichissement **secteur GICS → ETF** (pilote House), et **toute la partie stratégie + backtest** (semaines 3–4, non commencé).
 
 **Légende.** ✅ fait et vérifié · 🟡 commencé / partiel · 🔴 non commencé · — hors périmètre actuel.
 
@@ -52,7 +52,7 @@
 - ✅ **Téléchargement automatisé House** (PDF + index par année), stockage organisé, jamais re-téléchargé.
 - ✅ **Pipeline LLM — volet digital.** Extraction structurée (*tool_use*, sans échec silencieux) ; montant = **midpoint**.
 - 🟡 **Pipeline LLM — volet OCR (scans).** Claude Vision sur formulaires scannés. *Census* visuel complet des **547 PDF** (A tapé droit 13,5 %, B tapé tourné 58,9 %, C manuscrit 27,6 %). **Échantillon 70 docs traité avec deskew** (cf. §4 OCR). *Reste* : scaler aux 547 et fusionner dans les tables `_FINAL`.
-- 🔴 **Sénat historique.** eFD bloqué par CSRF + Akamai ; 52 sénateurs hors fenêtre de rétention. Q1 2025 obtenu, historique à débloquer (Playwright).
+- ✅ **Sénat digital 2020→2026.** eFD accédé **sans contournement** (agrément CSRF accepté une fois + scraping poli, pas de Playwright) : **7 161 txns**, 805 PTR, identité 100 %, couverture Quiver 98-100 %/an, **0 vrai raté** (audit adversarial). `1 SENAT/toutes_annees/`. *Reste* : rapports **papier** (130, ~14 %) = chantier OCR séparé (Quiver-aveugle au papier).
 
 ### 3.2 Semaine 2 — nettoyage, validation, table finale
 
@@ -77,18 +77,24 @@
 
 ## 4. Couverture de la donnée (concret)
 
-| Année | House digital | House OCR (scans) | Sénat |
+| Année | House digital | House OCR (scans) | Sénat digital |
 |---|:---:|:---:|:---:|
 | 2013–2015 | 🔴 | 🔴 | 🔴 |
 | 2016–2019 | 🔴 (lot 2) | 🔴 | 🔴 |
-| 2020 | ✅ 6 886 | 🟡 | 🔴 |
-| 2021 | ✅ 5 457 | 🟡 | 🔴 |
-| 2022 | ✅ 3 601 | 🟡 | 🔴 |
-| 2023 | ✅ 4 161 | 🟡 | 🔴 |
-| 2024 | ✅ 2 694 | 🟡 | 🔴 |
-| 2025 | ✅ 7 577 | 🟡 | 🟡 Q1 |
-| 2026 | ✅ 2 300 | 🟡 | 🔴 |
-| **Total digital 2020–2026** | **32 676** txns, rendement parse 99–100 % | | |
+| 2020 | ✅ 6 886 | 🟡 | ✅ 1 706 |
+| 2021 | ✅ 5 457 | 🟡 | ✅ 1 098 |
+| 2022 | ✅ 3 601 | 🟡 | ✅ 919 |
+| 2023 | ✅ 4 161 | 🟡 | ✅ 1 062 |
+| 2024 | ✅ 2 694 | 🟡 | ✅ 946 |
+| 2025 | ✅ 7 577 | 🟡 | ✅ 943 |
+| 2026 | ✅ 2 300 | 🟡 | ✅ 487 |
+| **Total digital 2020–2026** | **32 676** txns | | **7 161** txns |
+
+> **Sénat 2020→2026** (`1 SENAT/toutes_annees/`) : **8 841 txns FINAL** = digital 7 161 (805 PTR,
+> couverture Quiver 98-100 %/an, **0 vrai raté**, audit adversarial 7 agents) **+ OCR papier 1 680**
+> (130 PTR Blumenthal/Boozman/Burr/Feinstein/Fetterman, validé hors-Quiver : régression 92 +
+> spot-check + dates 98,8 % en période). 64 sénateurs, identité 100 %. 8 245 txns uniques (596
+> amendements cross-année). Reste : Sénat 2013-2019, passe ticker LLM sur OCR.
 
 **Deux versions figées de référence :**
 - **House Q1 2025** (`0 HOUSE/2025_test/`) : **2 272** transactions, 56 déclarants — pilote validé vs Quiver (électronique 99,9 %).
@@ -146,7 +152,7 @@ Les champs < 100 % (`ticker`, `committee_membership`) = actifs non cotés / memb
 3. **Rapport qualité synthétique** (🟡) — graphiques & stats (cohérence dates, délai 45 j, distributions montants, couverture/congressman, taux sans sortie).
 4. **Métadonnées point-in-time** (🟡) — historique des comités via `api.congress.gov` pour un backtest fidèle.
 5. **Pipeline incrémental + format de stockage final** (🔴).
-6. **Étendre la couverture** (🔴) — House digital 2013–2019 ; Sénat multi-années (débloquer eFD).
+6. **Étendre la couverture** (🟡) — Sénat digital 2020→2026 **fait** (7 161 txns) ; restent House digital 2013–2019, Sénat 2013–2019 + OCR papier Sénat (~14 %).
 7. **Stratégie V1 → V2 → sélection K → backtest Ramify** (🔴) — semaines 3–4.
 
 ---

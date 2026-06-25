@@ -2,18 +2,165 @@
   "doc_id": "8219130",
   "member": "Doug Lamborn",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:45:08.859669+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:08:22.487178+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 50 requests per "
+      "status": "ok",
+      "n": 9,
+      "transactions": [
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-07-18",
+          "notification_date": "2022-07-18",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-07-19",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-07-25",
+          "notification_date": "2022-07-25",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-18",
+          "notification_date": "2022-07-18",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-07-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-25",
+          "notification_date": "2022-07-25",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-07-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-07-19",
+          "notification_date": "2022-07-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NetApp, Inc. Stock",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-07-25",
+          "notification_date": "2022-07-25",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-07-18",
+      "notification_date": "2022-07-18",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-07-19",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-07-25",
+      "notification_date": "2022-07-25",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-18",
+      "notification_date": "2022-07-18",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-07-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-25",
+      "notification_date": "2022-07-25",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-07-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-07-19",
+      "notification_date": "2022-07-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NetApp, Inc. Stock",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-07-25",
+      "notification_date": "2022-07-25",
+      "amount_code": "A"
+    }
+  ]
 }

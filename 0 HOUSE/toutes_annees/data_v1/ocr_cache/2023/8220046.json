@@ -2,36 +2,4769 @@
   "doc_id": "8220046",
   "member": "Michael T. McCaul",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 11,
-  "created_utc": "2026-06-25T00:51:09.489596+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:48:51.213579+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 63,
+      "transactions": [
+        {
+          "asset_description": "ACCENTURE PLC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL C",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-16",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "AMAZON COM INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "AMAZON COM INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ARISTA NETWORKS INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ASML HLDG NV NY REG SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ATLANTA GA ARPT REV",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AUTODESK INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "AUTOMATIC DATA PROC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "AVONWORTH PA SCH DIST",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANGOR TWP MICH SCH DIST",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "BROWARD CNTY FLA ARPT",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "CONOCO PHILLIPS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CORE & MAIN INC COMCL A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ENTEGRIS INC MINNESOTA",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "EPAM SYSTEMS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "EPAM SYSTEMS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FIRST CASH HLDGS INC COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FISERV INC WISC PV 1CT",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FORT MYERS FLA UTIL REV",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FORTINET INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "GARNET VALLEY PA SCH",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "GENERAL ELECTRIC CO",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-28",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HIDALGO CNTY TEX CTFS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HIDALGO CNTY TEX CTFS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HONOLULU HI CY-CO WWTR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-11",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IAC INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "INSIGHT ENTERPRISESINC COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "INTUIT INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-17",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-16",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LAKE COOK KANE-ETC IL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LINDE PLC NEW",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MARICOPA CNTY ARIZ INDL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 91,
+      "transactions": [
+        {
+          "asset_description": "MASSACHUSETTS ST GO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MASTERCARD INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MET WASH DC ARPTS AT",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "METRO WASH DC ARPTS AT",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "MILLBROOK ALA GO WTS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MINNESOTA RURAL WTR FIN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MISSOURI ST HEALTH & EDL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONSTER BEVERAGE SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NETFLIX INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "NEUROCRINE BIOSCNCE INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "NEW BRAUNFELS TEX GO REF",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW BRAUNFELS TEX GO REF",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY CTY TRANS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-26",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY MUN WFA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NORTHERN YORK CNTY PA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHSIDE TEX INDPT SCH",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NVIDIA",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "OCCIDENTAL PETROLEUM CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "OHIO HSP FC RV ACT",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PASADENA TEX ECONOMC DEV",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCOM SOFTWARE INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PORTLAND ORE WTR SYS REV",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PRIMERICA INC COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PROBUS NV",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SAP SE-SPONSORED ADR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "SCHWAB CHARLES CORP NEW",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "SHELL PLC-ADR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SO WILLIAMSPORT PA ASD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STAMFORD CT WPC SYS-FAC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "TALLAHASSEE FLA ENERGY",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TALLAHASSEE FLA ENERGY",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TEXARKANA TEX WTRWKS SAN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS WTR DEV BRD REV ST",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TIMKEN CO COM",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TULPEHOCKEN PA AREA SCH",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-23",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIVERSITY ILL UNIV REVS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIVERSITY KANS HOSP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-17",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VISA INC CL A SHRS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Albany Road Strategic Opportunity Fund LLC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-09-28",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AT&T INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "DOMINION ENERGY INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "SUN COMMNTYS INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JPM US GOVT MM FD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "DFA EMERGING MARKETS",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD LONG TERM TAX",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DFA INTERNATIONALCORE EQUITY",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-26",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-10-26",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "ACCENTURE PLC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ALPHABET INC SHS CL C",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-16",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMAZON COM INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMAZON COM INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ARISTA NETWORKS INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ASML HLDG NV NY REG SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ATLANTA GA ARPT REV",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 96,
+      "transactions": [
+        {
+          "asset_description": "AUTODESK INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "AUTOMATIC DATA PROC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AVONWORTH PA SCH DIST",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANGOR TWP MICH SCH DIST",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BROWARD CNTY FLA ARPT",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "CONOCO PHILLIPS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CORE & MAIN INC COMCL A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "ENTEGRIS INC MINNESOTA",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "EPAM SYSTEMS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EPAM SYSTEMS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FIRST CASH HLDGS INC COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FISERV INC WISC PV 1CT",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FLEETCOR TECHNOLOGIS INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "FORT MYERS FLA UTIL REV",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FORTINET INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "GARNET VALLEY PA SCH",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL ELECTRIC CO",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-28",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HIDALGO CNTY TEX CTFS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HIDALGO CNTY TEX CTFS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HONOLULU HI CY-CO WWTR",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-11",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IAC INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "INSIGHT ENTERPRISESINC COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "INTUIT INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-26",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-17",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-16",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LAKE COOK KANE-ETC IL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LINDE PLC NEW",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MARICOPA CNTY ARIZ INDL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MASSACHUSETTS ST GO",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MASTERCARD INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MET WASH DC ARPTS AT",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "METRO WASH DC ARPTS AT",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MILLBROOK ALA GO WTS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MINNESOTA RURAL WTR FIN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "MISSOURI ST HEALTH & EDL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONSTER BEVERAGE SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NETFLIX INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "NEUROCRINE BIOSCNCE INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NEW BRAUNFELS TEX GO REF",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW BRAUNFELS TEX GO REF",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY CTY TRANS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-26",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY MUN WFA",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NORTHERN YORK CNTY PA",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHSIDE TEX INDPT SCH",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NVIDIA",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "OCCIDENTAL PETROLEUM CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "OHIO HSP FC RV ACT",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PASADENA TEX ECONOMC DEV",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYCOM SOFTWARE INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-18",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC SHS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PORTLAND ORE WTR SYS REV",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PRIMERICA INC COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PROSUS NV",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SAP SE-SPONSORED ADR",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "SCHWAB CHARLES CORP NEW",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SHELL PLC-ADR",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SO WILLIAMSPORT PA ABD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STAMFORD CT WPC SYS-FAC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TALLAHASSEE FLA ENERGY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TALLAHASSEE FLA ENERGY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TEXARKANA TEX WTRWKS SAN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS WTR DEV BRD REV ST",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TIMKEN CO COM",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-29",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 46,
+      "transactions": [
+        {
+          "asset_description": "TULPEHOCKEN PA AREA SCH",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-10",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-03",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-13",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-12",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-04",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-23",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIVERSITY ILL UNIV REVS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIVERSITY KANS HOSP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-17",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VISA INC CL A SHRS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-27",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Albany Road Strategic Opportunity Fund LLC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-09-28",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LLM FAMILY INVESTMENTS II LP",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "AT&T INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "DOMINION ENERGY INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SUN COMMNTYS INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-31",
+          "notification_date": "2023-11-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "LLM FAMILY INVESTMENTS III LP",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-05",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-19",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "JPM US GOVT MM FD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "U.S. TREASURY BILL",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "F"
+        },
+        {
+          "asset_description": "LINDA MAYS MCCAUL PARTNERS II, LTD.",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "DFA EMERGING MARKETS",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VANGUARD LONG TERM TAX",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCCAUL CHILDREN 2001 TRUSTS",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "DFA INTERNATIONALCORE EQUITY",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MAYS 2002 GRANDCHILDREN'S TRUST",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "DFA INTERNATIONALCORE EQUITY",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "2010 MCGAUL CHILDREN DESCENDANT TRUSTS",
+          "transaction_type": "Dependent Child",
+          "owner": "Dependent Child",
+          "transaction_date": null,
+          "notification_date": null
+        },
+        {
+          "asset_description": "DFA INTERNATIONALCORE EQUITY",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-25",
+          "notification_date": "2023-11-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "VANGUARD FEDERAL MONEY MARKET FUND INVESTOR SHARES",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-02",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        },
+        {
+          "asset_description": "M2G STONE OAK, LTD.",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-10-06",
+          "notification_date": "2023-11-06",
+          "amount_code": "K"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "ACCENTURE PLC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL C",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-16",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "AMAZON COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "AMAZON COM INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ARISTA NETWORKS INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ASML HLDG NV NY REG SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ATLANTA GA ARPT REV",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AUTODESK INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "AUTOMATIC DATA PROC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "AVONWORTH PA SCH DIST",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANGOR TWP MICH SCH DIST",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "BROWARD CNTY FLA ARPT",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CITIGROUP INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "CONOCO PHILLIPS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CORE & MAIN INC COMCL A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ENTEGRIS INC MINNESOTA",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "EPAM SYSTEMS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "EPAM SYSTEMS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FIRST CASH HLDGS INC COM",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FISERV INC WISC PV 1CT",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FORT MYERS FLA UTIL REV",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FORTINET INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "GARNET VALLEY PA SCH",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "GENERAL ELECTRIC CO",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-28",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "GENPACT LTD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HIDALGO CNTY TEX CTFS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HIDALGO CNTY TEX CTFS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HONOLULU HI CY-CO WWTR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-11",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IAC INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "INSIGHT ENTERPRISESINC COM",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "INTUIT INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-17",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-16",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LAKE COOK KANE-ETC IL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LINDE PLC NEW",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MARICOPA CNTY ARIZ INDL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASSACHUSETTS ST GO",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MASTERCARD INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MET WASH DC ARPTS AT",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "METRO WASH DC ARPTS AT",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "MILLBROOK ALA GO WTS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MINNESOTA RURAL WTR FIN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MISSOURI ST HEALTH & EDL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONSTER BEVERAGE SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NETFLIX INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "NEUROCRINE BIOSCNCE INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "NEW BRAUNFELS TEX GO REF",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW BRAUNFELS TEX GO REF",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY CTY TRANS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-26",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY MUN WFA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NORTHERN YORK CNTY PA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHSIDE TEX INDPT SCH",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NVIDIA",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "OCCIDENTAL PETROLEUM CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "OHIO HSP FC RV ACT",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PASADENA TEX ECONOMC DEV",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCOM SOFTWARE INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PORTLAND ORE WTR SYS REV",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PRIMERICA INC COM",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PROBUS NV",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SAP SE-SPONSORED ADR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "SCHWAB CHARLES CORP NEW",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "SHELL PLC-ADR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SO WILLIAMSPORT PA ASD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STAMFORD CT WPC SYS-FAC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "TALLAHASSEE FLA ENERGY",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TALLAHASSEE FLA ENERGY",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TEXARKANA TEX WTRWKS SAN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS WTR DEV BRD REV ST",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TIMKEN CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TULPEHOCKEN PA AREA SCH",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-23",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIVERSITY ILL UNIV REVS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIVERSITY KANS HOSP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-17",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VISA INC CL A SHRS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Albany Road Strategic Opportunity Fund LLC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-09-28",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AT&T INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "DOMINION ENERGY INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "SUN COMMNTYS INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JPM US GOVT MM FD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "DFA EMERGING MARKETS",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD LONG TERM TAX",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DFA INTERNATIONALCORE EQUITY",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-26",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-10-26",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "ACCENTURE PLC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ALPHABET INC SHS CL C",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-16",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMAZON COM INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMAZON COM INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ARISTA NETWORKS INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ASML HLDG NV NY REG SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ATLANTA GA ARPT REV",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTODESK INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "AUTOMATIC DATA PROC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AVONWORTH PA SCH DIST",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANGOR TWP MICH SCH DIST",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BROWARD CNTY FLA ARPT",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CITIGROUP INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "CONOCO PHILLIPS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CORE & MAIN INC COMCL A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "ENTEGRIS INC MINNESOTA",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "EPAM SYSTEMS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EPAM SYSTEMS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FIRST CASH HLDGS INC COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FISERV INC WISC PV 1CT",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FLEETCOR TECHNOLOGIS INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "FORT MYERS FLA UTIL REV",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FORTINET INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "GARNET VALLEY PA SCH",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAL ELECTRIC CO",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-28",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "GENPACT LTD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HIDALGO CNTY TEX CTFS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HIDALGO CNTY TEX CTFS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HONOLULU HI CY-CO WWTR",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-11",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IAC INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "INSIGHT ENTERPRISESINC COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "INTUIT INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-26",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-17",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-16",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JPM 100% US TREAS INSTL SWEEP FD #199",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LAKE COOK KANE-ETC IL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LINDE PLC NEW",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MARICOPA CNTY ARIZ INDL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASSACHUSETTS ST GO",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MASTERCARD INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MET WASH DC ARPTS AT",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "METRO WASH DC ARPTS AT",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MILLBROOK ALA GO WTS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MINNESOTA RURAL WTR FIN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "MISSOURI ST HEALTH & EDL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONSTER BEVERAGE SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NETFLIX INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "NEUROCRINE BIOSCNCE INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NEW BRAUNFELS TEX GO REF",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW BRAUNFELS TEX GO REF",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY CTY TRANS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-26",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY MUN WFA",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NORTHERN YORK CNTY PA",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHSIDE TEX INDPT SCH",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NVIDIA",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "OCCIDENTAL PETROLEUM CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "OHIO HSP FC RV ACT",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PASADENA TEX ECONOMC DEV",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYCOM SOFTWARE INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-18",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC SHS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PORTLAND ORE WTR SYS REV",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PRIMERICA INC COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PROSUS NV",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SAP SE-SPONSORED ADR",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "SCHWAB CHARLES CORP NEW",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SHELL PLC-ADR",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SO WILLIAMSPORT PA ABD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SOUTHCENTRAL PA GEN AUTH",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STAMFORD CT WPC SYS-FAC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR-SP ADR",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TALLAHASSEE FLA ENERGY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TALLAHASSEE FLA ENERGY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TEXARKANA TEX WTRWKS SAN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS WTR DEV BRD REV ST",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TIMKEN CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-29",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TULPEHOCKEN PA AREA SCH",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-10",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-03",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-13",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-12",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-04",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-23",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIVERSITY ILL UNIV REVS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIVERSITY KANS HOSP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-17",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VISA INC CL A SHRS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-27",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Albany Road Strategic Opportunity Fund LLC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-09-28",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LLM FAMILY INVESTMENTS II LP",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "AT&T INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "DOMINION ENERGY INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SUN COMMNTYS INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-31",
+      "notification_date": "2023-11-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LLM FAMILY INVESTMENTS III LP",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-05",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JP MORGAN CHASE BANK TIME DEPOSITS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-19",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "JPM US GOVT MM FD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "U.S. TREASURY BILL",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "F"
+    },
+    {
+      "asset_description": "LINDA MAYS MCCAUL PARTNERS II, LTD.",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "DFA EMERGING MARKETS",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VANGUARD LONG TERM TAX",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCCAUL CHILDREN 2001 TRUSTS",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "DFA INTERNATIONALCORE EQUITY",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MAYS 2002 GRANDCHILDREN'S TRUST",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "DFA INTERNATIONALCORE EQUITY",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "E"
+    },
+    {
+      "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "E"
+    },
+    {
+      "asset_description": "2010 MCGAUL CHILDREN DESCENDANT TRUSTS",
+      "transaction_type": "Dependent Child",
+      "owner": "Dependent Child",
+      "transaction_date": null,
+      "notification_date": null
+    },
+    {
+      "asset_description": "DFA INTERNATIONALCORE EQUITY",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "LAZARD INTERNATIONAL STRATEGIC EQUITY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-25",
+      "notification_date": "2023-11-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "VANGUARD FEDERAL MONEY MARKET FUND INVESTOR SHARES",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-02",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    },
+    {
+      "asset_description": "M2G STONE OAK, LTD.",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-10-06",
+      "notification_date": "2023-11-06",
+      "amount_code": "K"
+    }
+  ]
 }

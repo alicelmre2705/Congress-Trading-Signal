@@ -2,17 +2,67 @@
   "doc_id": "8219044",
   "member": "Trey Hollingsworth",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:35:29.565467+00:00",
+  "created_utc": "2026-06-25T18:58:55.578093+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 6
+      "n": 6,
+      "transactions": [
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-09",
+          "notification_date": "2022-06-09",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-10",
+          "notification_date": "2022-06-10",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-13",
+          "notification_date": "2022-06-13",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-14",
+          "notification_date": "2022-06-14",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-16",
+          "notification_date": "2022-06-16",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-06-23",
+          "notification_date": "2022-06-23",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
   "transactions": [
@@ -33,7 +83,7 @@
       "amount_code": "C"
     },
     {
-      "asset_description": "Owl Rock Capital Corp",
+      "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-06-13",
@@ -54,7 +104,7 @@
       "owner": "Self",
       "transaction_date": "2022-06-16",
       "notification_date": "2022-06-16",
-      "amount_code": "B"
+      "amount_code": "E"
     },
     {
       "asset_description": "Owl Rock Capital Corp (ORCC) (via HGI, LLC)",
@@ -62,7 +112,7 @@
       "owner": "Self",
       "transaction_date": "2022-06-23",
       "notification_date": "2022-06-23",
-      "amount_code": "E"
+      "amount_code": "B"
     }
   ]
 }

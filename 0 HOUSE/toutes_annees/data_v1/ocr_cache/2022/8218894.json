@@ -2,483 +2,1755 @@
   "doc_id": "8218894",
   "member": "Diana Harshbarger",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 10,
-  "created_utc": "2026-06-25T00:33:49.284545+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:59:22.934100+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
       "status": "ok",
-      "n": 55
+      "n": 40,
+      "transactions": [
+        {
+          "asset_description": "Thermo Fisher Scientific Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Thermo Fisher Scientific Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CME Group Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-27",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CME Group Inc",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-27",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Virginia ST Public Bldg Auth P Due 08/01/2025 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-27",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Washoe Cnty NV Highway Revenue Due 02/01/2042 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-28",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Washoe Cnty NV Highway Revenue Due 02/01/2042 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-28",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Michigan ST Fin Auth Revenue Due 04/15/2038 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-29",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Michigan ST Fin Auth Revenue Due 04/15/2037 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-29",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Allegion PLC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Allegion PLC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Allegion PLC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Coca-Cola Co/The",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Coca-Cola Co/The",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Coca-Cola Co/The",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Procter & Gamble Co/The",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Procter & Gamble Co/The",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Visa Inc-Class A Shares",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Visa Inc-Class A Shares",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Visa Inc-Class A Shares",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Seattle WA Wtr Sys Revenue Due 05/01/2025 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Seattle WA Wtr Sys Revenue Due 05/01/2025 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Oregon ST Due 08/01/2041 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-11",
+          "notification_date": "2022-05-24",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "AutoZone Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-11",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Electronic Arts Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-11",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Western Digital Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Western Digital Corp",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Western Digital Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Western Digital Corp",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Alliant Energy Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Alliant Energy Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Maryland ST Due 08/01/2024 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "Micron Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Micron Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Micron Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Micron Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-05-12",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "General Motors Co",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PayPal Holdings Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PayPal Holdings Inc",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Willis Towers Watson PLC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
       "status": "ok",
-      "n": 60
+      "n": 53,
+      "transactions": [
+        {
+          "asset_description": "WASHINGTON DC MET AREA TRANSIT DUE 07/15/2041 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US TREASURY DUE 02/15/2031 1.125%",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-04-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "US TREASURY DUE 02/15/2031 1.125%",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-04-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "OTIS WORLDWIDE CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-21",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS ST DUE 08/01/2036 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-21",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WELLS FARGO & CO",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-22",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAKER HUGHES CO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE CO/THE",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISIGN INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISIGN INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISIGN INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERISIGN INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMWARE INC-CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WILLIS TOWERS WATSON PLC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLIANT ENERGY CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLIANT ENERGY CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLIANT ENERGY CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLIANT ENERGY CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOZONE INC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ANTHEM INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ANTHEM INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOZ ALLEN HAMILTON HOLDINGS",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOZ ALLEN HAMILTON HOLDINGS",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOOR CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOOR CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOOR CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DECKERS OUTDOOR CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOME DEPOT INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOME DEPOT INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE CO/THE",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 60,
+      "transactions": [
+        {
+          "asset_description": "VISA INC-CLASS A SHARES",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLIANT ENERGY CORP",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HAWAII ST DUE 10/01/2024 5.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-02",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IOWA ST FIN AUTH REVENUE DUE 08/01/2041 6.000%",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-03",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOZONE INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-03",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-05",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UTAH CNTY UT HOSP REVENUE DUE 05/15/2023 5.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-05",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WILLIS TOWERS WATSON PLC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-09",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WILLIS TOWERS WATSON PLC",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-09",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOZONE INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-09",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TJX COMPANIES INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-09",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TJX COMPANIES INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-09",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENPACT LTD",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SEATTLE WA WTR SYS REVENUE DUE 09/01/2029 5.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-10",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CME GROUP INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME GROUP INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME GROUP INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME GROUP INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAC HOLDINGS INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEXTERA ENERGY INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEXTERA ENERGY INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEXTERA ENERGY INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEXTERA ENERGY INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OHIO ST MAJOR NEW STATE INFRAS DUE 12/15/2025 5.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PAYCHEX INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PHOENIX AZ CIVIC IMPT CORP WTR DUE 07/01/2023 5.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "S&P GLOBAL INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THERMO FISHER SCIENTIFIC INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-04-25",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WILLIS TOWERS WATSON PLC",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HOME DEPOT INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STELLANTIS NV",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-13",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY DUE 08/01/2040 4.000%",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-16",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WASHINGTON ST DUE 07/01/2034 4.000%",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-16",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WESTERN DIGITAL CORP",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-16",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOZONE INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-16",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS INC",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS INC",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE CO/THE",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE CO/THE",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-05-17",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GILBERT AZ WTR RESOURCE MUNI P DUE 07/15/2038 5.000%",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-18",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WILLIS TOWERS WATSON PLC",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-18",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AB MUNICIPAL INCOME",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYPAL HOLDINGS INC",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-19",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMDOCS LTD",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORP-CLASS A",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 20,
+      "transactions": [
+        {
+          "asset_description": "Comcast Corp-Class A",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Comcast Corp-Class A",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Comcast Corp-Class A",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "McKesson Corp",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "McKesson Corp",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "McKesson Corp",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "McKesson Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Verisign Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Verisign Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Verisign Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Verisign Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Amazon.com Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Amazon.com Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Amazon.com Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Amazon.com Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Anthem Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Anthem Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-05-20",
+          "notification_date": "2022-05-24",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "THERMO FISHER SCIENTIFIC INC",
+      "asset_description": "Thermo Fisher Scientific Inc",
+      "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-05",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ONE GROUP INC",
-      "owner": "Joint",
-      "transaction_type": "Sale",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "ONE GROUP INC",
-      "owner": "Self",
+      "asset_description": "Thermo Fisher Scientific Inc",
       "transaction_type": "Sale",
-      "transaction_date": "2022-04-21",
+      "owner": "Joint",
+      "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Spouse",
+      "asset_description": "CME Group Inc",
       "transaction_type": "Sale",
-      "transaction_date": "2022-04-21",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "VIRGINIA ST PUBLIC BLDG AUTH P DUE 08/01/2025 3.00% [1]",
       "owner": "Self",
-      "transaction_type": "Purchase",
       "transaction_date": "2022-04-27",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "WASHOE CNTY NV HIGHWAY REVENUE DUE 02/01/2042 6.00%",
+      "asset_description": "CME Group Inc",
+      "transaction_type": "Sale",
       "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-28",
+      "transaction_date": "2022-04-27",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "WASHOE CNTY NV HIGHWAY REVENUE DUE 02/01/2042 6.00%",
+      "asset_description": "Virginia ST Public Bldg Auth P Due 08/01/2025 5.000% [1]",
+      "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-28",
+      "transaction_date": "2022-04-27",
       "notification_date": "2022-05-24",
-      "amount_code": "B"
+      "amount_code": "C"
     },
     {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-28",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "MICHIGAN ST FIN AUTH REVENUE DUE 04/15/2038 6.000%",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-29",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "MICHIGAN ST FIN AUTH REVENUE DUE 04/15/2038 6.000%",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-29",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-04-29",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ALLEGION PLC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ALLEGION PLC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "COCA-COLA CO/THE",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "COCA-COLA CO/THE",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "PROCTER & GAMBLE CO/THE",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "VISA INC-CLASS A SHARES",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "VISA INC-CLASS A SHARES",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "SEATTLE WA WTR SYS REVENUE DUE 05/01/2025 5.000% [1]",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-10",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "OREGON ST DUE 08/01/2041 5.000%",
-      "owner": "Self",
+      "asset_description": "Washoe Cnty NV Highway Revenue Due 02/01/2042 5.000%",
       "transaction_type": "Purchase",
-      "transaction_date": "2022-05-10",
+      "owner": "Spouse",
+      "transaction_date": "2022-04-28",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Washoe Cnty NV Highway Revenue Due 02/01/2042 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-28",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Michigan ST Fin Auth Revenue Due 04/15/2038 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-04-29",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Michigan ST Fin Auth Revenue Due 04/15/2037 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-04-29",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Allegion PLC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "AUTOZONE INC",
+      "asset_description": "Allegion PLC",
+      "transaction_type": "Purchase",
       "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Allegion PLC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Coca-Cola Co/The",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Coca-Cola Co/The",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Coca-Cola Co/The",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Procter & Gamble Co/The",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Procter & Gamble Co/The",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Visa Inc-Class A Shares",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Visa Inc-Class A Shares",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Visa Inc-Class A Shares",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-02",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Seattle WA Wtr Sys Revenue Due 05/01/2025 5.000% [1]",
       "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Seattle WA Wtr Sys Revenue Due 05/01/2025 5.000% [1]",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Oregon ST Due 08/01/2041 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-11",
+      "notification_date": "2022-05-24",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "AutoZone Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
       "transaction_date": "2022-05-11",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "ELECTRONIC ARTS INC",
+      "asset_description": "Electronic Arts Inc",
+      "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_type": "Purchase",
       "transaction_date": "2022-05-11",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "WESTERN DIGITAL CORP",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "WESTERN DIGITAL CORP",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "WESTERN DIGITAL CORP",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "MARYLAND ST DUE 08/01/2024 5.000% [1]",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "NUCOM TECHNOLOGY INC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "NUCOM TECHNOLOGY INC",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "NUCOM TECHNOLOGY INC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ALLIANT ENERGY CORP",
-      "owner": "Self",
+      "asset_description": "Western Digital Corp",
       "transaction_type": "Purchase",
+      "owner": "Self",
       "transaction_date": "2022-05-12",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "ALLIANT ENERGY CORP",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-12",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "GENERAL MOTORS CO",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-13",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-13",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-13",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "PAYPAL HOLDINGS INC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-13",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "PAYPAL HOLDINGS INC",
-      "owner": "Spouse",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-13",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
-      "owner": "Joint",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-19",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "WILLIS TOWERS WATSON PLC",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-19",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "owner": "Self",
-      "transaction_type": "Sale",
-      "transaction_date": "2022-05-19",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "WASHINGTON DC MET AREA TRANSIT DUE 07/15/2041 6.000%",
+      "asset_description": "Western Digital Corp",
       "transaction_type": "Purchase",
       "owner": "Spouse",
-      "transaction_date": "2022-04-18",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Western Digital Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Western Digital Corp",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Alliant Energy Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Alliant Energy Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Maryland ST Due 08/01/2024 5.000% [1]",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "Micron Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Micron Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Micron Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Micron Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-05-12",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "General Motors Co",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PayPal Holdings Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PayPal Holdings Inc",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Willis Towers Watson PLC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WASHINGTON DC MET AREA TRANSIT DUE 07/15/2041 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-04-19",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
@@ -486,17 +1758,17 @@
       "asset_description": "US TREASURY DUE 02/15/2031 1.125%",
       "transaction_type": "Sale",
       "owner": "Self",
-      "transaction_date": "2022-04-18",
-      "notification_date": "2022-05-24",
-      "amount_code": "B"
-    },
-    {
-      "asset_description": "US TREASURY DUE 02/15/2031 1.125%",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-04-18",
+      "transaction_date": "2022-04-19",
       "notification_date": "2022-05-24",
       "amount_code": "A"
+    },
+    {
+      "asset_description": "US TREASURY DUE 02/15/2031 1.125%",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-04-19",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
     },
     {
       "asset_description": "OTIS WORLDWIDE CORP",
@@ -507,7 +1779,7 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "TEXAS ST DUE 09/01/2036 8.000%",
+      "asset_description": "TEXAS ST DUE 08/01/2036 5.000%",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-04-21",
@@ -533,7 +1805,7 @@
     {
       "asset_description": "CVS HEALTH CORP",
       "transaction_type": "Purchase",
-      "owner": "Spouse",
+      "owner": "Self",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
@@ -543,19 +1815,11 @@
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-04-25",
-      "notification_date": "2022-06-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "DANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
+      "asset_description": "CVS HEALTH CORP",
       "transaction_type": "Purchase",
       "owner": "Spouse",
       "transaction_date": "2022-04-25",
@@ -563,41 +1827,9 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
+      "asset_description": "CVS HEALTH CORP",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2022-04-25",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-04-25",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
-      "transaction_type": "Purchase",
-      "owner": "Spouse",
-      "transaction_date": "2022-04-25",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
-      "transaction_type": "Purchase",
-      "owner": "Joint",
-      "transaction_date": "2022-04-25",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "GENERAL MILLS INC",
-      "transaction_type": "Purchase",
-      "owner": "Self",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
@@ -653,14 +1885,6 @@
     {
       "asset_description": "GENPACT LTD",
       "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-04-25",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "JOHNSON & JOHNSON",
-      "transaction_type": "Purchase",
       "owner": "Spouse",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
@@ -677,7 +1901,7 @@
     {
       "asset_description": "JOHNSON & JOHNSON",
       "transaction_type": "Purchase",
-      "owner": "Joint",
+      "owner": "Spouse",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
@@ -691,7 +1915,7 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "VERSIGN INC",
+      "asset_description": "VERISIGN INC",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-04-25",
@@ -699,7 +1923,7 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "VERSIGN INC",
+      "asset_description": "VERISIGN INC",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-04-25",
@@ -707,23 +1931,23 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "VERSIGN INC",
+      "asset_description": "VERISIGN INC",
       "transaction_type": "Purchase",
       "owner": "Joint",
       "transaction_date": "2022-04-25",
-      "notification_date": "2022-06-24",
+      "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "VERSIGN INC",
+      "asset_description": "VERISIGN INC",
       "transaction_type": "Purchase",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "VMWARE INC CLASS A",
+      "asset_description": "VMWARE INC-CLASS A",
       "transaction_type": "Purchase",
       "owner": "Self",
       "transaction_date": "2022-04-25",
@@ -757,15 +1981,15 @@
     {
       "asset_description": "ALLIANT ENERGY CORP",
       "transaction_type": "Purchase",
-      "owner": "Joint",
+      "owner": "Self",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
+      "asset_description": "ALLIANT ENERGY CORP",
       "transaction_type": "Purchase",
-      "owner": "Spouse",
+      "owner": "Joint",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
@@ -779,17 +2003,17 @@
       "amount_code": "A"
     },
     {
-      "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [3]",
+      "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
       "transaction_type": "Purchase",
-      "owner": "Spouse",
+      "owner": "Joint",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "B"
     },
     {
-      "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [3]",
+      "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
       "transaction_type": "Purchase",
-      "owner": "Joint",
+      "owner": "Spouse",
       "transaction_date": "2022-04-25",
       "notification_date": "2022-05-24",
       "amount_code": "A"
@@ -798,7 +2022,15 @@
       "asset_description": "ANTHEM INC",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ANTHEM INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -806,15 +2038,15 @@
       "asset_description": "BOOZ ALLEN HAMILTON HOLDINGS",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-06-24",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
       "asset_description": "BOOZ ALLEN HAMILTON HOLDINGS",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -822,23 +2054,31 @@
       "asset_description": "COLGATE-PALMOLIVE CO",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "COLGATE-PALMOLIVE CO",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-06-24",
       "amount_code": "A"
     },
     {
       "asset_description": "COLGATE-PALMOLIVE CO",
       "transaction_type": "Purchase",
       "owner": "Spouse",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOOR CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -846,55 +2086,39 @@
       "asset_description": "DECKERS OUTDOOR CORP",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
       "asset_description": "DECKERS OUTDOOR CORP",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "DECKERS OUTDOOR CORP",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-06-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "HOME DEPOT INC",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-06-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "HOME DEPOT INC",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "DIANA LYNN HARSHBARGER REVOCABLE LIVING TRUST DTD 04/1998",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "HARSHBARGER FAMILY TRUST I DTD 8/23/2012",
       "transaction_type": "Purchase",
       "owner": "Spouse",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DECKERS OUTDOOR CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOME DEPOT INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOME DEPOT INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -902,15 +2126,7 @@
       "asset_description": "NORTHROP GRUMMAN CORP",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-05-02",
-      "notification_date": "2022-05-24",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "NORTHROP GRUMMAN CORP",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -918,7 +2134,23 @@
       "asset_description": "NORTHROP GRUMMAN CORP",
       "transaction_type": "Purchase",
       "owner": "Joint",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHROP GRUMMAN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHROP GRUMMAN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
@@ -926,33 +2158,657 @@
       "asset_description": "PROCTER & GAMBLE CO/THE",
       "transaction_type": "Purchase",
       "owner": "Spouse",
-      "transaction_date": "2022-05-02",
+      "transaction_date": "2022-05-20",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "ROBERT HARSHBARGER, JR. REVOCABLE LIVING TRUST DTD 04/1998",
+      "asset_description": "S&P GLOBAL INC",
       "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VISA INC-CLASS A SHARES",
       "owner": "Spouse",
+      "transaction_type": "Sale",
       "transaction_date": "2022-05-02",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "SAP GLOBAL INC",
-      "transaction_type": "Purchase",
+      "asset_description": "ALLIANT ENERGY CORP",
       "owner": "Self",
+      "transaction_type": "Purchase",
       "transaction_date": "2022-05-02",
       "notification_date": "2022-05-24",
       "amount_code": "A"
     },
     {
-      "asset_description": "HARSHBARGER FAMILY TRUST II DTD 8/23/2012",
+      "asset_description": "HAWAII ST DUE 10/01/2024 5.000% [1]",
+      "owner": "Spouse",
       "transaction_type": "Purchase",
-      "owner": "Self",
       "transaction_date": "2022-05-02",
       "notification_date": "2022-05-24",
       "amount_code": "A"
+    },
+    {
+      "asset_description": "IOWA ST FIN AUTH REVENUE DUE 08/01/2041 6.000%",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-03",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTOZONE INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-03",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON & JOHNSON",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-05",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UTAH CNTY UT HOSP REVENUE DUE 05/15/2023 5.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-05",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WILLIS TOWERS WATSON PLC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-09",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WILLIS TOWERS WATSON PLC",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-09",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTOZONE INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-09",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TJX COMPANIES INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-09",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TJX COMPANIES INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-09",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENPACT LTD",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SEATTLE WA WTR SYS REVENUE DUE 09/01/2029 5.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-10",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CLARK CNTY NV DUE 11/01/2025 5.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CME GROUP INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME GROUP INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME GROUP INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME GROUP INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAC HOLDINGS INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEXTERA ENERGY INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEXTERA ENERGY INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEXTERA ENERGY INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEXTERA ENERGY INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "OHIO ST MAJOR NEW STATE INFRAS DUE 12/15/2025 5.000% [1]",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PAYCHEX INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PHOENIX AZ CIVIC IMPT CORP WTR DUE 07/01/2023 5.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "S&P GLOBAL INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P GLOBAL INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P GLOBAL INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "S&P GLOBAL INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THERMO FISHER SCIENTIFIC INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-04-25",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WILLIS TOWERS WATSON PLC",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HOME DEPOT INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STELLANTIS NV",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-13",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY DUE 08/01/2040 4.000%",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-16",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WASHINGTON ST DUE 07/01/2034 4.000%",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-16",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WESTERN DIGITAL CORP",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-16",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTOZONE INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-16",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS INC",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS INC",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE CO/THE",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE CO/THE",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-05-17",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GILBERT AZ WTR RESOURCE MUNI P DUE 07/15/2038 5.000%",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-18",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WILLIS TOWERS WATSON PLC",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-18",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AB MUNICIPAL INCOME",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-19",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-19",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYPAL HOLDINGS INC",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-19",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMDOCS LTD",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORP-CLASS A",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Comcast Corp-Class A",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Comcast Corp-Class A",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Comcast Corp-Class A",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "McKesson Corp",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "McKesson Corp",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "McKesson Corp",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "McKesson Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Verisign Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Verisign Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Verisign Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Verisign Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Amazon.com Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Amazon.com Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Amazon.com Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Amazon.com Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Anthem Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Anthem Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-05-20",
+      "notification_date": "2022-05-24",
+      "amount_code": "B"
     }
   ]
 }

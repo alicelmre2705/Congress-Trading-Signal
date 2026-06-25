@@ -2,18 +2,63 @@
   "doc_id": "8220074",
   "member": "Ann Wagner",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:51:10.395008+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:47:14.497398+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "CENTRE CNTY PA HOSP AUTH REV HOSP REV BLDS 11/16/2046 SER-MT NITTANY MED",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-11-16",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "MARICOPA CNTY ARIZ SCH DIST NO 28 BLFS 7/1/2023 CARTWRIGHT ELEM SCH IMPT",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-11-16",
+          "amount_code": "E"
+        },
+        {
+          "asset_description": "SOUTH MADISON IND CMNTY SCH CORP GO 04.0% 07/15/2028 SER 2023",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-11-30",
+          "amount_code": "C"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "CENTRE CNTY PA HOSP AUTH REV HOSP REV BLDS 11/16/2046 SER-MT NITTANY MED",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-11-16",
+      "amount_code": "E"
+    },
+    {
+      "asset_description": "MARICOPA CNTY ARIZ SCH DIST NO 28 BLFS 7/1/2023 CARTWRIGHT ELEM SCH IMPT",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-11-16",
+      "amount_code": "E"
+    },
+    {
+      "asset_description": "SOUTH MADISON IND CMNTY SCH CORP GO 04.0% 07/15/2028 SER 2023",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-11-30",
+      "amount_code": "C"
+    }
+  ]
 }

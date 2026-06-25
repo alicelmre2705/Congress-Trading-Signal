@@ -2,24 +2,106 @@
   "doc_id": "8218565",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:28:37.658004+00:00",
+  "created_utc": "2026-06-25T18:56:26.924842+00:00",
   "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
       "status": "ok",
-      "n": 10
+      "n": 10,
+      "transactions": [
+        {
+          "asset_description": "DRAFTKINGS INC CL A (DKNG)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-19",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INVESCO ACTIVELY MANAGED EX (PDBC)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES GOLD TR ISHARES NEW (IAU)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES IBONDS DEC 2022 TERM T (IBTB)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES IBONDS DEC 2026 TERM T (IBTG)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES IBONDS DEC 2025 TERM T (IBTF)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 500 GROWTH E (SPYG)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 500 VALUE ETF (SPYV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SELECT SECTOR SPDR TR HEALTH (XLV)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SELECT SECTOR SPDR TR INDL (XLI)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-01-24",
+          "notification_date": "2022-02-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "DRAFTKINGS INC CLA (DKNG)",
+      "asset_description": "DRAFTKINGS INC CL A (DKNG)",
       "transaction_type": "Purchase",
-      "owner": "Joint",
+      "owner": "Self",
       "transaction_date": "2022-01-19",
       "notification_date": "2022-02-01",
       "amount_code": "A"

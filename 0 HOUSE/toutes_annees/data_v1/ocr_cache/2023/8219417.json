@@ -2,42 +2,4741 @@
   "doc_id": "8219417",
   "member": "Rohit Khanna",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 15,
-  "created_utc": "2026-06-25T00:50:51.158373+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:39:17.356028+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 26,
+      "transactions": [
+        {
+          "asset_description": "AUTODESK INC DELAWARE",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-13",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ENPHASE ENERGY",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GARTNER INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-27",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CATERPILLAR INC (DELAWARE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TRUIST FINANCIAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APTIV PLC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STRYKER CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEERE & COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KKR & CO. INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LEAR CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LEAR CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-13",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPMORGAN CHASE & CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-13",
+          "notification_date": "2023-03-28",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CALL/NVDA FLEX EURO PM 182.5 EXP 02/03/2023",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEERE & COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 69,
+      "transactions": [
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PARKER-HANNIFIN CORP. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOKING HOLDINGS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KKR & CO. INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOKING HOLDINGS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELI LILLY & CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MARSH & MCLENNAN CO INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DANAHER CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL ELECTRIC COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CORNING INCORPORATED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DUPONT DE NEMOURS INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOHAWK INDUSTRIES INC COMMON STOCK",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-02",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TESLA, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIVERSITY ARK UNIV REV REV BDS 07/01/23 II",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-01",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCCORMICK & CO NON VTG SHRS CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONDELEZ INTERNATIONAL, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TYSON FOODS INC CL-A CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DESCHUTES CNTY ORE GO 5% 06/15/23 JD",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACTIVISION BLIZZARD, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PFIZER INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC CLASS A CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CATALENT, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERIZON COMMUNICATIONS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HORMEL FOODS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINCOLN NATL CORP INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DAVITA INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROBERT HALF INTERNATIONAL INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MERCK & CO., INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MC DONALDS CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCKESSON CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ECOLAB INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CROWN CASTLE INTL CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LABORATORY CORPORATION OF AMER CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEMPUR SEALY INTERNATIONAL INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SYSCO CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHOPIFY INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMGEN INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS CMN",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APPLE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ISHARES MSCI AUSTRALIA ETF",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ISHARES, INC. MSCI JAPAN ETF MUTUAL FUND",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ELI LILLY & CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 72,
+      "transactions": [
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ING GROEP N.V. SPONS ADR SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "UBS GROUP AG CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BNP PARIBAS SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "RIO TINTO PLC SPONSORED ADR",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NESTLE SA SPONSORED ADR (REP 1/20 CHF 10 REGD SHS)",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SCHNEIDER ELECTRIC SE UNSPONSORED ADR (FRANCE)",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NOVO-NORDISK A/S ADR ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SANOFI SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SIEMENS AKTIENGESELLSCHAFT SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ASTRAZENECA PLC SPONS ADR SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "STMICROELECTRONICS NV ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SUMITOMO MITSUI FINANCIAL GRP SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HSBC HOLDINGS PLC SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BP P.L.C. SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "IBERDROLA SOCIEDAD ANONIMA SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SHELL PLC SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "UNILEVER PLC (NEW) SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR MFG ADS LTD ADS 1ADS EQL",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "TAKEDA PHARMACEUTICAL CO LTD SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COLGATE-PALMOLIVE CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ASML HOLDING N.V. ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ABB LTD SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NOVARTIS AG-ADR SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AVANTOR FUNDING, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "NATIONAL GRID PLC SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "VERIZON COMMUNICATIONS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "KEURIG DR PEPPER INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CRH PLC SPON ADR ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COCA-COLA EUROPEAN PARTNERS PL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ENEL SOCIETA PER AZIONI ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "REGENERON PHARMACEUTICAL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COMPASS GROUP PLC SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CIGNA CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "KONINKLIJKE AHOLD N.V. SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COSTCO WHOLESALE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MOTORS COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERISOURCEBERGEN CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AVANTOR FUNDING, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CORNING INCORPORATED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MEDTRONIC PUBLIC LIMITED COMPA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS C",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-22",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS C",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-21",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AVANTOR FUNDING, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-07",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VODAFONE GROUP PLC ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARCHER-DANIELS-MIDLAND COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAXTER INTERNATIONAL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BECTON, DICKINSON AND COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCCORMICK & CO NON VTG SHRS CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-24",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOLINA HEALTHCARE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TYSON FOODS INC CL-A CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MERCK & CO., INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ABBVIE INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON PROPERTIES, INC. COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNION PACIFIC CORP. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WILSON CNTY TENN GO 5% 04/01/23 AO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-02",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BEXAR CNTY TEX DB 5.0000% 06/15/30 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCGREGOR TEX DB 5% 08/15/23 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHURCH & DWIGHT CO., INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VORNADO REALTY TRUST CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 72,
+      "transactions": [
+        {
+          "asset_description": "KROGER COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HORMEL FOODS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VIATRIS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WELLTOWER INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOLSON COORS BEVERAGE CO CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMEDISYS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WASTE MANAGEMENT INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CME GROUP INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "YUM BRANDS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CLOROX CO (THE) (DELAWARE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LYONDELLBASELL INDUSTRIES N.V. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC CLASS A CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "W.W. GRAINGER INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DANAHER CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BIOGEN INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 384 EXP 05/19/2023",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 375 EXP 04/14/2023",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-22",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 385 EXP 03/24/2023",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/XSP @ 365 EXP 04/21/2023",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-27",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON & JOHNSON CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "TESLA, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COCA-COLA COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PEPSICO, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "INTL BUSINESS MACHINES CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "AMGEN INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "DUPONT DE NEMOURS INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MCKESSON CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ECOLAB INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CENTENE CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PHILIP MORRIS INTL INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MC DONALDS CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALTRIA GROUP, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROPER TECHNOLOGIES INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOHAWK INDUSTRIES INC COMMON STOCK",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-02",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GENERAL MILLS INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LIBERTY MEDIA CORPORATION SERIES C LIBERTY SIRIUSXM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUMANA INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARDINAL HEALTH, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-02",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HANESBRANDS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SIRIUS XM HOLDINGS INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTEL CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ENPHASE ENERGY, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AT&T INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELEVANCE HEALTH INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SYSCO CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCHEX, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMWARE, INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KLA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BIO-TECHNE CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEWMONT CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PPG INDUSTRIES, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EASTMAN CHEMICAL COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEERE & COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEUROCRINE BIOSCIENCES, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WESTROCK COMPANY CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ILLUMINA, INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LIBERTY MEDIA CORPORATION SERIES A LIBERTY SIRIUSXM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MODERNA, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 4,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 54,
+      "transactions": [
+        {
+          "asset_description": "KIMCO REALTY CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOSAIC COMPANY (THE) CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARLISLE COMPANIES INCORPORATE CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALNYLAM PHARMACEUTICALS, INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WILLIAMSON CNTY TEX GO 5% 02/15/24 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "ANKENY IOWA GO 5% 06/01/23 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-13",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "HINGHAM MASS GO 4% 02/16/24 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-07",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "HOUSTON TEX UTIL SYS REV REV 5.0000% 05/15/23 MN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-07",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "CABARRUS CNTY N C LTD OBLIG REV 5% 06/01/23 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "JACKSON TENN GO 5% 06/01/23 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PIERCE CNTY WASH GO 3.5000% 08/01/23 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-01",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MAINE ST GO 5% 06/01/23 JD",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-28",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "JEA FLA WTR & SWR SYS REV REV 5% 10/01/23 AO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "GRAND RAPIDS MICH SAN SWR SYS REV 5% 01/01/32 J",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MARICOPA CNTY ARIZ UNI SCH GO 5% 07/01/23 JJ",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OHIO ST GO 5% 08/01/23 FA",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-28",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TRUIST FINANCIAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DEERE & COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KKR & CO. INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STRYKER CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LEAR CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LEAR CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-23",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PARKER-HANNIFIN CORP. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KKR & CO. INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BANK OF AMERICA CORP CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOKING HOLDINGS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOOKING HOLDINGS INC. CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LINDE PLC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MARSH & MCLENNAN CO INC CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORPORATION CMN",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-03-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Union Pac Corp Com",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Raytheon Technologies Corp Com",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Eaton Corporation PLC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Union Pac Corp Com",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Raytheon Technologies Corp Com",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Eaton Corporation PLC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Union Pac Corp Com",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Raytheon Technologies Corp Com",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Eaton Corporation PLC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-21",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "AUTODESK INC DELAWARE",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-13",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ENPHASE ENERGY",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GARTNER INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-27",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CATERPILLAR INC (DELAWARE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TRUIST FINANCIAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APTIV PLC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEERE & COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KKR & CO. INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LEAR CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LEAR CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-13",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPMORGAN CHASE & CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-13",
+      "notification_date": "2023-03-28",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CALL/NVDA FLEX EURO PM 182.5 EXP 02/03/2023",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEERE & COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PARKER-HANNIFIN CORP. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KKR & CO. INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELI LILLY & CO CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MARSH & MCLENNAN CO INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAL ELECTRIC COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CORNING INCORPORATED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DUPONT DE NEMOURS INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOHAWK INDUSTRIES INC COMMON STOCK",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-02",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TESLA, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIVERSITY ARK UNIV REV REV BDS 07/01/23 II",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-01",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCCORMICK & CO NON VTG SHRS CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONDELEZ INTERNATIONAL, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TYSON FOODS INC CL-A CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DESCHUTES CNTY ORE GO 5% 06/15/23 JD",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PFIZER INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CATALENT, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERIZON COMMUNICATIONS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HORMEL FOODS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINCOLN NATL CORP INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DAVITA INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROBERT HALF INTERNATIONAL INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON & JOHNSON CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MERCK & CO., INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MC DONALDS CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCKESSON CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ECOLAB INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CROWN CASTLE INTL CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LABORATORY CORPORATION OF AMER CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEMPUR SEALY INTERNATIONAL INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SYSCO CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHOPIFY INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMGEN INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS CMN",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APPLE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ISHARES MSCI AUSTRALIA ETF",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ISHARES, INC. MSCI JAPAN ETF MUTUAL FUND",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ELI LILLY & CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ING GROEP N.V. SPONS ADR SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "UBS GROUP AG CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BNP PARIBAS SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "RIO TINTO PLC SPONSORED ADR",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NESTLE SA SPONSORED ADR (REP 1/20 CHF 10 REGD SHS)",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SCHNEIDER ELECTRIC SE UNSPONSORED ADR (FRANCE)",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NOVO-NORDISK A/S ADR ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SANOFI SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SIEMENS AKTIENGESELLSCHAFT SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ASTRAZENECA PLC SPONS ADR SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "STMICROELECTRONICS NV ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SUMITOMO MITSUI FINANCIAL GRP SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HSBC HOLDINGS PLC SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BP P.L.C. SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "IBERDROLA SOCIEDAD ANONIMA SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SHELL PLC SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "UNILEVER PLC (NEW) SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR MFG ADS LTD ADS 1ADS EQL",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "TAKEDA PHARMACEUTICAL CO LTD SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COLGATE-PALMOLIVE CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ASML HOLDING N.V. ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ABB LTD SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NOVARTIS AG-ADR SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AVANTOR FUNDING, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "NATIONAL GRID PLC SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "VERIZON COMMUNICATIONS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "KEURIG DR PEPPER INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CRH PLC SPON ADR ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CONSTELLATION BRANDS INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COCA-COLA EUROPEAN PARTNERS PL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ENEL SOCIETA PER AZIONI ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "REGENERON PHARMACEUTICAL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COMPASS GROUP PLC SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CIGNA CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "KONINKLIJKE AHOLD N.V. SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COSTCO WHOLESALE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAL MOTORS COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERISOURCEBERGEN CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AVANTOR FUNDING, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CORNING INCORPORATED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KIMBERLY-CLARK CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MEDTRONIC PUBLIC LIMITED COMPA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS C",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-22",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS C",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-21",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AVANTOR FUNDING, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-07",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VODAFONE GROUP PLC ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARCHER-DANIELS-MIDLAND COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAXTER INTERNATIONAL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BECTON, DICKINSON AND COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCCORMICK & CO NON VTG SHRS CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELANCO ANIMAL HEALTH INCORPORA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-24",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOLINA HEALTHCARE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TYSON FOODS INC CL-A CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MERCK & CO., INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ABBVIE INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHIPOTLE MEXICAN GRILL, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOSTON PROPERTIES, INC. COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNION PACIFIC CORP. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VERTEX PHARMACEUTICALS INCORPO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WILSON CNTY TENN GO 5% 04/01/23 AO",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-02",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BEXAR CNTY TEX DB 5.0000% 06/15/30 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MCGREGOR TEX DB 5% 08/15/23 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHURCH & DWIGHT CO., INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VORNADO REALTY TRUST CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KROGER COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HORMEL FOODS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VIATRIS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALGREENS BOOTS ALLIANCE, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WELLTOWER INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOLSON COORS BEVERAGE CO CMN CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMEDISYS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WASTE MANAGEMENT INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CME GROUP INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "YUM BRANDS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CLOROX CO (THE) (DELAWARE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LYONDELLBASELL INDUSTRIES N.V. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC CLASS A CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "W.W. GRAINGER INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DANAHER CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BIOGEN INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 384 EXP 05/19/2023",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 375 EXP 04/14/2023",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-22",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 385 EXP 03/24/2023",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/XSP @ 365 EXP 04/21/2023",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-27",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON & JOHNSON CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "TESLA, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INCORPORATE CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COCA-COLA COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PEPSICO, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "INTL BUSINESS MACHINES CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "AMGEN INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "DUPONT DE NEMOURS INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MCKESSON CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ECOLAB INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "CENTENE CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PHILIP MORRIS INTL INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MC DONALDS CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALTRIA GROUP, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROPER TECHNOLOGIES INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOHAWK INDUSTRIES INC COMMON STOCK",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-02",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTL FLAVORS & FRAGRANCE CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GENERAL MILLS INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LIBERTY MEDIA CORPORATION SERIES C LIBERTY SIRIUSXM",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUMANA INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARDINAL HEALTH, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-02",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HANESBRANDS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTOMATIC DATA PROCESSING INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SIRIUS XM HOLDINGS INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTEL CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ENPHASE ENERGY, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AT&T INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELEVANCE HEALTH INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SYSCO CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCHEX, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SBA COMMUNICATIONS CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMWARE, INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KLA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BIO-TECHNE CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEWMONT CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PPG INDUSTRIES, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EASTMAN CHEMICAL COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEERE & COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEUROCRINE BIOSCIENCES, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTROCK COMPANY CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ILLUMINA, INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LIBERTY MEDIA CORPORATION SERIES A LIBERTY SIRIUSXM",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MODERNA, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KIMCO REALTY CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOSAIC COMPANY (THE) CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARLISLE COMPANIES INCORPORATE CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALNYLAM PHARMACEUTICALS, INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WILLIAMSON CNTY TEX GO 5% 02/15/24 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "ANKENY IOWA GO 5% 06/01/23 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-13",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "HINGHAM MASS GO 4% 02/16/24 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-07",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "HOUSTON TEX UTIL SYS REV REV 5.0000% 05/15/23 MN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-07",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "CABARRUS CNTY N C LTD OBLIG REV 5% 06/01/23 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "JACKSON TENN GO 5% 06/01/23 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PIERCE CNTY WASH GO 3.5000% 08/01/23 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-01",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MAINE ST GO 5% 06/01/23 JD",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-28",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "JEA FLA WTR & SWR SYS REV REV 5% 10/01/23 AO",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "GRAND RAPIDS MICH SAN SWR SYS REV 5% 01/01/32 J",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MARICOPA CNTY ARIZ UNI SCH GO 5% 07/01/23 JJ",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "OHIO ST GO 5% 08/01/23 FA",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-28",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TRUIST FINANCIAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DEERE & COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN INTL GROUP, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KKR & CO. INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LEAR CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LEAR CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-23",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLSTATE CORPORATION COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PARKER-HANNIFIN CORP. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KKR & CO. INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TEXAS INSTRUMENTS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BANK OF AMERICA CORP CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOOKING HOLDINGS INC. CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LINDE PLC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC. CLASS B",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MARSH & MCLENNAN CO INC CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT CORPORATION CMN",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-03-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Union Pac Corp Com",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Raytheon Technologies Corp Com",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Eaton Corporation PLC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Union Pac Corp Com",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Raytheon Technologies Corp Com",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Eaton Corporation PLC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Union Pac Corp Com",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Raytheon Technologies Corp Com",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Eaton Corporation PLC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-21",
+      "amount_code": "A"
+    }
+  ]
 }

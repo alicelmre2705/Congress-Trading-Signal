@@ -2,18 +2,77 @@
   "doc_id": "8219425",
   "member": "Ann Wagner",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:51:10.390081+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:46:59.190035+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 4,
+      "transactions": [
+        {
+          "asset_description": "New York NY 1.216%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-02",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "DORT FINL CREDIT 4.4%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-03",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Connecticut St 3.31%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-23",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "UNIV WA 2.211% 27 PUB EDUC",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-23",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "New York NY 1.216%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-02",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "DORT FINL CREDIT 4.4%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-03",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Connecticut St 3.31%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-23",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "UNIV WA 2.211% 27 PUB EDUC",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-23",
+      "amount_code": "D"
+    }
+  ]
 }

@@ -2,18 +2,49 @@
   "doc_id": "8219442",
   "member": "Max Miller",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:51:07.695977+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:45:55.860070+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Mercato Partners IV, LP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-15",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW WATER CAPITAL II",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-02-17",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Mercato Partners IV, LP",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-15",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW WATER CAPITAL II",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-02-17",
+      "amount_code": "A"
+    }
+  ]
 }

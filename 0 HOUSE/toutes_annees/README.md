@@ -7,10 +7,12 @@ dépendance externe**. Digital + OCR. **Notebooks = source de vérité** ; les m
 
 ## 🎯 Statut rapide (2020 → 2026)
 
-- ✅ **Digital** : 32 676 txns, **99,01 %** concordance Quiver, 9 vrais-absents (tous expliqués) — **FIGÉ**.
-- ✅ **OCR échantillon A+B** : 3 876 txns (56 docs, ~10/an), **69 %** concordance, ticker 80 % — **FIGÉ**.
-- ⛔ **Hors périmètre** : run OCR complet des 547 scannés, secteur GICS/ETF, avant-2020 (lot 2).
-- 📖 Détail : [`SYNTHESE_PRESENTATION.md`](SYNTHESE_PRESENTATION.md) · Statut maître projet : [`../../ETAT_AVANCEMENT_PROJET.md`](../../ETAT_AVANCEMENT_PROJET.md)
+- ✅ **Digital** : 32 676 txns, **99,01 %** concordance Quiver, 9 vrais-absents — FIGÉ.
+- ✅ **OCR échantillon A+B** : 3 876 txns (56 docs), 69 % concordance, ticker 80 % — FIGÉ.
+- 🔜 **Run OCR complet** : ~443 docs A+B + filers C prioritaires — prêt à lancer (crédit API requis ~$5-15). Deskew `deskew_v1` câblé. Notebook §6-8.
+- ⛔ **Secteur GICS/ETF** : différé (WIP dans `_archive/sector_wip/`).
+- ⛔ **Avant-2020** : futur (lot 2, extension digitale).
+- 📖 Détail : [`SYNTHESE_PRESENTATION.md`](SYNTHESE_PRESENTATION.md) · Statut maître : [`../../ETAT_AVANCEMENT_PROJET.md`](../../ETAT_AVANCEMENT_PROJET.md)
 
 ## 📂 Structure
 
@@ -44,7 +46,7 @@ toutes_annees/
 | **Digital + concordance Quiver** | ✅ 32 676 txns, **99,01 %**, 9 vrais-absents tous expliqués |
 | **Census 547 + OCR échantillon A+B + gate** | ✅ census A/B/C, échantillon 3 876 txns (deskew + validation honnête ±3 j) |
 | **Passe LLM nom→ticker (échantillon)** | ✅ ticker 56 %→78 % (0 hallucination, ~90 % concordant Quiver) |
-| **Run OCR complet des 547** | ⛔ hors périmètre (livrable = échantillon ; récup ciblée filers C = crédit API) |
+| **Run OCR complet A+B + filers C** | 🔜 prêt à lancer — `notebook_ocr.ipynb` §6-8 (deskew câblé, cache resumable) |
 | **Secteur GICS/ETF** | ⛔ différé sur toutes_annees (WIP parqué dans `_archive/sector_wip/`) |
 | **Avant-2020 (lot 2, 2016-2019)** | ⛔ futur (extension digitale en arrière, réutilise `house_multiyear.py`) |
 

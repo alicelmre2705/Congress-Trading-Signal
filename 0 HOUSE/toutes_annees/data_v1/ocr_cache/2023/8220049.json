@@ -2,18 +2,229 @@
   "doc_id": "8220049",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:50:43.451114+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:34:28.780138+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 13,
+      "transactions": [
+        {
+          "asset_description": "World Gold Tr SPDR Gold Minishares Tr",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Vanguard Scottsdale Funds",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Value ETF",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Growth ETF",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Ser Tr S&P 600 Small Cap Growth ETF",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR Index Shs Fds SPDR Port Dev World",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Pacer FDS Tr Pacer US Small Cap",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IShares Tr 10-20 Yr Treas Bd ETF",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Invesco Exchange Traded Fd",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Invesco Actively Managed Exchg Trd Comm",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Global X Fds",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Franklin Templeton ETF Tr",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Bondbloxx ETF Tr 1 Yr Target Duration",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-10-20",
+          "notification_date": "2023-11-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "World Gold Tr SPDR Gold Minishares Tr",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Vanguard Scottsdale Funds",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Value ETF",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Ser Tr S&P 400 Mid Cap Growth ETF",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Ser Tr S&P 600 Small Cap Growth ETF",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR Index Shs Fds SPDR Port Dev World",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Pacer FDS Tr Pacer US Small Cap",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IShares Tr 10-20 Yr Treas Bd ETF",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Invesco Exchange Traded Fd",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Invesco Actively Managed Exchg Trd Comm",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Global X Fds",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Franklin Templeton ETF Tr",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Bondbloxx ETF Tr 1 Yr Target Duration",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-10-20",
+      "notification_date": "2023-11-01",
+      "amount_code": "A"
+    }
+  ]
 }

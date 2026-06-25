@@ -2,30 +2,1781 @@
   "doc_id": "8219412",
   "member": "Diana Harshbarger",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 7,
-  "created_utc": "2026-06-25T00:50:46.501904+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:36:35.664589+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 35,
+      "transactions": [
+        {
+          "asset_description": "KEURIG DR PEPPER INC",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-30",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ADOBE INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERISOURCEBERGEN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERISOURCEBERGEN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERISOURCEBERGEN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERISOURCEBERGEN CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EDWARDS LIFESCIENCES CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EDWARDS LIFESCIENCES CORP",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "META PLATFORMS INC-CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CDW CORP/DE",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CDW CORP/DE",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORP-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORP-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COMCAST CORP-CLASS A",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CVS HEALTH CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LOCKHEED MARTIN CORP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LOCKHEED MARTIN CORP",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEXTERA ENERGY INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCHEX INC",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PAYCHEX INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE CO/THE",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 60,
+      "transactions": [
+        {
+          "asset_description": "Roche Holdings Ltd-Spons ADR",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-25",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ohio St Wtr Dev Auth Wtr Pollc Due 12/01/2032 5.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-28",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Broadcom Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-27",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AB Private Credit Investors Corporation",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-01-30",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AB Private Credit Investors Corporation",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-01-30",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "T-Mobile US Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "T-Mobile US Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "T-Mobile US Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Visa Inc-Class A Shares",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-01",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Visa Inc-Class A Shares",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-01",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Goldman Sachs Group Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-01",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Goodyear Tire & Rubber Co",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Goodyear Tire & Rubber Co",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-08",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Houlihan Lokey Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Houlihan Lokey Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Oracle Corp",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Paychex Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Paychex Inc",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Paychex Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Paychex Inc",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-09",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Baker Hughes Co",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Baker Hughes Co",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Baker Hughes Co",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Hyatt Hotels Corp - Cl A",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Hyatt Hotels Corp - Cl A",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Hyatt Hotels Corp - Cl A",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Adobe Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AECOM",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Alphabet Inc-Cl C",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Amazon.com Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Aon Plc-Class A",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Apple Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AutoZone Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Booz Allen Hamilton Holdings",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Coca-Cola Co/The",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Comcast Corp-Class A",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Elevance Health Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Fidelity National Info Serv",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Johnson & Johnson",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPMorgan Chase & Co",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Linde Plc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Medtronic Plc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Meta Platforms Inc-Class A",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Microsoft Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Microsoft Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Oracle Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PayPal Holdings Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PepsiCo Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Qualcomm Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Raytheon Technologies Corp",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Republic Services Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Service Corp International",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Sun Communities Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VeriSign Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Walmart Inc",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 2,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 14,
+      "transactions": [
+        {
+          "asset_description": "WELLS FARGO & CO",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-10",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "WISCONSIN ST DUE 05/01/2023 5.000%",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-13",
+          "notification_date": "2023-02-24",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "PACCAR INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PACCAR INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PACCAR INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PACCAR INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ALPHABET INC-CL C",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS INC",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MERCK & CO. INC.",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-14",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "COCA-COLA CO/THE",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-15",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HYATT HOTELS CORP - CL A",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HYATT HOTELS CORP - CL A",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "HYATT HOTELS CORP - CL A",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "QUINCY MA DUE 07/01/2040 5.000% [1]",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2023-02-16",
+          "notification_date": "2023-02-24",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "KEURIG DR PEPPER INC",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-30",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ADOBE INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERISOURCEBERGEN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERISOURCEBERGEN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERISOURCEBERGEN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERISOURCEBERGEN CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EDWARDS LIFESCIENCES CORP",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EDWARDS LIFESCIENCES CORP",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "META PLATFORMS INC-CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CDW CORP/DE",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CDW CORP/DE",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORP-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORP-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COMCAST CORP-CLASS A",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CVS HEALTH CORP",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LOCKHEED MARTIN CORP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LOCKHEED MARTIN CORP",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEXTERA ENERGY INC",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCHEX INC",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PAYCHEX INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE CO/THE",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROCHE HOLDINGS LTD-SPONS ADR",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Roche Holdings Ltd-Spons ADR",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-25",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ohio St Wtr Dev Auth Wtr Pollc Due 12/01/2032 5.000% [1]",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-28",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Broadcom Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-27",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AB Private Credit Investors Corporation",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-01-30",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AB Private Credit Investors Corporation",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-01-30",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "T-Mobile US Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "T-Mobile US Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "T-Mobile US Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Visa Inc-Class A Shares",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-01",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Visa Inc-Class A Shares",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-01",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Goldman Sachs Group Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-01",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Goodyear Tire & Rubber Co",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Goodyear Tire & Rubber Co",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-08",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Houlihan Lokey Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Houlihan Lokey Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Oracle Corp",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Paychex Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Paychex Inc",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Paychex Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Paychex Inc",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-09",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Adobe Inc",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Adobe Inc",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Baker Hughes Co",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Baker Hughes Co",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Baker Hughes Co",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Hyatt Hotels Corp - Cl A",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Hyatt Hotels Corp - Cl A",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Hyatt Hotels Corp - Cl A",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ServiceNow Inc",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ServiceNow Inc",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ServiceNow Inc",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Adobe Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AECOM",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Alphabet Inc-Cl C",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Amazon.com Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Aon Plc-Class A",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Apple Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AutoZone Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Booz Allen Hamilton Holdings",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Coca-Cola Co/The",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Comcast Corp-Class A",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Elevance Health Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Fidelity National Info Serv",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Johnson & Johnson",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPMorgan Chase & Co",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Linde Plc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Medtronic Plc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Meta Platforms Inc-Class A",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Microsoft Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Microsoft Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Oracle Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PayPal Holdings Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PepsiCo Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Qualcomm Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Raytheon Technologies Corp",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Republic Services Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Service Corp International",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Sun Communities Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VeriSign Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Walmart Inc",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WELLS FARGO & CO",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-10",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "WISCONSIN ST DUE 05/01/2023 5.000%",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-13",
+      "notification_date": "2023-02-24",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "PACCAR INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PACCAR INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PACCAR INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PACCAR INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ALPHABET INC-CL C",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS INC",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MERCK & CO. INC.",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-14",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "COCA-COLA CO/THE",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-15",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HYATT HOTELS CORP - CL A",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HYATT HOTELS CORP - CL A",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "HYATT HOTELS CORP - CL A",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "QUINCY MA DUE 07/01/2040 5.000% [1]",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2023-02-16",
+      "notification_date": "2023-02-24",
+      "amount_code": "B"
+    }
+  ]
 }

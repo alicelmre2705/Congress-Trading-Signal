@@ -2,24 +2,1037 @@
   "doc_id": "8219228",
   "member": "Diana Harshbarger",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 5,
-  "created_utc": "2026-06-25T00:33:57.656247+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:58:33.566598+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 50 requests per "
+      "status": "ok",
+      "n": 35,
+      "transactions": [
+        {
+          "asset_description": "Memphis TN Due 06/01/2023 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-22",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Memphis TN Due 06/01/2023 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-22",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "New York ST Dorm Auth ST Perso Due 03/15/2031 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-08-22",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Adobe Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-23",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PNC Financial Services Group",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-23",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Triborough NY Bridge & Tunnel Due 08/15/2024 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-23",
+          "notification_date": "2022-09-26",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Triborough NY Bridge & Tunnel Due 08/15/2024 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-23",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "IDEXX Laboratories Inc",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IDEXX Laboratories Inc",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "New York NY Due 09/01/2038 5.000%",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Align Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Align Technology Inc",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Autodesk Inc",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Connecticut ST Due 10/15/2027 5.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "US Treasury Due 06/30/2024 3.000%",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US Treasury Due 06/30/2024 3.000% [1]",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-08-24",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Centene Corp",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Centene Corp",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Centene Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-25",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-26",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-26",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-26",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VMware Inc-Class A",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-26",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Lockheed Martin Corp",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Northrop Grumman Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Northrop Grumman Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 50 requests per "
+      "status": "ok",
+      "n": 28,
+      "transactions": [
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHROP GRUMMAN CORP",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-08-29",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB (CHARLES) CORP",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB (CHARLES) CORP",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB (CHARLES) CORP",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB (CHARLES) CORP",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUNTSVILLE AL PUBLIC BLDG AUTH DUE 02/01/2039 5.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEW YORK NY DUE 08/01/2034 5.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-08-30",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+          "owner": "Spouse",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-09-02",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-07",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-07",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-07",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICENOW INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-07",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIV OF HOUSTON TX UNIV REVENU DUE 02/15/2040 5.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-09-08",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-13",
+          "notification_date": "2022-09-26",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-13",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-13",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-09-15",
+          "notification_date": "2022-09-26",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+          "owner": "Joint",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-09-15",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHLUMBERGER LTD",
+          "owner": "Self",
+          "transaction_type": "Sale",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHLUMBERGER LTD",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHLUMBERGER LTD",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHLUMBERGER LTD",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHLUMBERGER LTD",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "owner": "Spouse",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "owner": "Self",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITEDHEALTH GROUP INC",
+          "owner": "Joint",
+          "transaction_type": "Purchase",
+          "transaction_date": "2022-09-19",
+          "notification_date": "2022-09-26",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Memphis TN Due 06/01/2023 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-22",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Memphis TN Due 06/01/2023 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-22",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "New York ST Dorm Auth ST Perso Due 03/15/2031 5.000% [1]",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-08-22",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Adobe Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-23",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PNC Financial Services Group",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-23",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Triborough NY Bridge & Tunnel Due 08/15/2024 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-23",
+      "notification_date": "2022-09-26",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Triborough NY Bridge & Tunnel Due 08/15/2024 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-23",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "IDEXX Laboratories Inc",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IDEXX Laboratories Inc",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "New York NY Due 09/01/2038 5.000%",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Align Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Align Technology Inc",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Autodesk Inc",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Connecticut ST Due 10/15/2027 5.000% [1]",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "US Treasury Due 06/30/2024 3.000%",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "US Treasury Due 06/30/2024 3.000% [1]",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-08-24",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Centene Corp",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Centene Corp",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Centene Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-25",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-26",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-26",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-26",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VMware Inc-Class A",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-26",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Lockheed Martin Corp",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ServiceNow Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ServiceNow Inc",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Northrop Grumman Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Northrop Grumman Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHROP GRUMMAN CORP",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHROP GRUMMAN CORP",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-08-29",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB (CHARLES) CORP",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB (CHARLES) CORP",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB (CHARLES) CORP",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB (CHARLES) CORP",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUNTSVILLE AL PUBLIC BLDG AUTH DUE 02/01/2039 5.000% [1]",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEW YORK NY DUE 08/01/2034 5.000% [1]",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-08-30",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+      "owner": "Spouse",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-09-02",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-07",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-07",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-07",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICENOW INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-07",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIV OF HOUSTON TX UNIV REVENU DUE 02/15/2040 5.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-09-08",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-13",
+      "notification_date": "2022-09-26",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-13",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "MET GOVT NASHVILLE & DAVIDSON DUE 01/01/2037 5.000%",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-13",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-09-15",
+      "notification_date": "2022-09-26",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "US TREASURY DUE 06/30/2024 3.000% [1]",
+      "owner": "Joint",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-09-15",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHLUMBERGER LTD",
+      "owner": "Self",
+      "transaction_type": "Sale",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHLUMBERGER LTD",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHLUMBERGER LTD",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHLUMBERGER LTD",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHLUMBERGER LTD",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "owner": "Spouse",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "owner": "Self",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITEDHEALTH GROUP INC",
+      "owner": "Joint",
+      "transaction_type": "Purchase",
+      "transaction_date": "2022-09-19",
+      "notification_date": "2022-09-26",
+      "amount_code": "A"
+    }
+  ]
 }

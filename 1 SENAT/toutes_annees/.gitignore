@@ -1,0 +1,8 @@
+# Caches bruts régénérables (re-fetch eFD / public media) — volumineux, NE PAS committer
+# HTML des PTR + images .gif scannées (~230 MB, re-téléchargeables depuis efd-media-public)
+data/reports/
+# logs de build
+*.log
+# sortie intermédiaire du pilote OCR
+data/_pilote_ocr.csv
+__pycache__/

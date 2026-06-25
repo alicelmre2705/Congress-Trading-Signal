@@ -101,7 +101,8 @@ TXN_TOOL = {
         }, "required": ["asset_description", "transaction_type", "owner"], "additionalProperties": False}}},
         "required": ["transactions"]},
 }
-PROMPT_SHA = hashlib.sha256((OCR_PROMPT + json.dumps(TXN_TOOL, sort_keys=True)).encode()).hexdigest()[:12]
+PIPELINE_TAG = "deskew_v1"   # invalide le cache pré-deskew → cohérence corpus
+PROMPT_SHA = hashlib.sha256((OCR_PROMPT + json.dumps(TXN_TOOL, sort_keys=True) + PIPELINE_TAG).encode()).hexdigest()[:12]
 
 OWNER_MAP = {"Self": "SELF", "Spouse": "Spouse", "Joint": "Joint Tenancy", "Dependent Child": "Dependent Child"}
 _EXAMPLE_RE = re.compile(r"example.*mega\s*corp|mega\s*corp.*common\s*stock", re.I)
@@ -304,8 +305,8 @@ def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, year, force=False
         else:
             prev = None                                     # cache incompatible → tout refaire
 
-    images = pdf_to_b64_images(pdf_path)
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    images, _ = pdf_to_b64_images(pdf_path, client=client, deskew=True)
     batches = [images[i:i + MAX_IMG_PER_CALL] for i in range(0, len(images), MAX_IMG_PER_CALL)]
 
     # Reprise : garder les batches 'ok' du cache, ne refaire que les autres

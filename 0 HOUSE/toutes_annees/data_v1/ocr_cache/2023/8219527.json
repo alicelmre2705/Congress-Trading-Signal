@@ -2,18 +2,245 @@
   "doc_id": "8219527",
   "member": "Charles J. \"Chuck\" Fleischmann",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 3,
-  "created_utc": "2026-06-25T00:50:42.522540+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T18:34:36.619950+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 14,
+      "transactions": [
+        {
+          "asset_description": "INVESCO ACTIVELY MANAGED EX (PDBC)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INVESCO EXCHANGE-TRADED FD (XMHQ)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ISHARES TR BB RATED CORP BD E (HYBB)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PACER FDS TR PACER US SMALL C (CALF)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYG)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 400 MID CAP G (MDYG)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SPDR SER TR S&P 400 MID CAP VA (MDYV)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-04-26",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GARMIN LTD SHS ISIN#CH0114405 (GRMN)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DRAFTKINGS INC NEW CL A (DKNG)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PINNACLE FINL PARTNERS INC CO (PNFP)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PRICE T ROWE GROUP INC COM (TROW)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TENCENT HLDGS LTD ADR ISIN#U (TCEHY)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "3M CO COM (MMM)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UPWORK INC COM (UPWK)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-04-10",
+          "notification_date": "2023-05-01",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "INVESCO ACTIVELY MANAGED EX (PDBC)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INVESCO EXCHANGE-TRADED FD (XMHQ)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ISHARES TR BB RATED CORP BD E (HYBB)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PACER FDS TR PACER US SMALL C (CALF)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 600 SMALL CAP (SLYG)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 400 MID CAP G (MDYG)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SPDR SER TR S&P 400 MID CAP VA (MDYV)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-04-26",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GARMIN LTD SHS ISIN#CH0114405 (GRMN)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DRAFTKINGS INC NEW CL A (DKNG)",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PINNACLE FINL PARTNERS INC CO (PNFP)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRICE T ROWE GROUP INC COM (TROW)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TENCENT HLDGS LTD ADR ISIN#U (TCEHY)",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "3M CO COM (MMM)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UPWORK INC COM (UPWK)",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-04-10",
+      "notification_date": "2023-05-01",
+      "amount_code": "A"
+    }
+  ]
 }

@@ -2,364 +2,4753 @@
   "doc_id": "8218637",
   "member": "Rohit Khanna",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 10,
-  "created_utc": "2026-06-25T00:39:27.049762+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T19:05:59.482623+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 3,
       "status": "ok",
-      "n": 6
+      "n": 82,
+      "transactions": [
+        {
+          "asset_description": "Paypal Holdings Inc",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-03",
+          "notification_date": "2022-04-04",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "CME Group Inc",
+          "transaction_type": "Partial Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-03",
+          "notification_date": "2022-04-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ASML Holdings Inc",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-04",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "ServiceNow Inc",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Equinix Inc",
+          "transaction_type": "Partial Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-11",
+          "notification_date": "2022-04-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Charles Schwab Corporation (TH Hybrid Perpetual)",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-05-01",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Citigroup Inc Incorporated CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-01",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Compares Inc Incorporated CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-04",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "American Express Co CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-04",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amazon.com Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-05",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Walgreens Boots Alliance CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-05",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Meta Platforms Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Kraton Coating Systems Ltd CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-20",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Novo Nordisk A/S ADR ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-28",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "General Motors Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-04-01",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Broadcom Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-04",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mohawk Industries Inc Common Stock",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-05",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "American Tower R Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-05",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "BB&T/SunTrust (Truist) Financial CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-09",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Lam Research Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Intuitive Surgical Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Prudential Financial Inc Hybrid D1351/A152",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Paramount Global Hybrid D1/B1182",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "UnitedHealth Group Incorporated CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-15",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Dedaline Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-16",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mohawk Industries Inc Common Stock",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mohawk Industries Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Alphabet Inc CMN Class C",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-17",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "American Tower Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Fox Company Inc (NW) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-19",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Danaher Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amazon Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-19",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mohawk Industries Inc Common Stock",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "AbbVie Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Berkshire Hathaway Inc Class B",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-09",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "DoorDash Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-01",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Hydra Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-01",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Procter & Gamble (The) Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-06",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Archer Daniels Midland Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-09",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Fox Corporation (The) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Triumphant Technology Solutions Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mandiant Inc/GA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Nvidia Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-23",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Public Storage CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Walt Disney Company (The) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Nvidia Corporation CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Winterhouse Advanced Technol CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-17",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Tesla Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-05",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mandiant Inc/GA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mandiant Inc/GA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Match Group Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-04",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Roblox Limited (Unknown) ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-12",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Wells Fargo & Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "KBR & LII Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-15",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Comcast Corporation CMN Class A & B Voting",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-17",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Viacom Communications Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-17",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Public Storage CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mondelez International Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-15",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Public Storage CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amarin Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Berkshire Hathaway Inc Class B",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-07",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Republic Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Fidelity Nrth Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Hopsite Ballind Cutting Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Alphabet Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amazon.com Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-15",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "General Motors Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Jernigan Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Citigroup Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amazon.com Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-15",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Procter & Gamble (The) Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mohawk Industries Inc Common Stock",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-04",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Meta Platforms Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Alphabet Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-16",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Pioneer Natural Resources Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-06",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Alphabet Inc CMN Class A",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mandiant Inc/GA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Archer Daniels Midland Company CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-09",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Berkshire Hathaway Inc Class B",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Amazon.com Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mondelez International Inc CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        },
+        {
+          "asset_description": "Mandiant Inc/GA CMN",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05"
+        }
+      ]
     },
     {
       "batch": 1,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 0,
+      "transactions": []
     },
     {
       "batch": 2,
       "pages": 3,
-      "status": "error",
-      "error": "appel API échoué : RateLimitError 429 Error code: 429 - {'type': 'error', 'error': {'type': 'rate_limit_error', 'message': \"This request would exceed your organization's rate limit of 8,000 output tok"
+      "status": "ok",
+      "n": 186,
+      "transactions": [
+        {
+          "asset_description": "ACM PUBLIC LIMITED COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IAA, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MCKESSON INDUSTRIES INC COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-16",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EDWARDS INDUSTRIES INC COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOORDASH INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PORTESKI INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PALTON GROUP, INC CMN SERIES L",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TOLMAR INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LF CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOLLAR GENERAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THE PROGRESSIVE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "T. ROWE PRICE GROUP, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ORBIT B & COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NMI CLASS B CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONSTER BEVERAGE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FIVE & BARGAIN OUTLET HLDG INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCULOGICS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BURLINGTON STORES INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EFC CORP INC - A CMN SERIES A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALLY FINANCIAL INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FEDERAL REALTY INVESTMENT TRUST CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TELADOC HEALTH INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JOHNSON CONTROLS INTERNATIONAL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MASIMO CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GTS WORLDWIDE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BAIN & BAIN STREET HOLDINGS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INDUSTRIAL PROPERTIES OF INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARVANA CO CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NORTHOMASS DOCK INC MN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VIMCHINA HOLDINGS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WESTERN ALLIANCE BANCORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITED RANIT'S HOLDINGS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PALTION INTERACTIVE, INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AFFIRM BRANDS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CASPER LIED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IAT CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DUPONT DE NEMOURS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN AIRLINES GROUP INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MEILISUK INCORPORATED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "KROGER COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PENN NATIONAL GAMING INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FALCON GROUP INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OMEGA HEALTHCARE INVESTORS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VEEVA SYSTEMS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/PSP @ EXP EXP 06/17/2022",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUT/PSP @ EXP EXP 06/30/2022",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALPHABET INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "PARKER HANNIFIN CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CF CORPORATION CMN CLASS A VOTING",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "JPMORGAN CHASE & CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LYTICS SYSTEMS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "RPM INTERNATIONAL INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SERVICE CORP INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INITIATIVE SURGICAL, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AUTODESK, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AITE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ANGELA STEEL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EDWARDS INTERNACIONALS CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRESCORD MATHAWAY INC CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRESCORD MATHAWAY INC CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FIS COMPANIES INC (NOTEI) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AVALARA FALCON, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SONY GROUP CORPORATION SPONSORED ADR CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARNOSSE INTERNATIONAL, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AEROJET ROCKETDYNE CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN WILLIAMS CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STEWART INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACTIVISION BLIZZARD INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MOODY'S INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THE BANK OF NY MELLON CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ILLINOIS TOOL WORKS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELECTRONIC ARTS CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MASTERCARD INC INCORPORATED CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-14",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MATCH GROUP INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BIO-RAD LABORATORIES, INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN EXPRESS CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMERICAN EXPRESS CO CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MEYLER TOLEDO INTL CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "US BANCORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ABBOTT LABORATORIES CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALIGN TECHNOLOGY, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AGILENT TECHNOLOGIES, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TWITTER, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ITG PV, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SVB FINANCIAL GROUP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DELTA ONE INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DELTA ONE INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LEJONDAR DE MONETRING INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EPHRAM SYSTEMS, INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARR GROUP INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APIAN CORPORATION PLC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUMANA INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WEST PHARMACEUTICS AL SERVICES INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PKG FINANCIAL SERVICES GROUP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "APTS PLC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NEWTHREAD FAULT CORP CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SEYRIGHT TECHNOLOGIES, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PRISM INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MASTER INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITRIX SYSTEMS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LENTAR CORPORATION, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LAMB WESTON HOLDINGS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FRUITS FINANCIAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT INTERNATIONAL, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ALEXANDRIA REAL ESTATE EQUITIES, INC",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NXP SEMICONDUCTOR CORP N.V. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "NICON INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ITBRA TECHNOLOGIES INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "THOMPSON INC. CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "RELUTED INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRECKMOR FINANCIAL, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ING CI SCALE BAND INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ROYAL CARIBBEAN GROUP CMN (UNREPORTED)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MGIC INVESTMENT CORP COMMON STOCK",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "GROUP INTERNATIONAL OF INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LIBERTY MEDIA CORP LIBERTY FORMULA ONE",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CARMAX, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON INC INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ZOOM VIDEO COMMUNICATIONS INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INTEL TECHNOLOGIES INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CHARTER COMMUNICATIONS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HI PERINT NUTRITION INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELEMENTARY CORP INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "RAGAN CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNITY SOFTWARE INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BROADCOM CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EAGLE MATERIALS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "LANSTAR INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ELOVA SOFTWARE INCORPORATED CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DARWIN RESTAURANTS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-08",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MANDIANT INC/SH CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UBAP INC CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BUMCESTAWA INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PRONPRIMUS, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FORTUNE BRANDS HOME & SECURITY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "EVERBRIDGE, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IN MAX CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SILICON FLEISIA EL A CMN CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STORE CAPITAL CORPORATION CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "INFRALOGICS INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ICS FINANCE CORP LINKED TO S&P 500 INDEX",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC PHLXCORPRAM FITTERS PPM",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC LINKED TO S&P 500 INDEX",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "IBAS PURTGIN AUTH PFASE PD VS VN 02/01/22 FA",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DALLAS FT WORTH DIST GO VR 02/15/22 FA",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-09",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "WINSTON SALENER C WRTR & WWS REV VN 09/01/22 RI",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "VIRGINIA ST GENL AUTH REV VN 06/01/22 APL",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "AMAZON.COM INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CATERPILLAR INC (DELAWARE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONDER INTERNATIONAL, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BERKSHIRE HATHAWAY INC CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ARCHER DANIELS MIDLAND COMPANY CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-10",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "HUBANA INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-18",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ABBVIE INC. CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "COGNIZANT TECHNOLOGY SOLUTIONS CORP CLASS A",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUBLIC STORAGE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-25",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUBLIC STORAGE CMN CLASS B",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-25",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUBLIC STORAGE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "FIDELITY INTEG SVCS INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MONDELEZ INTERNATIONAL, INC CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-11",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "PUBLIC STORAGE CMN",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-21",
+          "notification_date": "2022-04-05",
+          "amount_code": "A"
+        }
+      ]
     },
     {
       "batch": 3,
       "pages": 1,
       "status": "ok",
-      "n": 35
+      "n": 36,
+      "transactions": [
+        {
+          "asset_description": "STRYKER CORPORATION COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-04",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OTIS WORLDWIDE CORP COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB CHARLES CORP COM",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-09",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOMINO S PIZZA INC",
+          "transaction_type": "Purchase",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MATCH GROUP INC NEW COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACTIVISION BLIZZARD INC COM",
+          "transaction_type": "Sale",
+          "owner": "Spouse",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STRYKER CORPORATION COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OTIS WORLDWIDE CORP COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB CHARLES CORP COM",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-09",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOMINO S PIZZA INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MATCH GROUP INC NEW COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACTIVISION BLIZZARD INC COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "STRYKER CORPORATION COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "OTIS WORLDWIDE CORP COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BOSTON SCIENTIFIC CORP",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-15",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SCHWAB CHARLES CORP COM",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-09",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MICROSOFT CORP",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "SHERWIN-WILLIAMS CO",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "DOMINO S PIZZA INC",
+          "transaction_type": "Purchase",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "MATCH GROUP INC NEW COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CITIGROUP INC",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-08",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "ACTIVISION BLIZZARD INC COM",
+          "transaction_type": "Sale",
+          "owner": "Dependent Child",
+          "transaction_date": "2022-03-01",
+          "notification_date": "2022-04-22",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
   "transactions": [
     {
-      "asset_description": "Pound (full name for the transaction)",
+      "asset_description": "Paypal Holdings Inc",
       "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-03",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "PayPal Holdings Inc.",
-      "transaction_type": "Purchase",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-03",
       "notification_date": "2022-04-04",
       "amount_code": "B"
     },
     {
-      "asset_description": "CME Group Inc.",
-      "transaction_type": "Purchase",
-      "owner": "Self",
+      "asset_description": "CME Group Inc",
+      "transaction_type": "Partial Sale",
+      "owner": "Spouse",
       "transaction_date": "2022-03-03",
       "notification_date": "2022-04-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "ASML Holdings Inc.",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-03",
+      "asset_description": "ASML Holdings Inc",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-01",
       "notification_date": "2022-04-04",
       "amount_code": "B"
     },
     {
-      "asset_description": "Schwerdlow Inc.",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "asset_description": "ServiceNow Inc",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
       "transaction_date": "2022-03-08",
       "notification_date": "2022-04-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "Equinix Inc.",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "asset_description": "Equinix Inc",
+      "transaction_type": "Partial Sale",
+      "owner": "Spouse",
       "transaction_date": "2022-03-11",
       "notification_date": "2022-04-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "ACTION BLUR RAZOR BLIZZARD INC COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
+      "asset_description": "Charles Schwab Corporation (TH Hybrid Perpetual)",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-05-01",
+      "notification_date": "2022-04-05"
     },
     {
-      "asset_description": "CITERGROUP INC",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
+      "asset_description": "Citigroup Inc Incorporated CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-01",
+      "notification_date": "2022-04-05"
     },
     {
-      "asset_description": "MATCH GROUP INC NEW COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
+      "asset_description": "Compares Inc Incorporated CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-04",
+      "notification_date": "2022-04-05"
     },
     {
-      "asset_description": "SHERWIN WILLIAMS CO",
+      "asset_description": "American Express Co CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-04",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amazon.com Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-05",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Walgreens Boots Alliance CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-05",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Meta Platforms Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Kraton Coating Systems Ltd CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-20",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Novo Nordisk A/S ADR ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-28",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "General Motors Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-04-01",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Broadcom Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-04",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mohawk Industries Inc Common Stock",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-05",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "American Tower R Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-05",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "BB&T/SunTrust (Truist) Financial CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-09",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Lam Research Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Intuitive Surgical Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Prudential Financial Inc Hybrid D1351/A152",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Paramount Global Hybrid D1/B1182",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "UnitedHealth Group Incorporated CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-15",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Dedaline Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-16",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mohawk Industries Inc Common Stock",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mohawk Industries Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Alphabet Inc CMN Class C",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "American Tower Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Fox Company Inc (NW) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-19",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Danaher Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amazon Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-19",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mohawk Industries Inc Common Stock",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "AbbVie Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Berkshire Hathaway Inc Class B",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-09",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "DoorDash Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-01",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Hydra Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-01",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Procter & Gamble (The) Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-06",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Archer Daniels Midland Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-09",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Fox Corporation (The) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Triumphant Technology Solutions Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mandiant Inc/GA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Nvidia Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-23",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Public Storage CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Walt Disney Company (The) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Nvidia Corporation CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Winterhouse Advanced Technol CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Tesla Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-05",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mandiant Inc/GA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mandiant Inc/GA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Match Group Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-04",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Roblox Limited (Unknown) ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-12",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Wells Fargo & Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "KBR & LII Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-15",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Comcast Corporation CMN Class A & B Voting",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Viacom Communications Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-17",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Public Storage CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mondelez International Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-15",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Public Storage CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amarin Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Berkshire Hathaway Inc Class B",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-07",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Republic Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Fidelity Nrth Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Hopsite Ballind Cutting Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Alphabet Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amazon.com Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-15",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "General Motors Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Jernigan Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Citigroup Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amazon.com Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-15",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Procter & Gamble (The) Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mohawk Industries Inc Common Stock",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-04",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Meta Platforms Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Alphabet Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-16",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Pioneer Natural Resources Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-06",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Alphabet Inc CMN Class A",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mandiant Inc/GA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Archer Daniels Midland Company CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-09",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Berkshire Hathaway Inc Class B",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Amazon.com Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mondelez International Inc CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "Mandiant Inc/GA CMN",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05"
+    },
+    {
+      "asset_description": "ACM PUBLIC LIMITED COMPANY CMN",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
       "amount_code": "A"
     },
     {
-      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "BRISTOL MYERS SQUIBB CO COM",
+      "asset_description": "IAA, INC. CMN",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-04",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
       "amount_code": "A"
     },
     {
-      "asset_description": "MICROSOFT CORP",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SCHWAB CHARLES CORP COM",
+      "asset_description": "BROWN FORMAN CORP CL B CMN CLASS B",
       "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-04",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
       "amount_code": "A"
     },
     {
-      "asset_description": "SCHWAB CHARLES CORP COM",
-      "transaction_type": "Sale",
+      "asset_description": "MCKESSON INDUSTRIES INC COMMON STOCK",
+      "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-04",
+      "transaction_date": "2022-01-16",
+      "notification_date": "2022-04-05",
       "amount_code": "A"
     },
     {
-      "asset_description": "DTS WORLDWIDE CORP COM",
-      "transaction_type": "Sale",
+      "asset_description": "EDWARDS INDUSTRIES INC COMMON STOCK",
+      "transaction_type": "Purchase",
       "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-04",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOORDASH INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PORTESKI INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALTON GROUP, INC CMN SERIES L",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TOLMAR INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LF CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOLLAR GENERAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THE PROGRESSIVE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "T. ROWE PRICE GROUP, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ORBIT B & COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NMI CLASS B CMN CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONSTER BEVERAGE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIVE & BARGAIN OUTLET HLDG INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROCULOGICS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BURLINGTON STORES INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EFC CORP INC - A CMN SERIES A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALLY FINANCIAL INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FEDERAL REALTY INVESTMENT TRUST CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TELADOC HEALTH INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JOHNSON CONTROLS INTERNATIONAL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASIMO CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GTS WORLDWIDE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BAIN & BAIN STREET HOLDINGS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INDUSTRIAL PROPERTIES OF INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARVANA CO CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NORTHOMASS DOCK INC MN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VIMCHINA HOLDINGS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTERN ALLIANCE BANCORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITED RANIT'S HOLDINGS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PALTION INTERACTIVE, INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AFFIRM BRANDS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CASPER LIED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IAT CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DUPONT DE NEMOURS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN AIRLINES GROUP INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MEILISUK INCORPORATED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "KROGER COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PENN NATIONAL GAMING INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FALCON GROUP INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "OMEGA HEALTHCARE INVESTORS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VEEVA SYSTEMS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/PSP @ EXP EXP 06/17/2022",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUT/PSP @ EXP EXP 06/30/2022",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALPHABET INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "PARKER HANNIFIN CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CF CORPORATION CMN CLASS A VOTING",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "JPMORGAN CHASE & CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LYTICS SYSTEMS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WALT DISNEY COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "RPM INTERNATIONAL INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SERVICE CORP INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INITIATIVE SURGICAL, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AUTODESK, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AITE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ANGELA STEEL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EDWARDS INTERNACIONALS CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRESCORD MATHAWAY INC CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRESCORD MATHAWAY INC CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIS COMPANIES INC (NOTEI) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AVALARA FALCON, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SONY GROUP CORPORATION SPONSORED ADR CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARNOSSE INTERNATIONAL, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AEROJET ROCKETDYNE CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN WILLIAMS CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STEWART INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MOODY'S INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THE BANK OF NY MELLON CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ILLINOIS TOOL WORKS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELECTRONIC ARTS CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASTERCARD INC INCORPORATED CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-14",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MATCH GROUP INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BIO-RAD LABORATORIES, INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN EXPRESS CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMERICAN EXPRESS CO CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MEYLER TOLEDO INTL CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "US BANCORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ABBOTT LABORATORIES CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALIGN TECHNOLOGY, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AGILENT TECHNOLOGIES, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TWITTER, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ITG PV, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SVB FINANCIAL GROUP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DELTA ONE INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DELTA ONE INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LEJONDAR DE MONETRING INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EPHRAM SYSTEMS, INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARR GROUP INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APIAN CORPORATION PLC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUMANA INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WEST PHARMACEUTICS AL SERVICES INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PKG FINANCIAL SERVICES GROUP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "APTS PLC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NEWTHREAD FAULT CORP CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SEYRIGHT TECHNOLOGIES, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRISM INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MASTER INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITRIX SYSTEMS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LENTAR CORPORATION, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LAMB WESTON HOLDINGS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WESTINGHOUSE AIR BRAKE TECHNOLOGY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FRUITS FINANCIAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAKE TWO INTERACTIVE SOFTWARE INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT INTERNATIONAL, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ALEXANDRIA REAL ESTATE EQUITIES, INC",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NXP SEMICONDUCTOR CORP N.V. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "NICON INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ITBRA TECHNOLOGIES INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "THOMPSON INC. CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "RELUTED INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRECKMOR FINANCIAL, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ING CI SCALE BAND INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ROYAL CARIBBEAN GROUP CMN (UNREPORTED)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MGIC INVESTMENT CORP COMMON STOCK",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "GROUP INTERNATIONAL OF INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LIBERTY MEDIA CORP LIBERTY FORMULA ONE",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CARMAX, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON INC INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ZOOM VIDEO COMMUNICATIONS INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INTEL TECHNOLOGIES INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CHARTER COMMUNICATIONS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HI PERINT NUTRITION INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELEMENTARY CORP INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "RAGAN CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNITY SOFTWARE INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BROADCOM CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EAGLE MATERIALS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "LANSTAR INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ELOVA SOFTWARE INCORPORATED CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DARWIN RESTAURANTS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-08",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MANDIANT INC/SH CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UBAP INC CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BUMCESTAWA INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PRONPRIMUS, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FORTUNE BRANDS HOME & SECURITY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "EVERBRIDGE, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IN MAX CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SILICON FLEISIA EL A CMN CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STORE CAPITAL CORPORATION CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "INFRALOGICS INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ICS FINANCE CORP LINKED TO S&P 500 INDEX",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC PHLXCORPRAM FITTERS PPM",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC LINKED TO S&P 500 INDEX",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "IBAS PURTGIN AUTH PFASE PD VS VN 02/01/22 FA",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DALLAS FT WORTH DIST GO VR 02/15/22 FA",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-09",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "WINSTON SALENER C WRTR & WWS REV VN 09/01/22 RI",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "VIRGINIA ST GENL AUTH REV VN 06/01/22 APL",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "AMAZON.COM INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CATERPILLAR INC (DELAWARE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONDER INTERNATIONAL, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BERKSHIRE HATHAWAY INC CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ARCHER DANIELS MIDLAND COMPANY CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-10",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "HUBANA INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-18",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ABBVIE INC. CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PROCTER & GAMBLE COMPANY (THE) CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "COGNIZANT TECHNOLOGY SOLUTIONS CORP CLASS A",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUBLIC STORAGE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-25",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUBLIC STORAGE CMN CLASS B",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-25",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUBLIC STORAGE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "FIDELITY INTEG SVCS INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MONDELEZ INTERNATIONAL, INC CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-11",
+      "notification_date": "2022-04-05",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "PUBLIC STORAGE CMN",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-21",
+      "notification_date": "2022-04-05",
       "amount_code": "A"
     },
     {
       "asset_description": "STRYKER CORPORATION COM",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-15",
       "notification_date": "2022-04-04",
       "amount_code": "A"
     },
     {
-      "asset_description": "Grandchildren Trust (Balance Portion)",
+      "asset_description": "OTIS WORLDWIDE CORP COM",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "C"
-    },
-    {
-      "asset_description": "ROTON SCIENTIFIC CORP COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "ROTON SCIENTIFIC CORP COM",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SCHWAB CHARLES CORP COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "MICROSOFT CORP",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "BRISTOL MYERS SQUIBB CO COM",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SHERWIN WILLIAMS CO",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "MATCH GROUP INC NEW COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "DOMINO'S PIZZA INC",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "ACTIVISION BLIZZARD INC COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
-      "transaction_type": "Purchase",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SCHWAB CHARLES CORP COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-05",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SCHWAB CHARLES CORP COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "MICROSOFT CORP",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-05",
       "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
       "asset_description": "BOSTON SCIENTIFIC CORP",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-15",
       "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
-      "asset_description": "DTS WORLDWIDE CORP COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "STRYKER CORPORATION COM",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-15",
-      "notification_date": "2022-04-22",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "SHERWIN WILLIAMS CO MANUFACTURING SPON ADS EACH RE",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-08",
+      "asset_description": "SCHWAB CHARLES CORP COM",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-09",
       "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
       "asset_description": "MICROSOFT CORP",
-      "transaction_type": "Sale",
-      "owner": "Self",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
       "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO",
+      "transaction_type": "Sale",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOMINO S PIZZA INC",
+      "transaction_type": "Purchase",
+      "owner": "Spouse",
+      "transaction_date": "2022-03-01",
       "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
       "asset_description": "MATCH GROUP INC NEW COM",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
+      "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
-      "asset_description": "DOMINO'S PIZZA INC",
+      "asset_description": "CITIGROUP INC",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
-      "amount_code": "A"
-    },
-    {
-      "asset_description": "CITERGROUP INC",
-      "transaction_type": "Sale",
-      "owner": "Self",
-      "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
+      "notification_date": "2022-04-22",
       "amount_code": "A"
     },
     {
       "asset_description": "ACTIVISION BLIZZARD INC COM",
       "transaction_type": "Sale",
-      "owner": "Self",
+      "owner": "Spouse",
       "transaction_date": "2022-03-01",
-      "notification_date": "2022-04-04",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "OTIS WORLDWIDE CORP COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB CHARLES CORP COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-09",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOMINO S PIZZA INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MATCH GROUP INC NEW COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "STRYKER CORPORATION COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "OTIS WORLDWIDE CORP COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BOSTON SCIENTIFIC CORP",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-15",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SCHWAB CHARLES CORP COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-09",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MICROSOFT CORP",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "BRISTOL-MYERS SQUIBB CO COM",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "TAIWAN SEMICONDUCTOR MANUFACTURING SPON ADS EACH RE",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "SHERWIN-WILLIAMS CO",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "DOMINO S PIZZA INC",
+      "transaction_type": "Purchase",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "MATCH GROUP INC NEW COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CITIGROUP INC",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-08",
+      "notification_date": "2022-04-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "ACTIVISION BLIZZARD INC COM",
+      "transaction_type": "Sale",
+      "owner": "Dependent Child",
+      "transaction_date": "2022-03-01",
+      "notification_date": "2022-04-22",
       "amount_code": "A"
     }
   ]
