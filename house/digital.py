@@ -70,14 +70,8 @@ bio_to_committees = defaultdict(set)
 ref_house_key = None
 
 
-# ───────────────────────── Normalisation noms ─────────────────────────
-def strip_accents(s: str) -> str:
-    return "".join(c for c in unicodedata.normalize("NFKD", s or "") if not unicodedata.combining(c))
-
-def norm(s: str) -> str:
-    s = strip_accents(s or "").lower()
-    s = re.sub(r"[^a-z ]", " ", s)
-    return re.sub(r"\s+", " ", s).strip()
+# ───────────────────────── Normalisation noms (déléguée au cœur) ─────────────────────────
+from congress_core.identity import strip_accents, norm   # noqa: E402 (source unique partagée)
 
 
 # ───────────────────────── Référentiel identité ─────────────────────────
@@ -210,9 +204,7 @@ ATYPE_RE      = re.compile(r'\[([A-Za-z]{2})\]')
 _SUB_WORDS    = {"full", "partial"}  # éviter de prendre "(full)" pour un ticker
 OWNER_RE      = re.compile(r'^(JT|SP|DC)\s+', re.IGNORECASE)
 _SPLIT_AMOUNT_RE = re.compile(r'\$[\d,]+\s*-\s*$')
-ATYPE_NAMES = {"ST": "Stock", "OP": "Option", "OT": "Other", "MF": "Mutual Fund",
-               "GS": "Gov Security", "CO": "Corp Bond", "PE": "Private Equity",
-               "OI": "Other Investment"}
+from congress_core.amounts import ATYPE_NAMES   # noqa: E402 (source unique partagée)
 
 
 # ───────────────────────── Prétraitement lignes (port cellule 18) ─────────────────────────
@@ -258,19 +250,9 @@ def _join_split_lines(lines):
         result.append(line); i += 1
     return result
 
-def _amount_midpoint(a):
-    nums = [int(x.replace(',', '')) for x in re.findall(r'\$([\d,]+)', a)]
-    if len(nums) >= 2: return (nums[0] + nums[1]) / 2
-    if len(nums) == 1: return float(nums[0])
-    return None
-
-def _op_type(t, sub):
-    t, sub = t.upper(), (sub or '').lower()
-    if t == 'P': return 'Purchase'
-    if t == 'E': return 'Exchange'
-    if sub == 'partial': return 'Sale (Partial)'
-    if sub == 'full':    return 'Sale (Full)'
-    return 'Sale'
+# amount_midpoint + operation_type délégués au cœur (source unique partagée).
+from congress_core.amounts import amount_midpoint as _amount_midpoint  # noqa: E402
+from congress_core.amounts import operation_type_from_code as _op_type  # noqa: E402
 
 def _is_txn_start(s):
     m = TXN_RE.search(s)

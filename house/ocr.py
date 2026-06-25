@@ -47,14 +47,7 @@ CLUSTERS_NON_EXECUTES = {"C_manuscrit"}
 FILERS_C_A_RECUPERER = {"S001180", "L000564", "H001086"}  # Schrader, Lamborn, Harshbarger (≈99 % de la perte dure)
 
 # ───────────────────────── Constantes OCR (port cellule 7) ─────────────────────────
-AMOUNT_MAP = {
-    "A": ("$1,001 - $15,000", 8_000.0), "B": ("$15,001 - $50,000", 32_500.0),
-    "C": ("$50,001 - $100,000", 75_000.0), "D": ("$100,001 - $250,000", 175_000.0),
-    "E": ("$250,001 - $500,000", 375_000.0), "F": ("$500,001 - $1,000,000", 750_000.0),
-    "G": ("$1,000,001 - $5,000,000", 3_000_000.0), "H": ("$5,000,001 - $25,000,000", 15_000_000.0),
-    "I": ("$25,000,001 - $50,000,000", 37_500_000.0), "J": ("Over $50,000,000", 75_000_000.0),
-    "K": ("SP/DC over $1,000,000", 1_000_001.0),
-}
+from congress_core.amounts import HOUSE_OCR_AMOUNT_MAP as AMOUNT_MAP   # source unique partagée
 OCR_PROMPT = """\
 Tu lis les pages scannées d'un formulaire PTR (Periodic Transaction Report — US House of
 Representatives) déposé par {member_name}. Reporte TOUTES les transactions financières en
@@ -104,7 +97,7 @@ TXN_TOOL = {
 PIPELINE_TAG = "deskew_v1"   # invalide le cache pré-deskew → cohérence corpus
 PROMPT_SHA = hashlib.sha256((OCR_PROMPT + json.dumps(TXN_TOOL, sort_keys=True) + PIPELINE_TAG).encode()).hexdigest()[:12]
 
-OWNER_MAP = {"Self": "SELF", "Spouse": "Spouse", "Joint": "Joint Tenancy", "Dependent Child": "Dependent Child"}
+from congress_core.amounts import HOUSE_OCR_OWNER_MAP as OWNER_MAP   # source unique partagée
 _EXAMPLE_RE = re.compile(r"example.*mega\s*corp|mega\s*corp.*common\s*stock", re.I)
 
 
@@ -385,33 +378,13 @@ def normalize(txn, meta, year):
     r["natural_key_hash"] = natural_key_hash(r)
     return r
 
-_SUFFIX_RE = re.compile(r"\b(CMN|COM|COMMON STOCK|COMMON|CLASS [A-Z]|CL [A-Z]|INCORPORATED|INC|CORPORATION|CORP|"
-                        r"COMPANY|CO|HOLDINGS|HLDGS|LLC|L\.?P\.?|LTD|PLC|THE|SYS|SYSTEMS|SER|TR|TRUST|FUND|FUNDS|ETF)\b")
-_EXPLICIT_TICKER_RE = re.compile(r"[-(]\s*([A-Z][A-Z0-9.]{0,5})\)?\s*$")
-_OCR_FIX = {"METILIFE": "METLIFE", "ATT": "AT T"}
+# Normalisation/inférence ticker déléguées au cœur (source unique partagée).
+from congress_core.tickers import norm_asset as _norm_asset, explicit_ticker as _explicit_ticker
+from congress_core.tickers import infer_asset_type as _core_infer_asset_type
 
-def _norm_asset(s):
-    s = str(s).upper(); s = _EXPLICIT_TICKER_RE.sub("", s); s = re.sub(r"[^A-Z0-9 &]", " ", s)
-    s = _SUFFIX_RE.sub(" ", s); s = re.sub(r"\s+", " ", s).strip()
-    for bad, good in _OCR_FIX.items():
-        s = re.sub(rf"\b{bad}\b", good, s)
-    return s
-
-def _explicit_ticker(desc):
-    m = _EXPLICIT_TICKER_RE.search(str(desc))
-    if not m:
-        return None
-    t = m.group(1).strip(".")
-    return t if 1 <= len(t) <= 5 else None
 
 def _infer_asset_type(desc):
-    d = str(desc).upper()
-    if re.search(r"TREASURY|T-?BILL|T-?BOND|T-?NOTE|GOVT|GOVERNMENT|MUNICIPAL|\bMUNI\b|\bISD\b|SCHOOL DIST", d): return "Gov Security"
-    if re.search(r"LINKED TO|NOTES? LINKED|STRUCTURED|BASKET OF", d): return "Other"
-    if re.search(r"\bETF\b|\bFUND\b|FUNDS|INDEX|SPDR|ISHARES|VANGUARD|AMPLIFY|GLOBAL X|SELECT SECTOR|\bTR\b|TRUST", d): return "Mutual Fund"
-    if re.search(r"\bBOND\b|\bNOTE\b|DEBENTURE|\bBILL\b", d): return "Corporate Bond"
-    if re.search(r"CMN|COM|COMMON|\bINC\b|CORP|CLASS|\bCO\b|HOLDINGS|\bLLC\b|\bLP\b|\bPLC\b|COMPANY", d): return "Stock"
-    return None
+    return _core_infer_asset_type(desc, "house")
 
 SCHEMA_COLS = ["bioguide_id", "declarant_name", "chamber", "party", "state_district",
                "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
