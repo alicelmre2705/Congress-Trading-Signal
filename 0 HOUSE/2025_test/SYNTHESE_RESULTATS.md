@@ -123,7 +123,7 @@ tranché en fin de projet). Module `sector_enrich.py` ; audit `06f_sector_audit.
 | Tickers distincts classés | 578/591 = **97,8 %** |
 | Source `yfinance` (factuel) | 1 954 lignes — **92,7 %** des tickers distincts |
 | Source `llm` (repli : delistés, préférentielles) | 70 lignes / 32 tickers |
-| Source `manual` (override audit) | 17 lignes / 6 tickers |
+| Source `manual` (override audit) | 18 lignes / 7 tickers |
 | `none` (non coté : Gov Security, fonds, obligations) | 231 lignes — `null` à dessein |
 
 Les ~11 % de lignes sans secteur correspondent exactement aux lignes sans ticker cotable (même
@@ -139,7 +139,8 @@ XLY, XLP, XLB, XLU, XLRE, XLC} (jointure 1:1 complète, 0 manquant).
 - **Audit adversarial** (3 juges indépendants + synthèse) : **6 erreurs réelles** (~1,0 %), toutes
   dans la queue mono-source (ETF / réattributions de ticker), **corrigées** par override —
   FNA→Health Care, SMCYY→Communication Services, SHLD→Industrials (ETF défense), HURA→Materials
-  (ETF uranium) ; SLYG, TNA (ETF diversifiés) → **non classés** (pas de secteur unique). Verdict :
+  (ETF uranium) ; SLYG, TNA, SPY (ETF diversifiés) → **non classés** (pas de secteur unique).
+  *(SPY ajouté aux non-classés par cohérence avec l'audit Sénat — voir ci-dessous.)* Verdict :
   **mapping fiable** pour un livrable de recherche.
 
 ### Distribution sectorielle (tickers distincts)
@@ -156,4 +157,4 @@ tech / industrie / finance cohérent avec des transactions du Congrès.
 - **Khanna = 88,8 % de l'OCR** : les métriques OCR sont très concentrées sur un seul représentant.
 - **`operation_type` OCR** : coexistence de `Sale` et `Sale (Partial)` / `Partial Sale` — deux conventions selon le formulaire ; homogénéisation à faire.
 - **Dates** : même limite que Sénat — Quiver date parfois avec la date de dépôt.
-- **Secteur — multi-sources & univers ETF** : `sector_gics` combine yfinance (factuel, 92,7 %), repli LLM (delistés/préférentielles) et 6 overrides d'audit. Pas de vérité-terrain unique externe ; la confiance repose sur l'audit croisé (95,4 %). Les ETF de marché diversifiés (SLYG, TNA) sont laissés non classés à dessein. L'univers `etf_proxy` = SPDR Select Sector, à réaligner sur l'univers Ramify en fin de projet.
+- **Secteur — multi-sources & univers ETF** : `sector_gics` combine yfinance (factuel, 92,7 %), repli LLM (delistés/préférentielles) et 7 overrides d'audit (centralisés et partagés avec le Sénat). Pas de vérité-terrain unique externe ; la confiance repose sur l'audit croisé (95,4 %). Les ETF de marché diversifiés (SLYG, TNA, SPY) sont laissés non classés à dessein. L'univers `etf_proxy` = SPDR Select Sector, à réaligner sur l'univers Ramify en fin de projet.

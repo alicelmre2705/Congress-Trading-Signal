@@ -33,10 +33,10 @@ from pathlib import Path
 import pandas as pd
 from dotenv import load_dotenv
 
-# --- Ancrage robuste : le module vit dans 0 HOUSE/2025_test/ ---
+# --- Ancrage robuste : le module vit dans 1 SENAT/senat_2025_test/ ---
 BASE_DIR = Path(__file__).resolve().parent
-TABLE_DIR = BASE_DIR / "data_v1/tables"
-SECTOR_CACHE = BASE_DIR / "data_v1/sector_cache.json"
+TABLE_DIR = BASE_DIR / "data_v1_senate/tables"
+SECTOR_CACHE = BASE_DIR / "data_v1_senate/sector_cache.json"
 
 MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 8_000
@@ -392,7 +392,7 @@ def summary(df_audit: pd.DataFrame) -> None:
 # CLI standalone : construit le cache + enrichit le CSV final + écrit 06f
 # ======================================================================
 def main() -> None:
-    final_csv = TABLE_DIR / "06_house_2025q1_transactions_FINAL.csv"
+    final_csv = TABLE_DIR / "06_senate_2025q1_FINAL.csv"
     df = pd.read_csv(final_csv, dtype={"doc_id": str})
     print(f"Chargé {final_csv.name} : {len(df)} lignes, {df['ticker'].notna().sum()} avec ticker")
 

@@ -22,6 +22,9 @@ beautifulsoup4==4.15.0
 anthropic==0.112.0
 pillow==12.2.0
 
+# Enrichissement secteur GICS (ticker → secteur → ETF SPDR) — cf. sector_enrich.py
+yfinance==1.4.1
+
 # Pour exécuter les notebooks et enregistrer le kernel
 ipykernel==7.3.0
 nbconvert==7.17.1

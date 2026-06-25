@@ -112,10 +112,17 @@ def load_reference():
     return ref, name_exact, name_by_last, current_bios, bio_to_committees, key_flag
 
 
+# Overrides manuels : noms eFD que la résolution automatique rate (prénom en initiales collées,
+# homonymie irréductible). Vérifiés à la main contre legislators-current.
+_MANUAL_BIO = {("vance", "jd"): "V000137"}   # « JD Vance » (initiales collées ≠ first « J.D. »)
+
+
 def make_matcher(ref, name_exact, name_by_last, current_bios):
     def match(declarant):
         last, first, middles = split_name(declarant)
         nl, nf = norm(last), norm(first)
+        if (nl, nf) in _MANUAL_BIO:                     # 0) override manuel
+            return _MANUAL_BIO[(nl, nf)]
         if (nl, nf) in name_exact:                      # 1) (last, first/nick) exact
             return name_exact[(nl, nf)]
         cands = name_by_last.get(nl, [])
@@ -277,6 +284,24 @@ def main():
         # dédup inter-sources (filet) sur (natural_key_hash, occurrence_index)
         df = df.drop_duplicates(["natural_key_hash", "occurrence_index"], keep="first").reset_index(drop=True)
         print(f"→ fusion digital+OCR : {len(df)} lignes ({n_elec} électro + {len(df) - n_elec} OCR papier)")
+
+    # === Enrichissement secteur GICS → ETF SPDR (champs obligatoires sector_gics, etf_proxy) ===
+    # Jointure sur `ticker` (déjà stabilisé) : yfinance (factuel) + repli LLM, cache versionné.
+    # Purement additif — n'altère aucune colonne existante. Détail : sector_enrich.py.
+    import sector_enrich as se
+    df = se.enrich_sectors(df)
+    SECTOR_COLS = [
+        "bioguide_id", "declarant_name", "chamber", "party", "state_district",
+        "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
+        "ticker", "asset_description", "asset_type", "sector_gics", "etf_proxy",
+        "operation_type", "amount_range", "amount_midpoint", "amount_split_flag",
+        "owner", "doc_id", "source_url", "natural_key_hash",
+        "provenance", "ticker_source", "sector_source", "occurrence_index",
+    ]
+    df = df.reindex(columns=SECTOR_COLS + [c for c in df.columns if c not in SECTOR_COLS])
+    print(f"→ secteur : {int(df['sector_gics'].notna().sum())}/{len(df)} lignes classées "
+          f"({df['sector_source'].value_counts().to_dict()})")
+
     df.to_csv(OUT / "senate_2025q1_FINAL.csv", index=False)
     df.to_csv(TAB / "06_senate_2025q1_FINAL.csv", index=False)
 
