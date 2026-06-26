@@ -10,7 +10,7 @@
 
 **But.** Construire une stratégie systématique de *copy trading* répliquant les transactions déclarées par les membres du Congrès américain (STOCK Act, 2012), puis la backtester sur le framework Ramify. 4 semaines, dont **2 entièrement consacrées à la donnée** (un backtest sur une donnée mal extraite ne vaut rien).
 
-> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée, étendue **toutes années 2020 → 2026** des deux côtés : **House digital 32 676 txns** (99 % Quiver) et **Sénat digital 7 161 txns** (98-100 % Quiver/an, 0 vrai raté, audit adversarial). Le **Sénat toutes_annees** est désormais à **parité House** sur le post-traitement (résolution ticker dict+LLM 67→71,4 %, secteur GICS→ETF, flag `date_confidence`, dédup amendements Quiver) → table **12/12 champs**. Côté **House** : **restructuré** (cœur `congress_core` + package `house/`, données `data/house/`) ; OCR complet (A+B+C), **dédup amendements corrigée** (non destructrice : −405 doublons cross-doc, multi-trust Khanna préservé), **FINAL 81 646** (digital 32 676 + OCR 48 970), identité 99,99 %, concordance Quiver 85,9 % — rapport superviseur `docs/RAPPORT_HOUSE.pdf`. Reste l'**enrichissement secteur** (table 12/12, différé, ~2 468 tickers). Puis **toute la partie stratégie + backtest** (semaines 3–4, non commencé).
+> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée, étendue **toutes années 2020 → 2026** des deux côtés : **House digital 32 676 txns** (99 % Quiver) et **Sénat digital 7 161 txns** (98-100 % Quiver/an, 0 vrai raté, audit adversarial). Le **Sénat** est désormais à **parité House** sur le post-traitement (résolution ticker dict+LLM 67→71,4 %, secteur GICS→ETF, flag `date_confidence`, dédup amendements Quiver) → table **12/12 champs**, ET **restructuré en miroir** : package `senate/` (arbo plate) sur le cœur `congress_core`, données `data/senate/`, reproduction « zéro changement » prouvée (golden 68 fichiers / 8 841, `test_senate_repro` : natural_key_hash 8 841/8 841 via `congress_core`) — détail `docs/REFONTE_SENATE.md`. Côté **House** : **restructuré** (cœur `congress_core` + package `house/`, données `data/house/`) ; OCR complet (A+B+C), **dédup amendements corrigée** (non destructrice : −405 doublons cross-doc, multi-trust Khanna préservé), **FINAL 81 646** (digital 32 676 + OCR 48 970), identité 99,99 %, concordance Quiver 85,9 % — rapport superviseur `docs/RAPPORT_HOUSE.pdf`. Reste l'**enrichissement secteur** (table 12/12, différé, ~2 468 tickers). Puis **toute la partie stratégie + backtest** (semaines 3–4, non commencé).
 
 **Légende.** ✅ fait et vérifié · 🟡 commencé / partiel · 🔴 non commencé · — hors périmètre actuel.
 
@@ -52,7 +52,7 @@
 - ✅ **Téléchargement automatisé House** (PDF + index par année), stockage organisé, jamais re-téléchargé.
 - ✅ **Pipeline LLM — volet digital.** Extraction structurée (*tool_use*, sans échec silencieux) ; montant = **midpoint**.
 - 🟡 **Pipeline LLM — volet OCR (scans).** Claude Vision sur formulaires scannés. *Census* visuel complet des **547 PDF** (A tapé droit 13,5 %, B tapé tourné 58,9 %, C manuscrit 27,6 %). **Échantillon 70 docs traité avec deskew** (cf. §4 OCR). *Reste* : scaler aux 547 et fusionner dans les tables `_FINAL`.
-- ✅ **Sénat digital 2020→2026.** eFD accédé **sans contournement** (agrément CSRF accepté une fois + scraping poli, pas de Playwright) : **7 161 txns**, 805 PTR, identité 100 %, couverture Quiver 98-100 %/an, **0 vrai raté** (audit adversarial). `1 SENAT/toutes_annees/`. *Reste* : rapports **papier** (130, ~14 %) = chantier OCR séparé (Quiver-aveugle au papier).
+- ✅ **Sénat digital 2020→2026.** eFD accédé **sans contournement** (agrément CSRF accepté une fois + scraping poli, pas de Playwright) : **7 161 txns**, 805 PTR, identité 100 %, couverture Quiver 98-100 %/an, **0 vrai raté** (audit adversarial). `senate/digital.py` + `data/senate/`. *Reste* : rapports **papier** (130, ~14 %) = chantier OCR séparé (Quiver-aveugle au papier).
 
 ### 3.2 Semaine 2 — nettoyage, validation, table finale
 
@@ -90,7 +90,7 @@
 | 2026 | ✅ 2 300 | 🟡 | ✅ 487 |
 | **Total digital 2020–2026** | **32 676** txns | | **7 161** txns |
 
-> **Sénat 2020→2026** (`1 SENAT/toutes_annees/`) : **8 841 txns FINAL** = digital 7 161 (805 PTR,
+> **Sénat 2020→2026** (`senate/` + `data/senate/`) : **8 841 txns FINAL** = digital 7 161 (805 PTR,
 > couverture Quiver 98-100 %/an, **0 vrai raté**, audit adversarial 7 agents) **+ OCR papier 1 680**
 > (130 PTR Blumenthal/Boozman/Burr/Feinstein/Fetterman, validé hors-Quiver : régression 92 +
 > spot-check + dates 98,8 % en période). 64 sénateurs, identité 100 %. 8 245 txns uniques (596

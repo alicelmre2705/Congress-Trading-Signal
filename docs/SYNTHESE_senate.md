@@ -5,6 +5,11 @@ Reconstruction des *Periodic Transaction Reports* du Sénat américain, extraite
 (efdsearch.senate.gov), au standard House toutes_annees. **Digital** (HTML électronique, Quiver-validé)
 **+ OCR papier** (Claude Vision, validé hors-Quiver). Quiver = vérification externe, jamais réinjecté.
 
+> **Structure (màj 2026-06-26).** Restructuré en miroir de House : package **`senate/`** (arbo plate)
+> sur le cœur partagé **`congress_core`**, données sous **`data/senate/`**. Reproduction « zéro
+> changement » prouvée (`tests/regression/test_senate_repro.py` + golden 68 fichiers / 8 841 lignes).
+> Détail : `docs/REFONTE_SENATE.md`.
+
 > **Parité House (màj 2026-06-26).** Trois raffinements House manquants ont été portés au stade FINAL :
 > **résolution ticker** (dictionnaire nom→ticker + passe LLM `is_equity`, `ticker_resolve.py`) →
 > 67,0 %→**71,4 %** ; **secteur GICS → ETF SPDR** (`sector_enrich`, champs `sector_gics`/`etf_proxy`)
@@ -17,10 +22,10 @@ Reconstruction des *Periodic Transaction Reports* du Sénat américain, extraite
 
 | Source | Fichier | Transactions |
 |---|---|---|
-| **Table FINALE par an** | `data/{année}/06_senate_{année}_FINAL.csv` × 7 | **8 841** (digital + OCR) |
-| Digital seul | `data/{année}/06_senate_{année}_transactions.csv` | 7 161 |
-| OCR papier seul | `data/{année}/06b_senate_{année}_ocr_transactions.csv` | 1 680 |
-| Dashboards | `data/00_year_status.csv` (digital+Quiver) · `data/00_final_status.csv` (FINAL) | — |
+| **Table FINALE par an** | `data/senate/{année}/06_senate_{année}_FINAL.csv` × 7 | **8 841** (digital + OCR) |
+| Digital seul | `data/senate/{année}/06_senate_{année}_transactions.csv` | 7 161 |
+| OCR papier seul | `data/senate/{année}/06b_senate_{année}_ocr_transactions.csv` | 1 680 |
+| Dashboards | `data/senate/00_year_status.csv` (digital+Quiver) · `data/senate/00_final_status.csv` (FINAL) | — |
 
 ---
 
@@ -70,7 +75,7 @@ par (sénateur, ticker, date tradée, sens) avant comptage : **554 doublons d'am
 
 ## 3. Couche OCR papier (validée hors-Quiver)
 
-Les **130 PTR papier** (Claude Vision, même moteur que le Q1) — extraits par `senat_ocr_multiyear.py`.
+Les **130 PTR papier** (Claude Vision, même moteur que le Q1) — extraits par `senate.ocr`.
 Déposants : **Blumenthal 1 233 · Boozman 379 · Burr 52 · Feinstein 14 · Fetterman 2**.
 
 | Année | OCR txns | rapports papier |
@@ -116,7 +121,7 @@ Déposants : **Blumenthal 1 233 · Boozman 379 · Burr 52 · Feinstein 14 · Fet
 > sur 2025-2026** : ces années sont dominées par l'OCR papier de Blumenthal (munis/Treasuries sans ticker)
 > → reliquat **structurellement non coté**, pas une lacune de la passe (cf. §5).
 
-Fusion **non destructrice** (`merge_ocr.py`, dédup sur `natural_key_hash + occurrence_index`) :
+Fusion **non destructrice** (`senate.fusion`, dédup sur `natural_key_hash + occurrence_index`) :
 **0 doublon inter-sources** (papier et électronique disjoints). **`asset_type`** : Stock 5 027 ·
 Other 1 812 · Municipal 766 · Option 517 · Corporate Bond 246 · … **Opérations** : Purchase 4 341 ·
 Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62. **12/12 champs obligatoires** remplis
@@ -147,26 +152,30 @@ Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62. **12/12 ch
 
 ## 6. Reproductibilité & fichiers
 
-Réutilise le code Q1 figé (`senat_2025_test/`) — identité (`enrich`), validation (`reconcile`), OCR
-(`senate_ocr`) — via import + monkeypatch des chemins ; zéro duplication de logique.
+Package **`senate/`** (arbo plate, miroir `house/`, bâti sur `congress_core` — données sous
+`data/senate/`). La logique figée Q1 est absorbée dans le package (`senate.identity` = identité +
+`enrich`, `senate.quiver_audit` = `reconcile`, `senate.ocr_engine`, `senate.sector_enrich`) ; le pilote
+`senat_2025_test/` reste la référence intacte. Reproduction prouvée fonction-par-fonction sur les 8 841
+lignes (`tests/regression/test_senate_repro.py` : natural_key_hash 8 841/8 841 via `congress_core`,
+identité 67/67, ticker 65/65).
 
 ```
-python senat_multiyear.py      --years 2020,...,2026   # digital + validation Quiver/an
-python senat_ocr_multiyear.py  --mode full             # OCR papier (130 rapports)
-python merge_ocr.py                                     # fusion + ticker(dict+LLM) + secteur + date → 06_FINAL/an
-python revalidate_quiver.py                             # dédup amendements Quiver → 07c-f + dashboard (offline)
+python -m senate.digital            --years 2020,...,2026   # digital + validation Quiver/an
+python -m senate.ocr                --mode full             # OCR papier (130 rapports)
+python -m senate.fusion                                     # fusion + ticker(dict+LLM) + secteur + date → 06_FINAL/an
+python -m senate.revalidate_quiver                          # dédup amendements Quiver → 07c-f + dashboard (offline)
 ```
 *Idempotent : HTML eFD + images + extractions Vision cachés sur disque (reprise gratuite, résiliente
 aux timeouts). Quiver servi depuis le cache local, jamais réinjecté.*
 
 | Fichier | Rôle |
 |---|---|
-| `data/{an}/06_senate_{an}_FINAL.csv` × 7 | **Tables finales digital + OCR** (8 841) |
-| `data/{an}/06_…_transactions.csv` / `06b_…_ocr_…csv` | digital / OCR seul |
-| `data/{an}/07_*` / `07c-07f` | validation Quiver par an (digital) |
-| `data/00_year_status.csv` · `data/00_final_status.csv` | dashboards digital / FINAL |
-| `data/_paper_index_2020_2026.csv` | index des 130 PTR papier |
-| `data/reports/*.html` · `reports/media/*` · `ocr_cache/*.json` | caches offline |
+| `data/senate/{an}/06_senate_{an}_FINAL.csv` × 7 | **Tables finales digital + OCR** (8 841) |
+| `data/senate/{an}/06_…_transactions.csv` / `06b_…_ocr_…csv` | digital / OCR seul |
+| `data/senate/{an}/07_*` / `07c-07f` | validation Quiver par an (digital) |
+| `data/senate/00_year_status.csv` · `data/senate/00_final_status.csv` | dashboards digital / FINAL |
+| `data/senate/_paper_index_2020_2026.csv` | index des 130 PTR papier |
+| `data/senate/reports/*.html` · `reports/media/*` · `ocr_cache/*.json` | caches offline |
 
 **Vérification** : digital audité adversarialement (0 vrai raté, couverture Quiver ≥ 98 %/an) ; OCR
 validé par régression (92), généralisation (4 sénateurs), spot-check visuel, dates 98,8 % en période,
