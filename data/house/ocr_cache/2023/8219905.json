@@ -2,18 +2,53 @@
   "doc_id": "8219905",
   "member": "Nicole Malliotakis",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T00:51:02.492910+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:39:54.371439+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "AT&T",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2022-01-06",
+          "notification_date": "2023-07-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "General Electric",
+          "transaction_type": "Partial Sale",
+          "owner": "Self",
+          "transaction_date": "2022-01-06",
+          "notification_date": "2023-07-22",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "AT&T",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2022-01-06",
+      "notification_date": "2023-07-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "General Electric",
+      "transaction_type": "Partial Sale",
+      "owner": "Self",
+      "transaction_date": "2022-01-06",
+      "notification_date": "2023-07-22",
+      "amount_code": "A"
+    }
+  ]
 }

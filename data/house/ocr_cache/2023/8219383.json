@@ -2,18 +2,133 @@
   "doc_id": "8219383",
   "member": "Mike Kelly",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:43.591125+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:38:51.202743+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 7,
+      "transactions": [
+        {
+          "asset_description": "DARK PULSE, INC",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-29",
+          "notification_date": "2023-02-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "CONNECTICUT ST SER B GO 5% 4/15M",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "DENVER CITY & CNTY CO ARPT SYS SER A",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "5% DUE 11/15/23",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-02-06",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "FAIRFAX CNTY VA PUB IMPT-S GO 5% DUE 10/1/23",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-31",
+          "notification_date": "2023-04-06",
+          "amount_code": "C"
+        },
+        {
+          "asset_description": "FLORIDA ST HWY FIN CORP REVENUE SPECIAL BON REV CALL 7/1/23 2%",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-13",
+          "notification_date": "2023-02-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "UNIV OF TEXAS PERM UNI SCH A AEV 5% DUE 7/1/23",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2023-01-30",
+          "notification_date": "2023-02-06",
+          "amount_code": "D"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "DARK PULSE, INC",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-29",
+      "notification_date": "2023-02-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "CONNECTICUT ST SER B GO 5% 4/15M",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "DENVER CITY & CNTY CO ARPT SYS SER A",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "5% DUE 11/15/23",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-02-06",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "FAIRFAX CNTY VA PUB IMPT-S GO 5% DUE 10/1/23",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-31",
+      "notification_date": "2023-04-06",
+      "amount_code": "C"
+    },
+    {
+      "asset_description": "FLORIDA ST HWY FIN CORP REVENUE SPECIAL BON REV CALL 7/1/23 2%",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-13",
+      "notification_date": "2023-02-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "UNIV OF TEXAS PERM UNI SCH A AEV 5% DUE 7/1/23",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2023-01-30",
+      "notification_date": "2023-02-06",
+      "amount_code": "D"
+    }
+  ]
 }

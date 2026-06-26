@@ -2,18 +2,101 @@
   "doc_id": "8219414",
   "member": "Eric Burlison",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T00:50:46.253143+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:39:02.728491+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 5,
+      "transactions": [
+        {
+          "asset_description": "Ford Motor Co",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-02-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Graftech INTL Ltd",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-02-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Amazon Com Inc",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-02-06",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Carnival Corp",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-02-06",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Academy Sports and Outdoors",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2023-02-06",
+          "notification_date": "2023-02-06",
+          "amount_code": "A"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Ford Motor Co",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-02-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Graftech INTL Ltd",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-02-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Amazon Com Inc",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-02-06",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Carnival Corp",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-02-06",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Academy Sports and Outdoors",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2023-02-06",
+      "notification_date": "2023-02-06",
+      "amount_code": "A"
+    }
+  ]
 }

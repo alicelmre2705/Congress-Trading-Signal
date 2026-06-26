@@ -2,18 +2,85 @@
   "doc_id": "8221276",
   "member": "Nicole Malliotakis",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T06:06:25.539372+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:41:30.411504+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 4,
+      "transactions": [
+        {
+          "asset_description": "Treasury Bills",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-12-19",
+          "notification_date": "2025-12-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Chipotle",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-12-19",
+          "notification_date": "2025-12-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Flagstar",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2025-12-19",
+          "notification_date": "2025-12-19",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Ichan Bonds",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2025-12-19",
+          "notification_date": "2025-12-19",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Treasury Bills",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-12-19",
+      "notification_date": "2025-12-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Chipotle",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-12-19",
+      "notification_date": "2025-12-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Flagstar",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2025-12-19",
+      "notification_date": "2025-12-19",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Ichan Bonds",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2025-12-19",
+      "notification_date": "2025-12-19",
+      "amount_code": "B"
+    }
+  ]
 }

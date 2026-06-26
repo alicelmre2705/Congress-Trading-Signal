@@ -2,18 +2,53 @@
   "doc_id": "8219291",
   "member": "Fred Upton",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 1,
-  "created_utc": "2026-06-25T00:50:39.574909+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:38:30.776084+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 1,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 2,
+      "transactions": [
+        {
+          "asset_description": "Under Armour",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2022-10-31",
+          "notification_date": "2022-10-31",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "U.S. Trsy Secs S-T 10",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2022-11-02",
+          "notification_date": "2022-11-07",
+          "amount_code": "E"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Under Armour",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2022-10-31",
+      "notification_date": "2022-10-31",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "U.S. Trsy Secs S-T 10",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2022-11-02",
+      "notification_date": "2022-11-07",
+      "amount_code": "E"
+    }
+  ]
 }

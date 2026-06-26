@@ -2,18 +2,35 @@
   "doc_id": "9115549",
   "member": "Adrian Smith",
   "model": "claude-sonnet-4-6",
-  "prompt_sha": "e73faaeea03f",
+  "prompt_sha": "0d3d617274e6",
   "dpi": 200,
   "n_pages": 2,
-  "created_utc": "2026-06-25T06:06:36.441797+00:00",
-  "status": "partial_error",
+  "created_utc": "2026-06-25T23:41:38.549144+00:00",
+  "status": "ok",
   "batches": [
     {
       "batch": 0,
       "pages": 2,
-      "status": "error",
-      "error": "appel API échoué : BadRequestError 400 Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go "
+      "status": "ok",
+      "n": 1,
+      "transactions": [
+        {
+          "asset_description": "Carter Baldwin",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2025-07-14",
+          "amount_code": "B"
+        }
+      ]
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "asset_description": "Carter Baldwin",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2025-07-14",
+      "amount_code": "B"
+    }
+  ]
 }
