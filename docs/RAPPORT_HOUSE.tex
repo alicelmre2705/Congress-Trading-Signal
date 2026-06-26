@@ -28,11 +28,11 @@
 \maketitle
 
 \begin{tcolorbox}[colback=blue!4,colframe=blue!40!black,title=\textbf{Chiffres clés}]
-\textbf{FINAL = 82\,051 transactions} = 32\,676 électronique + 49\,375 OCR.\quad
+\textbf{FINAL = 81\,646 transactions} = 32\,676 électronique + 48\,970 OCR.\quad
 256 déposants, identité \textbf{99,99\,\%}.\\
 Concordance Quiver (FINAL) : \textbf{85,9\,\%} (81--91\,\%/an).\quad
 Accord sens \textbf{93\,\%}, montant \textbf{93\,\%}.\\
-Vrais-absents Quiver, après explication : \textbf{9 transactions sur 82\,051}.\quad
+Vrais-absents Quiver, après explication : \textbf{9 transactions sur 81\,646}.\quad
 Verdict : \textbf{la donnée concorde bien}.
 \end{tcolorbox}
 
@@ -43,12 +43,12 @@ Verdict : \textbf{la donnée concorde bien}.
 La phase House est terminée. On extrait les déclarations boursières (PTR, STOCK Act) des membres de
 la Chambre des représentants, 2020--2026. Deux pistes : \textbf{électronique} (PDF lisibles, parsing
 déterministe) et \textbf{OCR} (PDF scannés, Claude Vision). Le résultat est une table unique de
-\textbf{82\,051 transactions}.
+\textbf{81\,646 transactions}.
 
 Quiver Quantitative sert de vérification externe, jamais de source. La concordance FINAL contre
 Quiver est de \textbf{85,9\,\%} au niveau transaction. Le numérique seul plafonne à 35--74\,\% : c'est
 l'OCR qui ferme l'écart. Après explication des artefacts (tickers Quiver, amendements, dates $\pm$1\,j),
-seules \textbf{9 transactions} sur 82\,051 sont réellement absentes. L'identité (BioGuideID) est à
+seules \textbf{9 transactions} sur 81\,646 sont réellement absentes. L'identité (BioGuideID) est à
 \textbf{99,99\,\%}. Le code est factorisé dans un cœur partagé \texttt{congress\_core} réutilisable par
 le Sénat, avec un filet de non-régression de 108 fichiers.
 
@@ -152,8 +152,8 @@ identity/vision\_sha/crosscheck.py}. Docs : \texttt{REFONTE\_HOUSE.md} (architec
 \item \textbf{Deskew} : pré-passe Vision « montage 4-rotations », page par page, redressement PIL.
 \item \textbf{Vision} : Claude \texttt{sonnet-4-6}, \texttt{tool\_use} forcé, cache versionné (\texttt{PROMPT\_SHA}, reprise au batch).
 \item \textbf{Normalize} : montant A--K, owner, \texttt{date\_confidence} (fenêtre légale 75\,j), filtre ligne-exemple.
-\item \textbf{Ticker} : explicit $\rightarrow$ dict électronique $\rightarrow$ passe LLM (cache global). $\rightarrow$ \textbf{\texttt{06b}}. \textbf{49\,375 txns}.
-\item \textbf{Fusion} : digital + OCR, dédup inter-sources (collision hash) $\rightarrow$ \textbf{\texttt{06\_FINAL}}. \textbf{82\,051 txns}.
+\item \textbf{Ticker} : explicit $\rightarrow$ dict électronique $\rightarrow$ passe LLM (cache global). $\rightarrow$ \textbf{\texttt{06b}}. \textbf{48\,970 txns}.
+\item \textbf{Fusion} : digital + OCR, dédup inter-sources (collision hash) $\rightarrow$ \textbf{\texttt{06\_FINAL}}. \textbf{81\,646 txns}.
 \item \textbf{Quiver OCR} : \texttt{validate\_ocr\_quiver} $\rightarrow$ \texttt{06d}.
 \end{enumerate}
 
@@ -165,19 +165,21 @@ identity/vision\_sha/crosscheck.py}. Docs : \texttt{REFONTE\_HOUSE.md} (architec
 \toprule
 \textbf{Année} & \textbf{Digital} & \textbf{OCR} & \textbf{FINAL} & \textbf{Déposants} & \textbf{Sans bioguide} \\
 \midrule
-2020 & 6\,886 & 8\,942 & 15\,828 & 109 & 0 \\
-2021 & 5\,457 & 7\,034 & 12\,491 & 120 & 0 \\
-2022 & 3\,601 & 10\,913 & 14\,514 & 110 & 0 \\
-2023 & 4\,161 & 6\,335 & 10\,496 & 100 & 4 \\
-2024 & 2\,694 & 6\,292 & 8\,986 & 97 & 0 \\
-2025 & 7\,577 & 6\,069 & 13\,646 & 107 & 0 \\
+2020 & 6\,886 & 8\,791 & 15\,677 & 109 & 0 \\
+2021 & 5\,457 & 6\,816 & 12\,273 & 120 & 0 \\
+2022 & 3\,601 & 10\,900 & 14\,501 & 110 & 0 \\
+2023 & 4\,161 & 6\,329 & 10\,490 & 100 & 4 \\
+2024 & 2\,694 & 6\,277 & 8\,971 & 97 & 0 \\
+2025 & 7\,577 & 6\,067 & 13\,644 & 107 & 0 \\
 2026 & 2\,300 & 3\,790 & 6\,090 & 84 & 0 \\
 \midrule
-\textbf{Total} & \textbf{32\,676} & \textbf{49\,375} & \textbf{82\,051} & \textbf{256 uniques} & \textbf{4} \\
+\textbf{Total} & \textbf{32\,676} & \textbf{48\,970} & \textbf{81\,646} & \textbf{256 uniques} & \textbf{4} \\
 \bottomrule
 \end{tabular}
 \end{center}
-FINAL = digital + OCR exactement (aucune perte au merge). 4 lignes sans bioguide = un seul déposant
+FINAL = digital + OCR après \textbf{dédup non destructrice} (clé \texttt{(nk, occ)}) : 405 doublons
+cross-doc (ré-déclarations / amendements) retirés, les \textbf{2 425} lignes multi-trust Khanna réelles
+\textbf{préservées} (parité Sénat ; cf. décision 16). 4 lignes sans bioguide = un seul déposant
 manuscrit (« Ada Norah Henriquez », 2023, doc 8219483).
 
 \subsection{Concordance Quiver (FINAL contre Quiver)}
@@ -205,7 +207,7 @@ c'est le papier que Quiver ne voit pas (attendu). La date appariée est le \emph
 
 \textbf{Vrais-absents.} Brut : 248 transactions « only-Quiver » pour déclarants sans papier (inclut
 artefacts ticker Quiver, amendements, dates $\pm$1\,j). Après explication, \textbf{9 réellement
-absentes} sur 82\,051 : 2021 Malinowski ($\times$1, date $\pm$1\,j), 2023 Schrader ($\times$3,
+absentes} sur 81\,646 : 2021 Malinowski ($\times$1, date $\pm$1\,j), 2023 Schrader ($\times$3,
 papier), 2024 « Calhoun » ($\times$2, étiquetage Quiver J. James), 2025 Gottheimer ($\times$1,
 post-snapshot), 2026 Pelosi ($\times$2, dépôt post-snapshot). Aucun bug d'extraction.
 
@@ -223,19 +225,19 @@ $\sim$15\,\% restants sont des actifs non cotés (obligations, options, fonds, m
 \toprule
 \textbf{Année} & \textbf{n OCR} & \textbf{plausible\,\%} & \textbf{implausible} \\
 \midrule
-2020 & 8\,942 & 97,7 & 210 \\
-2021 & 7\,034 & \textbf{78,7} & \textbf{1\,499} \\
-2022 & 10\,913 & 96,3 & 401 \\
-2023 & 6\,335 & 99,1 & 55 \\
-2024 & 6\,292 & 96,3 & 235 \\
-2025 & 6\,069 & 98,0 & 120 \\
+2020 & 8\,791 & 98,6 & 120 \\
+2021 & 6\,816 & \textbf{79,6} & \textbf{1\,389} \\
+2022 & 10\,900 & 96,4 & 394 \\
+2023 & 6\,329 & 99,2 & 50 \\
+2024 & 6\,277 & 96,5 & 220 \\
+2025 & 6\,067 & 98,1 & 118 \\
 2026 & 3\,790 & 100,0 & 0 \\
 \midrule
-\textbf{Total} & \textbf{49\,375} & \textbf{94,9} & \textbf{2\,520} \\
+\textbf{Total} & \textbf{48\,970} & \textbf{95,3} & \textbf{2\,291} \\
 \bottomrule
 \end{tabular}
 \end{center}
-Le pic 2021 est localisé : Diana Harshbarger porte \textbf{1\,412 / 1\,499} implausibles, sur 2
+Le pic 2021 est localisé : Diana Harshbarger porte l'essentiel des \textbf{1\,389} implausibles, sur 2
 documents. Problème d'un déposant manuscrit dense, pas systémique.
 
 \subsection{Clusters OCR et concentration}
@@ -245,8 +247,8 @@ Census des 547 PDF scannés : A (tapé droit) 74, B (tapé tourné) 322, C (manu
 \toprule
 \textbf{Cluster} & \textbf{docs census} & \textbf{docs avec txns} & \textbf{txns} & \textbf{ticker\,\%} & \textbf{date plausible\,\%} \\
 \midrule
-A (tapé droit) & 74 & 59 & 5\,962 & 84,1 & 99,5 \\
-B (tapé tourné) & 322 & 295 & \textbf{42\,551} & 82,8 & 94,2 \\
+A (tapé droit) & 74 & 59 & 5\,957 & 84,1 & 99,6 \\
+B (tapé tourné) & 322 & 295 & \textbf{42\,151} & 82,8 & 94,5 \\
 C (manuscrit) & 151 & 81 & 862 & 88,4 & 97,4 \\
 \bottomrule
 \end{tabular}
@@ -254,8 +256,8 @@ C (manuscrit) & 151 & 81 & 862 & 88,4 & 97,4 \\
 B porte 86\,\% du volume OCR. C est le point dur : 151 docs au census mais 81 produisent des
 transactions (862 au total), faible rendement (manuscrit).
 
-\textbf{Concentration.} L'OCR est dominé par quelques déposants : Khanna \textbf{62,5\,\%},
-McCaul 22,4\,\%, Harshbarger 7,6\,\% (top 3 = 92,5\,\% ; top 10 = 99,0\,\%).
+\textbf{Concentration.} L'OCR est dominé par quelques déposants : Khanna \textbf{63,0\,\%},
+McCaul 22,2\,\%, Harshbarger 7,2\,\% (top 3 = 92,4\,\% ; top 10 = 99,0\,\%).
 
 \subsection{Statut de validation par déposant (\texttt{crosscheck})}
 \begin{center}\small
@@ -280,7 +282,7 @@ n'entre jamais dans la table.
 
 \textbf{Verdict.} Oui, le FINAL concorde bien. Couverture 85,9\,\% (81--91\,\%/an), accord sens
 $\sim$93\,\%, montant $\sim$93\,\%, identité $\sim$100\,\%, et \textbf{9 transactions réellement
-absentes sur 82\,051}. Le numérique seul est faible (35--74\,\%) ; l'OCR ferme l'écart. Le papier
+absentes sur 81\,646}. Le numérique seul est faible (35--74\,\%) ; l'OCR ferme l'écart. Le papier
 (Khanna, Harshbarger\dots) n'a aucune source externe : il est validé en interne (PDF source,
 \texttt{date\_confidence}, stabilité run-à-run, ticker\,\%).
 
@@ -302,6 +304,7 @@ absentes sur 82\,051}. Le numérique seul est faible (35--74\,\%) ; l'OCR ferme 
 \item \textbf{Tolérance date $\pm$3\,j (échantillon).} Quiver bruite la date de $\pm$1--2\,j ; l'égalité stricte comptait ces écarts comme erreurs.
 \item \textbf{Override manuel (Van Taylor).} « Nicholas V. Taylor » = Van Taylor, résolu explicitement.
 \item \textbf{Suppression des globals identité House.} \texttt{build\_reference}/\texttt{match\_bioguide} délèguent au cœur ; plus aucune duplication.
+\item \textbf{Dédup OCR non destructrice (parité Sénat).} L'OCR ne posait pas \texttt{occurrence\_index} ; on le pose (\texttt{cumcount(doc\_id, nk)}) puis dédup \texttt{(nk, occ)}. Retire 405 doublons cross-doc (amendements), préserve le multi-trust réel ; sans \texttt{occ}, dédupliquer sur \texttt{nk} seul aurait détruit 2 425 lignes Khanna légitimes.
 \end{enumerate}
 
 % ============================================================
@@ -309,7 +312,7 @@ absentes sur 82\,051}. Le numérique seul est faible (35--74\,\%) ; l'OCR ferme 
 \begin{itemize}[nosep,leftmargin=1.3em]
 \item \xfait{} : refonte complète (cœur \texttt{congress\_core}, package \texttt{house}, données \texttt{data/house/}).
 \item \xfait{} : électronique 2020--2026 (32\,676 txns, $\geq$98\,\% Quiver/an).
-\item \xfait{} : OCR run complet (49\,375 txns) $\rightarrow$ FINAL 82\,051.
+\item \xfait{} : OCR run complet (48\,970 txns) $\rightarrow$ FINAL 81\,646.
 \item \xfait{} : complétion des 40 docs \texttt{partial\_error} (manuscrit, +66 txns) ; filet golden (108 fichiers) ; 5 invariants prouvés.
 \item \xdif{} : cluster C manuscrit (27,6\,\% du census) --- exclu par défaut (qualité dates), récupération ciblée seulement. Décision assumée.
 \item \xdif{} : dates Harshbarger 2021 --- \textbf{ambiguïté OCR intrinsèque}, non corrigeable par re-OCR ; mitigée par \texttt{date\_confidence}.
@@ -334,7 +337,7 @@ Filet de non-régression \texttt{tests/regression/} : golden de \textbf{108 fich
 (sha256). Cinq invariants prouvés sur les colonnes figées, sans re-run ni appel API :
 \begin{itemize}[nosep,leftmargin=1.3em]
 \item \texttt{natural\_key\_hash} : drop-in exact (161\,974 hash reproduits).
-\item \texttt{amount\_midpoint} + \texttt{infer\_asset\_type} : 82\,051 + 49\,375 reproduits.
+\item \texttt{amount\_midpoint} + \texttt{infer\_asset\_type} : 81\,646 + 48\,970 reproduits.
 \item \texttt{match\_bioguide} : 3\,514 bioguides reproduits ; port identique à l'original.
 \item \texttt{PROMPT\_SHA} : préservé (cache OCR valide, 0 re-OCR).
 \end{itemize}
