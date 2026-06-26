@@ -68,7 +68,7 @@ class Reference:
     membres de commissions clés (calcul par chambre)."""
 
     def __init__(self, ref_universe, name_exact, name_by_last, bio_to_committees,
-                 key_bios, current_bios, source):
+                 key_bios, current_bios, source, bio_to_first_year=None):
         self.ref_universe = ref_universe
         self.name_exact = name_exact
         self.name_by_last = name_by_last
@@ -76,9 +76,20 @@ class Reference:
         self.key_bios = key_bios
         self.current_bios = current_bios
         self.source = source
+        # bioguide → année de la PREMIÈRE entrée en fonction (min des `terms[].start`).
+        self.bio_to_first_year = bio_to_first_year or {}
 
     def party(self, bio):
         return self.ref_universe["party"].get(bio) if bio in self.ref_universe.index else None
+
+    def years_in_office(self, bio, as_of_year):
+        """Ancienneté (années en poste) à `as_of_year` = as_of_year − première entrée en fonction.
+        None si bioguide/première-année/année inconnus, ou si négatif (artefact de date)."""
+        fy = self.bio_to_first_year.get(bio)
+        if not bio or fy is None or as_of_year is None:
+            return None
+        n = int(as_of_year) - int(fy)
+        return n if n >= 0 else None
 
     def committees(self, bio):
         return "; ".join(sorted(self.bio_to_committees.get(bio, []))) if bio else ""
@@ -148,10 +159,15 @@ def load_reference(reference_dir, key_committees=None, chamber="house", live=Tru
     current_bios = {p.get("id", {}).get("bioguide") for p in cur if p.get("id", {}).get("bioguide")}
 
     ref_rows, name_exact, name_by_last = [], {}, defaultdict(list)
+    bio_to_first_year = {}
     for p in people:
         bio = p.get("id", {}).get("bioguide")
         if not bio:
             continue
+        _starts = [t.get("start") for t in (p.get("terms") or []) if t.get("start")]
+        if _starts:
+            _fy = int(str(min(_starts))[:4])
+            bio_to_first_year[bio] = min(bio_to_first_year.get(bio, _fy), _fy)
         nm = p.get("name", {})
         last, first = nm.get("last", ""), nm.get("first", "")
         nick, mid = nm.get("nickname", ""), nm.get("middle", "")
@@ -198,7 +214,7 @@ def load_reference(reference_dir, key_committees=None, chamber="house", live=Tru
     key_bios = {b for b in in_chamber.index if _key_cat(b)}
 
     return Reference(ref_universe, name_exact, name_by_last, bio_to_committees,
-                     key_bios, current_bios, src)
+                     key_bios, current_bios, src, bio_to_first_year)
 
 
 def make_matcher(ref: Reference, chamber_priority=None):
@@ -258,4 +274,17 @@ def enrich_identity(df, ref: Reference, matcher, chamber, last_col="last", first
     df["party"] = df["bioguide_id"].map(ref.party)
     df["committee_membership"] = df["bioguide_id"].map(ref.committees)
     df["committees_key_flag"] = df["bioguide_id"].map(ref.is_key_committee)
+    return df
+
+
+def add_years_in_office(df, ref: Reference, as_of_col="transaction_date", fallback_col="disclosure_date"):
+    """Ajoute `years_in_office` = ancienneté du déposant à la date de la transaction (repli sur la
+    date de divulgation si la transaction est illisible). Métadonnée Ramify, calculée des `terms`
+    embarqués (offline). Exige `bioguide_id`. Valeur entière ou None."""
+    df = df.copy()
+    y = pd.to_datetime(df[as_of_col], errors="coerce").dt.year
+    if fallback_col in df.columns:
+        y = y.fillna(pd.to_datetime(df[fallback_col], errors="coerce").dt.year)
+    df["years_in_office"] = [ref.years_in_office(b, int(v) if pd.notna(v) else None)
+                             for b, v in zip(df["bioguide_id"], y)]
     return df

@@ -19,6 +19,10 @@ dependencies = [
     "Pillow>=10.0",
 ]
 
+[project.optional-dependencies]
+# Génération du rapport de qualité (congress_core.quality) — import paresseux, hors cœur pipeline.
+quality = ["matplotlib>=3.8"]
+
 [tool.setuptools]
 # Liste explicite des packages du dépôt (cœur partagé + un pipeline par chambre).
 packages = ["congress_core", "house", "senate"]
