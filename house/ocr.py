@@ -494,7 +494,11 @@ def run_ocr_year(year, force=False):
     df["committees_key_flag"] = df["bioguide_id"].map(
         lambda b: bool(hm.ref_house_key is not None and b in hm.ref_house_key.index) if b else None)
 
-    out = df.reindex(columns=SCHEMA_COLS + ["ticker_source", "provenance"])
+    # occurrence_index sur l'OCR (cumcount doc_id+nk, parité senat_ocr_multiyear:227) : distingue le
+    # multi-trust réel (même nk, occ 0/1/2…) des vrais doublons cross-doc → dédup (nk, occ) NON destructrice.
+    df["occurrence_index"] = df.groupby(["doc_id", "natural_key_hash"]).cumcount()
+    out = df.reindex(columns=SCHEMA_COLS + ["ticker_source", "provenance", "occurrence_index"])
+    out = out.drop_duplicates(["natural_key_hash", "occurrence_index"], keep="first").reset_index(drop=True)
     out.to_csv(ydir / f"06b_house_{year}_ocr_transactions.csv", index=False)
     print(f"  → 06b_house_{year}_ocr_transactions.csv | ticker résolu {df['ticker'].notna().sum()}/{n_txn} | "
           f"déclarants {df['declarant_name'].nunique()}")
