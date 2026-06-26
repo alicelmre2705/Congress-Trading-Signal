@@ -1,0 +1,582 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black,citecolor=blue!50!black}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds}
+\titlespacing{\section}{0pt}{1.5em}{0.5em}
+\titlespacing{\subsection}{0pt}{1.0em}{0.3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+\newcommand{\xfait}{\textcolor{green!50!black}{\textbf{fait}}}
+\newcommand{\xnon}{\textcolor{red!70!black}{\textbf{non fait}}}
+\newcommand{\xdif}{\textcolor{orange!80!black}{\textbf{différé}}}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newtcolorbox{defbox}[1]{colback=gray!6,colframe=gray!50,boxrule=0.4pt,left=4pt,right=4pt,top=2pt,bottom=2pt,title=\textbf{#1}}
+
+\title{\textbf{Congress Trading Signal --- Rapport complet}\\[3pt]
+\large Extraction et validation des transactions boursières du Congrès américain\\
+\large Chambre (House) \textbf{et} Sénat, électronique + OCR, 2020--2026}
+\author{Pipeline \texttt{congress\_core} + \texttt{house} + \texttt{senate}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{defbox}{Comment lire ce rapport}
+On suit le \textbf{déroulé réel du pipeline}, étape par étape, de l'acquisition des déclarations
+jusqu'aux métriques finales. À chaque étape : (a) à quoi elle sert, (b) comment elle marche, (c) le
+choix fait et \textbf{pourquoi} (souvent : un premier essai échoue $\rightarrow$ on ajoute une règle), (d) le
+résultat chiffré. \textbf{Chaque métrique est définie en langage simple avant d'être chiffrée.} On
+traite d'abord le \textbf{mécanisme partagé} (le c\oe{}ur \texttt{congress\_core}), puis les spécificités
+\textbf{House}, puis \textbf{Sénat}. Aucune connaissance préalable d'OCR ou de finance n'est supposée.
+\end{defbox}
+
+\begin{tcolorbox}[colback=blue!4,colframe=blue!40!black,title=\textbf{Chiffres clés (résumé exécutif)}]
+\textbf{House} : FINAL \textbf{81\,646} transactions = 32\,676 électronique + 48\,970 OCR. Identité
+\textbf{99,99\,\%} (256 BioGuideID, 275 noms). Concordance Quiver \textbf{85,9\,\%}. Ticker 85,3\,\%,
+secteur 83,2\,\%, \textbf{table 12/12 champs}. Vrais-absents : \textbf{9} sur 81\,646.\\
+\textbf{Sénat} : FINAL \textbf{8\,841} = 7\,161 électronique + 1\,680 OCR papier. Identité \textbf{100\,\%}
+(64 BioGuideID, 67 noms). Concordance Quiver \textbf{98--100\,\%}/an, \textbf{0 vrai raté}. Ticker
+71,4\,\%, secteur 62,1\,\%, \textbf{table 12/12 champs}.\\[2pt]
+\textbf{Quiver = vérification externe uniquement}, jamais réinjecté dans les tables.
+Verdict : \textbf{la donnée concorde bien} ; le papier (OCR) est validé en interne car aucun agrégateur
+ne le voit.
+\end{tcolorbox}
+
+\tableofcontents
+\bigskip
+
+% =====================================================================
+\section{Vue d'ensemble et structure}
+% =====================================================================
+
+\textbf{Mission.} Reconstituer, pour chaque membre du Congrès, ses \emph{Periodic Transaction Reports}
+(PTR) --- les achats/ventes de titres déclarés sous le \emph{STOCK Act} --- de 2020 à 2026, sur les deux
+chambres. But applicatif : alimenter une stratégie de \emph{copy-trading}. Exigence transverse : la
+donnée doit être \textbf{traçable, reproductible et honnêtement validée}.
+
+\textbf{Deux pistes par chambre.} Les déclarations existent en deux formes : \textbf{électronique} (PDF
+au texte sélectionnable, parsing déterministe) et \textbf{scannée} (image, traitée par OCR via un modèle
+de vision). Le pipeline traite les deux puis les fusionne.
+
+\subsection{Schéma du pipeline (colonne vertébrale chronologique)}
+
+\begin{center}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=4mm,
+  box/.style={draw,rounded corners=2pt,fill=blue!5,minimum height=7mm,align=center,inner sep=3pt},
+  core/.style={draw,rounded corners=2pt,fill=green!8,minimum height=7mm,align=center,inner sep=3pt},
+  br/.style={draw,rounded corners=2pt,fill=orange!8,minimum height=6mm,align=center,inner sep=2pt,font=\scriptsize},
+  ar/.style={-{Latex[length=4pt]},gray!70,line width=0.5pt}
+]
+% spine
+\node[box] (acq) {Acquisition};
+\node[core,right=of acq] (id) {Identité\\(bioguide)};
+\node[core,right=of id] (man) {Manifeste\\lisible?};
+\node[box,right=of man] (par) {Parse +\\OCR};
+\node[core,right=of par] (enr) {Ticker +\\secteur};
+\node[core,right=of enr] (fus) {Fusion\\FINAL};
+\node[box,right=of fus] (qui) {Validation\\Quiver};
+\foreach \a/\b in {acq/id,id/man,man/par,par/enr,enr/fus,fus/qui} \draw[ar] (\a) -- (\b);
+% branches
+\node[br,below=7mm of par] (h) {House : index XML + PDF Clerk · clusters A/B/C · deskew};
+\node[br,below=3mm of h] (s) {Sénat : eFD (CSRF) · HTML + \code{.gif} · prompt OCR français};
+\draw[ar,dashed] (par.south) -- (h.north);
+% legend
+\node[core,below left=10mm and -1cm of acq,minimum width=3.2cm] (lc) {\scriptsize c\oe{}ur partagé \code{congress\_core}};
+\node[box,right=2mm of lc,minimum width=3.2cm] (lb) {\scriptsize étape par chambre};
+\end{tikzpicture}
+\end{center}
+
+\emph{Vert} = logique \textbf{partagée} (\code{congress\_core}) ; \emph{bleu} = orchestration par
+chambre ; \emph{orange} = spécificités House/Sénat. Le principe directeur : \textbf{le c\oe{}ur tient la
+logique commune, chaque chambre n'orchestre que ses différences}.
+
+\subsection{Carte des dossiers}
+
+\begin{center}\small
+\begin{tabular}{@{}lp{10.4cm}@{}}
+\toprule
+\textbf{Dossier} & \textbf{Rôle} \\
+\midrule
+\code{congress\_core/} & C\oe{}ur partagé (11 modules) : \code{schema} (clé naturelle), \code{identity}
+(bioguide), \code{tickers}, \code{amounts}, \code{vision\_ocr} (deskew + Vision), \code{llm\_resolve}
+(cache LLM), \code{quiver} (validation), \code{crosscheck}, \code{sector\_enrich}, \code{reporting},
+\code{paths}. \\
+\code{house/} & Pipeline House : \code{digital.py} (électronique), \code{ocr.py} (scanné + fusion),
+\code{echantillon.py} (mesure). \\
+\code{senate/} & Pipeline Sénat (miroir de House) : \code{digital}, \code{ocr}, \code{fusion},
+\code{identity}, \code{ticker\_resolve}, \code{quiver\_audit}, \code{ocr\_engine} (prompt français)\dots \\
+\code{data/} & Données : \code{house/tables/\{an\}/}, \code{senate/\{an\}/}, \code{external/} (Kadoa). \\
+\code{tests/regression/} & Filet « zéro changement » : golden (empreintes), preuves de reproduction,
+\code{audit\_metrics.py} (recompute des métriques). \\
+\code{docs/} & Ce rapport, \code{RAPPORT\_HOUSE.pdf}, \code{REFONTE\_HOUSE/SENATE.md}. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Convention de numérotation des tables}
+
+Chaque année produit une série numérotée, identique d'une chambre à l'autre :
+
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\code{03} index PTR & \code{04} manifeste & \code{05} échecs parsing & \code{06} électronique \\
+\code{06b} OCR & \code{06\_FINAL} fusion & \code{06c/06d} QA / OCR$\leftrightarrow$Quiver &
+\code{07/07c--07f} validation Quiver \\
+\multicolumn{4}{l}{\code{00\_*} tableaux de bord (statut annuel, statut FINAL).} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Quiver Quantitative} (agrégateur commercial de trades du Congrès) sert \textbf{uniquement de
+vérification externe}. Il n'est \emph{jamais} réinjecté dans nos tables : on s'en sert pour mesurer si
+notre extraction concorde, pas pour la compléter.
+
+% =====================================================================
+\section{Acquisition des données}
+% =====================================================================
+
+\textbf{À quoi ça sert.} Récupérer les déclarations à la source officielle, sans intermédiaire, de façon
+polie et reproductible (cache disque). \textbf{Anti-look-ahead} : on date chaque transaction par sa
+\emph{date de divulgation} (\code{disclosure\_date = FilingDate}), jamais par une date postérieure
+connue --- une stratégie ne peut copier qu'après publication.
+
+\textbf{House --- House Clerk.} Un index XML par année (\code{\{an\}FD.xml}) liste les dépôts ; on
+filtre \code{FilingType=P} (les PTR) puis on télécharge le PDF de chaque dépôt. Source publique, sans
+barrière.
+
+\textbf{Sénat --- eFD (\emph{Electronic Financial Disclosure}).} Plus fermé : un \textbf{piège CSRF}.
+Il faut d'abord accepter un formulaire d'accord (\code{accept\_agreement} : GET pour obtenir un
+\code{csrftoken}, puis POST \code{prohibition\_agreement} avec \code{csrfmiddlewaretoken} et l'en-tête
+\code{X-CSRFToken}). On interroge ensuite l'API de recherche (\code{report\_types=[11]} = PTR). Les
+déclarations électroniques sont en \textbf{HTML} ; les déclarations papier renvoient des \textbf{images
+\code{.gif}} servies par \code{efd-media-public.senate.gov} (serveur public, hors barrière). \emph{Choix
+\& pourquoi} : on reste « poli » (pause entre requêtes, aucun contournement agressif) et on \textbf{cache
+tout sur disque} --- un re-run ne re-télécharge rien.
+
+% =====================================================================
+\section{Identité : du nom au BioGuideID}
+% =====================================================================
+
+\begin{defbox}{Définition --- BioGuideID}
+Identifiant unique et stable d'un parlementaire (ex. \code{P000197} = Nancy Pelosi). C'est la clé qui
+relie une transaction à une personne, son parti, son État, ses commissions --- et qui \textbf{évite de
+compter deux fois la même personne} écrite de deux façons.
+\end{defbox}
+
+\textbf{À quoi ça sert.} Une déclaration donne un nom libre (« Hon. Earl L. Carter », « Buddy Carter »).
+On doit le rattacher au bon BioGuideID. \textbf{Comment.} Le module \code{identity} charge le référentiel
+public \code{congress-legislators} (12\,767 personnes, actuelles + historiques) et construit un
+\emph{matcher} : normalisation (accents, casse), retrait des suffixes (Jr./III), table de
+\textbf{36 surnoms}, gestion des seconds prénoms, et quelques \textbf{overrides manuels} pour les cas
+irréductibles (« Van Taylor », « JD Vance »). \textbf{Désambiguïsation} : à nom égal, on privilégie la
+bonne chambre puis le titulaire en exercice. Les \textbf{délégués} (non-votants) sont exclus côté Sénat
+pour ne pas créer de faux « présents chez Quiver, absents chez nous ».
+
+\textbf{Résultats.} House : \textbf{99,99\,\%} des lignes ont un BioGuideID --- 4 lignes seulement n'en
+ont pas (« Ada Norah Henriquez », un document manuscrit de 2023, doc \code{8219483}). Sénat :
+\textbf{100\,\%} (0 manquant).
+
+% =====================================================================
+\section{Schéma et clé naturelle}
+% =====================================================================
+
+\begin{defbox}{Définition --- clé naturelle (\code{natural\_key\_hash})}
+Empreinte SHA-256 de 7 champs : \code{chambre | declarant\_name | transaction\_date |
+asset\_description | operation\_type | amount\_range | owner}. \textbf{Sans le ticker} : le symbole
+boursier est enrichi \emph{après}, donc l'inclure rendrait la clé instable. Deux lignes identiques sur
+ces 7 champs sont « la même transaction ».
+\end{defbox}
+
+\textbf{Le piège de la déduplication.} Un même PTR liste parfois \emph{légitimement} plusieurs lots
+identiques le même jour (ex. trois ventes du même titre via trois comptes). Dédupliquer sur la seule clé
+naturelle les écraserait. \textbf{Solution} : \code{occurrence\_index = cumcount(doc\_id,
+natural\_key\_hash)} numérote ces répétitions \emph{intra-document} ; la déduplication se fait sur le
+couple \code{(natural\_key\_hash, occurrence\_index)}. Elle est donc \textbf{non destructrice} : elle
+retire les vrais doublons \emph{entre} documents (amendements re-déposés) mais \textbf{préserve les lots
+multi-comptes réels} --- concrètement, \textbf{2\,425 lignes du déposant Khanna} qui auraient sauté avec
+une dédup naïve.
+
+\textbf{Table FINALE : 27 colonnes} pour les deux chambres (identité, dates, ticker, secteur, montant,
+\emph{owner}, provenance, clés\dots). L'ordre des colonnes diffère légèrement entre House et Sénat, mais
+le \textbf{contenu garanti est le même : 12/12 champs}.
+
+% =====================================================================
+\section{Manifeste : lisible, non lisible, absent}
+% =====================================================================
+
+\begin{defbox}{Critère exact}
+Pour chaque PDF, \code{pdfplumber.extract\_text()} ; puis \code{bool(text.strip())}. Vrai $\Rightarrow$
+\textbf{lisible} (couche texte $\Rightarrow$ parsing déterministe). Faux $\Rightarrow$
+\textbf{non lisible} (scan image $\Rightarrow$ OCR). Fichier introuvable $\Rightarrow$ \textbf{absent}.
+\end{defbox}
+
+Ce tri \textbf{pilote tout le reste} : un PDF lisible part en piste électronique, un scan part en OCR.
+C'est un test binaire simple, pas une heuristique floue --- d'où sa fiabilité.
+
+% =====================================================================
+\section{Piste électronique (digital)}
+% =====================================================================
+
+\textbf{Comment.} \code{parse\_ptr} lit la couche texte et extrait, par expressions régulières, chaque
+ligne : type d'opération (P/S/E = Achat/Vente/Échange), date, description d'actif, fourchette de montant,
+propriétaire. Rendement très élevé (99--100\,\% des lignes parsées ; les rares échecs sont tracés dans
+\code{05\_parse\_failures}).
+
+\textbf{Volumes électroniques.} House : \textbf{32\,676} transactions. Sénat : \textbf{7\,161}. (Détail
+par année dans les tableaux §10.)
+
+% =====================================================================
+\section{OCR : clusters, deskew, Vision, normalisation}
+% =====================================================================
+
+\subsection{Les trois clusters et le pilote (House)}
+
+Les scans House se répartissent en trois familles, qu'on a caractérisées sur le \textbf{census des 547
+PDF scannés} :
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{A --- tapé droit} (74 docs) : machine, bien orienté. Facile.
+\item \textbf{B --- tapé tourné} (322 docs) : machine, mais l'image est \emph{couchée}. Gros volume.
+\item \textbf{C --- manuscrit} (151 docs) : écrit à la main. Lecture des dates peu fiable.
+\end{itemize}
+
+\textbf{Pourquoi un pilote d'abord ?} Avant le run complet, on a OCR-isé un \textbf{échantillon
+stratifié} des trois clusters (\code{echantillon.py}, prompt durci, tolérance de date $\pm$3\,j) pour
+\emph{comprendre} les modes d'échec et adapter le prompt. \textbf{Décision} : le \textbf{cluster C est
+exclu par défaut} (ses dates manuscrites sont trop incertaines pour une stratégie datée), avec
+\textbf{récupération ciblée} de 3 déposants à fort enjeu. Côté Sénat, pas de clusters : seulement
+\textbf{5 sénateurs} déposent sur papier.
+
+\subsection{Deskew : redresser avant de lire}
+
+\textbf{Problème.} Les scans du cluster B sont couchés ; un modèle de vision lit mal une page tournée.
+\textbf{Première idée écartée} : demander au modèle « de combien faut-il tourner ? » --- tâche spatiale
+peu fiable (il répond presque toujours « 90 »). \textbf{Solution retenue} : on lui montre la page aux
+\textbf{4 orientations} (\code{ROT\_CANDIDATES = [0, 90, 180, 270]}) en basse résolution et il
+\emph{reconnaît} laquelle est droite --- une tâche de reconnaissance, bien plus robuste --- puis on
+redresse géométriquement (PIL) avant l'extraction. \textbf{Avant/après} : la concordance OCR passe de
+\textbf{59,7\,\% à 69,0\,\%}.
+
+\subsection{Vision et « normalize »}
+
+\textbf{Vision.} Modèle \code{claude-sonnet-4-6}, \code{tool\_choice} \emph{forcé} sur l'outil
+\code{record\_transactions} (le modèle \emph{doit} répondre en JSON structuré), \code{max\_tokens}
+16\,000, 7 tentatives, \textbf{cache versionné par \code{PROMPT\_SHA}} (re-run = 0 appel si le prompt n'a
+pas changé), reprise au batch. Garde-fous du prompt : ignorer la \textbf{ligne-exemple} pré-imprimée du
+formulaire, et borner l'année lue à l'année de dépôt.
+
+\begin{defbox}{Définition --- « normalize »}
+Mise au format commun des lignes brutes OCR : fourchette de montant lettrée (A--K) $\rightarrow$
+intervalle \$ et \textbf{milieu} (ex. B $\rightarrow$ « \$15\,001--\$50\,000 », milieu 32\,500) ;
+propriétaire ; et un drapeau \code{date\_confidence} (voir §12).
+\end{defbox}
+
+\textbf{Volumes OCR.} House : \textbf{48\,970}. Sénat : \textbf{1\,680} (papier).
+
+% =====================================================================
+\section{Résolution des tickers}
+% =====================================================================
+
+\begin{defbox}{Définition --- couverture ticker}
+Part des lignes pour lesquelles on a identifié un symbole boursier (\code{AAPL}\dots). Les actifs
+\emph{non cotés} (obligations, munis, fonds privés) restent \code{none} \textbf{à dessein}.
+\end{defbox}
+
+Trois voies, ajoutées par échecs successifs : \textbf{(1) explicite} (le symbole est écrit dans la
+description) ; \textbf{(2) dictionnaire électronique} (on propage les symboles vus dans l'électronique
+vers le papier qui ne les imprime pas) ; \textbf{(3) passe LLM} (\code{claude-sonnet-4-6}, filtre
+\code{is\_equity}, cache versionné) pour le reliquat. \textbf{Pourquoi le LLM ?} Le dictionnaire seul
+plafonne (\textasciitilde 46\,\%) ; le LLM le porte à \textbf{\textasciitilde 90\,\%}.
+
+\textbf{Résultats.} House \textbf{85,3\,\%}. Sénat \textbf{71,4\,\%} : son reliquat est surtout des
+\emph{munis/Treasuries} de Blumenthal --- non cotés, donc \code{none} \textbf{légitimement}, pas une
+perte.
+
+% =====================================================================
+\section{Enrichissement secteur (GICS $\rightarrow$ ETF)}
+% =====================================================================
+
+\textbf{À quoi ça sert.} Donner à chaque ligne tickée un \textbf{secteur} (classification GICS) et un
+\textbf{ETF sectoriel} de référence (SPDR Select Sector), pour une exposition par secteur. \textbf{Comment.}
+\code{yfinance} (factuel) en source primaire, \textbf{repli LLM} pour les tickers délistés/introuvables,
+cache versionné. Mapping 1:1 des 11 secteurs :
+
+\begin{center}\scriptsize
+Energy~XLE · Materials~XLB · Industrials~XLI · Cons.~Disc.~XLY · Cons.~Staples~XLP · Health~Care~XLV ·
+Financials~XLF · IT~XLK · Comm.~Services~XLC · Utilities~XLU · Real~Estate~XLRE.
+\end{center}
+
+\textbf{Résultats.} House \textbf{83,2\,\%} (67\,932/81\,646). Sénat \textbf{62,1\,\%} (le Sénat tient
+plus d'obligations, non sectorisables). Les deux chambres atteignent ainsi la \textbf{table 12/12 champs}.
+
+% =====================================================================
+\section{Fusion digital + OCR et volumes finaux}
+% =====================================================================
+
+\textbf{Comment.} On concatène électronique + OCR puis on déduplique sur \code{(natural\_key\_hash,
+occurrence\_index)}. House : \textbf{405 doublons cross-document} (amendements re-déposés) retirés, sans
+toucher aux lots multi-comptes. Sénat : 0.
+
+\textbf{Pourquoi plus d'OCR que de digital côté House (l'inverse au Sénat) ?} C'est \textbf{normal} : côté
+House, quelques très gros déposants déclarent exclusivement sur \emph{papier} (Khanna domine l'OCR), donc
+le volume scanné dépasse l'électronique. Au Sénat, le papier est marginal (5 sénateurs) : l'électronique
+domine largement.
+
+\begin{center}\small
+\begin{tabular}{@{}lrrrrr@{}}
+\multicolumn{6}{c}{\textbf{House --- volumes par année}}\\
+\toprule
+\textbf{An} & \textbf{Digital} & \textbf{OCR} & \textbf{FINAL} & \textbf{déposants} & \textbf{sans bio}\\
+\midrule
+2020 & 6\,886 & 8\,791 & 15\,677 & 109 & 0 \\
+2021 & 5\,457 & 6\,816 & 12\,273 & 120 & 0 \\
+2022 & 3\,601 & 10\,900 & 14\,501 & 110 & 0 \\
+2023 & 4\,161 & 6\,329 & 10\,490 & 100 & 4 \\
+2024 & 2\,694 & 6\,277 & 8\,971 & 97 & 0 \\
+2025 & 7\,577 & 6\,067 & 13\,644 & 107 & 0 \\
+2026 & 2\,300 & 3\,790 & 6\,090 & 84 & 0 \\
+\midrule
+\textbf{Total} & \textbf{32\,676} & \textbf{48\,970} & \textbf{81\,646} & \textbf{256 uniq.} & \textbf{4}\\
+\bottomrule
+\end{tabular}
+\hfill
+\begin{tabular}{@{}lrrrr@{}}
+\multicolumn{5}{c}{\textbf{Sénat --- volumes par année}}\\
+\toprule
+\textbf{An} & \textbf{Dig.} & \textbf{OCR} & \textbf{FINAL} & \textbf{sén.}\\
+\midrule
+2020 & 1\,706 & 255 & 1\,961 & 33 \\
+2021 & 1\,098 & 281 & 1\,379 & 35 \\
+2022 & 919 & 182 & 1\,101 & 27 \\
+2023 & 1\,062 & 97 & 1\,159 & 30 \\
+2024 & 946 & 84 & 1\,030 & 24 \\
+2025 & 943 & 478 & 1\,421 & 31 \\
+2026 & 487 & 303 & 790 & 22 \\
+\midrule
+\textbf{Total} & \textbf{7\,161} & \textbf{1\,680} & \textbf{8\,841} & \textbf{64}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\emph{Note.} La somme des déposants par an (727 House) dépasse 256 : un même déposant réapparaît
+plusieurs années ; \textbf{256} est le nombre de BioGuideID \emph{uniques} sur 7 ans (275 noms distincts,
+la différence venant de variantes orthographiques rattachées au même identifiant).
+
+\textbf{Sénat --- répartition du papier.} L'OCR Sénat est concentré : Blumenthal \textasciitilde 1\,233
+lignes ($\approx$73\,\%), Boozman \textasciitilde 379, Burr \textasciitilde 52, Feinstein
+\textasciitilde 47, Fetterman \textasciitilde 2.
+
+% =====================================================================
+\section{Validation Quiver --- la méthode honnête}
+% =====================================================================
+
+On compare notre FINAL à Quiver sur \textbf{deux axes}, sans jamais réinjecter Quiver :
+
+\begin{defbox}{Les deux axes}
+\textbf{(1) Comptes par déposant} (per-lot) : combien de lignes chez nous vs chez Quiver, par personne.
+\textbf{(2) Recouvrement transaction-niveau} : part des transactions Quiver qu'on retrouve, via la clé
+\code{bioguide | ticker | date | type}. \textbf{Couverture} = transactions Quiver retrouvées / total
+Quiver. La date appariée est le \emph{Traded} de Quiver (la date de trade), pas le \emph{Filed} (date de
+dépôt, qui n'apparie que \textasciitilde 1\,\%).
+\end{defbox}
+
+\begin{center}\small
+\begin{tabular}{@{}lrrrrr@{}}
+\multicolumn{6}{c}{\textbf{House --- concordance Quiver par année}}\\
+\toprule
+\textbf{An} & \textbf{couv.\,\%} & \textbf{sens\,\%} & \textbf{montant\,\%} & \textbf{nous$\geq$Q / nous$<$Q} & \textbf{déficits$>$30}\\
+\midrule
+2020 & 85,0 & 94,6 & 89,0 & 103 / 6 & 0 \\
+2021 & 88,6 & 94,4 & 90,1 & 115 / 5 & 1 \\
+2022 & 80,7 & 88,8 & 89,1 & 108 / 2 & 0 \\
+2023 & 81,0 & 94,1 & 93,8 & 98 / 3 & 0 \\
+2024 & 85,8 & 92,2 & 94,0 & 96 / 1 & 0 \\
+2025 & 91,3 & 93,8 & 98,6 & 104 / 3 & 0 \\
+2026 & 88,0 & 95,8 & 98,4 & 81 / 3 & 0 \\
+\midrule
+\textbf{Global} & \textbf{85,9} & \textbf{\textasciitilde 93} & \textbf{\textasciitilde 93} & --- & \textbf{2}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Sénat.} Couverture digitale \textbf{98--100\,\%}/an, accord de sens \textasciitilde 95,7\,\%,
+date (Traded) \textasciitilde 99,4\,\%, montant \textasciitilde 93,2\,\%. \textbf{554 amendements}
+Quiver dédupliqués (un trade re-déposé apparaît plusieurs fois chez Quiver). 25 \code{only\_quiver}
+(tickers composites / transitions de chambre). \textbf{0 vrai raté} (audit adversarial relisant les PTR
+bruts).
+
+\textbf{Le papier se valide hors Quiver.} Quiver --- comme Kadoa et House Stock Watcher --- \textbf{ne
+voit aucun scan} : 0 ligne pour les gros déposants-papier (Khanna, Harshbarger, Blumenthal). Notre OCR
+est donc la \textbf{source unique} de ces données ; on les valide en interne (cohérence, stabilité
+run-à-run, \code{date\_confidence}).
+
+% =====================================================================
+\section{Métriques finales --- chacune définie}
+% =====================================================================
+
+\begin{description}[leftmargin=1.4em,style=nextline,nosep]
+\item[Couverture (Quiver)] part des transactions Quiver retrouvées. House \textbf{85,9\,\%} ; Sénat
+\textbf{98--100\,\%}/an.
+\item[Accord de sens] sur les transactions appariées, part où le type (achat/vente) coïncide :
+House \textbf{\textasciitilde 93\,\%}, Sénat \textbf{\textasciitilde 95,7\,\%}.
+\item[Accord de montant] part où la fourchette coïncide : \textbf{\textasciitilde 93\,\%} (deux chambres).
+\item[\code{only\_ours} / \code{only\_quiver}] transactions chez nous mais pas chez Quiver (et inverse).
+House \code{only\_ours} = \textbf{16\,166} = le \textbf{papier que Quiver ne voit pas} (ce n'est pas une
+erreur, c'est notre valeur ajoutée).
+\item[Vrais-absents] transactions Quiver réellement manquantes chez nous, \emph{après} avoir expliqué
+les artefacts. House : \textbf{248 bruts $\rightarrow$ 9 réels} (voir ci-dessous). Sénat : \textbf{0}.
+\item[Identité / ticker / secteur] House 99,99 / 85,3 / 83,2\,\% ; Sénat 100 / 71,4 / 62,1\,\%.
+\item[\code{date\_confidence}] drapeau \emph{plausible}/\emph{implausible} selon la fenêtre légale de
+75 jours entre transaction et dépôt (voir tableau).
+\end{description}
+
+\textbf{Les 9 vrais-absents House (décomposition).} 2021 Malinowski $\times$1 (date $\pm$1\,j) ; 2023
+Schrader $\times$3 (papier, cluster C exclu) ; 2024 « Calhoun » $\times$2 (étiquetage Quiver de
+J.\,James) ; 2025 Gottheimer $\times$1 (déposé après notre snapshot) ; 2026 Pelosi $\times$2 (idem).
+\textbf{Aucun bug d'extraction.} Le reste des 248 = artefacts (tickers Quiver, amendements, dates
+$\pm$1\,j, obligations/options).
+
+\textbf{Le « verdict 35--74\,\% » expliqué.} On lit parfois que la couverture est « 35--74\,\% » : c'est
+la couverture Quiver du \textbf{numérique seul}, par année. La fourchette est large car la \emph{part de
+déposants-papier} varie fortement d'une année à l'autre (et le papier, Quiver ne le voit pas). Ce
+\textbf{n'est pas} un verdict de qualité sur le FINAL : avec l'OCR, le FINAL monte à \textbf{81--91\,\%}
+(85,9\,\% global).
+
+\subsection{\code{date\_confidence} (House, lignes OCR)}
+
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{An} & \textbf{n OCR} & \textbf{plausible\,\%} & \textbf{implausible} \\
+\midrule
+2020 & 8\,791 & 98,6 & 120 \\
+2021 & 6\,816 & \textbf{79,6} & \textbf{1\,389} \\
+2022 & 10\,900 & 96,4 & 394 \\
+2023 & 6\,329 & 99,2 & 50 \\
+2024 & 6\,277 & 96,5 & 220 \\
+2025 & 6\,067 & 98,1 & 118 \\
+2026 & 3\,790 & 100,0 & 0 \\
+\midrule
+\textbf{Total} & \textbf{48\,970} & \textbf{95,3} & \textbf{2\,291} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Le \textbf{pic 2021} (79,6\,\%) est entièrement Diana Harshbarger : \textbf{1\,389 lignes implausibles
+sur 2 documents} manuscrits denses. Anomalie \textbf{localisée}, non systémique --- une ambiguïté de
+lecture des chiffres manuscrits, pas un défaut de pipeline. \emph{(Le digital ne porte pas ce drapeau ;
+le 95,3\,\% est donc le taux sur les seules lignes OCR.)} Côté Sénat (OCR) : plausible 1\,654
+(\textbf{98,5\,\%}), implausible 18 (le lot Perdue 2021 = divulgations tardives \emph{réelles}).
+
+\subsection{Clusters OCR et concentration (House)}
+
+\begin{center}\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Cluster} & \textbf{docs census} & \textbf{docs avec txns} & \textbf{txns} & \textbf{ticker\,\%} & \textbf{plausible\,\%}\\
+\midrule
+A (tapé droit) & 74 & 59 & 5\,957 & 84,2 & 99,6 \\
+B (tapé tourné) & 322 & 295 & \textbf{42\,151} & 82,8 & 94,7 \\
+C (manuscrit) & 151 & 81 & 862 & 88,4 & 97,4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+B représente \textbf{86\,\%} du volume OCR. \textbf{Concentration} par déposant : Khanna \textbf{63,0\,\%},
+McCaul 22,2\,\%, Harshbarger 7,2\,\% (top 3 = 92,4\,\% ; top 10 = 99,0\,\%).
+
+\subsection{Statut de validation par déposant (\code{crosscheck})}
+
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Statut} & \textbf{déposants} & \textbf{transactions} & \textbf{dont OCR}\\
+\midrule
+\code{quiver\_validable} & 212 & 78\,530 & 47\,004 \\
+\code{ocr\_unique} (source unique) & 13 & 1\,957 & 1\,949 \\
+\code{digital} & 31 & 1\,155 & 13 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Les 13 déposants \code{ocr\_unique} : Quiver = 0, OCR $\geq$ 50\,\% $\Rightarrow$ notre OCR est la
+\textbf{seule source} (matériels : David P.\ Roe 1\,686 ; Francis Rooney 189).
+
+% =====================================================================
+\section{Reproductibilité (« zéro changement »)}
+% =====================================================================
+
+Le pipeline n'est \textbf{pas re-jouable hors-ligne} (le scraping exige le réseau ; seuls les artefacts
+figés sont embarqués). On prouve donc la correction par \textbf{reproduction depuis les colonnes figées} :
+
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{Golden} : empreintes sha256 de toutes les sorties --- House \textbf{108} fichiers, Sénat
+\textbf{68}. \code{check\_golden} / \code{senate\_check\_golden} : \textbf{zéro écart}.
+\item \textbf{Preuves de reproduction} : \code{test\_senate\_repro} reconstruit, depuis les seules
+colonnes figées, \code{natural\_key\_hash} \textbf{8\,841/8\,841}, l'identité \textbf{67/67}, le ticker
+\textbf{65/65}. Idem côté House (clé, montant, type d'actif, bioguide).
+\item \code{audit\_metrics.py} : recompute toutes les métriques des deux chambres et \emph{asserte} les
+invariants (totaux, identité, déposants). \textbf{C'est la source de vérité chiffrée de ce rapport.}
+\end{itemize}
+
+% =====================================================================
+\section{Limites et imperfections (honnêteté)}
+% =====================================================================
+
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{Validation papier externe impossible} : aucun agrégateur ne voit les scans $\Rightarrow$
+pas de taux d'exactitude \emph{externe} sur le papier (seulement des contrôles internes).
+\item \textbf{Cluster C manuscrit exclu par défaut} : dates trop incertaines ; récupération seulement
+ciblée. Choix assumé, pas une lacune cachée.
+\item \textbf{Dates Harshbarger 2021} : ambiguïté de lecture \emph{intrinsèque} au manuscrit, non
+corrigeable par re-OCR ; signalée par \code{date\_confidence}.
+\item \textbf{Comités non « point-in-time »} : l'appartenance aux commissions est un \emph{snapshot}
+actuel, pas l'historique daté --- un croisement « conflit d'intérêt à la date du trade » serait donc
+approximatif.
+\item \textbf{Pas de tolérance de date dans l'appariement House} (clé sur date brute) : la couverture
+85,9\,\% est un \textbf{plancher} (elle sous-estime sur les dates OCR bruitées).
+\item \code{asset\_type} rempli à \textbf{91,1\,\%} ; \code{only\_quiver} non décomposé automatiquement ;
+\code{date\_confidence} = heuristique binaire (fenêtre 75\,j), pas une vérité-terrain.
+\end{itemize}
+
+% =====================================================================
+\section{Synthèse et verdict}
+% =====================================================================
+
+\textbf{La donnée concorde bien.} Sur deux chambres et sept ans, 90\,487 transactions (81\,646 House +
+8\,841 Sénat) sont extraites, identifiées (99,99 / 100\,\%), enrichies (\textbf{table 12/12} des deux
+côtés) et honnêtement validées (Quiver 85,9\,\% House, 98--100\,\% Sénat, \textbf{9 et 0} vrais-absents).
+Le papier --- invisible aux agrégateurs --- est une \textbf{valeur ajoutée} propre, validée en interne.
+
+\textbf{Fait / différé.}
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \xfait{} : acquisition + identité + électronique + OCR complet (deskew, Vision, cache) + tickers +
+\textbf{secteur (12/12 sur les deux chambres)} + fusion + validation Quiver + filet de reproduction.
+\item \xfait{} : restructuration en c\oe{}ur partagé \code{congress\_core} + packages \code{house}/\code{senate},
+données \code{data/}, une seule version propre.
+\item \xdif{} : cluster C manuscrit (qualité dates) ; comités point-in-time ; tolérance de date dans
+l'appariement House ; \textbf{stratégie + backtest} (hors périmètre « données »).
+\end{itemize}
+
+\vfill
+\begin{center}\footnotesize\itshape
+Tous les chiffres de ce rapport sont recalculés par \code{tests/regression/audit\_metrics.py} et figés
+par le golden (\code{check\_golden}). Quiver = vérification externe, jamais réinjecté.
+\end{center}
+
+\end{document}
