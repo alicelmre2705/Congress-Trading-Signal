@@ -67,6 +67,13 @@ def reconcile(df, qwin):
     d["lb"] = d["amount_range"].map(_low_bound)
 
     q = qwin.copy()
+    # Dédup des amendements Quiver (parité House) : un trade re-déposé/amendé réapparaît avec un
+    # Filed différent. On ne garde qu'un exemplaire par (sénateur, ticker, date tradée, sens) AVANT
+    # tout comptage. N'affecte PAS la couverture (calculée sur des ensembles, déjà dédupliqués) ;
+    # corrige uniquement le surcompte des deltas/quiver par sénateur.
+    _n_q_raw = len(q)
+    q = q.drop_duplicates(subset=["BioGuideID", "Ticker", "Traded", "Transaction"], keep="first")
+    _n_q_dups = _n_q_raw - len(q)
     q["tk"] = q["Ticker"].map(norm_ticker)
     q["sense"] = q["Transaction"].map(norm_sense)
     q["dt"] = pd.to_datetime(q["Traded"], errors="coerce").dt.date
@@ -85,6 +92,7 @@ def reconcile(df, qwin):
     cov = round(100 * len(matched) / len(quiv_k), 1) if quiv_k else None
     txn_reco = pd.DataFrame([
         {"metric": "common_senators", "value": len(common)},
+        {"metric": "quiver_amendment_dups", "value": _n_q_dups},
         {"metric": "ours_tickerizable", "value": len(ours_k)},
         {"metric": "quiver", "value": len(quiv_k)},
         {"metric": "matched", "value": len(matched)},

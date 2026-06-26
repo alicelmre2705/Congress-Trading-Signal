@@ -5,6 +5,12 @@ Reconstruction des *Periodic Transaction Reports* du Sénat américain, extraite
 (efdsearch.senate.gov), au standard House toutes_annees. **Digital** (HTML électronique, Quiver-validé)
 **+ OCR papier** (Claude Vision, validé hors-Quiver). Quiver = vérification externe, jamais réinjecté.
 
+> **Parité House (màj 2026-06-26).** Trois raffinements House manquants ont été portés au stade FINAL :
+> **résolution ticker** (dictionnaire nom→ticker + passe LLM `is_equity`, `ticker_resolve.py`) →
+> 67,0 %→**71,4 %** ; **secteur GICS → ETF SPDR** (`sector_enrich`, champs `sector_gics`/`etf_proxy`)
+> → table **12/12 champs** ; **flag `date_confidence`** (fenêtre légale 75 j). La validation Quiver a
+> reçu la **dédup des amendements** (couverture inchangée, 554 doublons de comptage retirés).
+
 ---
 
 ## ► Résultat à utiliser
@@ -28,10 +34,13 @@ Reconstruction des *Periodic Transaction Reports* du Sénat américain, extraite
 | — OCR papier | 1 680 (130 PTR, 0 échec batch) |
 | Sénateurs distincts | **64** |
 | **Identité (bioguide rattaché)** | **100 %** (0 non rattaché) |
-| Couverture ticker (FINAL) | **67,0 %** (digital 79,1 % · OCR 15 %) |
+| Couverture ticker (FINAL) | **71,4 %** (6 310/8 841) — dict +197, LLM +190 vs 67,0 % |
+| — sources ticker | explicit 5 858 · elec_dict 197 · llm 190 · asset_name 65 · none 2 531 |
+| **Couverture secteur (`sector_gics`/`etf_proxy`)** | **62,1 %** — yfinance 4 670 · llm 803 · manual 83 · none 3 285 |
 | Volume (midpoint, FINAL) | **$979 M** |
 | **Couverture Quiver digital / an** | **98,0 → 100 %** — **0 vrai raté** (audit adversarial) |
 | Validation OCR | période + cohérence + spot-check (Quiver **aveugle au papier**) |
+| `date_confidence` (fenêtre 75 j) | majorité *plausible* ; les *implausible* = divulgations **tardives/amendées** réelles (ex. lot Perdue 2021), pas des erreurs OCR |
 
 ---
 
@@ -51,6 +60,11 @@ Reconstruction des *Periodic Transaction Reports* du Sénat américain, extraite
 **Audit adversarial** (7 agents indépendants, un par année, relisant les PTR bruts) → **0 vrai raté**.
 Les 25 `only_quiver` = actions de société (`Exchange` à ticker composite « FTV  VNT » ≠ atomique Quiver)
 ou transitions de chambre (Marshall/Curtis/Vance, trades ex-House).
+
+**Dédup des amendements Quiver (parité House, màj 2026-06-26).** `reconcile()` ne garde qu'un exemplaire
+par (sénateur, ticker, date tradée, sens) avant comptage : **554 doublons d'amendements** retirés sur les
+7 ans. La **couverture transaction-niveau est inchangée** (98,0→100 %/an, calculée sur des ensembles) et
+`only_quiver` reste **25** — seuls les compteurs de deltas par sénateur sont nettoyés.
 
 ---
 
@@ -87,21 +101,26 @@ Déposants : **Blumenthal 1 233 · Boozman 379 · Burr 52 · Feinstein 14 · Fet
 
 ## 4. Table FINALE (digital + OCR)
 
-| Année | digital | + OCR | = FINAL | sénateurs | ticker % | volume $M |
-|---|---:|---:|---:|---:|---:|---:|
-| 2020 | 1 706 | 255 | **1 961** | 33 | 80,4 % | 304 |
-| 2021 | 1 098 | 281 | **1 379** | 35 | 70,1 % | 134 |
-| 2022 | 919 | 182 | **1 101** | 27 | 74,8 % | 98 |
-| 2023 | 1 062 | 97 | **1 159** | 30 | 77,1 % | 73 |
-| 2024 | 946 | 84 | **1 030** | 24 | 67,3 % | 95 |
-| 2025 | 943 | 478 | **1 421** | 31 | 44,6 % | 188 |
-| 2026 | 487 | 303 | **790** | 22 | 42,5 % | 87 |
-| **Total** | **7 161** | **1 680** | **8 841** | **64** | **67,0 %** | **$979 M** |
+| Année | digital | + OCR | = FINAL | sénateurs | ticker % (avant→après) | secteur % | volume $M |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 2020 | 1 706 | 255 | **1 961** | 33 | 80,4 → **88,1 %** | 80,5 % | 304 |
+| 2021 | 1 098 | 281 | **1 379** | 35 | 70,1 → **80,9 %** | 70,1 % | 134 |
+| 2022 | 919 | 182 | **1 101** | 27 | 74,8 → **79,7 %** | 65,3 % | 98 |
+| 2023 | 1 062 | 97 | **1 159** | 30 | 77,1 → **77,7 %** | 69,5 % | 73 |
+| 2024 | 946 | 84 | **1 030** | 24 | 67,3 → **68,0 %** | 59,2 % | 95 |
+| 2025 | 943 | 478 | **1 421** | 31 | 44,6 → **45,4 %** | 37,2 % | 188 |
+| 2026 | 487 | 303 | **790** | 22 | 42,5 → **43,7 %** | 35,7 % | 87 |
+| **Total** | **7 161** | **1 680** | **8 841** | **64** | 67,0 → **71,4 %** | **62,1 %** | **$979 M** |
+
+> Le lift ticker est **fort sur les années digital-lourdes** (2020 +7,7 pts, 2021 +10,8 pts) et **faible
+> sur 2025-2026** : ces années sont dominées par l'OCR papier de Blumenthal (munis/Treasuries sans ticker)
+> → reliquat **structurellement non coté**, pas une lacune de la passe (cf. §5).
 
 Fusion **non destructrice** (`merge_ocr.py`, dédup sur `natural_key_hash + occurrence_index`) :
 **0 doublon inter-sources** (papier et électronique disjoints). **`asset_type`** : Stock 5 027 ·
 Other 1 812 · Municipal 766 · Option 517 · Corporate Bond 246 · … **Opérations** : Purchase 4 341 ·
-Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62.
+Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62. **12/12 champs obligatoires** remplis
+(`sector_gics` + `etf_proxy` ajoutés, jointure sur ticker stabilisé).
 
 ---
 
@@ -113,9 +132,15 @@ Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62.
   lignes** ↔ **8 245 transactions uniques** (595 digital + 1 OCR). *(Même caractéristique côté House.)*
 - **OCR invalidable par Quiver.** Le papier est absent de Quiver → validation par période + cohérence
   + spot-check, pas de cross-check externe. C'est la donnée **unique** (Blumenthal n'est *que* papier).
-- **Ticker** : FINAL 67 % (digital 79 %, OCR 15 %). Le reste = obligations/munis/véhicules privés sans
-  ticker, et papier sans symbole imprimé. Une passe LLM nom→ticker (comme House) serait un ajout.
+- **Ticker** : FINAL **71,4 %** après la passe dict + LLM (parité House). Le reliquat **28,6 %** est
+  **structurellement non coté** — sondage des 2 531 lignes sans ticker : ~60 % obligations municipales /
+  Treasuries / LLC privées (sans symbole *par nature*), le reste papier sans symbole imprimé. Le « 90 %
+  House » n'est **pas atteignable** : le corpus Sénat (Blumenthal = 1 233 lignes OCR, gros détenteur de
+  munis) est bien plus obligataire. La passe LLM filtre `is_equity` → ne tickerise jamais un bond/muni.
 - **Tickers composites** sur 62 lignes `Exchange` (actions de société, fidèles mais non atomiques).
+- **`date_confidence`** : flag de fenêtre légale (75 j), pas un certificat. Les *implausible* (surtout
+  2021) sont des **divulgations tardives/amendées réelles** (lot Perdue : trades 2020 déclarés en 2021,
+  délai médian 382 j) — utile pour le backtest (signal connu très tard ≠ exploitable), pas un défaut OCR.
 - **Sénateurs en transition de chambre** : trades pré-Sénat = dépôts House, hors périmètre.
 
 ---
@@ -128,7 +153,8 @@ Réutilise le code Q1 figé (`senat_2025_test/`) — identité (`enrich`), valid
 ```
 python senat_multiyear.py      --years 2020,...,2026   # digital + validation Quiver/an
 python senat_ocr_multiyear.py  --mode full             # OCR papier (130 rapports)
-python merge_ocr.py                                     # fusion → 06_FINAL/an
+python merge_ocr.py                                     # fusion + ticker(dict+LLM) + secteur + date → 06_FINAL/an
+python revalidate_quiver.py                             # dédup amendements Quiver → 07c-f + dashboard (offline)
 ```
 *Idempotent : HTML eFD + images + extractions Vision cachés sur disque (reprise gratuite, résiliente
 aux timeouts). Quiver servi depuis le cache local, jamais réinjecté.*
@@ -149,5 +175,6 @@ validé par régression (92), généralisation (4 sénateurs), spot-check visuel
 ---
 
 **En une ligne.** Sénat **2020→2026** : **8 841 transactions** (7 161 digital Quiver-validé à ≥ 98 %/an,
-0 vrai raté + 1 680 OCR papier validé hors-Quiver), **64 sénateurs**, identité **100 %**, ticker 67 %,
-$979 M. Le papier (Blumenthal, Boozman…) capte la donnée **unique** que Quiver n'a pas.
+0 vrai raté + 1 680 OCR papier validé hors-Quiver), **64 sénateurs**, identité **100 %**, ticker **71,4 %**,
+secteur **62,1 %** (table **12/12 champs**), $979 M. Le papier (Blumenthal, Boozman…) capte la donnée
+**unique** que Quiver n'a pas ; le reliquat ticker est structurellement non coté (munis/Treasuries).

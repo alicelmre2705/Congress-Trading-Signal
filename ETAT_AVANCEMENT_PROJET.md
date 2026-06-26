@@ -10,7 +10,7 @@
 
 **But.** Construire une stratégie systématique de *copy trading* répliquant les transactions déclarées par les membres du Congrès américain (STOCK Act, 2012), puis la backtester sur le framework Ramify. 4 semaines, dont **2 entièrement consacrées à la donnée** (un backtest sur une donnée mal extraite ne vaut rien).
 
-> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée, étendue **toutes années 2020 → 2026** des deux côtés : **House digital 32 676 txns** (99 % Quiver) et **Sénat digital 7 161 txns** (98-100 % Quiver/an, 0 vrai raté, audit adversarial). Restent : l'OCR des scans à **scaler** (House échantillon validé ; Sénat papier ~14 % écarté, Quiver-aveugle), l'enrichissement **secteur GICS → ETF** (pilote House), et **toute la partie stratégie + backtest** (semaines 3–4, non commencé).
+> **Où en est-on, en une phrase.** La **couche donnée** est largement construite et validée, étendue **toutes années 2020 → 2026** des deux côtés : **House digital 32 676 txns** (99 % Quiver) et **Sénat digital 7 161 txns** (98-100 % Quiver/an, 0 vrai raté, audit adversarial). Le **Sénat toutes_annees** est désormais à **parité House** sur le post-traitement (résolution ticker dict+LLM 67→71,4 %, secteur GICS→ETF, flag `date_confidence`, dédup amendements Quiver) → table **12/12 champs**. Côté **House toutes_annees** : OCR **déjà scalé** (commit da65aa6, run complet 49 309 txns A+B, FINAL 81 985 lignes avec `date_confidence`+`ticker_source`) — restent l'**enrichissement secteur** (à brancher, ~2 468 tickers) et un **contrôle qualité OCR** (2 855 doublons internes + Khanna 30 866 txns à vérifier). Puis **toute la partie stratégie + backtest** (semaines 3–4, non commencé). ⚠️ *Les docs House (SYNTHESE_PRESENTATION) disent encore « OCR échantillon 3 876 » — périmées vs le run complet, à réconcilier.*
 
 **Légende.** ✅ fait et vérifié · 🟡 commencé / partiel · 🔴 non commencé · — hors périmètre actuel.
 
@@ -26,13 +26,13 @@
 | Pipeline d'extraction LLM (digital) | ✅ | Parsing PDF lisibles, rendement 99–100 % |
 | Pipeline d'extraction LLM (OCR scans) | 🟡 | Claude Vision validée ; **deskew + validation honnête faits sur échantillon** ; scaling 547 restant |
 | **Semaine 2 — nettoyage, validation, table finale** | | |
-| Réconciliation tickers | 🟡 | Passe LLM nom→ticker : House 90 %, Sénat 67 % (reste = actifs non cotés) |
+| Réconciliation tickers | 🟡 | Passe LLM nom→ticker (dict + LLM `is_equity`) : House 90 %, **Sénat 67 %→71,4 %** (reliquat = actifs non cotés, structurel) |
 | Normalisation noms / identité déclarant | ✅ | Rattachement `BioGuideID` 100 % (House & Sénat) |
 | Déduplication & règles documentées | ✅ | Dédup *per-lot* canonique, règles écrites |
 | Validation qualité (dates, montants, couverture) | 🟡 | Quiver honnête (nous ≥ Quiver) ; **OCR : tolérance date ±3 j + `date_delta_days`** ; rapport qualité global à formaliser |
-| Table finale — 12 champs garantis | 🟡 | 10/12 OK ; **2 absents** : `sector_gics`, `etf_proxy` |
+| Table finale — 12 champs garantis | 🟡 | **Sénat toutes_annees : 12/12** (`sector_gics`+`etf_proxy` ajoutés, secteur 62,1 %) ; House toutes_annees encore 10/12 |
 | Métadonnées (chambre, parti, comités) | 🟡 | Présents via *congress-legislators* ; **snapshot actuel**, pas *point-in-time* |
-| Mapping sectoriel GICS → ETF Ramify | 🔴 | Aucune trace dans le code ; à construire (yfinance/OpenBB) |
+| Mapping sectoriel GICS → ETF Ramify | 🟡 | `sector_enrich.py` (yfinance + repli LLM, SPDR Select Sector) appliqué **Q1 + Sénat toutes_annees** ; reste House toutes_annees + univers ETF Ramify final |
 | Pipeline incrémental (mise à jour testée) | 🔴 | Non démontré |
 | **Semaines 3–4 — stratégie & backtest** | | |
 | Stratégie V1 — actions directes | 🔴 | Règle entrée/sortie spécifiée, non implémentée |
@@ -56,11 +56,11 @@
 
 ### 3.2 Semaine 2 — nettoyage, validation, table finale
 
-- 🟡 **Réconciliation tickers.** Passe LLM nom→ticker (cache versionné) : House 46 %→90 %, Sénat 67 %. Manquants **conservés avec flag** (`ticker_source`), pas jetés. Quiver ne sert qu'à *auditer*.
+- 🟡 **Réconciliation tickers.** Passe LLM nom→ticker (dictionnaire nom→ticker + LLM filtré `is_equity`, cache versionné) : House 46 %→90 %, **Sénat 67 %→71,4 %** (`ticker_resolve.py`, dict +197 · llm +190). Manquants **conservés avec flag** (`ticker_source`), pas jetés. Le reliquat Sénat (28,6 %) est **structurellement non coté** (munis/Treasuries/privé, ~60 % du sans-ticker) → pas un défaut de la passe. Quiver ne sert qu'à *auditer*.
 - ✅ **Identité des déclarants.** Rattachement `BioGuideID` **100 %** ; collisions homonymes résolues.
 - ✅ **Déduplication.** Canonique *per-lot* (préserve les lots identiques intra-PTR via `occurrence_index`) ; dédup inter-sources seulement.
 - 🟡 **Validation qualité systématique.** Méthode Quiver **honnête** (per-lot, par `BioGuideID`, exclusion papier des deux côtés) : **nous ≥ Quiver** sur ~95 % des déclarants/an, vrais-absents 0,03 %, tous expliqués. **OCR ajouté** : tolérance de date ±3 j (Quiver bruite ±1-2 j) + colonne `date_delta_days` graduée. *Reste* : rapport qualité synthétique (cohérence dates, délai 45 j, distributions, couverture/congressman, taux sans sortie).
-- 🟡 **Table finale — 12 champs garantis.** 10/12 sur les pilotes figés ; **`sector_gics` et `etf_proxy` absents**.
+- 🟡 **Table finale — 12 champs garantis.** **Sénat toutes_annees = 12/12** (`sector_gics` 62,1 % + `etf_proxy` ajoutés via `sector_enrich`, jointure sur ticker). House toutes_annees encore 10/12 (même branchement à reporter).
 - 🟡 **Métadonnées de sélection.** `committee_membership` + `committees_key_flag` via *congress-legislators*. **Limite** : snapshot *actuel*, pas *point-in-time*.
 - 🔴 **Mapping sectoriel GICS → ETF.** Secteur GICS dominant par ticker (yfinance/OpenBB) puis ETF sectoriel Ramify. À trancher : univers ETF, multi-secteurs.
 - 🔴 **Pipeline incrémental.** Mise à jour simulée sans relancer l'extraction ; format de stockage final (CSV / SQLite / Parquet).
@@ -147,7 +147,7 @@ Les champs < 100 % (`ticker`, `committee_membership`) = actifs non cotés / memb
 
 ## 5. Chemin critique — ce qui reste, par priorité
 
-1. **Mapping sectoriel GICS → ETF** (🔴) — *bloquant pour la table finale ET la V2*. Ajouter `sector_gics` + `etf_proxy` ; trancher univers ETF Ramify et cas multi-secteurs.
+1. **Mapping sectoriel GICS → ETF** (🟡) — *bloquant pour la table finale ET la V2*. Fait pour **Q1 + Sénat toutes_annees** (`sector_enrich.py`) ; **reste à brancher sur House toutes_annees** (FINAL 81 985 lignes déjà produites, OCR scalé — simple enrichissement additif, ~2 468 tickers yfinance) + trancher univers ETF Ramify et cas multi-secteurs.
 2. **Finir l'OCR des scans (A+B + récupération ciblée C)** (🟡) — scaler aux ~396 PDF A+B + OCR ciblé des 3 filers C à forte perte Quiver (Schrader/Lamborn/Harshbarger, ~47 docs) ; le reste de C reste non exécuté (catégorie conservée). Fusionner dans `_FINAL` en propageant `date_confidence`. **La date reste une limite intrinsèque**, pas corrigeable par rotation.
 3. **Rapport qualité synthétique** (🟡) — graphiques & stats (cohérence dates, délai 45 j, distributions montants, couverture/congressman, taux sans sortie).
 4. **Métadonnées point-in-time** (🟡) — historique des comités via `api.congress.gov` pour un backtest fidèle.
