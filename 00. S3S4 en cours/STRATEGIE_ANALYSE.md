@@ -116,3 +116,32 @@ construira le book de recherche **ici même, dans `S3S4/`** (voir `S3S4/PROMPT_R
 
 > Le book **lira** les données finalisées (`data/`, `congress_core/`) mais **n'écrira que dans `S3S4/`** —
 > aucun impact sur les Semaines 1-2 ni sur les golden.
+
+---
+
+## 6. Round 3 — chasse OBJECTIVE au signal (code reproductible dans `analyses/`)
+
+> Reproche légitime : les rounds 1-2 *confirmaient* un a priori (« edge ≈ 0 »). Round 3 reprend la base
+> **comme un quant qui la découvre**, avec le mandat de **trouver du signal s'il existe** — 6 angles
+> indépendants, chacun **un script documenté et vérifiable** dans `analyses/` (voir `analyses/README.md`).
+
+**Résultat réconcilié — plus nuancé que « rien » :**
+
+1. **Il existe une information faible mais RÉELLE** (`analyses/ic.py`) : le **nombre d'acheteurs distincts**
+   (breadth) prédit le rendement cross-sectionnel — IC ≈ **0,02**, t_NW **1,95** (6 m, investissable) à
+   **2,86** (12 m). Trois faits solides : seuls les **achats** informent ; c'est le **comptage** (pas le
+   montant $) ; ce **n'est pas du beta** (corrélation de rang).
+2. **Mais ce n'est pas un edge tradeable**, et les 5 autres angles le confirment tous :
+   - `event_study.py` : gros trades ~+4 %/252j **mais les ventes aussi** (tilt de style) ; alpha
+     FF-Carhart **non significatif** (t≈1,7) ; concentré 2019-2021.
+   - `long_short.py` : market-neutral **nul** (t<1,3) → le beta ne « cache » aucun alpha.
+   - `committee.py` : l'alignement commission↔secteur s'**inverse** au contrôle secteur×année (beta
+     défense) ; **86 %** vient de 2 traders.
+   - `characteristics.py` : taille/chambre/vitesse de déclaration **s'effondrent** au clustering par membre
+     → une poignée d'individus, pas un type de trade.
+   - `ml.py` : AUC **OOS ≈ 0,52** (sur-apprentissage), aucune feature « initié », médiane Q4 négative.
+
+**Verdict final (objectif, pas a priori) :** information réelle (breadth) **sous le seuil
+d'exploitabilité** — IC minuscule × instabilité de régime × survivorship × coûts × concentration sur
+quelques membres. C'est pourquoi un produit *data* (Quiver) a de la valeur (info à faire remonter) sans
+qu'une stratégie suivable batte le marché **net de coûts**. Tout le code est dans `analyses/` (relançable).

@@ -20,6 +20,13 @@ aucun impact sur le travail finalisé des Semaines 1-2 ni sur les golden.
 ```
 (Le 1er run télécharge ~1500 tickers dans `cache/` ; ensuite c'est instantané.)
 
+## Analyses du signal (code reproductible)
+`analyses/` contient **un script documenté par angle** cherchant activement de l'information
+(IC, event-study, long-short, commission, caractéristiques de trade, ML) — voir `analyses/README.md`.
+Chacun se relance en < 2 min sur le cache. C'est le code derrière chaque conclusion (pas de boîte noire).
+
 ## Verdict (2014-2026, net de coûts, factor-ajusté)
-**Pas d'edge net exploitable** : aucune des 6 variantes ne dégage d'alpha factoriel significatif
-(tous |t| < 1,2). Détails dans `RAPPORT_STRATEGIE.md`. Reste à tester : variante **leadership/chairs**.
+**Pas d'edge net exploitable.** Le backtest (9 variantes) ne dégage aucun alpha significatif
+(`RAPPORT_STRATEGIE.md`). La chasse au signal (`analyses/`) trouve une **information faible mais réelle**
+(la *breadth* d'achat, IC≈0,02) — mais **sous le seuil d'exploitabilité** net de coûts. Synthèse complète
+dans `STRATEGIE_ANALYSE.md` §6.
