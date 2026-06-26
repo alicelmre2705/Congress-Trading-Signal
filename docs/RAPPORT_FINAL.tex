@@ -1,0 +1,1226 @@
+% !TEX program = tectonic
+% RAPPORT_FINAL — Congress Trading Signal · Couche données (Semaines 1–2)
+% Document de recherche autonome. Tous les chiffres sont recalculés depuis les tables FINAL
+% (data/house/tables/{an}/06_house_{an}_FINAL.csv, data/senate/{an}/06_senate_{an}_FINAL.csv)
+% et la source de vérité chiffrée tests/regression/audit_metrics.py + congress_core/quality.py.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{needspace}
+\usepackage{hyperref}
+\usepackage{underscore} % « _ » imprimable dans le texte/\texttt sans échappement
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+% Caractères Unicode → commandes LaTeX (fontes T1 sans ces glyphes)
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{œ}{\oe}
+\newunicodechar{Œ}{\OE}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{★}{\ensuremath{\star}}
+
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,
+  pdftitle={Congress Trading Signal — Couche données (Semaines 1-2)},
+  pdfauthor={Alice Lemaire}}
+
+% ----- Couleurs par couche -----
+\definecolor{coreC}{RGB}{37,99,159}     % congress_core (bleu)
+\definecolor{houseC}{RGB}{30,110,90}    % house (vert)
+\definecolor{senateC}{RGB}{120,60,150}  % senate (violet)
+\definecolor{dataC}{RGB}{176,110,14}    % data (ocre)
+\definecolor{testC}{RGB}{150,40,40}     % tests (rouge sombre)
+\definecolor{netC}{RGB}{190,55,55}
+\definecolor{offC}{RGB}{40,120,60}
+
+\newcommand{\co}[1]{\texttt{\small #1}}
+\newcommand{\netflag}{\textcolor{netC}{\small$\bullet$ réseau/API}}
+\newcommand{\offflag}{\textcolor{offC}{\small$\bullet$ offline}}
+
+\titleformat{\section}{\Large\bfseries\color{coreC}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing{\section}{0pt}{1.4em}{0.5em}
+\titlespacing{\subsection}{0pt}{0.9em}{0.3em}
+
+% ----- Styles TikZ -----
+\tikzset{
+  step/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+               text width=3.4cm, align=center, minimum height=0.95cm, font=\small},
+  file/.style={rectangle, draw=gray!55, fill=gray!7, text width=3.4cm, align=center,
+               font=\scriptsize\ttfamily, minimum height=0.55cm},
+  lyr/.style={rectangle, rounded corners=3pt, draw=#1, line width=1pt, fill=#1!8,
+              align=center, font=\small, minimum height=1.1cm},
+  arr/.style={-{Latex[length=2.4mm]}, line width=0.9pt, draw=gray!65},
+}
+
+\newtcolorbox{keybox}[1]{colback=coreC!5,colframe=coreC!55,fonttitle=\bfseries,
+  title={#1},boxrule=0.6pt,left=3pt,right=3pt,top=2pt,bottom=2pt}
+\newtcolorbox{defbox}[1]{colback=gray!6,colframe=gray!50,boxrule=0.4pt,
+  left=4pt,right=4pt,top=2pt,bottom=2pt,title=\textbf{#1}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{3em} % absorbe les débordements de lignes justifiées (tokens \co longs)
+\renewcommand{\arraystretch}{1.2}
+
+% Environnement « tableau de fonctions » (Fonction | Ce qu'elle fait | Renvoie | Étape)
+\newenvironment{fnt}{%
+  \par\footnotesize
+  \setlength{\tabcolsep}{3pt}%
+  \begin{longtable}{@{}>{\ttfamily\scriptsize\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{7.5cm} >{\itshape\scriptsize\raggedright\arraybackslash}p{2.7cm} >{\scriptsize\raggedright\arraybackslash}p{1.85cm}@{}}
+  \toprule
+  \normalfont\bfseries\scriptsize Fonction & \bfseries\scriptsize Ce qu'elle fait (corps réel) &
+  \normalfont\bfseries\scriptsize Renvoie & \normalfont\bfseries\scriptsize Étape\\
+  \midrule\endhead
+}{\bottomrule\end{longtable}\par}
+
+% En-tête d'un module dans la section « chaque fonction »
+\newcommand{\fnmod}[2]{\par\smallskip\noindent{\ttfamily\bfseries #1}\;\textmd{\itshape\small\textemdash{} #2}\par\nobreak\vspace{2pt}}
+
+\begin{document}
+
+% ============================ PAGE DE TITRE ============================
+\begin{titlepage}
+\centering
+\vspace*{2.2cm}
+{\small\itshape Document de recherche — livrable Ramify}\\[4pt]
+\rule{\textwidth}{0.4pt}\\[10pt]
+{\Huge\bfseries\color{coreC} Congress Trading Signal}\\[8pt]
+{\LARGE\bfseries La couche données (Semaines 1--2)}\\[10pt]
+{\large Extraction, identification, enrichissement et validation honnête des\\
+déclarations boursières du Congrès américain — Chambre \emph{et} Sénat, 2020--2026}\\[8pt]
+\rule{\textwidth}{0.4pt}\\[18pt]
+
+\begin{minipage}{0.86\textwidth}\centering\small
+\textbf{90\,487} transactions (House \textbf{81\,646} + Sénat \textbf{8\,841}) extraites de bout en
+bout des sources officielles (\emph{House Clerk}, Sénat \emph{eFD}), piste électronique
+\textbf{et} scannée (OCR Claude Vision) ; identité résolue au \texttt{bioguide\_id}, table
+\textbf{12/12 champs}, validée contre Quiver (vérification externe, jamais réinjectée), et
+\textbf{reproductible} (golden octet-à-octet). Ce document se lit \emph{main dans la main} avec le
+dépôt~: chaque mécanisme cite le \co{fichier:fonction} réel.
+\end{minipage}\\[26pt]
+
+{\large\bfseries Alice Lemaire}\\[3pt]
+{\small\today}\\[10pt]
+{\footnotesize\itshape Périmètre~: couche données (Semaines 1--2). La stratégie/backtest (Semaines 3--4)
+est un travail de recherche séparé, en cours, et hors-périmètre de ce rapport.}
+\vfill
+{\footnotesize Tous les chiffres sont recalculés depuis les tables FINAL
+(\co{06_house_\{an\}_FINAL.csv}, \co{06_senate_\{an\}_FINAL.csv}) — le code et les données font autorité.}
+\end{titlepage}
+
+% ============================ RÉSUMÉ ============================
+\section*{Résumé}
+\addcontentsline{toc}{section}{Résumé}
+Les membres du Congrès américain déclarent leurs transactions boursières sous le \emph{STOCK Act} ;
+ces déclarations, exploitées par une stratégie de \emph{copy-trading}, exigent au préalable une
+\textbf{couche données} propre, traçable et honnêtement validée. Ce rapport présente cette couche,
+livrée sur les Semaines 1--2. Le pipeline reconstruit \textbf{90\,487 transactions} sur deux chambres
+et sept ans (2020--2026)~: \textbf{81\,646} pour la Chambre (32\,676 électronique + 48\,970 OCR) et
+\textbf{8\,841} pour le Sénat (7\,161 électronique + 1\,680 papier OCR). Chaque transaction est
+rattachée à son auteur (\co{bioguide_id})~: \textbf{99,99\,\%} des lignes Chambre, \textbf{100\,\%}
+au Sénat. Chaque ligne est enrichie (ticker, secteur \textbf{GICS}$\rightarrow$\textbf{ETF SPDR}, type
+d'actif, montant \emph{midpoint}, ancienneté), aboutissant à la \textbf{table 12/12 champs} demandée par
+Ramify. La validation externe contre Quiver — \textbf{jamais réinjectée} — donne une concordance
+transaction-niveau de \textbf{85,9\,\%/an} (Chambre, un plancher) et \textbf{98--100\,\%/an} (Sénat),
+avec \textbf{9} et \textbf{0} vrais-absents après explication ; le papier scanné, invisible aux
+agrégateurs, est une \textbf{valeur ajoutée} propre, validée en interne. La correction est prouvée par
+un \textbf{golden octet-à-octet} (108 fichiers Chambre, 69 Sénat) plus des reproductions
+fonction-par-fonction. Le rapport rend compte des \textbf{hypothèses méthodologiques révisées} en cours
+de route et des \textbf{limites} assumées (cluster manuscrit exclu, commissions non point-in-time,
+appariement Quiver sans tolérance de date). Toutes les métriques sont recalculées depuis les tables
+FINAL ; le document cite, pour chaque mécanisme, la fonction Python réelle qui l'implémente.
+
+\bigskip
+{\small\tableofcontents}
+\clearpage
+
+% ============================ 1. INTRODUCTION ============================
+\section{Introduction \& contexte}
+
+\subsection{Le signal « \emph{Congress trading} » et le STOCK Act}
+Depuis le \textbf{STOCK Act} (2012), les membres du Congrès américain doivent divulguer publiquement
+leurs transactions sur titres dans un \emph{Periodic Transaction Report} (PTR), en principe sous
+\textbf{45 jours}. L'intuition de recherche — documentée académiquement (Ziobrowski \emph{et al.}
+2004/2011, Karadas 2019) — est que ces personnes, par leur appartenance à des commissions clés
+(Finance, \emph{Armed Services}, Intelligence) ou leur exposition à l'information, produisent par leurs
+déclarations un \textbf{signal potentiellement exploitable}. Une stratégie de \emph{copy-trading}
+consiste à répliquer ces transactions \emph{après} leur publication (anti-\emph{look-ahead}).
+
+\subsection{Ce que Ramify a commandé (Semaines 1--2)}
+Le projet est structuré en quatre semaines, dont \textbf{deux entières dédiées à la donnée} — « un
+backtest sur des données mal extraites ne vaut rien ». La \textbf{Semaine 1} couvre l'exploration, le
+\emph{sourcing} et l'architecture, le téléchargement automatisé, puis la construction du pipeline
+d'extraction LLM (Claude, Sonnet) avec convention de \emph{midpoint} sur les fourchettes de montant. La
+\textbf{Semaine 2} couvre le nettoyage (tickers, noms incohérents, doublons), la \textbf{validation
+qualité} (cohérence des dates, délai légal, distribution des montants, couverture par membre, achats
+sans sortie), le pipeline de bout en bout, les métadonnées de sélection (chambre, parti, ancienneté,
+commissions) et le \textbf{mapping sectoriel GICS$\rightarrow$ETF}. La contrainte non négociable~: une
+table propre, documentée, où \textbf{12 champs} sont garantis présents (cf.~§\ref{sec:table}).
+
+\subsection{Périmètre et limites de l'étude}
+Ce rapport couvre \textbf{uniquement la couche données (Semaines 1--2)}. La \textbf{stratégie et le
+backtest (Semaines 3--4)} — règles d'entrée/sortie, sélection annuelle des $K$ congressmen, versions
+actions puis ETF — constituent un \textbf{travail de recherche séparé, en cours}, et ne sont
+\emph{pas} développés ici. Les limites de la couche données sont énumérées honnêtement au §\ref{sec:limites}.
+
+% ============================ 2. SOURCES ============================
+\section{Sources \& acquisition}
+
+\textbf{Principe anti-\emph{look-ahead}.} Chaque transaction est datée par sa \textbf{date de
+divulgation} (\co{disclosure_date}, la date de dépôt du PTR), jamais par une date postérieure connue~:
+une stratégie ne peut copier qu'\emph{après} publication.
+
+\textbf{Chambre — \emph{House Clerk}.} Un index XML par année (\co{\{an\}FD.xml}) liste les dépôts~; on
+filtre \co{FilingType=P} (les PTR) et on télécharge le PDF de chaque dépôt. Source publique, sans
+barrière. Les PDF se répartissent en \textbf{lisibles} (couche texte $\rightarrow$ parsing déterministe)
+et \textbf{scannés} (image $\rightarrow$ OCR).
+
+\textbf{Sénat — eFD (\emph{Electronic Financial Disclosure}).} Plus fermé~: un \textbf{garde-fou CSRF}.
+Il faut d'abord accepter un formulaire d'accord (\co{accept_agreement}~: GET pour un \co{csrftoken},
+puis POST \co{prohibition_agreement} avec \co{csrfmiddlewaretoken} et l'en-tête \co{X-CSRFToken}). On
+interroge ensuite l'API de recherche (\co{report_types=[11]} = PTR). Les déclarations électroniques
+sont en \textbf{HTML}~; les déclarations papier renvoient des \textbf{images \co{.gif}} servies par
+\co{efd-media-public.senate.gov}. On reste « poli » (pause entre requêtes, aucun contournement) et on
+\textbf{cache tout sur disque} — un re-run ne re-télécharge rien.
+
+\textbf{Quiver = vérification externe \emph{uniquement}.} Quiver Quantitative (agrégateur commercial)
+sert de \textbf{vérité-terrain indépendante}. Il n'est \emph{jamais} réinjecté dans nos tables~: on
+mesure si notre extraction concorde, on ne la complète pas. C'est une règle structurante du projet.
+
+% ============================ 3. ARCHITECTURE ============================
+\section{Architecture \& méthodologie}
+\label{sec:archi}
+
+\subsection{Trois couches de code + une couche de données}
+La structure est une \textbf{boîte à outils partagée} (\co{congress_core}, 14 modules) que
+\textbf{deux orchestrateurs} (un par chambre) utilisent, plus la donnée et les tests.
+
+\begin{center}
+\begin{tikzpicture}
+\node[lyr=houseC, text width=5.2cm] (h) at (-3.1,1.4) {\textbf{\color{houseC}house/} \;(3 fichiers)\\[1pt]\footnotesize orchestrateur Chambre\\\footnotesize \co{digital} · \co{ocr} · \co{echantillon}};
+\node[lyr=senateC, text width=5.2cm] (s) at (3.1,1.4) {\textbf{\color{senateC}senate/} \;(10 fichiers)\\[1pt]\footnotesize orchestrateur Sénat\\\footnotesize \co{digital} · \co{ocr} · \co{fusion} · \dots};
+\node[lyr=coreC, text width=11cm] (c) at (0,-0.2) {\textbf{\color{coreC}congress\_core/} \;(14 fichiers) — la boîte à outils PARTAGÉE\\[1pt]\footnotesize schema · identity · amounts · tickers · vision\_ocr · llm\_resolve · quiver · crosscheck · sector\_enrich · reporting · paths · \textbf{pipeline} · quality · enrich\_tenure};
+\node[lyr=dataC, text width=7.6cm] (d) at (-1.9,-2) {\textbf{\color{dataC}data/} — entrées \& sorties\\\footnotesize PDF, scans, caches, référentiels, tables CSV};
+\node[lyr=testC, text width=3cm] (t) at (3.7,-2) {\textbf{\color{testC}tests/}\\\footnotesize filet « zéro changement »};
+\draw[arr] (h) -- (c); \draw[arr] (s) -- (c);
+\draw[arr] (c) -- (d); \draw[arr] (c.south) -- (t.north);
+\end{tikzpicture}
+\end{center}
+
+\begin{keybox}{L'idée directrice}
+\co{congress_core} = les \textbf{ingrédients et ustensiles} (couper un nom en bioguide, lire un scan,
+calculer un secteur\dots). \co{house/} et \co{senate/} = \textbf{deux recettes} qui s'en servent dans
+leur ordre. Elles ne diffèrent que parce que les \textbf{sources} diffèrent~: Chambre = index XML + PDF
+du \emph{Clerk}~; Sénat = eFD (HTML) + images \co{.gif}. D'où plus de fichiers côté Sénat (scraping et
+OCR papier plus complexes).
+\end{keybox}
+
+\subsection{Le pipeline : un point d'entrée unique}
+\co{congress_core/pipeline.py} (fonction \co{build_steps}) enchaîne les modules en sous-processus.
+La commande \co{python -m congress_core.pipeline --years 2020-2026} assemble \textbf{6 étapes}
+d'orchestration~; un \textbf{7\textsuperscript{e}} traitement — le rapport qualité
+(\co{congress_core/quality.py}) — se lance séparément, hors-ligne et en lecture seule.
+
+\begin{center}
+\begin{tikzpicture}[node distance=6mm]
+\node[step=coreC, fill=coreC!15, text width=10.5cm] (orch)
+  {\textbf{python -m congress\_core.pipeline}\\[1pt]\footnotesize \co{build_steps()} : 6 étapes en sous-processus, puis le rapport qualité (offline)};
+\node[step=houseC, below=9mm of orch, xshift=-3.7cm] (hd) {\textbf{1.} \co{house.digital}\\\footnotesize PTR électroniques \netflag};
+\node[file, below=4mm of hd] (hdf) {06\_house\_\{an\}\_transactions.csv};
+\node[step=houseC, below=4mm of hdf] (ho) {\textbf{2.} \co{house.ocr}\\\footnotesize scans → Vision + \emph{fusion} \netflag};
+\node[file, below=4mm of ho, fill=houseC!12] (hof) {06\_house\_\{an\}\_FINAL.csv};
+\node[step=senateC, below=9mm of orch, xshift=3.7cm] (sd) {\textbf{3.} \co{senate.digital}\\\footnotesize eFD électroniques \netflag};
+\node[file, below=4mm of sd] (sdf) {06\_senate\_\{an\}\_transactions.csv};
+\node[step=senateC, below=4mm of sdf] (so) {\textbf{4.} \co{senate.ocr}\\\footnotesize PTR papier → Vision \netflag};
+\node[file, below=4mm of so] (sof) {06b\_senate\_\{an\}\_ocr.csv};
+\node[step=senateC, below=4mm of sof] (sf) {\textbf{5.} \co{senate.fusion}\\\footnotesize fusion + ticker + secteur};
+\node[file, below=4mm of sf, fill=senateC!12] (sff) {06\_senate\_\{an\}\_FINAL.csv};
+\node[step=offC, below=7mm of $(hof)!0.5!(sff)$, text width=7.2cm] (et)
+  {\textbf{6.} \co{congress_core.enrich_tenure} \offflag\\\footnotesize ajoute \co{years_in_office} aux 14 tables FINAL};
+\node[step=offC, below=5mm of et, text width=7.2cm] (q)
+  {\textbf{7.} \co{congress_core.quality} \offflag\\\footnotesize 5 contrôles → \co{RAPPORT_QUALITE.md} + figures};
+\draw[arr] (orch) -| (hd);
+\draw[arr] (orch) -| (sd);
+\draw[arr] (hd)--(hdf); \draw[arr] (hdf)--(ho); \draw[arr] (ho)--(hof);
+\draw[arr] (sd)--(sdf); \draw[arr] (sdf)--(so); \draw[arr] (so)--(sof); \draw[arr] (sof)--(sf); \draw[arr] (sf)--(sff);
+\draw[arr] (hof) |- (et); \draw[arr] (sff) |- (et);
+\draw[arr] (et)--(q);
+\end{tikzpicture}
+\end{center}
+
+\subsection{La convention de numérotation \emph{est} l'enchaînement}
+Sur le disque, le préfixe d'un fichier = son étape dans le pipeline. C'est ce qui rend la couche
+données lisible sans documentation externe.
+\begin{center}\small
+\begin{tabular}{>{\ttfamily}p{2.4cm} p{10.2cm} >{\ttfamily\footnotesize}p{3.0cm}}
+\toprule
+\normalfont\bfseries Préfixe & \bfseries Étape & \normalfont\bfseries Écrit par \\
+\midrule
+03\_ & index des PTR (\co{FilingType=P}) dans la fenêtre & house.digital \\
+04\_ & manifeste~: lisible / non\_lisible / absent & house.digital \\
+05\_ & échecs de parsing & *.digital \\
+06\_ & table \textbf{digitale} (PTR électroniques) & *.digital \\
+06b\_ & table \textbf{OCR} (scans / papier) & *.ocr \\
+06c\_ & échecs OCR & *.ocr \\
+06\_…\_FINAL & \textbf{digital + OCR fusionnés}, 28 colonnes & house.ocr / senate.fusion \\
+07\_…07f\_ & comparaison / réconciliation \textbf{Quiver} (validation) & quiver / quiver\_audit \\
+08\_ & cross-check « semaine 1 » (Chambre) & house.digital \\
+00\_ & tableaux de bord (statut, concordance) & *.digital / fusion \\
+\_préfixe & caches \& brouillons (\co{_quiver_*_cache}, \co{_scan_census}…) & divers \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Le voyage d'une transaction}
+Comment une ligne brute devient une ligne FINAL — en nommant la fonction à chaque étape.
+\begin{center}
+\begin{tikzpicture}[node distance=4.2mm]
+\node[file, text width=12cm, align=left, fill=gray!10] (r0)
+  {ligne PDF/scan~: « \,NVIDIA Corp \;|\; P \;|\; 12/24/2024 \;|\; \$1,001 - \$15,000\, »};
+\node[step=coreC, below=of r0, text width=12cm, align=left] (r1)
+  {\co{parse} / OCR \co{normalize} → declarant, desc=« NVIDIA Corp », op=Purchase, fourchette};
+\node[step=coreC, below=of r1, text width=12cm, align=left] (r2)
+  {\co{identity.make_matcher} → \co{bioguide_id=G000596}, \co{party}, \co{committee_membership}};
+\node[step=coreC, below=of r2, text width=12cm, align=left] (r3)
+  {\co{tickers}/\co{llm_resolve} → \co{ticker=NVDA}, \co{ticker_source=elec_dict}};
+\node[step=coreC, below=of r3, text width=12cm, align=left] (r4)
+  {\co{sector_enrich.enrich_sectors} → \co{sector_gics=Information Technology}, \co{etf_proxy=XLK}};
+\node[step=coreC, below=of r4, text width=12cm, align=left] (r5)
+  {\co{schema} → \co{natural_key_hash}, \co{occurrence_index=0}, \co{amount_midpoint=8000.5}};
+\node[step=offC, below=of r5, text width=12cm, align=left] (r6)
+  {\co{enrich_tenure.add_years_in_office} → \co{years_in_office=3}};
+\node[file, below=of r6, text width=12cm, align=left, fill=houseC!12] (r7)
+  {\textbf{ligne de} \co{06_house_2024_FINAL.csv} \;(28 colonnes, prête pour l'analyse)};
+\foreach \x/\y in {r0/r1,r1/r2,r2/r3,r3/r4,r4/r5,r5/r6,r6/r7} \draw[arr] (\x)--(\y);
+\end{tikzpicture}
+\end{center}
+
+% ============================ 4. CHAQUE FONCTION ============================
+\section{Le pipeline pas à pas — chaque fonction Python}
+\label{sec:fonctions}
+
+Cette section inventorie \textbf{les 228 fonctions et méthodes réelles} des 27 modules de code (les
+3 \co{__init__.py} sans fonction sont omis). Chaque entrée décrit le \textbf{corps réel} (pas la
+docstring), ce que la fonction \textbf{renvoie}, et l'\textbf{étape du pipeline} où elle intervient.
+L'inventaire a été dérivé en relisant le code module par module puis recoupé contre l'arbre syntaxique
+(AST)~: \emph{aucune} fonction réelle n'est omise. Pour s'orienter, l'index « étape → où lire » est en
+Annexe~\ref{anx:run}.
+
+\subsection{C\oe{}ur partag\'e \textemdash{} \texttt{congress\_core/} (14 modules, 101 fonctions)}
+\needspace{5\baselineskip}
+\fnmod{schema.py}{Schéma canonique unifié, clé naturelle 7 champs, hash et déduplication non destructrice partagés House/Sénat.}
+\begin{fnt}
+natural_\allowbreak key & Concatène avec « | » les 7 champs (str de chaque)\allowbreak{},\allowbreak{} chamber pris de la ligne sinon de l'argument,\allowbreak{} jamais codé en dur. & str : représentation textuelle stable de la clé & dédup/schéma \\
+natural_\allowbreak key_\allowbreak hash & Encode en UTF-8 la clé naturelle puis calcule son SHA-256 hexadécimal. & str : empreinte SHA-256 hexadécimale & dédup/schéma \\
+add_\allowbreak occurrence_\allowbreak index & Copie le DataFrame,\allowbreak{} ajoute occurrence_index =\allowbreak{} rang cumcount par groupe (doc_id,\allowbreak{} natural_key_hash)\allowbreak{} pour préserver les lots répétés. & DataFrame avec colonne occurrence_index & dédup/schéma \\
+dedup_\allowbreak canonical & Trie par disclosure_date décroissant puis garde une ligne par (natural_key_hash,\allowbreak{} occurrence_index)\allowbreak{},\allowbreak{} retirant les doublons cross-dépôt. & DataFrame dédupliqué canonique & dédup/schéma \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{identity.py}{Identité : normalisation de noms, référentiel des législateurs/commissions, résolution bioguide et ancienneté.}
+\begin{fnt}
+strip_\allowbreak accents & Normalise en NFKD et retire les caractères combinants pour ôter les accents d'une chaîne. & str : chaîne sans accents & identité \\
+norm & Retire accents,\allowbreak{} passe en minuscules,\allowbreak{} remplace tout non-alphabétique par des espaces,\allowbreak{} réduit les espaces. & str : nom normalisé & identité \\
+split_\allowbreak name & Découpe « Prénom … Nom[,\allowbreak{} suffixe]\allowbreak{} » : prend la partie avant la virgule,\allowbreak{} ôte les suffixes,\allowbreak{} renvoie dernier,\allowbreak{} premier et milieux. & tuple (last,\allowbreak{} first,\allowbreak{} liste des milieux)\allowbreak{} & identité \\
+Reference.\allowbreak _\allowbreak _\allowbreak init_\allowbreak _\allowbreak  & Stocke les structures du référentiel : universe,\allowbreak{} index de noms,\allowbreak{} commissions,\allowbreak{} key_bios,\allowbreak{} bios courants,\allowbreak{} source,\allowbreak{} première année. & — (effet de bord : initialise l'objet)\allowbreak{} & identité \\
+Reference.\allowbreak party & Renvoie le parti du bioguide depuis ref_universe si présent dans l'index,\allowbreak{} sinon None. & str parti ou None & identité \\
+Reference.\allowbreak years_\allowbreak in_\allowbreak office & Calcule as_of_year moins la première année en fonction ; None si données manquantes ou résultat négatif. & int ancienneté ou None & ancienneté \\
+Reference.\allowbreak committees & Joint par « ; » les commissions triées du bioguide,\allowbreak{} ou chaîne vide si bioguide absent. & str : commissions ou vide & identité \\
+Reference.\allowbreak is_\allowbreak key_\allowbreak committee & Teste l'appartenance du bioguide à l'ensemble key_bios ; False si bioguide vide. & bool : membre d'une commission clé & identité \\
+_\allowbreak last_\allowbreak term_\allowbreak key & Extrait l'année de fin du dernier mandat et la renvoie négative pour tri ; valeurs spéciales si absente ou illisible. & int : clé de tri par fin de mandat & utilitaire \\
+_\allowbreak load_\allowbreak people & Tente de télécharger législateurs current et historical en live,\allowbreak{} repli sur YAML embarqué en cas d'échec. & tuple (cur,\allowbreak{} hist,\allowbreak{} source)\allowbreak{} & acquisition \\
+_\allowbreak load_\allowbreak committees & Télécharge commissions et appartenances en live,\allowbreak{} repli sur YAML embarqué si échec ou non-live. & tuple (committees,\allowbreak{} membership)\allowbreak{} & acquisition \\
+load_\allowbreak reference & Construit le référentiel : trie les personnes,\allowbreak{} indexe variantes de noms (surnom,\allowbreak{} milieu,\allowbreak{} composé)\allowbreak{},\allowbreak{} première année,\allowbreak{} commissions,\allowbreak{} key_bios. & objet Reference assemblé & identité \\
+make_\allowbreak matcher & Fabrique une closure match(last,\allowbreak{} first)\allowbreak{} : override manuel,\allowbreak{} candidats nom/\allowbreak{}prénom avec surnoms,\allowbreak{} lookup exact,\allowbreak{} repli nom unique. & fonction match(last,\allowbreak{} first)\allowbreak{} →\allowbreak{} bioguide ou None & identité \\
+enrich_\allowbreak identity & Copie le DataFrame,\allowbreak{} mappe bioguide via matcher (colonnes last/\allowbreak{}first ou split_name)\allowbreak{},\allowbreak{} ajoute chamber,\allowbreak{} party,\allowbreak{} commissions,\allowbreak{} key_flag. & DataFrame enrichi en identité & identité \\
+add_\allowbreak years_\allowbreak in_\allowbreak office & Copie le DataFrame,\allowbreak{} extrait l'année de transaction (repli divulgation)\allowbreak{} et calcule years_in_office par bioguide. & DataFrame avec colonne years_in_office & ancienneté \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{amounts.py}{Fourchettes de montant, midpoint, propriétaire et type d'opération, maps indexées par chambre sans fusion.}
+\begin{fnt}
+amount_\allowbreak midpoint & Extrait les nombres « \$X » de la chaîne : moyenne des deux premiers,\allowbreak{} sinon le seul nombre,\allowbreak{} sinon None. & float midpoint ou None & parsing montant \\
+operation_\allowbreak type_\allowbreak from_\allowbreak code & Mappe un code en majuscules : P→\allowbreak{}Purchase,\allowbreak{} E→\allowbreak{}Exchange,\allowbreak{} sinon Sale avec variante Partial/\allowbreak{}Full selon le sous-type. & str : type d'opération 5-voies & parsing \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{tickers.py}{Normalisation et récupération de ticker, inférence du type d'actif par chambre, copies exactes des moteurs.}
+\begin{fnt}
+recover_\allowbreak ticker & Si la description correspond au motif « le nom EST un ticker »,\allowbreak{} renvoie le symbole capté,\allowbreak{} sinon None. & str ticker ou None & ticker \\
+explicit_\allowbreak ticker & Cherche un symbole explicite en fin de description,\allowbreak{} ôte les points,\allowbreak{} renvoie s'il fait 1 à 5 caractères. & str ticker ou None & ticker \\
+norm_\allowbreak asset & Met en majuscules,\allowbreak{} retire ticker explicite et ponctuation,\allowbreak{} supprime les suffixes corporatifs,\allowbreak{} applique des corrections OCR. & str : description normalisée pour lookup & ticker \\
+_\allowbreak infer_\allowbreak asset_\allowbreak type_\allowbreak house & Teste en cascade des regex House (gouvernemental,\allowbreak{} structuré,\allowbreak{} fonds,\allowbreak{} obligation,\allowbreak{} action)\allowbreak{} sur la description majuscule. & str type d'actif ou None & secteur \\
+_\allowbreak infer_\allowbreak asset_\allowbreak type_\allowbreak senate & Teste en cascade des regex Sénat (municipal,\allowbreak{} obligation,\allowbreak{} autre,\allowbreak{} action)\allowbreak{} sur la description majuscule. & str type d'actif ou None & secteur \\
+infer_\allowbreak asset_\allowbreak type & Aiguille vers la variante Sénat ou House selon le paramètre chamber pour inférer le type d'actif. & str type d'actif ou None & secteur \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{vision_ocr.py}{Moteur OCR Claude Vision chambre-agnostique : rendu image, deskew, appel tool_use et cache versionné avec reprise.}
+\begin{fnt}
+OcrError & Classe d'exception dédiée aux échecs OCR ; corps vide (juste pass)\allowbreak{}. & — (classe d'exception,\allowbreak{} pas de return)\allowbreak{} & utilitaire \\
+rotate_\allowbreak b64_\allowbreak png & Décode le PNG b64,\allowbreak{} le tourne de -angle via PIL (horaire)\allowbreak{},\allowbreak{} réencode ; retourne tel quel si multiple de 360. & str : PNG base64 tourné & OCR Vision (deskew) \\
+detect_\allowbreak rotation & Montre les 4 rotations à Vision,\allowbreak{} lit le chiffre choisi par regex,\allowbreak{} retourne l'angle ; backoff puis 0 si échec. & int : angle horaire (0 par défaut)\allowbreak{} & OCR Vision (deskew) \\
+pdf_\allowbreak to_\allowbreak b64_\allowbreak images & Rend chaque page PDF en PNG b64 via pymupdf ; si deskew,\allowbreak{} détecte et redresse chaque page en basse résolution. & liste PNG b64,\allowbreak{} ou (images,\allowbreak{} angles)\allowbreak{} si deskew & OCR Vision (rendu) \\
+image_\allowbreak b64_\allowbreak from_\allowbreak url & Télécharge l'image (cache disque clé SHA1 de l'URL)\allowbreak{},\allowbreak{} la redimensionne sous long_edge,\allowbreak{} renvoie PNG b64. & str : PNG base64 redimensionné & OCR Vision (rendu) \\
+VisionExtractor.\allowbreak _\allowbreak _\allowbreak init_\allowbreak _\allowbreak  & Stocke modèle,\allowbreak{} prompt,\allowbreak{} tool,\allowbreak{} pipeline_tag et paramètres (max_tokens,\allowbreak{} images par appel)\allowbreak{} sur l'instance. & — (effet de bord : initialise l'objet)\allowbreak{} & OCR Vision (init) \\
+VisionExtractor.\allowbreak prompt_\allowbreak sha & Propriété : calcule le SHA256 tronqué à 12 de prompt plus tool trié plus pipeline_tag pour versionner le cache. & str : empreinte hex de 12 caractères & OCR Vision (versionnage) \\
+VisionExtractor.\allowbreak _\allowbreak call & Un appel Vision avec tool_use forcé,\allowbreak{} extrait les transactions du bloc tool_use ; backoff sur 429/\allowbreak{}5xx jusqu'à max_retries. & list : transactions extraites & OCR Vision (appel API) \\
+VisionExtractor.\allowbreak extract_\allowbreak cached & Lit le cache si version concorde,\allowbreak{} sinon batche les images et n'appelle que les batches manquants ou en erreur,\allowbreak{} puis écrit le JSON. & (liste transactions,\allowbreak{} dict objet cache)\allowbreak{} & OCR Vision (cache, reprise) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{llm_resolve.py}{Résolveur LLM générique à cache versionné ; factorise le motif tool_use et porte la passe House nom vers ticker.}
+\begin{fnt}
+VersionedLLMCache.\allowbreak _\allowbreak _\allowbreak init_\allowbreak _\allowbreak  & Stocke le chemin,\allowbreak{} le modèle et le prompt_sha qui versionnent le cache disque. & — (effet de bord : initialise l'objet)\allowbreak{} & ticker (cache) \\
+VersionedLLMCache.\allowbreak load & Lit le JSON disque ; renvoie les mappings seulement si modèle et prompt_sha concordent,\allowbreak{} sinon dictionnaire vide. & dict : mappings,\allowbreak{} ou \{\} si version différente & ticker (cache) \\
+VersionedLLMCache.\allowbreak save & Écrit sur disque un JSON contenant modèle,\allowbreak{} prompt_sha et les mappings fournis. & — (effet de bord : écrit le fichier cache)\allowbreak{} & ticker (cache) \\
+map_\allowbreak batch & Un appel tool_use forcé renvoyant l'input du bloc tool_use ; backoff sur 429/\allowbreak{}5xx,\allowbreak{} relève après max_retries. & dict : input du tool,\allowbreak{} ou \{\} si absent & ticker (appel LLM) \\
+ticker_\allowbreak prompt_\allowbreak sha & Calcule le SHA256 tronqué à 16 de TICKER_PROMPT plus TICKER_TOOL trié plus modèle pour versionner le cache. & str : empreinte hex de 16 caractères & ticker (versionnage) \\
+resolve_\allowbreak names_\allowbreak to_\allowbreak tickers & Pour les lignes sans ticker,\allowbreak{} interroge le LLM par lots (cache versionné)\allowbreak{},\allowbreak{} valide via regex/\allowbreak{}is_equity,\allowbreak{} puis remplit ticker et marque la source llm. & DataFrame : df avec tickers complétés & ticker (résolution) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{quiver.py}{Vérification externe Quiver (jamais réinjectée) : fetch cache-first, clés d'appariement et réconciliation House et Sénat.}
+\begin{fnt}
+norm_\allowbreak ticker & Met en majuscules,\allowbreak{} vide les valeurs nulles,\allowbreak{} retire suffixe PUT/\allowbreak{}CALL,\allowbreak{} remplace points et tirets par underscore. & str : ticker normalisé (vide si invalide)\allowbreak{} & validation Quiver (normalisation) \\
+norm_\allowbreak sense & Réduit le sens à 3 valeurs selon la première lettre : p->Purchase,\allowbreak{} s->Sale,\allowbreak{} e->Exchange,\allowbreak{} sinon brut ou point d'interrogation. & str : sens canonique 3-voies & validation Quiver (normalisation) \\
+low_\allowbreak bound & Extrait par regex le premier montant en dollars de la fourchette et le convertit en entier sans virgules. & int : borne basse,\allowbreak{} ou None si absent & validation Quiver (montant) \\
+fetch_\allowbreak quiver & Charge le cache CSV s'il existe,\allowbreak{} sinon appelle l'API avec le token,\allowbreak{} filtre par chambre et renomme les colonnes ; None si pas de token. & DataFrame Quiver filtré,\allowbreak{} ou None & validation Quiver (fetch) \\
+validate_\allowbreak quiver_\allowbreak house & Filtre Quiver sur la fenêtre,\allowbreak{} compare les comptes par déclarant brut,\allowbreak{} recoupe au niveau transaction par clé brute,\allowbreak{} calcule verdicts et manquants réels. & (cmp_df,\allowbreak{} real_missing_df,\allowbreak{} stats dict)\allowbreak{} & validation Quiver (House) \\
+reconcile & Dédoublonne Quiver,\allowbreak{} apparie par clé bioguide×ticker×date×sens,\allowbreak{} mesure accords sens/\allowbreak{}date/\allowbreak{}montant et deltas par membre. & dict de DataFrames (reco,\allowbreak{} accords,\allowbreak{} deltas)\allowbreak{} & validation Quiver (Sénat) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{crosscheck.py}{Triangulation multi-sources et statut de validation par déposant ; matérialise que le papier OCR est source unique.}
+\begin{fnt}
+_\allowbreak norm_\allowbreak name & Normalise un nom : minuscules,\allowbreak{} ne garde que lettres et espaces,\allowbreak{} compresse les espaces multiples. & str : nom normalisé pour appariement & utilitaire (normalisation nom) \\
+per_\allowbreak filer_\allowbreak status & Agrège par bioguide nos comptes total/\allowbreak{}OCR/\allowbreak{}digital,\allowbreak{} joint Quiver,\allowbreak{} puis attribue un statut (quiver_validable,\allowbreak{} ocr_unique,\allowbreak{} digital)\allowbreak{}. & DataFrame : statut trié par volume & qualité (statut déposant) \\
+load_\allowbreak kadoa_\allowbreak house & Lit le JSON Kadoa,\allowbreak{} garde les entrées chambre house,\allowbreak{} mappe nom normalisé vers trade_count. & dict : nom normalisé -> nombre de trades & triangulation (Kadoa) \\
+load_\allowbreak hsw_\allowbreak counts & Lit le JSON House Stock Watcher et compte les transactions par représentant (nom normalisé)\allowbreak{}. & dict : nom normalisé -> nombre de transactions & triangulation (HSW) \\
+add_\allowbreak external_\allowbreak counts & Joint par nom normalisé les comptes Kadoa et HSW au tableau de statut comme colonnes informatives. & DataFrame : statut enrichi des comptes externes & triangulation (fusion externe) \\
+summary & Regroupe le tableau de statut par statut et somme déposants,\allowbreak{} transactions et part OCR. & DataFrame : récapitulatif par statut & qualité (récapitulatif) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{sector_enrich.py}{Enrichissement secteur : ticker → GICS → ETF SPDR, hybride yfinance + repli/audit LLM + overrides manuels.}
+\begin{fnt}
+load_\allowbreak cache & Lit le JSON de cache du chemin ; renvoie les mappings seulement si pipeline_sha et model concordent,\allowbreak{} sinon dict vide. & dict des mappings ticker→\allowbreak{}infos (vide si invalide)\allowbreak{} & ticker/cache \\
+save_\allowbreak cache & Écrit le cache JSON (model,\allowbreak{} pipeline_sha,\allowbreak{} mappings)\allowbreak{} au chemin donné,\allowbreak{} indentation 1,\allowbreak{} sans échappement Unicode. & — (effet de bord : écrit le fichier cache)\allowbreak{} & ticker/cache \\
+_\allowbreak yf_\allowbreak sector_\allowbreak one & Importe yfinance,\allowbreak{} lit le champ sector d'un ticker,\allowbreak{} le traduit en GICS via la table ; None si erreur ou absent. & str secteur GICS ou None & secteur (yfinance) \\
+resolve_\allowbreak yfinance & Interroge yfinance ticker par ticker sur plusieurs passes,\allowbreak{} ré-essaye les None avec pauses croissantes. & dict ticker→\allowbreak{}secteur GICS (ou None)\allowbreak{} & secteur (yfinance) \\
+_\allowbreak map_\allowbreak sectors_\allowbreak batch & Appelle l'API Claude avec outil forcé map_sectors,\allowbreak{} ré-essaie avec back-off sur erreurs réseau ; extrait les mappings. & liste de mappings (dicts ticker/\allowbreak{}secteur)\allowbreak{} & secteur (LLM) \\
+resolve_\allowbreak llm & Sans clé API renvoie vide ; sinon batche les tickers vers le LLM,\allowbreak{} ne garde le secteur que si coté et valide. & dict ticker→\allowbreak{}secteur GICS validé ou None & secteur (LLM) \\
+_\allowbreak norm_\allowbreak ticker & Convertit en chaîne,\allowbreak{} retire les espaces et met en majuscules. & str ticker normalisé & utilitaire \\
+resolve_\allowbreak sectors & Filtre/\allowbreak{}normalise les tickers valides,\allowbreak{} calcule les manquants,\allowbreak{} croise yfinance puis LLM,\allowbreak{} choisit le final,\allowbreak{} sauvegarde le cache. & dict cache complet ticker→\allowbreak{}infos secteur & secteur (orchestration) \\
+enrich_\allowbreak sectors & Copie le df,\allowbreak{} résout les secteurs,\allowbreak{} ajoute colonnes sector_gics/\allowbreak{}etf_proxy/\allowbreak{}sector_source,\allowbreak{} applique les overrides manuels par ticker. & DataFrame enrichi (3 colonnes ajoutées)\allowbreak{} & secteur (enrichissement) \\
+build_\allowbreak audit & Pour chaque ticker du df présent au cache,\allowbreak{} construit une ligne d'audit yfinance vs LLM avec drapeau d'accord. & DataFrame d'audit secteur croisé & secteur (audit) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{reporting.py}{Sorties partagées : convention de nommage des tables, drapeaux QA, dashboard idempotent, export Excel multi-onglets.}
+\begin{fnt}
+qa_\allowbreak flags & Parcourt chaque ligne,\allowbreak{} repère les champs obligatoires vides ou « nan »,\allowbreak{} accumule une ligne d'anomalie listant ces champs. & DataFrame des anomalies (champs manquants)\allowbreak{} & qualité \\
+upsert_\allowbreak status & Construit un DataFrame,\allowbreak{} relit le CSV existant,\allowbreak{} retire les lignes de même clé puis concatène et réécrit (idempotent)\allowbreak{}. & DataFrame du dashboard mis à jour & dashboard \\
+write_\allowbreak excel & Ouvre un classeur openpyxl,\allowbreak{} écrit un onglet LISEZMOI optionnel puis un onglet par DataFrame (placeholder si vide)\allowbreak{}. & — (effet de bord : écrit le fichier Excel)\allowbreak{} & sorties (Excel) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{paths.py}{Bootstrap des chemins et secrets ; DataRoot route les I/O sous data/\{chambre\}/ par chambre.}
+\begin{fnt}
+load_\allowbreak env & Charge le .env du base_dir ; si ANTHROPIC_API_KEY manque encore,\allowbreak{} charge un .env trouvé ailleurs dans l'arbre. & — (effet de bord : variables d'environnement chargées)\allowbreak{} & utilitaire (secrets) \\
+get_\allowbreak secret & Renvoie la variable d'environnement ; sinon parse ligne à ligne le .env local pour la clé demandée. & str valeur du secret ou None & utilitaire (secrets) \\
+DataRoot.\allowbreak _\allowbreak _\allowbreak init_\allowbreak _\allowbreak  & Stocke le nom de chambre et le data_dir converti en Path. & — (effet de bord : initialise l'instance)\allowbreak{} & utilitaire (chemins) \\
+DataRoot.\allowbreak for_\allowbreak chamber & Fabrique de classe : construit un DataRoot pointant sur repo_root/\allowbreak{}data/\allowbreak{}\{chambre\}. & instance DataRoot & utilitaire (chemins) \\
+DataRoot.\allowbreak tables & Propriété renvoyant le sous-dossier tables de la chambre. & Path du dossier tables & utilitaire (chemins) \\
+DataRoot.\allowbreak tables_\allowbreak dir & Renvoie tables/\allowbreak{}\{année\} si une année est fournie,\allowbreak{} sinon le dossier tables racine. & Path du dossier tables (par année)\allowbreak{} & utilitaire (chemins) \\
+DataRoot.\allowbreak pdfs & Propriété renvoyant le sous-dossier pdfs de la chambre. & Path du dossier pdfs & utilitaire (chemins) \\
+DataRoot.\allowbreak index & Propriété renvoyant le sous-dossier index de la chambre. & Path du dossier index & utilitaire (chemins) \\
+DataRoot.\allowbreak reference & Propriété renvoyant le sous-dossier reference de la chambre. & Path du dossier reference & utilitaire (chemins) \\
+DataRoot.\allowbreak ocr_\allowbreak cache & Propriété renvoyant le sous-dossier ocr_cache de la chambre. & Path du dossier ocr_cache & utilitaire (chemins) \\
+DataRoot.\allowbreak reports & Propriété renvoyant le sous-dossier reports de la chambre. & Path du dossier reports & utilitaire (chemins) \\
+DataRoot.\allowbreak media & Propriété renvoyant le sous-dossier media sous reports. & Path du dossier media & utilitaire (chemins) \\
+DataRoot.\allowbreak quiver_\allowbreak cache_\allowbreak path & Propriété construisant le chemin du CSV de cache Quiver propre à la chambre sous tables. & Path du fichier cache Quiver & utilitaire (chemins) \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{pipeline.py}{Pipeline end-to-end unifié : orchestre par sous-processus les étapes digital/OCR/fusion des deux chambres.}
+\begin{fnt}
+parse_\allowbreak years & Parse la spec d'années : intervalle « a-b » en range,\allowbreak{} sinon liste « x,\allowbreak{}y » ou année unique en entiers. & list[int]\allowbreak{} des années & orchestration (CLI) \\
+build_\allowbreak steps & Assemble la séquence ordonnée (label,\allowbreak{} args-module)\allowbreak{} selon skip_ocr/\allowbreak{}force/\allowbreak{}no_quiver/\allowbreak{}mode,\allowbreak{} ajoute l'enrichissement ancienneté final. & list de tuples (label,\allowbreak{} args-module)\allowbreak{} & orchestration \\
+main & Parse les arguments CLI,\allowbreak{} construit les étapes,\allowbreak{} les imprime puis lance chaque module en sous-processus,\allowbreak{} arrêt au premier échec. & — (effet de bord : exécute le pipeline,\allowbreak{} sys.exit si échec)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{quality.py}{Rapport qualité Ramify : charge les FINAL, calcule cinq contrôles, génère figures et RAPPORT_QUALITE.md.}
+\begin{fnt}
+_\allowbreak final_\allowbreak path & Construit le chemin de la table FINAL selon la chambre (House sous tables/\allowbreak{}\{année\},\allowbreak{} Sénat sous \{année\})\allowbreak{}. & Path de la table FINAL & chargement (chemins) \\
+op_\allowbreak class & Met en minuscules l'operation_type et classe en buy/\allowbreak{}sell/\allowbreak{}exchange/\allowbreak{}other selon les mots-clés présents. & str classe canonique d'opération & qualité (normalisation) \\
+load_\allowbreak final & Concatène tous les FINAL des deux chambres,\allowbreak{} ajoute file_year/\allowbreak{}txn_year,\allowbreak{} parse les dates,\allowbreak{} calcule lag_days,\allowbreak{} midpoint et op. & DataFrame consolidé enrichi & chargement/fusion \\
+date_\allowbreak coherence & Par chambre : compte dates parseables,\allowbreak{} part cohérente (lag≥0)\allowbreak{},\allowbreak{} incohérentes,\allowbreak{} années de transaction implausibles,\allowbreak{} dates manquantes. & DataFrame résumé de cohérence des dates & qualité (a) dates \\
+delay_\allowbreak buckets & Par chambre : ventile le délai de divulgation en tranches ≤45j/\allowbreak{}45-75j/\allowbreak{}>75j/\allowbreak{}négatif et la médiane positive. & DataFrame ventilation des délais & qualité (b) délai \\
+delay_\allowbreak outliers & Filtre les délais au-dessus du seuil,\allowbreak{} trie décroissant,\allowbreak{} garde le top et un sous-ensemble de colonnes. & DataFrame des divulgations les plus tardives & qualité (b) délai \\
+amount_\allowbreak distribution & Calcule stats descriptives globales et par chambre du midpoint,\allowbreak{} plus le top 15 déposants par volume estimé. & dict \{overall,\allowbreak{} by_chamber,\allowbreak{} top_volume\} & qualité (c) montants \\
+coverage_\allowbreak per_\allowbreak member & Appelle crosscheck.per_filer_status par chambre,\allowbreak{} fusionne nombre d'années actives et première/\allowbreak{}dernière année de transaction. & DataFrame de couverture par membre & qualité (d) couverture \\
+eligible_\allowbreak members & Filtre les membres avec au moins min_trades transactions ; compte éligibles,\allowbreak{} total et éligibles actifs ≥3 ans. & dict de comptes d'éligibilité & qualité (d) couverture \\
+unmatched_\allowbreak purchase_\allowbreak rate & Apparie chaque achat (bioguide+ticker)\allowbreak{} à une vente ultérieure ; calcule par chambre la part d'achats sans sortie déclarée. & DataFrame du taux d'achats non appariés & qualité (e) sorties \\
+_\allowbreak figures & Avec matplotlib Agg,\allowbreak{} génère quatre PNG (délai,\allowbreak{} montants log,\allowbreak{} transactions par an,\allowbreak{} top déposants)\allowbreak{} dans le dossier. & list des chemins de figures écrites & qualité (figures) \\
+_\allowbreak md_\allowbreak table & Formate un DataFrame en table Markdown manuelle,\allowbreak{} échappant les barres et vidant les valeurs nulles. & str table Markdown & rapport (Markdown) \\
+build_\allowbreak report & Charge les données,\allowbreak{} calcule les cinq contrôles et figures,\allowbreak{} assemble le Markdown puis écrit RAPPORT_QUALITE.md. & Path du rapport Markdown écrit & rapport (Markdown) \\
+main & Ancre le repo_root,\allowbreak{} appelle build_report et imprime les chemins du rapport et des figures. & — (effet de bord : génère le rapport)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{enrich_tenure.py}{Passe post-FINAL ajoutant years_in_office aux deux chambres, offline et byte-à-byte préservante.}
+\begin{fnt}
+final_\allowbreak files & Génère (chambre,\allowbreak{} année,\allowbreak{} chemin)\allowbreak{} pour chaque table FINAL existante,\allowbreak{} House sous tables/\allowbreak{} puis Sénat sous \{année\}. & itérateur de tuples (chambre,\allowbreak{} année,\allowbreak{} Path)\allowbreak{} & ancienneté (découverte) \\
+_\allowbreak fmt & Renvoie chaîne vide si None ou NaN,\allowbreak{} sinon l'entier converti en chaîne. & str valeur formatée & utilitaire \\
+enrich_\allowbreak file & Lit le brut,\allowbreak{} saute si colonne déjà présente,\allowbreak{} vérifie la cohérence lignes/\allowbreak{}enregistrements,\allowbreak{} append years_in_office en préservant les octets. & bool True si enrichi,\allowbreak{} False si déjà fait & ancienneté (enrichissement) \\
+main & Pour chaque FINAL,\allowbreak{} charge la référence de chambre (mise en cache)\allowbreak{},\allowbreak{} enrichit le fichier et imprime un récapitulatif des comptes. & — (effet de bord : enrichit les fichiers FINAL)\allowbreak{} & orchestration \\
+\end{fnt}
+\subsection{Orchestrateur Chambre \textemdash{} \texttt{house/} (3 modules, 48 fonctions)}
+\needspace{5\baselineskip}
+\fnmod{digital.py}{Pipeline piste digitale House multi-années : parse PTR lisibles, identité, dédup, cross-check baseline et validation Quiver.}
+\begin{fnt}
+load_\allowbreak dotenv & Repli défini seulement si python-dotenv absent : ne fait rien et renvoie False. & False (stub si dotenv manquant)\allowbreak{} & utilitaire \\
+build_\allowbreak reference & Charge le référentiel via congress_core.identity et peuple les globals identité (univers,\allowbreak{} index noms,\allowbreak{} comités,\allowbreak{} matcher)\allowbreak{}. & — (effet de bord : peuple globals,\allowbreak{} imprime)\allowbreak{} & identité \\
+_\allowbreak find_\allowbreak continuation & Cherche un code actif [XX]\allowbreak{} suivi d'un montant dans une ligne ; reformate un préfixe tiret en parenthèses. & tuple (code_actif,\allowbreak{} second_montant,\allowbreak{} préfixe)\allowbreak{} & parsing \\
+_\allowbreak join_\allowbreak split_\allowbreak lines & Recolle les transactions éclatées sur 2 ou 3 lignes en réinsérant code actif et second montant au bon endroit. & liste de lignes recollées & parsing \\
+_\allowbreak is_\allowbreak txn_\allowbreak start & Vérifie qu'une ligne commence une transaction : motif TXN au début ou précédé d'un code actif. & booléen (début de transaction)\allowbreak{} & parsing \\
+parse_\allowbreak ptr & Parse le texte PTR : recolle lignes,\allowbreak{} détecte transactions,\allowbreak{} agrège blocs descriptifs,\allowbreak{} extrait ticker,\allowbreak{} type actif,\allowbreak{} propriétaire,\allowbreak{} montant. & liste de dicts transactions & parsing \\
+match_\allowbreak bioguide & Délègue au matcher du cœur peuplé par build_reference ; renvoie None si matcher absent. & identifiant bioguide ou None & identité \\
+load_\allowbreak ptr_\allowbreak index & Lit l'index XML de l'année,\allowbreak{} construit un DataFrame,\allowbreak{} filtre FilingType=\allowbreak{}P dans la fenêtre de divulgation,\allowbreak{} ajoute l'URL PDF. & (DataFrame PTR filtré,\allowbreak{} distribution filing_type)\allowbreak{} & parsing \\
+resolve_\allowbreak pdf_\allowbreak path & Construit le chemin du PDF par année et doc_id ; renvoie le Path s'il existe,\allowbreak{} sinon None. & Path du PDF ou None & utilitaire \\
+extract_\allowbreak text & Ouvre le PDF avec pdfplumber et concatène le texte de toutes les pages ; renvoie vide en cas d'erreur. & texte du PDF (str)\allowbreak{} & parsing \\
+n_\allowbreak pages & Ouvre le PDF avec pdfplumber et renvoie le nombre de pages ; None en cas d'erreur. & nombre de pages ou None & utilitaire \\
+build_\allowbreak manifest & Lit chaque PDF en place,\allowbreak{} extrait le texte,\allowbreak{} route en lisible/\allowbreak{}non_lisible/\allowbreak{}absent,\allowbreak{} écrit le manifeste CSV. & (textes par doc,\allowbreak{} DataFrame manifeste)\allowbreak{} & OCR routage \\
+parse_\allowbreak docs & Parse chaque texte lisible,\allowbreak{} accumule lignes et échecs,\allowbreak{} écrit les échecs CSV,\allowbreak{} calcule le rendement. & (lignes,\allowbreak{} échecs,\allowbreak{} nb lisibles,\allowbreak{} taux rendement)\allowbreak{} & parsing \\
+join_\allowbreak identity & Fusionne lignes parsées avec l'index,\allowbreak{} résout bioguide,\allowbreak{} mappe parti,\allowbreak{} comités,\allowbreak{} drapeau commission clé,\allowbreak{} chambre. & DataFrame enrichi identité & identité \\
+_\allowbreak legacy_\allowbreak key & Délègue au cœur partagé pour calculer le hash de clé naturelle House d'une ligne. & hash de clé naturelle (str)\allowbreak{} & dédup/schéma \\
+finalize & Normalise champs,\allowbreak{} calcule clé naturelle et indice d'occurrence,\allowbreak{} déduplique en gardant la divulgation la plus récente. & (table canonique,\allowbreak{} table complète,\allowbreak{} stats dédup)\allowbreak{} & dédup/schéma \\
+_\allowbreak sem1_\allowbreak year & Charge en cache la baseline historique et filtre les lignes dont l'année de divulgation égale l'année demandée. & DataFrame baseline filtré par année & validation baseline \\
+crosscheck_\allowbreak semaine1 & Compare comptes par doc entre nous et la baseline,\allowbreak{} détecte dérives (baseline>0 et nous=\allowbreak{}0)\allowbreak{},\allowbreak{} écrit le CSV. & dict métriques de cross-check & validation baseline \\
+fetch_\allowbreak quiver & Charge le cache Quiver House si présent,\allowbreak{} sinon appelle l'API live avec token,\allowbreak{} filtre la chambre,\allowbreak{} met en cache. & DataFrame Quiver ou None & validation Quiver \\
+validate_\allowbreak quiver & Compare comptes par déclarant per-lot et recouvrement au niveau transaction vs Quiver,\allowbreak{} distingue manques papier,\allowbreak{} écrit CSV. & dict métriques de validation ou None & validation Quiver \\
+run_\allowbreak year & Orchestre une année : index,\allowbreak{} manifeste,\allowbreak{} parsing,\allowbreak{} identité,\allowbreak{} finalisation,\allowbreak{} cross-check,\allowbreak{} Quiver,\allowbreak{} backlog OCR ; écrit fichiers. & (résumé,\allowbreak{} table finale,\allowbreak{} backlog)\allowbreak{} & orchestration \\
+main & Analyse les arguments,\allowbreak{} construit le référentiel,\allowbreak{} lance run_year par année,\allowbreak{} fusionne et écrit statut et backlog cumulés. & — (effet de bord : écrit CSV,\allowbreak{} imprime)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{ocr.py}{OCR multi-années des PTR scannés via Claude Vision : deskew, extraction outillée, cache, ticker LLM, fusion finale et validation Quiver.}
+\begin{fnt}
+_\allowbreak load_\allowbreak ticker_\allowbreak cache & Lit le cache JSON ticker LLM ; ne renvoie les mappings que si prompt_sha et modèle concordent. & dict des mappings nom→\allowbreak{}ticker & ticker \\
+_\allowbreak save_\allowbreak ticker_\allowbreak cache & Écrit le cache ticker LLM en JSON avec modèle,\allowbreak{} prompt_sha et mappings. & — (effet de bord : écrit le cache JSON)\allowbreak{} & ticker \\
+_\allowbreak map_\allowbreak tickers_\allowbreak batch & Appelle l'API outil map_tickers sur un lot de noms avec retries à backoff ; extrait les mappings du bloc tool_use. & liste de mappings ou exception & ticker \\
+llm_\allowbreak resolve_\allowbreak tickers & Pour les lignes sans ticker,\allowbreak{} interroge le LLM par lots de 60,\allowbreak{} met en cache,\allowbreak{} remplit ticker et marque la source llm. & DataFrame avec tickers complétés & ticker \\
+detect_\allowbreak rotation & Montre la page aux 4 rotations au modèle,\allowbreak{} lui fait choisir celle droite,\allowbreak{} renvoie l'angle horaire ; 0 si échec. & angle horaire à appliquer (int)\allowbreak{} & OCR Vision \\
+rotate_\allowbreak b64_\allowbreak png & Décode le PNG base64 et le tourne de l'angle horaire (PIL anti-horaire donc négatif)\allowbreak{} ; ré-encode en base64. & PNG base64 tourné (str)\allowbreak{} & OCR Vision \\
+pdf_\allowbreak to_\allowbreak b64_\allowbreak images & Rend chaque page en PNG base64 ; si deskew détecte et redresse page par page,\allowbreak{} renvoie images et angles. & images ou (images,\allowbreak{} angles)\allowbreak{} & OCR Vision \\
+OcrError & Classe d'exception dédiée aux erreurs d'extraction OCR ; corps vide. & — (type d'exception)\allowbreak{} & utilitaire \\
+_\allowbreak call_\allowbreak vision_\allowbreak tool & Envoie les images et le prompt à Claude avec l'outil record_transactions,\allowbreak{} retries selon code HTTP ; extrait les transactions. & liste de transactions ou OcrError & OCR Vision \\
+extract_\allowbreak from_\allowbreak pdf & Extraction avec cache versionné et reprise par lot : ne refait que les lots en erreur,\allowbreak{} écrit le cache JSON. & (transactions,\allowbreak{} objet cache)\allowbreak{} & OCR Vision \\
+natural_\allowbreak key_\allowbreak hash & Délègue au cœur partagé pour calculer le hash de clé naturelle House d'une ligne. & hash de clé naturelle (str)\allowbreak{} & dédup/schéma \\
+date_\allowbreak confidence & Calcule le délai dépôt-transaction ; renvoie plausible si entre 0 et 75 jours,\allowbreak{} sinon implausible. & 'plausible' ou 'implausible' (str)\allowbreak{} & qualité \\
+normalize & Mappe code montant,\allowbreak{} propriétaire,\allowbreak{} dates ; construit la ligne au schéma,\allowbreak{} calcule confiance de date et clé naturelle. & dict ligne normalisée & dédup/schéma \\
+_\allowbreak infer_\allowbreak asset_\allowbreak type & Délègue au cœur l'inférence du type d'actif depuis la description,\allowbreak{} contexte House. & type d'actif (str ou None)\allowbreak{} & secteur \\
+run_\allowbreak ocr_\allowbreak year & Orchestre l'OCR d'une année : sélectionne scannés (exclut cluster C sauf filers prioritaires)\allowbreak{},\allowbreak{} extrait en parallèle,\allowbreak{} enrichit,\allowbreak{} fusionne finale. & dict résumé ou None & orchestration \\
+validate_\allowbreak ocr_\allowbreak quiver & Compare comptes OCR vs Quiver par déclarant fenêtré par année,\allowbreak{} attribue un verdict,\allowbreak{} écrit le CSV. & dict décompte des verdicts ou None & validation Quiver \\
+main & Analyse arguments,\allowbreak{} vérifie la clé API,\allowbreak{} construit le référentiel,\allowbreak{} lance OCR par année puis validation Quiver. & — (effet de bord : imprime,\allowbreak{} écrit fichiers)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{echantillon.py}{OCR sur échantillon représentatif par année (\textasciitilde\{\}70 docs) : prompt durci, deskew, enrichissement ticker et comparaison Quiver par cluster et année.}
+\begin{fnt}
+_\allowbreak route & Choisit DPI et pages-par-appel selon la densité : doc dense renvoie DPI haut et 1 page,\allowbreak{} sinon DPI moyen et 3. & tuple (dpi,\allowbreak{} pages_par_appel)\allowbreak{} & OCR Vision \\
+_\allowbreak render & Rend les pages (plafonnées au cap)\allowbreak{} en PNG base64 ; avec client détecte et redresse l'orientation page par page. & (images,\allowbreak{} angles appliqués)\allowbreak{} & OCR Vision \\
+_\allowbreak call & Envoie les images et le prompt durci à Claude avec l'outil record_transactions,\allowbreak{} retries à backoff ; extrait les transactions. & liste de transactions & OCR Vision \\
+_\allowbreak ocr_\allowbreak doc & OCR d'un doc échantillon : sert le cache durci versionné sinon ré-OCR redressé ; ne lève jamais,\allowbreak{} renvoie liste vide si échec. & (doc_id,\allowbreak{} transactions)\allowbreak{} & OCR Vision \\
+_\allowbreak global_\allowbreak ticker_\allowbreak dict & Agrège toutes les tables digitales 2020-2026 en dictionnaire nom normalisé→\allowbreak{}ticker (première valeur retenue)\allowbreak{}. & dict nom normalisé→\allowbreak{}ticker & ticker \\
+run_\allowbreak echantillon & Orchestre l'OCR de l'échantillon (exclut cluster C)\allowbreak{},\allowbreak{} normalise,\allowbreak{} enrichit ticker et bioguide,\allowbreak{} écrit les résultats CSV. & DataFrame des transactions OCR & orchestration \\
+_\allowbreak nearest_\allowbreak signed & Trouve la date Quiver la plus proche d'une date donnée et calcule l'écart signé en jours. & (date proche,\allowbreak{} écart signé)\allowbreak{} ou (None,\allowbreak{} None)\allowbreak{} & validation Quiver \\
+compare_\allowbreak quiver & Calcule par doc la précision ticker et ticker+date (tolérance date)\allowbreak{} contre Quiver fenêtré ; écrit le CSV par doc. & DataFrame précision par doc & validation Quiver \\
+detailed_\allowbreak quiver_\allowbreak diff & Diff transaction par transaction vs Quiver : statut match,\allowbreak{} date fausse,\allowbreak{} ticker faux,\allowbreak{} sans données ou sans ticker ; écrit CSV. & DataFrame diff par transaction & validation Quiver \\
+\end{fnt}
+\subsection{Orchestrateur S\'enat \textemdash{} \texttt{senate/} (10 modules, 79 fonctions)}
+\needspace{5\baselineskip}
+\fnmod{digital.py}{Pipeline Sénat digital multi-années : scraping eFD des PTR électroniques, parsing, enrichissement, validation Quiver par an.}
+\begin{fnt}
+accept_\allowbreak agreement & GET la page d'accueil eFD,\allowbreak{} lit le csrftoken,\allowbreak{} POST l'agrément de prohibition avec le token. & bool : sessionid ou csrftoken présent dans les cookies & acquisition \\
+fetch_\allowbreak ptr_\allowbreak list & POST paginé l'endpoint data eFD (report_types[11]\allowbreak{})\allowbreak{},\allowbreak{} extrait nom/\allowbreak{}kind/\allowbreak{}uuid/\allowbreak{}date par regex,\allowbreak{} filtre sur la fenêtre. & DataFrame des dépôts PTR de la fenêtre & acquisition \\
+fetch_\allowbreak report & Renvoie le HTML du PTR depuis le cache disque s'il existe,\allowbreak{} sinon GET,\allowbreak{} écrit le cache,\allowbreak{} pause. & (url,\allowbreak{} texte HTML)\allowbreak{} ou (url,\allowbreak{} chaîne vide)\allowbreak{} & acquisition \\
+amount_\allowbreak midpoint & Extrait les nombres dollar par regex ; moyenne des deux premiers,\allowbreak{} sinon valeur unique,\allowbreak{} sinon None. & float milieu de fourchette,\allowbreak{} ou None & parsing \\
+norm_\allowbreak op & Normalise le type d'opération par préfixe/\allowbreak{}mot-clé : Purchase,\allowbreak{} Exchange,\allowbreak{} Sale (Partial/\allowbreak{}Full)\allowbreak{},\allowbreak{} Sale. & str type d'opération normalisé & parsing \\
+_\allowbreak find_\allowbreak col & Parcourt les colonnes,\allowbreak{} renvoie la première dont le nom minuscule contient tous les mots-clés. & nom de colonne trouvé,\allowbreak{} ou None & utilitaire \\
+parse_\allowbreak electronic & Lit les tables HTML,\allowbreak{} repère celle des transactions,\allowbreak{} localise chaque colonne,\allowbreak{} construit les lignes de transactions. & liste de dicts transactions & parsing \\
+run_\allowbreak year & Récupère dépôts d'une année,\allowbreak{} parse les PTR électroniques,\allowbreak{} enrichit,\allowbreak{} écrit CSV,\allowbreak{} réconcilie Quiver,\allowbreak{} calcule verdicts et statut. & dict statut de l'année,\allowbreak{} ou None & orchestration annuelle \\
+run_\allowbreak year.\allowbreak verdict & Classe une ligne de delta : quiver_seul,\allowbreak{} concordant,\allowbreak{} quiver_sans_donnee,\allowbreak{} nous_plus ou quiver_plus_a_verifier. & str verdict de comparaison & validation Quiver \\
+main & Parse les années,\allowbreak{} charge référentiel et cache Quiver,\allowbreak{} agrée la session,\allowbreak{} boucle run_year,\allowbreak{} agrège et écrit le dashboard. & — (effet de bord : écrit 00_year_status.csv)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{ocr.py}{Orchestrateur OCR papier multi-années : découvre les PTR papier, les OCR-ise via le moteur figé, enrichit et écrit par an.}
+\begin{fnt}
+_\allowbreak image_\allowbreak b64_\allowbreak safe & Cache l'image par hash SHA1 de l'URL complète (anti-collision)\allowbreak{},\allowbreak{} retries,\allowbreak{} redimensionne ≤ LONG_EDGE,\allowbreak{} renvoie PNG base64. & str image PNG encodée en base64 & OCR Vision \\
+accept_\allowbreak agreement & GET l'accueil eFD,\allowbreak{} lit le csrftoken,\allowbreak{} POST l'agrément de prohibition avec le token. & bool : sessionid ou csrftoken présent dans les cookies & acquisition \\
+fetch_\allowbreak ptr_\allowbreak list & POST paginé l'endpoint data eFD,\allowbreak{} extrait nom/\allowbreak{}kind/\allowbreak{}uuid/\allowbreak{}date par regex,\allowbreak{} filtre sur la fenêtre de dates. & DataFrame des dépôts PTR de la fenêtre & acquisition \\
+fetch_\allowbreak paper_\allowbreak html & Renvoie le cache HTML s'il contient les images,\allowbreak{} sinon GET avec retries,\allowbreak{} ré-agrée la session si expirée. & bool : HTML papier disponible avec images & acquisition \\
+discover_\allowbreak index & Agrée,\allowbreak{} parcourt les années,\allowbreak{} filtre les PTR papier,\allowbreak{} collecte uuid/\allowbreak{}membre/\allowbreak{}date,\allowbreak{} écrit l'index CSV. & DataFrame index des rapports papier & acquisition \\
+ocr_\allowbreak one & Fetch le HTML papier puis délègue l'extraction Vision au moteur figé so.extract_report. & (liste transactions,\allowbreak{} dict cache)\allowbreak{} du rapport & OCR Vision \\
+build_\allowbreak table & OCR-ise chaque rapport,\allowbreak{} écarte les lignes-exemple,\allowbreak{} normalise,\allowbreak{} résout tickers et identité,\allowbreak{} applique le schéma. & (df,\allowbreak{} per_doc,\allowbreak{} failures,\allowbreak{} n_example)\allowbreak{} & OCR Vision \\
+build_\allowbreak table.\allowbreak _\allowbreak resolve & Garde le ticker explicite ; sinon tente recover_ticker sur la description ; sinon None. & (ticker,\allowbreak{} source)\allowbreak{} tuple & ticker \\
+qa & Affiche un contrôle qualité : compte identité/\allowbreak{}ticker,\allowbreak{} dates dans la fenêtre déclarée,\allowbreak{} owner,\allowbreak{} montants,\allowbreak{} asset_type. & — (effet de bord : impression console)\allowbreak{} & qualité \\
+main & Parse les arguments,\allowbreak{} vérifie la clé API,\allowbreak{} construit l'index,\allowbreak{} exécute le mode index/\allowbreak{}pilote/\allowbreak{}full,\allowbreak{} écrit les CSV. & — (effet de bord : écrit CSV OCR par an)\allowbreak{} & orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{ocr_engine.py}{Moteur OCR figé des PTR Sénat scannés : récupère les images, appelle Claude Vision avec cache versionné, normalise.}
+\begin{fnt}
+_\allowbreak api_\allowbreak key & Lit ANTHROPIC_API_KEY dans l'environnement,\allowbreak{} sinon parse le fichier .env local à la recherche de la clé. & str clé API,\allowbreak{} ou None & utilitaire \\
+report_\allowbreak gif_\allowbreak urls & Lit le HTML caché du rapport et renvoie toutes les URLs d'images .gif via regex. & liste d'URLs .gif & OCR Vision \\
+_\allowbreak image_\allowbreak b64 & Récupère le .gif (cache disque d'abord,\allowbreak{} sinon GET)\allowbreak{},\allowbreak{} redimensionne ≤ LONG_EDGE,\allowbreak{} renvoie PNG base64. & str image PNG encodée en base64 & OCR Vision \\
+OcrError & Classe d'exception dédiée signalant un échec d'extraction Vision (corps vide,\allowbreak{} hérite d'Exception)\allowbreak{}. & — (classe d'exception)\allowbreak{} & utilitaire \\
+_\allowbreak call_\allowbreak vision & Construit le contenu image+prompt,\allowbreak{} appelle l'API avec tool forcé,\allowbreak{} retries sur erreurs,\allowbreak{} renvoie les transactions du tool_use. & liste de transactions extraites & OCR Vision \\
+extract_\allowbreak report & Sert le cache versionné si valide,\allowbreak{} sinon calcule la fenêtre,\allowbreak{} OCR-ise les images par lots,\allowbreak{} écrit le cache JSON. & (liste transactions,\allowbreak{} dict cache)\allowbreak{} & OCR Vision \\
+_\allowbreak infer_\allowbreak asset_\allowbreak type & Déduit l'asset_type par motifs regex : Municipal Security,\allowbreak{} Corporate Bond,\allowbreak{} Other,\allowbreak{} Stock,\allowbreak{} sinon None. & str type d'actif déduit,\allowbreak{} ou None & secteur \\
+_\allowbreak fix_\allowbreak year & Si la date lue tombe hors fenêtre PTR,\allowbreak{} tente de corriger l'année (année de dépôt ou précédente)\allowbreak{}. & str date ISO corrigée,\allowbreak{} ou entrée brute & qualité \\
+normalize & Mappe le code montant en fourchette,\allowbreak{} nettoie un préfixe propriétaire résiduel,\allowbreak{} corrige l'année,\allowbreak{} renvoie la ligne au schéma. & dict transaction normalisée & dédup/schéma \\
+_\allowbreak natural_\allowbreak key & Concatène sept champs métier de la ligne et renvoie leur hash SHA256. & str hash naturel SHA256 & dédup/schéma \\
+main & OCR-ise les 4 PTR Blumenthal Q1,\allowbreak{} écarte exemples,\allowbreak{} normalise,\allowbreak{} résout tickers et identité,\allowbreak{} écrit le CSV golden. & DataFrame OCR (effet de bord : écrit CSV)\allowbreak{} & orchestration \\
+main.\allowbreak _\allowbreak resolve & Garde le ticker explicite ; sinon tente recover_ticker ; sinon None avec source 'none'. & (ticker,\allowbreak{} source)\allowbreak{} tuple & ticker \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{fusion.py}{Fusion non destructrice digital+OCR par an puis enrichissement global ticker/secteur/date, écrit les tables FINALE.}
+\begin{fnt}
+date_\allowbreak confidence & Calcule le délai dépôt−transaction ; renvoie plausible (0–75 j)\allowbreak{},\allowbreak{} implausible,\allowbreak{} ou unknown si dates manquantes. & str niveau de confiance de la date & qualité \\
+main & Détecte les années,\allowbreak{} fusionne digital+OCR sans destruction,\allowbreak{} enrichit le corpus (ticker/\allowbreak{}secteur/\allowbreak{}date)\allowbreak{},\allowbreak{} écrit FINAL et dashboard. & — (effet de bord : écrit FINAL.csv + 00_final_status.csv)\allowbreak{} & fusion \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{identity.py}{Référentiel bioguide, matcher d'identité par chambre, et enrichissement déterministe (ticker, options, dédup) au schéma 23 colonnes du Sénat.}
+\begin{fnt}
+strip_\allowbreak accents & Décompose en NFKD et retire les caractères combinants pour ôter les accents. & str sans accents & utilitaire normalisation \\
+norm & Ôte accents,\allowbreak{} passe en minuscules,\allowbreak{} remplace tout non-lettre par espace,\allowbreak{} compacte les espaces. & str normalisé en minuscules & utilitaire normalisation \\
+split_\allowbreak name & Prend la partie avant la virgule,\allowbreak{} écarte les suffixes,\allowbreak{} renvoie dernier,\allowbreak{} premier,\allowbreak{} tokens du milieu. & tuple (last,\allowbreak{} first,\allowbreak{} [middles]\allowbreak{})\allowbreak{} & identité \\
+load_\allowbreak reference & Charge les YAML législateurs courants/\allowbreak{}historiques,\allowbreak{} construit index nom→\allowbreak{}bioguide et commissions,\allowbreak{} calcule le flag clé. & tuple de 6 dictionnaires/\allowbreak{}index & identité référentiel \\
+make_\allowbreak matcher & Fabrique une closure match : override manuel,\allowbreak{} exact,\allowbreak{} puis chambre Sénat,\allowbreak{} titulaire,\allowbreak{} désambiguïsation prénom. & fonction match(declarant)\allowbreak{}→\allowbreak{}bioguide ou None & identité \\
+recover_\allowbreak ticker & Teste si la description correspond à un motif ticker via regex et renvoie le symbole capturé. & str ticker ou None & ticker \\
+natural_\allowbreak key & Concatène sept champs métier et renvoie leur SHA-256 stable,\allowbreak{} sans inclure le ticker. & str hash hexadécimal SHA-256 & dédup/schéma \\
+enrich & Mappe identité,\allowbreak{} enrichit ticker,\allowbreak{} reclasse options,\allowbreak{} normalise dates,\allowbreak{} calcule natural_key,\allowbreak{} occurrence_index,\allowbreak{} déduplique cross-rapport,\allowbreak{} réindexe au schéma. & DataFrame au schéma 23 colonnes & identité enrichissement \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{ticker_resolve.py}{Résolution du ticker nom→symbole pour le Sénat en trois étapes : explicite, dictionnaire électronique, puis passe LLM Claude.}
+\begin{fnt}
+_\allowbreak clean_\allowbreak name & Coupe la description au premier double-espace suivi d'un mot-clé méta via regex,\allowbreak{} puis trim. & str nom nettoyé & ticker normalisation \\
+_\allowbreak norm_\allowbreak asset & Nettoie,\allowbreak{} majuscule,\allowbreak{} retire ticker explicite,\allowbreak{} ponctuation et suffixes corporatifs,\allowbreak{} compacte,\allowbreak{} applique corrections OCR. & str clé d'actif normalisée & ticker normalisation \\
+_\allowbreak explicit_\allowbreak ticker & Cherche un ticker entre parenthèses/\allowbreak{}tiret en fin de description,\allowbreak{} vérifie longueur 1 à 5. & str ticker ou None & ticker \\
+_\allowbreak api_\allowbreak key & Charge le .env du dépôt puis le .env courant,\allowbreak{} renvoie la variable ANTHROPIC_API_KEY. & str clé API (ou vide)\allowbreak{} & utilitaire LLM \\
+_\allowbreak load_\allowbreak cache & Lit le cache JSON et renvoie ses mappings seulement si prompt_sha et model concordent. & dict mappings ou dictionnaire vide & ticker cache \\
+_\allowbreak save_\allowbreak cache & Crée le dossier parent et écrit model,\allowbreak{} prompt_sha et mappings en JSON. & — (effet de bord : écrit le cache JSON)\allowbreak{} & ticker cache \\
+_\allowbreak map_\allowbreak tickers_\allowbreak batch & Appelle l'API Claude avec tool_use forcé,\allowbreak{} réessaie avec backoff sur erreurs réseau,\allowbreak{} extrait mappings. & list de mappings nom→\allowbreak{}ticker & ticker LLM \\
+llm_\allowbreak resolve_\allowbreak tickers & Cible lignes sans ticker,\allowbreak{} interroge le LLM par lots de 60 (cache versionné)\allowbreak{},\allowbreak{} remplit ticker_source=\allowbreak{}llm. & DataFrame avec tickers LLM remplis & ticker LLM \\
+resolve_\allowbreak tickers & Normalise vacuité,\allowbreak{} corrige label OCR,\allowbreak{} applique dictionnaire électronique puis passe LLM,\allowbreak{} journalise les gains. & DataFrame avec ticker/\allowbreak{}ticker_source résolus & ticker orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{sector_enrich.py}{Enrichissement secteur GICS et ETF SPDR par jointure sur le ticker : yfinance primaire, repli LLM, overrides manuels, audit croisé.}
+\begin{fnt}
+load_\allowbreak cache & Lit le cache secteur JSON et renvoie ses mappings seulement si pipeline_sha et model concordent. & dict mappings ticker→\allowbreak{}secteur & secteur cache \\
+save_\allowbreak cache & Écrit model,\allowbreak{} pipeline_sha et mappings du secteur en JSON sur disque. & — (effet de bord : écrit sector_cache.json)\allowbreak{} & secteur cache \\
+_\allowbreak yf_\allowbreak sector_\allowbreak one & Interroge yfinance pour un ticker et mappe le secteur Yahoo vers le GICS canonique. & str secteur GICS ou None & secteur yfinance \\
+resolve_\allowbreak yfinance & Résout les tickers via yfinance en plusieurs passes,\allowbreak{} réessayant les None pour absorber le throttle Yahoo. & dict ticker→\allowbreak{}secteur GICS & secteur yfinance \\
+_\allowbreak map_\allowbreak sectors_\allowbreak batch & Appelle l'API Claude avec tool_use forcé pour les secteurs,\allowbreak{} réessaie avec backoff,\allowbreak{} extrait mappings. & list de mappings ticker→\allowbreak{}secteur & secteur LLM \\
+resolve_\allowbreak llm & Charge la clé API,\allowbreak{} interroge Claude par lots de 40,\allowbreak{} filtre is_listed et secteur valide. & dict ticker→\allowbreak{}secteur GICS ou vide & secteur LLM \\
+_\allowbreak norm_\allowbreak ticker & Met le ticker en majuscules et supprime les espaces de bordure. & str ticker normalisé & utilitaire normalisation \\
+resolve_\allowbreak sectors & Construit le référentiel : yfinance sur le manquant,\allowbreak{} LLM (audit complet ou repli)\allowbreak{},\allowbreak{} choisit final,\allowbreak{} sauve le cache. & dict cache complet ticker→\allowbreak{}secteur & secteur orchestration \\
+enrich_\allowbreak sectors & Résout les tickers du DataFrame,\allowbreak{} ajoute sector_gics,\allowbreak{} etf_proxy,\allowbreak{} sector_source,\allowbreak{} applique les overrides manuels. & DataFrame avec colonnes secteur ajoutées & secteur application \\
+build_\allowbreak audit & Pour chaque ticker distinct,\allowbreak{} construit une ligne d'audit avec source,\allowbreak{} yf,\allowbreak{} llm et accord croisé. & DataFrame d'audit secteur par ticker & secteur audit \\
+summary & Imprime sources,\allowbreak{} taux d'accord croisé yfinance↔LLM,\allowbreak{} extrait de désaccords et distribution sectorielle. & — (effet de bord : impressions console)\allowbreak{} & secteur audit \\
+main & Charge le CSV final,\allowbreak{} enrichit secteurs,\allowbreak{} le réécrit,\allowbreak{} construit l'audit 06f,\allowbreak{} imprime la couverture. & — (effet de bord : réécrit CSV + audit)\allowbreak{} & secteur orchestration CLI \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{quiver_audit.py}{Validation exhaustive Sénat ↔ Quiver en sept aspects (couverture, ticker, sens, dates, montant, deltas), en lecture seule.}
+\begin{fnt}
+norm_\allowbreak ticker & Majuscule,\allowbreak{} écarte valeurs vides/\allowbreak{}placeholders,\allowbreak{} retire suffixe option,\allowbreak{} remplace points et tirets par underscore. & str clé instrument normalisée & validation Quiver normalisation \\
+norm_\allowbreak sense & Réduit l'opération à Purchase,\allowbreak{} Sale ou Exchange selon l'initiale en minuscules. & str sens réduit & validation Quiver normalisation \\
+_\allowbreak low_\allowbreak bound & Extrait par regex la première borne dollar de la fourchette de montant. & int borne basse ou None & validation Quiver montant \\
+reconcile & Déduplique amendements Quiver,\allowbreak{} restreint aux sénateurs communs tickérisables,\allowbreak{} calcule couverture,\allowbreak{} ticker,\allowbreak{} accords champ et deltas. & dict de cinq DataFrames d'audit & validation Quiver \\
+_\allowbreak load_\allowbreak inputs & Charge FINAL et cache Quiver,\allowbreak{} filtre la fenêtre Q1,\allowbreak{} exclut les délégués hors-chambre. & tuple (df,\allowbreak{} qwin)\allowbreak{} & validation Quiver acquisition CLI \\
+main & Charge les entrées,\allowbreak{} appelle reconcile,\allowbreak{} écrit les CSV d'audit,\allowbreak{} imprime couverture,\allowbreak{} accords et deltas. & — (effet de bord : écrit tables audit + impressions)\allowbreak{} & validation Quiver orchestration CLI \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{revalidate_quiver.py}{Re-validation Quiver hors-ligne par année : relit tables et cache, rejoue reconcile avec dédup amendements, met à jour le dashboard annuel.}
+\begin{fnt}
+verdict & Classe une ligne de delta en concordant,\allowbreak{} nous_plus,\allowbreak{} quiver_seul ou quiver_sans_donnee selon ses compteurs. & str verdict de catégorisation & validation Quiver classification \\
+main & Pour chaque année,\allowbreak{} relit table et Quiver,\allowbreak{} rejoue reconcile,\allowbreak{} écrit 07c-f/\allowbreak{}07,\allowbreak{} agrège le dashboard de statut. & — (effet de bord : réécrit artefacts + dashboard)\allowbreak{} & validation Quiver orchestration \\
+\end{fnt}
+\needspace{5\baselineskip}
+\fnmod{census_probe.py}{Phase 0 : recense les PTR Sénat 2020→2026 sur l'eFD, sonde le parser sur HTML ancien et compare l'ordre de grandeur à Quiver.}
+\begin{fnt}
+accept_\allowbreak agreement & GET l'accueil eFD,\allowbreak{} récupère le csrftoken,\allowbreak{} POST l'acceptation de l'accord,\allowbreak{} vérifie la présence des cookies. & bool session ouverte & acquisition eFD \\
+fetch_\allowbreak ptr_\allowbreak list & Pagine la recherche eFD des PTR déposés dans la fenêtre,\allowbreak{} extrait nom,\allowbreak{} type,\allowbreak{} uuid,\allowbreak{} date,\allowbreak{} refiltre par date. & DataFrame des PTR listés & acquisition recensement \\
+fetch_\allowbreak report & Renvoie le HTML du rapport depuis le cache disque,\allowbreak{} sinon le télécharge,\allowbreak{} le met en cache et le renvoie. & tuple (url,\allowbreak{} html)\allowbreak{} & acquisition eFD \\
+amount_\allowbreak midpoint & Extrait les montants dollar et renvoie la moyenne des deux bornes,\allowbreak{} ou la valeur unique. & float point milieu ou None & parsing montant \\
+norm_\allowbreak op & Normalise le type d'opération en Purchase,\allowbreak{} Exchange,\allowbreak{} Sale partielle/\allowbreak{}complète ou Sale. & str opération normalisée & parsing \\
+_\allowbreak find_\allowbreak col & Renvoie la première colonne dont le libellé minuscule contient tous les mots-clés fournis. & nom de colonne ou None & utilitaire parsing \\
+parse_\allowbreak electronic & Lit les tables HTML,\allowbreak{} repère la table transactions,\allowbreak{} localise les colonnes,\allowbreak{} construit les lignes ou un statut d'échec. & tuple (rows,\allowbreak{} columns,\allowbreak{} status)\allowbreak{} & parsing HTML \\
+main & Accepte l'accord,\allowbreak{} recense par an,\allowbreak{} sonde le parser sur années anciennes,\allowbreak{} compare à Quiver,\allowbreak{} écrit CSV et récap. & — (effet de bord : écrit CSV census/\allowbreak{}probe + impressions)\allowbreak{} & orchestration Phase 0 \\
+\end{fnt}
+
+% ============================ 5. IDENTITÉ ============================
+\section{Résolution d'identité (priorité \#1)}
+\label{sec:identite}
+
+\begin{defbox}{Définition — \co{bioguide_id}}
+Identifiant unique et stable d'un parlementaire (ex.~\co{P000197} = Nancy Pelosi). C'est la clé qui
+relie une transaction à une personne, son parti, son État et ses commissions — et qui évite de
+\textbf{compter deux fois} la même personne écrite de deux façons.
+\end{defbox}
+
+\textbf{Le problème.} Une déclaration donne un nom libre (« Hon.~Earl L.~Carter », « Buddy Carter »).
+Il faut le rattacher au bon \co{bioguide_id}. \textbf{La solution} (\co{congress_core/identity.py})~:
+\co{load_reference} charge le référentiel public \emph{congress-legislators} (current + historical, live
+avec repli YAML embarqué), construit l'index \co{name_exact} en y ajoutant des \textbf{variantes}
+(surnom, second prénom, premier mot du nom officiel, dernier mot d'un nom composé) et calcule, par
+bioguide, l'\textbf{année de première entrée en fonction} (min des \co{terms[].start}).
+
+\textbf{La cascade \co{make_matcher}.} \co{make_matcher} renvoie une fermeture \co{match(last, first)}
+qui, après nettoyage des titres (Dr./Hon.) et suffixes (Jr./III/MD), applique dans l'ordre~:
+\begin{enumerate}[nosep,leftmargin=1.6em]
+\item \textbf{Override manuel} (\co{_MANUAL_BIO}) — un seul cas figé dans le c\oe{}ur~: « Nicholas V.
+Taylor » = Van Taylor (\co{T000479}).
+\item \textbf{Correspondance exacte} sur \co{(nom, prénom)}, en testant aussi le \textbf{surnom} (table
+de \textbf{31 surnoms}~: richard→rick, william→bill\dots) et le second prénom.
+\item \textbf{Repli par nom de famille unique}~: si un seul bioguide porte ce nom, on le retient.
+\end{enumerate}
+\co{enrich_identity} applique ensuite le matcher et ajoute \co{party}, \co{committee_membership} et
+\co{committees_key_flag} (appartenance à une commission clé). Côté Sénat, \co{senate/identity.py} offre
+sa propre variante avec désambiguïsation par chambre/titulaire et exclusion des \textbf{délégués}
+non-votants (pour éviter de faux « présents chez Quiver, absents chez nous »).
+
+\textbf{Résultats (recalculés depuis les FINAL).}
+\begin{center}\small
+\begin{tabular}{lrrrr}
+\toprule
+\bfseries Chambre & \bfseries Lignes & \bfseries Avec \co{bioguide_id} & \bfseries Bioguides uniques & \bfseries Noms distincts\\
+\midrule
+House & 81\,646 & 81\,642 \;(\textbf{99,99\,\%}) & 256 & 275 \\
+Sénat & 8\,841 & 8\,841 \;(\textbf{100\,\%}) & 64 & 67 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Les 4 lignes Chambre sans bioguide} sont \emph{une} déclaration manuscrite de 2023 (« Ada Norah
+Henriquez », doc \co{8219483}) que le référentiel ne rattache pas — un cas isolé, non un défaut
+systémique. \textbf{256 bioguides pour 275 noms}~: l'écart vient de \emph{variantes orthographiques}
+d'un même élu (ex.~« Earl L. Carter » / « Buddy Carter ») toutes rattachées au même identifiant — c'est
+précisément ce que la résolution d'identité corrige.
+
+% ============================ 6. OCR ============================
+\section{OCR — lire les scans avec Claude Vision}
+\label{sec:ocr}
+
+Les déclarations scannées (image, sans couche texte) sont lues par un \textbf{modèle de vision}
+(\co{claude-sonnet-4-6}), via le moteur chambre-agnostique \co{congress_core/vision_ocr.py}.
+
+\textbf{Deskew (redressement).} Beaucoup de scans Chambre sont \emph{couchés}~; un modèle lit mal une
+page tournée. La fonction \co{detect_rotation} montre la page aux \textbf{4 orientations}
+(\co{ROT_CANDIDATES=[0,90,180,270]}) et fait \emph{reconnaître} laquelle est droite (tâche de
+reconnaissance, robuste), puis \co{rotate_b64_png} redresse géométriquement avant l'extraction
+(cf.~§\ref{sec:hypotheses} pour l'hypothèse initialement écartée).
+
+\textbf{Extraction structurée.} \co{VisionExtractor._call} force \co{tool_choice} sur l'outil
+\co{record_transactions} (le modèle \emph{doit} répondre en JSON structuré), avec \co{max_tokens}
+16\,000 et 7 tentatives à \emph{backoff} exponentiel. Garde-fous du prompt~: ignorer la
+\textbf{ligne-exemple} pré-imprimée du formulaire, et borner l'année lue à l'année de dépôt.
+
+\textbf{Cache versionné.} \co{prompt_sha = sha256(prompt + tool + pipeline_tag)[:12]} versionne le
+cache~; \co{extract_cached} ne rappelle l'API que si le \co{(prompt_sha, model)} a changé, et en cas
+d'échec partiel \textbf{ne re-paie que les lots en erreur} (reprise au batch). Tant que le prompt ne
+change pas, un re-run coûte \textbf{0 appel} — c'est ce qui rend le pipeline incrémental.
+
+\textbf{Clusters (Chambre, census des 547 PDF scannés).}
+\begin{center}\small
+\begin{tabular}{lrl}
+\toprule
+\bfseries Cluster & \bfseries Documents & \bfseries Traitement\\
+\midrule
+A — tapé droit & 74 & OCR direct, facile \\
+B — tapé tourné & 322 & deskew puis OCR (gros volume) \\
+C — manuscrit & 151 & \textbf{exclu par défaut} (dates manuscrites peu fiables), récupération ciblée \\
+\bottomrule
+\end{tabular}
+\end{center}
+Côté Sénat, pas de clusters~: seuls \textbf{5 sénateurs} déposent sur papier.
+
+\textbf{Volumes OCR (recalculés).} Chambre~: \textbf{48\,970} lignes~; Sénat~: \textbf{1\,680}.
+L'OCR Chambre est très concentré~: \textbf{Rohit Khanna} 30\,862 lignes (62,9\,\% de l'OCR), Michael
+T.~McCaul 10\,876 (22,2\,\%), Diana Harshbarger 3\,514 (7,2\,\%) — \textbf{top~3~= 92,4\,\%},
+top~10~= 99,0\,\%. L'OCR Sénat est porté par \textbf{Blumenthal} (1\,233~; 73,4\,\%), Boozman (379),
+Burr (52), Feinstein (14), Fetterman (2).
+
+% ============================ 7. ENRICHISSEMENT ============================
+\section{Enrichissement : ticker, secteur, montant, ancienneté}
+\label{sec:enrich}
+
+\textbf{Ticker — trois voies, ajoutées par échecs successifs} (\co{congress_core/tickers.py},
+\co{llm_resolve.py})~: (1) \textbf{explicite} (le symbole est écrit dans la description,
+\co{explicit_ticker})~; (2) \textbf{dictionnaire électronique} (on propage vers le papier les symboles
+vus dans l'électronique)~; (3) \textbf{passe LLM} (\co{resolve_names_to_tickers}, filtre \co{is_equity},
+cache versionné) pour le reliquat. Le dictionnaire seul plafonne (\textasciitilde 46\,\%)~; le LLM
+porte la couverture à \textbf{\textasciitilde 90\,\%} sur l'OCR. Les actifs non cotés (obligations,
+munis) restent \co{ticker=none} \textbf{à dessein}, pas par échec.
+
+\textbf{Secteur GICS$\rightarrow$ETF SPDR} (\co{congress_core/sector_enrich.py}, \co{enrich_sectors})~:
+résolution hybride \co{yfinance} (factuel) $\rightarrow$ repli \textbf{LLM} (enum GICS strict)
+$\rightarrow$ overrides manuels, avec cache d'audit traçant qui a tranché (\co{sector_source}). Mapping
+1:1 des \textbf{11 secteurs} vers les \emph{Select Sector SPDR}~:
+\begin{center}\scriptsize
+Energy~XLE · Materials~XLB · Industrials~XLI · Cons.~Disc.~XLY · Cons.~Staples~XLP · Health~Care~XLV ·
+Financials~XLF · IT~XLK · Comm.~Services~XLC · Utilities~XLU · Real~Estate~XLRE.
+\end{center}
+
+\textbf{Montant — \emph{midpoint}} (\co{amounts.py}, \co{amount_midpoint})~: les déclarations donnent
+des \textbf{fourchettes} (ex.~\$15\,001--\$50\,000)~; on retient le \textbf{milieu} (32\,500). Le type
+d'opération est normalisé par \co{operation_type_from_code} (P→Purchase, S→Sale (Full/Partial),
+E→Exchange).
+
+\textbf{Ancienneté} (\co{enrich_tenure.py})~: \co{years_in_office} = année(transaction)
+$-$ année(première entrée en fonction), calculée offline depuis les \co{terms} embarqués et
+\textbf{appendue octet-à-octet} en dernière étape (idempotent). Renseignée à \textbf{100\,\%} sur les
+deux chambres.
+
+% ============================ 8. LA TABLE FINALE ============================
+\section{La table finale — schéma et contrat « 12/12 »}
+\label{sec:table}
+
+La table FINAL compte \textbf{28 colonnes} (27 d'assemblage + \co{years_in_office} appendue). Les
+\textbf{12 champs « métier »} exigés par Ramify sont \emph{exactement} la constante
+\co{schema.CORE_FIELDS}~:
+
+\begin{center}\small
+\co{declarant_name} · \co{chamber} · \co{party} · \co{committee_membership} · \co{transaction_date} ·
+\co{disclosure_date} · \co{ticker} · \co{sector_gics} · \co{etf_proxy} · \co{operation_type} ·
+\co{amount_midpoint} · \co{asset_type}
+\end{center}
+
+\begin{keybox}{Nuance d'honnêteté : « 12 champs \emph{présents} » $\neq$ « 12 champs \emph{sans valeurs
+manquantes} »}
+Les 12 champs sont \textbf{présents} dans le schéma des deux chambres. Mais trois d'entre eux ont des
+\textbf{trous légitimes}, par nature et non par défaut d'extraction~:
+\co{ticker}/\co{sector_gics}/\co{etf_proxy} sont \emph{vides} pour les actifs non cotés (obligations,
+\emph{munis}, fonds privés) — il n'existe pas de symbole boursier à leur attribuer~; et
+\co{committee_membership} est un \textbf{snapshot courant} (pas l'historique daté). Les champs
+structurellement toujours renseignables (\co{declarant_name}, \co{chamber}, \co{party},
+\co{transaction_date}, \co{disclosure_date}, \co{operation_type}, \co{amount_midpoint}) sont
+quasi-complets. Nous assumons cette distinction plutôt que de la masquer.
+\end{keybox}
+
+\textbf{Taux de remplissage global (rows-based, recalculés depuis les FINAL).}
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+\bfseries Champ & \bfseries Chambre & \bfseries Sénat\\
+\midrule
+\co{ticker} & 85,3\,\% & 71,4\,\% \\
+\co{sector_gics} / \co{etf_proxy} & 83,2\,\% & 62,1\,\% \\
+\co{asset_type} & 91,1\,\% & 97,3\,\% \\
+\co{committee_membership} & 86,6\,\% & 65,6\,\% \\
+\co{years_in_office} & 100\,\% & 100\,\% \\
+\co{bioguide_id} (identité) & 99,99\,\% & 100\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Le schéma complet des 28 colonnes (sens + origine de chacune) est en Annexe~\ref{anx:schema}.
+
+% ============================ 9. QUALITÉ ============================
+\section{Rapport de qualité \& métriques}
+\label{sec:qualite}
+
+Le module \co{congress_core/quality.py} (\co{build_report} $\rightarrow$ \co{_figures}) calcule
+\textbf{5 contrôles} et génère les 4 figures ci-dessous — \textbf{en lecture seule des FINAL, sans
+aucun appel API} (matplotlib \co{Agg}). Tous les chiffres ci-dessous en sont issus.
+
+\subsection{Les cinq contrôles}
+\textbf{(a) Cohérence des dates} (\co{date_coherence}, \co{disclosure ≥ transaction})~:
+\textbf{99,8\,\%} cohérentes côté Chambre, \textbf{100,0\,\%} au Sénat (dates parseables 99,8 / 99,9\,\%).
+Les rares incohérences sont des divulgations amendées/antidatées réelles, non des bugs.
+
+\textbf{(b) Délai légal} (\co{delay_buckets})~: \textbf{86,9\,\%} des dépôts Chambre et \textbf{84,9\,\%}
+au Sénat tombent dans les \textbf{45 jours} légaux (délai médian \textbf{28 jours})~; >75~j~: 7,7 / 12,3\,\%.
+
+\textbf{(c) Distribution des montants} (\co{amount_distribution})~: médiane \textbf{8\,000\,\$},
+quartile haut \textbf{32\,500\,\$}, 90\textsuperscript{e} centile 75\,000\,\$ (\emph{midpoint} des
+fourchettes).
+
+\textbf{(d) Couverture par membre} (\co{coverage_per_member})~: \textbf{320} déposants distincts,
+\textbf{206} avec $\geq 10$ transactions (éligibles au backtest), dont \textbf{150} actifs sur
+$\geq 3$~années.
+
+\textbf{(e) Achats sans sortie déclarée} (\co{unmatched_purchase_rate})~: \textbf{22,5\,\%} (Chambre) /
+\textbf{39,6\,\%} (Sénat) des achats tickés n'ont pas de vente ultérieure déclarée — ces positions
+seraient fermées de force à +12 mois dans la stratégie.
+
+\subsection{Les quatre figures}
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{quality/delai_divulgation.png}
+\caption{Délai \co{disclosure − transaction} (0--200~j), lignes 45~j (légal) / 75~j (fenêtre).
+Générée par \co{congress_core/quality.py} (\co{_figures}, source \co{delay_buckets}) — lecture seule
+des FINAL, aucun appel API.}
+\end{figure}
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{quality/distribution_montants.png}
+\caption{Distribution de \co{amount_midpoint} en échelle \co{log10} (midpoint des fourchettes).
+Générée par \co{quality.py} (\co{_figures}, source \co{amount_distribution}).}
+\end{figure}
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{quality/transactions_par_an.png}
+\caption{Transactions par \textbf{année de transaction} et par chambre. Générée par \co{quality.py}
+(\co{_figures}). On lit la montée du volume OCR et la part Chambre dominante.}
+\end{figure}
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.70\textwidth]{quality/top_deposants.png}
+\caption{Top~12 déposants par \textbf{nombre de transactions}. Générée par \co{quality.py}
+(\co{_figures}, source \co{coverage_per_member}). La domination de quelques déposants-papier
+(Khanna, McCaul) y est visible.}
+\end{figure}
+
+\subsection{La couverture par an — et la baisse Sénat 2025--26}
+Le \textbf{global} masque une dynamique~: la couverture ticker/secteur du Sénat \textbf{chute en
+2025--26}. La présenter \textbf{par an} est plus honnête.
+\begin{center}\small
+\begin{tabular}{l rr rr}
+\toprule
+ & \multicolumn{2}{c}{\bfseries Chambre} & \multicolumn{2}{c}{\bfseries Sénat}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\bfseries Année & \co{ticker}\,\% & \co{sector}\,\% & \co{ticker}\,\% & \co{sector}\,\%\\
+\midrule
+2020 & 86,5 & 83,4 & 88,1 & 80,5 \\
+2021 & 87,3 & 85,8 & 80,9 & 70,1 \\
+2022 & 87,1 & 85,2 & 79,7 & 65,3 \\
+2023 & 78,9 & 76,6 & 77,7 & 69,5 \\
+2024 & 81,3 & 78,3 & 68,0 & 59,2 \\
+2025 & 87,8 & 86,3 & \textbf{45,4} & \textbf{37,2} \\
+2026 & 85,4 & 84,4 & \textbf{43,7} & \textbf{35,7} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Explication.} En 2025--26, la part de \textbf{papier OCR} et surtout d'\textbf{obligations
+municipales / Treasuries} (non cotées, donc \co{ticker=none} légitimement, ex.~Blumenthal) augmente
+fortement au Sénat. Le global (71,4 / 62,1\,\%) est \emph{tiré vers le haut} par les années antérieures.
+Ce n'est pas une dégradation d'extraction mais un \textbf{changement de composition des actifs}.
+
+\subsection{Fiabilité des dates OCR (\co{date_confidence})}
+\co{date_confidence} = drapeau \emph{plausible}/\emph{implausible} selon la fenêtre 75~j entre
+transaction et dépôt~; il n'est calculé que pour l'\textbf{OCR} (\co{NaN} sur le digital). Côté
+Chambre, \textbf{95,3\,\%} des lignes OCR sont \emph{plausibles} (2\,291 implausibles)~; le creux
+\textbf{2021 à 79,6\,\%} est \emph{entièrement} Diana Harshbarger (1\,389 lignes sur 2 documents
+manuscrits denses) — anomalie \textbf{localisée}, pas systémique. Côté Sénat~: 98,5\,\% plausibles
+(18 implausibles, le lot Perdue 2021 = divulgations tardives \emph{réelles}).
+
+% ============================ 10. QUIVER ============================
+\section{Validation externe (Quiver)}
+\label{sec:quiver}
+
+\begin{defbox}{Méthode — deux axes (Quiver jamais réinjecté)}
+\textbf{(1) Comptes par déposant} (per-lot)~: nombre de lignes chez nous vs chez Quiver, par personne.
+\textbf{(2) Recouvrement transaction-niveau}~: part des transactions Quiver retrouvées, via la clé
+\co{bioguide | ticker | date | type}. La date appariée est le \emph{Traded} de Quiver (le \emph{Filed}
+n'apparie que \textasciitilde 1\,\%). \textbf{Couverture} = transactions Quiver retrouvées / total Quiver.
+\end{defbox}
+
+\textbf{Chambre — clé « brute » (sans tolérance de date), \co{validate_quiver_house}.} Recalcul depuis
+le cache transaction-niveau~:
+\begin{center}\small
+\begin{tabular}{l rrrr}
+\toprule
+\bfseries Année & \bfseries Couverture\,\% & \bfseries Quiver retrouvées & \bfseries \co{only_quiver} & \bfseries vrais-absents\\
+\midrule
+2020 & 85,0 & 7\,106 & 1\,253 & 16 \\
+2021 & 88,6 & 5\,221 & 672 & 14 \\
+2022 & 80,7 & 6\,061 & 1\,452 & 29 \\
+2023 & 81,0 & 6\,128 & 1\,442 & 65 \\
+2024 & 85,8 & 4\,670 & 772 & 40 \\
+2025 & 91,3 & 9\,835 & 938 & 58 \\
+2026 & 88,0 & 4\,115 & 559 & 27 \\
+\midrule
+\textbf{Global} & \textbf{85,9} & \textbf{43\,136} & \textbf{7\,088} & \textbf{249 → 9} \\
+\bottomrule
+\end{tabular}
+\end{center}
+La couverture globale \textbf{85,9\,\%} (43\,136 / 50\,224) est un \textbf{plancher}~: la clé sur date
+\emph{brute} sous-estime sur les dates OCR bruitées. L'accord de \textbf{sens} (achat/vente) et de
+\textbf{montant} sur les transactions appariées est \textbf{\textasciitilde 93\,\%}. Les
+\textbf{249 « manquants bruts »} se réduisent à \textbf{9 vrais-absents} après explication des
+artefacts (tolérance de date $\pm$1~j, amendements, options/obligations)~: 2021 Malinowski$\times$1~;
+2023 Schrader$\times$3 (papier, cluster~C exclu)~; 2024 « Calhoun »$\times$2 (étiquetage Quiver de
+J.~James)~; 2025 Gottheimer$\times$1 et 2026 Pelosi$\times$2 (déposés \emph{après} notre snapshot).
+\textbf{Aucun bug d'extraction.}
+
+\textbf{Sénat — clé normalisée, \co{quiver_audit.reconcile} (07c--07f).} Couverture digitale
+\textbf{98--100\,\%/an} (99,4 / 98,0 / 99,4 / 99,7 / 99,6 / 99,8 / 100,0\,\%), accord de sens
+\textasciitilde 95,7\,\%, date (\emph{Traded}) \textasciitilde 99,4\,\%, montant \textasciitilde 93,2\,\%.
+\textbf{554 amendements} Quiver dédupliqués (un trade re-déposé y apparaît plusieurs fois). \textbf{0
+vrai raté} après audit adversarial relisant les PTR bruts.
+
+\begin{keybox}{Le constat « OCR = source unique »}
+Quiver — comme Kadoa et \emph{House Stock Watcher} — \textbf{ne voit aucun scan}~: 0 ligne pour les gros
+déposants-papier (Khanna, Harshbarger, Blumenthal). Le terme \co{only_ours} de la Chambre
+(\textbf{$\approx$16\,000} transactions) est donc majoritairement le \textbf{papier que les agrégateurs
+ne voient pas} — pas une erreur, mais notre \textbf{valeur ajoutée}, validée en interne (cohérence,
+stabilité run-à-run, \co{date_confidence}). Le module \co{crosscheck.py} matérialise ce statut par
+déposant (\co{quiver_validable} / \co{ocr_unique} / \co{digital}).
+\end{keybox}
+
+\textbf{Lever l'ambiguïté du « 35--74\,\% ».} On lit parfois cette fourchette~: c'est la couverture
+Quiver du \textbf{numérique \emph{seul}}, par année — large parce que la part de déposants-papier varie
+d'une année à l'autre. Ce n'est \emph{pas} un verdict sur le FINAL~: avec l'OCR, le FINAL monte à
+\textbf{81--91\,\%} (85,9\,\% global).
+
+% ============================ 11. REPRODUCTIBILITÉ ============================
+\section{Assurance qualité \& reproductibilité}
+\label{sec:repro}
+
+\textbf{Pourquoi pas « rejouable hors-ligne ».} Le scraping (Clerk/eFD) exige le réseau et l'OCR exige
+l'API Vision~; seuls les \textbf{artefacts figés} (tables CSV, index XML, caches, référentiels YAML)
+sont embarqués. Rejouer une année digitale produirait une table \emph{vide} (les PDF lisibles ont été
+parsés puis écartés). On prouve donc la correction par \textbf{reproduction depuis les colonnes figées},
+preuve plus forte car déterministe et isolée des aléas réseau/OCR.
+
+\begin{itemize}[nosep,leftmargin=1.5em]
+\item \textbf{Golden (photo octet-à-octet).} Empreintes SHA-256 de toutes les sorties~: \textbf{108}
+fichiers Chambre, \textbf{69} Sénat. \co{check_golden.py} / \co{senate_check_golden.py} doivent afficher
+« ZÉRO ÉCART ».
+\item \textbf{Reproductions fonction-par-fonction.} \co{test_senate_repro} reconstruit, depuis les
+seules colonnes figées, \co{natural_key_hash} \textbf{8\,841/8\,841}, l'identité \textbf{67/67}, le
+ticker \textbf{65/65}~; côté Chambre, \co{test_schema}/\co{test_amounts_tickers}/\co{test_identity}/
+\co{test_tenure} reproduisent clé, montant, type d'actif, bioguide et ancienneté.
+\item \textbf{\co{test_vision_sha} / \co{test_incremental}}~: le \co{prompt_sha} est stable (déplacer
+l'OCR n'invalide pas le cache) et un 2\textsuperscript{e} run OCR fait \textbf{0 appel} Vision.
+\item \textbf{\co{audit_metrics.py}} recompute toutes les métriques des deux chambres et \emph{asserte}
+les invariants — c'est la source de vérité chiffrée de ce rapport.
+\end{itemize}
+
+% ============================ 12. HYPOTHÈSES RÉVISÉES ============================
+\section{Hypothèses explorées puis révisées}
+\label{sec:hypotheses}
+
+La valeur « recherche » tient autant aux choix \emph{révisés} qu'aux résultats. Pour chacun~:
+\textbf{hypothèse de départ $\rightarrow$ problème constaté $\rightarrow$ décision finale}.
+
+\begin{description}[leftmargin=0pt,itemsep=4pt]
+\item[Deskew OCR.] \emph{Départ}~: demander au modèle « de combien faut-il tourner~? ». \emph{Problème}~:
+tâche spatiale peu fiable — il répond presque toujours « 90 ». \emph{Décision}~: lui montrer la page aux
+\textbf{4 rotations} et lui faire \emph{reconnaître} la droite (tâche de reconnaissance). La concordance
+OCR passe de \textbf{59,7\,\% à $\approx$69\,\%}.
+\item[Déduplication.] \emph{Départ}~: dédupliquer sur la seule clé naturelle. \emph{Problème}~: cela
+écrase des \textbf{lots multi-comptes réels} (ex.~Khanna déclarant 3 fois le même titre via 3 comptes).
+\emph{Décision}~: \co{occurrence_index} (rang du lot intra-dépôt) → dédup \textbf{non destructrice} sur
+le \emph{couple} \co{(natural_key_hash, occurrence_index)}.
+\item[OCR par échantillon d'abord.] Avant le run complet des 547 PDF, \co{house/echantillon.py}
+OCR-ise un \textbf{échantillon stratifié} des clusters A/B/C pour \emph{mesurer} la qualité et durcir le
+prompt — au lieu de découvrir les modes d'échec en production.
+\item[Cluster C manuscrit.] \emph{Départ}~: tout OCR-iser. \emph{Problème}~: les \textbf{dates
+manuscrites} sont trop incertaines pour une stratégie datée. \emph{Décision}~: \textbf{exclure C} par
+défaut (récupération ciblée). Une sonde \textbf{Opus vs Sonnet} sur C a confirmé qu'\textbf{Opus ne
+corrige pas le goulot} (les dates), pour un coût $\approx\!\times 3$ — on garde Sonnet, C reste exclu.
+\item[Fenêtre de plausibilité de date.] Le STOCK Act vise $\approx$45~j, mais on tolère \textbf{75~j}
+(\co{date_confidence}) pour absorber le bruit OCR — et l'on note explicitement que cette colonne n'est
+calculée que sur l'OCR (les contrôles (a)/(b) sont, eux, calculés directement sur les dates).
+\item[Ticker en trois voies.] Ajoutées \emph{par échecs successifs}~: explicite, puis dictionnaire
+électronique, puis LLM (filtre \co{is_equity} pour ne \emph{jamais} tickeriser une obligation/muni).
+\item[Validation Quiver, deux régimes de clé.] \textbf{Chambre} = clé « brute » (reproduit l'historique,
+couverture = plancher)~; \textbf{Sénat} = clé « normalisée » (\co{reconcile}) avec dédup des
+amendements. On \emph{n'unifie pas} les clés~: chaque chambre garde sa sémantique exacte.
+\end{description}
+
+% ============================ 13. LIMITES ============================
+\section{Limites (honnêteté)}
+\label{sec:limites}
+
+\begin{itemize}[nosep,leftmargin=1.5em]
+\item \textbf{Cluster C manuscrit exclu par défaut} (dates trop incertaines)~; récupération seulement
+ciblée — choix assumé, pas une lacune cachée.
+\item \textbf{Validation papier externe impossible}~: aucun agrégateur ne voit les scans → pas de taux
+d'exactitude \emph{externe} sur le papier (seulement des contrôles internes).
+\item \textbf{Appariement Quiver Chambre sans tolérance de date} (clé brute)~: la couverture
+\textbf{85,9\,\%} est un \textbf{plancher}, pas une borne haute.
+\item \textbf{\co{ticker}/\co{sector_gics}/\co{etf_proxy} structurellement absents} pour munis et
+obligations (actifs non cotés) — par nature, pas par défaut.
+\item \textbf{Commissions non « point-in-time »}~: \co{committee_membership} est un \emph{snapshot}
+courant, pas l'historique daté — un croisement « conflit d'intérêt à la date du trade » serait
+approximatif.
+\item \textbf{\co{date_confidence} = heuristique binaire} (fenêtre 75~j), \textbf{colonne OCR seulement}
+(\co{NaN} sur le digital)~; ce n'est pas une vérité-terrain.
+\end{itemize}
+
+% ============================ 14. PÉRIMÈTRE & SUITE ============================
+\section{Périmètre \& suite}
+La \textbf{couche données (Semaines 1--2)} décrite ici est \textbf{livrée}~: 90\,487 transactions
+extraites, identifiées, enrichies (table 12/12), validées et reproductibles. La \textbf{stratégie et le
+backtest (Semaines 3--4)} — copy-trading actions puis ETF sectoriels — constituent un \textbf{travail de
+recherche séparé, en cours}, hors-périmètre de ce rapport.
+
+% ============================ 15. CONCLUSION ============================
+\section{Conclusion}
+Sur deux chambres et sept ans, le pipeline reconstruit \textbf{90\,487} transactions à partir des
+sources officielles, en traitant honnêtement les deux pistes (électronique déterministe \emph{et}
+scannée par OCR Vision). Chaque ligne est \textbf{identifiée} (99,99 / 100\,\%), \textbf{enrichie}
+(table 12/12 sur les deux chambres) et \textbf{validée} contre Quiver sans jamais le réinjecter (85,9\,\%
+Chambre, 98--100\,\% Sénat~; 9 et 0 vrais-absents). Le \textbf{papier scanné}, invisible aux
+agrégateurs, est une valeur ajoutée propre, validée en interne. La correction est \textbf{figée}
+(golden octet-à-octet) et \textbf{reproductible} (reproductions fonction-par-fonction). Surtout, le
+rapport assume ses \textbf{nuances} — « 12 champs présents » n'est pas « 12 champs sans manquants », la
+couverture Sénat 2025--26 baisse pour des raisons de composition d'actifs, et la couverture Quiver
+Chambre est un plancher. C'est une couche données sur laquelle une stratégie peut être bâtie \emph{en
+connaissant ses limites}.
+
+% ============================ 16. ANNEXES ============================
+\section{Annexes}
+
+\subsection{Annexe A — les 44 fichiers \texttt{.py} en un coup d'\oe{}il}
+\label{anx:files}
+{\footnotesize
+\begin{longtable}{>{\ttfamily\footnotesize}p{3.2cm} p{12.4cm}}
+\toprule
+\normalfont\bfseries Fichier & \bfseries Rôle \\
+\midrule\endhead
+\multicolumn{2}{l}{\bfseries\color{coreC} congress\_core/ (15, dont \_\_init\_\_)}\\
+schema.py & clé naturelle (7 champs) + dédup non destructrice \\
+identity.py & nom → bioguide + parti/commissions/ancienneté \\
+amounts.py & fourchette → milieu, code → opération \\
+tickers.py & symbole boursier + type d'actif \\
+vision_ocr.py & OCR Claude Vision + cache versionné + deskew \\
+llm_resolve.py & cache LLM versionné (nom→ticker) \\
+quiver.py & validation externe (Chambre brute / Sénat normalisée) \\
+crosscheck.py & statut par déposant (OCR-unique vs Quiver) \\
+sector_enrich.py & ticker → GICS → ETF (yfinance + LLM) \\
+reporting.py & conventions de sortie, QA, Excel \\
+paths.py & chemins (\co{DataRoot}) + secrets \\
+pipeline.py & \textbf{l'orchestrateur} (6 étapes + qualité) \\
+quality.py & rapport de qualité (5 contrôles + figures) \\
+enrich_tenure.py & \co{years_in_office} (append octet-préservant) \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{houseC} house/ (4, dont \_\_init\_\_)}\\
+digital.py & PTR électroniques → 06\_…\_transactions \\
+ocr.py & scans → Vision → fusion → 06\_…\_FINAL \\
+echantillon.py & mesure stratifiée OCR (pilote/audit) \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{senateC} senate/ (11, dont \_\_init\_\_)}\\
+digital.py & eFD électronique → 06\_…\_transactions \\
+ocr.py & papier eFD → Vision → 06b \\
+ocr_engine.py & moteur OCR figé (Q1) réutilisé \\
+fusion.py & fusion digital+OCR + enrichissement → FINAL \\
+identity.py & référentiel + matcher Sénat \\
+ticker_resolve.py & ticker en 3 étapes (explicit/dict/LLM) \\
+sector_enrich.py & secteur GICS→ETF (Sénat) \\
+quiver_audit.py & réconciliation Quiver (07c--07f) \\
+revalidate_quiver.py & re-validation Quiver offline \\
+census_probe.py & Phase 0 : census + sondage parser \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{testC} tests/regression/ (14)}\\
+\multicolumn{2}{p{15.6cm}}{\footnotesize golden (\co{build_golden}/\co{check_golden} + Sénat) · reproductions (\co{test_schema}, \co{test_identity}, \co{test_amounts_tickers}, \co{test_senate_repro}, \co{test_vision_sha}, \co{test_incremental}, \co{test_tenure}, \co{test_crosscheck}) · \co{audit_metrics} · \co{_apply_house_sector}} \\
+\bottomrule
+\end{longtable}}
+
+\subsection{Annexe B — le schéma FINAL (28 colonnes)}
+\label{anx:schema}
+{\footnotesize
+\begin{longtable}{r >{\ttfamily}p{3.3cm} p{8.2cm} >{\ttfamily\scriptsize}p{3.0cm}}
+\toprule
+\# & \normalfont\bfseries Colonne & \bfseries Sens & \normalfont\bfseries Remplie par \\
+\midrule\endhead
+1 & bioguide_id & identifiant officiel du membre & identity \\
+2 & declarant_name & nom tel que déposé & parse / OCR \\
+3 & chamber & \co{house} / \co{senate} & enrich_identity \\
+4 & party & parti & Reference.party \\
+5 & state_district & état + district & 03\_ptr\_index \\
+6 & committee_membership & commissions (liste) & Reference.committees \\
+7 & committees_key_flag & commission « clé » ? & is_key_committee \\
+8 & transaction_date & date de la transaction & parse / OCR \\
+9 & disclosure_date & date de divulgation (dépôt) & 03\_ptr\_index \\
+10 & ticker & symbole boursier & tickers / llm_resolve \\
+11 & asset_description & libellé de l'actif & parse / OCR \\
+12 & asset_type & type d'actif & infer_asset_type \\
+13 & sector_gics & secteur GICS & sector_enrich \\
+14 & etf_proxy & ETF SPDR du secteur & GICS\_TO\_ETF \\
+15 & operation_type & Purchase / Sale / … & operation_type_from_code \\
+16 & amount_range & fourchette déclarée & parse / OCR \\
+17 & amount_midpoint & milieu de la fourchette & amount_midpoint \\
+18 & amount_split_flag & lot multi-actifs ? & finalize \\
+19 & owner & propriétaire (self/spouse…) & normalize \\
+20 & doc_id & identifiant du PTR & 03\_ptr\_index \\
+21 & source_url & URL de la source & 03\_ptr\_index \\
+22 & natural_key_hash & clé de dédup (7 champs) & schema \\
+23 & occurrence_index & rang du lot intra-dépôt & add_occurrence_index \\
+24 & provenance & \co{*-electronic} / \co{*-ocr} & pipeline \\
+25 & date_confidence & plausible / implausible (75 j) & date_confidence \\
+26 & ticker_source & explicit / elec\_dict / llm / none & tickers / llm \\
+27 & sector_source & yfinance / llm / manual & sector_enrich \\
+28 & years_in_office & ancienneté à la date du trade & enrich_tenure \\
+\bottomrule
+\end{longtable}}
+\textit{L'ordre exact des colonnes diffère légèrement entre Chambre et Sénat (\co{date_confidence} plus
+tôt au Sénat)~; le \textbf{contenu garanti} — les 12 champs « métier » — est identique.}
+
+\subsection{Annexe C — valeurs vérifiées (recalculées depuis les FINAL)}
+\label{anx:valeurs}
+{\small
+\begin{tabular}{p{6.6cm} p{4.2cm} p{4.2cm}}
+\toprule
+\bfseries Indicateur & \bfseries Chambre & \bfseries Sénat\\
+\midrule
+Transactions FINAL & 81\,646 & 8\,841 \\
+\quad dont digital / OCR & 32\,676 / 48\,970 & 7\,161 / 1\,680 \\
+Identité (\co{bioguide_id}) & 99,99\,\% (256/275) & 100\,\% (64/67) \\
+\co{ticker} & 85,3\,\% & 71,4\,\% \\
+\co{sector_gics} / \co{etf_proxy} & 83,2\,\% & 62,1\,\% \\
+\co{asset_type} & 91,1\,\% & 97,3\,\% \\
+\co{committee_membership} & 86,6\,\% & 65,6\,\% \\
+\co{years_in_office} & 100\,\% & 100\,\% \\
+Quiver (transaction-niveau) & 85,9\,\%/an (9 vrais-absents) & 98--100\,\%/an (0 vrai raté) \\
+Golden (zéro écart) & 108 fichiers & 69 fichiers \\
+\midrule
+\multicolumn{3}{l}{\bfseries Qualité (depuis \co{quality.py})}\\
+Cohérence des dates & 99,8\,\% & 100,0\,\% \\
+Dépôts ≤ 45 j (médiane 28 j) & 86,9\,\% & 84,9\,\% \\
+Montants — médiane / p75 & \multicolumn{2}{l}{8\,000\,\$ / 32\,500\,\$} \\
+Déposants (≥10 trades / ≥3 ans) & \multicolumn{2}{l}{320 (206 / 150)} \\
+Achats sans sortie & 22,5\,\% & 39,6\,\% \\
+\bottomrule
+\end{tabular}}\\[3pt]
+{\footnotesize \textbf{Total~: 90\,487 transactions}, 7 ans (2020--2026). Concentration~: Rohit Khanna
+$\approx$30\,862 transactions (top~3 Chambre $\approx$92,4\,\% de l'OCR).}
+
+\subsection{Annexe D — reproduire / lancer}
+\label{anx:run}
+{\footnotesize
+\begin{verbatim}
+# Installation
+python3.12 -m venv .venv && ./.venv/bin/pip install -e .
+
+# Pipeline complet (reseau + API Vision requis) ; --dry-run = voir la sequence
+./.venv/bin/python -m congress_core.pipeline --years 2020-2026
+./.venv/bin/python -m congress_core.pipeline --years 2024 --dry-run
+
+# Rapport de qualite (offline, lecture seule des FINAL)
+#   -> docs/RAPPORT_QUALITE.md + docs/quality/*.png
+./.venv/bin/python -m congress_core.quality
+
+# Filet "zero changement" (doit afficher ZERO ECART)
+./.venv/bin/python tests/regression/check_golden.py         # Chambre, 108
+./.venv/bin/python tests/regression/senate_check_golden.py  # Senat,    69
+./.venv/bin/python tests/regression/test_senate_repro.py    # reproductions
+\end{verbatim}}
+
+\vfill
+\begin{center}\footnotesize\itshape
+Document dérivé et vérifié sur le code source réel et les tables FINAL du dépôt. Toute divergence avec
+une autre documentation doit être tranchée en faveur du code et des données. Quiver = vérification
+externe, jamais réinjecté.
+\end{center}
+
+\end{document}
