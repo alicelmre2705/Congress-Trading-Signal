@@ -11,3 +11,7 @@ dist/
 # Caches API (volumineux, regenerables)
 **/samples/quiver_cache.json
 **/quiver/congress_trades_raw.json
+# Sénat (data/senate) — caches eFD régénérables : HTML des PTR + media .gif scannés (~230 MB,
+# re-téléchargeables depuis efd-media-public) + sortie intermédiaire du pilote OCR
+data/senate/reports/
+data/senate/_pilote_ocr.csv
