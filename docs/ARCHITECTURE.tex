@@ -1,0 +1,567 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{underscore} % « _ » imprimable dans le texte/\texttt sans échappement
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+% Caractères Unicode → commandes LaTeX (fontes T1 sans ces glyphes)
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{œ}{\oe}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
+
+% ----- Couleurs par couche -----
+\definecolor{coreC}{RGB}{37,99,159}     % congress_core (bleu)
+\definecolor{houseC}{RGB}{30,110,90}    % house (vert)
+\definecolor{senateC}{RGB}{120,60,150}  % senate (violet)
+\definecolor{dataC}{RGB}{176,110,14}    % data (ocre)
+\definecolor{testC}{RGB}{150,40,40}     % tests (rouge sombre)
+\definecolor{netC}{RGB}{190,55,55}      % étape réseau/API
+\definecolor{offC}{RGB}{40,120,60}      % étape offline
+
+\newcommand{\co}[1]{\texttt{\small #1}}
+\newcommand{\netflag}{\textcolor{netC}{\small$\bullet$ réseau/API}}
+\newcommand{\offflag}{\textcolor{offC}{\small$\bullet$ offline}}
+
+\titleformat{\section}{\Large\bfseries\color{coreC}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
+
+% ----- Styles TikZ -----
+\tikzset{
+  step/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+               text width=3.4cm, align=center, minimum height=0.95cm, font=\small},
+  file/.style={rectangle, draw=gray!55, fill=gray!7, text width=3.4cm, align=center,
+               font=\scriptsize\ttfamily, minimum height=0.55cm},
+  lyr/.style={rectangle, rounded corners=3pt, draw=#1, line width=1pt, fill=#1!8,
+              align=center, font=\small, minimum height=1.1cm},
+  ar/.style={-{Stentothick angle 60}, line width=0.9pt, draw=gray!65},
+  arr/.style={-{Latex[length=2.4mm]}, line width=0.9pt, draw=gray!65},
+}
+
+\newtcolorbox{keybox}[1]{colback=coreC!5,colframe=coreC!55,fonttitle=\bfseries,
+  title={#1},boxrule=0.6pt,left=3pt,right=3pt,top=2pt,bottom=2pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.25}
+
+% Tableau « fonction | ce qu'elle fait | ce qu'elle renvoie »
+\newenvironment{fntab}{%
+  \par\small
+  \begin{longtable}{>{\ttfamily\footnotesize}p{3.0cm} p{9.1cm} >{\itshape\footnotesize}p{3.4cm}}
+  \toprule
+  \normalfont\bfseries Fonction & \bfseries Ce qu'elle fait (corps réel) & \normalfont\bfseries Ce qu'elle renvoie\\
+  \midrule\endhead
+}{\bottomrule\end{longtable}\par}
+
+\begin{document}
+
+% ============================ TITRE ============================
+\begin{center}
+{\Huge\bfseries\color{coreC} Architecture du projet}\\[2pt]
+{\Huge\bfseries\color{coreC} Congress Trading}\\[10pt]
+{\large Guide complet de la structure — code \emph{et} données, et leur enchaînement}\\[6pt]
+{\small\itshape Document dérivé et vérifié sur le \textbf{code source réel} (corps des fonctions,
+arborescence \co{data/}, en-têtes CSV) — \emph{pas} sur les docs antérieures.}
+\end{center}
+
+\begin{keybox}{En une phrase}
+Le projet transforme des \textbf{déclarations boursières officielles} des membres du Congrès US
+(PDF lisibles du \emph{House Clerk} + scans + site \emph{eFD} du Sénat) en \textbf{une table propre, une
+ligne par transaction}, par chambre et par an (2020–2026) — \textbf{identifiée} (qui est le membre),
+\textbf{enrichie} (ticker, secteur, ancienneté), \textbf{dédupliquée}, et \textbf{validée} contre une
+source externe (Quiver). Tout se lance par \textbf{une seule commande}.
+\end{keybox}
+
+\vspace{2pt}
+\hrule
+\vspace{4pt}
+{\small\tableofcontents}
+\newpage
+
+% ============================ 1. VUE D'ENSEMBLE ============================
+\section{Vue d'ensemble — le flux de bout en bout}
+
+Il existe \textbf{un point d'entrée unique}, \co{congress_core/pipeline.py}, qui enchaîne 7 étapes
+(commande~: \co{python -m congress_core.pipeline -{}-years 2020-2026}). Les étapes 1–5 produisent les
+données (et exigent réseau/API)~; les étapes 6–7 sont locales et gratuites.
+
+\begin{center}
+\begin{tikzpicture}[node distance=6mm]
+\node[step=coreC, fill=coreC!15, text width=10cm] (orch)
+  {\textbf{python -m congress\_core.pipeline}\\[1pt]\footnotesize l'orchestrateur — \co{build_steps()} appelle les 5 modules en sous-processus puis les 2 enrichissements};
+
+% House column
+\node[step=houseC, below=10mm of orch, xshift=-3.6cm] (hd) {\textbf{1.} \co{house.digital}\\\footnotesize PTR électroniques \netflag};
+\node[file, below=4mm of hd] (hdf) {06\_house\_\{an\}\_transactions.csv};
+\node[step=houseC, below=4mm of hdf] (ho) {\textbf{2.} \co{house.ocr}\\\footnotesize scans → Vision + \emph{fusion} \netflag};
+\node[file, below=4mm of ho, fill=houseC!12] (hof) {06\_house\_\{an\}\_FINAL.csv};
+
+% Senate column
+\node[step=senateC, below=10mm of orch, xshift=3.6cm] (sd) {\textbf{3.} \co{senate.digital}\\\footnotesize eFD électroniques \netflag};
+\node[file, below=4mm of sd] (sdf) {06\_senate\_\{an\}\_transactions.csv};
+\node[step=senateC, below=4mm of sdf] (so) {\textbf{4.} \co{senate.ocr}\\\footnotesize PTR papier → Vision \netflag};
+\node[file, below=4mm of so] (sof) {06b\_senate\_\{an\}\_ocr.csv};
+\node[step=senateC, below=4mm of sof] (sf) {\textbf{5.} \co{senate.fusion}\\\footnotesize fusion + ticker + secteur};
+\node[file, below=4mm of sf, fill=senateC!12] (sff) {06\_senate\_\{an\}\_FINAL.csv};
+
+% merge
+\node[step=offC, below=8mm of $(hof)!0.5!(sff)$, text width=7cm] (et)
+  {\textbf{6.} \co{congress_core.enrich_tenure} \offflag\\\footnotesize ajoute \co{years_in_office} aux 14 tables FINAL};
+\node[step=offC, below=5mm of et, text width=7cm] (q)
+  {\textbf{7.} \co{congress_core.quality} \offflag\\\footnotesize 5 contrôles → \co{docs/RAPPORT_QUALITE.md} + figures};
+
+\draw[arr] (orch) -| (hd);
+\draw[arr] (orch) -| (sd);
+\draw[arr] (hd)--(hdf); \draw[arr] (hdf)--(ho); \draw[arr] (ho)--(hof);
+\draw[arr] (sd)--(sdf); \draw[arr] (sdf)--(so); \draw[arr] (so)--(sof); \draw[arr] (sof)--(sf); \draw[arr] (sf)--(sff);
+\draw[arr] (hof) |- (et); \draw[arr] (sff) |- (et);
+\draw[arr] (et)--(q);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Deux niveaux d'enchaînement} qu'il faut distinguer pour ne pas se perdre~:
+\begin{itemize}[leftmargin=1.4em,itemsep=1pt]
+\item \textbf{Niveau orchestration} (ci-dessus) — les 7 grandes étapes entre modules.
+\item \textbf{Niveau micro-séquence} — \emph{à l'intérieur} de chaque étape, une suite ordonnée d'appels
+(ex.~\co{run_year}~: parse → identité → ticker → dédup → Quiver). Détaillé en \S4.
+\end{itemize}
+
+% ============================ 2. LES 3 COUCHES ============================
+\section{La grande idée : 3 couches de code + 1 couche de données}
+
+La structure n'est pas « plein de fichiers étalés » : c'est une \textbf{boîte à outils partagée} que
+\textbf{deux chefs d'orchestre} (une par chambre) utilisent, plus la donnée et les tests.
+
+\begin{center}
+\begin{tikzpicture}
+\node[lyr=houseC, text width=5.2cm] (h) at (-3.1,1.4) {\textbf{\color{houseC}house/} \;(4 fichiers)\\[1pt]\footnotesize chef d'orchestre Chambre\\\footnotesize \co{digital} · \co{ocr} · \co{echantillon}};
+\node[lyr=senateC, text width=5.2cm] (s) at (3.1,1.4) {\textbf{\color{senateC}senate/} \;(11 fichiers)\\[1pt]\footnotesize chef d'orchestre Sénat\\\footnotesize \co{digital} · \co{ocr} · \co{fusion} · \dots};
+\node[lyr=coreC, text width=11cm] (c) at (0,-0.2) {\textbf{\color{coreC}congress\_core/} \;(15 fichiers) — la boîte à outils PARTAGÉE\\[1pt]\footnotesize schema · identity · amounts · tickers · vision\_ocr · llm\_resolve · quiver · crosscheck · sector\_enrich · reporting · paths · \textbf{pipeline} · quality · enrich\_tenure};
+\node[lyr=dataC, text width=7.6cm] (d) at (-1.9,-2) {\textbf{\color{dataC}data/} — entrées \& sorties\\\footnotesize PDF, scans, caches, référentiels, tables CSV};
+\node[lyr=testC, text width=3cm] (t) at (3.7,-2) {\textbf{\color{testC}tests/}\\\footnotesize filet « zéro changement »};
+\draw[arr] (h) -- (c); \draw[arr] (s) -- (c);
+\draw[arr] (c) -- (d); \draw[arr] (c.south) -- (t.north);
+\end{tikzpicture}
+\end{center}
+
+\begin{keybox}{L'analogie qui débloque tout}
+\co{congress_core} = les \textbf{ingrédients et ustensiles} (couper un nom en bioguide, lire un scan,
+calculer un secteur\dots). \co{house/} et \co{senate/} = \textbf{deux recettes} qui s'en servent dans
+leur ordre. Elles diffèrent \emph{uniquement} parce que les \textbf{sources} diffèrent~: House = index
+XML + PDF du \emph{Clerk}~; Sénat = site \emph{eFD} (HTML) + images \co{.gif}. C'est pourquoi
+\co{senate/} a plus de fichiers (scraping et OCR papier plus complexes).
+\end{keybox}
+
+% ============================ 3. CONGRESS_CORE ============================
+\section{Le cœur partagé \texttt{congress\_core/} — outil par outil}
+
+Pour chaque module~: son rôle (déduit du \emph{code}), puis ses fonctions clés avec \textbf{ce qu'elles
+font} et \textbf{ce qu'elles renvoient}.
+
+\subsection{\texttt{schema.py} — la clé d'identité d'une transaction + la dédup}
+Définit les ordres de colonnes canoniques et la \textbf{clé naturelle} (7 champs, \emph{sans} le ticker
+→ robuste à l'enrichissement). C'est le socle de la déduplication non destructrice.
+\begin{fntab}
+natural_key & Concatène 7 champs (chamber, declarant\_name, transaction\_date, asset\_description, operation\_type, amount\_range, owner) en une chaîne stable séparée par \co{|}. & \co{str} (clé textuelle) \\
+natural_key_hash & SHA-256 de cette chaîne. Source unique House/Sénat. & \co{str} (64 hex) \\
+add_occurrence_index & Numérote les lots identiques au sein d'un même dépôt : \co{cumcount} par (doc\_id, natural\_key\_hash). & DataFrame + col \co{occurrence_index} \\
+dedup_canonical & Trie par date de divulgation décroissante, garde la 1\textsuperscript{re} par (hash, occurrence\_index) → retire les doublons cross-dépôt, préserve les lots intra-dépôt. & DataFrame dédupliqué \\
+\end{fntab}
+
+\subsection{\texttt{identity.py}\;$\bigstar$ — nom écrit sur le PDF → \emph{quel membre} (bioguide)}
+Priorité \#1 du projet. Normalise les noms, charge le référentiel \emph{congress-legislators} (live, repli
+YAML), résout le \co{bioguide_id}, et enrichit parti / commissions / ancienneté.
+\begin{fntab}
+norm / strip_accents & Minuscule, sans accent, sans ponctuation — pour comparer des noms. & \co{str} normalisé \\
+split_name & « First Middle Last, Jr » → (last, first, [middles]) ; retire les suffixes. & tuple \\
+load_reference & Charge législateurs + commissions, construit les index nom→bioguide, calcule l'\textbf{année de 1\textsuperscript{re} entrée} par bioguide. & objet \co{Reference} \\
+make_matcher & Renvoie \co{match(last,first)} : cascade override → exact → surnom → par-nom-unique. & fonction → bioguide|None \\
+enrich_identity & Applique le matcher, ajoute \co{bioguide_id, chamber, party, committee_membership, committees_key_flag}. & DataFrame + 5 colonnes \\
+add_years_in_office & \co{année(transaction) − année(1\textsuperscript{re} entrée)} par bioguide. & DataFrame + \co{years_in_office} \\
+\end{fntab}
+\textit{Écart code/doc noté par l'audit~: le paramètre \co{chamber_priority} de \co{make_matcher} est
+documenté mais \textbf{jamais utilisé} dans le corps (réservé). Le code prime.}
+
+\subsection{\texttt{amounts.py} — fourchette de montant → milieu, et code → type d'opération}
+\begin{fntab}
+amount_midpoint & Extrait les montants \$ par regex : 2+ → (min+max)/2 ; 1 → la valeur ; 0 → None. & \co{float}|None \\
+operation_type_from_code & P→Purchase, E→Exchange, S+partial→Sale (Partial), S+full→Sale (Full), défaut S→Sale. & \co{str} \\
+\end{fntab}
+
+\subsection{\texttt{tickers.py} — symbole boursier + type d'actif}
+\begin{fntab}
+recover_ticker & Si l'intitulé \emph{est} un ticker (regex 1–5 majuscules, +PUT/CALL). & \co{str}|None \\
+explicit_ticker & Cherche un ticker explicite en fin d'intitulé («\,… - AAPL\,» / «\,… (AAPL)\,»). & \co{str}|None \\
+norm_asset & Normalise l'intitulé pour la recherche par dictionnaire (retire CORP/INC/LLC/ETF…). & \co{str} \\
+infer_asset_type & Route selon la chambre : House (Gov Security, Mutual Fund, Corporate Bond, Stock…) vs Sénat (Municipal Security…). & \co{str}|None \\
+\end{fntab}
+
+\subsection{\texttt{vision_ocr.py} — lire les scans avec Claude Vision (+ cache)}
+Convertit PDF/images en PNG, \textbf{redresse} les pages couchées, extrait via \co{tool_use} forcé, et
+\textbf{cache} par (\co{model}, \co{prompt_sha}) — un re-run ne re-paie rien.
+\begin{fntab}
+pdf_to_b64_images & Rend chaque page en PNG ; si \co{deskew}, détecte+corrige la rotation. & liste de PNG b64 \\
+detect_rotation & Montre la page aux 4 rotations, fait \emph{choisir} la droite par Vision (robuste). & 0/90/180/270 \\
+prompt_sha & \co{sha256(prompt + tool + pipeline_tag)[:12]} — la version du cache. & \co{str} (12 hex) \\
+extract_cached & Si cache valide (même \co{prompt_sha}+\co{model}) → renvoie sans appel API ; sinon découpe en lots, \textbf{ne re-paie que les lots en erreur}. & (transactions, objet-cache) \\
+\end{fntab}
+
+\subsection{\texttt{llm_resolve.py} — cache LLM (nom→ticker)}
+\begin{fntab}
+VersionedLLMCache & \co{.load}/\co{.save} : lit/écrit un cache JSON \{model, prompt\_sha, mappings\} ; ignore si la version ne correspond pas. & dict de mappings \\
+map_batch & Appel Claude \co{tool_use} forcé + backoff sur erreurs réseau. & dict (input du tool) \\
+resolve_names_to_tickers & Cible les lignes \co{ticker_source='none'}, complète par LLM les noms absents du cache. & DataFrame (ticker mis à jour) \\
+\end{fntab}
+
+\subsection{\texttt{quiver.py} — validation externe (jamais réinjectée)}
+Quiver Quantitative sert de \textbf{vérité-terrain indépendante}. Clé House « brute » vs clé Sénat
+« normalisée » (différence assumée).
+\begin{fntab}
+fetch_quiver & Lit le cache local s'il existe, sinon l'API (token requis) ; filtre par chambre. & DataFrame|None \\
+validate_quiver_house & Comptes par déposant (nous vs Quiver) + verdicts + recouvrement transaction-niveau (clé \co{bioguide|ticker|date|type}). & (comparaisons, vrais-absents, stats) \\
+reconcile & Version Sénat normalisée → tables 07c–07f (recouvrement, accord de champs, deltas). & dict de DataFrames \\
+\end{fntab}
+
+\subsection{\texttt{crosscheck.py} — statut de validation par déposant}
+Matérialise le constat~: Quiver/Kadoa/HSW sont \textbf{aveugles au papier} → notre OCR est la source unique.
+\begin{fntab}
+per_filer_status & Par bioguide : total, part OCR, nb docs, comptes Quiver → statut \co{quiver_validable} / \co{ocr_unique} / \co{digital}. & DataFrame par déposant \\
+add_external_counts & Ajoute les comptes Kadoa / House Stock Watcher par nom (prouve l'isolement des OCR-uniques). & DataFrame + colonnes \\
+summary & Agrège par statut (déposants, transactions, dont OCR). & DataFrame récap \\
+\end{fntab}
+
+\subsection{\texttt{sector_enrich.py} — ticker → secteur GICS → ETF SPDR}
+Résolution hybride : \textbf{yfinance} (factuel) → repli \textbf{LLM} → \textbf{overrides} manuels, avec
+cache d'audit (qui a tranché : yf vs llm).
+\begin{fntab}
+resolve_yfinance & Secteur via \co{yfinance.Ticker(t).info['sector']}, mappé en GICS, plusieurs passes. & \{ticker: secteur|None\} \\
+resolve_llm & Repli LLM \co{tool_use} (enum GICS strict) si yfinance échoue ; dégrade si pas de clé API. & \{ticker: secteur|None\} \\
+resolve_sectors & Orchestration : cache → yfinance → LLM → audit. & \{ticker: \{yf, llm, sector, source\}\} \\
+enrich_sectors & Ajoute \co{sector_gics}, \co{etf_proxy} (table GICS→ETF), \co{sector_source} + overrides. & DataFrame + 3 colonnes \\
+\end{fntab}
+
+\subsection{\texttt{reporting.py} · \texttt{paths.py} — conventions \& accès}
+\begin{fntab}
+reporting.qa_flags & Signale les lignes où un champ obligatoire est vide. & DataFrame des manques \\
+reporting.upsert_status & Met à jour un tableau de bord CSV (remplace les lignes d'une clé). & DataFrame fusionné \\
+paths.DataRoot & Encapsule \co{data/\{chambre\}/} : \co{.tables}, \co{.pdfs}, \co{.reference}, \co{.ocr_cache}, \co{.reports}… & objets \co{Path} \\
+paths.get_secret / load_env & Récupère \co{ANTHROPIC_API_KEY} (env puis \co{.env}). & \co{str}|None \\
+\end{fntab}
+
+\subsection{Les 3 ajouts récents (couche « run » \& livrables)}
+\begin{fntab}
+pipeline.build_steps & Construit la séquence des 7 étapes (selon \co{-{}-skip-ocr}, \co{-{}-force}…). & liste (label, args) \\
+pipeline.main & Lance chaque étape en sous-processus ; \co{-{}-dry-run} imprime sans exécuter. & — \\
+quality.* (14 fn) & Charge les FINAL, calcule les 5 contrôles (cohérence dates, délai 45 j, distribution montants, coverage/membre, achats sans sortie) → \co{RAPPORT_QUALITE.md} + figures. & rapport + PNG \\
+enrich_tenure.enrich_file & Append \emph{byte-préservant} de \co{years_in_office} (idempotent). & bool (modifié ?) \\
+\end{fntab}
+
+% ============================ 4. LES DEUX PIPELINES ============================
+\section{Les deux pipelines, étape par étape}
+
+\subsection{House — \texttt{digital.run\_year()} puis \texttt{ocr.run\_ocr\_year()}}
+Séquence \textbf{réelle} (lue dans le corps de \co{run_year}, \co{house/digital.py})~:
+
+\begin{center}
+\begin{tikzpicture}[node distance=3mm and 8mm]
+\node[step=houseC] (a) {\co{load_ptr_index}\\\footnotesize index XML → PTR (FilingType=P)};
+\node[file, right=of a] (af) {03\_ptr\_index.csv};
+\node[step=houseC, below=6mm of a] (b) {\co{build_manifest}\\\footnotesize télécharge, classe les PDF};
+\node[file, right=of b] (bf) {04\_download\_manifest.csv\\\scriptsize lisible / non\_lisible / absent};
+\node[step=houseC, below=6mm of b] (c) {\co{parse_docs}\\\footnotesize extrait le texte des PDF lisibles};
+\node[file, right=of c] (cf) {05\_parse\_failures.csv};
+\node[step=houseC, below=6mm of c] (d) {\co{join_identity} → \co{finalize}\\\footnotesize bioguide + dédup non destructrice};
+\node[file, right=of d, fill=houseC!12] (df) {06\_house\_\{an\}\_transactions.csv};
+\node[step=houseC, below=6mm of d] (e) {\co{crosscheck_semaine1} · \co{validate_quiver}\\\footnotesize couverture vs baseline \& Quiver};
+\node[file, right=of e] (ef) {08\_crosscheck · 07\_quiver\_comparison};
+\foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x)--(\y);
+\draw[arr] (a)--(af);\draw[arr](b)--(bf);\draw[arr](c)--(cf);\draw[arr](d)--(df);\draw[arr](e)--(ef);
+\end{tikzpicture}
+\end{center}
+
+Puis \co{house.ocr.run_ocr_year()} reprend le \co{04_download_manifest} (bucket \co{non_lisible}) →
+\textbf{Vision} (\co{extract_cached}, cache versionné) → ticker (dict + LLM) → identité →
+\co{occurrence_index} → dédup → \textbf{fusion digital+OCR} → secteur GICS → écrit
+\co{06_house_\{an\}_FINAL.csv}. \emph{Côté House, la fusion finale vit dans \co{ocr.py}.}
+
+\subsection{Sénat — \texttt{digital.run\_year()} → \texttt{ocr} → \texttt{fusion.main()}}
+\begin{center}
+\begin{tikzpicture}[node distance=3mm and 8mm]
+\node[step=senateC] (a) {\co{accept_agreement} → \co{fetch_ptr_list}\\\footnotesize eFD : agrément CSRF puis liste PTR};
+\node[step=senateC, below=6mm of a] (b) {\co{fetch_report} → \co{parse_electronic}\\\footnotesize HTML caché → \co{pd.read_html}};
+\node[step=senateC, below=6mm of b] (c) {\co{identity.enrich}\\\footnotesize bioguide + ticker + dédup + schéma};
+\node[file, right=8mm of c, fill=senateC!10] (cf) {06\_senate\_\{an\}\_transactions.csv};
+\node[step=senateC, below=6mm of c] (d) {\co{ocr} (mode full)\\\footnotesize papier .gif → Vision → \co{06b}};
+\node[step=senateC, below=6mm of d] (e) {\co{fusion.main}\\\footnotesize fusion + ticker(dict+LLM) + secteur + date};
+\node[file, right=8mm of e, fill=senateC!12] (ef) {06\_senate\_\{an\}\_FINAL.csv\\\scriptsize + 00\_final\_status.csv};
+\foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x)--(\y);
+\draw[arr](c)--(cf);\draw[arr](e)--(ef);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Ce qui est COMMUN vs SPÉCIFIQUE (et pourquoi)}
+\begin{center}\small
+\begin{tabular}{>{\bfseries}p{2.7cm} p{6.3cm} p{6.3cm}}
+\toprule
+ & \bfseries\color{houseC}House & \bfseries\color{senateC}Sénat \\
+\midrule
+Source & index XML + PDF (\emph{Clerk}) & site eFD : HTML + images \co{.gif} \\
+Acquisition & téléchargement PDF & scraping + \textbf{agrément CSRF} (\co{accept_agreement}) \\
+Parsing digital & \co{pdfplumber} + regex & \co{pd.read_html} (tableaux HTML) \\
+Fusion finale & \emph{dans} \co{ocr.py} & module dédié \co{fusion.py} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{keybox}{Identique pour les deux chambres (fourni par \texttt{congress\_core})}
+identité bioguide · clé \co{natural_key_hash} + \co{occurrence_index} · montants/midpoint · OCR Vision
+(cache \co{prompt_sha}) · ticker (dict+LLM) · secteur GICS→ETF · validation Quiver · schéma FINAL 28 colonnes.
+\end{keybox}
+
+% ============================ 5. VOYAGE D'UNE TRANSACTION ============================
+\section{Le voyage d'une transaction}
+
+Comment une ligne brute devient une ligne de la table FINAL — en nommant la fonction à chaque étape.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm]
+\node[file, text width=11cm, align=left, fill=gray!10] (r0)
+  {ligne PDF/scan : « \,NVIDIA Corp \;|\; P \;|\; 12/24/2024 \;|\; \$1,001 - \$15,000 \,»};
+\node[step=coreC, below=of r0, text width=11cm, align=left] (r1)
+  {\co{parse} / OCR \co{normalize} → declarant=\,Greene, desc=\,«\,NVIDIA Corp\,», op=\,Purchase, range};
+\node[step=coreC, below=of r1, text width=11cm, align=left] (r2)
+  {\co{identity.make_matcher} → \co{bioguide_id=G000596}, \co{party=Republican}, \co{committee_membership}};
+\node[step=coreC, below=of r2, text width=11cm, align=left] (r3)
+  {\co{tickers}/\co{llm_resolve} → \co{ticker=NVDA}, \co{ticker_source=elec_dict}};
+\node[step=coreC, below=of r3, text width=11cm, align=left] (r4)
+  {\co{sector_enrich.enrich_sectors} → \co{sector_gics=Information Technology}, \co{etf_proxy=XLK}};
+\node[step=coreC, below=of r4, text width=11cm, align=left] (r5)
+  {\co{schema} → \co{natural_key_hash=415c…}, \co{occurrence_index=0}, \co{amount_midpoint=8000.5}};
+\node[step=offC, below=of r5, text width=11cm, align=left] (r6)
+  {\co{enrich_tenure.add_years_in_office} → \co{years_in_office=3}};
+\node[file, below=of r6, text width=11cm, align=left, fill=houseC!12] (r7)
+  {\textbf{ligne de} \co{06_house_2024_FINAL.csv} \;(28 colonnes, prête pour l'analyse)};
+\foreach \x/\y in {r0/r1,r1/r2,r2/r3,r3/r4,r4/r5,r5/r6,r6/r7} \draw[arr] (\x)--(\y);
+\end{tikzpicture}
+\end{center}
+
+% ============================ 6. COUCHE DONNÉES ============================
+\section{La couche données — \texttt{data/} (\textasciitilde 3\,700 fichiers)}
+
+Rangée par chambre, puis par an. \textbf{Tout ce qui n'est pas une sortie est une entrée ou un cache.}
+
+\subsection{Carte des dossiers (comptes réels)}
+{\small
+\begin{longtable}{>{\ttfamily\footnotesize}p{3.6cm} p{2.5cm} p{9.4cm}}
+\toprule
+\normalfont\bfseries Dossier & \bfseries Contenu & \bfseries Rôle (qui écrit / qui lit) \\
+\midrule\endhead
+house/pdfs/\{an\} & 547 PDF & sources scannées brutes ; lues par \co{house.ocr} \\
+house/index/ & 7 XML & index annuel du \emph{Clerk} ; lu par \co{load_ptr_index} \\
+house/ocr_cache/\{an\} & 546 JSON & cache Vision (1 par doc, clé \co{prompt_sha}) ; écrit/lu par \co{vision_ocr} \\
+house/reference/ & 4 YAML + 1 CSV & annuaire élus + commissions + baseline ; lu par \co{identity} \\
+house/tables/\{an\} & 14 CSV/an & \textbf{toutes les sorties} (voir convention ci-dessous) \\
+house/tables/ & 8 CSV & caches \& tableaux de bord (\co{_quiver_house_cache}, \co{00_*}, census) \\
+senate/\{an\} & 9 CSV/an & sorties Sénat (06, 06b, 06\_FINAL, 07*, 05) \\
+senate/ocr_cache/ & 130 JSON & cache Vision papier Sénat \\
+senate/reports/ & 935 HTML & pages eFD cachées ; \co{reports/media/} = 352 \co{.gif} (scans) \\
+senate/reference/ & 4 YAML + 1 CSV & référentiel Sénat (miroir House) \\
+external/senate\_openset/ & 62 JSON & données externes (ex.~\co{kadoa_filers.json}) pour le cross-check \\
+\bottomrule
+\end{longtable}}
+
+\subsection{La convention de numérotation \emph{est} l'enchaînement}
+Sur le disque, le préfixe d'un fichier = son étape dans le pipeline.
+\begin{center}\small
+\begin{tabular}{>{\ttfamily}p{2.6cm} p{9.7cm} >{\ttfamily\footnotesize}p{3.3cm}}
+\toprule
+\normalfont\bfseries Préfixe & \bfseries Étape & \normalfont\bfseries Écrit par \\
+\midrule
+03\_ & index des PTR (FilingType=P) dans la fenêtre & house.digital \\
+04\_ & manifeste : lisible / non\_lisible / absent & house.digital \\
+05\_ & échecs de parsing & house \& senate digital \\
+06\_ & table \textbf{digitale} (PTR électroniques) & *.digital \\
+06b\_ & table \textbf{OCR} (scans/papier) & *.ocr \\
+06c\_ & échecs OCR & *.ocr \\
+06\_…\_FINAL & \textbf{digital + OCR fusionnés}, 28 colonnes & house.ocr / senate.fusion \\
+07\_…07f\_ & comparaison/réconciliation \textbf{Quiver} (validation) & quiver / quiver\_audit \\
+08\_ & cross-check « semaine 1 » (House) & house.digital \\
+00\_ & tableaux de bord (statut, concordance) & .digital / fusion \\
+\_préfixe & caches \& brouillons (\co{_quiver_*_cache}, \co{_scan_census}…) & divers \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Le schéma FINAL (28 colonnes) — colonne, sens, origine}
+{\footnotesize
+\begin{longtable}{r >{\ttfamily}p{3.3cm} p{8.4cm} >{\ttfamily\scriptsize}p{3.2cm}}
+\toprule
+\# & \normalfont\bfseries Colonne & \bfseries Sens & \normalfont\bfseries Remplie par \\
+\midrule\endhead
+1 & bioguide_id & identifiant officiel du membre & identity \\
+2 & declarant_name & nom tel que déposé & parse / OCR \\
+3 & chamber & \co{house} / \co{senate} & enrich_identity \\
+4 & party & parti & Reference.party \\
+5 & state_district & état + district & 03\_ptr\_index \\
+6 & committee_membership & commissions (liste) & Reference.committees \\
+7 & committees_key_flag & commission « clé » ? & is_key_committee \\
+8 & transaction_date & date de la transaction & parse / OCR \\
+9 & disclosure_date & date de divulgation (dépôt) & 03\_ptr\_index \\
+10 & ticker & symbole boursier & tickers / llm_resolve \\
+11 & asset_description & libellé de l'actif & parse / OCR \\
+12 & asset_type & type d'actif & infer_asset_type \\
+13 & sector_gics & secteur GICS & sector_enrich \\
+14 & etf_proxy & ETF SPDR du secteur & GICS\_TO\_ETF \\
+15 & operation_type & Purchase / Sale / … & operation_type_from_code \\
+16 & amount_range & fourchette déclarée & parse / OCR \\
+17 & amount_midpoint & milieu de la fourchette & amount_midpoint \\
+18 & amount_split_flag & lot multi-actifs ? & finalize \\
+19 & owner & propriétaire (self/spouse…) & normalize \\
+20 & doc_id & identifiant du PTR & 03\_ptr\_index \\
+21 & source_url & URL de la source & 03\_ptr\_index \\
+22 & natural_key_hash & clé de dédup (7 champs) & schema \\
+23 & occurrence_index & rang du lot intra-dépôt & add_occurrence_index \\
+24 & provenance & \co{*-pdf/efd-electronic} / \co{-ocr} & pipeline \\
+25 & date_confidence & plausible / implausible (75 j) & fusion.date_confidence \\
+26 & ticker_source & explicit / elec\_dict / llm / none & tickers / llm \\
+27 & sector_source & yfinance / llm / manual & sector_enrich \\
+28 & years_in_office & ancienneté à la date du trade & enrich_tenure \\
+\bottomrule
+\end{longtable}}
+\textit{Les 12 premiers champs «\,métier\,» sont garantis présents ; \co{ticker}/\co{sector_gics} restent
+parfois vides \textbf{par nature} (actifs non cotés : obligations, munis).}
+
+% ============================ 7. CONCEPTS TRANSVERSES ============================
+\section{Concepts transverses (ce qui revient partout)}
+
+\begin{description}[leftmargin=0pt,itemsep=3pt]
+\item[\co{natural_key_hash} + \co{occurrence_index} — la dédup non destructrice.] La clé (7 champs, sans
+ticker) identifie une transaction~; l'\co{occurrence_index} numérote les \textbf{lots réels identiques}
+d'un même dépôt (ex.~Khanna déclarant 3 fois le même titre via 3 comptes). On déduplique sur le
+\emph{couple}, ce qui retire les doublons cross-dépôt sans écraser les lots légitimes.
+\item[\co{provenance} — d'où vient la ligne.] \co{house-pdf-electronic} / \co{house-pdf-ocr} /
+\co{senate-efd-electronic} / \co{senate-efd-ocr}. C'est ce qui distingue digital et OCR dans la table FINAL.
+\item[\co{date_confidence} — garde-fou de date.] \co{plausible} si le délai dépôt$-$transaction $\in[0,75]$
+jours, sinon \co{implausible} (surtout des dates manuscrites OCR ambiguës).
+\item[\co{ticker_source} / \co{sector_source} — traçabilité.] Chaque enrichissement dit \emph{comment} il a
+été obtenu (\co{explicit}/\co{elec_dict}/\co{llm}/\co{none} ; \co{yfinance}/\co{llm}/\co{manual}) → auditable.
+\item[Cache versionné (\co{prompt_sha}).] Tous les appels coûteux (Vision, LLM) sont cachés par
+(\co{model}, \co{prompt_sha}). Tant que le prompt ne change pas, un re-run ne re-paie rien — c'est ce qui
+rend le pipeline \textbf{incrémental}.
+\end{description}
+
+% ============================ 8. LANCER & LIRE ============================
+\section{Lancer \& lire le code}
+
+\begin{keybox}{La commande unique}
+\co{python -m congress_core.pipeline -{}-years 2020-2026}\\
+\co{-{}-dry-run} (voir la séquence sans rien exécuter) · \co{-{}-skip-ocr} (digital seul) · \co{-{}-force}
+(ignorer le cache Vision).
+\end{keybox}
+
+\textbf{Vérifier que rien n'a bougé} (filet « zéro changement ») :
+\co{python tests/regression/check_golden.py} (House) et \co{senate_check_golden.py} (Sénat) doivent
+afficher « ZÉRO ÉCART ».
+
+\textbf{Index « étape → où lire »} :
+\begin{center}\small
+\begin{tabular}{l >{\ttfamily\footnotesize}p{12.3cm}}
+\toprule
+\bfseries Étape & \normalfont\bfseries Fichier : fonction \\
+\midrule
+Orchestration & congress_core/pipeline.py : build_steps / main \\
+House digital & house/digital.py : run_year \\
+House OCR + FINAL & house/ocr.py : run_ocr_year \\
+Sénat digital & senate/digital.py : run_year \\
+Sénat OCR & senate/ocr.py : build_table \;|\; senate/ocr_engine.py : extract_report \\
+Sénat FINAL & senate/fusion.py : main \\
+Identité & congress_core/identity.py : make_matcher / enrich_identity \\
+Ticker & congress_core/tickers.py \;+\; senate/ticker_resolve.py \\
+Secteur & congress_core/sector_enrich.py : enrich_sectors \\
+Validation & congress_core/quiver.py \;+\; senate/quiver_audit.py \\
+Ancienneté & congress_core/enrich_tenure.py \\
+Rapport qualité & congress_core/quality.py \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================ ANNEXE ============================
+\section*{Annexe — les 44 fichiers \texttt{.py} en un coup d'œil}
+\addcontentsline{toc}{section}{Annexe — les 44 fichiers .py}
+{\footnotesize
+\begin{longtable}{>{\ttfamily\footnotesize}p{3.2cm} p{12.5cm}}
+\toprule
+\normalfont\bfseries Fichier & \bfseries Rôle \\
+\midrule\endhead
+\multicolumn{2}{l}{\bfseries\color{coreC} congress\_core/ (15)}\\
+schema.py & clé naturelle + dédup \\
+identity.py & nom → bioguide + parti/commissions/ancienneté \\
+amounts.py & fourchette → milieu, code → opération \\
+tickers.py & symbole + type d'actif \\
+vision_ocr.py & OCR Claude Vision + cache + deskew \\
+llm_resolve.py & cache LLM versionné (nom→ticker) \\
+quiver.py & validation externe (House brute / Sénat normalisée) \\
+crosscheck.py & statut par déposant (OCR-unique vs Quiver) \\
+sector_enrich.py & ticker → GICS → ETF (yfinance+LLM) \\
+reporting.py & conventions de sortie, QA, Excel \\
+paths.py & chemins (\co{DataRoot}) + secrets \\
+pipeline.py & \textbf{l'orchestrateur} (7 étapes) \\
+quality.py & rapport de qualité (5 contrôles) \\
+enrich_tenure.py & \co{years_in_office} (append byte-préservant) \\
+\_\_init\_\_.py & version/exports du package \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{houseC} house/ (4)}\\
+digital.py & PTR électroniques → 06\_…\_transactions \\
+ocr.py & scans → Vision → fusion → 06\_…\_FINAL \\
+echantillon.py & mesure stratifiée OCR (audit) \\
+\_\_init\_\_.py & exports \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{senateC} senate/ (11)}\\
+digital.py & eFD électronique → 06\_…\_transactions \\
+ocr.py & papier eFD → Vision → 06b \\
+ocr_engine.py & moteur OCR figé (Q1) réutilisé \\
+fusion.py & fusion digital+OCR + enrichissement → FINAL \\
+identity.py & référentiel + matcher Sénat \\
+ticker_resolve.py & ticker en 3 étapes (explicit/dict/LLM) \\
+sector_enrich.py & secteur GICS→ETF (Sénat) \\
+quiver_audit.py & réconciliation Quiver (07c–07f) \\
+revalidate_quiver.py & re-validation Quiver offline \\
+census_probe.py & Phase 0 : census + sondage parser \\
+\_\_init\_\_.py & exports \\
+\midrule
+\multicolumn{2}{l}{\bfseries\color{testC} tests/regression/ (14)}\\
+\multicolumn{2}{p{15.4cm}}{\footnotesize golden (\co{build_golden}/\co{check_golden} + Sénat) · reproductions (\co{test_schema}, \co{test_identity}, \co{test_amounts_tickers}, \co{test_senate_repro}, \co{test_vision_sha}, \co{test_tenure}, \co{test_incremental}, \co{test_crosscheck}) · \co{audit_metrics} · \co{smoke_digital} (obsolète) · \co{_apply_house_sector}} \\
+\bottomrule
+\end{longtable}}
+
+\vfill
+\begin{center}\small\itshape
+Document généré à partir du code source réel du dépôt — toute divergence avec une autre documentation
+doit être tranchée en faveur du code.
+\end{center}
+
+\end{document}

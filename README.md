@@ -7,15 +7,30 @@ Sources officielles : *House Clerk* (PTR PDF) et Sénat *eFD*, **électroniques*
 **+ scannées** (OCR Claude Vision). Quiver Quantitative sert de **vérification externe uniquement**,
 jamais réinjecté dans les tables.
 
+## 🧭 Comprendre tout le projet & le lancer
+
+Nouveau ici ? Lis **[`docs/ARCHITECTURE.pdf`](docs/ARCHITECTURE.pdf)** — le guide visuel complet
+(les 3 couches de code, chaque module/fonction et **ce qu'elle renvoie**, le *voyage d'une transaction*,
+la couche données, et l'enchaînement de bout en bout). Dérivé du **code source réel**.
+
+Tout le pipeline se lance par **un seul point d'entrée** :
+
+```bash
+python -m congress_core.pipeline --years 2020-2026   # 7 étapes : House/Sénat digital→OCR→fusion→enrichissement
+python -m congress_core.pipeline --years 2024 --dry-run   # voir la séquence sans rien exécuter
+```
+
 ## Structure
 
 ```
 congress_core/   cœur partagé : schema · identity · amounts · tickers · quiver · crosscheck ·
-                 vision_ocr · llm_resolve · sector_enrich · reporting · paths
+                 vision_ocr · llm_resolve · sector_enrich · reporting · paths ·
+                 pipeline (orchestrateur) · quality (rapport) · enrich_tenure (ancienneté)
 house/           pipeline Chambre  (digital → ocr → fusion)
 senate/          pipeline Sénat    (miroir de house/)
 data/            données  (house/ · senate/ · external/)
-docs/            rapport complet 2 chambres (RAPPORT_COMPLET.pdf) + architecture (REFONTE_*) + synthèse Sénat
+docs/            ARCHITECTURE.pdf (guide structure) · RAPPORT_COMPLET.pdf · RAPPORT_QUALITE.md
+                 docs/_archive/ : notes historiques (refonte, synthèse Sénat, roadmap, prompts)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
 ```
