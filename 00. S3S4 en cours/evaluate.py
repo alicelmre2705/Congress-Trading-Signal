@@ -68,3 +68,37 @@ def oos_split(daily: pd.Series, split="2021-01-01") -> dict:
     def shp(x):
         return float(x.mean() / (x.std() + 1e-12) * np.sqrt(252)) if len(x) > 20 else float("nan")
     return {"split": split, "sharpe_IS": round(shp(a), 2), "sharpe_OOS": round(shp(b), 2)}
+
+
+# ───────────── Helpers génériques réutilisés par les notebooks d'analyse ─────────────
+def nw_tstat(x, lag):
+    """t-stat de la moyenne avec erreur-type Newey-West (corrige l'autocorrélation des fenêtres
+    chevauchantes). `lag` = horizon en périodes. C'est cette correction qui dégonfle les t naïfs."""
+    x = np.asarray(x, float)
+    x = x[~np.isnan(x)]
+    n = len(x)
+    if n < 5:
+        return float("nan")
+    d = x - x.mean()
+    s = (d @ d) / n
+    for k in range(1, min(lag, n - 1) + 1):
+        s += 2 * (1 - k / (lag + 1)) * (d[k:] @ d[:-k]) / n
+    se = np.sqrt(s / n)
+    return x.mean() / se if se > 0 else float("nan")
+
+
+def car_event(px: pd.Series, spy: pd.Series, entry, horizon_days: int):
+    """Rendement ANORMAL cumulé (buy-and-hold) d'un titre vs SPY sur `horizon_days` jours de bourse,
+    entrée = 1er jour de bourse ≥ `entry`. None si données insuffisantes. Sert aux event-studies."""
+    px, spy = px.dropna(), spy.dropna()
+    i = px.index.searchsorted(pd.Timestamp(entry))
+    j = i + horizon_days
+    if i >= len(px) or j >= len(px):
+        return None
+    si = spy.index.searchsorted(px.index[i])
+    sj = spy.index.searchsorted(px.index[j])
+    if si >= len(spy) or sj >= len(spy) or px.iloc[i] <= 0:
+        return None
+    r_stock = px.iloc[j] / px.iloc[i] - 1.0
+    r_spy = spy.iloc[sj] / spy.iloc[si] - 1.0
+    return r_stock - r_spy

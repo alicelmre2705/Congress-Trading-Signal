@@ -1,32 +1,29 @@
-# 00. S3S4 en cours — Book de recherche stratégie (Semaines 3-4)
+# 00. S3S4 en cours — Recherche stratégie (Semaines 3-4)
 
-**Recherche / premier jet — ISOLÉ.** Ce dossier backteste des stratégies de copy-trading du Congrès.
-Il **lit** les données du dépôt (caches Quiver, `congress_core`) mais **n'écrit que dans ce dossier** —
-aucun impact sur le travail finalisé des Semaines 1-2 ni sur les golden.
+**Recherche / premier jet — ISOLÉ.** On **lit** les données du dépôt, on **n'écrit que dans ce dossier**
+(aucun impact sur le travail finalisé des Semaines 1-2 ni sur les golden).
 
-## Contenu
-- `STRATEGIE_ANALYSE.md` — note d'analyse (chiffres tracés à leur source).
-- `PROMPT_RECHERCHE_S34.md` — prompt autonome de construction du book.
-- `data.py` — journal des transactions depuis les caches Quiver (2014+).
-- `prices.py` — prix yfinance + facteurs Fama-French, cache disque (`cache/`, gitignoré).
-- `portfolio.py` — moteur event-driven, série de rendements **nette de coûts**.
-- `evaluate.py` — alpha factoriel (FF-Carhart), Deflated Sharpe, OOS.
-- `variants.py` — filtres/pondérations (conviction-cluster, dé-concentration par membre).
-- `run.py` — orchestre les variantes → `RAPPORT_STRATEGIE.md` + `figures/`.
+## Le récit est dans 2 NOTEBOOKS (code + résultat + raisonnement, côte à côte)
+- **`01_backtest.ipynb`** — *« suivre le Congrès » bat-il le marché net de coûts ?* Données Quiver 2014+ →
+  positions → **9 variantes** → tableau + courbe de capital + verdict. **→ Pas d'edge net exploitable.**
+- **`02_chasse_au_signal.ipynb`** — *chasse OBJECTIVE au signal* (6 angles : IC · event-study · long-short ·
+  commission · caractéristiques · ML), chacun **hypothèse → code → résultat → on garde / on lâche + pourquoi**.
+  **→ Information faible mais réelle (la *breadth* d'achat), sous le seuil d'exploitabilité.**
 
-## Lancer
-```
-.venv/bin/python "00. S3S4 en cours/run.py"
-```
-(Le 1er run télécharge ~1500 tickers dans `cache/` ; ensuite c'est instantané.)
+Les sorties sont **déjà exécutées et sauvegardées** dans les notebooks → lisibles tels quels (présentables),
+et **relançables** (kernel *S3S4 (.venv)*, tout tourne sur le cache de prix).
 
-## Analyses du signal (code reproductible)
-`analyses/` contient **un script documenté par angle** cherchant activement de l'information
-(IC, event-study, long-short, commission, caractéristiques de trade, ML) — voir `analyses/README.md`.
-Chacun se relance en < 2 min sur le cache. C'est le code derrière chaque conclusion (pas de boîte noire).
+## Moteur réutilisable (importé par les notebooks — pas de duplication)
+| Module | Rôle |
+|---|---|
+| `data.py` | journal des transactions Quiver (2014+), normalisé |
+| `prices.py` | prix yfinance + facteurs Fama-French, **cache** (`cache/`, gitignoré) |
+| `portfolio.py` | moteur event-driven (entrée `filed`+1), rendements **nets de coûts** |
+| `evaluate.py` | alpha factoriel FF-Carhart, Deflated Sharpe, OOS, `nw_tstat`, `car_event` |
+| `variants.py` | conviction-cluster, dé-concentration par membre |
+| `leadership.py` | leadership de parti (point-in-time) + chairs de commission |
 
-## Verdict (2014-2026, net de coûts, factor-ajusté)
-**Pas d'edge net exploitable.** Le backtest (9 variantes) ne dégage aucun alpha significatif
-(`RAPPORT_STRATEGIE.md`). La chasse au signal (`analyses/`) trouve une **information faible mais réelle**
-(la *breadth* d'achat, IC≈0,02) — mais **sous le seuil d'exploitabilité** net de coûts. Synthèse complète
-dans `STRATEGIE_ANALYSE.md` §6.
+## Contexte & sources (documentaire)
+- **`STRATEGIE_ANALYSE.md`** — littérature académique + produits réels (NANC/KRUZ, Quiver…) + « pourquoi
+  le hype », avec URLs. C'est le complément *non empirique* des notebooks.
+- **`PROMPT_RECHERCHE_S34.md`** — prompt autonome de (re)construction du book.
