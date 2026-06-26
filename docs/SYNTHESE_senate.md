@@ -155,7 +155,8 @@ Sale (Full) 2 404 · Sale (Partial) 1 265 · Sale 769 · Exchange 62. **12/12 ch
 Package **`senate/`** (arbo plate, miroir `house/`, bâti sur `congress_core` — données sous
 `data/senate/`). La logique figée Q1 est absorbée dans le package (`senate.identity` = identité +
 `enrich`, `senate.quiver_audit` = `reconcile`, `senate.ocr_engine`, `senate.sector_enrich`) ; le pilote
-`senat_2025_test/` reste la référence intacte. Reproduction prouvée fonction-par-fonction sur les 8 841
+`senat_2025_test/` a été archivé après absorption (récupérable : tag `archive/pre-cleanup-2026-06-26` +
+tarball). Reproduction prouvée fonction-par-fonction sur les 8 841
 lignes (`tests/regression/test_senate_repro.py` : natural_key_hash 8 841/8 841 via `congress_core`,
 identité 67/67, ticker 65/65).
 

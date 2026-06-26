@@ -96,11 +96,11 @@
 > spot-check + dates 98,8 % en période). 64 sénateurs, identité 100 %. 8 245 txns uniques (596
 > amendements cross-année). Reste : Sénat 2013-2019, passe ticker LLM sur OCR.
 
-**Deux versions figées de référence :**
-- **House Q1 2025** (`0 HOUSE/2025_test/`) : **2 272** transactions, 56 déclarants — pilote validé vs Quiver (électronique 99,9 %).
-- **Sénat Q1 2025** (`1 SENAT/senat_2025_test/`) : **283** transactions, 17 sénateurs — identité 100 %, nous ≥ Quiver, 4 rapports papier en backlog OCR.
+**Deux pilotes Q1 2025 (archivés lors de la consolidation — récupérables : tag `archive/pre-cleanup-2026-06-26` + tarball `Jupiter_legacy`) :**
+- **House Q1 2025** (ex-`0 HOUSE/2025_test/`) : **2 272** transactions, 56 déclarants — pilote validé vs Quiver (électronique 99,9 %). Logique absorbée dans `house/` + `congress_core/`.
+- **Sénat Q1 2025** (ex-`1 SENAT/senat_2025_test/`) : **283** transactions, 17 sénateurs — identité 100 %, nous ≥ Quiver. Logique absorbée dans `senate/` + `congress_core/`, référentiel dans `data/senate/reference/`.
 
-### OCR House — état au 2026-06-25 (`0 HOUSE/toutes_annees/`)
+### OCR House — état au 2026-06-25 (désormais `house/` + `data/house/`)
 
 **Politique : livrable = clusters A+B (tapés). Le manuscrit C est une catégorie CONSERVÉE mais NON EXÉCUTÉE par défaut** (27,6 % du corpus ; dates manuscrites peu fiables), avec **récupération ciblée** des 3 déposants à forte perte (cf. cross-val ci-dessous). Échantillon de mesure = **56 docs A+B** (70 − 14 C).
 
@@ -169,4 +169,4 @@ Les champs < 100 % (`ticker`, `committee_membership`) = actifs non cotés / memb
 
 ---
 
-*Statut reflétant le contenu réel des dossiers `0 HOUSE/` et `1 SENAT/` à la date ci-dessus.*
+*Statut reflétant la structure consolidée : `congress_core/` + `house/` + `senate/` + `data/` (les anciens dossiers `0 HOUSE/` · `1 SENAT/` · `_archive/` ont été archivés — tag `archive/pre-cleanup-2026-06-26` + tarball `Jupiter_legacy`).*

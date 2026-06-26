@@ -34,9 +34,10 @@ data/senate/            données (tables {année}/, reports/ [ignoré], ocr_cach
 
 > **Données** : `git mv "1 SENAT/toutes_annees/data" → data/senate` (renames tracés). Référentiel
 > (YAML législateurs/comités) + cache Quiver copiés sous `data/senate/reference/` (autonomie, parité
-> `data/house/reference/`). Caches eFD régénérables (`reports/` HTML + `.gif`) ignorés. Le pilote Q1
-> `1 SENAT/senat_2025_test/` **reste la référence intacte** : `senate/` en a absorbé une **copie** de
-> la logique (c'est elle qui a produit le golden), pas un déplacement.
+> `data/house/reference/`). Caches eFD régénérables (`reports/` HTML + `.gif`) ignorés. La logique du
+> pilote Q1 `senat_2025_test/` a été **absorbée en copie** dans `senate/` (c'est elle qui a produit le
+> golden) ; le pilote lui-même a ensuite été **archivé** lors de la consolidation (récupérable : tag git
+> `archive/pre-cleanup-2026-06-26` + tarball `Jupiter_legacy`).
 
 ## 3. Vérification « zéro changement »
 
