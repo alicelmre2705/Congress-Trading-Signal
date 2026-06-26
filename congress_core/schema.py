@@ -32,6 +32,16 @@ HOUSE_OCR_SCHEMA = [
     "date_confidence", "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
     "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url", "natural_key_hash"]
 
+# House — table FINALE (digital + OCR, enrichie secteur), 27 colonnes = ordre House actuel +
+# sector_gics/etf_proxy (après asset_type) + sector_source (en fin) → parité 12/12 avec le Sénat.
+HOUSE_FINAL_SCHEMA = [
+    "bioguide_id", "declarant_name", "chamber", "party", "state_district",
+    "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
+    "ticker", "asset_description", "asset_type", "sector_gics", "etf_proxy",
+    "operation_type", "amount_range", "amount_midpoint", "amount_split_flag", "owner",
+    "doc_id", "source_url", "natural_key_hash", "occurrence_index", "provenance",
+    "date_confidence", "ticker_source", "sector_source"]
+
 # Sénat — table électronique (eFD), 23 colonnes (== senate_finalize.SCHEMA, reproduit 06_senate_*).
 SENATE_DIGITAL_SCHEMA = [
     "bioguide_id", "declarant_name", "chamber", "party", "state_district",

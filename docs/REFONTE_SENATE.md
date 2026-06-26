@@ -73,4 +73,5 @@ NaN au hash → `'nan'`, rendue vide par le CSV ; reconstruit dans le test, vér
   digital/ocr/census (filtre électronique vs papier vs census) ; un merge fidèle exige une
   paramétrisation **non vérifiable hors-ligne** (pas d'accès eFD). Reporté pour ne pas risquer un bug de
   scraping silencieux ; le scraping inline fonctionne tel quel.
-- ⏭ **Différé** (commun House) : enrichissement secteur 12/12 sur House ; stratégie + backtest.
+- ✅ **Secteur House 12/12** : branché (secteur 83,2 %) → les deux chambres sont à parité 12/12.
+- ⏭ **Différé** (commun) : stratégie + backtest (hors périmètre données).

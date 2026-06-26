@@ -1,9 +1,8 @@
-"""Bootstrap chemins + secrets — source unique (remplace les 3 doctrines : BASE_DIR marqueur /
-HERE codé en dur / sys.path.insert+monkeypatch).
+"""Bootstrap chemins + secrets — utilitaire générique d'accès aux données par chambre.
 
-`DataRoot` encapsule l'arborescence de données d'une chambre. Aujourd'hui House = `data_v1/`
-(tables/pdfs/index/reference) ; la Phase 7 déplacera vers `data/house/`. On passe le `data_dir`
-explicitement (ou on le découvre par marqueur) pour router 100 % des I/O sans chemin codé en dur.
+`DataRoot` encapsule l'arborescence de données d'une chambre sous `data/{chambre}/` (House =
+`data/house/`, Sénat = `data/senate/`). On passe le `data_dir` explicitement (ou via `for_chamber`)
+pour router les I/O sans chemin codé en dur.
 """
 import os
 from pathlib import Path
@@ -13,16 +12,6 @@ try:
 except Exception:  # dégradation gracieuse si python-dotenv absent
     def _load_dotenv(*a, **k):
         return False
-
-
-def find_base_dir(start: Path, marker: str = "data_v1") -> Path:
-    """Remonte depuis `start` jusqu'au premier dossier contenant `marker`. Ancrage robuste,
-    indépendant du CWD. Reproduit house_multiyear.BASE_DIR."""
-    start = Path(start).resolve()
-    for p in [start, *start.parents]:
-        if (p / marker).is_dir():
-            return p
-    return start
 
 
 def load_env(base_dir: Path) -> None:
@@ -49,18 +38,16 @@ def get_secret(key: str, base_dir: Path | None = None) -> str | None:
 
 class DataRoot:
     """Arborescence de données d'une chambre. `data_dir` pointe vers le dossier racine des données
-    (ex. House actuel : <base>/data_v1 ; futur : <repo>/data/house). Toutes les I/O passent par ici."""
+    (`<repo>/data/house` ou `<repo>/data/senate`). Toutes les I/O peuvent passer par ici."""
 
     def __init__(self, chamber: str, data_dir: Path):
         self.chamber = chamber
         self.data_dir = Path(data_dir)
 
     @classmethod
-    def house_legacy(cls, start: Path | None = None) -> "DataRoot":
-        """Construit le DataRoot House sur l'arbo ACTUELLE (data_v1/), par marqueur. Transitoire
-        jusqu'à la Phase 7 (data/house/)."""
-        base = find_base_dir(start or Path.cwd(), "data_v1")
-        return cls("house", base / "data_v1")
+    def for_chamber(cls, repo_root: Path, chamber: str) -> "DataRoot":
+        """Construit le DataRoot d'une chambre sous `<repo_root>/data/{chamber}`."""
+        return cls(chamber, Path(repo_root) / "data" / chamber)
 
     @property
     def tables(self) -> Path:
@@ -95,4 +82,4 @@ class DataRoot:
 
     @property
     def quiver_cache_path(self) -> Path:
-        return self.tables / "_quiver_house_cache.csv"
+        return self.tables / f"_quiver_{self.chamber}_cache.csv"

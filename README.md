@@ -24,11 +24,12 @@ pyproject.toml   installable :  pip install -e .
 
 | Chambre | FINAL | = digital + OCR | Identité | Concordance Quiver |
 |---|---|---|---|---|
-| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 déposants) | 85,9 % (txn-niveau) |
+| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | 85,9 % (txn-niveau) |
 | **Sénat** | **8 841** | 7 161 + 1 680 | 100 % | 98–100 %/an |
 
-Sénat : table 12/12 champs (ticker 71,4 %, secteur GICS→ETF 62,1 %). OCR papier validé hors-Quiver
-(les agrégateurs sont aveugles au scanné → notre OCR est la source unique).
+Les deux chambres ont la **table 12/12 champs** (identité, ticker, secteur GICS→ETF, date, montant…) :
+House ticker **85,3 %** / secteur **83,2 %** ; Sénat ticker **71,4 %** / secteur **62,1 %**. OCR papier
+validé hors-Quiver (les agrégateurs sont aveugles au scanné → notre OCR est la source unique).
 
 ## Installation & vérification
 

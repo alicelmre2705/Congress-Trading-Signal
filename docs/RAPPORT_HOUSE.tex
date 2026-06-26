@@ -29,10 +29,11 @@
 
 \begin{tcolorbox}[colback=blue!4,colframe=blue!40!black,title=\textbf{Chiffres clés}]
 \textbf{FINAL = 81\,646 transactions} = 32\,676 électronique + 48\,970 OCR.\quad
-256 déposants, identité \textbf{99,99\,\%}.\\
+256 bioguides (275 noms distincts), identité \textbf{99,99\,\%}.\\
 Concordance Quiver (FINAL) : \textbf{85,9\,\%} (81--91\,\%/an).\quad
 Accord sens \textbf{93\,\%}, montant \textbf{93\,\%}.\\
 Vrais-absents Quiver, après explication : \textbf{9 transactions sur 81\,646}.\quad
+Table \textbf{12/12 champs} : ticker \textbf{85,3\,\%}, secteur GICS$\rightarrow$ETF \textbf{83,2\,\%}.\\
 Verdict : \textbf{la donnée concorde bien}.
 \end{tcolorbox}
 
@@ -316,7 +317,7 @@ absentes sur 81\,646}. Le numérique seul est faible (35--74\,\%) ; l'OCR ferme 
 \item \xfait{} : complétion des 40 docs \texttt{partial\_error} (manuscrit, +66 txns) ; filet golden (108 fichiers) ; 5 invariants prouvés.
 \item \xdif{} : cluster C manuscrit (27,6\,\% du census) --- exclu par défaut (qualité dates), récupération ciblée seulement. Décision assumée.
 \item \xdif{} : dates Harshbarger 2021 --- \textbf{ambiguïté OCR intrinsèque}, non corrigeable par re-OCR ; mitigée par \texttt{date\_confidence}.
-\item \xnon{}/\xdif{} : \texttt{sector\_gics}/\texttt{etf\_proxy} --- présents uniquement sur le pilote 2025\_test, pas sur les tables multi-années.
+\item \xfait{} : \texttt{sector\_gics}/\texttt{etf\_proxy} sur tout le multi-années (yfinance + repli LLM) --- secteur rempli \textbf{83,2\,\%} (67\,932/81\,646) $\rightarrow$ table \textbf{12/12 champs}, parité Sénat.
 \item \xnon{} : comités point-in-time (snapshot statique courant).
 \item \xdif{} : Sénat (le cœur est prêt à être réutilisé), stratégie et backtest (hors périmètre données).
 \end{itemize}

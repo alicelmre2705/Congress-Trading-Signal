@@ -503,11 +503,17 @@ def run_ocr_year(year, force=False):
     print(f"  → 06b_house_{year}_ocr_transactions.csv | ticker résolu {df['ticker'].notna().sum()}/{n_txn} | "
           f"déclarants {df['declarant_name'].nunique()}")
 
-    # table FINALE digitale + OCR (dédup inter-sources uniquement)
+    # table FINALE digitale + OCR (dédup inter-sources uniquement) + enrichissement secteur GICS→ETF
     if dig_path.exists():
         dmain = pd.read_csv(dig_path, dtype={"doc_id": str}); dmain["provenance"] = "house-pdf-electronic"
         collide = out["natural_key_hash"].isin(set(dmain["natural_key_hash"].dropna()))
         comb = pd.concat([dmain, out[~collide]], ignore_index=True)
+        # secteur GICS → ETF SPDR (champs sector_gics/etf_proxy/sector_source), parité Sénat (senate/fusion).
+        # Purement additif : jointure sur ticker, cache versionné yfinance + repli LLM. Schéma FINAL 27 col.
+        from congress_core import sector_enrich as se
+        from congress_core.schema import HOUSE_FINAL_SCHEMA
+        comb = se.enrich_sectors(comb, hm.OUTDIR / "sector_cache.json", with_llm=True, audit_all=False)
+        comb = comb.reindex(columns=HOUSE_FINAL_SCHEMA)
         comb.to_csv(ydir / f"06_house_{year}_FINAL.csv", index=False)
         print(f"  → 06_house_{year}_FINAL.csv : {len(comb)} lignes ({len(dmain)} digital + {int((~collide).sum())} OCR)")
 
