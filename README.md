@@ -54,7 +54,7 @@ python3.12 -m venv .venv
 
 # Filet de non-régression (doit afficher « ZÉRO ÉCART ») :
 ./.venv/bin/python tests/regression/check_golden.py         # House  — 108 fichiers
-./.venv/bin/python tests/regression/senate_check_golden.py  # Sénat  —  68 fichiers
+./.venv/bin/python tests/regression/senate_check_golden.py  # Sénat  —  69 fichiers
 # Preuves de reproduction fonction-par-fonction :
 ./.venv/bin/python tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker
 ```
