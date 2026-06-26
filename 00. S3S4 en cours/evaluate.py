@@ -87,6 +87,49 @@ def nw_tstat(x, lag):
     return x.mean() / se if se > 0 else float("nan")
 
 
+def trade_returns(positions: pd.DataFrame, panel: pd.DataFrame, spy: pd.Series,
+                  lag_days: int = 1) -> pd.DataFrame:
+    """Rendement RÉALISÉ par position (buy-and-hold entrée→sortie, entrée = filed+lag ouvré).
+    Renvoie positions + colonnes `ret` (brut), `abn` (anormal vs SPY), `win` (abn>0), `hold_days`.
+    Sert aux métriques niveau-trade (hit rate, avg win/loss, profit factor) et aux track records
+    individuels — ce que la série quotidienne de `run_portfolio` ne donne pas."""
+    spy = spy.dropna()
+    out = positions.copy()
+    rets, abns, holds = [], [], []
+    for r in positions.itertuples(index=False):
+        px = panel[r.ticker].dropna() if r.ticker in panel.columns else None
+        if px is None or len(px) == 0:
+            rets.append(np.nan); abns.append(np.nan); holds.append(np.nan); continue
+        i = px.index.searchsorted(pd.Timestamp(r.entry) + pd.Timedelta(days=lag_days))
+        j = px.index.searchsorted(pd.Timestamp(r.exit))
+        j = min(j, len(px) - 1)
+        if i >= len(px) or j <= i or px.iloc[i] <= 0:
+            rets.append(np.nan); abns.append(np.nan); holds.append(np.nan); continue
+        rr = px.iloc[j] / px.iloc[i] - 1.0
+        si = spy.index.searchsorted(px.index[i]); sj = spy.index.searchsorted(px.index[j])
+        sj = min(sj, len(spy) - 1)
+        rs = spy.iloc[sj] / spy.iloc[si] - 1.0 if si < len(spy) else 0.0
+        rets.append(rr); abns.append(rr - rs); holds.append((px.index[j] - px.index[i]).days)
+    out["ret"] = rets; out["abn"] = abns; out["win"] = out["abn"] > 0
+    out["hold_days"] = holds
+    return out
+
+
+def trade_stats(tr: pd.DataFrame) -> dict:
+    """Métriques niveau-trade « façon Ramify » à partir de `trade_returns` : hit rate, avg win/loss,
+    profit factor (Σgains/Σpertes), espérance — sur les rendements ANORMAUX (vs SPY)."""
+    a = tr["abn"].dropna()
+    if not len(a):
+        return {"n": 0}
+    wins, losses = a[a > 0], a[a <= 0]
+    pf = wins.sum() / abs(losses.sum()) if losses.sum() != 0 else float("inf")
+    return {"n": int(len(a)), "hit_rate": float((a > 0).mean()),
+            "avg_win": float(wins.mean()) if len(wins) else 0.0,
+            "avg_loss": float(losses.mean()) if len(losses) else 0.0,
+            "profit_factor": float(pf), "esperance_abn": float(a.mean()),
+            "mediane_abn": float(a.median())}
+
+
 def car_event(px: pd.Series, spy: pd.Series, entry, horizon_days: int):
     """Rendement ANORMAL cumulé (buy-and-hold) d'un titre vs SPY sur `horizon_days` jours de bourse,
     entrée = 1er jour de bourse ≥ `entry`. None si données insuffisantes. Sert aux event-studies."""
