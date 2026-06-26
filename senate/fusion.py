@@ -23,14 +23,11 @@ from pathlib import Path
 
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
-Q1 = HERE.parent / "senat_2025_test"          # code Q1 figé (sector_enrich) + référentiel
-sys.path.insert(0, str(Q1))
-sys.path.insert(0, str(HERE))
-DATA = HERE / "data"
+HERE = Path(__file__).resolve().parent        # <repo>/senate
+DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 
-import ticker_resolve                           # noqa: E402  (résolution ticker, parité House)
-import sector_enrich as se                      # noqa: E402  (secteur GICS→ETF, module Q1)
+from senate import ticker_resolve              # résolution ticker (parité House)
+from senate import sector_enrich as se         # secteur GICS→ETF (module Sénat)
 
 DATE_WINDOW_DAYS = 75   # parité House : un PTR se dépose ~45 j après la transaction (+marge)
 

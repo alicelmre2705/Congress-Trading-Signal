@@ -27,14 +27,12 @@ import requests
 import pandas as pd
 from PIL import Image
 
-HERE = Path(__file__).resolve().parent
-Q1 = HERE.parent / "senat_2025_test"
-sys.path.insert(0, str(Q1))
+HERE = Path(__file__).resolve().parent        # <repo>/senate
 
-import senate_ocr as so                       # moteur OCR figé (réutilisé tel quel)
-from senate_finalize import load_reference, make_matcher, recover_ticker, SCHEMA  # noqa: E402
+from senate import ocr_engine as so           # moteur OCR figé (réutilisé tel quel)
+from senate.identity import load_reference, make_matcher, recover_ticker, SCHEMA
 
-DATA = HERE / "data"
+DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 REPORTS = DATA / "reports"
 MEDIA = REPORTS / "media"
 OCR_CACHE = DATA / "ocr_cache"

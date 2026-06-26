@@ -23,9 +23,9 @@ from pathlib import Path
 
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
-Q1 = HERE.parent / "senat_2025_test"
-CACHE_PATH = HERE / "data" / "ticker_llm_cache.json"
+HERE = Path(__file__).resolve().parent        # <repo>/senate
+REPO = HERE.parent                             # racine du dépôt
+CACHE_PATH = REPO / "data" / "senate" / "ticker_llm_cache.json"
 
 MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 8_000
@@ -88,7 +88,7 @@ _PROMPT_SHA = hashlib.sha256((_TICKER_PROMPT + json.dumps(_TICKER_TOOL, sort_key
 def _api_key():
     try:
         from dotenv import load_dotenv
-        load_dotenv(Q1 / ".env")
+        load_dotenv(REPO / ".env")
         if not os.getenv("ANTHROPIC_API_KEY"):
             load_dotenv()
     except Exception:

@@ -14,14 +14,12 @@ from collections import Counter
 
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
-Q1 = HERE.parent / "senat_2025_test"
-sys.path.insert(0, str(Q1))
-from senate_finalize import load_reference        # noqa: E402
-import validate_quiver_sample as vq               # noqa: E402
+HERE = Path(__file__).resolve().parent        # <repo>/senate
+from senate.identity import load_reference
+from senate import quiver_audit as vq
 
-DATA = HERE / "data"
-QUIVER_CACHE = Q1 / "data_v1_senate" / "tables" / "_quiver_senate_cache.csv"
+DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
+QUIVER_CACHE = DATA / "reference" / "_quiver_senate_cache.csv"
 
 
 def verdict(r):

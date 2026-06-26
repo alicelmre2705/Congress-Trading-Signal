@@ -26,16 +26,14 @@ from collections import Counter
 import requests
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
-Q1 = HERE.parent / "senat_2025_test"          # dossier Q1 figé (code + référentiel + cache Quiver)
-sys.path.insert(0, str(Q1))
-from senate_finalize import load_reference, make_matcher, enrich, SCHEMA   # noqa: E402
-import validate_quiver_sample as vq                                        # noqa: E402
+HERE = Path(__file__).resolve().parent        # <repo>/senate
+from senate.identity import load_reference, make_matcher, enrich, SCHEMA
+from senate import quiver_audit as vq
 
-DATA = HERE / "data"
+DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 REPORTS = DATA / "reports"
 REPORTS.mkdir(parents=True, exist_ok=True)
-QUIVER_CACHE = Q1 / "data_v1_senate" / "tables" / "_quiver_senate_cache.csv"
+QUIVER_CACHE = DATA / "reference" / "_quiver_senate_cache.csv"
 
 EFD_BASE = "https://efdsearch.senate.gov"
 EFD_HOME = f"{EFD_BASE}/search/home/"

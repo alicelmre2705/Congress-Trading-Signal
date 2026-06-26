@@ -1,0 +1,6024 @@
+{
+ "model": "claude-sonnet-4-6",
+ "pipeline_sha": "6d26fe7c8cebbc0b",
+ "mappings": {
+  "AAPL": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ABT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ACN": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ADCT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "AFL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AHL-C": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "AIT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AMAT": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AMD": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AMZN": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ARDX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ASML": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AVGO": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AXP": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AY": {
+   "yf": null,
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "llm"
+  },
+  "BAC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BITB": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "BLK": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BRK": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "BRK.B": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "BSX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CARR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CB": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CCL": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "CEG": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "CFSSX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CMCSA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "COHR": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CRDO": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CRM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CRSP": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CRWD": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CSCO": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DELL": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DEO": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "DHR": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "DIS": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "DM": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "EBAY": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ECL": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "EMLP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "EZU": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FTGC": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GE": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "GENI": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "GICIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GIS": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "GOOGL": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "GS": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GWW": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "HON": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "HPQ": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "HWM": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "IEFA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IEMG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IQV": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "IRBT": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "IRM": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "ITW": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "IVW": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "JPM": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "KO": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KPTI": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "LHX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "LITP": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "LLY": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "LOW": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "LPLA": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "LRCX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "LRN": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "MA": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "MSFT": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MSI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MTZ": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "MU": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NCLH": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "NRG": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "NVDA": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "OKTA": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PCLPX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PDBC": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "PEP": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "PFE": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "PM": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "PRMB": {
+   "yf": "Consumer Staples",
+   "llm": null,
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "PSX": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "QQQ": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "QSR": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "RUM": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "SMCI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SOLV": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "SPY": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "STZ": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "SYM": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "TBLL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TFC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "TJX": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "TSCO": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "TXN": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "UNH": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "URNM": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "VAW": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "VNQ": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "WAB": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "WFC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "WYNN": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "YUM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "A": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "AA": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "AAL": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AAXJ": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ABBV": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ABC": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "ABNFX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ABOS": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ABQCX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ABYIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ACA": {
+   "yf": "Industrials",
+   "llm": "Financials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ACIW": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ADBE": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ADI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ADM": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "ADMR": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ADP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ADSK": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AEP": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "AES": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "AGCO": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AGG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "AGN": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "AGX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AGZ": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "AIG": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AIV": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "AIZ": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AJRD": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "AKAM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ALB": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "ALGM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ALGN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ALL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ALLE": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ALLO": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ALTM": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "AMBP": {
+   "yf": "Consumer Discretionary",
+   "llm": "Materials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "AME": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AMGN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "AMKR": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "AMLP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "AMRS": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "AMT": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "AMWD": {
+   "yf": "Consumer Discretionary",
+   "llm": "Industrials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ANET": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ANTM": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "AON": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AORT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "APA": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "APAM": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "APD": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "APG": {
+   "yf": "Industrials",
+   "llm": "Materials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "APH": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "APO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AQN": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "ARCC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ARE": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "ARES": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ARKK": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "ARNA": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "ATHM": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "ATKR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ATO": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "ATOAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ATVI": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "AVID": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "AVNT": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "AWK": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "AXAHY": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AXON": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "AXS": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "AXTA": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "AZO": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BA": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "BABA": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BAH": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "BALL": {
+   "yf": "Consumer Discretionary",
+   "llm": "Materials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BAM": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BATRA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "BATRK": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "BAX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "BBEU": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BBY": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BDX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "BEEP": {
+   "yf": "Industrials",
+   "llm": null,
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "BERY": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "BF.B": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "BFAM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BHP": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "BIF": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BIO": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "BIV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BK": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BKE": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BKEP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "BKEPP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "BKNG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "BLL": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "BMEZ": {
+   "yf": "Financials",
+   "llm": "Health Care",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BMI": {
+   "yf": "Information Technology",
+   "llm": "Industrials",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "BMN": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BMO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BMY": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "BOIVF": {
+   "yf": "Communication Services",
+   "llm": null,
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "BOTZ": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "BP": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "BRK-B": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BRKR": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "BRO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BRY": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "BSCP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BSCQ": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BSCV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BSM": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "BSPIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BSTZ": {
+   "yf": "Financials",
+   "llm": "Information Technology",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BTC": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "BTO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BX": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "BYND": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "C": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CABO": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "CAG": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CAH": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CAIFX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CALF": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "CALX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CARG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "CAT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CBSH": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CCCS": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "CCEP": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CCI": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "CCJ": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "CDL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CDLX": {
+   "yf": "Communication Services",
+   "llm": "Information Technology",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "CDNS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CE": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "CEF": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CELH": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CEM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CEQP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "CF": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "CFA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CFG": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CFX": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "CGNX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CHD": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CHE": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CI": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CIBR": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "CL": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CLDT": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "CLF": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "CLOU": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "CLR": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "CLX": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "CMBS": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CME": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CMG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "CMS": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "CNR": {
+   "yf": "Energy",
+   "llm": "Industrials",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "COF": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "COLPAL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CONE": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "COP": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "COR": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "COST": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "COUP": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "COWZ": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "CP": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CPRT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CROX": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "CRS": {
+   "yf": "Industrials",
+   "llm": "Materials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CRUS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CSII": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "CSL": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CSX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CTAA": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "CTAS": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "CTECBX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "CTL": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "CTSH": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "CTVA": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "CTXS": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "CUBE": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "CVS": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "CVX": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "CWEN": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "CYBR": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "CZR": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "D": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "DAL": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "DALCX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "DBLEX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "DCP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "DD": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "DDOG": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DE": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "DECK": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "DFS": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "DG": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "DGNR": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "DGRS": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "DGX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "DHI": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "DHS": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "DIOD": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DLGI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "DLR": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "DLS": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "DNKN": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "DOCU": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DORM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "DOW": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "DPZ": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "DQ": {
+   "yf": "Information Technology",
+   "llm": "Energy",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "DRI": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "DTD": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "DTE": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "DUK": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "DVA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "DVN": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "DXCM": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "EA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "EAF": {
+   "yf": "Industrials",
+   "llm": "Materials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ECOM": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "EDIT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "EEFT": {
+   "yf": "Information Technology",
+   "llm": "Financials",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "EELV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EEM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EFA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EFAD": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EFAV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EIBLX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EIPI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EL": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "ELAN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ELF": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "ELS": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "ELV": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "EMB": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EMR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "EMRZX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "EMTL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ENB": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "ENTG": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ENVA": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "EOG": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "EPD": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "EQC": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "EQM": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "EQNR": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "ERIC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ERIE": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ES": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "ESS": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "ET": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "ETHE": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ETN": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ETOR": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ETRN": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "ETSY": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ETY": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "EV": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "EVOP": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "EVT": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "EW": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "EX": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "EXLS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "EXP": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "EXPE": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "EXPI": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "EXR": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "F": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "FAST": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "FB": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "FBHS": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "FBIN": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "FCFS": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FCNCA": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FCPIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FCX": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "FDN": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "FDRR": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FDS": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FDSWX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FDX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "FEMS": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FEP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FEYE": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "FFIV": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "FGBI": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FGSCX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FHB": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FI": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FIASX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FIMKX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FINX": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FIS": {
+   "yf": "Information Technology",
+   "llm": "Financials",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "FISV": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FITB": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FIVE": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "FLJP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FLNG": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "FLT": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FMC": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "FN": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "FNF": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FNKO": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "FOX": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "FOXA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "FPI": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "FPL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FQAL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FRC": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "FRFHF": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FRIAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FRPT": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "FSK": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "FTBFX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "FTNT": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "FUN": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "FWONA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "FWONK": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "FXI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GAN": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "GBDC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GBIL": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GBTC": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "GD": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "GDV": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GDXJ": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "GEL": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "GEM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GEMIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GFI": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "GGG": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "GGSM": {
+   "yf": "Industrials",
+   "llm": null,
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "GH": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "GIGB": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "GILD": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "GL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GLAD": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GLD": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "GLIBA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "GLNCY": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "GLOV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GLPI": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "GLW": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "GM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "GMAB": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "GME": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "GMRE": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "GNR": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "GNRC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "GNTX": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "GOGL": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "GOLD": {
+   "yf": "Financials",
+   "llm": "Materials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "GOOG": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "GPCR": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "GPK": {
+   "yf": "Consumer Discretionary",
+   "llm": "Materials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "GRII": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "GRMN": {
+   "yf": "Information Technology",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "GRUB": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "GSIMX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GSK": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "GSMYX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "GSSC": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "GTX": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "GXO": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "HAL": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "HAS": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "HASI": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "HBAN": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "HBI": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "HCA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "HD": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "HDGE": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "HELE": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "HES": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "HIG": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "HIYS": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "HLT": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "HOLX": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "HOOD": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "HPE": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "HQL": {
+   "yf": "Financials",
+   "llm": "Health Care",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "HSIC": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "HST": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "HSY": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "HUBB": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "HUMA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "HUN": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "HYG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IAT": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "IBDO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IBDQ": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IBM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ICE": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ICLN": {
+   "yf": null,
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "llm"
+  },
+  "ICOW": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IDV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IDXX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "IEF": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IEI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IEX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "IFF": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "IGHG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IHF": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "IHRT": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "IJR": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IJS": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ILMN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "INDA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "INFY": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "INOD": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "INST": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "INTC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "INTU": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "IP": {
+   "yf": "Consumer Discretionary",
+   "llm": "Materials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "IPHI": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "IR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "IRT": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "IRTC": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ISRG": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "IT": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ITA": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "IVOO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IVV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IVZ": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "IWB": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IWD": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IWM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "IWN": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "J": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "JCI": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "JD": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "JHCBX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "JHEM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "JHMM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "JKHY": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "JMBS": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "JNJ": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "JNK": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "JNPR": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "JTKWY": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "K": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "KBA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "KBE": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "KD": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "KDP": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KEX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "KEY": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "KEYS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "KH": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "KHC": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KL": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "KLAC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "KMB": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KMI": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "KNX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "KR": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KRE": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "KSS": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "KVUE": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "KWEB": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "LAZR": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "LBRDA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "LBRDK": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "LDP": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "LEG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "LGF-B": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "LGI": {
+   "yf": "Financials",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "LH": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "LIN": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "LINE": {
+   "yf": "Real Estate",
+   "llm": "Energy",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "LITE": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "LMACU": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "LMND": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "LMRK": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "LMST": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "LMT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "LNG": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "LPX": {
+   "yf": "Industrials",
+   "llm": "Materials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "LSCC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "LSXMK": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "LTRPA": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "LUBFX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "LUBYX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "LULU": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "LUV": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "LW": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "LYB": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "LYV": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "M": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "MANT": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "MAR": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "MASI": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "MAXR": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "MBB": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "MBXIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "MCD": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "MCHP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MCK": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "MCO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "MDLZ": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "MDT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "MDY": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "MET": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "META": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "MGM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "MKH": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "MKSI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MKTX": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "MLM": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "MMC": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "MMM": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "MMP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "MNST": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "MO": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "MOO": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "MOS": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "MOWI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "MPC": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "MPLX": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "MPW": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "MPWR": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MRK": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "MRO": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "MRVL": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "MSM": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "MTCH": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "MTD": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "MTUM": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "MUB": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "NDAQ": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "NDSN": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "NEE": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "NFLX": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "NID": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "NKE": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "NKLA": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "NLY": {
+   "yf": "Real Estate",
+   "llm": "Financials",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "NMVZX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "NNVC": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NOC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "NOK": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NOW": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NRDY": {
+   "yf": "Information Technology",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NS": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "NSC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "NTAP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NTES": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "NTLA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NTR": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "NTRA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NTRS": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "NU": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "NUAN": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "NUE": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "NVAX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NVO": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NVS": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "NWL": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "NWS": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "NWSA": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "NXPI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "NXTG": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "O": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "OAYIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "OC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "OCSL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "ODFL": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "OEC": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "OFC": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "OGN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "OHI": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "OKE": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "OLLI": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "OLO": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "OMC": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "OMI": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "ONEQ": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "ONEW": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ONON": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "ORCL": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ORLY": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "OSK": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "OTIS": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "OXY": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "OYST": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "PAA": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "PAAS": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "PAC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PAGP": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "PAGS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PALL": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "PAM": {
+   "yf": "Industrials",
+   "llm": "Utilities",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PANW": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PARA": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "PAYC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PAYX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PBA": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "PCNNX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PEBO": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "PEG": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "PEGA": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PENN": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "PG": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "PGH": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "PGR": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "PH": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PHB": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "PHG": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "PHM": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "PII": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "PINS": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "PK": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "PKG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Materials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "PLAN": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "PLD": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "PLTR": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "PLUG": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PMI": {
+   "yf": "Health Care",
+   "llm": null,
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "PNC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "PNE": {
+   "yf": null,
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "llm"
+  },
+  "PNFP": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "PNQI": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "PNR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PODD": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "PONCX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PPG": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "PPL": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "PPLT": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "PRF": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PRJAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PRU": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "PSA": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "PSQ": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "PSXP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "PTLC": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PTMC": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "PTNQ": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "PTON": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "PWR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "PXD": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "PYPL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "QCOM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "QLEIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "QLYS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "QRTEA": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "QRTEP": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "QS": {
+   "yf": "Consumer Discretionary",
+   "llm": "Industrials",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "QTEC": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "R": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "RACE": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "RADI": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "RAMP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "RBLX": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "RDS-B": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "RDSA": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "RE": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "REGN": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "RELX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "REZI": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "RF": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "RH": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "RHP": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "RIO": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "RL": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "RMBS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "RMD": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "RNR": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "RNWAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "RNWGX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "RNWK": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "ROAD": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "RODM": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "ROK": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "ROKU": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "ROST": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "RPM": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "RRC": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "RSP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "RTH": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "RTN": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "RTX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "RVNC": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "S": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SAND": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "SAP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SBIO": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "SBLK": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "SBNY": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SBPYX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SBUX": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "SCCO": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "SCHP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SCHW": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SCI": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "SCZ": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SDOG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SDZNY": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "SEIC": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SERA": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "SFM": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "SG": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "SH": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SHEL": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "SHLX": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "SHOP": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SHW": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "SHY": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SI": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "SIEGY": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "SIL": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "SIRI": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "SIVB": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "SJM": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "SKY": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "SLB": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "SLF": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SLV": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "SMDV": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "SMFG": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SNA": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "SNAP": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "SNDR": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "SNOW": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SNPS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SO": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "SOFI": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SOJA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SPG": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "SPGI": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "SPGP": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "SPOT": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "SPYM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SQ": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "SQM": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "SRLN": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "SRVR": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "SSBK": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "SSD": {
+   "yf": "Materials",
+   "llm": "Industrials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "SSYS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "STAG": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "STAY": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "STT": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "STX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SU": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "SUN": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "SWK": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "SWKS": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "SYK": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "SYY": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "T": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "TACO": {
+   "yf": "Financials",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "TCEHY": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "TCMD": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "TCP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TDG": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "TDY": {
+   "yf": "Information Technology",
+   "llm": "Industrials",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "TEL": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "TER": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "TEX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "TGBAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TGT": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "TIP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TLH": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TLT": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "TMO": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "TMUS": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "TNTOF": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "TPYP": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "TREX": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "TRGP": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "TRIP": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "TRIT": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "TROW": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "TRP": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "TRV": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "TSLA": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "TSM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "TSN": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "TT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "TTD": {
+   "yf": "Communication Services",
+   "llm": "Information Technology",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "TTE": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "TU": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "UA": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "UAA": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "UBER": {
+   "yf": "Information Technology",
+   "llm": "Industrials",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "UBSI": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "UHAL": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "UI": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "UL": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "ULTA": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "UN": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "UNP": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "UPS": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "URA": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "URBN": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "URI": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "USB": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "USFR": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "USIG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "UTX": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "V": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "VAC": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "VAPO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VAXX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "VCTR": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "VEA": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VEEV": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "VEU": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VFC": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "VFH": {
+   "yf": null,
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "llm"
+  },
+  "VFIJX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VHT": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "VIAC": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "VIAV": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "VIG": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VLO": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "VLTO": {
+   "yf": "Industrials",
+   "llm": "Health Care",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "VMC": {
+   "yf": "Materials",
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "yfinance"
+  },
+  "VMW": {
+   "yf": null,
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "llm"
+  },
+  "VNQI": {
+   "yf": null,
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "llm"
+  },
+  "VO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VOD": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "VOO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VPU": {
+   "yf": null,
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "llm"
+  },
+  "VRM": {
+   "yf": "Financials",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "VRSK": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "VRT": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "VRTX": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "VSEC": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "VSH": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "VTI": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VTIP": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VTR": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "VTRS": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "VUSFX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VWO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VWUAX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VWUSX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "VZ": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "W": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "WAL": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "WAT": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "WBA": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "WBD": {
+   "yf": "Communication Services",
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "yfinance"
+  },
+  "WCMIX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "WDAY": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "WDC": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "WEC": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "WES": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "WEX": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "WH": {
+   "yf": "Consumer Discretionary",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "yfinance"
+  },
+  "WIT": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "WIW": {
+   "yf": "Financials",
+   "llm": null,
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "WM": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "WMB": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "WMS": {
+   "yf": "Industrials",
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "WMT": {
+   "yf": "Consumer Staples",
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "yfinance"
+  },
+  "WPC": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "WPX": {
+   "yf": null,
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "llm"
+  },
+  "WST": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "WTRG": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "WTT": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "WU": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "WW": {
+   "yf": "Health Care",
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "WWGEX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "WWSYX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "WY": {
+   "yf": "Real Estate",
+   "llm": "Real Estate",
+   "sector_gics": "Real Estate",
+   "source": "yfinance"
+  },
+  "X": {
+   "yf": null,
+   "llm": "Materials",
+   "sector_gics": "Materials",
+   "source": "llm"
+  },
+  "XAR": {
+   "yf": null,
+   "llm": "Industrials",
+   "sector_gics": "Industrials",
+   "source": "llm"
+  },
+  "XBI": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "XCAPX": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "XCEM": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "XEL": {
+   "yf": "Utilities",
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "yfinance"
+  },
+  "XFIV": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "XLC": {
+   "yf": null,
+   "llm": "Communication Services",
+   "sector_gics": "Communication Services",
+   "source": "llm"
+  },
+  "XLP": {
+   "yf": null,
+   "llm": "Consumer Staples",
+   "sector_gics": "Consumer Staples",
+   "source": "llm"
+  },
+  "XLU": {
+   "yf": null,
+   "llm": "Utilities",
+   "sector_gics": "Utilities",
+   "source": "llm"
+  },
+  "XLV": {
+   "yf": null,
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "llm"
+  },
+  "XLY": {
+   "yf": null,
+   "llm": "Consumer Discretionary",
+   "sector_gics": "Consumer Discretionary",
+   "source": "llm"
+  },
+  "XOM": {
+   "yf": "Energy",
+   "llm": "Energy",
+   "sector_gics": "Energy",
+   "source": "yfinance"
+  },
+  "XONE": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "XP": {
+   "yf": "Financials",
+   "llm": "Financials",
+   "sector_gics": "Financials",
+   "source": "yfinance"
+  },
+  "XRX": {
+   "yf": "Industrials",
+   "llm": "Information Technology",
+   "sector_gics": "Industrials",
+   "source": "yfinance"
+  },
+  "XTWO": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  },
+  "ZM": {
+   "yf": "Information Technology",
+   "llm": "Information Technology",
+   "sector_gics": "Information Technology",
+   "source": "yfinance"
+  },
+  "ZTS": {
+   "yf": "Health Care",
+   "llm": "Health Care",
+   "sector_gics": "Health Care",
+   "source": "yfinance"
+  },
+  "ZW": {
+   "yf": null,
+   "llm": null,
+   "sector_gics": null,
+   "source": "none"
+  }
+ }
+}
