@@ -46,8 +46,8 @@ colonnes figées** (`tests/regression/`), sans re-run ni appel API :
 | Invariant | Preuve | Résultat |
 |---|---|---|
 | `natural_key_hash` | équivalence unitaire vs originaux + repro des hash figés | **161 974 / 161 974** ✅ |
-| `amount_midpoint` (digital + OCR) | recompute vs colonne figée | **82 051 / 82 051** ✅ |
-| `infer_asset_type` (OCR) | recompute vs colonne figée | **49 375 / 49 375** ✅ |
+| `amount_midpoint` (digital + OCR) | recompute vs colonne figée | **81 646 / 81 646** ✅ |
+| `infer_asset_type` (OCR) | recompute vs colonne figée | **48 970 / 48 970** ✅ |
 | `match_bioguide` (★ identité) | port == original + repro des bioguides figés | **284/284 + 3514/3514** ✅ |
 | `PROMPT_SHA` (cache OCR) | formule préservée (`0d3d617274e6`) | cache valide, **0 re-OCR** ✅ |
 
@@ -55,9 +55,9 @@ Lancer : `"0 HOUSE/toutes_annees/.venv/bin/python" tests/regression/test_*.py` e
 
 ## 4. Chiffres de la donnée House (golden, commit `da65aa6`)
 
-- **FINAL 82 051 txns** = digital 32 676 + OCR 49 375 · **275 déposants · identité 99,99 %** (4 manuscrits
-  non rattachés, flaggés). *(Phase 9a : 40 docs `partial_error` manuscrits complétés → +66 txns récupérées ;
-  +66 vs le pilote figé 81 985.)*
+- **FINAL 81 646 txns** = digital 32 676 + OCR 48 970 · **256 déposants · identité 99,99 %** (4 manuscrits
+  non rattachés, flaggés). *(Phase 9a : +66 txns manuscrites récupérées ; puis dédup amendements NON
+  destructrice −405 doublons cross-doc, parité Sénat → 81 646. Détail : `docs/RAPPORT_HOUSE.pdf`.)*
 - OCR : 546/547 PDF scannés traités (clusters A+B+C). Concentration : Khanna 63 %, McCaul 22 %,
   Harshbarger 8 %.
 - Validation FINAL ↔ Quiver : **aucun déposant en déficit > 30**.

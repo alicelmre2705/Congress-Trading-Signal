@@ -1,5 +1,13 @@
 # Handoff — Parité House ↔ Sénat (session 2026-06-26)
 
+> ✅ **RÉSOLU (session restructuration House).** Le **bug dédup House** (§ ci-dessous) a été corrigé sur la
+> structure canonique `refonte/house-core` — **non destructeur** : on pose `occurrence_index` sur l'OCR
+> (`cumcount(doc_id, nk)`, parité Sénat) PUIS dédup `(nk, occ)`. Retire **−405** doublons cross-doc
+> (amendements), préserve le multi-trust Khanna réel. **FINAL 81 985 → 81 646 ; OCR 49 309 → 48 970** sur
+> `data/house/`. PAS le « fix 1 ligne » `drop_duplicates(nk)` proposé ici (destructeur, occ=NaN → −2 830).
+> Docs réconciliés (`ETAT_AVANCEMENT`, `REFONTE_HOUSE`, `SYNTHESE_house_detail`, `RAPPORT_HOUSE.pdf`).
+> Les chiffres `81 985 / 49 309 / data_v1` ci-dessous sont donc **historiques**.
+
 > **But de ce fichier.** Passerelle entre cette session (parité Sénat + A2-House) et la conversation
 > parallèle sur la **restructuration House**. À lire dans l'autre chat (`« lis HANDOFF_PARITE_HOUSE_SENAT.md »`)
 > pour coordonner : appliquer au **Sénat** la même restructuration que House, et figer ce qui reste côté House.

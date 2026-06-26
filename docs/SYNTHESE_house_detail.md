@@ -3,6 +3,14 @@
 
 ---
 
+> ⚠️ **DOCUMENT D'ÉPOQUE (échantillon OCR).** Décrit l'OCR au stade **échantillon A+B (3 876 txns)** —
+> conservé pour la **méthodologie** (census, deskew, date_confidence, validation honnête). L'OCR a
+> depuis été **scalé au census complet** : **FINAL 81 646** = digital 32 676 + **OCR 48 970** (A+B+C),
+> sur la structure refondue `data/house/` (plus `data_v1/`). **État actuel & métriques à jour :
+> `docs/RAPPORT_HOUSE.pdf` + `docs/REFONTE_HOUSE.md`.** Les chiffres « 3 876 » ci-dessous ≠ état courant.
+
+---
+
 ## ► Résultat à utiliser
 
 | Source | Fichier | Transactions |
