@@ -20,5 +20,5 @@ dependencies = [
 ]
 
 [tool.setuptools]
-# Liste explicite (l'arbo racine contient des dossiers non-packages : « 0 HOUSE », « 1 SENAT »…).
-packages = ["congress_core", "house"]
+# Liste explicite des packages du dépôt (cœur partagé + un pipeline par chambre).
+packages = ["congress_core", "house", "senate"]

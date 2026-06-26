@@ -10,7 +10,7 @@ Partie B — repro CSV : sur les lignes des tables figées dont les 7 champs-cl�
 non vides, le hash recomputé doit égaler le hash stocké à 100 % (les lignes à champ manquant sont
 couvertes par la partie A + le re-run de bout en bout).
 
-    "0 HOUSE/toutes_annees/.venv/bin/python" tests/regression/test_schema.py
+    .venv/bin/python tests/regression/test_schema.py
 """
 import sys, hashlib, math
 from pathlib import Path

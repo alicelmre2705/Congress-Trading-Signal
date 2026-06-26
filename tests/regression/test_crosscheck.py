@@ -11,8 +11,8 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 ENGINE = REPO / "data" / "house"
 TABLES = ENGINE / "tables"
-KADOA = REPO / "_archive" / "semaine 1" / "data" / "external" / "senate_openset" / "kadoa_filers.json"
-HSW = Path("/tmp/hsw.json")  # miroir téléchargé plus tôt (optionnel)
+KADOA = REPO / "data" / "external" / "senate_openset" / "kadoa_filers.json"
+HSW = REPO / "data" / "external" / "hsw.json"  # miroir House Stock Watcher (optionnel, absent par défaut)
 sys.path.insert(0, str(REPO))
 YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 

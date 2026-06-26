@@ -3,7 +3,7 @@
 compare la table 06 (digital) au golden à l'octet près. Prouve que le rebranchement sur le cœur
 ne change rien en bout de chaîne.
 
-    "0 HOUSE/toutes_annees/.venv/bin/python" tests/regression/smoke_digital.py 2026
+    .venv/bin/python tests/regression/smoke_digital.py 2026
 """
 import sys, hashlib
 from pathlib import Path

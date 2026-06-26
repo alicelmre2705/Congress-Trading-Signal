@@ -8,7 +8,7 @@ Partie B — reproduction des bioguides figés : pour chaque doc des tables 06/0
 dans 03_ptr_index, on recompute le bioguide et on le compare au bioguide_id stocké. Doit être ~100 %
 (tout écart = dérive de millésime du référentiel, à expliquer).
 
-    "0 HOUSE/toutes_annees/.venv/bin/python" tests/regression/test_identity.py
+    .venv/bin/python tests/regression/test_identity.py
 """
 import sys
 from pathlib import Path
