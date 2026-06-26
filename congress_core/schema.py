@@ -32,6 +32,24 @@ HOUSE_OCR_SCHEMA = [
     "date_confidence", "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
     "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url", "natural_key_hash"]
 
+# Sénat — table électronique (eFD), 23 colonnes (== senate_finalize.SCHEMA, reproduit 06_senate_*).
+SENATE_DIGITAL_SCHEMA = [
+    "bioguide_id", "declarant_name", "chamber", "party", "state_district",
+    "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
+    "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
+    "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url",
+    "natural_key_hash", "provenance", "ticker_source", "occurrence_index"]
+
+# Sénat — table FINALE (digital + OCR, enrichie), 27 colonnes (== merge_ocr.FINAL_COLS, reproduit
+# 06_senate_*_FINAL). Ajoute date_confidence + sector_gics/etf_proxy/sector_source à la digitale.
+SENATE_FINAL_SCHEMA = [
+    "bioguide_id", "declarant_name", "chamber", "party", "state_district",
+    "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
+    "date_confidence", "ticker", "asset_description", "asset_type", "sector_gics", "etf_proxy",
+    "operation_type", "amount_range", "amount_midpoint", "amount_split_flag",
+    "owner", "doc_id", "source_url", "natural_key_hash",
+    "provenance", "ticker_source", "sector_source", "occurrence_index"]
+
 
 def natural_key(row, chamber="house"):
     """Représentation textuelle stable de la clé naturelle, FIDÈLE aux deux moteurs originaux :
