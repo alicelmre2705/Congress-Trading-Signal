@@ -12,7 +12,7 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import data, prices, portfolio, evaluate, variants as V  # noqa: E402
+import data, prices, portfolio, evaluate, variants as V, leadership as LEAD  # noqa: E402
 
 COST_BPS = 20.0
 VARIANTS = [
@@ -22,6 +22,9 @@ VARIANTS = [
     {"label": "√size · 6 m", "w": "sqrt_size", "h": 6},
     {"label": "déconcentré · 6 m", "w": "equal", "h": 6, "dampen": True},
     {"label": "conviction≥2 · 6 m", "w": "equal", "h": 6, "conv": True},
+    {"label": "leadership PIT · 6 m", "w": "equal", "h": 6, "leader": "pit"},
+    {"label": "chairs · 6 m", "w": "equal", "h": 6, "leader": "chairs"},
+    {"label": "leaders∪chairs · 6 m", "w": "equal", "h": 6, "leader": "any"},
 ]
 
 
@@ -39,16 +42,21 @@ def main():
     print(f"Univers prix : {panel.shape[1]} tickers | couvre {cov*100:.0f}% des achats | "
           f"{panel.index.min().date()}→{panel.index.max().date()}")
 
-    pos_cache, rows, nets, conv_mask = {}, [], {}, None
+    pos_cache, rows, nets, conv_mask, lead_masks = {}, [], {}, None, {}
     for v in VARIANTS:
         label, w, h = v["label"], v["w"], v["h"]
-        key = (h, v.get("conv", False))
+        leader = v.get("leader")
+        key = (h, v.get("conv", False), leader)
         if key not in pos_cache:
             b = buys
             if v.get("conv"):
                 if conv_mask is None:
                     conv_mask = V.conviction_mask(buys)
                 b = buys[conv_mask.values]
+            elif leader:
+                if leader not in lead_masks:
+                    lead_masks[leader] = LEAD.leadership_mask(buys, leader)
+                b = buys[lead_masks[leader].values]
             pos_cache[key] = portfolio.build_positions(b, df, horizon_months=h)
         pos = pos_cache[key]
         if v.get("dampen"):
@@ -133,14 +141,17 @@ def _write_report(rows, nets, spy, cov, panel):
              "nombre de variantes essayées. **< 0,95 ⇒ non concluant** (compatible avec la chance).\n")
     L.append("- **Sharpe IS→OOS** : effondrement = sur-apprentissage (la non-persistance attendue).\n")
     L.append("\n## Verdict\n")
-    L.append("**Aucune variante ne dégage d'alpha factoriel significatif** (tous |t| < 1,2). "
-             "L'equal-weight ≈ le marché (β ≈ 0,9) et perd légèrement net après coûts ; le size brut/√size "
-             "s'effondrent (concentration sur quelques méga-trades, Sharpe OOS → 0) ; **la conviction-cluster "
-             "et la dé-concentration n'aident pas**. Et c'est un **plancher optimiste** (312 tickers délistés "
-             "exclus → survivorship haussier). → **Pas d'edge net exploitable** par une stratégie de "
-             "copy-trading « suivre le Congrès » sur 2014-2026. Conforme à la littérature post-STOCK Act et "
-             "aux ETF réels (NANC ≈ marché). La valeur d'un produit « Congrès » est la **data/transparence**, "
-             "pas l'alpha.\n")
+    L.append("**Aucune variante ne dégage d'alpha factoriel SIGNIFICATIF** (tous |t| < 1,2). Les variantes "
+             "larges (equal/size/√size/conviction/déconcentré) ≈ marché ou sous-performent net ; le size "
+             "brut/√size s'effondrent (méga-trades, Sharpe OOS → 0). La variante **leadership-de-parti "
+             "point-in-time** affiche un alpha *en apparence* positif (net +16 %, α +2,4 %) MAIS **t = 0,6 "
+             "(non significatif)** et **80 % de l'échantillon vient d'UN seul membre (Lisa McClain)** → "
+             "chance/concentration mono-membre, pas un effet leadership robuste ; les **chairs de commission "
+             "ne montrent rien** (−0,9 %). Et c'est un **plancher optimiste** (312 délistés exclus → "
+             "survivorship). → **Pas d'edge net exploitable ni diversifiable** par une stratégie « suivre le "
+             "Congrès » sur 2014-2026 ; l'« effet leadership » de la littérature se dissout en **chance "
+             "individuelle** quand on regarde de près (McClain ici ; Pelosi/Wyden = beta tech dans la presse). "
+             "La valeur d'un produit « Congrès » est la **data/transparence**, pas l'alpha.\n")
     L.append("\n*(Premier jet — univers limité aux tickers à prix yfinance ⇒ biais survivorship résiduel "
              "haussier ; voir `STRATEGIE_ANALYSE.md`. Non testé ici : variante leadership/chairs et niche "
              "défense micro-caps — sourcing supplémentaire.)*\n")
