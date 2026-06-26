@@ -101,7 +101,8 @@ chiffres), **(2)** être présentable.
    suffixes, 36 surnoms, middle, overrides Van Taylor / JD Vance), dédup personnes. Résultats : House
    99,99 %, Sénat 100 % ; délégués exclus côté Sénat.
 3. **Schéma & clé naturelle** — `natural_key_hash` (7 champs, sans ticker), `occurrence_index`, dédup
-   non destructrice (le piège évité : 2 425 lignes Khanna). Schéma FINAL (27 colonnes).
+   non destructrice (le piège évité : 2 425 lignes Khanna). Schéma FINAL **27 colonnes** pour les DEUX
+   chambres (ordre des colonnes légèrement différent entre House et Sénat — même contenu 12/12).
 4. **Manifeste : lisible / non lisible / absent** — critère `pdfplumber` exact ; chiffres par année.
 5. **Piste électronique (digital)** — `parse_ptr` (regex P/S/E, dates, montants), rendement 99–100 %,
    échecs `05`. Volumes (House 32 676 ; Sénat 7 161).
@@ -113,8 +114,9 @@ chiffres), **(2)** être présentable.
    owner, `date_confidence` fenêtre 75 j). Volumes (House 48 970 ; Sénat 1 680).
 8. **Résolution des tickers** — explicit → elec_dict → LLM (Sonnet, filtre `is_equity`, cache versionné).
    Avant/après dict ~46 % → +LLM ~90 %. House 85,3 % ; Sénat 71,4 % (Blumenthal munis → `none` à dessein).
-9. **Enrichissement secteur GICS → ETF** — yfinance + repli LLM, 11 secteurs → ETF SPDR. Sénat 62,1 %
-   (12/12 champs).
+9. **Enrichissement secteur GICS → ETF** — yfinance + repli LLM, 11 secteurs → ETF SPDR. **House 83,2 %
+   et Sénat 62,1 %** → les DEUX chambres à **12/12 champs** (le FINAL House passe de 24 à 27 colonnes :
+   ajout `sector_gics`/`etf_proxy`/`sector_source`, parité Sénat).
 10. **Fusion digital + OCR → FINAL** — dédup `(nk, occ)`, 405 doublons cross-doc retirés (House) / 0
     (Sénat). **House FINAL 81 646 ; Sénat 8 841.** Explique OCR > digital (House) vs inverse (Sénat).
 11. **Validation Quiver** — 2 axes (comptes per-lot ; recouvrement transaction-niveau, clé
@@ -140,6 +142,7 @@ chiffres), **(2)** être présentable.
 - **House FINAL 81 646** = 32 676 électronique + 48 970 OCR. 256 bioguides / 275 noms, identité **99,99 %**
   (4 sans bioguide = Ada Norah Henriquez, manuscrit, 2023, doc 8219483). Quiver FINAL **85,9 %** (81–91 %/an).
   Accord sens ~93 %, montant ~93 %. **Vrais-absents 9 / 81 646.** Ticker 85,3 %. asset_type 91,1 %.
+  **Secteur GICS→ETF 83,2 %** (67 932/81 646) → **table 12/12** (FINAL House = **27 colonnes**).
 - **Sénat FINAL 8 841** = 7 161 électronique + 1 680 OCR papier. 64 bioguides / 67 noms, identité **100 %**
   (0 sans bioguide). Quiver digital **98–100 %/an**, **0 vrai raté**, 554 amendements dédupliqués.
   Ticker **71,4 %**, secteur GICS→ETF **62,1 %** (12/12 champs).
@@ -168,16 +171,16 @@ artefacts ticker Quiver, amendements, dates ±1 j, obligations/options.
 Pic 2021 = Diana Harshbarger (1 389 sur 2 documents) — manuscrit dense, localisé, non systémique.
 
 **Clusters OCR House** (docs census · docs avec txns · txns · ticker % · plausible %) :
-A tapé droit 74·59·5 957·84,1·99,6 | B tapé tourné 322·295·**42 151**·82,8·94,5 | C manuscrit 151·81·862·88,4·97,4.
+A tapé droit 74·59·5 957·84,2·99,6 | B tapé tourné 322·295·**42 151**·82,8·94,7 | C manuscrit 151·81·862·88,4·97,4.
 B = 86 % du volume OCR. **Concentration** : Khanna **63,0 %**, McCaul 22,2 %, Harshbarger 7,2 %
 (top 3 = 92,4 % ; top 10 = 99,0 %).
 
 **Crosscheck House** (statut · déposants · txns · dont OCR) :
-`quiver_validable` 212·78 935·47 409 | `ocr_unique` 13·1 957·1 949 | `digital` 31·1 155·13.
+`quiver_validable` 212·78 530·47 004 | `ocr_unique` 13·1 957·1 949 | `digital` 31·1 155·13.
 `ocr_unique` (Quiver = 0, notre OCR seule source) : ex. David P. Roe 1 686, Francis Rooney 189.
 
-**Sénat — fusion / an** (Digital · OCR · FINAL · sénateurs) — *à confirmer dans
-`data/senate/00_final_status.csv`* : 2020 1 706·255·1 961·33 | 2021 1 098·281·1 379·35 |
+**Sénat — fusion / an** (Digital · OCR · FINAL · sénateurs) — *vérifié sur les tables
+`data/senate/{an}/06_senate_{an}_FINAL.csv`* : 2020 1 706·255·1 961·33 | 2021 1 098·281·1 379·35 |
 2022 919·182·1 101·27 | 2023 1 062·97·1 159·30 | 2024 946·84·1 030·24 | 2025 943·478·1 421·31 |
 2026 487·303·790·22 | **Total 7 161·1 680·8 841·64**.
 OCR papier : Blumenthal ~1 233 (≈73 %), Boozman ~379, Burr ~52, Feinstein ~47, Fetterman ~2.
