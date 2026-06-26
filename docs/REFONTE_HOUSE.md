@@ -57,7 +57,7 @@ Lancer : `"0 HOUSE/toutes_annees/.venv/bin/python" tests/regression/test_*.py` e
 
 - **FINAL 81 646 txns** = digital 32 676 + OCR 48 970 · **256 bioguides (275 noms distincts) · identité 99,99 %** (4 manuscrits
   non rattachés, flaggés). *(Phase 9a : +66 txns manuscrites récupérées ; puis dédup amendements NON
-  destructrice −405 doublons cross-doc, parité Sénat → 81 646. Détail : `docs/RAPPORT_HOUSE.pdf`.)*
+  destructrice −405 doublons cross-doc, parité Sénat → 81 646. Détail : `docs/RAPPORT_COMPLET.pdf`.)*
 - OCR : 546/547 PDF scannés traités (clusters A+B+C). Concentration : Khanna 63 %, McCaul 22 %,
   Harshbarger 8 %.
 - Validation FINAL ↔ Quiver : **aucun déposant en déficit > 30**.

@@ -8,10 +8,10 @@ dans l'ordre**, puis le **présenter**. Pas d'expert OCR ni finance présumé.
 
 ## Objectif et double usage
 Le projet extrait et valide les déclarations boursières (PTR, *STOCK Act*) des membres du Congrès US,
-2020–2026, pour une stratégie de copy-trading. Le rapport existant `docs/RAPPORT_HOUSE.tex` est mal
-organisé, ne couvre que le House, et liste des métriques sans les définir. Ton rapport doit : **(1)**
-faire comprendre l'intégralité du projet (le « comment » et le « pourquoi », pas seulement les
-chiffres), **(2)** être présentable.
+2020–2026, pour une stratégie de copy-trading. Ce prompt a produit `docs/RAPPORT_COMPLET.tex` (couvrant
+House ET Sénat) ; il sert de **recette de régénération**. Le rapport doit : **(1)** faire comprendre
+l'intégralité du projet (le « comment » et le « pourquoi », pas seulement les chiffres), **(2)** être
+présentable.
 
 ## Contraintes de rédaction — IMPÉRATIVES
 - **Français. Phrases courtes et claires. Zéro blabla, zéro remplissage.**
@@ -37,7 +37,7 @@ chiffres), **(2)** être présentable.
 
 ## Avant d'écrire — lis ces fichiers pour t'ancrer
 - `README.md` (vue d'ensemble, chiffres clés)
-- `docs/RAPPORT_HOUSE.tex` (rapport actuel — reprends son préambule LaTeX et ses bons passages, corrige
+- `docs/RAPPORT_COMPLET.tex` (rapport actuel — reprends son préambule LaTeX et ses bons passages, corrige
   l'organisation)
 - `tests/regression/audit_metrics.py` (**source de vérité chiffrée** — toutes les métriques s'y recalculent)
 - `congress_core/` : `schema.py`, `identity.py`, `tickers.py`, `vision_ocr.py`, `llm_resolve.py`,
@@ -147,7 +147,7 @@ chiffres), **(2)** être présentable.
   (0 sans bioguide). Quiver digital **98–100 %/an**, **0 vrai raté**, 554 amendements dédupliqués.
   Ticker **71,4 %**, secteur GICS→ETF **62,1 %** (12/12 champs).
 
-**Volumes House / an** (Digital · OCR · FINAL · déposants · sans bio) — *autoritatif (RAPPORT_HOUSE.tex)* :
+**Volumes House / an** (Digital · OCR · FINAL · déposants · sans bio) — *autoritatif (`audit_metrics.py`)* :
 2020 6 886·8 791·15 677·109·0 | 2021 5 457·6 816·12 273·120·0 | 2022 3 601·10 900·14 501·110·0 |
 2023 4 161·6 329·10 490·100·4 | 2024 2 694·6 277·8 971·97·0 | 2025 7 577·6 067·13 644·107·0 |
 2026 2 300·3 790·6 090·84·0 | **Total 32 676·48 970·81 646·256·4**.
@@ -214,7 +214,7 @@ none 2 531 ≈ non cotés). `date_confidence` OCR : plausible 1 654 (98,5 %), im
 
 ## Format de sortie
 - **Un fichier `docs/RAPPORT_COMPLET.tex`**, compilable, **français** (`babel french`), réutilisant le
-  préambule de `docs/RAPPORT_HOUSE.tex` (`booktabs`, `longtable`, `array`, `enumitem`, `xcolor`,
+  préambule de `docs/RAPPORT_COMPLET.tex` (`booktabs`, `longtable`, `array`, `enumitem`, `xcolor`,
   `tcolorbox`, `hyperref`, `titlesec`) **+ `tikz`** pour les schémas.
 - **Schémas en TikZ** : au minimum le flux du pipeline (section 0) ; idéalement aussi un schéma
   partagé ↔ House/Sénat.

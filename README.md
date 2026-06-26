@@ -15,7 +15,7 @@ congress_core/   cœur partagé : schema · identity · amounts · tickers · qu
 house/           pipeline Chambre  (digital → ocr → fusion)
 senate/          pipeline Sénat    (miroir de house/)
 data/            données  (house/ · senate/ · external/)
-docs/            rapport superviseur (RAPPORT_HOUSE.pdf) + architecture (REFONTE_*) + synthèse Sénat
+docs/            rapport complet 2 chambres (RAPPORT_COMPLET.pdf) + architecture (REFONTE_*) + synthèse Sénat
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
 ```
