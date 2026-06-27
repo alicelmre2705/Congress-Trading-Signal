@@ -19,7 +19,7 @@ YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 
 def main():
     import house.quiver as quiver  # smoke
-    from congress_core import crosscheck as cc
+    from common import crosscheck as cc
 
     final = pd.concat([pd.read_csv(TABLES / str(y) / f"06_house_{y}_FINAL.csv", dtype=str)
                        for y in YEARS], ignore_index=True)

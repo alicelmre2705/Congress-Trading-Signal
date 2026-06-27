@@ -3,11 +3,11 @@
 Cascade House portée VERBATIM (`house_multiyear.match_bioguide`, cf. tests/regression/test_identity.py) :
 override manuel → correspondance exacte (last, first/surnom/middle/nom composé) → repli par nom de
 famille unique. Le référentiel partagé (chargement, normalisation, classe `Reference`) vit dans
-`congress_core.reference` ; le Sénat a son propre matcher (`senate.identity`).
+`common.reference` ; le Sénat a son propre matcher (`senate.identity`).
 """
 import re
 
-from congress_core.reference import norm, Reference
+from common.reference import norm, Reference
 
 # Surnoms / suffixes / overrides (copie VERBATIM de house_multiyear) ───────────────────────────
 _TITLE_RE = re.compile(r"\b(dr|hon|rev|gen|col)\b\.?\s*", re.IGNORECASE)

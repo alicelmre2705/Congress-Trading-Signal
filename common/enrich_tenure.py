@@ -10,14 +10,14 @@ Garanties :
     existants (et la newline finale) sont laissés intacts → seul `years_in_office` apparaît au diff.
   - **Idempotent** : si la colonne existe déjà, le fichier est laissé tel quel.
 
-Usage : python -m congress_core.enrich_tenure
+Usage : python -m common.enrich_tenure
 """
 from pathlib import Path
 
 import pandas as pd
 
-from congress_core import reference
-from congress_core.schema import FINAL_POST_ENRICH
+from common import reference
+from common.schema import FINAL_POST_ENRICH
 
 REPO = Path(__file__).resolve().parent.parent
 YEARS = range(2020, 2027)

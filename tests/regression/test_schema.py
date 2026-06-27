@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""PREUVE piège #1 : congress_core.schema.natural_key_hash est un drop-in EXACT des deux moteurs.
+"""PREUVE piège #1 : common.schema.natural_key_hash est un drop-in EXACT des deux moteurs.
 
 Partie A — équivalence unitaire : on copie VERBATIM les fonctions originales (digital `_legacy_key`,
 OCR `natural_key_hash`) et on prouve l'égalité sur une batterie couvrant tous les cas de valeur
@@ -19,7 +19,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 TABLES = REPO / "data" / "house" / "tables"
 sys.path.insert(0, str(REPO))
-from congress_core.schema import natural_key_hash, NATURAL_KEY_FIELDS
+from common.schema import natural_key_hash, NATURAL_KEY_FIELDS
 
 YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 

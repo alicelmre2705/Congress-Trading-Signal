@@ -72,16 +72,16 @@ _MATCHER = None   # closure de résolution bioguide (peuplée par build_referenc
 
 
 # ───────────────────────── Normalisation noms (déléguée au cœur) ─────────────────────────
-from congress_core.reference import strip_accents, norm   # noqa: E402 (source unique partagée)
+from common.reference import strip_accents, norm   # noqa: E402 (source unique partagée)
 
 
-# ───────────────────────── Référentiel identité (chargé via congress_core) ─────────────────────────
+# ───────────────────────── Référentiel identité (chargé via common) ─────────────────────────
 def build_reference():
-    """Peuple les globals d'identité depuis house.identity + congress_core.reference (port prouvé
+    """Peuple les globals d'identité depuis house.identity + common.reference (port prouvé
     byte-identique — cf. tests/regression/test_identity.py). `ref_house_key.index` = membres en
     commission clé (contrat préservé pour house.ocr / join_identity)."""
     global ref_universe, name_exact, name_by_last, bio_to_committees, ref_house_key, _MATCHER
-    from congress_core.reference import load_reference
+    from common.reference import load_reference
     from house.identity import make_matcher
     _ref = load_reference(REF_DIR, key_committees=KEY_COMMITTEES, chamber="house", live=True)
     ref_universe = _ref.ref_universe
@@ -352,7 +352,7 @@ SCHEMA = ["bioguide_id", "declarant_name", "chamber", "party", "state_district",
 
 def _legacy_key(r):
     # Délègue au cœur partagé (drop-in exact, prouvé par tests/regression/test_schema.py).
-    from congress_core.schema import natural_key_hash
+    from common.schema import natural_key_hash
     return natural_key_hash(r, "house")
 
 def finalize(parsed_df, year):

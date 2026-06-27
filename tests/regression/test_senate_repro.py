@@ -3,12 +3,12 @@
 
 Comme le pipeline House, le pipeline Sénat n'est PAS re-jouable hors-ligne (le scraping eFD exige le
 réseau ; seuls les artefacts figés sont embarqués). On prouve donc que le code re-logé dans `senate/`
-ET le cœur `congress_core` reproduisent À L'IDENTIQUE les colonnes des tables FINAL gelées
+ET le cœur `common` reproduisent À L'IDENTIQUE les colonnes des tables FINAL gelées
 (`data/senate/{an}/06_senate_{an}_FINAL.csv`) — sans aucun appel API, sans re-run.
 
 Trois invariants (sur les 8 841 lignes FINAL) :
-  1. natural_key_hash  : recomputé par congress_core.schema.natural_key_hash(., "senate")
-     ET par senate.identity.natural_key → == colonne figée. (⇒ « bâti sur congress_core ».)
+  1. natural_key_hash  : recomputé par common.schema.natural_key_hash(., "senate")
+     ET par senate.identity.natural_key → == colonne figée. (⇒ « bâti sur common ».)
   2. recover_ticker    : pour ticker_source == 'asset_name', senate.identity.recover_ticker
      (asset_description) == ticker figé.
   3. identité bioguide : senate.identity.{load_reference,make_matcher} re-rattache declarant_name
@@ -22,7 +22,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
-from congress_core.schema import natural_key_hash as core_nkh   # noqa: E402
+from common.schema import natural_key_hash as core_nkh   # noqa: E402
 from senate import identity as si                               # noqa: E402
 
 DATA = REPO / "data" / "senate"

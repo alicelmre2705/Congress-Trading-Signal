@@ -12,7 +12,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
-from congress_core import reference, enrich_tenure  # noqa: E402
+from common import reference, enrich_tenure  # noqa: E402
 
 COL = enrich_tenure.COLUMN
 

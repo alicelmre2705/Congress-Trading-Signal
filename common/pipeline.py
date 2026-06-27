@@ -12,9 +12,9 @@ l'**orchestration** ; le coût vient des modules, pas d'ici. `--dry-run` imprime
 sans rien exécuter (vérification à coût nul).
 
 Usage :
-  python -m congress_core.pipeline --years 2020-2026
-  python -m congress_core.pipeline --years 2024 --skip-ocr
-  python -m congress_core.pipeline --years 2025,2026 --dry-run
+  python -m common.pipeline --years 2020-2026
+  python -m common.pipeline --years 2024 --skip-ocr
+  python -m common.pipeline --years 2025,2026 --dry-run
 """
 import argparse
 import subprocess
@@ -48,7 +48,7 @@ def build_steps(years_csv, skip_ocr, force, no_quiver, senate_ocr_mode):
                       + (["--force"] if force else [])))
     steps.append(("Sénat — fusion FINAL", ["senate.fusion"]))
     # Post-FINAL (offline, gratuit, idempotent) : métadonnée « années en poste » sur les 2 chambres.
-    steps.append(("Enrichissement — années en poste", ["congress_core.enrich_tenure"]))
+    steps.append(("Enrichissement — années en poste", ["common.enrich_tenure"]))
     return steps
 
 

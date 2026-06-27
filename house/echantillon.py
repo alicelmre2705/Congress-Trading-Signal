@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """OCR sur ÉCHANTILLON représentatif par année (~70 docs) — le livrable OCR (pas le run complet des 547).
 
-⚠️ OUTIL HORS PIPELINE : non lancé par `congress_core.pipeline:build_steps` (pilote/diagnostic ponctuel).
+⚠️ OUTIL HORS PIPELINE : non lancé par `common.pipeline:build_steps` (pilote/diagnostic ponctuel).
 
 Sélection : data_v1/tables/_ocr_echantillon.csv (10/an, stratifié clusters A/B/C, Quiver-couvert priorisé).
 Méthode : prompt DURCI (validé), routage DPI/pages-par-appel par densité, CAP de pages sur les gros docs,

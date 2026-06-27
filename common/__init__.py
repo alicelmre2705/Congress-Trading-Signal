@@ -1,4 +1,4 @@
-"""congress_core — le contrat UNIVERSEL partagé par les deux chambres.
+"""common — le contrat UNIVERSEL partagé par les deux chambres.
 
 Ne contient QUE ce que House ET Sénat utilisent vraiment (ou le pipeline / la qualité / l'ancienneté,
 qui tournent sur les deux). La logique SPÉCIFIQUE à une chambre vit dans `house/` et `senate/`, qui sont

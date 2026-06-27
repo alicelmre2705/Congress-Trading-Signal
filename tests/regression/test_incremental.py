@@ -26,7 +26,7 @@ sys.path.insert(0, str(REPO))
 def _production_extractor():
     """Le VRAI extracteur de production (constantes House) — comme tests/regression/test_vision_sha."""
     import house.ocr as ho
-    from congress_core.vision_ocr import VisionExtractor
+    from common.vision_ocr import VisionExtractor
     return VisionExtractor(ho.MODEL, ho.OCR_PROMPT, ho.TXN_TOOL, ho.PIPELINE_TAG)
 
 
@@ -61,7 +61,7 @@ def test_cache_hit_no_api():
 
 def test_prompt_sha_stable_and_sensitive():
     """prompt_sha déterministe + sensible au prompt et au pipeline_tag (invalidation propre)."""
-    from congress_core.vision_ocr import VisionExtractor
+    from common.vision_ocr import VisionExtractor
     tool = {"name": "record_transactions", "input_schema": {"type": "object"}}
     a = VisionExtractor("m", "PROMPT", tool, "tag")
     b = VisionExtractor("m", "PROMPT", tool, "tag")

@@ -1,7 +1,7 @@
 """senate — pipeline Sénat (digital eFD + OCR papier). N'importe le cœur QUE pour le secteur.
 
 ⚠️ ÉTAT RÉEL (cf. docs/RAPPORT_V2_ARCHI.md) : seul le secteur est mutualisé — `senate.sector_enrich`
-est un **shim** qui délègue à `congress_core.sector_enrich`. Le reste **réimplémente localement** une
+est un **shim** qui délègue à `common.sector_enrich`. Le reste **réimplémente localement** une
 logique qui DIVERGE vraiment de House : identité/clé/dédup (`senate.identity` : SCHEMA, natural_key,
 make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker`, prompt ≠
 House), validation Quiver (`senate.quiver`, `reconcile` plus riche), OCR (`senate.ocr_engine`, figé

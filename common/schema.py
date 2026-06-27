@@ -61,7 +61,7 @@ SENATE_FINAL_SCHEMA = [
     "provenance", "ticker_source", "sector_source", "occurrence_index"]
 
 # Colonnes AJOUTÉES après l'assemblage (post-FINAL), hors *_FINAL_SCHEMA ci-dessus : `years_in_office`
-# (ancienneté du déposant, métadonnée Ramify) est appendue par `congress_core.enrich_tenure`. Gardée
+# (ancienneté du déposant, métadonnée Ramify) est appendue par `common.enrich_tenure`. Gardée
 # HORS des schémas d'assemblage pour ne pas créer une colonne vide quand `house.ocr`/`senate.fusion`
 # réindexent sur ces schémas ; le pipeline unifié exécute l'enrichissement en dernière étape.
 FINAL_POST_ENRICH = ["years_in_office"]

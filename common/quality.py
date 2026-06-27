@@ -11,13 +11,13 @@ Les cinq contrôles :
   (d) Coverage par congressman : #trades, #années, première/dernière année, membres ≥10 trades.
   (e) Taux de transactions sans sortie déclarée : achats sans vente ultérieure (même bioguide+ticker).
 
-Usage : `python -m congress_core.quality`  (écrit docs/RAPPORT_QUALITE.md + docs/quality/*.png)
+Usage : `python -m common.quality`  (écrit docs/RAPPORT_QUALITE.md + docs/quality/*.png)
 """
 from pathlib import Path
 
 import pandas as pd
 
-from congress_core import crosscheck
+from common import crosscheck
 
 YEARS = list(range(2020, 2027))
 LEGAL_DELAY_DAYS = 45          # STOCK Act : PTR dû ~45 j après la transaction.
@@ -279,7 +279,7 @@ def build_report(repo_root: Path) -> Path:
 
     parts = []
     parts.append("# Rapport de qualité des données — Congress Trading\n")
-    parts.append("> Livrable Ramify, Semaine 2. Généré par `python -m congress_core.quality` "
+    parts.append("> Livrable Ramify, Semaine 2. Généré par `python -m common.quality` "
                  "(lecture seule des tables FINAL, aucun appel API).\n")
     parts.append(f"**Périmètre :** {n_total:,} transactions FINAL (House {n_house:,} + "
                  f"Sénat {n_senate:,}), années 2020–2026.\n".replace(",", " "))

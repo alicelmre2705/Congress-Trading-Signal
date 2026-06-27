@@ -341,7 +341,7 @@ def extract_from_pdf(pdf_path, doc_id, member_name, cache_dir, year, force=False
 # ───────────────────────── Normalisation + enrichissement (port cellules 16, 21) ─────────────
 def natural_key_hash(row):
     # Délègue au cœur partagé (drop-in exact, prouvé par tests/regression/test_schema.py).
-    from congress_core.schema import natural_key_hash as _core
+    from common.schema import natural_key_hash as _core
     return _core(row, "house")
 
 # Fenêtre légale STOCK Act : un PTR se dépose dans les ~45 j suivant la transaction. On garde 75 j de
@@ -510,8 +510,8 @@ def run_ocr_year(year, force=False):
         comb = pd.concat([dmain, out[~collide]], ignore_index=True)
         # secteur GICS → ETF SPDR (champs sector_gics/etf_proxy/sector_source), parité Sénat (senate/fusion).
         # Purement additif : jointure sur ticker, cache versionné yfinance + repli LLM. Schéma FINAL 27 col.
-        from congress_core import sector_enrich as se
-        from congress_core.schema import HOUSE_FINAL_SCHEMA
+        from common import sector_enrich as se
+        from common.schema import HOUSE_FINAL_SCHEMA
         comb = se.enrich_sectors(comb, hm.OUTDIR / "sector_cache.json", with_llm=True, audit_all=False)
         comb = comb.reindex(columns=HOUSE_FINAL_SCHEMA)
         comb.to_csv(ydir / f"06_house_{year}_FINAL.csv", index=False)

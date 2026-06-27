@@ -15,7 +15,7 @@ sys.path.insert(0, str(REPO))
 
 def main():
     import house.ocr as ho
-    from congress_core.vision_ocr import VisionExtractor
+    from common.vision_ocr import VisionExtractor
 
     ve = VisionExtractor(ho.MODEL, ho.OCR_PROMPT, ho.TXN_TOOL, ho.PIPELINE_TAG)
     same_orig = ve.prompt_sha == ho.PROMPT_SHA

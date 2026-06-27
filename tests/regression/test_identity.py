@@ -27,7 +27,7 @@ def main():
     import house.digital as hm
     hm.build_reference()  # référentiel live → globals + hm.match_bioguide (l'original)
 
-    from congress_core.reference import load_reference
+    from common.reference import load_reference
     from house.identity import make_matcher
     ref = load_reference(REF_DIR, chamber="house", live=True)
     match = make_matcher(ref)

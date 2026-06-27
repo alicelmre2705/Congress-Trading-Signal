@@ -16,18 +16,18 @@ la couche données, et l'enchaînement de bout en bout). Dérivé du **code sour
 Tout le pipeline se lance par **un seul point d'entrée** :
 
 ```bash
-python -m congress_core.pipeline --years 2020-2026   # 7 étapes : House/Sénat digital→OCR→fusion→enrichissement
-python -m congress_core.pipeline --years 2024 --dry-run   # voir la séquence sans rien exécuter
+python -m common.pipeline --years 2020-2026   # 7 étapes : House/Sénat digital→OCR→fusion→enrichissement
+python -m common.pipeline --years 2024 --dry-run   # voir la séquence sans rien exécuter
 ```
 
 ## Structure
 
 ```
-congress_core/   cœur partagé : schema · identity · amounts · tickers · quiver · crosscheck ·
-                 vision_ocr · sector_enrich · pipeline (orchestrateur) · quality (rapport) ·
-                 enrich_tenure (ancienneté)
-house/           pipeline Chambre  (digital → ocr → fusion)
-senate/          pipeline Sénat    (digital → ocr → fusion ; logique propre, secteur mutualisé)
+common/   contrat UNIVERSEL : reference · schema · sector_enrich · vision_ocr · crosscheck ·
+                 quality (rapport) · enrich_tenure (ancienneté) · pipeline (orchestrateur)
+house/    pipeline Chambre  : digital · ocr · identity · amounts · tickers · quiver · echantillon
+senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
+                 sector_enrich (shim) · census_probe        ← jumeau de house/
 data/            données  (house/ · senate/ · external/)
 docs/            ARCHITECTURE.pdf (guide structure) · RAPPORT_COMPLET.pdf · RAPPORT_QUALITE.md
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
