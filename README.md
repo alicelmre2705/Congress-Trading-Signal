@@ -9,9 +9,10 @@ jamais réinjecté dans les tables.
 
 ## 🧭 Comprendre tout le projet & le lancer
 
-Nouveau ici ? Lis **[`docs/ARCHITECTURE.pdf`](docs/ARCHITECTURE.pdf)** — le guide visuel complet
-(les 3 couches de code, chaque module/fonction et **ce qu'elle renvoie**, le *voyage d'une transaction*,
-la couche données, et l'enchaînement de bout en bout). Dérivé du **code source réel**.
+Nouveau ici ? Lis **[`docs/RAPPORT_FINAL_V2.pdf`](docs/RAPPORT_FINAL_V2.pdf)** — le rapport complet
+(sources & acquisition, architecture `common`+jumeaux, *voyage d'une transaction*, construction étape par
+étape, secteur GICS→ETF, validation Quiver 3 scopes, annexes modules/schéma/métriques). Dérivé du
+**code source réel** et des tables FINAL.
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 
@@ -24,12 +25,12 @@ python -m common.pipeline --years 2024 --dry-run   # voir la séquence sans rien
 
 ```
 common/   contrat UNIVERSEL : reference · schema · sector_enrich · vision_ocr · crosscheck ·
-                 quality (rapport) · enrich_tenure (ancienneté) · pipeline (orchestrateur)
+                 quality (rapport) · enrich_tenure (ancienneté) · pipeline (orchestrateur) · quiver_scopes
 house/    pipeline Chambre  : digital · ocr · identity · amounts · tickers · quiver · echantillon
 senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
                  census_probe                                ← jumeau de house/
 data/            données  (house/ · senate/ · external/)
-docs/            ARCHITECTURE.pdf (guide structure) · RAPPORT_COMPLET.pdf · RAPPORT_QUALITE.md
+docs/            RAPPORT_FINAL_V2.pdf (rapport complet) · RAPPORT_QUALITE.md · quality/ · sources/
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
