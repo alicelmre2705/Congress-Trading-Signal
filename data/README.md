@@ -16,9 +16,11 @@ house/ uniquement :
     index/ {y}FD.xml     ← index XML annuel du Clerk
 ```
 
-## La numérotation = l'étape du pipeline
-Le **préfixe** d'un fichier indique **où il se produit** dans la chaîne. On lit la couche données sans
-documentation externe.
+## La numérotation = une étiquette de rôle
+Le **préfixe** d'un fichier indique son **rôle** (sa famille d'étape), ce qui permet de lire la couche
+données sans documentation externe. Ce n'est pas l'ordre d'exécution strict : certains numéros élevés
+sont produits avant des plus petits (au Sénat, `07_quiver_comparison` est écrit dès l'étape digitale,
+avant l'OCR `06b` et la fusion `06_…_FINAL`). L'ordre réel est celui du pipeline.
 
 | Préfixe | Étape | Présent |
 |---|---|---|
@@ -32,7 +34,9 @@ documentation externe.
 | `06_…_FINAL` | digital + OCR **fusionnés** (table livrable) | les deux |
 | `07_quiver_comparison` | comparaison Quiver par déposant (deltas) | les deux |
 | `07b_quiver_missing_trades` | trades Quiver non retrouvés (clé brute, plancher) | House |
-| `07c→07f_quiver_*` | réconciliation Quiver **fine** (txn, accord champs, ticker, only-quiver) | les deux |
+| `07c→07f_quiver_*` | réconciliation Quiver **fine** 3 scopes (txn, accord champs, ticker, only-quiver) | les deux |
+| `07g_quiver_match_by_asset` | décomposition par **type d'actif** (action / non-coté) | les deux |
+| `07h_quiver_match_by_cluster` | décomposition par **cluster de scan** (A/B/C) | House |
 | `08_crosscheck_semaine1` | recoupement vs baseline « semaine 1 » | House |
 | `00_year_status` / `00_final_status` | tableaux de bord | Sénat |
 
@@ -44,8 +48,8 @@ La **structure** est symétrique ; ce sont les **fichiers présents** qui diffè
   `07c`/`07d` (cf. `common/quiver_scopes.py` qui documente toutes les métriques). C'est le scope `ocr`
   qui révèle **LA grande différence House/Sénat** :
   - **House** : Quiver **voit** le papier (Khanna ≈ 29 000 lignes Quiver) → l'OCR est **validé en
-    externe ~75 %** (l'écart = surtout des dates OCR mal lues). Couvertures typiques : digital ~95 %,
-    ocr ~75 %, both ~85 %. House garde aussi `07`/`07b` (clé brute = plancher conservateur).
+    externe 68,3 %** (l'écart = surtout des dates OCR manuscrites mal lues). Couvertures globales :
+    digital **98,2 %**, ocr **68,3 %**, both **86,2 %**. House garde aussi `07`/`07b` (clé brute = plancher conservateur).
   - **Sénat** : Quiver est **aveugle** au papier (Blumenthal, Feinstein = 0 ligne Quiver) → le scope
     `ocr` ressort **vide** (`coverage_pct` = None) → ici seulement « OCR = source unique » est vrai
     (validation interne : `date_confidence`, stabilité run-à-run).
@@ -55,4 +59,4 @@ La **structure** est symétrique ; ce sont les **fichiers présents** qui diffè
   `_paper_index_2020_2026.csv` (Sénat : index des PTR papier par UUID) — contenus différents, même rôle.
 
 Le filet **golden** (`tests/regression/{,senate_}golden_manifest.json`) gèle toutes les sorties sous
-`tables/` à l'octet (111 fichiers Chambre, 69 Sénat) — toute modif non voulue est détectée.
+`tables/` à l'octet (125 fichiers Chambre, 76 Sénat) — toute modif non voulue est détectée.

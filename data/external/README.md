@@ -1,6 +1,6 @@
 # data/external — jeux externes de triangulation (crosscheck)
 
-Données d'agrégateurs tiers utilisées **uniquement** pour la vérification croisée (`congress_core.crosscheck`),
+Données d'agrégateurs tiers utilisées **uniquement** pour la vérification croisée (`common.crosscheck`),
 jamais réinjectées dans les tables de production.
 
 - `senate_openset/` — export **Kadoa** (open dataset). `kadoa_filers.json` = résumé par déposant

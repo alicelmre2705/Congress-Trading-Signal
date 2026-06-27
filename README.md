@@ -48,13 +48,13 @@ pyproject.toml   installable :  pip install -e .
 
 | Chambre | FINAL | = digital + OCR | Identité | Concordance Quiver |
 |---|---|---|---|---|
-| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | digital ~95 % / OCR ~75 % / both ~85 % (3 scopes) |
+| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | digital 98,2 % / OCR 68,3 % / both 86,2 % (3 scopes) |
 | **Sénat** | **8 841** | 7 161 + 1 680 | 100 % | 98–100 %/an |
 
 Les deux chambres ont la **table 12/12 champs** (identité, ticker, secteur GICS→ETF, date, montant…) :
 House ticker **85,3 %** / secteur **83,2 %** ; Sénat ticker **71,4 %** / secteur **62,1 %**. Validation
 externe Quiver **par scope** (digital/OCR/both) : au **House**, Quiver voit le papier (Khanna) → l'OCR y
-est validé **par Quiver** (~75 %) ; au **Sénat**, l'OCR est surtout du non-coté (munis) que Quiver ne
+est validé **par Quiver** (68,3 %) ; au **Sénat**, l'OCR est surtout du non-coté (munis) que Quiver ne
 suit pas → là, l'OCR est la **source unique** (validée en interne).
 
 ## Installation & vérification
@@ -64,8 +64,8 @@ python3.12 -m venv .venv
 ./.venv/bin/pip install -e .
 
 # Filet de non-régression (doit afficher « ZÉRO ÉCART ») :
-./.venv/bin/python tests/regression/check_golden.py         # House  — 111 fichiers
-./.venv/bin/python tests/regression/senate_check_golden.py  # Sénat  —  69 fichiers
+./.venv/bin/python tests/regression/check_golden.py         # House  — 125 fichiers
+./.venv/bin/python tests/regression/senate_check_golden.py  # Sénat  —  76 fichiers
 # Preuves de reproduction fonction-par-fonction :
 ./.venv/bin/python tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker
 ```
