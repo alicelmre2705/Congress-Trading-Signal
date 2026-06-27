@@ -28,7 +28,7 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent        # <repo>/senate
 from senate.identity import load_reference, make_matcher, enrich, SCHEMA
-from senate import quiver_audit as vq
+from senate import quiver as vq
 
 DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 REPORTS = DATA / "reports"

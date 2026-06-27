@@ -7,7 +7,7 @@
 
 Étape 2 (sur le CORPUS COMPLET, en une passe — parité House/Q1, cf. audit de parité 2026-06-25) :
   - **résolution ticker** : dictionnaire nom→ticker (depuis les lignes déjà tickées) + passe LLM
-    (`ticker_resolve.py`) → remonte la couverture du papier sans symbole imprimé ;
+    (`ticker.py`) → remonte la couverture du papier sans symbole imprimé ;
   - **secteur GICS → ETF SPDR** : `sector_enrich.enrich_sectors` (champs `sector_gics`, `etf_proxy`) ;
   - **flag `date_confidence`** : plausible/implausible selon la fenêtre légale (75 j), parité House.
 
@@ -26,7 +26,7 @@ import pandas as pd
 HERE = Path(__file__).resolve().parent        # <repo>/senate
 DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 
-from senate import ticker_resolve              # résolution ticker (parité House)
+from senate import ticker                      # résolution ticker (parité House)
 from senate import sector_enrich as se         # secteur GICS→ETF (module Sénat)
 
 DATE_WINDOW_DAYS = 75   # parité House : un PTR se dépose ~45 j après la transaction (+marge)
@@ -81,7 +81,7 @@ def main():
     # --- Étape 2 : enrichissement sur le corpus complet (une passe : dict+LLM partagés, cache unique) ---
     big = pd.concat(per_year.values(), ignore_index=True)
     print(f"Corpus FINAL : {len(big)} lignes / {len(years)} années — enrichissement…")
-    big = ticker_resolve.resolve_tickers(big)                       # ticker : dict + LLM
+    big = ticker.resolve_tickers(big)                               # ticker : dict + LLM
     big = se.enrich_sectors(big)                                    # secteur GICS → ETF SPDR
     big["date_confidence"] = [date_confidence(t, d)                 # flag date (parité House)
                               for t, d in zip(big["transaction_date"], big["disclosure_date"])]

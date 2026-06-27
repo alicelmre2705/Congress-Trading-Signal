@@ -3,8 +3,8 @@
 ⚠️ ÉTAT RÉEL (cf. docs/RAPPORT_V2_ARCHI.md) : seul le secteur est mutualisé — `senate.sector_enrich`
 est un **shim** qui délègue à `congress_core.sector_enrich`. Le reste **réimplémente localement** une
 logique qui DIVERGE vraiment de House : identité/clé/dédup (`senate.identity` : SCHEMA, natural_key,
-make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker_resolve`, prompt ≠
-House), validation Quiver (`senate.quiver_audit`, `reconcile` plus riche), OCR (`senate.ocr_engine`, figé
+make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker`, prompt ≠
+House), validation Quiver (`senate.quiver`, `reconcile` plus riche), OCR (`senate.ocr_engine`, figé
 Q1 pour reproduire le golden). Une unification plus poussée a été examinée puis écartée (divergence
 légitime, pas duplication accidentelle).
 
@@ -12,6 +12,6 @@ légitime, pas duplication accidentelle).
 `senate.ocr`       : découverte PTR papier → Vision (cache versionné, prompt FR) → normalisation.
 `senate.fusion`    : fusion digital + OCR → table FINALE 27 champs (ticker dict+LLM, secteur, dates).
 `senate.identity`  : référentiel + matcher bioguide + enrichissement (logique figée Q1, reproduit le golden).
-`senate.quiver_audit` : reconcile transaction-niveau (07c-f) + dédup amendements.
+`senate.quiver` : reconcile transaction-niveau (07c-f) + dédup amendements.
 Données sous `data/senate/` (parité `data/house/`).
 """
