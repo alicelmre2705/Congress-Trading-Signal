@@ -523,7 +523,7 @@ def run_ocr_year(year, force=False):
         # d'ensemble que cite le rapport. (Au Sénat, Quiver est aveugle au papier → scope OCR vide.)
         _qh = hm.fetch_quiver()
         if _qh is not None:
-            from common.quiver_scopes import reconcile_scopes
+            from common.quiver_scopes import reconcile_scopes, match_breakdown
             from house import quiver as _hq
             _q = _qh.copy(); _q["_filed"] = pd.to_datetime(_q["filed"], errors="coerce")
             _q = _q[(_q["_filed"] >= pd.Timestamp(f"{year}-01-01")) & (_q["_filed"] <= pd.Timestamp(f"{year}-12-31"))]
@@ -540,7 +540,6 @@ def run_ocr_year(year, force=False):
             # 07g/07h — décomposition fine « qui a quoi » : exact / date_mismatch / no_match / non_equity,
             # par asset_type ET par cluster de scan (tapé/manuscrit) → révèle que le point faible est la
             # DATE de l'OCR manuscrit, pas une cécité de Quiver. Cf. common/quiver_scopes.match_breakdown.
-            from common.quiver_scopes import match_breakdown
             _cmap = pd.read_csv(hm.TABROOT / "_scan_census_547.csv", dtype=str).set_index("doc_id")["cluster"].to_dict()
             _ba, _bc = match_breakdown(_fin, _q, _hq.norm_ticker, _hq.norm_sense, cluster_map=_cmap)
             _ba.to_csv(ydir / "07g_quiver_match_by_asset.csv", index=False)

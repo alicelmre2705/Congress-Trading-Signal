@@ -12,7 +12,7 @@ Pipeline House — piste DIGITALE multi-années (PDF lisibles uniquement).
 La logique de parsing est portée fidèlement depuis notebook_v1_house_2025q1.ipynb (piste digitale).
 Ce module sert de moteur de validation ; il est ensuite matérialisé en notebook transparent.
 """
-import io, re, os, sys, json, time, hashlib, argparse, unicodedata
+import re, os, argparse
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from collections import defaultdict, Counter

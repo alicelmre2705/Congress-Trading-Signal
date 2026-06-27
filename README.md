@@ -47,12 +47,14 @@ pyproject.toml   installable :  pip install -e .
 
 | Chambre | FINAL | = digital + OCR | Identité | Concordance Quiver |
 |---|---|---|---|---|
-| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | 85,9 % (txn-niveau) |
+| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | digital ~95 % / OCR ~75 % / both ~85 % (3 scopes) |
 | **Sénat** | **8 841** | 7 161 + 1 680 | 100 % | 98–100 %/an |
 
 Les deux chambres ont la **table 12/12 champs** (identité, ticker, secteur GICS→ETF, date, montant…) :
-House ticker **85,3 %** / secteur **83,2 %** ; Sénat ticker **71,4 %** / secteur **62,1 %**. OCR papier
-validé hors-Quiver (les agrégateurs sont aveugles au scanné → notre OCR est la source unique).
+House ticker **85,3 %** / secteur **83,2 %** ; Sénat ticker **71,4 %** / secteur **62,1 %**. Validation
+externe Quiver **par scope** (digital/OCR/both) : au **House**, Quiver voit le papier (Khanna) → l'OCR y
+est validé **par Quiver** (~75 %) ; au **Sénat**, l'OCR est surtout du non-coté (munis) que Quiver ne
+suit pas → là, l'OCR est la **source unique** (validée en interne).
 
 ## Installation & vérification
 

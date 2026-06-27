@@ -9,9 +9,11 @@ Modules :
     reference     ★ référentiel des élus partagé : nom → bioguide (Reference, load_reference,
                   add_years_in_office, enrich_identity). Le MATCHER est par chambre (house/senate.identity).
     schema        clé naturelle + natural_key_hash + dédup per-lot (contrat de table, prouvé identique aux 2)
-    sector_enrich GICS → ETF SPDR (importé par House ET par le shim Sénat)
+    sector_enrich GICS → ETF SPDR (importé par house.ocr ET senate.fusion, en direct)
     enrich_tenure years_in_office, appendu aux 14 tables FINAL (House + Sénat)
-    quality       5 contrôles qualité (lecture seule des FINAL des deux chambres)
+    quiver_scopes validation Quiver multi-scopes (digital/ocr/both) + breakdown métriques (07c-h)
+    quality       SIX contrôles (a–f), dont (f) = validation externe Quiver par scope ; lecture seule
+                  des FINAL + des 07c/07g/07h figés des deux chambres
     crosscheck    triangulation Quiver / Kadoa / Stock Watcher + statut par déposant (via quality)
     vision_ocr    moteur OCR Vision de RÉFÉRENCE (deskew + cache versionné), exercé par les tests ;
                   chaque chambre a son OCR en prod (house.ocr, senate.ocr_engine)

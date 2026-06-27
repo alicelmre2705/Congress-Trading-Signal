@@ -35,9 +35,9 @@ elle isole le code refondu des aléas réseau/OCR.
 | `check_golden.py` / `build_golden.py` | Toutes les sorties House reproduisent le golden (sha256) ; `build_golden.py` (re)gèle l'empreinte. |
 | `test_schema.py` | `congress_core.schema.natural_key_hash` = drop-in exact des deux moteurs (équivalence unitaire + repro CSV). |
 | `test_amounts_tickers.py` | `amount_midpoint` / `infer_asset_type` reproduisent les colonnes figées (06 digital + 06b OCR), sans PDF. |
-| `test_identity.py` | Le matcher `congress_core.identity` == `house.digital.match_bioguide` original ; bioguides figés reproduits. |
+| `test_identity.py` | Le matcher `house.identity` == `house.digital.match_bioguide` original ; bioguides figés reproduits. |
 | `test_tenure.py` | `years_in_office` recomputé depuis (bioguide, date) + référentiel embarqué == valeur figée des FINAL. |
-| `test_crosscheck.py` | Smoke Quiver + crosscheck : les déposants papier ressortent `ocr_unique` (l'OCR est bien source unique). |
+| `test_crosscheck.py` | Smoke Quiver + crosscheck : un déposant papier SANS contrepartie Quiver (Quiver≈0, ex. munis Sénat) ressort `ocr_unique` ; un déposant papier que Quiver possède (Khanna) sort `quiver_validable`. |
 | `test_vision_sha.py` | `VisionExtractor.prompt_sha` == SHA original == `prompt_sha` des caches (déplacer l'OCR n'invalide pas le cache). |
 | `test_incremental.py` | Mise à jour incrémentale : 2ᵉ run OCR = 0 appel Vision (cache versionné par `(prompt_sha, model)`). |
 | `test_senate_repro.py` | Pipeline Sénat re-logé (`senate/` + `congress_core`) reproduit les colonnes des FINAL gelées. |

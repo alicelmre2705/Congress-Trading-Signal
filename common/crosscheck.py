@@ -1,8 +1,11 @@
 """Triangulation & statut de validation par déposant — livrable « qu'a-t-on validé ou pas ».
 
-Constat de l'investigation : Quiver, Kadoa, House Stock Watcher sont TOUS aveugles au papier/scanné
-→ la triangulation externe ne marche que pour le DIGITAL ; le papier (Khanna, Harshbarger…) n'existe
-dans aucun agrégateur → notre OCR est la SOURCE UNIQUE. Ce module matérialise ce constat :
+Constat NUANCÉ (cf. validation 3-scopes, common/quiver_scopes.py) : Quiver POSSÈDE le papier AU HOUSE
+(Rohit Khanna ≈ 29 000 lignes Quiver) → l'OCR House y est validé en EXTERNE (~75 % au scope `ocr`). C'est
+AU SÉNAT que Quiver est aveugle au papier (Blumenthal, Feinstein = 0 ligne), surtout parce que l'OCR y
+est du NON-COTÉ (munis/obligations, hors périmètre actions de Quiver) → là, et là seulement, notre OCR
+est la SOURCE UNIQUE. Ce module n'attribue `ocr_unique` que lorsque Quiver≈0 (donc Khanna, vu par Quiver,
+sort `quiver_validable`) :
 
   - `per_filer_status(final_df, quiver_df)` : statut par déposant (bioguide), axe principal Quiver.
   - `add_external_counts(...)` : ajoute Kadoa (résumé House) + House Stock Watcher par nom (best-effort).
