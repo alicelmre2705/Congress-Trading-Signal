@@ -116,6 +116,11 @@ def main():
         _field.to_csv(_ydir / "07d_quiver_field_agreement.csv", index=False)
         _rb["ticker_per_sen"].to_csv(_ydir / "07e_quiver_ticker_per_senator.csv", index=False)
         _rb["only_quiver_txn"].to_csv(_ydir / "07f_quiver_only_quiver_txn.csv", index=False)
+        # 07g — décomposition par asset_type (le Sénat n'a pas de census/cluster). Montre que l'OCR Sénat
+        # est surtout du NON-COTÉ (munis/obligations) hors périmètre Quiver. Cf. quiver_scopes.match_breakdown.
+        from common.quiver_scopes import match_breakdown
+        _ba, _ = match_breakdown(_fin, _qy, vq.norm_ticker, vq.norm_sense)
+        _ba.to_csv(_ydir / "07g_quiver_match_by_asset.csv", index=False)
         midp = pd.to_numeric(final["amount_midpoint"], errors="coerce")
         m = meta[y]
         rows.append({

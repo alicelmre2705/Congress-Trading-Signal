@@ -56,3 +56,63 @@ def reconcile_scopes(reconcile_fn, scopes, qwin):
         if name == "both":
             rec_both = r
     return pd.concat(txn, ignore_index=True), pd.concat(field, ignore_index=True), rec_both
+
+
+# ── Décomposition fine « qui a quoi » vs Quiver (07g / 07h) ───────────────────────────────────────
+# CLASSES de chaque transaction à NOUS, confrontée à Quiver (la vérité-terrain actions) :
+#   exact_match    : Quiver a le même trade, MÊME DATE de transaction → concordance parfaite.
+#   date_mismatch  : Quiver a le trade (même bioguide×ticker×sens) mais notre DATE diffère
+#                    → on a capté le bon trade, mais notre lecture (souvent OCR) a mal lu la date.
+#   no_match       : aucune correspondance Quiver (ni avec ni sans date) → soit Quiver ne l'a pas,
+#                    soit notre ticker est faux. C'est le « only_ours » réel des actions.
+#   non_equity     : pas de ticker (muni, obligation, fonds privé…) → HORS périmètre Quiver
+#                    (Quiver ne suit que les actions cotées) → ni validable ni un défaut.
+# Ce que ça RÉVÈLE (chiffré, par run) :
+#   • Quiver N'EST PAS aveugle au papier : exact+date_mismatch = la part que Quiver POSSÈDE.
+#   • Le point faible = la DATE de notre OCR (surtout MANUSCRIT) → date_mismatch élevé.
+#   • Le non_equity (gros au Sénat : munis) explique l'essentiel du « Quiver ne nous voit pas ».
+def match_breakdown(our_df, qwin, norm_ticker, norm_sense, cluster_map=None):
+    """Classe chaque transaction de `our_df` (exact_match / date_mismatch / no_match / non_equity) vs
+    `qwin` (fenêtre Quiver), puis agrège par `asset_type` (les 2 chambres) et, si `cluster_map` est
+    fourni (dict doc_id→cluster, House), par `cluster`. Renvoie (by_asset_df, by_cluster_df|None) ;
+    chaque table : une ligne par valeur, colonnes des 4 classes + total + `quiver_has_pct`
+    (= part des ACTIONS que Quiver possède = (exact+date_mismatch)/(exact+date_mismatch+no_match))."""
+    d = our_df.copy()
+    d["_tk"] = d["ticker"].map(norm_ticker)
+    d["_sense"] = d["operation_type"].map(norm_sense)
+    d["_d"] = pd.to_datetime(d["transaction_date"], errors="coerce").dt.date
+    q = qwin.copy()
+    q["_tk"] = q["Ticker"].map(norm_ticker); q["_sense"] = q["Transaction"].map(norm_sense)
+    q["_d"] = pd.to_datetime(q["Traded"], errors="coerce").dt.date
+    QK = set(zip(q["BioGuideID"], q["_tk"], q["_d"], q["_sense"]))
+    QK3 = set(zip(q["BioGuideID"], q["_tk"], q["_sense"]))
+
+    def _cls(r):
+        if r["_tk"] == "":
+            return "non_equity"
+        if (r["bioguide_id"], r["_tk"], r["_d"], r["_sense"]) in QK:
+            return "exact_match"
+        if (r["bioguide_id"], r["_tk"], r["_sense"]) in QK3:
+            return "date_mismatch"
+        return "no_match"
+
+    d["match_class"] = d.apply(_cls, axis=1)
+
+    def _agg(df, dim):
+        g = df.groupby([dim, "match_class"]).size().unstack(fill_value=0)
+        for c in ("exact_match", "date_mismatch", "no_match", "non_equity"):
+            if c not in g.columns:
+                g[c] = 0
+        g["total"] = g[["exact_match", "date_mismatch", "no_match", "non_equity"]].sum(axis=1)
+        eq = g["exact_match"] + g["date_mismatch"] + g["no_match"]
+        g["quiver_has_pct"] = (100 * (g["exact_match"] + g["date_mismatch"]) / eq.where(eq > 0)).round(1)
+        return g.reset_index()[[dim, "exact_match", "date_mismatch", "no_match", "non_equity", "total", "quiver_has_pct"]]
+
+    by_asset = _agg(d.assign(asset_type=d["asset_type"].fillna("(inconnu)")), "asset_type")
+    by_cluster = None
+    if cluster_map is not None and "doc_id" in d.columns:
+        d["cluster"] = d["doc_id"].map(cluster_map)
+        sub = d.dropna(subset=["cluster"])
+        if len(sub):
+            by_cluster = _agg(sub, "cluster")
+    return by_asset, by_cluster

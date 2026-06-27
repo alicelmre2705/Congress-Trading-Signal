@@ -1,5 +1,5 @@
 # Rapport de qualité des données — Congress Trading
-> Livrable Ramify, Semaine 2. Généré par `python -m congress_core.quality` (lecture seule des tables FINAL, aucun appel API).
+> Livrable Ramify, Semaine 2. Généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API).
 **Périmètre :** 90 487 transactions FINAL (House 81 646 + Sénat 8 841)  années 2020–2026.
 
 ## (a) Cohérence des dates (`disclosure_date ≥ transaction_date`)
@@ -128,4 +128,65 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 | --- | --- | --- | --- |
 | house | 34565 | 26783 | 22.5 |
 | senate | 2689 | 1625 | 39.6 |
+
+## (f) Validation externe Quiver (vérité-terrain — actions cotées)
+
+Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, **jamais réinjectée**. On confronte nos transactions à Quiver au niveau transaction, par **scope** (digital / OCR / les deux) — voir `common/quiver_scopes.py` pour la définition exhaustive des métriques. Trois constats chiffrés en ressortent :
+
+**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver qu'on retrouve ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades Quiver qu'on n'a pas) :
+
+| chamber | scope | matched | quiver | only_ours | only_quiver | couverture_pct |
+| --- | --- | --- | --- | --- | --- | --- |
+| house | both | 43279.0 | 50221.0 | 13482.0 | 6942.0 | 86.2 |
+| house | digital | 25784.0 | 26252.0 | 415.0 | 468.0 | 98.2 |
+| house | ocr | 17583.0 | 25743.0 | 13067.0 | 8160.0 | 68.3 |
+| senate | both | 4324.0 | 4349.0 | 544.0 | 25.0 | 99.4 |
+| senate | digital | 4324.0 | 4349.0 | 405.0 | 25.0 | 99.4 |
+| senate | ocr | 0.0 | 15.0 | 64.0 | 15.0 | 0.0 |
+
+**1) Quiver ne couvre que les ACTIONS.** Décomposition par type d'actif (`exact_match` = même trade, même date ; `date_mismatch` = bon trade, notre date diffère ; `no_match` = absent de Quiver ; `non_equity` = muni/obligation → **hors périmètre Quiver**, ni validable ni un défaut ; `quiver_a_le_trade_pct` = exact+date_mismatch sur les actions). — **House :**
+
+| asset_type | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| --- | --- | --- | --- | --- | --- | --- |
+| Stock | 47475 | 9301 | 8105 | 2796 | 67677 | 87.5 |
+| (inconnu) | 1704 | 211 | 1015 | 4345 | 7275 | 65.4 |
+| Gov Security | 5 | 0 | 23 | 2259 | 2287 | 17.9 |
+| Mutual Fund | 130 | 92 | 715 | 575 | 1512 | 23.7 |
+| Other | 161 | 14 | 7 | 810 | 992 | 96.2 |
+| CS | 56 | 1 | 1 | 724 | 782 | 98.3 |
+| Option | 492 | 7 | 83 | 0 | 582 | 85.7 |
+| HN | 5 | 0 | 0 | 134 | 139 | 100.0 |
+| PS | 6 | 0 | 0 | 103 | 109 | 100.0 |
+| Other Investment | 2 | 0 | 0 | 61 | 63 | 100.0 |
+| CT | 5 | 0 | 0 | 52 | 57 | 100.0 |
+| VA | 0 | 0 | 0 | 40 | 40 |  |
+| AB | 14 | 0 | 1 | 24 | 39 | 93.3 |
+| Corporate Bond | 3 | 2 | 0 | 32 | 37 | 100.0 |
+| OL | 5 | 0 | 0 | 28 | 33 | 100.0 |
+| ET | 16 | 0 | 0 | 0 | 16 | 100.0 |
+| RS | 1 | 1 | 0 | 1 | 3 | 100.0 |
+| SA | 1 | 0 | 0 | 2 | 3 | 100.0 |
+
+— **Sénat** (l'OCR y est surtout du non-coté → `non_equity`, ce qui explique l'essentiel du « Quiver ne nous voit pas » ; les `Stock`, eux, sont très bien couverts) :
+
+| asset_type | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| --- | --- | --- | --- | --- | --- | --- |
+| Stock | 4071 | 105 | 783 | 68 | 5027 | 84.2 |
+| Other | 350 | 21 | 158 | 1283 | 1812 | 70.1 |
+| Municipal Security | 0 | 4 | 7 | 755 | 766 | 36.4 |
+| Option | 421 | 10 | 23 | 63 | 517 | 94.9 |
+| Corporate Bond | 1 | 3 | 54 | 188 | 246 | 6.9 |
+| (inconnu) | 0 | 8 | 206 | 25 | 239 | 3.7 |
+| Commodities/Futures Contract | 0 | 0 | 0 | 87 | 87 |  |
+| Stock Option | 75 | 0 | 2 | 3 | 80 | 97.4 |
+| Non-Public Stock | 0 | 0 | 2 | 58 | 60 | 0.0 |
+| Cryptocurrency | 4 | 0 | 2 | 1 | 7 | 66.7 |
+
+**2) Quiver A le papier — notre limite est la DATE de l'OCR.** Par cluster de scan (House) : `quiver_a_le_trade_pct` reste élevé même en manuscrit (Quiver possède le trade), mais la part `exact_match` (date juste) **chute** sur le manuscrit → c'est notre lecture OCR des dates manuscrites qui est faible, **pas** une cécité de Quiver au papier :
+
+| cluster | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| --- | --- | --- | --- | --- | --- | --- |
+| B_tape_tourne | 18558 | 8653 | 7706 | 7234 | 42151 | 77.9 |
+| A_tape_droit | 3784 | 630 | 600 | 943 | 5957 | 88.0 |
+| C_manuscrit | 100 | 169 | 493 | 100 | 862 | 35.3 |
 

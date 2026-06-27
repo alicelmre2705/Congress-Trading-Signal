@@ -1,15 +1,18 @@
 """Rapport de qualité des données — livrable Ramify Semaine 2.
 
-Charge les tables FINAL des deux chambres (2020→2026), calcule les CINQ contrôles qualité demandés
-par Ramify, et génère figures + `docs/RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL, aucun
-appel API.**
+Charge les tables FINAL des deux chambres (2020→2026), calcule SIX contrôles qualité et génère
+figures + `docs/RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
+aucun appel API.**
 
-Les cinq contrôles :
+Les contrôles :
   (a) Cohérence des dates : `disclosure_date >= transaction_date`.
   (b) Délai légal : `lag = disclosure - transaction` ventilé ≤45 j (légal STOCK Act) / 45–75 j / >75 j.
   (c) Distribution des montants (`amount_midpoint`) : médiane, quartiles, top déposants par volume.
   (d) Coverage par congressman : #trades, #années, première/dernière année, membres ≥10 trades.
   (e) Taux de transactions sans sortie déclarée : achats sans vente ultérieure (même bioguide+ticker).
+  (f) Validation externe Quiver : couverture par scope (digital/ocr/both), décomposition
+      exact/date_mismatch/no_match/non_equity par type d'actif et par cluster de scan — agrégée depuis
+      les `07c/07g/07h` figés (définition des métriques : common/quiver_scopes.py).
 
 Usage : `python -m common.quality`  (écrit docs/RAPPORT_QUALITE.md + docs/quality/*.png)
 """
@@ -188,6 +191,51 @@ def unmatched_purchase_rate(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+# ───────────────────────────── (f) Validation externe Quiver ─────────────────────────────
+def quiver_validation(repo_root: Path) -> dict:
+    """Agrège la validation Quiver (vérité-terrain ACTIONS) depuis les fichiers figés `07c/07g/07h`
+    (lecture seule). Renvoie :
+      - `cov_scope`   : couverture transaction-niveau par scope (digital/ocr/both) × chambre
+                        = Σ matched / Σ quiver (sur toutes les années).
+      - `by_asset`    : {chambre → table} décomposition exact/date_mismatch/no_match/non_equity par
+                        `asset_type` → montre que Quiver = ACTIONS (les munis/obligations = `non_equity`).
+      - `by_cluster`  : (House) idem par cluster de scan (tapé/manuscrit) → montre que le point faible
+                        est la DATE de l'OCR manuscrit (date_mismatch élevé), pas une cécité de Quiver.
+    Toutes les métriques sont DÉFINIES dans common/quiver_scopes.py (docstring) et vérifiables ici."""
+    import glob
+
+    def _read(pat):
+        fs = sorted(glob.glob(str(repo_root / pat)))
+        return pd.concat([pd.read_csv(f) for f in fs], ignore_index=True) if fs else pd.DataFrame()
+
+    def _agg(df, dim):
+        if df.empty:
+            return df
+        g = df.groupby(dim)[["exact_match", "date_mismatch", "no_match", "non_equity", "total"]].sum().reset_index()
+        eq = g["exact_match"] + g["date_mismatch"] + g["no_match"]
+        g["quiver_a_le_trade_pct"] = (100 * (g["exact_match"] + g["date_mismatch"]) / eq.where(eq > 0)).round(1)
+        return g.sort_values("total", ascending=False).reset_index(drop=True)
+
+    cov_rows = []
+    for ch in ("house", "senate"):
+        c = _read(f"data/{ch}/tables/*/07c_quiver_txn_reconciliation.csv")
+        if c.empty:
+            continue
+        c["value"] = pd.to_numeric(c["value"], errors="coerce")
+        piv = c[c["metric"].isin(["matched", "quiver", "only_ours", "only_quiver"])].pivot_table(
+            index="scope", columns="metric", values="value", aggfunc="sum")
+        piv["couverture_pct"] = (100 * piv.get("matched", 0) / piv.get("quiver", pd.Series()).where(lambda s: s > 0)).round(1)
+        piv.insert(0, "chamber", ch)
+        cov_rows.append(piv.reset_index()[["chamber", "scope", "matched", "quiver", "only_ours", "only_quiver", "couverture_pct"]])
+
+    return {
+        "cov_scope": pd.concat(cov_rows, ignore_index=True) if cov_rows else pd.DataFrame(),
+        "by_asset": {ch: _agg(_read(f"data/{ch}/tables/*/07g_quiver_match_by_asset.csv"), "asset_type")
+                     for ch in ("house", "senate")},
+        "by_cluster": _agg(_read("data/house/tables/*/07h_quiver_match_by_cluster.csv"), "cluster"),
+    }
+
+
 # ───────────────────────────── Figures ─────────────────────────────
 def _figures(df, coverage, outdir: Path) -> list:
     import matplotlib
@@ -331,6 +379,41 @@ def build_report(repo_root: Path) -> Path:
                  "même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.\n\n")
     parts.append(_md_table(unmatched))
     parts.append("\n")
+
+    # ── (f) Validation externe Quiver ──
+    qv = quiver_validation(repo_root)
+    parts.append("\n## (f) Validation externe Quiver (vérité-terrain — actions cotées)\n")
+    parts.append("\nQuiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, "
+                 "**jamais réinjectée**. On confronte nos transactions à Quiver au niveau transaction, par "
+                 "**scope** (digital / OCR / les deux) — voir `common/quiver_scopes.py` pour la définition "
+                 "exhaustive des métriques. Trois constats chiffrés en ressortent :\n")
+    if len(qv["cov_scope"]):
+        parts.append("\n**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver "
+                     "qu'on retrouve ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades "
+                     "Quiver qu'on n'a pas) :\n\n")
+        parts.append(_md_table(qv["cov_scope"]))
+        parts.append("\n")
+    if len(qv["by_asset"].get("house", [])):
+        parts.append("\n**1) Quiver ne couvre que les ACTIONS.** Décomposition par type d'actif "
+                     "(`exact_match` = même trade, même date ; `date_mismatch` = bon trade, notre date "
+                     "diffère ; `no_match` = absent de Quiver ; `non_equity` = muni/obligation → **hors "
+                     "périmètre Quiver**, ni validable ni un défaut ; `quiver_a_le_trade_pct` = "
+                     "exact+date_mismatch sur les actions). — **House :**\n\n")
+        parts.append(_md_table(qv["by_asset"]["house"]))
+        if len(qv["by_asset"].get("senate", [])):
+            parts.append("\n\n— **Sénat** (l'OCR y est surtout du non-coté → `non_equity`, ce qui "
+                         "explique l'essentiel du « Quiver ne nous voit pas » ; les `Stock`, eux, sont "
+                         "très bien couverts) :\n\n")
+            parts.append(_md_table(qv["by_asset"]["senate"]))
+        parts.append("\n")
+    if len(qv["by_cluster"]):
+        parts.append("\n**2) Quiver A le papier — notre limite est la DATE de l'OCR.** Par cluster de "
+                     "scan (House) : `quiver_a_le_trade_pct` reste élevé même en manuscrit (Quiver possède "
+                     "le trade), mais la part `exact_match` (date juste) **chute** sur le manuscrit → "
+                     "c'est notre lecture OCR des dates manuscrites qui est faible, **pas** une cécité de "
+                     "Quiver au papier :\n\n")
+        parts.append(_md_table(qv["by_cluster"]))
+        parts.append("\n")
 
     report = docs / "RAPPORT_QUALITE.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")

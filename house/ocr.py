@@ -537,8 +537,17 @@ def run_ocr_year(year, force=False):
             _field.to_csv(ydir / "07d_quiver_field_agreement.csv", index=False)
             _rb["ticker_per_member"].to_csv(ydir / "07e_quiver_ticker_per_member.csv", index=False)
             _rb["only_quiver_txn"].to_csv(ydir / "07f_quiver_only_quiver_txn.csv", index=False)
+            # 07g/07h — décomposition fine « qui a quoi » : exact / date_mismatch / no_match / non_equity,
+            # par asset_type ET par cluster de scan (tapé/manuscrit) → révèle que le point faible est la
+            # DATE de l'OCR manuscrit, pas une cécité de Quiver. Cf. common/quiver_scopes.match_breakdown.
+            from common.quiver_scopes import match_breakdown
+            _cmap = pd.read_csv(hm.TABROOT / "_scan_census_547.csv", dtype=str).set_index("doc_id")["cluster"].to_dict()
+            _ba, _bc = match_breakdown(_fin, _q, _hq.norm_ticker, _hq.norm_sense, cluster_map=_cmap)
+            _ba.to_csv(ydir / "07g_quiver_match_by_asset.csv", index=False)
+            if _bc is not None:
+                _bc.to_csv(ydir / "07h_quiver_match_by_cluster.csv", index=False)
             _cov = _txn[_txn["scope"] == "both"].set_index("metric")["value"].get("coverage_pct")
-            print(f"  → 07c-f Quiver 3-scopes (digital/ocr/both) | couverture FINAL {_cov}%")
+            print(f"  → 07c-h Quiver (3 scopes + breakdown asset/cluster) | couverture FINAL {_cov}%")
 
     return {"year": year, "n_scanned": len(scanned), "n_ocr_txns": n_txn, "n_failures": len(failures),
             "n_declarants": int(df["declarant_name"].nunique())}
