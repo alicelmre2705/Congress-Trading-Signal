@@ -8,7 +8,7 @@
 Étape 2 (sur le CORPUS COMPLET, en une passe — parité House/Q1, cf. audit de parité 2026-06-25) :
   - **résolution ticker** : dictionnaire nom→ticker (depuis les lignes déjà tickées) + passe LLM
     (`ticker.py`) → remonte la couverture du papier sans symbole imprimé ;
-  - **secteur GICS → ETF SPDR** : `sector_enrich.enrich_sectors` (champs `sector_gics`, `etf_proxy`) ;
+  - **secteur GICS → ETF SPDR** : `common.sector_enrich.enrich_sectors` (champs `sector_gics`, `etf_proxy`) ;
   - **flag `date_confidence`** : plausible/implausible selon la fenêtre légale (75 j), parité House.
 
 Écrit `06_senate_{an}_FINAL.csv` (schéma 12 champs complet) + `00_final_status.csv`. Aucune validation
@@ -27,7 +27,8 @@ HERE = Path(__file__).resolve().parent        # <repo>/senate
 DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 
 from senate import ticker                      # résolution ticker (parité House)
-from senate import sector_enrich as se         # secteur GICS→ETF (module Sénat)
+from common.sector_enrich import enrich_sectors  # secteur GICS → ETF (source unique partagée)
+SECTOR_CACHE = DATA / "sector_cache.json"        # cache secteur Sénat (seul spécifique)
 
 DATE_WINDOW_DAYS = 75   # parité House : un PTR se dépose ~45 j après la transaction (+marge)
 
@@ -82,7 +83,7 @@ def main():
     big = pd.concat(per_year.values(), ignore_index=True)
     print(f"Corpus FINAL : {len(big)} lignes / {len(years)} années — enrichissement…")
     big = ticker.resolve_tickers(big)                               # ticker : dict + LLM
-    big = se.enrich_sectors(big)                                    # secteur GICS → ETF SPDR
+    big = enrich_sectors(big, SECTOR_CACHE, with_llm=True, audit_all=True)  # secteur GICS → ETF SPDR
     big["date_confidence"] = [date_confidence(t, d)                 # flag date (parité House)
                               for t, d in zip(big["transaction_date"], big["disclosure_date"])]
 

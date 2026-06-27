@@ -1,9 +1,8 @@
-"""Fourchettes de montant, midpoint, propriétaire, type d'opération — par chambre.
+"""Helpers de montant House (digital + OCR) : fourchettes, midpoint, propriétaire, type d'opération.
 
-Réconcilie les copies divergentes (House OCR J=75M/midpoints .0 ; Sénat OCR J=50M/midpoints .5 ;
-owner labels différents). On NE fusionne PAS : chaque chambre/mode garde sa sémantique exacte
-(les midpoints et `owner` alimentent des sorties figées — cf. piège #3). Les maps sont indexées
-par chambre ; le code par défaut reste celui de House (refonte House-first).
+Le map OCR du Sénat (midpoints en `.5`, divergence VOULUE `.0` vs `.5`) vit dans `senate/ocr_engine.py`,
+là où il sert ; ici on ne garde que le spécifique House. Les midpoints/`owner` alimentent des sorties
+figées (cf. piège #3) → sémantique exacte préservée.
 """
 import re
 
@@ -12,7 +11,7 @@ ATYPE_NAMES = {"ST": "Stock", "OP": "Option", "OT": "Other", "MF": "Mutual Fund"
                "GS": "Gov Security", "CO": "Corp Bond", "PE": "Private Equity",
                "OI": "Other Investment"}
 
-# ── Fourchettes A–K → (libellé, midpoint), par chambre (copie EXACTE des moteurs OCR) ──────────
+# ── Fourchettes A–K → (libellé, midpoint) — OCR House (midpoints .0 ; le Sénat, .5, est dans senate/ocr_engine) ─
 HOUSE_OCR_AMOUNT_MAP = {
     "A": ("$1,001 - $15,000", 8_000.0), "B": ("$15,001 - $50,000", 32_500.0),
     "C": ("$50,001 - $100,000", 75_000.0), "D": ("$100,001 - $250,000", 175_000.0),
@@ -21,21 +20,10 @@ HOUSE_OCR_AMOUNT_MAP = {
     "I": ("$25,000,001 - $50,000,000", 37_500_000.0), "J": ("Over $50,000,000", 75_000_000.0),
     "K": ("SP/DC over $1,000,000", 1_000_001.0),
 }
-SENATE_OCR_AMOUNT_MAP = {
-    "A": ("$1,001 - $15,000", 8000.5), "B": ("$15,001 - $50,000", 32500.5),
-    "C": ("$50,001 - $100,000", 75000.5), "D": ("$100,001 - $250,000", 175000.5),
-    "E": ("$250,001 - $500,000", 375000.5), "F": ("$500,001 - $1,000,000", 750000.5),
-    "G": ("$1,000,001 - $5,000,000", 3000000.5), "H": ("$5,000,001 - $25,000,000", 15000000.5),
-    "I": ("$25,000,001 - $50,000,000", 37500000.5), "J": ("Over $50,000,000", 50000000.0),
-}
-AMOUNT_MAP = {"house": HOUSE_OCR_AMOUNT_MAP, "senate": SENATE_OCR_AMOUNT_MAP}
 
-# ── Propriétaire (normalisation par chambre — labels INTENTIONNELLEMENT différents) ────────────
+# ── Propriétaire (normalisation OCR House) ────────────
 HOUSE_OCR_OWNER_MAP = {"Self": "SELF", "Spouse": "Spouse",
                        "Joint": "Joint Tenancy", "Dependent Child": "Dependent Child"}
-SENATE_OCR_OWNER_MAP = {"Self": "Self", "Spouse": "Spouse",
-                        "Joint": "Joint", "Dependent Child": "Child"}
-OWNER_MAP = {"house": HOUSE_OCR_OWNER_MAP, "senate": SENATE_OCR_OWNER_MAP}
 
 
 def amount_midpoint(a):

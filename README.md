@@ -27,13 +27,21 @@ common/   contrat UNIVERSEL : reference · schema · sector_enrich · vision_ocr
                  quality (rapport) · enrich_tenure (ancienneté) · pipeline (orchestrateur)
 house/    pipeline Chambre  : digital · ocr · identity · amounts · tickers · quiver · echantillon
 senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
-                 sector_enrich (shim) · census_probe        ← jumeau de house/
+                 census_probe                                ← jumeau de house/
 data/            données  (house/ · senate/ · external/)
 docs/            ARCHITECTURE.pdf (guide structure) · RAPPORT_COMPLET.pdf · RAPPORT_QUALITE.md
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
 ```
+
+**Asymétries House/Sénat assumées** (le reste des modules est symétrique) :
+- `senate/fusion.py` (House fusionne *inline* dans `ocr.py`) — **volume** : le Sénat enrichit sur tout le
+  corpus en une passe (mutualise le dico de tickers), House fusionne année par année.
+- `senate/ocr_engine.py` (House garde son OCR *inline*) — **forme OCR divergente** (House : scans PDF,
+  cases A–K ; Sénat : `.gif`, fourchettes \$ explicites) + moteur figé pour le golden.
+- montants : `house/amounts.py` (midpoints `.0`) vs map Sénat (`.5`) dans `senate/ocr_engine.py` —
+  divergence **voulue** ; la formule `amount_midpoint` (6 l.) reste propre à chaque chambre (découplage).
 
 ## Chiffres clés
 
