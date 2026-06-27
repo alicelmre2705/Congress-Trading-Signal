@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[2]
 
 
 def _load(chamber):
-    pat = (REPO / "data" / chamber / "tables" if chamber == "house" else REPO / "data" / chamber)
+    pat = REPO / "data" / chamber / "tables"   # data harmonisée : data/{chambre}/tables/{an}/
     glob = f"*/06_{chamber}_*_FINAL.csv"
     files = sorted(pat.glob(glob))
     return pd.concat([pd.read_csv(f, dtype=str, keep_default_na=False) for f in files], ignore_index=True)
