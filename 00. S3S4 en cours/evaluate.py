@@ -130,6 +130,12 @@ def trade_stats(tr: pd.DataFrame) -> dict:
             "mediane_abn": float(a.median())}
 
 
+def fundamental_law(ic: float, breadth: float) -> float:
+    """Loi fondamentale de la gestion active (Grinold & Kahn) : IR ≈ IC · √breadth. Borne le ratio
+    d'information atteignable d'un signal vu son IC et son nombre de paris ~indépendants par an."""
+    return ic * np.sqrt(max(breadth, 0.0))
+
+
 def car_event(px: pd.Series, spy: pd.Series, entry, horizon_days: int):
     """Rendement ANORMAL cumulé (buy-and-hold) d'un titre vs SPY sur `horizon_days` jours de bourse,
     entrée = 1er jour de bourse ≥ `entry`. None si données insuffisantes. Sert aux event-studies."""

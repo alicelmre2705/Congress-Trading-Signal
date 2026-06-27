@@ -1,7 +1,7 @@
 # Contexte, littérature & produits — complément documentaire (non empirique)
 
 > Les **analyses empiriques reproductibles** (event-study, IC, long-short, commission, caractéristiques,
-> ML, backtest 9 variantes) sont dans les notebooks **`01_backtest.ipynb`** et **`02_chasse_au_signal.ipynb`**
+> ML, backtest 9 variantes) sont dans les notebooks **`SUPP_A_backtest_generique.ipynb`** et **`SUPP_B_chasse_au_signal.ipynb`**
 > (code + résultats + verdicts inline). Ce document rassemble ce qui est **documentaire** : la littérature,
 > les produits réels, et l'explication du « hype » — avec les sources. Il sert à situer nos résultats.
 

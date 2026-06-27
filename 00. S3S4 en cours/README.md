@@ -1,37 +1,51 @@
-# 00. S3S4 en cours — Recherche stratégie (Semaines 3-4)
+# Semaines 3-4 — Stratégie & backtest (Congress Trading Signal)
 
-**Recherche / premier jet — ISOLÉ.** On **lit** les données du dépôt, on **n'écrit que dans ce dossier**
-(aucun impact sur le travail finalisé des Semaines 1-2 ni sur les golden).
+**Recherche ISOLÉE.** On **lit** les données du dépôt, on **n'écrit que dans ce dossier** (aucun impact sur
+le travail finalisé des Semaines 1-2 ni sur les golden). Tout tourne sur le kernel *S3S4 (.venv)* et le cache
+de prix local. Les notebooks sont **déjà exécutés** (sorties sauvegardées → lisibles tels quels).
 
-## Le récit est dans 4 NOTEBOOKS (code + résultat + raisonnement, côte à côte)
-- **`00_exploration.ipynb`** — *montrer la recherche : chaque chiffre, reproduit ou sourcé.* Recalcule sur
-  Quiver 2014+ tous les nombres des analyses préliminaires (mix, latence, CAR, slices, persistance, dilution)
-  + **audit de complétude** (aucun chiffre orphelin ; **3 divergences assumées** vs les calculs agents FINAL).
-- **`03_strategie_ramify.ipynb`** — **LE livrable.** Construit la stratégie *spécifiée par Ramify* : sélection
-  annuelle rolling de K congressmen (Sharpe rétréci + UCB + commissions clés), **walk-forward V1 actions & V2
-  ETF** vs SPY/RSP/60-40, **grille K + Deflated Sharpe**, **track records individuels**, métriques niveau-trade,
-  checklist De Prado, verdict + **cadrage produit**. → V1 sous-performe ; **V2 ≈ beta thématique dé-risqué**.
-- **`01_backtest.ipynb`** — *« suivre le Congrès » bat-il le marché net de coûts ?* 9 variantes → **pas d'edge net.**
-- **`02_chasse_au_signal.ipynb`** — *recherche objective de signal* (6 angles : IC · event-study · long-short ·
-  commission · caractéristiques · ML). **→ Info faible mais réelle (*breadth* d'achat), sous le seuil d'exploitabilité.**
+---
 
-**Synthèse pour l'équipe QIS : `04_note_recherche.md`** (méthodo, résultats, limites, recommandation).
+## 1. LE LIVRABLE — demandé par Ramify (brief `0.Notion_Ramify.pdf`)
 
-Les sorties sont **déjà exécutées et sauvegardées** dans les notebooks → lisibles tels quels (présentables),
-et **relançables** (kernel *S3S4 (.venv)*, tout tourne sur le cache de prix).
+La stratégie *spécifiée* par Ramify, construite section par section, en ses **deux versions** :
 
-## Moteur réutilisable (importé par les notebooks — pas de duplication)
+| Notebook | Ce qu'il livre |
+|---|---|
+| **`RAMIFY_V1_actions.ipynb`** | **Version 1 (actions).** Entrée `disclosure_date`+1 / sortie vente-ou-12 mois ; **sélection annuelle des K congressmen** (Sharpe rétréci de la *série de trades* + UCB + ≥ moitié en commission Finance/Defense/Intelligence) ; grille **K∈{4,6,8,10}** + Deflated Sharpe ; métriques Ramify (hit rate, return/trade, Sharpe, **alpha vs SPX** FF-Carhart, profit factor) ; **track records individuels** + persistance. |
+| **`RAMIFY_V2_ETF.ipynb`** | **Version 2 (ETF sectoriels).** Même sélection, on substitue chaque action par son **ETF SPDR** (GICS) ; mesure de la **dilution V1→V2** ; **cadrage produit** (intégrable Ramify, type NANC/KRUZ). |
+
+**`NOTE_RECHERCHE_QIS.md`** = la synthèse pour l'équipe QIS (méthodo, résultats, limites, recommandation,
+**traçabilité de chaque chiffre**).
+
+**Résultat en une ligne** : la stratégie spécifiée dégage un **alpha actions positif mais non significatif**
+(V1), **dilué à ≈0/négatif** une fois traduit en ETF (V2) ; aucune version ne bat SPY en risque-ajusté →
+**produit thématique livrable, pas un générateur d'alpha**.
+
+---
+
+## 2. RECHERCHE SUPPLÉMENTAIRE — notre valeur ajoutée (au-delà de la demande)
+
+| Notebook | Rôle |
+|---|---|
+| **`SUPP_00_exploration.ipynb`** | Profil des données + **audit de complétude** : chaque chiffre des analyses préliminaires reproduit ou sourcé (3 divergences assumées). |
+| **`SUPP_A_backtest_generique.ipynb`** | « Suivre tout le Congrès » — 9 variantes génériques net de coûts → pas d'edge net. |
+| **`SUPP_B_chasse_au_signal.ipynb`** | Recherche objective de signal (6 angles) → seul survivant = la *breadth* d'achat (IC≈0,02, sous le seuil). |
+| **`SUPP_C_approfondissement_V2.ipynb`** | **Le Sharpe de la V2 mène-t-il quelque part ?** Caractérisation (beta/corr/sous-périodes/blend) + V2 pilotée par la breadth + loi fondamentale Grinold-Kahn. |
+
+---
+
+## 3. Moteur réutilisable (importé par les notebooks — pas de duplication)
+
 | Module | Rôle |
 |---|---|
 | `data.py` | journal des transactions Quiver (2014+), normalisé |
 | `prices.py` | prix yfinance + facteurs Fama-French, **cache** (`cache/`, gitignoré) |
 | `portfolio.py` | moteur event-driven (entrée `filed`+1), rendements **nets de coûts** |
-| `evaluate.py` | alpha FF-Carhart, Deflated Sharpe, OOS, `nw_tstat`, `car_event`, `trade_returns`/`trade_stats` |
+| `evaluate.py` | alpha FF-Carhart, Deflated Sharpe, OOS, `nw_tstat`, `car_event`, `trade_returns`/`trade_stats`, `fundamental_law` |
+| `selection.py` | **sélection annuelle** (Sharpe rétréci Mauboussin sur la *série de trades réalisés* + UCB + commissions), `with_realized`, `sector_breadth`, V2 ticker→ETF |
 | `variants.py` | conviction-cluster, dé-concentration par membre |
 | `leadership.py` | leadership de parti (point-in-time) + chairs de commission |
-| `selection.py` | **sélection annuelle rolling** (Sharpe rétréci Mauboussin + UCB + commissions clés), V2 ticker→ETF |
 
-## Contexte & sources (documentaire)
-- **`STRATEGIE_ANALYSE.md`** — littérature académique + produits réels (NANC/KRUZ, Quiver…) + « pourquoi
-  le hype », avec URLs. C'est le complément *non empirique* des notebooks.
-- **`PROMPT_RECHERCHE_S34.md`** — prompt autonome de (re)construction du book.
+**Documentaire** : `STRATEGIE_ANALYSE.md` (littérature + produits NANC/KRUZ/Quiver + « pourquoi le hype », URLs) ·
+`PROMPT_RECHERCHE_S34.md` (prompt autonome de (re)construction).

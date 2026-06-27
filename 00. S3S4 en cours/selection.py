@@ -51,37 +51,40 @@ def shrunk_sharpe(returns: np.ndarray, grp_mean: float, k: int = 10) -> float:
     return w * sr + (1 - w) * grp_mean
 
 
-def member_scores(buys: pd.DataFrame, com: pd.Series, year: int,
-                  ucb_c: float = 0.5, min_trades: int = 10) -> pd.DataFrame:
-    """Scores des membres sur les données ≤ `year` (achats avec colonne `car` = rendement par trade).
-    score = Sharpe rétréci + UCB1 (exploration). Renvoie un DataFrame trié par score décroissant."""
-    past = buys[(buys["filed"].dt.year <= year) & buys["car"].notna()]
-    g = past.groupby("bioguide")
+def member_scores(buys: pd.DataFrame, com: pd.Series, year: int, ucb_c: float = 0.5,
+                  min_trades: int = 10, ret_col: str = "tret", exit_col: str = "exit_d") -> pd.DataFrame:
+    """Scores des membres sur les trades CLÔTURÉS au 31/12/`year` (sortie ≤ fin d'année → aucun look-ahead :
+    on ne note un trade que quand son issue est connue). `ret_col` = rendement RÉALISÉ par trade
+    (entrée→sortie, cf. `with_realized`) = la « série de trades » du brief. score = Sharpe rétréci
+    (Mauboussin) + UCB1 (exploration, Sutton & Barto). DataFrame trié par score décroissant."""
+    cutoff = pd.Timestamp(year, 12, 31)
+    past = buys[(buys[exit_col] <= cutoff) & buys[ret_col].notna()]
+    g = past.groupby("bioguide")[ret_col]
     n = g.size()
     elig = n[n >= min_trades].index
     if not len(elig):
-        return pd.DataFrame(columns=["bioguide", "n", "sharpe_brut", "shrunk", "ucb", "score", "key"])
-    # moyenne de groupe des Sharpe bruts (cible du rétrécissement)
-    raw = {b: (past[past.bioguide == b]["car"].mean() / (past[past.bioguide == b]["car"].std(ddof=1) + 1e-9))
-           for b in elig}
-    grp_mean = float(np.nanmean(list(raw.values())))
+        return pd.DataFrame(columns=["bioguide", "name", "n", "sharpe_brut", "shrunk", "ucb", "score", "key"])
+    mean, std = g.mean(), g.std(ddof=1)
+    raw = (mean / (std + 1e-9)).reindex(elig)                 # Sharpe brut par membre
+    grp_mean = float(raw.mean())                             # cible du rétrécissement (moyenne du groupe)
     N = int(n[elig].sum())
+    name_of = past.drop_duplicates("bioguide").set_index("bioguide")["name"]
     rows = []
     for b in elig:
-        arr = past[past.bioguide == b]["car"].values
-        sh = shrunk_sharpe(arr, grp_mean)
+        arr = past.loc[past.bioguide == b, ret_col].values
         ni = len(arr)
-        ucb = ucb_c * np.sqrt(np.log(N) / ni)
-        rows.append({"bioguide": b, "name": past[past.bioguide == b]["name"].iloc[0],
-                     "n": ni, "sharpe_brut": raw[b], "shrunk": sh, "ucb": ucb,
-                     "score": sh + ucb, "key": is_key(b, com)})
-    return pd.DataFrame(rows).sort_values("score", ascending=False).reset_index(drop=True)
+        rows.append({"bioguide": b, "name": name_of.get(b, b), "n": ni,
+                     "sharpe_brut": float(raw[b]), "shrunk": shrunk_sharpe(arr, grp_mean),
+                     "ucb": ucb_c * np.sqrt(np.log(N) / ni), "key": is_key(b, com)})
+    out = pd.DataFrame(rows)
+    out["score"] = out["shrunk"] + out["ucb"]
+    return out.sort_values("score", ascending=False).reset_index(drop=True)
 
 
 def select_K(buys: pd.DataFrame, com: pd.Series, year: int, K: int,
-             ucb_c: float = 0.5, key_frac: float = 0.5) -> list:
+             ucb_c: float = 0.5, key_frac: float = 0.5, ret_col: str = "tret") -> list:
     """Top-K par score, en imposant ≥ key_frac·K membres de commission clé (règle Ramify)."""
-    sc = member_scores(buys, com, year, ucb_c=ucb_c)
+    sc = member_scores(buys, com, year, ucb_c=ucb_c, ret_col=ret_col)
     if not len(sc):
         return []
     need_key = int(np.ceil(key_frac * K))
@@ -107,6 +110,43 @@ def select_K(buys: pd.DataFrame, com: pd.Series, year: int, K: int,
 def selections_by_year(buys, com, K, start=2015, end=2025, **kw) -> dict:
     """{Y: liste des K sélectionnés sur données ≤Y} → s'applique aux achats de l'année Y+1."""
     return {y: select_K(buys, com, y, K, **kw) for y in range(start, end + 1)}
+
+
+def with_realized(buys: pd.DataFrame, df_all: pd.DataFrame, panel: pd.DataFrame,
+                  spy: pd.Series, horizon_months: int = 12) -> pd.DataFrame:
+    """Renvoie une copie de `buys` enrichie de la « série de trades » du brief : `tret` (rendement ANORMAL
+    réalisé entrée `filed`+1 → sortie vente/+`horizon_months`, vs SPY) et `exit_d` (date de sortie, pour
+    filtrer les trades clôturés sans look-ahead). Sert à scorer la sélection sur ce que la stratégie
+    réalise vraiment (et non un proxy CAR fixe)."""
+    import portfolio
+    import evaluate
+    pos = portfolio.build_positions(buys, df_all, horizon_months=horizon_months)
+    tr = evaluate.trade_returns(pos, panel, spy, lag_days=1)
+    out = buys.copy()
+    out["tret"] = tr["abn"].values
+    out["exit_d"] = pos["exit"].values
+    out["win"] = out["tret"] > 0
+    return out
+
+
+def sector_breadth(buys: pd.DataFrame, sector_map: dict, window_days: int = 90) -> pd.Series:
+    """Pour chaque achat : nombre de membres DISTINCTS ayant acheté le MÊME secteur sur la fenêtre
+    glissante causale [filed-`window_days`, filed]. Mesure la *breadth* sectorielle (Grinold-Kahn) —
+    sert à la V2 pilotée par breadth (SUPP_C). `sector_map` : ticker → secteur (ou ETF). 0 si non mappé."""
+    b = buys.copy()
+    b["_sec"] = b["ticker"].map(sector_map)
+    out = pd.Series(0.0, index=buys.index)
+    for _sec, g in b.dropna(subset=["_sec"]).groupby("_sec"):
+        g = g.sort_values("filed")
+        filed = g["filed"].values
+        bios = g["bioguide"].values
+        idx = g.index.values
+        lo = 0
+        for i in range(len(g)):
+            while filed[i] - filed[lo] > np.timedelta64(window_days, "D"):
+                lo += 1
+            out.loc[idx[i]] = len(set(bios[lo:i + 1]))
+    return out
 
 
 def gate_buys(buys: pd.DataFrame, selections: dict) -> pd.DataFrame:
