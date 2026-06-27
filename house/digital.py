@@ -117,7 +117,7 @@ ATYPE_RE      = re.compile(r'\[([A-Za-z]{2})\]')
 _SUB_WORDS    = {"full", "partial"}  # éviter de prendre "(full)" pour un ticker
 OWNER_RE      = re.compile(r'^(JT|SP|DC)\s+', re.IGNORECASE)
 _SPLIT_AMOUNT_RE = re.compile(r'\$[\d,]+\s*-\s*$')
-from congress_core.amounts import ATYPE_NAMES   # noqa: E402 (source unique partagée)
+from house.amounts import ATYPE_NAMES   # noqa: E402 (source unique partagée)
 
 
 # ───────────────────────── Prétraitement lignes (port cellule 18) ─────────────────────────
@@ -164,8 +164,8 @@ def _join_split_lines(lines):
     return result
 
 # amount_midpoint + operation_type délégués au cœur (source unique partagée).
-from congress_core.amounts import amount_midpoint as _amount_midpoint  # noqa: E402
-from congress_core.amounts import operation_type_from_code as _op_type  # noqa: E402
+from house.amounts import amount_midpoint as _amount_midpoint  # noqa: E402
+from house.amounts import operation_type_from_code as _op_type  # noqa: E402
 
 def _is_txn_start(s):
     m = TXN_RE.search(s)

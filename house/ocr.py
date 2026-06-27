@@ -47,7 +47,7 @@ CLUSTERS_NON_EXECUTES = {"C_manuscrit"}
 FILERS_C_A_RECUPERER = {"S001180", "L000564", "H001086"}  # Schrader, Lamborn, Harshbarger (≈99 % de la perte dure)
 
 # ───────────────────────── Constantes OCR (port cellule 7) ─────────────────────────
-from congress_core.amounts import HOUSE_OCR_AMOUNT_MAP as AMOUNT_MAP   # source unique partagée
+from house.amounts import HOUSE_OCR_AMOUNT_MAP as AMOUNT_MAP   # source unique partagée
 OCR_PROMPT = """\
 Tu lis les pages scannées d'un formulaire PTR (Periodic Transaction Report — US House of
 Representatives) déposé par {member_name}. Reporte TOUTES les transactions financières en
@@ -97,7 +97,7 @@ TXN_TOOL = {
 PIPELINE_TAG = "deskew_v1"   # invalide le cache pré-deskew → cohérence corpus
 PROMPT_SHA = hashlib.sha256((OCR_PROMPT + json.dumps(TXN_TOOL, sort_keys=True) + PIPELINE_TAG).encode()).hexdigest()[:12]
 
-from congress_core.amounts import HOUSE_OCR_OWNER_MAP as OWNER_MAP   # source unique partagée
+from house.amounts import HOUSE_OCR_OWNER_MAP as OWNER_MAP   # source unique partagée
 _EXAMPLE_RE = re.compile(r"example.*mega\s*corp|mega\s*corp.*common\s*stock", re.I)
 
 
@@ -379,8 +379,8 @@ def normalize(txn, meta, year):
     return r
 
 # Normalisation/inférence ticker déléguées au cœur (source unique partagée).
-from congress_core.tickers import norm_asset as _norm_asset, explicit_ticker as _explicit_ticker
-from congress_core.tickers import infer_asset_type as _core_infer_asset_type
+from house.tickers import norm_asset as _norm_asset, explicit_ticker as _explicit_ticker
+from house.tickers import infer_asset_type as _core_infer_asset_type
 
 
 def _infer_asset_type(desc):

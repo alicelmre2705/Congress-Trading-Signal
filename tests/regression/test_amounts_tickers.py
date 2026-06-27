@@ -12,8 +12,8 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 TABLES = REPO / "data" / "house" / "tables"
 sys.path.insert(0, str(REPO))
-from congress_core.amounts import amount_midpoint, HOUSE_OCR_AMOUNT_MAP
-from congress_core.tickers import infer_asset_type
+from house.amounts import amount_midpoint, HOUSE_OCR_AMOUNT_MAP
+from house.tickers import infer_asset_type
 
 YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 LABEL2MID = {label: mid for _, (label, mid) in HOUSE_OCR_AMOUNT_MAP.items()}
