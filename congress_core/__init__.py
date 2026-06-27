@@ -4,7 +4,6 @@ Logique métier commune extraite des moteurs par chambre, pour que House et Sén
 sans copier-coller. Construit d'abord pour House ; le Sénat le consommera après sa finalisation.
 
 Modules (remplis au fil des phases de la refonte) :
-    paths        bootstrap chemins/env (DataRoot)
     identity     ★ Doc ID → bioguide (Reference, make_matcher, enrich_identity)
     schema       SCHEMA + natural_key_hash + dédup per-lot
     tickers      normalisation / récupération ticker + asset_type
