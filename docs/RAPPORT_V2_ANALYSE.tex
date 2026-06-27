@@ -1,0 +1,278 @@
+% !TEX program = tectonic
+% Document d'ANALYSE — revue de la couche données (rapport + code + explications).
+% Analyse seulement : ne modifie ni le rapport, ni le code. Vérifié sur le code réel.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{underscore}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{œ}{\oe}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{«}{\og}
+\newunicodechar{»}{\fg{}}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,
+  pdftitle={Revue couche données — analyse}, pdfauthor={Alice Lemaire}}
+
+\definecolor{coreC}{RGB}{37,99,159}
+\newcommand{\co}[1]{\texttt{\small #1}}
+\newcommand{\tagErr}{\textcolor{red!75!black}{\textbf{[ERREUR]}}}
+\newcommand{\tagAmel}{\textcolor{orange!90!black}{\textbf{[À COMPLÉTER]}}}
+\newcommand{\tagCode}{\textcolor{blue!70!black}{\textbf{[CODE]}}}
+\newcommand{\tagExp}{\textcolor{green!50!black}{\textbf{[EXPLICATION]}}}
+\newcommand{\verdict}[1]{\par\smallskip\noindent{\color{coreC}\rule{2pt}{\baselineskip}}\hspace{6pt}\textit{Verdict — #1}\par\smallskip}
+
+\titleformat{\section}{\Large\bfseries\color{coreC}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing{\section}{0pt}{1.2em}{0.4em}
+\titlespacing{\subsection}{0pt}{0.7em}{0.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{document}
+
+\begin{center}
+{\small\itshape Document de travail — analyse, ne modifie rien}\\[3pt]
+{\LARGE\bfseries\color{coreC} Revue de la couche données}\\[3pt]
+{\large Erreurs, améliorations \& explications — rapport \emph{et} code}\\[5pt]
+{\bfseries Alice Lemaire}\quad\textperiodcentered\quad{\small\today}
+\end{center}
+\vspace{2pt}\hrule\vspace{6pt}
+
+\section*{Méthode \& légende}
+\addcontentsline{toc}{section}{Méthode \& légende}
+Chaque point a été tranché \textbf{après lecture du code réel} (le code fait autorité) en trois
+catégories~:
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \tagErr{} / \tagAmel{} — concerne le \textbf{rapport} (\co{RAPPORT_FINAL_V2})~: soit une
+\emph{vraie inexactitude}, soit un \emph{manque de détail} à compléter.
+\item \tagCode{} — concerne le \textbf{code}~: duplication, module mort/legacy, ou asymétrie
+House/Sénat (avec verdict « vrai problème » vs « justifié »).
+\item \tagExp{} — \textbf{explication} (Partie~C)~: c'est correct, il fallait juste l'expliquer.
+\end{itemize}
+\textbf{Honnêteté méthodologique}~: cette analyse s'appuie sur 3 sondes automatiques \emph{re-vérifiées
+à la main}. Une erreur de sonde a été écartée (elle prétendait que \co{senate/ticker_resolve.py} était
+inutilisé~; il est bien appelé par \co{senate/fusion.py:84}). Rien n'est appliqué ici~: c'est une revue.
+
+\medskip
+\begin{center}\small
+\begin{tabular}{lc}
+\toprule
+\bfseries Catégorie & \bfseries Nombre de points\\
+\midrule
+\tagErr{} Rapport — vraies inexactitudes & 2 \\
+\tagAmel{} Rapport — à détailler & 7 \\
+\tagCode{} Code — duplications / legacy / asymétries & 6 \\
+\tagExp{} Explications (Partie C) & 15 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ======================= PARTIE A =======================
+\section{Partie A — le rapport : erreurs \& améliorations}
+
+\subsection{A.1 \;\tagErr{} \;§3.3 « la numérotation \emph{est} l'enchaînement » — inexact}
+Le tableau §3.3 présente une convention de préfixes (03, 04, …, 07, 08) « unifiée » et « ordonnée comme
+le pipeline ». \textbf{C'est faux pour les deux chambres}~:
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{03/04/08 n'existent que côté Chambre} (le Sénat n'a ni index téléchargé, ni manifeste, ni
+cross-check « semaine 1 »).
+\item \textbf{L'ordre des numéros $\neq$ l'ordre d'exécution.} Côté Chambre, \co{run_year} écrit
+\co{08_crosscheck} \emph{avant} \co{07_quiver}, et \co{06_FINAL} bien après (dans \co{run_ocr_year}).
+Côté Sénat, \co{07} et \co{07c-f} (Quiver sur le digital) sont écrits \emph{avant} \co{06b} (OCR) et
+\co{06_FINAL} (fusion) — donc \co{06b}~$<$~\co{07} numériquement, mais \co{07} \emph{précède} \co{06b}
+à l'exécution.
+\end{itemize}
+\verdict{vraie inexactitude. Reformuler : les préfixes sont des \textbf{étiquettes de rôle} (pas un
+ordre strict), House-centrées~; donner la \textbf{séquence réelle par chambre}.
+\co{house/digital.py:run_year} · \co{house/ocr.py:run_ocr_year} · \co{senate/digital.py:run_year} ·
+\co{senate/fusion.py:main}.}
+
+\subsection{A.2 \;\tagAmel{} \;§3.2 — l'étape d'\textbf{acquisition + tri digital/scanné} manque}
+Le schéma démarre aux boîtes \co{house.digital}/\co{senate.digital}. Or la \emph{vraie} première phase
+— celle que tu décrivais — est \textbf{au-dessus}~: récupérer l'index/la liste, \emph{puis} décider
+digital vs scanné.
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{Chambre}~: \co{House Clerk} publie un \textbf{ZIP par année} → index XML \co{03_ptr_index}
+→ on télécharge chaque PDF → on l'\textbf{ouvre} pour trancher lisible/scanné → manifeste \co{04_}.
+\item \textbf{Sénat}~: \co{accept_agreement} (CSRF) → \co{fetch_ptr_list} renvoie une \textbf{liste} où
+chaque entrée porte déjà \co{kind=ptr} (électronique) ou \co{paper} (scanné).
+\end{itemize}
+\verdict{amélioration structurelle réelle — l'étape \emph{existe} dans le code mais \emph{pas} dans le
+schéma. Ajouter une boîte « 0. Acquisition \& tri » au-dessus des boîtes 1/3.
+\co{house/digital.py:load_ptr_index, build_manifest} · \co{senate/digital.py:fetch_ptr_list}.}
+
+\subsection{A.3 \;\tagErr{} \;§3.2 — « scans » (Chambre) vs « PTR papier » (Sénat)}
+Les boîtes OCR nomment la même chose de deux façons (un PTR papier scanné). Seul le \emph{format image}
+diffère (PDF côté Chambre, \co{.gif} côté Sénat). \verdict{incohérence de vocabulaire — harmoniser
+(« PTR papier scanné → Vision » des deux côtés).}
+
+\subsection{A.4–A.7 \;\tagAmel{} \;compléments de clarté (déjà listés au fil de la revue)}
+Repris intégralement de \co{docs/RAPPORT_V2_A_CORRIGER.md}~:
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \textbf{Définir \co{bioguide_id}} (utilisé partout, jamais défini depuis le retrait des encadrés).
+\item \textbf{Détailler §2 l'acquisition} (Chambre ZIP→XML→\co{DocID}→PDF ; Sénat portail→liste→\co{kind}).
+\item \textbf{Expliquer l'asymétrie des tables} House/Sénat (pourquoi \co{03/04/08} côté Chambre ; cf.~B.3
+pour \co{07} vs \co{07c-f}).
+\item \textbf{§4.6} dire « même moteur Vision qu'en §4.5, \textbf{sans deskew} ».
+\item \textbf{§4.3} la clé / \co{occurrence_index} apparaissent \emph{avant} leur explication (§4.8) →
+ajouter un renvoi.
+\item \textbf{Gloses} pour un lecteur non spécialiste~: \co{ETF}/\co{GICS}/\co{SPDR}, « couverture »
+(= taux de remplissage), « taux de parsing », « passe LLM », \co{YAML}.
+\end{itemize}
+
+% ======================= PARTIE B =======================
+\section{Partie B — le code : duplications, legacy \& asymétries}
+\textit{Verdicts honnêtes, vérifiés par \co{grep} d'imports/usages réels.}
+
+\subsection{B.1 \;\tagCode{} duplication — l'OCR Vision en \textbf{trois} exemplaires, le module « partagé » \textbf{inutilisé}}
+Trois implémentations du même moteur Vision coexistent~: \co{congress_core/vision_ocr.py} (210 l.,
+\co{VisionExtractor}+deskew), \co{house/ocr.py} (ses \emph{propres} \co{detect_rotation},
+\co{pdf_to_b64_images}, \co{extract_from_pdf}, l.~205-300), et \co{senate/ocr_engine.py} (376 l., moteur
+figé Q1). \textbf{Vérifié}~: \co{vision_ocr}/\co{VisionExtractor} n'est importé \textbf{nulle part} en
+prod (house/ senate/ pipeline) — \textbf{uniquement} par \co{tests/regression/\{test_vision_sha,
+test_incremental\}}. Donc la « source unique » \co{congress_core/vision_ocr.py} n'est, en pratique,
+\textbf{utilisée par personne}~; chaque chambre roule sa propre copie.
+\verdict{vrai problème d'organisation. Deux options~: (a) brancher la prod (House, idéalement Sénat) sur
+\co{congress_core/vision_ocr.py} et supprimer les copies~; ou (b) assumer ce module comme un « contrat
+de référence testé » et le \emph{documenter} comme tel (sinon il ressemble à du code mort).}
+
+\subsection{B.2 \;\tagCode{} duplication — \co{sector_enrich} en double}
+Le même rôle (\co{ticker} → secteur GICS → ETF SPDR) est implémenté \textbf{deux fois}~:
+\co{congress_core/sector_enrich.py} (216 l., importé par la Chambre, \co{house/ocr.py:513}) et
+\co{senate/sector_enrich.py} (416 l., importé par le Sénat, \co{senate/fusion.py:30,85}). Logique
+\emph{très} proche (même mapping GICS→ETF), implémentations \emph{distinctes} (la version Sénat est plus
+étoffée). \verdict{candidat sérieux à consolidation (un seul module paramétré) — mais \textbf{vérifier
+l'équivalence} avant de fusionner (ce ne sont pas des copies octet-à-octet).}
+
+\subsection{B.3 \;\tagCode{} asymétrie — la validation Quiver du Sénat est \textbf{plus riche} que celle de la Chambre}
+C'est la « grosse différence entre les tables » que tu as remarquée. Le Sénat produit \co{07c}
+(réconciliation transaction-niveau), \co{07d} (\textbf{accord de champs} sens/date/montant), \co{07e}
+(ticker par sénateur), \co{07f} (\co{only_quiver}) \textbf{et déduplique les amendements}. La Chambre ne
+produit que \co{07} (deltas par déposant) + \co{07b} (manquants)~: \textbf{pas} d'accord de champs, pas
+de dédup d'amendements. \verdict{asymétrie réelle. Soit \textbf{aligner} la Chambre sur le standard
+Sénat (\co{07c-f}), soit \textbf{documenter} pourquoi la clé « brute » Chambre s'en passe volontairement.
+\co{house/digital.py:validate_quiver} vs \co{senate/quiver_audit.py:reconcile}.}
+
+\subsection{B.4 \;\tagCode{} legacy / redondance — modules hors pipeline}
+\co{congress_core/pipeline.py:build_steps} n'enchaîne que 6 étapes (house.digital, house.ocr,
+senate.digital, senate.ocr, senate.fusion, enrich\_tenure). \textbf{Hors pipeline}~:
+\co{senate/census_probe.py} (Phase 0), \co{senate/revalidate_quiver.py} (\textbf{réécrit} les \co{07c-f}
+déjà produits par \co{senate/digital.py} → \textbf{redondant}), \co{house/echantillon.py} (pilote OCR).
+Plus des artefacts de pilote/cache (\co{_ocr_echantillon*}, \co{_pilote_ocr}, \co{_scan_census_547},
+\co{_paper_index_*}). \verdict{outils ponctuels / legacy — à \textbf{archiver} ou marquer explicitement
+« hors pipeline ». \co{revalidate_quiver} mérite une décision (doublon d'écriture).}
+
+\subsection{B.5 \;\tagCode{} asymétrie de style — fusion « inlinée » (Chambre) vs modules dédiés (Sénat)}
+La Chambre \textbf{fusionne + valide dans} \co{house/ocr.py} (logique inlinée)~; le Sénat a des modules
+\textbf{dédiés} (\co{fusion.py}, \co{quiver_audit.py}). \verdict{surtout \textbf{historique} (la Chambre
+a grossi « en place », le Sénat a été refondu en modules)~; pas un bug, mais une incohérence de style à
+uniformiser un jour.}
+
+\subsection{B.6 \;\tagCode{} mises au point (ce qui \emph{n'est pas} un problème)}
+\begin{itemize}[nosep,leftmargin=1.4em]
+\item \co{senate/ticker_resolve.py} \textbf{est} utilisé (\co{senate/fusion.py:84}) → \textbf{pas} legacy.
+La « passe LLM » ticker existe en 2 copies (\co{house/ocr.py:llm_resolve_tickers} et
+\co{senate/ticker_resolve.py}), toutes deux \emph{actives} → duplication \emph{mineure}.
+\item \co{senate/identity.py} (195 l.) duplique en partie \co{congress_core/identity.py} (290 l.), mais
+c'est \textbf{justifié}~: schéma Sénat propre + enrichissement complet, autonome.
+\end{itemize}
+
+% ======================= PARTIE C =======================
+\section{Partie C — explications (correct ; il fallait juste l'expliquer)}
+\textit{Reprise structurée de \co{docs/RAPPORT_V2_EXPLICATIONS.md}. Rien à corriger ici.}
+
+\subsection{Acquisition \& sources}
+\tagExp{} \textbf{eFD} = \emph{Electronic Financial Disclosure}, le \textbf{site public du Sénat}
+(\co{efdsearch.senate.gov}) — l'équivalent du site du \emph{House Clerk}.
+
+\tagExp{} \textbf{paper / .gif / OCR} = le \textbf{même} document sous 3 angles~: déposé sur
+\textbf{papier} (nature) → servi en \textbf{\co{.gif}} (format image) → lu par \textbf{OCR} (technique).
+Pas trois choses.
+
+\tagExp{} \textbf{Pourquoi un \co{04_} côté Chambre et pas Sénat~?} Côté Chambre il faut \textbf{ouvrir
+le PDF pour décider} lisible/scanné (\co{bool(text.strip())}) → verdict \emph{calculé} (\co{04_}). Au
+Sénat la liste eFD \textbf{donne déjà} le type (\co{kind} \co{ptr}/\co{paper}) → rien à calculer.
+
+\subsection{Identité}
+\tagExp{} \textbf{\co{bioguide_id}} = identifiant unique officiel d'un parlementaire (\co{P000197} =
+Pelosi), calculé \textbf{au matching}. Le référentiel charge les élus \textbf{actuels ET historiques}
+→ même un ancien membre est retrouvé.
+
+\tagExp{} \textbf{YAML} = un format de fichier texte simple (\co{clé: valeur})~; « \textbf{embarqués} » =
+des copies locales dans le dépôt, servant de \textbf{repli hors-ligne} si le téléchargement échoue.
+
+\tagExp{} \textbf{Variantes de noms} (indexées en plus de nom/prénom, pour matcher malgré une graphie
+différente)~: \emph{second prénom} (« John \textbf{Quincy} Adams »)~; \emph{premier mot du nom officiel}
+(prénom « Jim », nom officiel « \textbf{James} E.~Banks »)~; \emph{dernier mot d'un nom composé}
+(« \textbf{Van Taylor} » → « Taylor »).
+
+\tagExp{} \textbf{\co{make_matcher}} = fabrique une fonction \co{match(nom,prénom)} qui essaie, dans
+l'ordre~: \textbf{override manuel} (1 cas figé) → \textbf{correspondance exacte} (surnoms compris) →
+\textbf{repli par nom de famille unique}.
+
+\tagExp{} \textbf{\co{years_in_office} calculé après}~: l'\emph{année de 1\textsuperscript{re} entrée}
+est calculée au chargement du référentiel~; seule la \emph{soustraction} par transaction est différée à
+la dernière étape (\co{enrich_tenure}), en \emph{append octet-préservant}, pour ne pas perturber les
+schémas d'assemblage.
+
+\tagExp{} \textbf{Chambre fixée par le pipeline}~: \co{house}/\co{senate} n'est \emph{pas} deviné depuis
+le nom — chaque pipeline traite ses documents et passe \co{chamber=…}. La désambiguïsation par chambre
+ne sert que pour les cas de même nom (côté Sénat).
+
+\subsection{Dédup, parsing, enrichissement}
+\tagExp{} \textbf{Clé naturelle + \co{occurrence_index}}~: la \textbf{clé} (7 champs, sans ticker) repère
+les \textbf{doublons entre documents} (amendement re-déposé). L'\co{occurrence_index} numérote les
+répétitions \emph{légitimes} \textbf{dans} un même dépôt (ex. la même vente via 3 comptes) pour ne pas
+les écraser → on déduplique sur le \textbf{couple} (clé, occurrence).
+
+\tagExp{} \textbf{« taux de parsing 99–100 \% »} = parmi les PDF \emph{lisibles}, la part dont on a
+réussi à extraire les transactions (le reste → \co{05_parse_failures}).
+
+\tagExp{} \textbf{Ticker en 3 voies} (Chambre \emph{et} Sénat)~: \textbf{explicite} (symbole imprimé) →
+\textbf{dictionnaire} (annuaire \co{nom→ticker} bâti sur les lignes déjà tickées) → \textbf{passe LLM}
+(Claude propose le symbole depuis le nom, filtré aux actions, caché).
+
+\tagExp{} \textbf{« couverture »} = \textbf{taux de remplissage} = part des lignes où le champ est
+renseigné. \textbf{Jamais 100 \%}~: les actifs \emph{non cotés} (obligations, munis) n'ont
+\emph{légitimement} ni ticker ni secteur.
+
+\tagExp{} \textbf{Secteur GICS → ETF SPDR}~: une \textbf{action} a un \textbf{secteur} (GICS = 11 grands
+domaines~: Tech, Santé…)~; un \textbf{ETF} = un fonds qui suit \emph{tout} un secteur~; les \textbf{SPDR
+Select Sector} = 1 ETF par secteur (XLK=Tech, XLE=Énergie…). On traduit \textbf{ticker → secteur → ETF}
+(NVDA → Technologie → XLK) parce que la \textbf{version~2} de la stratégie Ramify trade des \textbf{ETF
+sectoriels}, pas les actions individuelles.
+
+\tagExp{} \textbf{OCR Sénat = même moteur que House} (Vision, \co{tool_use} forcé, cache \co{prompt_sha})
+\textbf{sans deskew} (les \co{.gif} Sénat sont droits~; le deskew redressait les scans \emph{couchés} de
+la Chambre).
+
+\vfill
+\begin{center}\footnotesize\itshape
+Analyse vérifiée sur le code source réel. Aucune modification appliquée — document de travail destiné à
+décider, ensemble, quoi corriger dans le rapport et quoi nettoyer dans le code.
+\end{center}
+
+\end{document}
