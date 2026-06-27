@@ -25,13 +25,13 @@ COLUMN = FINAL_POST_ENRICH[0]   # "years_in_office" — source unique du nom de 
 
 
 def final_files(repo: Path):
-    """Itère (chamber, year, path) sur les tables FINAL présentes (House sous tables/, Sénat non)."""
+    """Itère (chamber, year, path) sur les tables FINAL présentes (les deux sous data/{chambre}/tables/)."""
     for y in YEARS:
         p = repo / "data" / "house" / "tables" / str(y) / f"06_house_{y}_FINAL.csv"
         if p.exists():
             yield "house", y, p
     for y in YEARS:
-        p = repo / "data" / "senate" / str(y) / f"06_senate_{y}_FINAL.csv"
+        p = repo / "data" / "senate" / "tables" / str(y) / f"06_senate_{y}_FINAL.csv"
         if p.exists():
             yield "senate", y, p
 

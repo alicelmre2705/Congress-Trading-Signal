@@ -60,7 +60,7 @@ def main():
     # --- Étape 1 : fusion non destructrice par année ---
     per_year, meta = {}, {}
     for y in years:
-        ydir = DATA / str(y)
+        ydir = DATA / "tables" / str(y)
         dig = pd.read_csv(ydir / f"06_senate_{y}_transactions.csv", dtype=str)
         ocr_path = ydir / f"06b_senate_{y}_ocr_transactions.csv"
         if ocr_path.exists():
@@ -91,7 +91,7 @@ def main():
     rows = []
     for y in years:
         final = big[big["_year"] == y].drop(columns="_year").reindex(columns=FINAL_COLS)
-        final.to_csv(DATA / str(y) / f"06_senate_{y}_FINAL.csv", index=False)
+        final.to_csv(DATA / "tables" / str(y) / f"06_senate_{y}_FINAL.csv", index=False)
         midp = pd.to_numeric(final["amount_midpoint"], errors="coerce")
         m = meta[y]
         rows.append({
@@ -109,7 +109,7 @@ def main():
               f"| secteur {rows[-1]['sector_pct_final']:.0f}%")
 
     dash = pd.DataFrame(rows)
-    dash.to_csv(DATA / "00_final_status.csv", index=False)
+    dash.to_csv(DATA / "tables" / "00_final_status.csv", index=False)
     print("\n=== 00_final_status.csv ===")
     print(dash.to_string(index=False))
     n_tk = int(big["ticker"].notna().sum())

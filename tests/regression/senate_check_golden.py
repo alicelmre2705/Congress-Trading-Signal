@@ -12,7 +12,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 MANIFEST = HERE / "senate_golden_manifest.json"
-LIVE_DATA = Path(__file__).resolve().parents[2] / "data" / "senate"
+LIVE_DATA = Path(__file__).resolve().parents[2] / "data" / "senate" / "tables"
 
 
 def sha256_file(p: Path) -> str:

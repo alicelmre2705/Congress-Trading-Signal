@@ -34,7 +34,7 @@ NK_FIELDS = ["chamber", "declarant_name", "transaction_date",
 def _load_all():
     frames = []
     for y in YEARS:
-        fp = DATA / str(y) / f"06_senate_{y}_FINAL.csv"
+        fp = DATA / "tables" / str(y) / f"06_senate_{y}_FINAL.csv"
         frames.append(pd.read_csv(fp, dtype=str, keep_default_na=False))
     return pd.concat(frames, ignore_index=True)
 

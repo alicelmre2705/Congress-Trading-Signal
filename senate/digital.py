@@ -33,7 +33,7 @@ from senate import quiver as vq
 DATA = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
 REPORTS = DATA / "reports"
 REPORTS.mkdir(parents=True, exist_ok=True)
-QUIVER_CACHE = DATA / "reference" / "_quiver_senate_cache.csv"
+QUIVER_CACHE = DATA / "tables" / "_quiver_senate_cache.csv"
 
 EFD_BASE = "https://efdsearch.senate.gov"
 EFD_HOME = f"{EFD_BASE}/search/home/"
@@ -219,7 +219,7 @@ def run_year(year, ref, bio_to_committees, key_flag, match, quiver_df, senate_bi
     raw = pd.DataFrame(rows)
     df = enrich(raw, ref, bio_to_committees, key_flag, match)
 
-    ydir = DATA / str(year)
+    ydir = DATA / "tables" / str(year)
     ydir.mkdir(parents=True, exist_ok=True)
     df.to_csv(ydir / f"06_senate_{year}_transactions.csv", index=False)
     pd.DataFrame(fails, columns=["doc_id", "raison"]).to_csv(ydir / "05_parse_failures.csv", index=False)
@@ -303,7 +303,7 @@ def main():
     if statuses:
         dash = pd.DataFrame(statuses)
         # met à jour le dashboard global (conserve les années non recalculées)
-        path = DATA / "00_year_status.csv"
+        path = DATA / "tables" / "00_year_status.csv"
         if path.exists():
             old = pd.read_csv(path)
             old = old[~old["year"].isin(dash["year"])]

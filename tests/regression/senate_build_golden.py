@@ -13,7 +13,7 @@ import sys, json, hashlib
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-LIVE_DATA = REPO / "data" / "senate"
+LIVE_DATA = REPO / "data" / "senate" / "tables"
 MANIFEST = Path(__file__).resolve().parent / "senate_golden_manifest.json"
 YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 

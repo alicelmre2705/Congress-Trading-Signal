@@ -89,7 +89,7 @@ SESSION.headers.update({"User-Agent": "congress-trading-research/1.0 (poli, sans
 PAUSE = 1.5
 PTR_LINK_RE = re.compile(r'/search/view/(ptr|paper)/([0-9a-f\-]+)/', re.IGNORECASE)
 DATE_RE = re.compile(r'\b(\d{2}/\d{2}/\d{4})\b')
-INDEX_CSV = DATA / "_paper_index_2020_2026.csv"
+INDEX_CSV = DATA / "tables" / "_paper_index_2020_2026.csv"
 
 
 # ----------------------------------------------------------------- scraping (découverte)
@@ -317,10 +317,10 @@ def main():
         # écriture par année
         df["_y"] = pd.to_datetime(df["disclosure_date"], errors="coerce").dt.year
         for y, g in df.groupby("_y"):
-            ydir = DATA / str(int(y))
+            ydir = DATA / "tables" / str(int(y))
             ydir.mkdir(parents=True, exist_ok=True)
             g.drop(columns="_y").to_csv(ydir / f"06b_senate_{int(y)}_ocr_transactions.csv", index=False)
-        fails.to_csv(DATA / "06c_ocr_failures.csv", index=False)
+        fails.to_csv(DATA / "tables" / "06c_ocr_failures.csv", index=False)
         print(f"\n  → {len(df)} txns OCR, {n_ex} exemples écartés, {len(fails)} échecs batch")
         qa(df, per_doc)
 

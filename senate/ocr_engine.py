@@ -38,7 +38,7 @@ from senate.identity import (load_reference, make_matcher, recover_ticker,
 
 HERE = Path(__file__).resolve().parent       # <repo>/senate
 OUT = HERE.parent / "data" / "senate"         # données Sénat (parité data/house)
-TAB = OUT                                      # tables directement sous data/senate
+TAB = OUT / "tables"                           # sorties sous data/senate/tables (parité House)
 REPORTS = OUT / "reports"
 MEDIA = REPORTS / "media"        # cache local des images .gif (offline après 1er run)
 OCR_CACHE = OUT / "ocr_cache"    # cache des extractions Vision (versionné prompt_sha+model)

@@ -26,10 +26,10 @@ WINDOW_DELAY_DAYS = 75         # Fenêtre de tolérance utilisée par le pipelin
 
 # ───────────────────────────── Chargement ─────────────────────────────
 def _final_path(repo_root: Path, chamber: str, year: int) -> Path:
-    """House : data/house/tables/{y}/… ; Sénat : data/senate/{y}/… (arborescences différentes)."""
+    """Les deux chambres : data/{chambre}/tables/{y}/06_{chambre}_{y}_FINAL.csv (structure symétrique)."""
     if chamber == "house":
         return repo_root / "data" / "house" / "tables" / str(year) / f"06_house_{year}_FINAL.csv"
-    return repo_root / "data" / "senate" / str(year) / f"06_senate_{year}_FINAL.csv"
+    return repo_root / "data" / "senate" / "tables" / str(year) / f"06_senate_{year}_FINAL.csv"
 
 
 def op_class(op) -> str:
