@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Re-validation Quiver OFFLINE (sans eFD) — applique la dédup des amendements de reconcile().
 
+⚠️ OUTIL HORS PIPELINE : non lancé par `congress_core.pipeline:build_steps`. Réécrit des `07c-f` que
+`senate/digital.py` produit déjà (redondant) — re-validation offline ponctuelle.
+
 Relit les tables digitales `06_senate_{an}_transactions.csv` DÉJÀ extraites + le cache Quiver local,
 re-exécute `validate_quiver_sample.reconcile()` (désormais avec dédup des amendements Quiver), réécrit
 `07c-f` + `07` par an, et met à jour les colonnes Quiver du dashboard `00_year_status.csv`. Ne touche NI

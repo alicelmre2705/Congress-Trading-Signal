@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """PHASE 0 — Census PTR Sénat 2020→2026 + probe du parser sur HTML eFD ancien.
 
+⚠️ OUTIL HORS PIPELINE : non lancé par `congress_core.pipeline:build_steps` (exploration ponctuelle).
+
 But : chiffrer le périmètre d'un build "toutes années" DIGITAL avant de l'engager.
   1. Census par an : nb PTR électroniques vs papier, sénateurs, déposants papier.
   2. Probe parser : `parse_electronic` tient-il sur des rapports anciens (2020/2016/2012) ?
