@@ -58,8 +58,8 @@
 \newcommand{\co}[1]{\texttt{\small #1}}
 \newcommand{\netflag}{\textcolor{netC}{\small$\bullet$ réseau/API}}
 \newcommand{\offflag}{\textcolor{offC}{\small$\bullet$ offline}}
-% Encart « fil rouge » sobre (filet à gauche, sans boîte colorée)
-\newcommand{\filrouge}[1]{\par\smallskip\noindent{\color{coreC}\rule{2pt}{\baselineskip}}\hspace{6pt}\begin{minipage}{\dimexpr\linewidth-16pt}\small\textit{Fil rouge.}\ #1\end{minipage}\par\smallskip}
+% Encart « dans la source » sobre (filet à gauche, sans boîte colorée)
+\newcommand{\srcex}[1]{\par\smallskip\noindent{\color{coreC}\rule{2pt}{\baselineskip}}\hspace{6pt}\begin{minipage}{\dimexpr\linewidth-16pt}\small\textit{Dans la source.}\ #1\end{minipage}\par\smallskip}
 
 \titleformat{\section}{\Large\bfseries\color{coreC}}{\thesection}{0.6em}{}
 \titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
@@ -172,13 +172,6 @@ La structure est une \textbf{boîte à outils partagée} (\co{congress_core}, 14
 \end{tikzpicture}
 \end{center}
 
-\textbf{L'idée directrice.} \co{congress_core} fournit les \textbf{ingrédients et ustensiles} (couper un
-nom en bioguide, lire un scan, calculer un secteur\dots), et \co{house/} comme \co{senate/} sont
-\textbf{deux recettes} qui s'en servent dans leur ordre. Elles ne diffèrent que parce que les
-\textbf{sources} diffèrent~: la Chambre expose un index XML + des PDF du \emph{Clerk}~; le Sénat un site
-eFD (HTML) + des images \co{.gif}. C'est cette asymétrie de sources qui explique que \co{senate/} compte
-plus de fichiers (scraping et OCR papier plus complexes).
-
 \subsection{Le pipeline : un point d'entrée unique}
 \co{congress_core/pipeline.py} (fonction \co{build_steps}) enchaîne les modules en sous-processus.
 La commande \co{python -m congress_core.pipeline --years 2020-2026} assemble \textbf{6 étapes}
@@ -191,7 +184,7 @@ d'orchestration~; un \textbf{7\textsuperscript{e}} traitement — le rapport qua
   {\textbf{python -m congress\_core.pipeline}\\[1pt]\footnotesize \co{build_steps()} : 6 étapes en sous-processus, puis le rapport qualité (offline)};
 \node[step=houseC, below=9mm of orch, xshift=-3.7cm] (hd) {\textbf{1.} \co{house.digital}\\\footnotesize PTR électroniques \netflag};
 \node[file, below=4mm of hd] (hdf) {06\_house\_\{an\}\_transactions.csv};
-\node[step=houseC, below=4mm of hdf] (ho) {\textbf{2.} \co{house.ocr}\\\footnotesize scans → Vision + \emph{fusion} \netflag};
+\node[step=houseC, below=4mm of hdf] (ho) {\textbf{2.} \co{house.ocr}\\\footnotesize scans → Vision · fusion · ticker · secteur \netflag};
 \node[file, below=4mm of ho, fill=houseC!12] (hof) {06\_house\_\{an\}\_FINAL.csv};
 \node[step=senateC, below=9mm of orch, xshift=3.7cm] (sd) {\textbf{3.} \co{senate.digital}\\\footnotesize eFD électroniques \netflag};
 \node[file, below=4mm of sd] (sdf) {06\_senate\_\{an\}\_transactions.csv};
@@ -264,9 +257,12 @@ table finale — en nommant la fonction à chaque étape. C'est elle qui servira
 
 Cette section suit une transaction \emph{dans l'ordre où le pipeline la construit} — du nom griffonné
 sur un formulaire jusqu'à la ligne enrichie de la table finale. Pour chaque étape~: le \textbf{problème}
-concret, \textbf{comment on le résout} (avec la fonction réelle), et le \textbf{résultat} chiffré. Pour
-rendre le tout tangible, on suit un \textbf{fil rouge}~: un achat \co{NVIDIA} déclaré par la
-représentante M.~T.~Greene (\co{bioguide_id=G000596}), repris à chaque étape.
+concret, \textbf{comment on le résout} (avec la fonction réelle), et le \textbf{résultat} chiffré. Les
+déclarations arrivent sous \textbf{quatre formes} (deux chambres × deux pistes)~: \textbf{Chambre
+digitale}, \textbf{Chambre OCR}, \textbf{Sénat digital}, \textbf{Sénat OCR}. Pour chacune, un encart
+« dans la source » montre la \textbf{ligne typique} qu'on y lit, et son \textbf{aperçu visuel} (à quoi
+ressemble la plateforme) figure en annexe~\ref{anx:sources}. Ce qui est \textbf{commun} aux quatre —
+l'identité, la clé/dédup, l'enrichissement — n'est expliqué qu'\emph{une} fois.
 
 \subsection{D'abord, savoir qui a déclaré : la résolution d'identité}
 \textbf{Le problème.} Une déclaration ne donne qu'un \emph{nom libre} — « Hon.~Earl L.~Carter » ici,
@@ -294,9 +290,6 @@ manuscrite de 2023 (« Ada Norah Henriquez », doc \co{8219483}). On compte \tex
 noms} (Chambre)~: l'écart, ce sont précisément les variantes orthographiques d'un même élu, ramenées au
 même identifiant — exactement ce que la résolution corrige.
 
-\filrouge{Sur notre ligne, le nom déposé « Marjorie Taylor Greene » est résolu par \co{make_matcher} en
-\co{bioguide_id=G000596}, ce qui attache aussitôt son parti et ses commissions.}
-
 \subsection{Ensuite, trier les formats : électronique ou scanné ?}
 \textbf{Le problème.} Une déclaration arrive sous deux formes très différentes, qui n'appellent pas le
 même traitement~: un \textbf{texte} exploitable directement (on peut le \emph{parser}), ou une
@@ -315,9 +308,6 @@ fiabilité (pas d'heuristique floue). Côté Sénat, la distinction vient de la 
 \textbf{Le résultat.} Ce tri d'apparence anodine est la fourche du pipeline~: il explique la composition
 finale (Chambre 32\,676 électronique + 48\,970 OCR~; Sénat 7\,161 électronique + 1\,680 papier) et
 oriente chaque document vers la bonne des deux sous-sections suivantes.
-
-\filrouge{Le PDF de notre achat NVDA possède une couche de texte~: il est classé \co{lisible} et part en
-piste électronique (§\ref{sec:hdig}).}
 
 \subsection{La piste digitale de la Chambre (PDF lisibles)}
 \label{sec:hdig}
@@ -340,9 +330,9 @@ dans \co{05_parse_failures.csv} — un échec est toujours visible, jamais silen
 \textbf{Le résultat.} \textbf{32\,676} transactions électroniques, avec un taux de parsing très élevé
 (99--100\,\%).
 
-\filrouge{\co{parse_ptr} extrait de notre PDF~: opération \co{P} (Purchase), \co{transaction_date}
-24/12/2024, libellé « NVIDIA Corp », ticker \co{NVDA} capté entre parenthèses, fourchette
-\$1\,001--\$15\,000.}
+\srcex{Un PTR électronique de la Chambre se lit comme un tableau propre (cf.~annexe~\ref{anx:sources})~:
+« Amazon.com, Inc. — Common Stock \textbf{(AMZN)} [ST] · Purchase · 03/16/2018 · \$1\,001--\$15\,000 ».
+Le ticker est entre parenthèses, le type d'actif entre crochets — d'où le parsing déterministe.}
 
 \subsection{La piste digitale du Sénat (HTML eFD)}
 \textbf{Le problème.} Le Sénat n'expose pas de PDF~: il faut d'abord franchir un \textbf{garde-fou CSRF}
@@ -361,6 +351,10 @@ ticker et la déduplication sont délégués à \co{senate/identity.py:enrich}. 
 \co{06_senate_\{an\}_transactions.csv}.
 
 \textbf{Le résultat.} \textbf{7\,161} transactions électroniques pour le Sénat.
+
+\srcex{Une déclaration eFD du Sénat est une page web (cf.~annexe~\ref{anx:sources})~: « \textbf{YUM} ·
+Yum! Brands (Yum, Louisville KY) · Sale (Full) · \$1\,001--\$15\,000 · Joint », avec le ticker cliquable
+et la date de transaction — d'où la lecture par \co{pd.read_html}.}
 
 \subsection{La piste scannée de la Chambre (OCR Claude Vision)}
 \textbf{Le problème.} Reste l'autre moitié~: des \textbf{images}. À quoi ressemblent-elles~? Le census
@@ -387,6 +381,11 @@ stratégie datée), avec récupération ciblée des gros déposants.
 représente \textbf{62,9\,\%} à lui seul, le top~3 (Khanna, McCaul, Harshbarger) \textbf{92,4\,\%} — ce
 sont de gros déposants qui déclarent exclusivement sur papier.
 
+\srcex{Un scan de la Chambre est un \textbf{formulaire à cases} (cf.~annexe~\ref{anx:sources}), souvent
+\emph{couché}~: une transaction = une ligne où l'on coche le type (Purchase/Sale), la date, et la
+\textbf{fourchette de montant} (une colonne à cocher parmi plusieurs) — d'où le besoin de deskew puis de
+Vision pour la lire.}
+
 \subsection{La piste papier du Sénat — et pourquoi la fusion y est séparée}
 \textbf{Le problème.} Côté Sénat, le papier est marginal (5 sénateurs) mais bien réel~: des images
 \co{.gif}. Surtout, contrairement à la Chambre, les données sont \emph{peu nombreuses} — et un
@@ -408,6 +407,10 @@ années, là où la Chambre fond et enrichit \emph{pendant} chaque année.
 73\,\%). C'est ce papier (obligations municipales, \emph{munis}) qui explique la baisse de couverture
 ticker/secteur du Sénat en 2025--26 (§\ref{sec:qualite}).
 
+\srcex{Le papier du Sénat est un formulaire scanné (cf.~annexe~\ref{anx:sources})~: ex. « SFA Partners
+LLC · Purchase · 11/4/05 » ou « Microsoft, NASDAQ/OTC · 2/17/10 », avec la fourchette de montant en
+colonnes cochées — comme la Chambre OCR, mais sans symbole boursier imprimé (à ré-associer).}
+
 \subsection{Donner un secteur à chaque ticker (GICS → ETF SPDR)}
 \textbf{Le problème.} Une stratégie en ETF a besoin du \textbf{secteur}, pas seulement du ticker~; or
 certains tickers sont délistés, fusionnés ou introuvables dans les bases standard.
@@ -425,9 +428,6 @@ idempotent).
 
 \textbf{Le résultat.} Secteur renseigné à \textbf{83,2\,\%} (Chambre) et \textbf{62,1\,\%} (Sénat)~;
 ancienneté à \textbf{100\,\%} sur les deux chambres.
-
-\filrouge{Notre ticker \co{NVDA} est résolu par \co{yfinance} en secteur \emph{Information Technology},
-mappé sur l'ETF \co{XLK}~; sa fourchette \$1\,001--\$15\,000 devient \co{amount_midpoint = 8000,5}.}
 
 \subsection{La table finale : le contrat « 12/12 »}
 \label{sec:table}
@@ -457,10 +457,6 @@ attribuer)~; et \co{committee_membership} est un \textbf{snapshot courant}, pas 
 champs structurellement toujours renseignables (nom, chambre, parti, dates, opération, montant) sont,
 eux, quasi-complets. Nous assumons cette distinction plutôt que de la masquer. Les taux de remplissage
 exacts (par champ et par an) sont en annexe~\ref{anx:metrics}.
-
-\filrouge{Notre ligne sort complète~: \co{G000596, Greene, house, …, 2024-12-24, …, NVDA, NVIDIA Corp,
-Stock, Information Technology, XLK, Purchase, …, 8000.5, …} — une ligne de
-\co{06_house_2024_FINAL.csv}, prête pour l'analyse.}
 
 % ============================ 5. QUALITÉ ============================
 \section{Le rapport de qualité}
@@ -629,9 +625,40 @@ baisse pour des raisons de composition d'actifs, et la couverture Quiver Chambre
 une couche données sur laquelle une stratégie peut être bâtie \emph{en connaissant ses limites}.
 
 % ============================ ANNEXES ============================
+\clearpage
 \section{Annexes}
 
-\subsection{Annexe A — modules \& fonctions clés}
+\subsection{Annexe A — aperçu des sources}
+\label{anx:sources}
+À quoi ressemble la matière première des \textbf{quatre pistes} (deux chambres × digital/OCR). Captures
+des plateformes publiques (\emph{House Clerk}, Sénat \emph{eFD}) et rendu d'un scan du dépôt.
+
+\begin{center}
+\begin{minipage}[t]{0.47\textwidth}\centering
+\includegraphics[height=7cm]{sources/house_digital.png}\\[3pt]
+{\footnotesize\textbf{(a) Chambre — digitale.} PTR électronique (\emph{House Clerk})~: tableau texte,
+ticker entre parenthèses (AMZN), type d'actif entre crochets.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\textwidth}\centering
+\includegraphics[height=7cm]{sources/house_ocr.png}\\[3pt]
+{\footnotesize\textbf{(b) Chambre — OCR.} PDF scanné, ici \emph{couché}~: formulaire à cases, redressé
+par deskew avant lecture Vision.}
+\end{minipage}
+
+\vspace{12pt}
+\begin{minipage}[t]{0.47\textwidth}\centering
+\includegraphics[width=\linewidth]{sources/senate_digital.png}\\[3pt]
+{\footnotesize\textbf{(c) Sénat — digital.} Page web eFD~: ticker cliquable (YUM), type d'opération et
+montant — lue par \co{pd.read_html}.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\textwidth}\centering
+\includegraphics[width=\linewidth]{sources/senate_ocr.png}\\[3pt]
+{\footnotesize\textbf{(d) Sénat — OCR.} Formulaire papier scanné (eFD \emph{media})~: lignes à cocher,
+fourchettes de montant en colonnes.}
+\end{minipage}
+\end{center}
+
+\subsection{Annexe B — modules \& fonctions clés}
 \label{anx:modules}
 Pour chaque module~: son rôle, et ses \textbf{fonctions centrales} (les helpers privés mineurs sont
 omis). Le pipeline complet vit dans 27 modules de code (3 couches)~; l'orchestration se lit dans
@@ -679,7 +706,7 @@ census_probe.py & Phase 0 (census) & \co{parse_electronic} · \co{main} (census 
 \textit{Les 3 \co{__init__.py} (exports de paquet) et \co{tests/regression/} (golden + reproductions)
 complètent les 44 fichiers \co{.py} du dépôt.}
 
-\subsection{Annexe B — le schéma FINAL (28 colonnes)}
+\subsection{Annexe C — le schéma FINAL (28 colonnes)}
 \label{anx:schema}
 {\footnotesize
 \begin{longtable}{r >{\ttfamily}p{3.3cm} p{8.2cm} >{\ttfamily\scriptsize}p{3.0cm}}
@@ -719,7 +746,7 @@ complètent les 44 fichiers \co{.py} du dépôt.}
 \textit{L'ordre exact diffère légèrement entre Chambre et Sénat (\co{date_confidence} plus tôt au
 Sénat)~; le contenu garanti — les 12 champs « métier » — est identique.}
 
-\subsection{Annexe C — métriques vérifiées (recalculées depuis les FINAL)}
+\subsection{Annexe D — métriques vérifiées (recalculées depuis les FINAL)}
 \label{anx:metrics}
 \textbf{Lue après le rapport, cette annexe dit si l'extraction a bien marché.} Tous les chiffres sont
 recomputés depuis les tables FINAL par \co{tests/regression/audit_metrics.py} et \co{congress_core/quality.py}.
@@ -872,7 +899,7 @@ C — manuscrit : 151 docs (exclu) & Sénat : Blumenthal 1\,233 (73\,\%), Boozma
 {\footnotesize Identité~: Chambre 256 bioguides / 275 noms (99,99\,\%), Sénat 64 / 67 (100\,\%). Golden
 (zéro écart)~: 108 fichiers Chambre, 69 Sénat. \textbf{Total~: 90\,487 transactions}, 2020--2026.}
 
-\subsection{Annexe D — reproduire / lancer}
+\subsection{Annexe E — reproduire / lancer}
 \label{anx:run}
 {\footnotesize
 \begin{verbatim}
