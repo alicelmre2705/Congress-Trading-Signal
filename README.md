@@ -24,13 +24,13 @@ python -m congress_core.pipeline --years 2024 --dry-run   # voir la séquence sa
 
 ```
 congress_core/   cœur partagé : schema · identity · amounts · tickers · quiver · crosscheck ·
-                 vision_ocr · llm_resolve · sector_enrich · reporting · paths ·
-                 pipeline (orchestrateur) · quality (rapport) · enrich_tenure (ancienneté)
+                 vision_ocr · sector_enrich · pipeline (orchestrateur) · quality (rapport) ·
+                 enrich_tenure (ancienneté)
 house/           pipeline Chambre  (digital → ocr → fusion)
-senate/          pipeline Sénat    (miroir de house/)
+senate/          pipeline Sénat    (digital → ocr → fusion ; logique propre, secteur mutualisé)
 data/            données  (house/ · senate/ · external/)
 docs/            ARCHITECTURE.pdf (guide structure) · RAPPORT_COMPLET.pdf · RAPPORT_QUALITE.md
-                 docs/_archive/ : notes historiques (refonte, synthèse Sénat, roadmap, prompts)
+_archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
 ```
@@ -53,7 +53,7 @@ python3.12 -m venv .venv
 ./.venv/bin/pip install -e .
 
 # Filet de non-régression (doit afficher « ZÉRO ÉCART ») :
-./.venv/bin/python tests/regression/check_golden.py         # House  — 108 fichiers
+./.venv/bin/python tests/regression/check_golden.py         # House  —  83 fichiers
 ./.venv/bin/python tests/regression/senate_check_golden.py  # Sénat  —  69 fichiers
 # Preuves de reproduction fonction-par-fonction :
 ./.venv/bin/python tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker

@@ -1,10 +1,12 @@
-"""senate — pipeline Sénat (digital eFD + OCR papier). Actuellement AUTONOME (n'importe pas congress_core).
+"""senate — pipeline Sénat (digital eFD + OCR papier). N'importe le cœur QUE pour le secteur.
 
-⚠️ ÉTAT RÉEL (cf. docs/RAPPORT_V2_ARCHI.md) : ce paquet **réimplémente localement** la logique que
-`congress_core` fournit déjà à House — identité/clé/dédup (`senate.identity` : SCHEMA, natural_key,
-make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker_resolve`), secteur
-(`senate.sector_enrich`), validation Quiver (`senate.quiver_audit`), OCR (`senate.ocr_engine`, figé Q1
-pour reproduire le golden). Migration sur `congress_core` prévue (Palier 3) ; la logique y est quasi-identique.
+⚠️ ÉTAT RÉEL (cf. docs/RAPPORT_V2_ARCHI.md) : seul le secteur est mutualisé — `senate.sector_enrich`
+est un **shim** qui délègue à `congress_core.sector_enrich`. Le reste **réimplémente localement** une
+logique qui DIVERGE vraiment de House : identité/clé/dédup (`senate.identity` : SCHEMA, natural_key,
+make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker_resolve`, prompt ≠
+House), validation Quiver (`senate.quiver_audit`, `reconcile` plus riche), OCR (`senate.ocr_engine`, figé
+Q1 pour reproduire le golden). Une unification plus poussée a été examinée puis écartée (divergence
+légitime, pas duplication accidentelle).
 
 `senate.digital`   : scraping eFD des PTR électroniques → parsing → identité → finalize → Quiver.
 `senate.ocr`       : découverte PTR papier → Vision (cache versionné, prompt FR) → normalisation.

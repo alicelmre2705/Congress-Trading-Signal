@@ -5,9 +5,10 @@
     `quality` (5 contrôles) — tournent sur les FINAL House ET Sénat.
   • Utilisé PAR HOUSE (extraction/transformation) : `identity`, `schema`, `amounts`, `tickers`,
     `sector_enrich`. (`house/` garde en propre sa fusion, son OCR Vision et son `validate_quiver`.)
-  • Le SÉNAT n'importe PAS encore congress_core : il réimplémente cette logique localement dans
-    `senate/`. La migration est prévue (Palier 3) — le cœur est conçu pour l'absorber (le paramètre
-    `chamber_priority` de `make_matcher` est déjà réservé à cela).
+  • Le SÉNAT n'importe le cœur QUE pour `sector_enrich` (via un shim mince) ; le reste de sa logique
+    (identité, montants, ticker, Quiver, OCR) reste réimplémenté localement dans `senate/` — par
+    divergence légitime (Quiver/ticker/OCR diffèrent vraiment) ou choix figé pour le golden. Une
+    unification plus poussée a été examinée puis écartée (cf. docs/RAPPORT_V2_ARCHI.md).
 
 Modules :
     identity     ★ Doc ID → bioguide (Reference, make_matcher, enrich_identity)
@@ -18,9 +19,7 @@ Modules :
     crosscheck   triangulation digital (Kadoa, Stock Watcher) + statut/déposant (via quality)
     vision_ocr   rendu image + deskew + appel Vision + cache versionné (prévu : moteur OCR unique — Palier 3 ;
                  actuellement utilisé par les tests, pas encore branché en prod)
-    llm_resolve  cache LLM versionné générique (prévu : passe ticker House+Sénat — Palier 2 ; pas encore branché)
-    sector_enrich GICS → ETF
-    reporting    Excel + dashboards + nommage de tables (via quality)
+    sector_enrich GICS → ETF (importé par House ET par le shim Sénat)
 """
 
 __version__ = "0.1.0"

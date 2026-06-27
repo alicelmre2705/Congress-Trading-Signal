@@ -17,7 +17,7 @@ Adapté au formulaire Sénat « PERIODIC DISCLOSURE OF FINANCIAL TRANSACTIONS »
 
 Sortie : 06b_senate_{année}_ocr_transactions.csv sous data/senate/ (provenance=senate-efd-ocr),
 au schéma complet (identité ré-attachée via senate.identity). La fusion digital+OCR et la
-re-validation Quiver sont faites par senate.fusion / senate.revalidate_quiver.
+validation Quiver sont faites par senate.fusion / senate.digital.
 """
 import os
 import re
