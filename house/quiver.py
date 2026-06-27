@@ -166,7 +166,7 @@ def reconcile(df, qwin):
     only_quiver_txn = pd.DataFrame(sorted(onlyq), columns=["bioguide", "ticker", "date", "sense"])
 
     rows = []
-    for b in sorted(common, key=lambda b: -(d["bioguide_id"] == b).sum()):
+    for b in sorted(common, key=lambda b: (-(d["bioguide_id"] == b).sum(), b)):  # b = tiebreaker stable
         ot = set(o[o["bioguide_id"] == b]["tk"]) - {""}
         qt = set(qo[qo["BioGuideID"] == b]["tk"]) - {""}
         nm = d[d["bioguide_id"] == b]["declarant_name"].iloc[0]
@@ -192,7 +192,7 @@ def reconcile(df, qwin):
 
     nous = d.groupby("bioguide_id").size()
     quiv = q.groupby("BioGuideID").size()
-    bios = sorted(set(nous.index) | set(quiv.index), key=lambda b: -int(nous.get(b, 0)))
+    bios = sorted(set(nous.index) | set(quiv.index), key=lambda b: (-int(nous.get(b, 0)), b))  # tiebreaker stable
     drows = []
     for b in bios:
         n, qv = int(nous.get(b, 0)), int(quiv.get(b, 0))

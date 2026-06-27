@@ -31,8 +31,8 @@ documentation externe.
 | `06d_ocr_quiver_comparison` | OCR confronté à Quiver | House |
 | `06_…_FINAL` | digital + OCR **fusionnés** (table livrable) | les deux |
 | `07_quiver_comparison` | comparaison Quiver par déposant (deltas) | les deux |
-| `07b_quiver_missing_trades` | trades Quiver non retrouvés (clé brute) | House |
-| `07c→07f_quiver_*` | réconciliation Quiver **fine** (txn, champs, ticker, only-quiver) | Sénat |
+| `07b_quiver_missing_trades` | trades Quiver non retrouvés (clé brute, plancher) | House |
+| `07c→07f_quiver_*` | réconciliation Quiver **fine** (txn, accord champs, ticker, only-quiver) | les deux |
 | `08_crosscheck_semaine1` | recoupement vs baseline « semaine 1 » | House |
 | `00_year_status` / `00_final_status` | tableaux de bord | Sénat |
 
@@ -40,13 +40,14 @@ documentation externe.
 La **structure** est symétrique ; ce sont les **fichiers présents** qui diffèrent, pour de bonnes raisons :
 - **`04_` (House seul)** : la Chambre doit **ouvrir chaque PDF** pour décider lisible/scanné → un
   manifeste. Le Sénat reçoit le type (`kind` = `ptr`/`paper`) directement de la liste eFD → pas de `04_`.
-- **`07b` (House) vs `07c→07f` (Sénat)** : deux validations Quiver **réellement différentes** — clé
-  « brute » côté House (un plancher), réconciliation transaction-niveau plus riche côté Sénat. On ne les
-  uniformise pas : chaque chambre garde sa sémantique.
+- **Validation Quiver** : les **deux** chambres ont la réconciliation fine `07c→07f` (clé normalisée →
+  couverture réelle + accord sens/date/montant) — **sur la piste DIGITALE seulement** (Quiver est aveugle
+  au papier/OCR ; l'OCR↔Quiver est couvert par `06d` côté House). House garde EN PLUS `07`/`07b` (clé
+  « brute » sans tolérance = un *plancher* conservateur, + ses « vrais-absents »).
 - **`pdfs/` + `index/` (House seul)** : acquisition différente (la Chambre embarque ses PDF + l'index XML ;
   le Sénat récupère des images `.gif` servies à la volée, non stockées en brut).
 - **Inventaire des scannés** : `_scan_census_547.csv` (House : census des 547 PDF, clusters A/B/C) vs
   `_paper_index_2020_2026.csv` (Sénat : index des PTR papier par UUID) — contenus différents, même rôle.
 
 Le filet **golden** (`tests/regression/{,senate_}golden_manifest.json`) gèle toutes les sorties sous
-`tables/` à l'octet (83 fichiers Chambre, 69 Sénat) — toute modif non voulue est détectée.
+`tables/` à l'octet (111 fichiers Chambre, 69 Sénat) — toute modif non voulue est détectée.
