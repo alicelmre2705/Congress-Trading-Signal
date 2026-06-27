@@ -72,16 +72,17 @@ _MATCHER = None   # closure de résolution bioguide (peuplée par build_referenc
 
 
 # ───────────────────────── Normalisation noms (déléguée au cœur) ─────────────────────────
-from congress_core.identity import strip_accents, norm   # noqa: E402 (source unique partagée)
+from congress_core.reference import strip_accents, norm   # noqa: E402 (source unique partagée)
 
 
 # ───────────────────────── Référentiel identité (chargé via congress_core) ─────────────────────────
 def build_reference():
-    """Peuple les globals d'identité depuis congress_core.identity (source unique, port prouvé
+    """Peuple les globals d'identité depuis house.identity + congress_core.reference (port prouvé
     byte-identique — cf. tests/regression/test_identity.py). `ref_house_key.index` = membres en
     commission clé (contrat préservé pour house.ocr / join_identity)."""
     global ref_universe, name_exact, name_by_last, bio_to_committees, ref_house_key, _MATCHER
-    from congress_core.identity import load_reference, make_matcher
+    from congress_core.reference import load_reference
+    from house.identity import make_matcher
     _ref = load_reference(REF_DIR, key_committees=KEY_COMMITTEES, chamber="house", live=True)
     ref_universe = _ref.ref_universe
     name_exact = _ref.name_exact
@@ -238,10 +239,10 @@ def parse_ptr(text):
     return out
 
 
-# ───────────────────────── match_bioguide (délégué au cœur) ─────────────────────────
+# ───────────────────────── match_bioguide (délégué à house.identity) ─────────────────────────
 def match_bioguide(last, first):
-    """Délègue au matcher du cœur (congress_core.identity.make_matcher), peuplé par build_reference.
-    Surnoms, suffixes, overrides manuels (Van Taylor) : tout vit dans congress_core.identity."""
+    """Délègue au matcher House (house.identity.make_matcher), peuplé par build_reference.
+    Surnoms, suffixes, overrides manuels (Van Taylor) : tout vit dans house.identity."""
     return _MATCHER(last, first) if _MATCHER else None
 
 

@@ -1,10 +1,10 @@
-"""★ Identité — Doc ID → législateur (bioguide). Priorité #1 du projet, partagée House/Sénat.
+"""★ Référentiel partagé — Doc ID → législateur (bioguide). Priorité #1, commun House/Sénat.
 
-Réunit en UNE source : normalisation de noms (`strip_accents`/`norm`), chargement du référentiel
-(legislators + commissions, live avec repli YAML), et résolution de bioguide. Le matcher House
-(`match_bioguide(last, first)`, cascade exacte→nom→surnom→override) est porté VERBATIM ; le
-contrat Sénat (chaîne déclarant → `split_name`) est offert en variante. `chamber_priority=None`
-par défaut → comportement House préservé à l'identique (cf. test de reproduction des bioguides).
+Source UNIQUE du référentiel des élus : normalisation de noms (`strip_accents`/`norm`), chargement
+(legislators + commissions, live avec repli YAML embarqué), la classe `Reference` (party, ancienneté,
+commissions) et l'enrichissement identité partagé (`enrich_identity`, `add_years_in_office`). Utilisé
+par les DEUX chambres et par `enrich_tenure` (qui tourne sur les FINAL des deux). Le MATCHER, lui, est
+spécifique à chaque chambre : `house.identity` (House) et `senate.identity` (Sénat).
 """
 import re
 import unicodedata
@@ -24,21 +24,6 @@ def norm(s: str) -> str:
     s = re.sub(r"[^a-z ]", " ", s)
     return re.sub(r"\s+", " ", s).strip()
 
-
-# Surnoms / suffixes / overrides (copie VERBATIM de house_multiyear) ───────────────────────────
-_TITLE_RE = re.compile(r"\b(dr|hon|rev|gen|col)\b\.?\s*", re.IGNORECASE)
-_NICKNAMES = {
-    "richard": "rick", "william": "bill", "james": "jim", "robert": "bob",
-    "michael": "mike", "joseph": "joe", "thomas": "tom", "charles": "chuck",
-    "edward": "ed", "daniel": "dan", "donald": "don", "timothy": "tim",
-    "christopher": "chris", "steven": "steve", "stephen": "steve", "benjamin": "ben",
-    "kenneth": "ken", "anthony": "tony", "matthew": "matt", "gregory": "greg",
-    "gerald": "jerry", "lawrence": "larry", "patrick": "pat", "samuel": "sam",
-    "alexander": "alex", "andrew": "andy", "nathaniel": "nate", "theodore": "ted",
-    "jacob": "jake", "jonathan": "jon", "elizabeth": "lizzie",
-}
-_SUFFIX_TOKENS = {"jr", "sr", "ii", "iii", "iv", "md", "dds", "phd", "facs", "do", "esq", "mr", "mrs", "ms"}
-_MANUAL_BIO = {("taylor", "nicholas"): "T000479"}  # « Nicholas V. Taylor » = Van Taylor
 
 # Commissions clés par chambre (paramètre, jamais une liste unique figée).
 KEY_COMMITTEES_HOUSE = ["Financial Services", "Armed Services", "Intelligence"]
@@ -215,47 +200,6 @@ def load_reference(reference_dir, key_committees=None, chamber="house", live=Tru
 
     return Reference(ref_universe, name_exact, name_by_last, bio_to_committees,
                      key_bios, current_bios, src, bio_to_first_year)
-
-
-def make_matcher(ref: Reference, chamber_priority=None):
-    """Renvoie `match(last, first) → bioguide|None`. Algorithme House porté VERBATIM
-    (house_multiyear.match_bioguide). `chamber_priority` réservé au Sénat (désambiguïsation par
-    chambre/titulaire) ; None → comportement House inchangé."""
-    name_exact, name_by_last = ref.name_exact, ref.name_by_last
-
-    def match(last, first):
-        first_clean = re.sub(r"\s+", " ", _TITLE_RE.sub(" ", first or "")).strip()
-        raw = re.sub(r"[.,]", " ", (last or "")).split()
-        last_words = [w for w in raw if norm(w) and norm(w) not in _SUFFIX_TOKENS]
-        last_cands = []
-        for w in last_words + ([" ".join(last_words)] if len(last_words) > 1 else []):
-            ln = norm(w)
-            if ln and ln not in last_cands:
-                last_cands.append(ln)
-        fn0 = norm(first_clean.split()[0]) if first_clean.split() else ""
-        for lw in last_cands:
-            if (lw, fn0) in _MANUAL_BIO:
-                return _MANUAL_BIO[(lw, fn0)]
-        seen, keys = set(), []
-        for l_n in last_cands:
-            for f_str in ([first_clean] + (first_clean.split() if " " in first_clean else [])):
-                f_n = norm(f_str)
-                nick = _NICKNAMES.get(f_n)
-                for candidate in ([nick] if nick else []) + [f_n]:
-                    k = (l_n, candidate)
-                    if k not in seen:
-                        seen.add(k)
-                        keys.append(k)
-        for k in keys:
-            if k in name_exact:
-                return name_exact[k]
-        for lw in last_cands:
-            cands = name_by_last.get(lw, [])
-            if len(cands) == 1:
-                return cands[0]
-        return None
-
-    return match
 
 
 def enrich_identity(df, ref: Reference, matcher, chamber, last_col="last", first_col="first"):

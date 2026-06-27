@@ -12,7 +12,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
-from congress_core import identity, enrich_tenure  # noqa: E402
+from congress_core import reference, enrich_tenure  # noqa: E402
 
 COL = enrich_tenure.COLUMN
 
@@ -21,7 +21,7 @@ def main():
     refs, total, mism, files = {}, 0, 0, 0
     for chamber, year, path in enrich_tenure.final_files(REPO):
         if chamber not in refs:
-            refs[chamber] = identity.load_reference(REPO / "data" / chamber / "reference",
+            refs[chamber] = reference.load_reference(REPO / "data" / chamber / "reference",
                                                     chamber=chamber, live=False)
         df = pd.read_csv(path, dtype=str)
         files += 1
@@ -29,7 +29,7 @@ def main():
             print(f"  ❌ {chamber} {year} : colonne {COL} absente")
             mism += 1
             continue
-        recomputed = identity.add_years_in_office(df.drop(columns=[COL]), refs[chamber])[COL]
+        recomputed = reference.add_years_in_office(df.drop(columns=[COL]), refs[chamber])[COL]
         stored = pd.to_numeric(df[COL], errors="coerce").astype("Float64")
         recomp = pd.to_numeric(pd.Series(recomputed), errors="coerce").astype("Float64")
         neq = (stored != recomp) & ~(stored.isna() & recomp.isna())

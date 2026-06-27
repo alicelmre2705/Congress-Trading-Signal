@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from congress_core import identity
+from congress_core import reference
 from congress_core.schema import FINAL_POST_ENRICH
 
 REPO = Path(__file__).resolve().parent.parent
@@ -42,7 +42,7 @@ def _fmt(v) -> str:
     return str(int(v))
 
 
-def enrich_file(path: Path, ref: identity.Reference) -> bool:
+def enrich_file(path: Path, ref: reference.Reference) -> bool:
     """Append `years_in_office` à un FINAL, byte-préservant. Renvoie False si déjà enrichi."""
     raw = path.read_text(encoding="utf-8")
     ends_nl = raw.endswith("\n")
@@ -56,7 +56,7 @@ def enrich_file(path: Path, ref: identity.Reference) -> bool:
     if len(df) != n_data:
         raise ValueError(f"{path.name}: {len(df)} enregistrements vs {n_data} lignes physiques "
                          "(newline dans un champ ?) — append non sûr")
-    vals = identity.add_years_in_office(df, ref)[COLUMN].tolist()
+    vals = reference.add_years_in_office(df, ref)[COLUMN].tolist()
     new = [header + "," + COLUMN]
     for line, v in zip(lines[1:], vals):
         new.append(line + "," + _fmt(v))
@@ -69,7 +69,7 @@ def main():
     n_done = n_skip = 0
     for chamber, year, path in final_files(REPO):
         if chamber not in refs:
-            refs[chamber] = identity.load_reference(REPO / "data" / chamber / "reference",
+            refs[chamber] = reference.load_reference(REPO / "data" / chamber / "reference",
                                                     chamber=chamber, live=False)
         changed = enrich_file(path, refs[chamber])
         if changed:

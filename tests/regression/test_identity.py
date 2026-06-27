@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """PREUVE Phase 2 (identité) — priorité #1.
 
-Partie A — fidélité du port : le matcher de congress_core.identity == house_multiyear.match_bioguide
+Partie A — fidélité du port : le matcher de house.identity == house_multiyear.match_bioguide
 ORIGINAL sur TOUTES les paires (last, first) des index PTR (même référentiel live). Doit être 100 %.
 
 Partie B — reproduction des bioguides figés : pour chaque doc des tables 06/06b, on relit (last, first)
@@ -27,7 +27,8 @@ def main():
     import house.digital as hm
     hm.build_reference()  # référentiel live → globals + hm.match_bioguide (l'original)
 
-    from congress_core.identity import load_reference, make_matcher
+    from congress_core.reference import load_reference
+    from house.identity import make_matcher
     ref = load_reference(REF_DIR, chamber="house", live=True)
     match = make_matcher(ref)
     print(f"  référentiel cœur : {len(ref.ref_universe)} | source {ref.source}")
