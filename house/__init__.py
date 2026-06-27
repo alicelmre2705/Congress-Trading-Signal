@@ -1,9 +1,14 @@
-"""house — pipeline House (digital + OCR), bâti sur congress_core.
+"""house — pipeline Chambre, modulaire et symétrique de `senate/`.
 
-`house.digital` : index XML → manifest → parse_ptr → identité → finalize → validation Quiver.
-`house.ocr`     : census A/B/C → Vision (cache versionné) → enrichissement → fusion digital+OCR.
+Modules (dans l'ordre du pipeline) :
+    digital   index XML → manifest → parse_ptr → identité → finalize → validation Quiver
+    ocr       census A/B/C → Vision (cache versionné) → enrichissement → fusion digital+OCR
+    identity  matcher bioguide House (make_matcher) ; le référentiel partagé est dans congress_core.reference
+    amounts   fourchettes $, midpoint, owner, operation_type (House)
+    tickers   normalisation / récupération ticker + asset_type (House)
+    quiver    référence de réconciliation Quiver (la validation prod « brute » 07/07b vit dans
+              `digital.py:validate_quiver`)
+    echantillon  ⚠️ outil hors-pipeline (pilote OCR)
 
-House importe `congress_core` pour identity, schema, amounts, tickers, sector_enrich. Restent LOCAUX à
-`house/` : la fusion digital+OCR, le moteur OCR Vision (`house.ocr`) et `house.digital:validate_quiver`
-(cf. docs/RAPPORT_V2_ARCHI.md).
+House n'importe de congress_core que l'universel : `schema`, `reference`, `sector_enrich`.
 """

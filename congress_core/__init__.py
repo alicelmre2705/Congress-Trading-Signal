@@ -1,25 +1,21 @@
-"""congress_core — logique métier du pipeline Congress Trading.
+"""congress_core — le contrat UNIVERSEL partagé par les deux chambres.
 
-ÉTAT RÉEL de la consolidation (refonte en cours — cf. docs/RAPPORT_V2_ARCHI.md) :
-  • PARTAGÉ par les deux chambres : `pipeline` (orchestrateur), `enrich_tenure` (years_in_office),
-    `quality` (5 contrôles) — tournent sur les FINAL House ET Sénat.
-  • Utilisé PAR HOUSE (extraction/transformation) : `identity`, `schema`, `amounts`, `tickers`,
-    `sector_enrich`. (`house/` garde en propre sa fusion, son OCR Vision et son `validate_quiver`.)
-  • Le SÉNAT n'importe le cœur QUE pour `sector_enrich` (via un shim mince) ; le reste de sa logique
-    (identité, montants, ticker, Quiver, OCR) reste réimplémenté localement dans `senate/` — par
-    divergence légitime (Quiver/ticker/OCR diffèrent vraiment) ou choix figé pour le golden. Une
-    unification plus poussée a été examinée puis écartée (cf. docs/RAPPORT_V2_ARCHI.md).
+Ne contient QUE ce que House ET Sénat utilisent vraiment (ou le pipeline / la qualité / l'ancienneté,
+qui tournent sur les deux). La logique SPÉCIFIQUE à une chambre vit dans `house/` et `senate/`, qui sont
+désormais symétriques. Le matcher d'identité, les montants, le ticker, la validation Quiver et l'OCR
+DIFFÈRENT par chambre → ils ne sont pas ici.
 
 Modules :
-    identity     ★ Doc ID → bioguide (Reference, make_matcher, enrich_identity)
-    schema       SCHEMA + natural_key_hash + dédup per-lot
-    tickers      normalisation / récupération ticker + asset_type
-    amounts      fourchettes $, midpoint, owner, operation_type (par chambre)
-    quiver       fetch + reconcile (utilisé par quality/tests ; House a son propre validate_quiver)
-    crosscheck   triangulation digital (Kadoa, Stock Watcher) + statut/déposant (via quality)
-    vision_ocr   rendu image + deskew + appel Vision + cache versionné (prévu : moteur OCR unique — Palier 3 ;
-                 actuellement utilisé par les tests, pas encore branché en prod)
-    sector_enrich GICS → ETF (importé par House ET par le shim Sénat)
+    reference     ★ référentiel des élus partagé : nom → bioguide (Reference, load_reference,
+                  add_years_in_office, enrich_identity). Le MATCHER est par chambre (house/senate.identity).
+    schema        clé naturelle + natural_key_hash + dédup per-lot (contrat de table, prouvé identique aux 2)
+    sector_enrich GICS → ETF SPDR (importé par House ET par le shim Sénat)
+    enrich_tenure years_in_office, appendu aux 14 tables FINAL (House + Sénat)
+    quality       5 contrôles qualité (lecture seule des FINAL des deux chambres)
+    crosscheck    triangulation Quiver / Kadoa / Stock Watcher + statut par déposant (via quality)
+    vision_ocr    moteur OCR Vision de RÉFÉRENCE (deskew + cache versionné), exercé par les tests ;
+                  chaque chambre a son OCR en prod (house.ocr, senate.ocr_engine)
+    pipeline      orchestrateur (enchaîne house.* + senate.* + enrich_tenure)
 """
 
 __version__ = "0.1.0"
