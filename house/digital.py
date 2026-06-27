@@ -501,17 +501,8 @@ def validate_quiver(df, manifest, ptr_index, year, win_start, win_end, ydir):
     real_miss_out = real_miss[["BioGuideID", "Name", "_ticker", "_td", "Transaction"]].rename(
         columns={"_ticker": "ticker", "_td": "traded"})
     real_miss_out.to_csv(ydir / "07b_quiver_missing_trades.csv", index=False)
-
-    # (3) réconciliation transaction-niveau RICHE (07c–07f), parité Sénat — sur le DIGITAL
-    # (Quiver est aveugle au papier ; l'OCR↔Quiver est couvert par 06d). Couverture « normalisée »
-    # (tolérance de clé) → plus juste que le plancher brut ci-dessus.
-    from house import quiver as _q
-    qy = q.rename(columns={"traded": "Traded", "filed": "Filed"})
-    rec = _q.reconcile(df, qy)
-    rec["txn_reco"].to_csv(ydir / "07c_quiver_txn_reconciliation.csv", index=False)
-    rec["field_agreement"].to_csv(ydir / "07d_quiver_field_agreement.csv", index=False)
-    rec["ticker_per_member"].to_csv(ydir / "07e_quiver_ticker_per_member.csv", index=False)
-    rec["only_quiver_txn"].to_csv(ydir / "07f_quiver_only_quiver_txn.csv", index=False)
+    # NB : la réconciliation RICHE 07c–07f (3 scopes digital/OCR/both) est faite APRÈS le FINAL,
+    # dans house/ocr.py:run_ocr_year (là où l'OCR et le FINAL existent). Cf. common/quiver_scopes.
 
     vc = dict(cmp["verdict"].value_counts())
     return {"quiver_total": len(q), "quiver_declarants": int(q["BioGuideID"].nunique()),

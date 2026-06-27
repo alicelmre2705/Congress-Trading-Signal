@@ -40,10 +40,15 @@ documentation externe.
 La **structure** est symétrique ; ce sont les **fichiers présents** qui diffèrent, pour de bonnes raisons :
 - **`04_` (House seul)** : la Chambre doit **ouvrir chaque PDF** pour décider lisible/scanné → un
   manifeste. Le Sénat reçoit le type (`kind` = `ptr`/`paper`) directement de la liste eFD → pas de `04_`.
-- **Validation Quiver** : les **deux** chambres ont la réconciliation fine `07c→07f` (clé normalisée →
-  couverture réelle + accord sens/date/montant) — **sur la piste DIGITALE seulement** (Quiver est aveugle
-  au papier/OCR ; l'OCR↔Quiver est couvert par `06d` côté House). House garde EN PLUS `07`/`07b` (clé
-  « brute » sans tolérance = un *plancher* conservateur, + ses « vrais-absents »).
+- **Validation Quiver `07c→07f` — en 3 scopes** (`digital` / `ocr` / `both`), colonne `scope` dans
+  `07c`/`07d` (cf. `common/quiver_scopes.py` qui documente toutes les métriques). C'est le scope `ocr`
+  qui révèle **LA grande différence House/Sénat** :
+  - **House** : Quiver **voit** le papier (Khanna ≈ 29 000 lignes Quiver) → l'OCR est **validé en
+    externe ~75 %** (l'écart = surtout des dates OCR mal lues). Couvertures typiques : digital ~95 %,
+    ocr ~75 %, both ~85 %. House garde aussi `07`/`07b` (clé brute = plancher conservateur).
+  - **Sénat** : Quiver est **aveugle** au papier (Blumenthal, Feinstein = 0 ligne Quiver) → le scope
+    `ocr` ressort **vide** (`coverage_pct` = None) → ici seulement « OCR = source unique » est vrai
+    (validation interne : `date_confidence`, stabilité run-à-run).
 - **`pdfs/` + `index/` (House seul)** : acquisition différente (la Chambre embarque ses PDF + l'index XML ;
   le Sénat récupère des images `.gif` servies à la volée, non stockées en brut).
 - **Inventaire des scannés** : `_scan_census_547.csv` (House : census des 547 PDF, clusters A/B/C) vs

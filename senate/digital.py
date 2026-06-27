@@ -226,11 +226,9 @@ def run_year(year, ref, bio_to_committees, key_flag, match, quiver_df, senate_bi
 
     # --- validation Quiver de l'année ---
     qy = quiver_df[(quiver_df["Filed"].dt.year == year) & (quiver_df["BioGuideID"].isin(senate_bios))].copy()
-    rec = vq.reconcile(df, qy)
-    rec["txn_reco"].to_csv(ydir / "07c_quiver_txn_reconciliation.csv", index=False)
-    rec["field_agreement"].to_csv(ydir / "07d_quiver_field_agreement.csv", index=False)
-    rec["ticker_per_sen"].to_csv(ydir / "07e_quiver_ticker_per_senator.csv", index=False)
-    rec["only_quiver_txn"].to_csv(ydir / "07f_quiver_only_quiver_txn.csv", index=False)
+    rec = vq.reconcile(df, qy)   # sert au 07_comparison (deltas) + aux métriques du dashboard 00_year_status
+    # NB : la réconciliation RICHE 07c–07f (3 scopes digital/OCR/both) est faite APRÈS le FINAL,
+    # dans senate/fusion.py (là où l'OCR et le FINAL existent). Cf. common/quiver_scopes.
 
     # comparaison par sénateur (07) + verdict, à partir des deltas de reconcile
     cmp = rec["deltas"].copy()

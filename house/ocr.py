@@ -517,6 +517,29 @@ def run_ocr_year(year, force=False):
         comb.to_csv(ydir / f"06_house_{year}_FINAL.csv", index=False)
         print(f"  → 06_house_{year}_FINAL.csv : {len(comb)} lignes ({len(dmain)} digital + {int((~collide).sum())} OCR)")
 
+        # Validation Quiver RICHE par SCOPE (digital / OCR / les deux) — cf. common/quiver_scopes.
+        # House : Quiver VOIT le papier (Khanna ≈ 29k lignes Quiver) → l'OCR EST validé en externe
+        # (~75 % de match ; l'écart = surtout des dates OCR mal lues). Le scope `both` = la validation
+        # d'ensemble que cite le rapport. (Au Sénat, Quiver est aveugle au papier → scope OCR vide.)
+        _qh = hm.fetch_quiver()
+        if _qh is not None:
+            from common.quiver_scopes import reconcile_scopes
+            from house import quiver as _hq
+            _q = _qh.copy(); _q["_filed"] = pd.to_datetime(_q["filed"], errors="coerce")
+            _q = _q[(_q["_filed"] >= pd.Timestamp(f"{year}-01-01")) & (_q["_filed"] <= pd.Timestamp(f"{year}-12-31"))]
+            _q = _q.rename(columns={"traded": "Traded", "filed": "Filed"})
+            # relire depuis le disque (dtype=str) → identique à la génération offline du golden
+            _dig = pd.read_csv(ydir / f"06_house_{year}_transactions.csv", dtype=str)
+            _ocr = pd.read_csv(ydir / f"06b_house_{year}_ocr_transactions.csv", dtype=str)
+            _fin = pd.read_csv(ydir / f"06_house_{year}_FINAL.csv", dtype=str)
+            _txn, _field, _rb = reconcile_scopes(_hq.reconcile, {"digital": _dig, "ocr": _ocr, "both": _fin}, _q)
+            _txn.to_csv(ydir / "07c_quiver_txn_reconciliation.csv", index=False)
+            _field.to_csv(ydir / "07d_quiver_field_agreement.csv", index=False)
+            _rb["ticker_per_member"].to_csv(ydir / "07e_quiver_ticker_per_member.csv", index=False)
+            _rb["only_quiver_txn"].to_csv(ydir / "07f_quiver_only_quiver_txn.csv", index=False)
+            _cov = _txn[_txn["scope"] == "both"].set_index("metric")["value"].get("coverage_pct")
+            print(f"  → 07c-f Quiver 3-scopes (digital/ocr/both) | couverture FINAL {_cov}%")
+
     return {"year": year, "n_scanned": len(scanned), "n_ocr_txns": n_txn, "n_failures": len(failures),
             "n_declarants": int(df["declarant_name"].nunique())}
 

@@ -87,11 +87,35 @@ def main():
     big["date_confidence"] = [date_confidence(t, d)                 # flag date (parité House)
                               for t, d in zip(big["transaction_date"], big["disclosure_date"])]
 
+    # --- Validation Quiver RICHE par SCOPE (digital / OCR / les deux) — cf. common/quiver_scopes ---
+    # Sénat : Quiver est AVEUGLE au papier (Blumenthal/Feinstein = 0 ligne Quiver) → le scope `ocr`
+    # ressort VIDE (coverage None) = « OCR = source unique » VRAI ici (≠ House, où Quiver voit le papier
+    # comme Khanna → l'OCR y est validé externe ~75 %).
+    from senate import quiver as vq
+    from senate.identity import load_reference as _load_ref
+    from common.quiver_scopes import reconcile_scopes
+    _sbios = {b for b, v in _load_ref()[0].items() if v["chamber"] == "senate"}
+    _qdf = pd.read_csv(DATA / "tables" / "_quiver_senate_cache.csv")
+    _qdf["Filed"] = pd.to_datetime(_qdf["Filed"], errors="coerce")
+    _qdf["Traded"] = pd.to_datetime(_qdf["Traded"], errors="coerce")
+
     # --- Écriture par année (schéma FINAL) + dashboard ---
     rows = []
     for y in years:
         final = big[big["_year"] == y].drop(columns="_year").reindex(columns=FINAL_COLS)
-        final.to_csv(DATA / "tables" / str(y) / f"06_senate_{y}_FINAL.csv", index=False)
+        _ydir = DATA / "tables" / str(y)
+        final.to_csv(_ydir / f"06_senate_{y}_FINAL.csv", index=False)
+        # réconciliation Quiver 3 scopes → 07c-f (relue depuis le disque, dtype=str → cohérent golden)
+        _qy = _qdf[(_qdf["Filed"].dt.year == y) & (_qdf["BioGuideID"].isin(_sbios))].copy()
+        _dig = pd.read_csv(_ydir / f"06_senate_{y}_transactions.csv", dtype=str)
+        _ocrp = _ydir / f"06b_senate_{y}_ocr_transactions.csv"
+        _ocr = pd.read_csv(_ocrp, dtype=str) if _ocrp.exists() else _dig.iloc[0:0]
+        _fin = pd.read_csv(_ydir / f"06_senate_{y}_FINAL.csv", dtype=str)
+        _txn, _field, _rb = reconcile_scopes(vq.reconcile, {"digital": _dig, "ocr": _ocr, "both": _fin}, _qy)
+        _txn.to_csv(_ydir / "07c_quiver_txn_reconciliation.csv", index=False)
+        _field.to_csv(_ydir / "07d_quiver_field_agreement.csv", index=False)
+        _rb["ticker_per_sen"].to_csv(_ydir / "07e_quiver_ticker_per_senator.csv", index=False)
+        _rb["only_quiver_txn"].to_csv(_ydir / "07f_quiver_only_quiver_txn.csv", index=False)
         midp = pd.to_numeric(final["amount_midpoint"], errors="coerce")
         m = meta[y]
         rows.append({
