@@ -1,0 +1,542 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black,citecolor=blue!50!black}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{1.5em}{0.5em}
+\titlespacing{\subsection}{0pt}{1.0em}{0.3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newtcolorbox{keybox}[1]{colback=blue!4,colframe=blue!40!black,title=\textbf{#1}}
+\newtcolorbox{defbox}[1]{colback=gray!6,colframe=gray!50,boxrule=0.4pt,left=5pt,right=5pt,top=3pt,bottom=3pt,title=\textbf{#1}}
+
+\title{\textbf{Congress Trading Signal}\\[4pt]
+\large Une stratégie de copy-trading des transactions du Congrès américain bat-elle le marché ?\\
+\large \emph{Méthodes, mathématiques et résultats --- rapport de recherche}}
+\author{Semaines 3--4 --- Stratégie \& backtest \quad(\code{Congress\_Trading\_Signal\_Recherche.ipynb})}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{defbox}{Comment lire ce rapport}
+Ce document est \textbf{autonome} : il explique \emph{toutes} les méthodes (avec leurs formules) et
+\emph{tous} les résultats, sans qu'il soit nécessaire d'ouvrir le code. Il \textbf{accompagne} le notebook
+\code{Congress\_Trading\_Signal\_Recherche.ipynb}, qui contient le code reproductible et produit chacun des
+chiffres cités ici. La section~\ref{sec:math} pose le \textbf{cadre mathématique} (chaque métrique est
+définie avant d'être utilisée) ; la section~\ref{sec:res} déroule les \textbf{résultats} chapitre par
+chapitre (tableaux + figures + lecture). Aucune connaissance préalable de la finance du Congrès n'est
+supposée ; un niveau master quantitatif suffit.
+\end{defbox}
+
+\begin{keybox}{Résumé exécutif}
+\textbf{Question.} Copier systématiquement les \emph{achats} déclarés par les membres du Congrès (STOCK Act)
+permet-il de battre le S\&P~500 \textbf{net de coûts} ? Et la version « intégrable » substituant chaque
+action par son \textbf{ETF sectoriel} tient-elle ?\\[2pt]
+\textbf{Réponse.} \emph{Non.} (i)~Le signal d'achat brut est une \textbf{loterie à queue droite} : médiane
+de rendement anormal \textbf{négative}, $<46\,\%$ de trades gagnants, le gain moyen tient entièrement à
+quelques très gros gagnants. (ii)~La stratégie \emph{spécifiée} (sélection annuelle de $K$ congressmen)
+dégage un alpha actions \textbf{positif mais non significatif} (meilleur cas $K{=}8$ : $+3{,}97\,\%$/an,
+$t{=}0{,}88$), avec un Sharpe \textbf{sous} celui du marché et \textbf{aucune persistance}. (iii)~La version
+ETF \textbf{dilue} cet edge idiosyncratique : alpha factoriel $\approx -3{,}8\,\%$/an ; c'est un beta
+sectoriel dé-risqué, pas de l'alpha. (iv)~Le seul signal qui survit à tous les contrôles est la
+\textbf{largeur d'achat} (\emph{breadth}), d'IC$\,\approx 0{,}02$ --- réel mais \textbf{sous le seuil
+d'exploitabilité}. \textbf{Conclusion} : la valeur d'un produit « Congrès » est la donnée / le récit /
+l'exposition thématique (cf. ETF NANC/KRUZ), \textbf{pas} un alpha net.
+\end{keybox}
+
+\tableofcontents
+
+% ════════════════════════════════════════════════════════════════════
+\section{Cadre, données et objectif}\label{sec:intro}
+
+\textbf{Le contexte.} Depuis le \emph{STOCK Act} (2012), les membres du Congrès américain doivent déclarer
+leurs transactions boursières sous 45~jours. La prémisse étudiée : ces personnes ont potentiellement accès
+à de l'information privilégiée (commissions Finance, Défense, Renseignement ; exposition médiatique), et
+leurs déclarations constitueraient un signal exploitable. L'objectif fixé (cahier des charges Ramify) :
+construire la stratégie, la backtester en \textbf{deux versions} --- V1 sur actions directes (pour valider le
+signal), V2 sur ETF sectoriels (pour s'intégrer à l'univers d'un robo-advisor) --- et en livrer les
+\textbf{chiffres honnêtes}.
+
+\textbf{La stratégie spécifiée.} \emph{Copy-trading pur} : on entre sur un instrument dès qu'un \emph{achat}
+(« Purchase ») est divulgué par un congressman suivi, à sa \code{disclosure\_date} ; on sort à la
+\emph{vente} correspondante du même membre sur le même titre, sinon de force \textbf{12~mois} après
+l'entrée. Chaque année, on \textbf{sélectionne $K$ congressmen} à suivre (typiquement $K\in\{4,6,8,10\}$),
+parmi les éligibles ($\geq 10$ trades), classés par \textbf{Sharpe de leur série de trades}, avec
+$\geq$~la moitié en commission clé.
+
+\textbf{Les données.} Caches \emph{Quiver Quant} (House + Sénat), \textbf{2014--2026}, en lecture seule :
+$113\,675$ transactions, dont \textbf{$56\,877$ achats} tickés, par \textbf{$251$ membres}. Prix ajustés
+(\emph{yfinance}, cache local) ; facteurs de Fama-French-Carhart (Ken French). \emph{Limite structurelle
+assumée} : l'univers de prix ne contient que les tickers encore cotés ($2\,171/3\,797$ couverts, soit
+$1\,626$ délistés absents) --- le \textbf{biais de survie} (\emph{survivorship}) rend tous les rendements
+calculés des \textbf{bornes hautes}.
+
+% ════════════════════════════════════════════════════════════════════
+\section{Cadre mathématique --- les méthodes expliquées}\label{sec:math}
+
+On définit ici chaque outil. Notation : $P_{i,t}$ = cours ajusté du titre $i$ au jour $t$ ; $S_t$ = cours
+de SPY (proxy du S\&P~500) ; $r_{i,t}=P_{i,t}/P_{i,t-1}-1$ ; un « trade » a une entrée $e$ et une sortie $x$.
+
+\subsection{Rendement anormal et étude d'événement (CAR)}
+On ne juge jamais un rendement brut, mais un rendement \textbf{anormal} (en excès du marché). Pour un trade
+entré le 1\textsuperscript{er} jour de bourse après la divulgation et tenu sur un horizon $H$, le
+\textbf{rendement anormal cumulé} (\emph{Cumulative Abnormal Return}) est
+\begin{equation}
+\mathrm{CAR}_i(H) \;=\; \underbrace{\frac{P_{i,e+H}}{P_{i,e}}-1}_{\text{rendement du titre}}
+\;-\; \underbrace{\Big(\frac{S_{e+H}}{S_{e}}-1\Big)}_{\text{rendement de SPY}} .
+\end{equation}
+C'est un rendement \emph{buy-and-hold} relatif : positif si le titre a battu le marché sur la fenêtre. On
+agrège ensuite sur tous les trades (moyenne, médiane, \% positifs, asymétrie) pour mesurer s'il existe un
+edge \emph{en moyenne}, et \emph{où} il se situe dans la distribution.
+
+\subsection{Modèle factoriel, alpha, et $t$ de Newey-West}
+Un rendement élevé peut n'être que l'exposition à des facteurs de risque connus (marché, taille, valeur,
+momentum). Pour isoler la \textbf{vraie sur-performance} ($\alpha$), on régresse le rendement quotidien en
+excès du taux sans risque $r_f$ sur les quatre facteurs de \textbf{Fama-French-Carhart} :
+\begin{equation}
+r_t - r_{f,t} \;=\; \alpha \;+\; \beta_{\text{Mkt}}(R_{\text{Mkt},t}-r_{f,t}) \;+\; \beta_{\text{SMB}}\,\text{SMB}_t
+\;+\; \beta_{\text{HML}}\,\text{HML}_t \;+\; \beta_{\text{MOM}}\,\text{MOM}_t \;+\; \varepsilon_t .
+\end{equation}
+L'intercept $\hat\alpha$ est l'alpha quotidien ; on l'annualise par $\alpha_{\text{ann}}=252\,\hat\alpha$.
+Le $\beta_{\text{Mkt}}$ mesure l'exposition au marché (le « beta tech » qui explique l'essentiel des
+« stars »). \textbf{Problème des fenêtres chevauchantes} : des trades à 12~mois ouverts à des dates
+proches partagent l'essentiel de leur période $\Rightarrow$ leurs erreurs sont autocorrélées, et le $t$
+naïf est \textbf{gonflé}. On corrige par l'erreur-type de \textbf{Newey-West (HAC)} :
+\begin{equation}
+\hat\sigma^2_{\text{NW}} \;=\; \hat\gamma_0 \;+\; 2\sum_{k=1}^{L}\Big(1-\tfrac{k}{L+1}\Big)\hat\gamma_k ,
+\qquad \hat\gamma_k=\text{autocovariance d'ordre }k,
+\end{equation}
+ce qui dégonfle le $t$. \emph{Règle de lecture} : on ne retient un effet que si $|t|\gtrsim 2$ \textbf{après}
+cette correction (et après clustering, \S\ref{sub:cluster}).
+
+\subsection{Information Coefficient et loi fondamentale}
+Pour tester l'existence d'\emph{information} indépendamment de toute construction de portefeuille, on mesure
+l'\textbf{Information Coefficient} : la corrélation de rang (Spearman) entre un \emph{signal} (p.\,ex. le
+nombre d'acheteurs distincts d'un titre le mois $M$) et le \emph{rendement futur} du titre, moyennée sur
+les mois :
+\begin{equation}
+\mathrm{IC} \;=\; \overline{\rho_{\text{Spearman}}\big(\text{signal}_M,\ \text{rendement}_{M\to M+H}\big)} .
+\end{equation}
+La \textbf{loi fondamentale de la gestion active} (Grinold \& Kahn) relie l'IC au ratio d'information
+atteignable :
+\begin{equation}
+\boxed{\;\mathrm{IR} \;\approx\; \mathrm{IC}\times\sqrt{B}\;}
+\end{equation}
+où $B$ est le nombre de paris \emph{indépendants} par an. Elle \textbf{borne} ce qu'un signal donné peut
+produire : un IC faible ne devient exploitable qu'avec une très grande largeur $B$.
+
+\subsection{Sélection des congressmen : Sharpe rétréci et exploration}\label{sub:select}
+\textbf{Série de trades.} Pour chaque membre, on calcule le rendement \emph{réalisé} de chacun de ses trades
+(entrée \code{filed}$+1$, sortie vente/$+12$\,mois, anormal vs SPY) --- c'est sa « série de trades », que le
+cahier des charges désigne comme le bon support de jugement.
+
+\textbf{Critère = Sharpe, rétréci.} Le Sharpe brut d'un membre, $\widehat{SR}_i=\bar r_i / s_i$, est très
+bruité sur peu de trades (un membre « chanceux » sur $11$ trades affiche un Sharpe trompeur). On applique un
+\textbf{rétrécissement de James-Stein} (esprit Mauboussin : séparer compétence et chance) vers la moyenne
+du groupe $\overline{SR}$ :
+\begin{equation}
+\widetilde{SR}_i \;=\; w_i\,\widehat{SR}_i \;+\; (1-w_i)\,\overline{SR},
+\qquad w_i=\frac{n_i}{n_i+k}\ \ (k=10),
+\end{equation}
+$n_i$ = nombre de trades du membre. Peu de trades $\Rightarrow w_i$ petit $\Rightarrow$ on croit surtout à
+la moyenne du groupe (anti-chance).
+
+\textbf{Exploration (UCB1).} Pour ne pas figer la sélection sur les seuls « gagnants » passés, on ajoute un
+bonus d'exploration de type \emph{bandit manchot} (Sutton \& Barto) :
+\begin{equation}
+\text{score}_i \;=\; \widetilde{SR}_i \;+\; c\,\sqrt{\frac{\ln N}{n_i}}\,, \qquad c=0{,}5,
+\end{equation}
+$N$ = total de trades de tous les éligibles. Les membres peu observés reçoivent un léger bonus.
+
+\textbf{Filtre commissions \& walk-forward.} On retient les $K$ meilleurs \emph{scores} en imposant
+$\geq \lceil K/2\rceil$ membres de commission Finance/Défense/Renseignement. La sélection de fin d'année $Y$
+n'utilise que les trades \textbf{clôturés au 31/12/$Y$} (sortie $\leq$ fin $Y$) --- \textbf{aucun look-ahead} ---
+et s'applique aux achats de l'année $Y{+}1$. C'est un \textbf{walk-forward} strict.
+
+\subsection{Moteur de portefeuille et coûts}
+Chaque achat retenu ouvre une position à \code{filed}$+1$ jour de bourse (pas de look-ahead), fermée à la
+vente correspondante ou à l'horizon. Le portefeuille long-only est rebalancé quotidiennement ; on note
+$w_{i,t}$ le poids (égal, ou $\propto$ taille \$\,déclarée). Le \textbf{coût de transaction} est prélevé sur
+le \emph{turnover} :
+\begin{equation}
+r^{\text{net}}_t \;=\; \sum_i w_{i,t-1}\,r_{i,t} \;-\; \frac{\text{bps}}{10^4}\sum_i \big|w_{i,t}-w_{i,t-1}\big|,
+\qquad \text{bps}=20 .
+\end{equation}
+\emph{Hygiène de donnée} : les rendements quotidiens sont \textbf{winsorisés à $\pm 50\,\%$/jour} pour
+neutraliser de rares glitches du cache de prix (erreurs manifestes, $\sim 0{,}03\,\%$ des points ; p.\,ex.
+un ticker à $+2{,}3$~M\% en un jour) --- sans cela, un seul point aberrant fausserait les moyennes.
+
+\subsection{Sharpe, Sharpe dégonflé et tests multiples}
+Le \textbf{ratio de Sharpe} annualisé est $SR=\sqrt{252}\,\bar r/s$. Mais essayer beaucoup de configurations
+(grille $K$, variantes) gonfle \emph{mécaniquement} le meilleur Sharpe par pure chance. Le \textbf{Deflated
+Sharpe Ratio} (López de Prado) corrige : on calcule d'abord le \emph{Probabilistic Sharpe Ratio}
+\begin{equation}
+\widehat{\mathrm{PSR}}(SR^\star)=\Phi\!\left(\frac{(\widehat{SR}-SR^\star)\sqrt{n-1}}
+{\sqrt{\,1-\hat\gamma_3\widehat{SR}+\frac{\hat\gamma_4-1}{4}\widehat{SR}^2\,}}\right),
+\end{equation}
+($\hat\gamma_3,\hat\gamma_4$ = asymétrie et kurtosis, $\Phi$ = loi normale), où le seuil $SR^\star$ est le
+\textbf{Sharpe maximal attendu sous $H_0$} pour $T$ essais :
+\begin{equation}
+SR^\star=\sigma_{SR}\Big[(1-\gamma)\,\Phi^{-1}\!\big(1-\tfrac1T\big)+\gamma\,\Phi^{-1}\!\big(1-\tfrac1{Te}\big)\Big],
+\end{equation}
+$\gamma\approx0{,}577$ (constante d'Euler-Mascheroni), $\sigma_{SR}$ = dispersion des Sharpe entre essais.
+Le DSR$\,=\widehat{\mathrm{PSR}}(SR^\star)$ est la probabilité que le Sharpe observé ne soit pas un artefact
+de la recherche.
+
+\subsection{Biais traités en première classe}\label{sub:cluster}
+\textbf{(1) Look-ahead} : entrée à \code{filed}$+1$, sélection sur trades clôturés. \textbf{(2) Survivorship} :
+univers de prix = titres encore cotés $\Rightarrow$ rendements = bornes hautes (documenté partout).
+\textbf{(3) Tests multiples} : des dizaines de coupes $\Rightarrow$ $\sim 1$ « significatif » attendu par
+hasard $\Rightarrow$ Deflated Sharpe + prudence. \textbf{(4) Clustering par membre} : un même membre génère
+des centaines de trades \emph{corrélés} ; le $t$ honnête se calcule sur \emph{une observation par membre}
+(moyenne par membre), pas par trade --- sinon on confond « beaucoup de trades » et « beaucoup d'information ».
+
+% ════════════════════════════════════════════════════════════════════
+\section{Résultats}\label{sec:res}
+
+\subsection{Profil des données}
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+Mesure & Valeur & Implication \\
+\midrule
+Mix achats / ventes & $51\,\%$ / $49\,\%$ & flux dominé par les achats \\
+Latence de divulgation & médiane \textbf{28~j} (p90 $48$~j) & le suiveur entre $\sim$1 mois après le trade \\
+Détention réelle & médiane \textbf{144~j} ($77\,\%$ ont une vente) & horizon effectif $\sim$5 mois \\
+Couverture prix & $2\,171/3\,797$ tickers & $1\,626$ délistés absents = \textbf{survivorship} \\
+\bottomrule
+\end{tabular}
+\end{center}
+L'edge éventuel \emph{à la date du trade} n'est pas exploitable : le suiveur n'agit qu'à la divulgation,
+$\sim$28~jours plus tard.
+
+\subsection{Y a-t-il un signal brut ? (étude d'événement)}
+Rendement anormal des achats (CAR vs SPY) par horizon :
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+Horizon & $n$ & Moyenne & Médiane & \% $>0$ & Asymétrie \\
+\midrule
+1 mois  & $46\,619$ & $+0{,}1\,\%$ & $-0{,}2\,\%$ & $48{,}2\,\%$ & $3{,}1$ \\
+3 mois  & $45\,827$ & $-0{,}4\,\%$ & $-0{,}9\,\%$ & $46{,}6\,\%$ & $5{,}8$ \\
+6 mois  & $44\,494$ & $-0{,}6\,\%$ & $-1{,}7\,\%$ & $45{,}7\,\%$ & $7{,}7$ \\
+\textbf{12 mois} & $40\,832$ & $\mathbf{+0{,}54\,\%}$ & $\mathbf{-3{,}70\,\%}$ & $\mathbf{43{,}9\,\%}$ & $\mathbf{17{,}3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+À 12~mois, la moyenne est légèrement positive ($+0{,}54\,\%$) \textbf{mais la médiane est négative}
+($-3{,}70\,\%$) et seuls $43{,}9\,\%$ des trades gagnent. En retirant le décile supérieur, la moyenne
+\textbf{tombe à $-9{,}25\,\%$} : l'edge moyen vient \emph{entièrement} de la queue droite (figure~\ref{fig:car}).
+On ne gagne pas par taux de réussite --- c'est une loterie asymétrique.
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.74\textwidth]{figures/fig1_car_distribution.png}
+\caption{Distribution du rendement anormal à 12~mois des achats : médiane négative, gain porté par la queue
+droite (asymétrie $17{,}3$).}\label{fig:car}
+\end{figure}
+
+\textbf{Où l'edge se concentre-t-il ?} (CAR 12~mois par coupe ; $t$ naïfs, à corriger §\ref{sub:hunt}) :
+\begin{center}\small
+\begin{tabular}{lrr@{\quad}lrr}
+\toprule
+Coupe & CAR & $t$ & Coupe & CAR & $t$ \\
+\midrule
+Sénat & $+2{,}4\,\%$ & $4{,}5$ & Gros montants & $+0{,}8\,\%$ & $1{,}6$ \\
+House & $+0{,}3\,\%$ & $0{,}9$ & Petits montants & $+0{,}4\,\%$ & $1{,}3$ \\
+Républicains & $+1{,}1\,\%$ & $2{,}9$ & Commission clé & $+0{,}7\,\%$ & $1{,}5$ \\
+Démocrates & $+0{,}0\,\%$ & $0{,}0$ & Hors commission & $+0{,}4\,\%$ & $1{,}2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Le \textbf{Sénat} et les \textbf{Républicains} ressortent. \emph{Divergences assumées} avec des calculs
+préliminaires sur un périmètre plus court (FINAL 2020--2026) : ici le filtre commissions n'est \emph{pas}
+contre-productif (léger $+$), et l'effet « gros montants » est modeste. On montre les deux plutôt que de
+choisir --- c'est le sens d'une recherche honnête.
+
+\subsection{Chasse objective au signal (6 angles)}\label{sub:hunt}
+On cherche \emph{activement} du signal, chaque angle étant un test indépendant.
+
+\textbf{(1) Information Coefficient.} La \textbf{largeur d'achat} (nombre d'acheteurs distincts) a un IC
+positif et robuste ; le \emph{montant} \$ ne marche pas :
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+Signal & IC (12 mois) & $t_{\text{NW}}$ \\
+\midrule
+\code{buy\_count} (breadth) & $+0{,}0256$ & $+3{,}6$ \\
+\code{net\_usd} (\$ signé) & $-0{,}0011$ & $-0{,}2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{On garde} la breadth comme \emph{information} (ni beta, ni bruit), mais $\mathrm{IC}\approx0{,}02$ est
+minuscule.
+
+\textbf{(2) Étude d'événement par taille + placebo.} Les gros achats ($\geq250$k\$) surperforment
+($+3{,}5\,\%$, $t=2{,}1$) --- \textbf{mais les grosses ventes aussi} ($+2{,}2\,\%$, $t=2{,}7$). Si c'était
+directionnel, les ventes devraient \emph{sous}-performer. \textbf{On lâche} : c'est un tilt de style
+(grandes capitalisations de croissance), pas de l'information directionnelle.
+
+\textbf{(3) Long-short neutre au marché.} Un portefeuille \emph{long achats $-$ short ventes} neutralise le
+beta ($\beta\approx0$). L'alpha factoriel reste \textbf{non significatif} : $-1{,}30\,\%$/an ($t=-1{,}44$) à
+3 mois, $-0{,}99\,\%$/an ($t=-1{,}47$) à 6 mois. \textbf{On lâche} : retirer le beta ne révèle aucun alpha.
+
+\textbf{(4) Alignement commission $\leftrightarrow$ secteur.} La thèse la plus citée. \emph{Brut}, les
+achats « de juridiction » battent ($+2{,}41\,\%$ vs $+0{,}80\,\%$, Welch $t=2{,}2$). \textbf{Mais} à
+\textbf{secteur $\times$ année constant}, l'effet \emph{s'inverse} ($-1{,}37\,\%$ vs $+0{,}12\,\%$,
+$t=-2{,}2$) : c'était du beta sectoriel (défense) plus une concentration sur deux personnes. \textbf{On lâche.}
+
+\textbf{(5) Caractéristiques + clustering par membre.} Le test décisif. Les coupes « grosse taille » ou
+« divulgation rapide » ont un $t$ naïf $>2{,}5$ qui \textbf{retombe sous $1$ en clusterisant par membre} :
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+Coupe & $t$ naïf & $t$ \textbf{clusterisé} \\
+\midrule
+taille $\geq 250$k & $+2{,}07$ & $+0{,}08$ \\
+divulgation $\leq 10$j & $+2{,}76$ & $-0{,}23$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Le « signal » est porté par une \emph{poignée d'individus}, pas par une propriété du \emph{type} de trade.
+\textbf{On lâche} comme règle.
+
+\textbf{(6) Apprentissage automatique.} Un gradient boosting validé dans le temps (entraînement $\leq$2020,
+test 2021+) atteint une AUC d'entraînement de $0{,}81$ mais \textbf{$0{,}51$ hors-échantillon} ($0{,}5$ =
+hasard) : sur-apprentissage total. \textbf{On lâche.}
+
+\begin{defbox}{Synthèse de la chasse au signal}
+Un seul angle survit : la \textbf{breadth d'achat} (IC$\,\approx0{,}02$), ni beta ni bruit, \emph{mais sous
+le seuil d'exploitabilité} (minuscule, instable, érodée par coûts et survivorship). Les cinq autres thèses
+s'effondrent au contrôle (placebo, neutralisation du beta, résidualisation sectorielle, clustering, OOS).
+\end{defbox}
+
+\subsection{Backtest « suivre tout le Congrès » (9 variantes, net de coûts)}
+Avant la stratégie ciblée : suivre \emph{tout le monde} fonctionne-t-il ?
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+Variante & CAGR net & $\alpha$ FF & $t$ & $\beta_{\text{Mkt}}$ & max DD \\
+\midrule
+V0 equal 12m & $+11{,}24\,\%$ & $-1{,}07\,\%$ & $-1{,}11$ & $0{,}90$ & $-35{,}6\,\%$ \\
+equal 6m & $+10{,}69\,\%$ & $-1{,}61\,\%$ & $-1{,}59$ & $0{,}91$ & $-35{,}7\,\%$ \\
+size 6m & $+3{,}96\,\%$ & $+0{,}18\,\%$ & $+0{,}09$ & $0{,}16$ & $-14{,}8\,\%$ \\
+sqrt-size 6m & $+3{,}84\,\%$ & $-0{,}10\,\%$ & $-0{,}05$ & $0{,}17$ & $-16{,}5\,\%$ \\
+conviction $\geq$2 6m & $+12{,}17\,\%$ & $-1{,}06\,\%$ & $-1{,}02$ & $0{,}94$ & $-35{,}2\,\%$ \\
+leadership 6m & $+13{,}09\,\%$ & $+0{,}99\,\%$ & $+0{,}25$ & $0{,}91$ & $-41{,}1\,\%$ \\
+chairs 6m & $+11{,}42\,\%$ & $-1{,}11\,\%$ & $-0{,}75$ & $0{,}91$ & $-39{,}0\,\%$ \\
+\midrule
+\multicolumn{6}{l}{\emph{Référence} : SPY, CAGR $+13{,}70\,\%$.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Aucune variante} ne dégage d'alpha factoriel significatif (tous $|t|<1{,}6$). L'equal-weight tracke
+le marché en le sous-performant légèrement ; le size/sqrt-weight concentre sur quelques méga-trades (CAGR
+plus bas, $\alpha\approx0$) ; le « leadership » paraît positif mais repose sur un seul membre. La
+figure~\ref{fig:gen} le montre : toutes les courbes sous SPY (noir). \textbf{Pas d'edge net en suivant tout
+le monde.}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.82\textwidth]{figures/fig2_backtest_generique.png}
+\caption{Courbes de capital nettes des 9 variantes « suivre tout le Congrès » vs SPY (échelle log). Toutes
+sous le marché.}\label{fig:gen}
+\end{figure}
+
+\subsection{La stratégie Ramify --- Version 1 (actions)}
+On applique enfin la stratégie \emph{spécifiée} : sélection annuelle de $K=6$ congressmen (\S\ref{sub:select}),
+puis on suit leurs achats l'année suivante. Walk-forward strict 2016--2026, net de coûts.
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+ & CAGR & Vol & Sharpe & max DD & vs SPY (CAGR) \\
+\midrule
+\textbf{V1 (size, net)} & $+9{,}40\,\%$ & $22{,}2\,\%$ & $\mathbf{0{,}52}$ & $-47{,}8\,\%$ & $-4{,}7$ pts \\
+SPY (cap-weight) & $+14{,}13\,\%$ & $17{,}0\,\%$ & $0{,}86$ & $-33{,}7\,\%$ & --- \\
+RSP (équipondéré) & $+11{,}69\,\%$ & $17{,}4\,\%$ & $0{,}72$ & $-39{,}0\,\%$ & $-2{,}4$ pts \\
+60/40 (SPY+AGG) & $+9{,}50\,\%$ & $10{,}6\,\%$ & $0{,}91$ & $-21{,}7\,\%$ & $-4{,}6$ pts \\
+\bottomrule
+\end{tabular}
+\end{center}
+Alpha vs S\&P (Fama-French-Carhart) : $\boxed{+0{,}72\,\%/\text{an},\ t=0{,}14}$ --- \textbf{non significatif} ;
+$\beta_{\text{Mkt}}=0{,}79$. La V1 sous-performe le marché en risque-ajusté (Sharpe $0{,}52<0{,}86$ ;
+figure~\ref{fig:v1}).
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.74\textwidth]{figures/fig3_v1_benchmarks.png}
+\caption{V1 (K=6, net) vs benchmarks. La stratégie reste sous SPY/RSP.}\label{fig:v1}
+\end{figure}
+
+\textbf{Grille $K$ et Deflated Sharpe.} On rapporte \emph{toutes} les valeurs (pas de cherry-pick) :
+\begin{center}\small
+\begin{tabular}{rrrrrr}
+\toprule
+$K$ & $n$ positions & CAGR & Sharpe & $\alpha$ FF & $t$ \\
+\midrule
+4 & $735$ & $+10{,}24\,\%$ & $0{,}56$ & $+1{,}74\,\%$ & $0{,}33$ \\
+6 & $1\,391$ & $+9{,}40\,\%$ & $0{,}52$ & $+0{,}72\,\%$ & $0{,}14$ \\
+\textbf{8} & $1\,652$ & $+13{,}29\,\%$ & $\mathbf{0{,}71}$ & $\mathbf{+3{,}97\,\%}$ & $0{,}88$ \\
+10 & $2\,139$ & $+12{,}55\,\%$ & $0{,}68$ & $+3{,}66\,\%$ & $0{,}83$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Le meilleur cas ($K=8$) a un Sharpe de $0{,}71$, \textbf{toujours sous SPY ($0{,}86$)}, et un alpha
+\textbf{non significatif} ($t=0{,}88$). Le Deflated Sharpe vaut $0{,}99$ --- il indique seulement que le flux
+de rendement n'est pas un pur artefact de la grille de $4$ valeurs, \emph{pas} qu'il bat le marché. Aucun
+$K$ ne dépasse le Sharpe du marché (figure~\ref{fig:K}).
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.6\textwidth]{figures/fig4_grille_K.png}
+\caption{Sharpe de la V1 par $K$ : aucun ne dépasse SPY (ligne pointillée).}\label{fig:K}
+\end{figure}
+
+\textbf{Métriques niveau-trade \& persistance.} Hit-rate $47{,}6\,\%$, gain moyen $+26{,}3\,\%$, perte
+moyenne $-16{,}3\,\%$, \emph{profit factor} $1{,}47$, médiane \textbf{négative} ($-0{,}8\,\%$) : encore une
+loterie à queue droite. Surtout, \textbf{la sélection ne persiste pas} : les 10 meilleurs membres
+in-sample 2020--2022 ($+22{,}8\,\%$ de rendement anormal moyen) ne font plus que \textbf{$+3{,}8\,\%$}
+out-of-sample 2023--2025 --- un renversement caractéristique de la chance qui revient à la moyenne (De Prado).
+
+\subsection{La stratégie Ramify --- Version 2 (ETF sectoriels)}
+On substitue chaque action par son ETF SPDR sectoriel (mapping GICS), logique d'entrée/sortie \emph{identique}.
+La corrélation action$\leftrightarrow$ETF est élevée mais une part \emph{idiosyncratique} subsiste (p.\,ex.
+NVDA$\to$XLK : corrélation $0{,}74$, soit $45\,\%$ de variance idiosyncratique perdue) --- or c'est précisément
+elle qui portait le maigre signal.
+\begin{center}\small
+\begin{tabular}{lrrrr}
+\toprule
+ & CAGR & Vol & Sharpe & $\alpha$ FF ($t$) \\
+\midrule
+V1 actions & $+9{,}40\,\%$ & $22{,}2\,\%$ & $0{,}52$ & $+0{,}72\,\%$ ($0{,}14$) \\
+\textbf{V2 ETF} & $+6{,}02\,\%$ & $15{,}8\,\%$ & $0{,}45$ & $\mathbf{-3{,}79\,\%}$ ($-1{,}51$) \\
+SPY & $+14{,}13\,\%$ & $17{,}0\,\%$ & $0{,}86$ & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+La \textbf{dilution} V1$\to$V2 vaut $-4{,}51\,\%$/an d'alpha, et elle est \textbf{systématique} à chaque $K$
+($-4{,}5$ à $-5{,}8\,\%$). La V2 réduit la volatilité et le drawdown (figure~\ref{fig:v1v2}) mais reste
+\emph{sous} le marché : c'est un \textbf{beta sectoriel dé-risqué}, pas de l'alpha.
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.74\textwidth]{figures/fig5_v1_v2_spy.png}
+\caption{V1 actions vs V2 ETF vs SPY. La substitution dé-risque (vol/DD plus faibles) mais ne crée pas
+d'alpha.}\label{fig:v1v2}
+\end{figure}
+
+\subsection{Approfondissement : le Sharpe de la V2 mène-t-il quelque part ?}
+La V2 affiche $0{,}45$--$0{,}58$ selon $K$ : assez « correct » pour qu'on creuse.
+\begin{enumerate}[leftmargin=1.4em,itemsep=2pt]
+\item \textbf{Caractérisation.} $\beta=0{,}76$, corrélation à SPY $=0{,}81$ : c'est une exposition marché,
+pas un diversifiant. Sharpe sous SPY sur \emph{les deux} sous-périodes ($0{,}55$ vs $0{,}84$ en 2016--2020 ;
+$0{,}30$ vs $0{,}90$ en 2021--2026). Le mélange optimal $\alpha\cdot$V2$+(1{-}\alpha)\cdot$SPY est obtenu à
+$\alpha=0$ (SPY seul, figure~\ref{fig:blend}) : ni levier (Sharpe invariant) ni mélange ne battent le marché.
+\item \textbf{Leçon de construction.} La \emph{sélection} de membres \textbf{détruit de la valeur} : une V2
+« tout le Congrès » pondérée par la \emph{breadth} atteint un Sharpe de $\mathbf{0{,}75}$ (contre $0{,}45$
+pour la sélection), proche de SPY --- mais reste un beta sous le marché (alpha FF $-1{,}5\,\%$, $t=-2{,}0$).
+Pour un produit, il faudrait câbler en breadth/tout-le-Congrès, \emph{pas} en sélection.
+\item \textbf{Plafond théorique.} Avec $\mathrm{IC}\approx0{,}02$, la loi fondamentale donne
+$\mathrm{IR}=\mathrm{IC}\sqrt{B}\approx0{,}10$ ($B{=}25$) à $0{,}28$ ($B{=}200$) : l'IR plafonne vers
+$0{,}2$--$0{,}3$ quelle que soit la construction. L'edge est \textbf{structurellement petit}.
+\end{enumerate}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.6\textwidth]{figures/fig6_blend_v2_spy.png}
+\caption{Sharpe du mélange V2+SPY : l'optimum est $\alpha=0$, c'est-à-dire SPY seul.}\label{fig:blend}
+\end{figure}
+
+% ════════════════════════════════════════════════════════════════════
+\section{Mise en perspective : littérature et produits}\label{sec:lit}
+Nos résultats \textbf{convergent} avec la recherche et les produits existants.
+
+\textbf{Littérature.} \emph{Avant} le STOCK Act, Ziobrowski et al.\ (2004, 2011) documentaient un alpha
+($\sim$12\,\%/an au Sénat) --- \emph{contesté} par Eggers \& Hainmueller (2013, \emph{Capitol Losses}, $-2$ à
+$-3\,\%$/an sur portefeuilles réels). Karadas (2019) : $+35\,\%$/an pour les Républicains puissants
+(horizon 1~semaine), qui \emph{disparaît après 2012}. \emph{Après} le STOCK Act, l'alpha de Carhart du
+Congrès passe de $9{,}5\,\%$ à $0{,}9\,\%$/an. Récemment, Chen \& Sacerdote (NBER w35041, 2026) :
+« \emph{underperform or at best match} », les trades \emph{suivent} le sentiment retail ; Wei \& Zhou
+(NBER w34524, 2024) : $+47\,\%$/an \emph{mais} pour les \emph{leaders} (présidents de commission,
+$<5$--$10\,\%$ des membres).
+
+\textbf{Produits \& « pourquoi le hype ».} Les ETF \textbf{NANC} (Démocrates) $\approx$ marché et
+\textbf{KRUZ} (Républicains) sous-performe. Les backtests vitrines (« Congress Buys » $37\,\%$ CAGR,
+GovGreed $72\,\%$ win) excluent \emph{coûts, slippage et look-ahead}. Autopilot ($\sim$750~M\$ d'encours,
+dont Pelosi) est mono-leader $+$ survivorship ; les trades documentés de Pelosi 2019--2022 ont \emph{sous}-
+performé le S\&P ($+9{,}1\,\%$ vs $+12{,}4\,\%$/an). Le hype est à $\sim$70--80\,\% narratif (\emph{outrage},
+\emph{meme}, monétisation de la donnée), pas la performance.
+
+% ════════════════════════════════════════════════════════════════════
+\section{Discussion et limites}\label{sec:lim}
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+\item \textbf{Survivorship} : l'univers de prix exclut $1\,626$ tickers délistés $\Rightarrow$ tous les
+rendements sont des \textbf{bornes hautes}. C'est la limite dominante.
+\item \textbf{Trou Sénat / pré-2020} : la couverture Quiver démarre tard et le papier OCR pré-2020 est
+exclu $\Rightarrow$ échantillons minces par membre (médiane $\sim$10--40 trades), ce qui justifie le
+rétrécissement mais limite la puissance statistique.
+\item \textbf{Commissions point-in-time approximées} : l'appartenance est lue sur un instantané récent, non
+reconstituée année par année.
+\item \textbf{Coûts \& capacité} : portefeuilles concentrés (cap par membre nécessaire) ; coûts à $20$~bps ;
+capacité limitée pour un produit à grande échelle.
+\item \textbf{Moteur} : backtest en Python local (décision actée), pas le framework propriétaire ; risque
+réglementaire (propositions d'interdiction du trading parlementaire 2025--2026).
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════════════
+\section{Conclusion et recommandation}\label{sec:concl}
+La recherche est concluante \emph{dans son verdict} : \textbf{aucune construction ne bat le S\&P~500 en
+risque-ajusté, net de coûts et de facteurs.} Le signal d'achat brut est une loterie à queue droite ; la
+stratégie spécifiée dégage un alpha actions \emph{positif mais non significatif}, qui \emph{ne persiste pas}
+et que la version ETF \emph{dilue} à $\approx 0$/négatif ; le seul signal robuste (la breadth) est
+structurellement borné par la loi fondamentale.
+
+\textbf{Recommandation.} \emph{Ne pas} positionner ceci comme un générateur d'alpha. En revanche, une
+\textbf{V2 ETF « thématique Congrès »} est \emph{livrable} comme produit --- exactement le positionnement des
+ETF NANC/KRUZ : on vend \textbf{transparence, récit et exposition thématique dé-risquée}, pas une promesse
+de surperformance. Si un tel produit est construit, le câbler en \textbf{breadth / tout-le-Congrès} (pas en
+sélection de membres, qui détruit de la valeur). Pour prolonger la recherche : reconstruire un univers
+\textbf{point-in-time avec délistés} (tuer le survivorship) et les \textbf{commissions année par année}.
+
+% ════════════════════════════════════════════════════════════════════
+\appendix
+\section{Traçabilité (rapport $\leftrightarrow$ notebook)}
+Chaque chiffre de ce rapport est produit par une cellule du notebook
+\code{Congress\_Trading\_Signal\_Recherche.ipynb}. Correspondance des sections :
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+Section du rapport & Chapitre / cellule du notebook \\
+\midrule
+§\ref{sec:math} cadre mathématique & Partie 0 (boîte à outils : définitions des fonctions) \\
+§\ref{sec:res}.1 profil des données & Ch.\,1 \\
+§\ref{sec:res}.2 étude d'événement, slices & Ch.\,2 et 2.1 \\
+§\ref{sub:hunt} 6 angles & Ch.\,3 \\
+§\ref{sec:res}.4 backtest 9 variantes & Ch.\,4 \\
+§\ref{sec:res}.5 stratégie V1 + grille $K$ & Ch.\,5 \\
+§\ref{sec:res}.6 stratégie V2 + dilution & Ch.\,6 \\
+§\ref{sec:res}.7 approfondissement & Ch.\,7 \\
+§\ref{sec:lit} littérature \& produits & Ch.\,8 \\
+§\ref{sec:concl} conclusion & Ch.\,9 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Reproductibilité}
+Le notebook est \textbf{autonome} (aucun module Python externe : tout le moteur est défini en Partie~0).
+Dépendances : \code{numpy, pandas, scipy, scikit-learn, matplotlib, pyyaml}. Données en lecture seule :
+caches Quiver et tables du dépôt, prix dans \code{cache/} (régénérable). Relancer : ouvrir le notebook sur
+le kernel \emph{S3S4 (.venv)} et exécuter de haut en bas ($\sim$80~s). Les figures de ce rapport sont les
+sorties \emph{exactes} du notebook (dossier \code{figures/}).
+
+\end{document}
