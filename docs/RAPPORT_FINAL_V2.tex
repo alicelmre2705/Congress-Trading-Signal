@@ -318,18 +318,16 @@ L'identité résolue, \co{house/digital.py:join_identity} et \co{senate/identity
 parti, les commissions et le drapeau de commission clé issus du référentiel partagé.
 
 La résolution rattache \textbf{99,99\,\%} des lignes de la Chambre (81\,642 / 81\,646) et \textbf{100\,\%}
-de celles du Sénat. Les quatre lignes restantes forment une \emph{seule} déclaration de 2023 (Ada~Norah
-Henriquez, Porto Rico) que le matcher ne rattache à aucun \co{bioguide_id}. À la Chambre, \textbf{256}
-identifiants couvrent \textbf{275} graphies de noms~: l'écart correspond exactement aux variantes
-orthographiques d'un même élu ramenées à un identifiant unique — ce que la résolution corrige.
+de celles du Sénat~; les quatre exceptions forment une \emph{seule} déclaration manuscrite de 2023
+(Ada~Norah Henriquez, Porto Rico) qu'aucun \co{bioguide_id} ne rattache. À la Chambre, \textbf{256}
+identifiants pour \textbf{275} graphies~: l'écart, ce sont les variantes d'un même élu ramenées à un
+identifiant unique — précisément ce que la résolution corrige.
 
 \subsection{Ensuite, trier les formats : électronique ou scanné ?}
 \label{sec:tri}
 Une même déclaration peut arriver sous deux formes qui n'appellent pas le même traitement~: un
-\emph{texte} directement exploitable, que l'on peut analyser ligne à ligne, ou une \emph{image} qu'il faut
-d'abord lire par OCR. L'orientation n'est pas neutre — router un scan vers l'analyse de texte perd des
-transactions, router un PDF déjà lisible vers la vision gaspille des appels d'API — et c'est elle qui
-commande, en amont, toute la suite du pipeline.
+\emph{texte} directement exploitable, que l'on analyse ligne à ligne, ou une \emph{image} qu'il faut
+d'abord lire par OCR. C'est ce tri qui commande toute la suite du pipeline.
 
 À la Chambre des représentants, le format n'est pas annoncé~: il faut le déterminer.
 \co{house/digital.py:build_manifest} ouvre chaque PDF avec \co{pdfplumber} et applique un test binaire, la
@@ -357,17 +355,15 @@ tire la liste des dépôts (\co{03_ptr_index.csv}). Le cœur du travail revient 
 temps~: il \textbf{recolle} d'abord les lignes coupées — un montant scindé et sa continuation sont
 réassemblés en une seule ligne (\co{_join_split_lines}) — puis repère chaque transaction par une expression
 régulière (\co{TXN_RE}) qui en fixe la signature~: un code d'opération (achat \co{P}, vente \co{S}, échange
-\co{E}), deux dates et une fourchette de montant. La transaction localisée, il \textbf{remonte de quelques
-lignes} pour rattacher la description de l'actif et le ticker, que le formulaire imprime au-dessus ou autour
-de la ligne d'opération. \co{join_identity} y joint ensuite l'identité et les métadonnées du dépôt, et
+\co{E}), deux dates et une fourchette de montant. La transaction localisée, il remonte de quelques lignes
+pour rattacher la description de l'actif et le ticker, imprimés à proximité. \co{join_identity} y joint
+ensuite l'identité et les métadonnées du dépôt, et
 \co{finalize} calcule la clé naturelle, numérote les lots répétés (\co{occurrence_index}) et déduplique
 (§\ref{sec:table}).
 
-Le résultat est écrit dans \co{06_house_\{an\}_transactions.csv}. Le contrôle est explicite~: tout PDF
-lisible ne rendant aucune transaction est consigné dans \co{05_parse_failures.csv} — aucun échec n'est
-silencieux —, et le « taux de parsing » mesure la part des PDF lisibles ayant produit au moins une ligne.
-Au total, la piste électronique de la Chambre fournit \textbf{32\,676} transactions, pour un taux de parsing
-de \textbf{99--100\,\%}.
+Le résultat est écrit dans \co{06_house_\{an\}_transactions.csv}~; tout PDF lisible ne rendant aucune ligne
+est consigné dans \co{05_parse_failures.csv} (aucun échec silencieux). Au total, la piste électronique de la
+Chambre fournit \textbf{32\,676} transactions, pour un taux de parsing de \textbf{99--100\,\%}.
 
 \srcex{Un PTR électronique de la Chambre se lit comme un tableau propre (cf.~annexe~\ref{anx:sources})~:
 « Amazon.com, Inc. — Common Stock \textbf{(AMZN)} [ST] · Purchase · 03/16/2018 · \$1\,001--\$15\,000 ».
@@ -375,10 +371,9 @@ Le ticker est entre parenthèses, le type d'actif entre crochets — d'où le pa
 
 \subsection{La piste électronique du Sénat (HTML eFD)}
 \label{sec:sdig}
-Le Sénat ne publie pas de PDF mais des pages HTML, derrière un garde-fou CSRF~: avant toute requête,
-\co{senate/digital.py:accept_agreement} accepte le formulaire d'accord de l'eFD (jeton
-\co{csrfmiddlewaretoken} et en-tête \co{X-CSRFToken}). La difficulté d'extraction tient ensuite aux tableaux
-eux-mêmes, dont l'intitulé et l'ordre des colonnes varient d'une déclaration à l'autre.
+Le Sénat ne publie pas de PDF mais des pages HTML (l'accès passe par l'accord eFD déjà décrit,
+§\ref{sec:sources}). La difficulté d'extraction tient aux tableaux eux-mêmes, dont l'intitulé et l'ordre des
+colonnes varient d'une déclaration à l'autre.
 
 La séquence est portée par \co{run_year}, qui interroge la liste des dépôts (\co{fetch_ptr_list},
 \co{report_types=[11]}) puis récupère chaque déclaration (\co{fetch_report}, avec mise en cache sur disque —
@@ -404,12 +399,11 @@ scannés (\co{_scan_census_547.csv}) les répartit en trois familles~: 74 docume
 (cluster~C). Un modèle de vision lit mal une page tournée, et plus mal encore une date écrite à la main —
 deux difficultés traitées séparément.
 
-La première est l'orientation, à corriger avant toute lecture. Demander directement l'angle de rotation au
-modèle se révèle peu fiable (il répond presque toujours « 90 »)~; on procède donc par \textbf{reconnaissance}
-plutôt que par estimation~: \co{detect_rotation} lui présente la page sous les quatre orientations
-(\co{ROT_CANDIDATES = [0, 90, 180, 270]}) et lui fait désigner celle qui est droite. Ce redressement fait
-progresser nettement la concordance OCR (d'environ 60\,\% à 65\,\%)~; le reliquat d'erreur tient à
-l'ambiguïté \emph{intrinsèque} des dates manuscrites, non à la rotation.
+La première est l'orientation. Plutôt que de demander l'angle au modèle — peu fiable, il répond presque
+toujours « 90 » —, \co{detect_rotation} lui présente la page sous les quatre orientations
+(\co{ROT_CANDIDATES = [0, 90, 180, 270]}) et lui fait \textbf{reconnaître} celle qui est droite. Ce
+redressement améliore nettement la lecture~; le reliquat d'erreur tient à l'ambiguïté \emph{intrinsèque} des
+dates manuscrites, non à la rotation.
 
 L'extraction proprement dite, dans \co{house/ocr.py:run_ocr_year}, force un appel d'outil (\co{tool_use} sur
 \co{record_transactions}, modèle \co{claude-sonnet-4-6}, sept tentatives avec \emph{backoff})~: le modèle
@@ -422,11 +416,10 @@ vus en électronique, puis complété par une passe LLM. Le volume étant consid
 qui écrit directement \co{06_house_\{an\}_FINAL.csv}.
 
 Le cluster~C manuscrit est, lui, \textbf{exclu par défaut}~: ses dates sont trop incertaines pour une
-stratégie qui les date, et une sonde comparant Opus à Sonnet sur ces scans a confirmé que le goulot n'est
-pas le modèle mais la lisibilité de l'écriture, pour un coût sensiblement plus élevé. Le code le conserve
-comme catégorie tracée sans l'exécuter, hormis une récupération ciblée des plus gros déposants. Au total, la
-piste scannée fournit \textbf{48\,970} lignes, à la concentration extrême~: Rohit Khanna en représente à lui
-seul \textbf{62,9\,\%}, et le trio de tête (Khanna, McCaul, Harshbarger) \textbf{92,4\,\%} — de gros
+stratégie qui les date (une sonde Opus \emph{vs} Sonnet a confirmé que le goulot est l'écriture, pas le
+modèle). Le code le conserve comme catégorie tracée, hormis une récupération ciblée des plus gros déposants.
+Au total, la piste scannée fournit \textbf{48\,970} lignes, très concentrées~: Rohit Khanna en représente à
+lui seul \textbf{63,0\,\%}, et le trio de tête (Khanna, McCaul, Harshbarger) \textbf{92,4\,\%} — de gros
 déposants qui déclarent exclusivement sur papier.
 
 \srcex{Un scan de la Chambre est un \textbf{formulaire à cases} (cf.~annexe~\ref{anx:sources}), souvent
@@ -440,9 +433,10 @@ fois \emph{droites}, qui ne demandent pas de redressement. \co{senate/ocr.py} le
 Vision (figé dans \co{senate/ocr_engine.py}) et écrit la table OCR \co{06b}. La difficulté est ailleurs~:
 avec si peu de données, un dictionnaire de tickers reconstruit année par année serait trop pauvre.
 
-C'est ce qui justifie la \textbf{seule véritable asymétrie d'architecture} entre les deux chambres. Là où la
-Chambre, riche en volume, fusionne et enrichit \emph{pendant} chaque année (§\ref{sec:hocr}), le Sénat
-confie ces étapes à un module dédié, \co{senate/fusion.py}, exécuté une fois toutes les années assemblées.
+C'est ce qui motive la plus visible des \textbf{trois asymétries d'architecture} assumées
+(§\ref{sec:archi-couches}). Là où la Chambre, riche en volume, fusionne et enrichit \emph{pendant} chaque
+année (§\ref{sec:hocr}), le Sénat confie ces étapes à un module dédié, \co{senate/fusion.py}, exécuté une
+fois toutes les années assemblées.
 Sa fonction \co{main} procède en deux temps~: d'abord une fusion non destructrice \emph{par année}
 (électronique + OCR, dédupliquée sur le couple \co{(natural_key_hash, occurrence_index)})~; puis un
 enrichissement sur le \textbf{corpus complet, en une seule passe} — \co{senate/ticker.py:resolve_tickers}
@@ -471,8 +465,8 @@ onze secteurs~; chacun est associé un-à-un à l'ETF correspondant de la famill
 · \co{Communication Services→XLC} · \co{Utilities→XLU} · \co{Real Estate→XLRE}
 \end{center}
 
-\co{common/sector_enrich.py:enrich_sectors} résout le secteur par une cascade hybride qui \textbf{trace sa
-source} (\co{sector_source})~: d'abord un secteur factuel via \co{yfinance}~; à défaut, un LLM
+\co{common/sector_enrich.py:enrich_sectors} résout le secteur par une cascade hybride qui \textbf{enregistre
+sa source} (\co{sector_source})~: d'abord un secteur factuel via \co{yfinance}~; à défaut, un LLM
 (\co{claude-sonnet-4-6}) contraint de répondre dans l'énumération GICS stricte et de poser un drapeau
 \co{is_listed} — garde-fou qui interdit d'attribuer un secteur à un actif \textbf{non coté}~; enfin des
 overrides manuels issus d'un audit (les ETF de marché large comme \co{SPY} sont ainsi ramenés à
@@ -515,12 +509,11 @@ dernier. Les \textbf{douze champs « métier »} exigés sont exactement la cons
 \end{center}
 
 Reste une nuance d'honnêteté~: « présents » n'est pas « sans valeurs manquantes ». Les douze champs figurent
-au schéma des deux chambres, mais trois comportent des trous \textbf{légitimes}, par nature et non par
-défaut d'extraction — \co{ticker}, \co{sector_gics} et \co{etf_proxy} sont vides pour les actifs non cotés,
-et \co{committee_membership} est un instantané \emph{courant}, non l'historique daté des commissions. Les
-champs structurellement toujours renseignables — nom, chambre, parti, dates, opération, montant — sont, eux,
-quasi complets. Les taux de remplissage exacts, champ par champ et année par année, figurent en
-annexe~\ref{anx:metrics}.
+au schéma des deux chambres, mais trois ont des trous \textbf{légitimes}, par nature et non par défaut
+d'extraction~: \co{ticker}, \co{sector_gics} et \co{etf_proxy} sont vides pour les actifs non cotés, et
+\co{committee_membership} est un instantané courant, non l'historique daté. Les champs toujours
+renseignables — nom, chambre, parti, dates, opération, montant — sont, eux, quasi complets~; les taux de
+remplissage exacts (par champ et par an) figurent en annexe~\ref{anx:metrics}.
 
 % ============================ 5. QUALITÉ ============================
 \section{Le rapport de qualité}
