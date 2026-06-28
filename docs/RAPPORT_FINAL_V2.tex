@@ -16,6 +16,7 @@
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{needspace}
 \usepackage{hyperref}
 \usepackage{underscore}
@@ -535,22 +536,27 @@ seule} des tables finales, sans aucun appel d'API (matplotlib en mode \co{Agg})~
 Le détail par an figure en annexe~\ref{anx:metrics}.
 
 \begin{figure}[htbp]\centering
-\includegraphics[width=0.72\textwidth]{quality/delai_divulgation.png}
-\caption{Délai \co{disclosure − transaction} (0--200~j), lignes 45~j (légal) / 75~j (fenêtre). Générée
-par \co{common/quality.py} — lecture seule, aucun appel API.}
-\end{figure}
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.72\textwidth]{quality/distribution_montants.png}
-\caption{Distribution de \co{amount_midpoint} en échelle \co{log10}. Générée par \co{common/quality.py}.}
-\end{figure}
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.72\textwidth]{quality/transactions_par_an.png}
-\caption{Transactions par \textbf{année de transaction} et par chambre. Générée par \co{common/quality.py}.}
-\end{figure}
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.64\textwidth]{quality/top_deposants.png}
-\caption{Top~12 déposants par \textbf{nombre de transactions}. Générée par \co{common/quality.py} — la
-domination des déposants-papier (Khanna, McCaul) y est visible.}
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/delai_divulgation.png}
+  \caption{Délai \co{disclosure − transaction} (0--200~j)~; lignes 45~j (légal) / 75~j (fenêtre).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/distribution_montants.png}
+  \caption{Distribution de \co{amount_midpoint} (échelle \co{log10}).}
+\end{subfigure}
+
+\vspace{0.7em}
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/transactions_par_an.png}
+  \caption{Transactions par année de transaction et par chambre.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/top_deposants.png}
+  \caption{Top~12 déposants par nombre de transactions.}
+\end{subfigure}
+\caption{Les quatre contrôles graphiques de qualité, générés par \co{common/quality.py}
+(lecture seule, aucun appel API)~; la domination des déposants-papier (Khanna, McCaul) est visible en (d).}
+\label{fig:qualite}
 \end{figure}
 
 Le bilan global masque toutefois une dynamique. Au Sénat, la couverture en ticker chute à \textbf{45,4\,\%}
