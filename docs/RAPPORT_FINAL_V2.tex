@@ -523,8 +523,9 @@ annexe~\ref{anx:metrics}.
 
 Une table « pleine » n'est pas pour autant une table \emph{saine}~: ses dates peuvent être incohérentes, les
 délais légaux non respectés, son activité concentrée sur quelques déposants. \co{common/quality.py}
-(\co{build_report}) y répond par \textbf{six contrôles} et quatre figures, calculés en \textbf{lecture
-seule} des tables finales, sans aucun appel d'API (matplotlib en mode \co{Agg})~:
+(\co{build_report}) y répond par \textbf{six contrôles} et quatre figures de contrôle
+(figure~\ref{fig:qualite}), calculés en \textbf{lecture seule} des tables finales, sans aucun appel d'API
+(matplotlib en mode \co{Agg})~:
 \begin{itemize}[nosep,leftmargin=1.5em]
 \item \textbf{(a) Cohérence des dates} (\co{disclosure_date ≥ transaction_date})~: 99,8\,\% à la Chambre, 100,0\,\% au Sénat.
 \item \textbf{(b) Délai légal}~: 86,9\,\% (Chambre) et 84,9\,\% (Sénat) des dépôts dans les 45~jours prévus par le STOCK Act, pour un délai médian de \textbf{28~jours}.
@@ -571,6 +572,74 @@ Cette colonne repose sur une fenêtre de plausibilité de \textbf{75~jours}~: le
 45~jours, et l'on tolère cette marge pour absorber le bruit de lecture de l'OCR. C'est une heuristique
 appliquée aux seules lignes OCR, non une vérité-terrain — ce rôle revient à Quiver, objet de la section
 suivante.
+
+\subsection{La donnée vue par sous-corpus}
+\label{sec:corpus}
+Les contrôles ci-dessus agrègent par chambre, mais la matière se répartit en réalité en \textbf{quatre
+sous-corpus} — Chambre et Sénat, chacun en \emph{électronique} et en \emph{OCR papier} — dont la qualité
+et la \emph{composition} diffèrent nettement. \co{common/quality.py} décline donc l'essentiel par ces
+quatre familles (Chambre électronique 32\,676~; Chambre OCR 48\,970~; Sénat électronique 7\,161~; Sénat
+OCR 1\,680).
+
+\textbf{La couverture suit la composition d'actifs, pas la voie d'acquisition.} La part de ticker
+renseigné passe de \textbf{88,6\,\%} (Chambre électronique) à \textbf{33,2\,\%} (Sénat OCR). Ce n'est pas
+un défaut d'extraction~: le Sénat OCR est composé à \textbf{70\,\%} d'actifs « autres » non cotés et de
+14\,\% d'actifs non identifiables, pour seulement \textbf{13\,\%} d'actions — c'est précisément cette
+composition, et non le fait que ce soit du papier, qui explique que Quiver (qui ne suit que les actions)
+« ne voie pas » ce corpus (§\ref{sec:quiver}). À l'inverse, les deux corpus de la Chambre sont à plus de
+\textbf{81\,\%} d'actions.
+
+\textbf{Le type de détenteur change radicalement d'un corpus à l'autre.} L'électronique de la Chambre est
+surtout déclaré en compte propre (51,9\,\%) ou joint (26,2\,\%)~; l'OCR de la Chambre, lui, est dominé par
+les comptes \emph{conjoint} (51,1\,\%) et \emph{enfant à charge} (35,2\,\%) — reflet des gros
+déposants-papier (Khanna, McCaul, Harshbarger), qui déclarent l'essentiel via ces comptes.
+
+\textbf{La concentration est extrême, et croît avec le papier.} Le volume déclaré se concentre sur une
+poignée de déposants~: l'indice de Gini va de \textbf{0,88} (Chambre électronique, 234 déposants) à
+\textbf{0,91} pour l'OCR de la Chambre (40 déposants, dont le top-10 capte \textbf{98,7\,\%} du volume),
+tandis que le Sénat OCR ne compte que \textbf{5} déposants. Le tableau ci-dessous résume les quatre
+familles~; le détail complet (couverture, qualité, mix, concentration, clusters de scan) est en
+annexe~\ref{anx:metrics} (D.9–D.12).
+
+\begin{center}\small
+\begin{tabular}{l r rr r r rr}
+\toprule
+\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries date pl.\,\% & \bfseries médiane\,\$ & \bfseries Gini & \bfseries top-10\,\%\\
+\midrule
+{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & — & 8\,000 & 0,88 & 69,0 \\
+{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 95,3 & 8\,000 & 0,91 & 98,7 \\
+{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 85,0 & 8\,000 & 0,84 & 85,0 \\
+{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 98,5 & 32\,500 & 0,70 & 100,0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize \emph{date pl.\,\%} = part des dates OCR jugées plausibles (fenêtre 75~j)~; « — » pour la
+Chambre électronique (pas d'OCR). \emph{top-10\,\%} = part du volume détenue par les 10 plus gros
+déposants du corpus.}
+
+\begin{figure}[htbp]\centering
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/mix_operations_par_corpus.png}
+  \caption{Sens des opérations (achat / vente) par sous-corpus.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/mix_actifs_par_corpus.png}
+  \caption{Mix de types d'actifs par sous-corpus.}
+\end{subfigure}
+
+\vspace{0.7em}
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/volume_par_secteur.png}
+  \caption{Volume déclaré par secteur GICS (top 12).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/concentration_lorenz.png}
+  \caption{Concentration du volume par déposant (Lorenz, Gini).}
+\end{subfigure}
+\caption{Décomposition par sous-corpus, générée par \co{common/quality.py} (lecture seule)~: le Sénat OCR
+est dominé par le non-coté (b) et le volume est fortement concentré (d).}
+\label{fig:corpus}
+\end{figure}
 
 % ============================ 6. QUIVER ============================
 \section{La validation externe (Quiver)}
@@ -974,6 +1043,83 @@ C — manuscrit : 151 docs (exclu) & Sénat : Blumenthal 1\,233 (73\,\%), Boozma
 {\footnotesize Identité~: Chambre 256 bioguides / 275 noms (99,99\,\%), Sénat 64 / 67 (100\,\%). Golden
 (zéro écart)~: \textbf{125} fichiers Chambre, \textbf{76} Sénat. \textbf{Total~: 90\,487 transactions},
 2020--2026.}
+
+\textbf{D.9 — Scorecard par sous-corpus.}
+\begin{center}\small
+\begin{tabular}{l r rrr rr r}
+\toprule
+\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries comm.\,\% & \bfseries date pl.\,\% & \bfseries cohér.\,\% & \bfseries mont.\,\%\\
+\midrule
+{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 74,7 & — & 99,9 & 100,0 \\
+{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 94,5 & 95,3 & 99,7 & 98,2 \\
+{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 58,5 & 85,0 & 100,0 & 100,0 \\
+{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 96,1 & 98,5 & 99,8 & 99,5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize \emph{cohér.\,\%} = \co{disclosure ≥ transaction}~; \emph{date pl.\,\%} = dates OCR
+plausibles (75~j~; « — » hors OCR)~; \emph{mont.\,\%} = montant renseigné. Identité (\co{bioguide_id}) et
+ancienneté (\co{years_in_office}) = 100\,\% partout~; \co{amount_split_flag} partout \co{False}.}
+
+\textbf{D.10 — Mix par sous-corpus} (\% des transactions du corpus).
+\begin{center}\small
+\begin{tabular}{l rr @{\hspace{1.4em}} rrrr}
+\toprule
+& \multicolumn{2}{c}{\bfseries opération} & \multicolumn{4}{c}{\bfseries détenteur déclaré}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-7}
+\bfseries Sous-corpus & achat & vente & perso & conjoint & joint & enfant\\
+\midrule
+Chambre électronique & 49,7 & 49,7 & 51,9 & 19,7 & 26,2 & 2,2 \\
+Chambre OCR & 52,7 & 46,6 & 6,7 & 51,1 & 7,0 & 35,2 \\
+Sénat électronique & 48,0 & 51,2 & 15,0 & 41,4 & 41,0 & 2,7 \\
+Sénat OCR & 54,0 & 45,8 & 26,8 & 73,0 & 0,1 & 0,1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{center}\small
+\begin{tabular}{l rrrrrrrr}
+\toprule
+\bfseries Type d'actif (\%) & action & option & ob.État & muni & ob.corp & fonds & autre & manq.\\
+\midrule
+Chambre électronique & 84,6 & 1,8 & 5,9 & 0,0 & 0,0 & 0,0 & 6,1 & 1,6 \\
+Chambre OCR & 81,7 & 0,0 & 0,8 & 0,0 & 0,1 & 3,1 & 0,6 & 13,8 \\
+Sénat électronique & 68,0 & 8,3 & 0,0 & 10,5 & 2,8 & 0,0 & 10,3 & 0,0 \\
+Sénat OCR & 12,9 & 0,0 & 0,0 & 0,8 & 2,6 & 0,0 & 69,6 & 14,2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{D.11 — Concentration par sous-corpus.}
+\begin{center}\small
+\begin{tabular}{l rrr r}
+\toprule
+\bfseries Sous-corpus & \bfseries n dépos. & \bfseries HHI & \bfseries Gini & \bfseries top-10 vol.\,\%\\
+\midrule
+Chambre électronique & 234 & 670,7 & 0,878 & 69,0 \\
+Chambre OCR & 40 & 2\,888,3 & 0,913 & 98,7 \\
+Sénat électronique & 61 & 1\,300,2 & 0,837 & 85,0 \\
+Sénat OCR & 5 & 6\,388,7 & 0,695 & 100,0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize \emph{HHI} $\in [0,\,10\,000]$, \emph{Gini} $\in [0,\,1]$, sur le volume par déposant. Top
+tickers par volume estimé~: MSFT 261,5~M\$, ICE 93,4, BRP 81,8, AAPL 80,7, MET 76,2.}
+
+\textbf{D.12 — Profil des clusters de scan (Chambre OCR).}
+\begin{center}\small
+\begin{tabular}{l rr rr r}
+\toprule
+\bfseries Cluster & \bfseries n lignes & \bfseries n docs & \bfseries date pl.\,\% & \bfseries ticker\,\% & \bfseries Quiver a\,\%\\
+\midrule
+A — tapé droit & 5\,957 & 59 & 99,6 & 84,2 & 88,0 \\
+B — tapé couché & 42\,151 & 295 & 94,7 & 82,8 & 77,9 \\
+C — manuscrit & 862 & 81 & 97,4 & 88,4 & 35,3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize Complète D.7 (comptes de documents). \emph{Quiver a\,\%} = part des actions dont Quiver
+possède le trade (exact + date différente). La plausibilité interne reste haute même en manuscrit, mais
+l'appariement Quiver — donc la lecture de la \emph{date} — s'effondre (35,3\,\%) → cluster C exclu.}
 
 \subsection{Annexe E — reproduire / lancer}
 \label{anx:run}
