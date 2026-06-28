@@ -552,9 +552,10 @@ Sénat, chacun en électronique et en OCR papier (Chambre électronique 32\,676~
 électronique 7\,161~; Sénat OCR 1\,680). D'abord, la \textbf{couverture suit la composition d'actifs}, pas
 la voie d'acquisition~: la part de ticker renseigné tombe de \textbf{88,6\,\%} (Chambre électronique) à
 \textbf{33,2\,\%} (Sénat OCR), simplement parce que le Sénat OCR ne compte que \textbf{13\,\%} d'actions
-(le reste étant du non-coté ou du non identifié) — c'est cette composition, et non le papier, qui explique
-que Quiver « ne voie pas » ce corpus (§\ref{sec:quiver}). C'est elle aussi qui fait baisser la couverture
-du Sénat en 2025--26 (montée des obligations municipales), sans dégradation de l'extraction. Ensuite, la
+(le reste étant du non-coté ou du non identifié)~; sur un tel corpus, Quiver — restreint aux actions et qui
+ne référence même pas ces déposants-papier — n'offre aucun appui (§\ref{sec:quiver}). Cette composition
+fait aussi baisser la couverture du Sénat en 2025--26 (montée des obligations municipales), sans dégradation
+de l'extraction. Ensuite, la
 \textbf{concentration} du volume est extrême et croît avec le papier~: l'indice de Gini — \textbf{0} si
 tous les déposants pèsent autant, \textbf{1} si un seul concentre tout le volume — va de \textbf{0,88}
 (Chambre électronique) à \textbf{0,91} pour l'OCR de la Chambre, dont les dix premiers déposants captent
@@ -635,62 +636,53 @@ sur l'ensemble.}
 \section{La validation externe (Quiver)}
 \label{sec:quiver}
 
-Vérifier la justesse de l'extraction suppose une source indépendante, sans se fier à sa propre sortie. On
-confronte donc la table finale à Quiver au niveau transaction — clé \co{bioguide × ticker × date × sens}, la
-date appariée étant le \emph{Traded} de Quiver — \textbf{sans jamais le réinjecter}. L'apport central est de
-mener cette comparaison \textbf{par scope} (\co{common/quiver_scopes.py:reconcile_scopes})~: l'électronique
-seul, l'OCR seul, puis les deux ensemble. La \emph{couverture} mesure la part des trades Quiver que l'on
-retrouve~; \co{only_ours} désigne nos trades absents de Quiver, \co{only_quiver} l'inverse. Une seconde
-fonction, \co{match_breakdown}, classe chaque transaction selon quatre cas — \co{exact_match} (même trade,
-même date), \co{date_mismatch} (bon trade, date divergente), \co{no_match} (absent de Quiver) et
-\co{non_equity} (muni ou obligation, hors périmètre Quiver) — ventilés par type d'actif et par cluster de
-scan.
+Vérifier la justesse de l'extraction suppose une source indépendante. On confronte donc la table finale à
+Quiver (agrégateur commercial) au niveau transaction — clé \co{bioguide × ticker × date × sens}, à la date
+\textbf{exacte} (le \emph{Traded} de Quiver) — \textbf{sans jamais le réinjecter}, et \textbf{par scope}
+(\co{common/quiver_scopes.py})~: l'électronique seul, l'OCR seul, les deux ensemble. Une limite est à poser
+d'emblée, car elle commande toute la lecture~: \textbf{Quiver ne suit que les actions cotées}. Les lignes
+\textbf{non cotées} (obligations d'État, \emph{munis}, fonds) sont hors de la clé — ni validables ni en
+faute~; elles forment une catégorie à part.
 
-\textbf{Couverture par scope} (transaction-niveau, toutes années)~:
+La \emph{couverture stricte} ci-dessous mesure la part des trades Quiver qu'on reproduit \textbf{à
+l'identique} — même trade \emph{et} même date~:
 \begin{center}\small
-\begin{tabular}{l ccc}
+\begin{tabular}{l cc l}
 \toprule
 \bfseries Scope & \bfseries Chambre & \bfseries Sénat & \bfseries lecture\\
 \midrule
-électronique (\co{digital}) & \textbf{98,2\,\%} & \textbf{99,4\,\%} & le parsing déterministe est quasi exact\\
-OCR seul (\co{ocr}) & \textbf{68,3\,\%} & \emph{vide} & cf.~les deux constats ci-dessous\\
-les deux (\co{both}) & \textbf{86,2\,\%} & \textbf{99,4\,\%} & union dédupliquée des trades\\
+électronique & \textbf{98,2\,\%} & \textbf{99,4\,\%} & parsing déterministe quasi exact\\
+OCR seul & \textbf{68,3\,\%} & — & cf.~ci-dessous (la date) \\
+les deux & \textbf{86,2\,\%} & \textbf{99,4\,\%} & union dédupliquée\\
 \bottomrule
 \end{tabular}
 \end{center}
+{\footnotesize Sénat OCR « — »~: ses déposants-papier (Blumenthal) sont \emph{absents} de Quiver — aucun
+contrôle externe n'y est possible (voir plus bas).}
 
-\textbf{Premier constat~: Quiver ne suit que les actions cotées.} La décomposition par type d'actif le
-montre~: sur les actions, Quiver possède le trade dans 87,5\,\% des cas à la Chambre et 84,2\,\% au Sénat~;
-en revanche, les \co{non_equity} — obligations d'État, \emph{mutual funds} et surtout obligations
-municipales — sont hors de son périmètre. Un \co{non_equity} non apparié n'est ni une erreur de notre part
-ni un défaut~: c'est un actif que Quiver ne suit tout simplement pas. C'est là toute l'explication du Sénat,
-dont l'OCR papier est massivement non coté (les \emph{munis} de Blumenthal)~: le scope OCR y ressort
-« vide » côté Quiver, ces actifs lui échappant par nature. Les actions du Sénat, elles, sont très bien
-couvertes.
+\textbf{L'électronique est quasi exact} des deux côtés (98--99\,\%, écarts minimes dans les deux sens)~:
+Quiver confirme que le parsing lit fidèlement les sources structurées.
 
-\textbf{Second constat~: l'OCR de la Chambre est validé en externe.} Quiver référence aussi les gros
-déposants-papier de la Chambre, comme Khanna ou McCaul~; l'OCR de la Chambre est donc \emph{validable}
-contre une source externe, et la décomposition par cluster de scan situe précisément la limite~:
-\begin{center}\small
-\begin{tabular}{l ccc}
-\toprule
-\bfseries Cluster (Chambre) & \bfseries Quiver a le trade & \bfseries date juste & \bfseries lecture\\
-\midrule
-A — tapé droit & 88,0\,\% & \textbf{85,7\,\%} & lecture fiable\\
-B — tapé couché & 77,9\,\% & \textbf{68,2\,\%} & le deskew suffit, dates correctes\\
-C — manuscrit & 35,3\,\% & \textbf{37,2\,\%} & \emph{point dur} → cluster exclu\\
-\bottomrule
-\end{tabular}
-\end{center}
-La colonne « date juste » donne la part d'\co{exact_match} parmi les seuls trades que Quiver possède. La
-leçon est nette~: même lorsque Quiver a le trade, c'est notre \textbf{lecture OCR de la date} qui décroche
-sur le manuscrit (37\,\%) — d'où l'exclusion du cluster~C (§\ref{sec:hocr}).
+\textbf{Pour l'OCR, il faut séparer deux questions} que la couverture stricte confond. \emph{(i)~Le trade
+existe-t-il~?} Sur les scans \textbf{tapés}, Quiver possède bien \textbf{78 à 88\,\%} de nos actions~; sur
+le \textbf{manuscrit}, seulement \textbf{35\,\%}. \emph{(ii)~A-t-on lu la bonne date~?} Même quand Quiver a
+le trade, notre date n'est exacte que \textbf{68\,\%} du temps sur le tapé tourné et \textbf{37\,\%} sur le
+manuscrit. Comme la date entre dans la clé, ce sont surtout ces \textbf{erreurs de lecture de date} qui
+rabaissent la couverture stricte à 68\,\%. Quiver \textbf{corrobore donc les trades} tapés — ils existent —
+mais ne « valide » pas l'OCR au sens fort~: la \textbf{date} en est la vraie limite, d'où l'exclusion du
+manuscrit (§\ref{sec:hocr}). Le résidu non apparié (\co{only_ours} 13\,067, \co{only_quiver} 8\,160, en
+actions) mêle nos dates fausses et de vrais écarts~: ni « pur bruit », ni « pure valeur ajoutée ». Le détail
+par cluster de scan est en annexe~\ref{anx:metrics} (D.12).
 
-Au bilan, aucune erreur d'extraction systématique n'apparaît. Sur l'électronique, la concordance est quasi
-parfaite (98--99\,\%)~; sur l'OCR, les écarts s'expliquent intégralement par le non-coté hors périmètre de
-Quiver et par la date des scans manuscrits. \co{only_ours} — nos trades absents de Quiver — est donc surtout
-du non-coté et du manuscrit, non du bruit. \co{common/crosscheck.py} matérialise ce statut déposant par
-déposant (\co{quiver_validable}, \co{ocr_unique}, \co{digital}), détaillé en annexe~\ref{anx:metrics}.
+\textbf{Le papier du Sénat, lui, échappe à tout contrôle externe}~: ses déposants n'apparaissent pas chez
+Quiver (Blumenthal~: zéro ligne) et leur contenu est de toute façon massivement non coté (munis). Il ne se
+juge donc qu'aux \textbf{contrôles internes} (cohérence des dates, stabilité d'un run à l'autre), pas à
+Quiver.
+
+En somme, l'électronique est confirmé quasi exact~; l'OCR tapé est corroboré, sa limite connue étant la
+\textbf{lecture des dates} (le manuscrit, trop incertain, est écarté)~; le non-coté et le papier du Sénat
+sont \textbf{hors de portée de Quiver par nature}. \co{common/crosscheck.py} consigne ce statut déposant
+par déposant (\co{quiver_validable} / \co{ocr_unique} / \co{digital}), détaillé en annexe~\ref{anx:metrics}.
 
 % ============================ 7. REPRODUCTIBILITÉ ============================
 \section{Assurance qualité \& reproductibilité}
@@ -717,15 +709,16 @@ figées dans le golden au même titre que les tables.
 \section{Limites (honnêteté)}
 \label{sec:limites}
 \begin{itemize}[nosep,leftmargin=1.5em]
-\item \textbf{Cluster C manuscrit exclu par défaut}~: la limite n'est pas la couverture Quiver (qui a le
-trade) mais notre \textbf{lecture OCR des dates manuscrites} (date juste 37\,\%) — choix assumé.
+\item \textbf{Cluster C manuscrit exclu par défaut}~: sur le manuscrit, l'OCR décroche largement — Quiver
+ne retrouve que \textbf{35\,\%} de nos lignes-actions et la date n'est exacte que \textbf{37\,\%} du temps —
+trop incertain pour une stratégie datée. Choix assumé.
 \item \textbf{\co{ticker}/\co{sector_gics}/\co{etf_proxy} structurellement absents} pour munis et
 obligations (actifs non cotés) — par nature, pas par défaut. C'est aussi ce qui rend une partie de l'OCR
 \textbf{hors périmètre Quiver} (qui ne suit que les actions).
 \item \textbf{Commissions non « point-in-time »}~: \co{committee_membership} est un \emph{snapshot}
 courant, pas l'historique daté.
 \item \textbf{\co{date_confidence} = heuristique binaire} (fenêtre 75~j), \textbf{colonne OCR seulement}~;
-ce n'est pas une vérité-terrain (Quiver l'est).
+ce n'est pas une vérité-terrain — le contrôle externe, lui, c'est Quiver (§\ref{sec:quiver}).
 \item \textbf{Baisse de couverture Sénat 2025--26}~: réelle mais \emph{de composition} (montée des munis),
 pas d'extraction.
 \end{itemize}
