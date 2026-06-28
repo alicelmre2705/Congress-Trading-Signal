@@ -143,21 +143,21 @@ validation). On indique ici \emph{où} l'on récupère quoi~; le \emph{traitemen
 détaillé au §\ref{sec:construction}.
 
 \begin{itemize}[leftmargin=1.4em]
-\item \textbf{Chambre des représentants — \emph{House Clerk}.} Source publique sans barrière~: une archive
+\item \textbf{Chambre des représentants — \href{https://disclosures-clerk.house.gov/FinancialDisclosure}{\emph{House Clerk}}.} Source publique sans barrière~: une archive
 ZIP annuelle contenant un \textbf{index XML} (\co{\{an\}FD.xml}) qui liste tous les dépôts. On retient les
 PTR (\co{FilingType=P}) et on télécharge le PDF de chacun.
-\item \textbf{Sénat — \emph{eFD}} (\emph{Electronic Financial Disclosure}). L'API de recherche du Sénat
+\item \textbf{Sénat — \href{https://efdsearch.senate.gov/search/home/}{\emph{eFD}}} (\emph{Electronic Financial Disclosure}). L'API de recherche du Sénat
 (\co{report_types=[11]} = PTR), accessible après acceptation d'un formulaire d'accord. Chaque dépôt est
 soit une \textbf{page HTML} électronique, soit une \textbf{image papier} scannée.
-\item \textbf{Référentiel des élus — \emph{congress-legislators}.}\label{sec:reference} Une déclaration ne
+\item \textbf{Référentiel des élus — \href{https://github.com/unitedstates/congress-legislators}{\emph{congress-legislators}}.}\label{sec:reference} Une déclaration ne
 donne qu'un \emph{nom}~; ce jeu de données ouvert fournit, pour chaque membre, son identifiant officiel
-(\co{bioguide_id}), son \textbf{parti} et ses \textbf{commissions} — avec un repli sur des YAML embarqués
+(\href{https://bioguide.congress.gov/}{\co{bioguide_id}}), son \textbf{parti} et ses \textbf{commissions} — avec un repli sur des YAML embarqués
 dans le dépôt pour rester reproductible hors-ligne.
-\item \textbf{Lecture des scans — \emph{Claude Vision}.}\label{sec:vision} La moitié des déclarations de la
+\item \textbf{Lecture des scans — \href{https://www.anthropic.com}{\emph{Claude Vision}}.}\label{sec:vision} La moitié des déclarations de la
 Chambre et tout le papier du Sénat n'existent que comme \textbf{images}. On les lit avec l'API Claude
 Vision (\co{claude-sonnet-4-6}), qui \emph{lit} \textbf{et} \emph{structure} directement le formulaire en
 transactions (sortie JSON stricte, cache versionné).
-\item \textbf{Validation — \emph{Quiver Quantitative}.} Agrégateur commercial des transactions du Congrès,
+\item \textbf{Validation — \href{https://www.quiverquant.com/congresstrading/}{\emph{Quiver Quantitative}}.} Agrégateur commercial des transactions du Congrès,
 utilisé comme \textbf{vérité-terrain externe}~: on mesure si notre extraction concorde, \textbf{sans jamais
 réinjecter} ses données.
 \end{itemize}
