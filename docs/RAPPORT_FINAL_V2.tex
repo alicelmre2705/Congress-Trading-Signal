@@ -530,7 +530,7 @@ Une table « pleine » n'est pas pour autant une table \emph{saine}~: ses dates 
 les délais légaux non respectés, son activité concentrée sur quelques déposants. \co{common/quality.py}
 (\co{build_report}) y répond en \textbf{lecture seule} des tables finales, sans aucun appel d'API
 (matplotlib en mode \co{Agg})~: il en tire \textbf{six contrôles}, une décomposition par
-\textbf{sous-corpus}, et les figures regroupées en fin de section (\ref{fig:qualite} et~\ref{fig:corpus}).
+\textbf{sous-corpus}, et les figures regroupées en fin de section (figure~\ref{fig:qualite}).
 \textbf{Sauf mention « par chambre » ou « par sous-corpus », tout porte sur l'ensemble des 90\,487
 transactions finales — électronique et OCR confondus, les deux chambres, 2020--2026.} Les quatre figures
 de contrôle agrègent ainsi tout le corpus (seule « transactions par an » est ventilée par chambre).
@@ -555,76 +555,78 @@ la voie d'acquisition~: la part de ticker renseigné tombe de \textbf{88,6\,\%} 
 (le reste étant du non-coté ou du non identifié) — c'est cette composition, et non le papier, qui explique
 que Quiver « ne voie pas » ce corpus (§\ref{sec:quiver}). C'est elle aussi qui fait baisser la couverture
 du Sénat en 2025--26 (montée des obligations municipales), sans dégradation de l'extraction. Ensuite, la
-\textbf{concentration} du volume est extrême et croît avec le papier~: l'indice de Gini va de \textbf{0,88}
+\textbf{concentration} du volume est extrême et croît avec le papier~: l'indice de Gini — \textbf{0} si
+tous les déposants pèsent autant, \textbf{1} si un seul concentre tout le volume — va de \textbf{0,88}
 (Chambre électronique) à \textbf{0,91} pour l'OCR de la Chambre, dont les dix premiers déposants captent
-\textbf{98,7\,\%} du volume. La fiabilité des dates OCR, enfin, est suivie à part par \co{date_confidence}
-(95,3\,\% de dates plausibles à la Chambre, fenêtre de 75~jours, lignes OCR seulement). Le tableau résume
-les quatre familles~; le détail (couverture, qualité, mix, concentration, clusters de scan) est en
+\textbf{98,7\,\%} du volume. La fiabilité des dates de l'OCR, enfin, est suivie à part par
+\co{date_confidence}~: une date est jugée \emph{plausible} si le délai dépôt$-$transaction tombe dans une
+fenêtre de \textbf{75~jours} (au-delà, c'est le signe d'une lecture OCR douteuse)~; \textbf{95,3\,\%} des
+lignes OCR de la Chambre le sont (détail par an en annexe~\ref{anx:metrics}, D.6). Le tableau résume les
+quatre familles~; le détail (couverture, qualité, mix, concentration, clusters de scan) est en
 annexe~\ref{anx:metrics} (D.9--D.12).
 
 \begin{center}\small
-\begin{tabular}{l r rr r r rr}
+\begin{tabular}{l r rr r rr}
 \toprule
-\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries date pl.\,\% & \bfseries médiane\,\$ & \bfseries Gini & \bfseries top-10\,\%\\
+\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries médiane\,\$ & \bfseries Gini & \bfseries top-10\,\%\\
 \midrule
-{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & — & 8\,000 & 0,88 & 69,0 \\
-{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 95,3 & 8\,000 & 0,91 & 98,7 \\
-{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 85,0 & 8\,000 & 0,84 & 85,0 \\
-{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 98,5 & 32\,500 & 0,70 & 100,0 \\
+{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 8\,000 & 0,88 & 69,0 \\
+{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 8\,000 & 0,91 & 98,7 \\
+{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 8\,000 & 0,84 & 85,0 \\
+{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 32\,500 & 0,70 & 100,0 \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize \emph{date pl.\,\%} = part des dates OCR jugées plausibles (fenêtre 75~j)~; « — » pour la
-Chambre électronique (pas d'OCR). \emph{top-10\,\%} = part du volume détenue par les 10 plus gros
-déposants du corpus. Couverture/qualité/mix/concentration par corpus en annexe~\ref{anx:metrics}.}
+{\footnotesize \emph{Gini} et \emph{top-10\,\%} mesurent la \textbf{concentration} du volume entre
+déposants~: le Gini va de 0 (tous pèsent autant) à 1 (un seul capte tout)~; \emph{top-10\,\%} = part du
+volume détenue par les dix plus gros déposants du corpus. Couverture, qualité, mix et concentration par
+corpus en annexe~\ref{anx:metrics} (D.9--D.12).}
 
-\begin{figure}[htbp]\centering
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\begin{figure}[p]\centering
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/delai_divulgation.png}
-  \caption{Délai \co{disclosure − transaction} (0--200~j)~; lignes 45~j (légal) / 75~j (fenêtre).}
+  \caption{Délai \co{disclosure − transaction} (0--200~j).}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/distribution_montants.png}
-  \caption{Distribution de \co{amount_midpoint} (échelle \co{log10}).}
+  \caption{Distribution des montants (\co{log10}).}
 \end{subfigure}
 
-\vspace{0.7em}
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\vspace{0.5em}
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/transactions_par_an.png}
   \caption{Transactions par année et par chambre.}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/top_deposants.png}
-  \caption{Top~12 déposants par nombre de transactions.}
+  \caption{Top~12 déposants (nombre de transactions).}
 \end{subfigure}
-\caption{\textbf{Quatre vues d'ensemble}, sur les 90\,487 transactions finales (électronique et OCR
-confondus, les deux chambres, 2020--2026)~; seule (c) est ventilée par chambre. Générées par
-\co{common/quality.py} (lecture seule, aucun appel API).}
-\label{fig:qualite}
-\end{figure}
 
-\begin{figure}[htbp]\centering
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\vspace{0.5em}
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/mix_operations_par_corpus.png}
   \caption{Sens des opérations, \emph{par sous-corpus}.}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/mix_actifs_par_corpus.png}
   \caption{Mix de types d'actifs, \emph{par sous-corpus}.}
 \end{subfigure}
 
-\vspace{0.7em}
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\vspace{0.5em}
+\begin{subfigure}[t]{0.46\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/volume_par_secteur.png}
-  \caption{Volume déclaré par secteur GICS (top 12, ensemble).}
+  \caption{Volume par secteur GICS (top 12, ensemble).}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
+\begin{subfigure}[t]{0.40\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/concentration_lorenz.png}
-  \caption{Concentration du volume par déposant (Lorenz, Gini~; ensemble).}
+  \caption{Concentration du volume (Lorenz, Gini~; ensemble).}
 \end{subfigure}
-\caption{\textbf{Décomposition} : (a, b) ventilées par sous-corpus~; (c) volume par secteur et
-(d) concentration du volume, sur l'ensemble du corpus. Générées par \co{common/quality.py} (lecture seule).}
-\label{fig:corpus}
+\caption{\textbf{Le rapport de qualité en images}, généré par \co{common/quality.py} (lecture seule, aucun
+appel API). \textbf{(a)--(d)~vues d'ensemble} sur les 90\,487 transactions finales (électronique et OCR
+confondus, les deux chambres, 2020--2026~; seule (c) est ventilée par chambre). \textbf{(e)--(h)~
+décomposition}~: (e, f) ventilées par sous-corpus~; (g) volume par secteur et (h) concentration du volume,
+sur l'ensemble.}
+\label{fig:qualite}
 \end{figure}
 
 \FloatBarrier
@@ -1034,20 +1036,21 @@ C — manuscrit : 151 docs (exclu) & Sénat : Blumenthal 1\,233 (73\,\%), Boozma
 
 \textbf{D.9 — Scorecard par sous-corpus.}
 \begin{center}\small
-\begin{tabular}{l r rrr rr r}
+\begin{tabular}{l r rrr r r}
 \toprule
-\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries comm.\,\% & \bfseries date pl.\,\% & \bfseries cohér.\,\% & \bfseries mont.\,\%\\
+\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries comm.\,\% & \bfseries cohér.\,\% & \bfseries mont.\,\%\\
 \midrule
-{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 74,7 & — & 99,9 & 100,0 \\
-{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 94,5 & 95,3 & 99,7 & 98,2 \\
-{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 58,5 & 85,0 & 100,0 & 100,0 \\
-{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 96,1 & 98,5 & 99,8 & 99,5 \\
+{\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 74,7 & 99,9 & 100,0 \\
+{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 94,5 & 99,7 & 98,2 \\
+{\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 58,5 & 100,0 & 100,0 \\
+{\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 96,1 & 99,8 & 99,5 \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize \emph{cohér.\,\%} = \co{disclosure ≥ transaction}~; \emph{date pl.\,\%} = dates OCR
-plausibles (75~j~; « — » hors OCR)~; \emph{mont.\,\%} = montant renseigné. Identité (\co{bioguide_id}) et
-ancienneté (\co{years_in_office}) = 100\,\% partout~; \co{amount_split_flag} partout \co{False}.}
+{\footnotesize \emph{cohér.\,\%} = part où \co{disclosure ≥ transaction}~; \emph{mont.\,\%} = montant
+renseigné. Identité (\co{bioguide_id}) et ancienneté (\co{years_in_office}) = 100\,\% partout~;
+\co{amount_split_flag} partout \co{False}. La plausibilité des dates OCR (\co{date_confidence}, par an et
+par chambre) est donnée à part en D.6.}
 
 \textbf{D.10 — Mix par sous-corpus} (\% des transactions du corpus).
 \begin{center}\small
