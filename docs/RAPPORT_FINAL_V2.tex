@@ -173,14 +173,14 @@ jamais à sa date d'opération, antérieure et inconnue du marché au moment du 
 \section{Architecture \& méthodologie}
 \label{sec:archi}
 
-\subsection{Un contrat partagé + deux orchestrateurs jumeaux + données + tests}
+\subsection{Un contrat partagé et deux orchestrateurs jumeaux}
 \label{sec:archi-couches}
 Le code suit une \textbf{architecture symétrique}~: un \textbf{contrat universel partagé} (\co{common/},
 9 modules) et \textbf{deux orchestrateurs jumeaux} (\co{house/} et \co{senate/}) qui s'appuient dessus.
 \co{common/} porte ce qui est commun aux deux chambres — schéma, référentiel, OCR de référence, secteur,
-validation, qualité, orchestration~; ce qui dépend de la source — matcher d'identité, montants, ticker,
-OCR de production, réconciliation Quiver — vit dans \co{house/} et \co{senate/}. Les données et les tests
-complètent l'ensemble.
+ancienneté, validation, qualité, orchestration~; ce qui dépend de la source — matcher d'identité,
+montants, ticker, OCR de production, réconciliation Quiver — vit dans \co{house/} et \co{senate/}. Les
+données et les tests complètent l'ensemble.
 
 \begin{center}
 \begin{tikzpicture}
@@ -194,9 +194,13 @@ complètent l'ensemble.
 \end{tikzpicture}
 \end{center}
 Les deux orchestrateurs portent les \textbf{mêmes rôles} (\co{digital}, \co{ocr}, \co{identity},
-\co{quiver}\dots)~; seules leurs implémentations diffèrent, là où les sources diffèrent. L'unique
-asymétrie de structure est \co{senate/fusion.py} (§\ref{sec:socr})~: côté Chambre des représentants, la
-fusion électronique+OCR vit dans \co{house/ocr.py}.
+\co{quiver}\dots)~; seules leurs implémentations diffèrent, là où les sources l'imposent. Les quelques
+\textbf{asymétries de structure} sont assumées et toutes dictées par la source~: au Sénat, la fusion et le
+moteur OCR forment leurs propres modules (\co{fusion.py}, \co{ocr_engine.py}) là où la Chambre les garde
+\emph{en ligne} dans \co{house/ocr.py}~; et le calcul des montants a un module dédié côté Chambre
+(\co{amounts.py}) quand le Sénat l'intègre à ses propres modules, chaque chambre gardant sa convention de
+fourchette. La fusion séparée du Sénat, elle, tient au \textbf{volume}~: l'enrichissement y passe sur
+\emph{tout} le corpus en une fois (§\ref{sec:socr}), quand la Chambre traite année par année.
 
 \subsection{Le flux de bout en bout (le schéma à lire en premier)}
 \label{sec:pipeline}
