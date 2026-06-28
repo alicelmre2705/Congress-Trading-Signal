@@ -2,11 +2,183 @@
 > Livrable Ramify, Semaine 2. Généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API).
 **Périmètre :** 90 487 transactions FINAL (House 81 646 + Sénat 8 841)  années 2020–2026.
 
+## Décomposition par sous-corpus
+
+Les déclarations proviennent de **quatre sous-corpus** très différents (chambre × voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et leur composition diffèrent.
+
+| corpus | n | part_pct |
+| --- | --- | --- |
+| House électronique | 32676 | 36.1 |
+| House OCR | 48970 | 54.1 |
+| Sénat électronique | 7161 | 7.9 |
+| Sénat OCR | 1680 | 1.9 |
+
+### Couverture des champs enrichis (taux de remplissage)
+
+| corpus | n | ticker_% | secteur_% | etf_proxy_% | committee_% | identite_% | anciennete_% |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 88.6 | 86.6 | 86.6 | 74.7 | 100.0 | 100.0 |
+| House OCR | 48970 | 83.1 | 81.0 | 81.0 | 94.5 | 100.0 | 100.0 |
+| Sénat électronique | 7161 | 80.3 | 72.1 | 72.1 | 58.5 | 100.0 | 100.0 |
+| Sénat OCR | 1680 | 33.2 | 19.4 | 19.4 | 96.1 | 100.0 | 100.0 |
+
+`identite_%` = part rattachée à un `bioguide_id` ; `ticker`/`secteur`/`etf_proxy` sont vides pour les actifs non cotés (légitime, pas un défaut).
+
+### Scorecard de qualité
+
+| corpus | n | dates_coherentes_% | date_plausible_% | annee_implausible_n | montant_renseigne_% |
+| --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 99.9 | — | 3 | 100.0 |
+| House OCR | 48970 | 99.7 | 95.3 | 0 | 98.2 |
+| Sénat électronique | 7161 | 100.0 | 85.0 | 0 | 100.0 |
+| Sénat OCR | 1680 | 99.8 | 98.5 | 0 | 99.5 |
+
+`date_plausible_%` (fenêtre 75 j) n'existe que pour les lignes OCR → « — » pour House électronique (pas de `date_confidence`). `amount_split_flag` est partout `False` (aucune fourchette éclatée).
+
+### Mix par sous-corpus
+
+**Sens des opérations :**
+
+| corpus | n | achat_% | vente_% | echange_% | autre_% |
+| --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 49.7 | 49.7 | 0.6 | 0.0 |
+| House OCR | 48970 | 52.7 | 46.6 | 0.7 | 0.0 |
+| Sénat électronique | 7161 | 48.0 | 51.2 | 0.8 | 0.0 |
+| Sénat OCR | 1680 | 54.0 | 45.8 | 0.2 | 0.0 |
+
+![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)
+
+**Détenteur déclaré :**
+
+| corpus | n | perso_% | conjoint_% | joint_% | enfant_% | autre_% |
+| --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 51.9 | 19.7 | 26.2 | 2.2 | 0.0 |
+| House OCR | 48970 | 6.7 | 51.1 | 7.0 | 35.2 | 0.0 |
+| Sénat électronique | 7161 | 15.0 | 41.4 | 41.0 | 2.7 | 0.0 |
+| Sénat OCR | 1680 | 26.8 | 73.0 | 0.1 | 0.1 | 0.0 |
+
+**Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine l'OCR du Sénat) :
+
+| corpus | n | action_% | option_% | oblig.Etat_% | muni_% | oblig.corp_% | fonds_% | autre_% | manquant_% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 84.6 | 1.8 | 5.9 | 0.0 | 0.0 | 0.0 | 6.1 | 1.6 |
+| House OCR | 48970 | 81.7 | 0.0 | 0.8 | 0.0 | 0.1 | 3.1 | 0.6 | 13.8 |
+| Sénat électronique | 7161 | 68.0 | 8.3 | 0.0 | 10.5 | 2.8 | 0.0 | 10.3 | 0.0 |
+| Sénat OCR | 1680 | 12.9 | 0.0 | 0.0 | 0.8 | 2.6 | 0.0 | 69.6 | 14.2 |
+
+![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)
+
+### Secteurs & sources de résolution
+
+| corpus | n | secteur_renseigne_% | etf_proxy_% | top_3_secteurs |
+| --- | --- | --- | --- | --- |
+| House électronique | 32676 | 86.6 | 86.6 | Information Technology 20%, Financials 14%, Health Care 13% |
+| House OCR | 48970 | 81.0 | 81.0 | Information Technology 20%, Financials 16%, Health Care 14% |
+| Sénat électronique | 7161 | 72.1 | 72.1 | Information Technology 22%, Financials 16%, Consumer Discretionary 10% |
+| Sénat OCR | 1680 | 19.4 | 19.4 | Financials 21%, Communication Services 18%, Information Technology 12% |
+
+**Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :
+
+| corpus | n | elec_dict_% | llm_% | explicit_% | none_% |
+| --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | — | — | — | — |
+| House OCR | 48970 | 45.6 | 36.2 | 1.3 | 16.9 |
+| Sénat électronique | 7161 | 0.5 | 0.7 | 78.2 | 19.7 |
+| Sénat OCR | 1680 | 9.5 | 8.3 | 15.4 | 66.8 |
+
+**Origine du secteur** (`sector_source`) :
+
+| corpus | n | yfinance_% | llm_% | manual_% | none_% |
+| --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 78.7 | 7.8 | 0.2 | 13.3 |
+| House OCR | 48970 | 75.4 | 5.6 | 0.1 | 18.9 |
+| Sénat électronique | 7161 | 62.4 | 9.5 | 0.9 | 27.2 |
+| Sénat OCR | 1680 | 12.0 | 7.4 | 1.1 | 79.5 |
+
+![Volume par secteur GICS](quality/volume_par_secteur.png)
+
+### Montants par sous-corpus
+
+| corpus | n | mediane_$ | moyenne_$ | P25_$ | P75_$ | P95_$ | volume_total_M$ |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 8000 | 53753 | 8000 | 15001 | 100001 | 1756.5 |
+| House OCR | 48970 | 8000 | 49624 | 8000 | 32500 | 175000 | 2386.0 |
+| Sénat électronique | 7161 | 8000 | 96813 | 8000 | 32500 | 375000 | 693.3 |
+| Sénat OCR | 1680 | 32500 | 171021 | 8000 | 75000 | 750000 | 285.9 |
+
+### Concentration de l'activité
+
+| corpus | n_deposants | HHI | Gini | top10_volume_% |
+| --- | --- | --- | --- | --- |
+| House électronique | 234 | 670.7 | 0.878 | 69.0 |
+| House OCR | 40 | 2888.3 | 0.913 | 98.7 |
+| Sénat électronique | 61 | 1300.2 | 0.837 | 85.0 |
+| Sénat OCR | 5 | 6388.7 | 0.695 | 100.0 |
+
+`HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par déposant (plus c'est haut, plus quelques déposants dominent).
+
+![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)
+
+**Top tickers par volume estimé :**
+
+| ticker | n_trades | volume_M$ |
+| --- | --- | --- |
+| MSFT | 1017 | 261.5 |
+| ICE | 110 | 93.4 |
+| BRP | 7 | 81.8 |
+| AAPL | 747 | 80.7 |
+| MET | 115 | 76.2 |
+| T | 348 | 63.2 |
+| NVDA | 597 | 46.1 |
+| DFS | 66 | 42.9 |
+| AMZN | 686 | 42.5 |
+| HBI | 70 | 38.5 |
+| GOOGL | 600 | 29.8 |
+| ADBE | 384 | 23.3 |
+| AVGO | 269 | 18.1 |
+| PYPL | 363 | 17.3 |
+| AESI | 5 | 15.9 |
+
+**Volume par secteur GICS :**
+
+| secteur | n_trades | volume_M$ |
+| --- | --- | --- |
+| Information Technology | 14401 | 727.8 |
+| Financials | 11049 | 522.1 |
+| Communication Services | 5645 | 264.5 |
+| Consumer Discretionary | 8350 | 261.1 |
+| Health Care | 9548 | 230.7 |
+| Industrials | 8520 | 197.6 |
+| Energy | 3141 | 142.7 |
+| Consumer Staples | 5171 | 139.2 |
+| Materials | 2926 | 62.4 |
+| Real Estate | 2746 | 53.9 |
+| Utilities | 1278 | 30.5 |
+
+### Profil des clusters de scan (House OCR)
+
+| cluster | n_lignes | n_docs | date_plausible_% | ticker_% | quiver_a_le_trade_pct |
+| --- | --- | --- | --- | --- | --- |
+| A_tape_droit | 5957 | 59 | 99.6 | 84.2 | 88.0 |
+| B_tape_tourne | 42151 | 295 | 94.7 | 82.8 | 77.9 |
+| C_manuscrit | 862 | 81 | 97.4 | 88.4 | 35.3 |
+
+A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`quiver_a_le_trade_pct`) **chute** sur le manuscrit (≈35 %) alors qu'il reste élevé sur le tapé (≈78–88 %) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la plausibilité interne (`date_plausible_%`, fenêtre 75 j, reste haute). D'où l'exclusion par défaut du cluster C.
+
 ## (a) Cohérence des dates (`disclosure_date ≥ transaction_date`)
 | chamber | n | dates_parseables_pct | coherentes_pct | incoherentes | annee_txn_implausible | date_manquante |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81646 | 99.8 | 99.8 | 162 | 3 | 204 |
 | senate | 8841 | 99.9 | 100.0 | 3 | 0 | 8 |
+
+**Par sous-corpus :**
+
+| corpus | n | dates_parseables_pct | coherentes_pct | incoherentes | annee_txn_implausible | date_manquante |
+| --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 100.0 | 99.9 | 21 | 3 | 0 |
+| House OCR | 48970 | 99.6 | 99.7 | 141 | 0 | 204 |
+| Sénat électronique | 7161 | 100.0 | 100.0 | 0 | 0 | 0 |
+| Sénat OCR | 1680 | 99.5 | 99.8 | 3 | 0 | 8 |
 
 Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR papier illisible) ; `coherentes_pct` = part où la divulgation suit bien la transaction. Les `incoherentes` sont surtout des divulgations amendées/antidatées réelles ; `annee_txn_implausible` isole les rares erreurs OCR de lecture d'année (année de transaction postérieure au dépôt ou antérieure à 2012), déjà incluses dans les incohérentes. Des transactions 2013–2019 apparaissent légitimement (divulgations très tardives).
 
@@ -15,6 +187,15 @@ Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR p
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81442 | 86.9 | 5.2 | 7.7 | 0.2 | 28 |
 | senate | 8833 | 84.9 | 2.8 | 12.3 | 0.0 | 28 |
+
+**Par sous-corpus :**
+
+| corpus | n_dates_valides | <=45j_legal_pct | 45-75j_pct | >75j_pct | negatif_pct | delai_median_j |
+| --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32676 | 81.9 | 4.9 | 13.2 | 0.1 | 28 |
+| House OCR | 48766 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
+| Sénat électronique | 7161 | 83.1 | 1.9 | 15.0 | 0.0 | 27 |
+| Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
 
 ![Délai de divulgation](quality/delai_divulgation.png)
 
@@ -63,6 +244,17 @@ Par chambre :
 chamber                                                                          
 house    80757.0   51295.0  571564.0     1.0  8000.0  8000.0  32500.0  75000000.0
 senate    8833.0  110860.0  779507.0  8000.0  8000.0  8000.0  32500.0  50000000.0
+```
+
+Par sous-corpus :
+
+```
+                      count      mean        std     min     25%      50%      75%         max
+corpus                                                                                        
+House électronique  32676.0   53754.0   528450.0     1.0  8000.0   8000.0  15001.0  37500000.0
+House OCR           48081.0   49624.0   599096.0  8000.0  8000.0   8000.0  32500.0  75000000.0
+Sénat électronique   7161.0   96814.0   607893.0  8000.0  8000.0   8000.0  32500.0  15000000.0
+Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  75000.0  50000000.0
 ```
 
 ![Distribution des montants](quality/distribution_montants.png)
@@ -128,6 +320,15 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 | --- | --- | --- | --- |
 | house | 34565 | 26783 | 22.5 |
 | senate | 2689 | 1625 | 39.6 |
+
+**Par sous-corpus :**
+
+| corpus | n_achats_avec_ticker | avec_sortie_declaree | sans_sortie_pct |
+| --- | --- | --- | --- |
+| House électronique | 14013 | 8288 | 40.9 |
+| House OCR | 20552 | 18495 | 10.0 |
+| Sénat électronique | 2522 | 1496 | 40.7 |
+| Sénat OCR | 167 | 129 | 22.8 |
 
 ## (f) Validation externe Quiver (vérité-terrain — actions cotées)
 

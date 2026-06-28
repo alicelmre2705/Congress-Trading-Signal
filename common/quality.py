@@ -4,6 +4,12 @@ Charge les tables FINAL des deux chambres (2020→2026), calcule SIX contrôles 
 figures + `docs/RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
 aucun appel API.**
 
+En plus des 6 contrôles (a–f), le rapport décline désormais l'essentiel des statistiques par les
+**quatre sous-corpus** — House électronique, House OCR, Sénat électronique, Sénat OCR (colonne
+`provenance`) — et exploite beaucoup plus la matière : mix opérations/owner/type d'actif/secteur,
+rendement des sources de ticker/secteur, scorecards couverture & qualité, concentration (HHI, Gini,
+Lorenz), profil des clusters de scan House OCR. Tout est recomputé depuis les tables FINAL figées.
+
 Les contrôles :
   (a) Cohérence des dates : `disclosure_date >= transaction_date`.
   (b) Délai légal : `lag = disclosure - transaction` ventilé ≤45 j (légal STOCK Act) / 45–75 j / >75 j.
@@ -25,6 +31,50 @@ from common import crosscheck
 YEARS = list(range(2020, 2027))
 LEGAL_DELAY_DAYS = 45          # STOCK Act : PTR dû ~45 j après la transaction.
 WINDOW_DELAY_DAYS = 75         # Fenêtre de tolérance utilisée par le pipeline (date_confidence).
+
+# Les QUATRE sous-corpus = valeurs exactes de `provenance`. Ordre stable pour toutes les tables/figures.
+CORPUS_ORDER = ["House électronique", "House OCR", "Sénat électronique", "Sénat OCR"]
+_PROVENANCE_TO_CORPUS = {
+    "house-pdf-electronic": "House électronique",
+    "house-pdf-ocr": "House OCR",
+    "senate-efd-electronic": "Sénat électronique",
+    "senate-efd-ocr": "Sénat OCR",
+}
+# Clusters de scan House OCR (census des 547 PDF scannés).
+_HOUSE_CLUSTERS = ["A_tape_droit", "B_tape_tourne", "C_manuscrit"]
+
+
+# ───────────────────────────── Petits utilitaires ─────────────────────────────
+def _pct(n, d):
+    """Pourcentage arrondi (1 décimale) ou None si dénominateur nul."""
+    return round(100 * n / d, 1) if d else None
+
+
+def _nonblank(s: pd.Series) -> pd.Series:
+    """Masque booléen : valeur présente (ni NaN, ni '', ni 'nan')."""
+    v = s.fillna("").astype(str).str.strip()
+    return (v != "") & (v.str.lower() != "nan")
+
+
+def _corpus_label(provenance) -> str:
+    """`provenance` → label de sous-corpus lisible (ou '(autre)' si inattendu)."""
+    return _PROVENANCE_TO_CORPUS.get(str(provenance), "(autre)")
+
+
+def owner_class(owner) -> str:
+    """Normalise `owner` (SELF/Self, Spouse/SP, JT/Joint/Joint Tenancy, DC/Dependent Child…)."""
+    s = str(owner).strip().lower()
+    if not s or s in ("nan", "none"):
+        return "other"
+    if "joint" in s or s == "jt":
+        return "joint"
+    if "self" in s:
+        return "self"
+    if "spouse" in s or s == "sp":
+        return "spouse"
+    if "dependent" in s or "child" in s or s == "dc":
+        return "dependent"
+    return "other"
 
 
 # ───────────────────────────── Chargement ─────────────────────────────
@@ -49,7 +99,8 @@ def op_class(op) -> str:
 
 
 def load_final(repo_root: Path) -> pd.DataFrame:
-    """Concatène tous les FINAL House+Sénat, ajoute `file_year`, `txn_year`, `lag_days`, `op`."""
+    """Concatène tous les FINAL House+Sénat, ajoute `file_year`, `txn_year`, `lag_days`, `op`,
+    `corpus` (sous-corpus) et `owner_class`."""
     frames = []
     for chamber in ("house", "senate"):
         for year in YEARS:
@@ -70,26 +121,35 @@ def load_final(repo_root: Path) -> pd.DataFrame:
     full["lag_days"] = (dd - td).dt.days
     full["amount_midpoint"] = pd.to_numeric(full["amount_midpoint"], errors="coerce")
     full["op"] = full["operation_type"].map(op_class)
+    full["corpus"] = full["provenance"].map(_corpus_label)
+    full["owner_class"] = full["owner"].map(owner_class)
     return full
 
 
+def _keys(df, dim):
+    """Clés d'itération d'un groupby : ordre stable CORPUS_ORDER si dim='corpus', sinon tri simple."""
+    if dim == "corpus":
+        return [c for c in CORPUS_ORDER if (df["corpus"] == c).any()]
+    return sorted(df[dim].dropna().unique())
+
+
 # ───────────────────────────── (a) Cohérence des dates ─────────────────────────────
-def date_coherence(df: pd.DataFrame) -> pd.DataFrame:
-    """Résumé par chambre : n, % dates parseables, % cohérentes (disclosure≥txn parmi parseables),
-    incohérentes, et années de transaction implausibles (txn après dépôt ou avant 2012 — artefacts
-    OCR de lecture d'année, déjà comptés dans les incohérentes via un délai négatif)."""
+def date_coherence(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
+    """Résumé par `dim` (chamber|corpus) : n, % dates parseables, % cohérentes (disclosure≥txn parmi
+    parseables), incohérentes, et années de transaction implausibles (txn après dépôt ou avant 2012 —
+    artefacts OCR de lecture d'année, déjà comptés dans les incohérentes via un délai négatif)."""
     rows = []
-    for chamber, g in df.groupby("chamber"):
+    for key in _keys(df, dim):
+        g = df[df[dim] == key]
         n = len(g)
-        valid = g["lag_days"].notna()
-        n_valid = int(valid.sum())
+        n_valid = int(g["lag_days"].notna().sum())
         coherent = int((g["lag_days"] >= 0).sum())
         ty = g["txn_year"]
         impl = int(((ty > g["file_year"]) | (ty < 2012)).sum())
         rows.append({
-            "chamber": chamber, "n": n,
-            "dates_parseables_pct": round(100 * n_valid / n, 1),
-            "coherentes_pct": round(100 * coherent / n_valid, 1) if n_valid else None,
+            dim: key, "n": n,
+            "dates_parseables_pct": _pct(n_valid, n),
+            "coherentes_pct": _pct(coherent, n_valid),
             "incoherentes": n_valid - coherent,
             "annee_txn_implausible": impl,
             "date_manquante": n - n_valid,
@@ -98,10 +158,11 @@ def date_coherence(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ───────────────────────────── (b) Délai légal 45 j ─────────────────────────────
-def delay_buckets(df: pd.DataFrame) -> pd.DataFrame:
-    """Ventilation du délai de divulgation par chambre : ≤45 j (légal) / 45–75 j / >75 j / négatif."""
+def delay_buckets(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
+    """Ventilation du délai de divulgation par `dim` : ≤45 j (légal) / 45–75 j / >75 j / négatif."""
     rows = []
-    for chamber, g in df.groupby("chamber"):
+    for key in _keys(df, dim):
+        g = df[df[dim] == key]
         lag = g["lag_days"]
         valid = lag.notna()
         n = int(valid.sum())
@@ -112,11 +173,11 @@ def delay_buckets(df: pd.DataFrame) -> pd.DataFrame:
         mid = int(((lag > LEGAL_DELAY_DAYS) & (lag <= WINDOW_DELAY_DAYS)).sum())
         over = int((lag > WINDOW_DELAY_DAYS).sum())
         rows.append({
-            "chamber": chamber, "n_dates_valides": n,
-            "<=45j_legal_pct": round(100 * le45 / n, 1),
-            "45-75j_pct": round(100 * mid / n, 1),
-            ">75j_pct": round(100 * over / n, 1),
-            "negatif_pct": round(100 * neg / n, 1),
+            dim: key, "n_dates_valides": n,
+            "<=45j_legal_pct": _pct(le45, n),
+            "45-75j_pct": _pct(mid, n),
+            ">75j_pct": _pct(over, n),
+            "negatif_pct": _pct(neg, n),
             "delai_median_j": int(lag[valid & (lag >= 0)].median()) if n else None,
         })
     return pd.DataFrame(rows)
@@ -132,15 +193,17 @@ def delay_outliers(df: pd.DataFrame, threshold: int = 365, top: int = 15) -> pd.
 
 # ───────────────────────────── (c) Distribution des montants ─────────────────────────────
 def amount_distribution(df: pd.DataFrame) -> dict:
-    """Stats descriptives globales + par chambre + top déposants par volume estimé (Σ midpoint)."""
+    """Stats descriptives globales + par chambre + par sous-corpus + top déposants par volume estimé."""
     amt = df["amount_midpoint"].dropna()
     overall = amt.describe(percentiles=[0.25, 0.5, 0.75, 0.9])
     by_chamber = df.groupby("chamber")["amount_midpoint"].describe(percentiles=[0.25, 0.5, 0.75])
+    by_corpus = (df.groupby("corpus")["amount_midpoint"].describe(percentiles=[0.25, 0.5, 0.75])
+                   .reindex([c for c in CORPUS_ORDER if (df["corpus"] == c).any()]))
     top = (df.groupby(["bioguide_id", "declarant_name", "chamber"])["amount_midpoint"]
              .agg(volume_estime="sum", n_trades="count")
              .reset_index().sort_values("volume_estime", ascending=False).head(15))
     top["volume_estime_musd"] = (top["volume_estime"] / 1e6).round(1)
-    return {"overall": overall, "by_chamber": by_chamber,
+    return {"overall": overall, "by_chamber": by_chamber, "by_corpus": by_corpus,
             "top_volume": top[["declarant_name", "chamber", "n_trades", "volume_estime_musd"]]}
 
 
@@ -170,14 +233,16 @@ def eligible_members(coverage: pd.DataFrame, min_trades: int = 10) -> dict:
 
 
 # ───────────────────────────── (e) Achats sans sortie déclarée ─────────────────────────────
-def unmatched_purchase_rate(df: pd.DataFrame) -> pd.DataFrame:
+def unmatched_purchase_rate(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
     """Pour chaque achat (bioguide+ticker), existe-t-il une vente ultérieure (disclosure plus tard) ?
-    Le taux non-apparié = positions qui seraient fermées de force à +12 mois dans la stratégie."""
-    d = df[df["ticker"].notna() & (df["ticker"].astype(str).str.strip() != "")].copy()
+    Le taux non-apparié = positions qui seraient fermées de force à +12 mois dans la stratégie. La vente
+    est cherchée globalement (une vente, peu importe le corpus, clôt la position)."""
+    d = df[_nonblank(df["ticker"])].copy()
     d = d.dropna(subset=["_dd"])
     sells = d[d["op"] == "sell"].groupby(["bioguide_id", "ticker"])["_dd"].max()
     rows = []
-    for chamber, g in d.groupby("chamber"):
+    for key in _keys(d, dim):
+        g = d[d[dim] == key]
         buys = g[g["op"] == "buy"]
         if not len(buys):
             continue
@@ -185,8 +250,7 @@ def unmatched_purchase_rate(df: pd.DataFrame) -> pd.DataFrame:
         matched = pd.Series(last_sell, index=buys.index) > buys["_dd"].values
         n = len(buys)
         n_match = int(pd.Series(matched).fillna(False).sum())
-        rows.append({"chamber": chamber, "n_achats_avec_ticker": n,
-                     "avec_sortie_declaree": n_match,
+        rows.append({dim: key, "n_achats_avec_ticker": n, "avec_sortie_declaree": n_match,
                      "sans_sortie_pct": round(100 * (n - n_match) / n, 1)})
     return pd.DataFrame(rows)
 
@@ -234,6 +298,252 @@ def quiver_validation(repo_root: Path) -> dict:
                      for ch in ("house", "senate")},
         "by_cluster": _agg(_read("data/house/tables/*/07h_quiver_match_by_cluster.csv"), "cluster"),
     }
+
+
+# ════════════════════════ Décomposition par SOUS-CORPUS ════════════════════════
+def corpus_overview(df: pd.DataFrame) -> pd.DataFrame:
+    """Effectif et part de chaque sous-corpus (le périmètre du rapport)."""
+    n_tot = len(df)
+    vc = df["corpus"].value_counts()
+    return pd.DataFrame([{"corpus": c, "n": int(vc.get(c, 0)), "part_pct": _pct(int(vc.get(c, 0)), n_tot)}
+                         for c in CORPUS_ORDER])
+
+
+def _mix(df: pd.DataFrame, class_fn, order, rename) -> pd.DataFrame:
+    """Table %-par-classe et par sous-corpus. `class_fn(g)` renvoie une Series de classes alignée sur g."""
+    rows = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        n = len(g)
+        if not n:
+            continue
+        vc = class_fn(g).value_counts()
+        row = {"corpus": corpus, "n": n}
+        for k in order:
+            row[rename[k]] = _pct(int(vc.get(k, 0)), n)
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def operation_mix(df: pd.DataFrame) -> pd.DataFrame:
+    """Mix achat / vente / échange / autre par sous-corpus."""
+    return _mix(df, lambda g: g["op"], ["buy", "sell", "exchange", "other"],
+                {"buy": "achat_%", "sell": "vente_%", "exchange": "echange_%", "other": "autre_%"})
+
+
+def owner_mix(df: pd.DataFrame) -> pd.DataFrame:
+    """Mix par type de détenteur (soi / conjoint / joint / enfant / autre) par sous-corpus."""
+    return _mix(df, lambda g: g["owner_class"], ["self", "spouse", "joint", "dependent", "other"],
+                {"self": "perso_%", "spouse": "conjoint_%", "joint": "joint_%",
+                 "dependent": "enfant_%", "other": "autre_%"})
+
+
+def _asset_bucket(at) -> str:
+    """Regroupe les `asset_type` bruts en grandes familles lisibles."""
+    s = str(at).strip().lower()
+    if s in ("", "nan", "(inconnu)"):
+        return "manquant"
+    if "option" in s:
+        return "option"
+    if "muni" in s:
+        return "muni"
+    if "gov" in s or "treasur" in s:
+        return "gov"
+    if "bond" in s:
+        return "bond"
+    if "fund" in s or "etf" in s:
+        return "fonds"
+    if "stock" in s:
+        return "action"
+    return "autre"
+
+
+def asset_type_mix(df: pd.DataFrame) -> pd.DataFrame:
+    """Mix de familles d'actifs par sous-corpus (action / option / oblig. État / muni / oblig. corp. /
+    fonds / autre / manquant)."""
+    order = ["action", "option", "gov", "muni", "bond", "fonds", "autre", "manquant"]
+    rename = {"action": "action_%", "option": "option_%", "gov": "oblig.Etat_%", "muni": "muni_%",
+              "bond": "oblig.corp_%", "fonds": "fonds_%", "autre": "autre_%", "manquant": "manquant_%"}
+    return _mix(df, lambda g: g["asset_type"].map(_asset_bucket), order, rename)
+
+
+def sector_mix(df: pd.DataFrame) -> pd.DataFrame:
+    """Couverture secteur/ETF + 3 secteurs GICS dominants par sous-corpus."""
+    rows = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        n = len(g)
+        if not n:
+            continue
+        valid = g.loc[_nonblank(g["sector_gics"]), "sector_gics"]
+        top3 = (", ".join(f"{k} {round(100 * v / len(valid))}%"
+                          for k, v in valid.value_counts().head(3).items())
+                if len(valid) else "—")
+        rows.append({"corpus": corpus, "n": n,
+                     "secteur_renseigne_%": _pct(len(valid), n),
+                     "etf_proxy_%": _pct(int(_nonblank(g["etf_proxy"]).sum()), n),
+                     "top_3_secteurs": top3})
+    return pd.DataFrame(rows)
+
+
+def source_yield(df: pd.DataFrame) -> dict:
+    """Répartition des sources de résolution : `ticker_source` (vide pour House électronique → « — »)
+    et `sector_source`. Montre comment chaque corpus obtient son ticker/secteur."""
+    def _mixcol(col, order):
+        rows = []
+        for corpus in CORPUS_ORDER:
+            g = df[df["corpus"] == corpus]
+            n = len(g)
+            if not n:
+                continue
+            v = g[col].fillna("").astype(str).str.strip().str.lower()
+            has = (v != "") & (v != "nan")
+            if int(has.sum()) == 0:
+                rows.append({"corpus": corpus, "n": n, **{f"{k}_%": "—" for k in order}})
+                continue
+            vc = v.value_counts()
+            rows.append({"corpus": corpus, "n": n,
+                         **{f"{k}_%": _pct(int(vc.get(k, 0)), n) for k in order}})
+        return pd.DataFrame(rows)
+    return {"ticker": _mixcol("ticker_source", ["elec_dict", "llm", "explicit", "none"]),
+            "sector": _mixcol("sector_source", ["yfinance", "llm", "manual", "none"])}
+
+
+def amount_stats_by_corpus(df: pd.DataFrame) -> pd.DataFrame:
+    """Statistiques de montant (`amount_midpoint`) et volume total par sous-corpus."""
+    rows = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        n = len(g)
+        if not n:
+            continue
+        a = g["amount_midpoint"].dropna()
+        rows.append({"corpus": corpus, "n": n,
+                     "mediane_$": int(a.median()) if len(a) else None,
+                     "moyenne_$": int(a.mean()) if len(a) else None,
+                     "P25_$": int(a.quantile(0.25)) if len(a) else None,
+                     "P75_$": int(a.quantile(0.75)) if len(a) else None,
+                     "P95_$": int(a.quantile(0.95)) if len(a) else None,
+                     "volume_total_M$": round(a.sum() / 1e6, 1)})
+    return pd.DataFrame(rows)
+
+
+def coverage_scorecard(df: pd.DataFrame) -> pd.DataFrame:
+    """Taux de remplissage des champs enrichis par sous-corpus (couverture = % renseigné)."""
+    cols = [("ticker", "ticker_%"), ("sector_gics", "secteur_%"), ("etf_proxy", "etf_proxy_%"),
+            ("committee_membership", "committee_%"), ("bioguide_id", "identite_%"),
+            ("years_in_office", "anciennete_%")]
+    rows = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        n = len(g)
+        if not n:
+            continue
+        row = {"corpus": corpus, "n": n}
+        for src, name in cols:
+            row[name] = _pct(int(_nonblank(g[src]).sum()), n)
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def quality_scorecard(df: pd.DataFrame) -> pd.DataFrame:
+    """Scorecard de qualité par sous-corpus : cohérence des dates, plausibilité OCR, montant renseigné."""
+    rows = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        n = len(g)
+        if not n:
+            continue
+        n_valid = int(g["lag_days"].notna().sum())
+        coher = _pct(int((g["lag_days"] >= 0).sum()), n_valid)
+        dc = g["date_confidence"].fillna("").astype(str).str.strip().str.lower()
+        has_dc = (dc != "") & (dc != "nan")
+        dplaus = "—" if int(has_dc.sum()) == 0 else _pct(int((dc == "plausible").sum()), int(has_dc.sum()))
+        ty = g["txn_year"]
+        impl = int(((ty > g["file_year"]) | (ty < 2012)).sum())
+        rows.append({"corpus": corpus, "n": n, "dates_coherentes_%": coher,
+                     "date_plausible_%": dplaus, "annee_implausible_n": impl,
+                     "montant_renseigne_%": _pct(int(g["amount_midpoint"].notna().sum()), n)})
+    return pd.DataFrame(rows)
+
+
+# ───────────────────────────── Concentration ─────────────────────────────
+def _gini(values) -> float:
+    """Coefficient de Gini ∈ [0, 1] sur des volumes positifs (0 = égalité, 1 = concentration extrême)."""
+    import numpy as np
+    a = np.sort(np.asarray([float(v) for v in values if pd.notna(v) and float(v) > 0]))
+    n = a.size
+    if n == 0 or a.sum() == 0:
+        return None
+    idx = np.arange(1, n + 1)
+    return round(float((2 * (idx * a).sum()) / (n * a.sum()) - (n + 1) / n), 3)
+
+
+def _hhi(values) -> float:
+    """Indice de Herfindahl-Hirschman ∈ [0, 10000] sur des volumes positifs."""
+    import numpy as np
+    a = np.asarray([float(v) for v in values if pd.notna(v) and float(v) > 0])
+    tot = a.sum()
+    if tot <= 0:
+        return None
+    return round(float(((a / tot) ** 2).sum() * 10000), 1)
+
+
+def concentration(df: pd.DataFrame, top_n: int = 15) -> dict:
+    """Concentration de l'activité : inégalité (HHI, Gini, top-10 %) par sous-corpus + top tickers /
+    secteurs par volume (global) + volumes par déposant (pour la courbe de Lorenz)."""
+    inq = []
+    for corpus in CORPUS_ORDER:
+        g = df[df["corpus"] == corpus]
+        if not len(g):
+            continue
+        vol = g.groupby("bioguide_id")["amount_midpoint"].sum()
+        vol = vol[vol > 0]
+        tot = float(vol.sum())
+        top10 = float(vol.sort_values(ascending=False).head(10).sum())
+        inq.append({"corpus": corpus, "n_deposants": int(vol.size),
+                    "HHI": _hhi(vol.values), "Gini": _gini(vol.values),
+                    "top10_volume_%": round(100 * top10 / tot, 1) if tot else None})
+
+    def _top(colname, label, k):
+        d = df[_nonblank(df[colname])]
+        t = d.groupby(colname)["amount_midpoint"].agg(["sum", "count"]).reset_index()
+        t["volume_M$"] = (t["sum"] / 1e6).round(1)
+        t = t.rename(columns={colname: label, "count": "n_trades"}).sort_values("sum", ascending=False).head(k)
+        return t[[label, "n_trades", "volume_M$"]].reset_index(drop=True)
+
+    filer_vol = df.groupby("bioguide_id")["amount_midpoint"].sum()
+    filer_vol = filer_vol[filer_vol > 0].sort_values()
+    return {"inequality": pd.DataFrame(inq),
+            "top_tickers": _top("ticker", "ticker", top_n),
+            "top_sectors": _top("sector_gics", "secteur", 11),
+            "filer_volumes": filer_vol}
+
+
+def house_ocr_cluster_profile(df: pd.DataFrame, repo_root: Path) -> pd.DataFrame:
+    """Profil des clusters de scan House OCR (A tapé droit / B tapé tourné / C manuscrit) : effectif,
+    plausibilité des dates, couverture ticker + qualité d'appariement Quiver (07h figé)."""
+    g = df[df["corpus"] == "House OCR"].copy()
+    census = repo_root / "data" / "house" / "tables" / "_scan_census_547.csv"
+    if not len(g) or not census.exists():
+        return pd.DataFrame()
+    cen = pd.read_csv(census, dtype=str)[["doc_id", "cluster"]]
+    g = g.merge(cen, on="doc_id", how="left")
+    rows = []
+    for cl in _HOUSE_CLUSTERS:
+        sub = g[g["cluster"] == cl]
+        n = len(sub)
+        if not n:
+            continue
+        dc = sub["date_confidence"].fillna("").astype(str).str.strip().str.lower()
+        rows.append({"cluster": cl, "n_lignes": n, "n_docs": int(sub["doc_id"].nunique()),
+                     "date_plausible_%": _pct(int((dc == "plausible").sum()), n),
+                     "ticker_%": _pct(int(_nonblank(sub["ticker"]).sum()), n)})
+    prof = pd.DataFrame(rows)
+    qc = quiver_validation(repo_root).get("by_cluster")
+    if qc is not None and len(qc):
+        prof = prof.merge(qc[["cluster", "quiver_a_le_trade_pct"]], on="cluster", how="left")
+    return prof
 
 
 # ───────────────────────────── Figures ─────────────────────────────
@@ -286,6 +596,68 @@ def _figures(df, coverage, outdir: Path) -> list:
     f4 = outdir / "top_deposants.png"; fig.tight_layout(); fig.savefig(f4, dpi=110); plt.close(fig)
     figs.append(f4)
 
+    # 5. Mix achat/vente par sous-corpus (barres empilées).
+    try:
+        om = (df.groupby(["corpus", "op"]).size().unstack("op").reindex(CORPUS_ORDER)
+                .reindex(columns=["buy", "sell", "exchange", "other"]).fillna(0))
+        omp = om.div(om.sum(axis=1), axis=0) * 100
+        fig, ax = plt.subplots(figsize=(8, 4))
+        omp.plot(kind="bar", stacked=True, ax=ax, color=["#2e8b57", "#c0392b", "#e67e22", "#7f8c8d"])
+        ax.set_ylabel("% des transactions"); ax.set_xlabel("")
+        ax.set_title("Mix achat/vente par sous-corpus")
+        ax.legend(["achat", "vente", "échange", "autre"], fontsize=8)
+        ax.set_xticklabels(omp.index, rotation=20, ha="right")
+        f5 = outdir / "mix_operations_par_corpus.png"; fig.tight_layout(); fig.savefig(f5, dpi=110); plt.close(fig)
+        figs.append(f5)
+    except Exception:
+        pass
+
+    # 6. Mix de types d'actifs par sous-corpus (barres empilées).
+    try:
+        cats = ["action", "option", "gov", "muni", "bond", "fonds", "autre", "manquant"]
+        ab = df.assign(_b=df["asset_type"].map(_asset_bucket))
+        am = (ab.groupby(["corpus", "_b"]).size().unstack("_b").reindex(CORPUS_ORDER)
+                .reindex(columns=cats, fill_value=0))
+        amp = am.div(am.sum(axis=1), axis=0) * 100
+        fig, ax = plt.subplots(figsize=(8.5, 4.5))
+        amp.plot(kind="bar", stacked=True, ax=ax, colormap="tab10")
+        ax.set_ylabel("% des transactions"); ax.set_xlabel("")
+        ax.set_title("Mix de types d'actifs par sous-corpus")
+        ax.legend(loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=8)
+        ax.set_xticklabels(amp.index, rotation=20, ha="right")
+        f6 = outdir / "mix_actifs_par_corpus.png"; fig.tight_layout(); fig.savefig(f6, dpi=110); plt.close(fig)
+        figs.append(f6)
+    except Exception:
+        pass
+
+    # 7. Volume déclaré par secteur GICS (top 12).
+    try:
+        sec = (df[_nonblank(df["sector_gics"])].groupby("sector_gics")["amount_midpoint"].sum()
+                 .sort_values().tail(12) / 1e6)
+        fig, ax = plt.subplots(figsize=(8, 4.5))
+        ax.barh(sec.index, sec.values, color="#2c7fb8")
+        ax.set_xlabel("Volume estimé (M$)"); ax.set_title("Volume déclaré par secteur GICS (top 12)")
+        f7 = outdir / "volume_par_secteur.png"; fig.tight_layout(); fig.savefig(f7, dpi=110); plt.close(fig)
+        figs.append(f7)
+    except Exception:
+        pass
+
+    # 8. Courbe de Lorenz du volume par déposant (concentration) + Gini.
+    try:
+        v = np.sort(df.groupby("bioguide_id")["amount_midpoint"].sum().values.astype(float))
+        v = v[v > 0]
+        cum = np.concatenate([[0], np.cumsum(v) / v.sum()])
+        x = np.concatenate([[0], np.arange(1, len(v) + 1) / len(v)])
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.plot(x, cum, color="#b9770e", lw=2, label=f"Lorenz (Gini = {_gini(v)})")
+        ax.plot([0, 1], [0, 1], color="gray", ls="--", label="égalité parfaite")
+        ax.set_xlabel("Part cumulée des déposants"); ax.set_ylabel("Part cumulée du volume")
+        ax.set_title("Concentration du volume par déposant"); ax.legend()
+        f8 = outdir / "concentration_lorenz.png"; fig.tight_layout(); fig.savefig(f8, dpi=110); plt.close(fig)
+        figs.append(f8)
+    except Exception:
+        pass
+
     return figs
 
 
@@ -332,8 +704,76 @@ def build_report(repo_root: Path) -> Path:
     parts.append(f"**Périmètre :** {n_total:,} transactions FINAL (House {n_house:,} + "
                  f"Sénat {n_senate:,}), années 2020–2026.\n".replace(",", " "))
 
+    # ════════ Décomposition par sous-corpus ════════
+    parts.append("\n## Décomposition par sous-corpus\n")
+    parts.append("\nLes déclarations proviennent de **quatre sous-corpus** très différents (chambre × "
+                 "voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et "
+                 "leur composition diffèrent.\n\n")
+    parts.append(_md_table(corpus_overview(df)))
+    parts.append("\n")
+
+    parts.append("\n### Couverture des champs enrichis (taux de remplissage)\n\n")
+    parts.append(_md_table(coverage_scorecard(df)))
+    parts.append("\n\n`identite_%` = part rattachée à un `bioguide_id` ; `ticker`/`secteur`/`etf_proxy` "
+                 "sont vides pour les actifs non cotés (légitime, pas un défaut).\n")
+
+    parts.append("\n### Scorecard de qualité\n\n")
+    parts.append(_md_table(quality_scorecard(df)))
+    parts.append("\n\n`date_plausible_%` (fenêtre 75 j) n'existe que pour les lignes OCR → « — » pour "
+                 "House électronique (pas de `date_confidence`). `amount_split_flag` est partout `False` "
+                 "(aucune fourchette éclatée).\n")
+
+    parts.append("\n### Mix par sous-corpus\n")
+    parts.append("\n**Sens des opérations :**\n\n")
+    parts.append(_md_table(operation_mix(df)))
+    parts.append("\n\n![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)\n")
+    parts.append("\n**Détenteur déclaré :**\n\n")
+    parts.append(_md_table(owner_mix(df)))
+    parts.append("\n\n**Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine "
+                 "l'OCR du Sénat) :\n\n")
+    parts.append(_md_table(asset_type_mix(df)))
+    parts.append("\n\n![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)\n")
+
+    parts.append("\n### Secteurs & sources de résolution\n\n")
+    parts.append(_md_table(sector_mix(df)))
+    sy = source_yield(df)
+    parts.append("\n\n**Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :\n\n")
+    parts.append(_md_table(sy["ticker"]))
+    parts.append("\n\n**Origine du secteur** (`sector_source`) :\n\n")
+    parts.append(_md_table(sy["sector"]))
+    parts.append("\n\n![Volume par secteur GICS](quality/volume_par_secteur.png)\n")
+
+    parts.append("\n### Montants par sous-corpus\n\n")
+    parts.append(_md_table(amount_stats_by_corpus(df)))
+    parts.append("\n")
+
+    parts.append("\n### Concentration de l'activité\n\n")
+    conc = concentration(df)
+    parts.append(_md_table(conc["inequality"]))
+    parts.append("\n\n`HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par "
+                 "déposant (plus c'est haut, plus quelques déposants dominent).\n")
+    parts.append("\n![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)\n")
+    parts.append("\n**Top tickers par volume estimé :**\n\n")
+    parts.append(_md_table(conc["top_tickers"]))
+    parts.append("\n\n**Volume par secteur GICS :**\n\n")
+    parts.append(_md_table(conc["top_sectors"]))
+    parts.append("\n")
+
+    prof = house_ocr_cluster_profile(df, repo_root)
+    if len(prof):
+        parts.append("\n### Profil des clusters de scan (House OCR)\n\n")
+        parts.append(_md_table(prof))
+        parts.append("\n\nA = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver "
+                     "(`quiver_a_le_trade_pct`) **chute** sur le manuscrit (≈35 %) alors qu'il reste élevé "
+                     "sur le tapé (≈78–88 %) : c'est notre lecture OCR des dates manuscrites qui décroche, "
+                     "pas la plausibilité interne (`date_plausible_%`, fenêtre 75 j, reste haute). D'où "
+                     "l'exclusion par défaut du cluster C.\n")
+
+    # ════════ (a) Cohérence des dates ════════
     parts.append("\n## (a) Cohérence des dates (`disclosure_date ≥ transaction_date`)\n")
     parts.append(_md_table(coh))
+    parts.append("\n\n**Par sous-corpus :**\n\n")
+    parts.append(_md_table(date_coherence(df, dim="corpus")))
     parts.append("\n\nLecture : `dates_parseables_pct` mesure les dates exploitables (le reste = "
                  "OCR papier illisible) ; `coherentes_pct` = part où la divulgation suit bien la "
                  "transaction. Les `incoherentes` sont surtout des divulgations amendées/antidatées "
@@ -342,8 +782,11 @@ def build_report(repo_root: Path) -> Path:
                  "dans les incohérentes. Des transactions 2013–2019 apparaissent légitimement "
                  "(divulgations très tardives).\n")
 
+    # ════════ (b) Délai légal ════════
     parts.append("\n## (b) Délai légal de divulgation (STOCK Act ~45 j)\n")
     parts.append(_md_table(delays))
+    parts.append("\n\n**Par sous-corpus :**\n\n")
+    parts.append(_md_table(delay_buckets(df, dim="corpus")))
     parts.append("\n\n![Délai de divulgation](quality/delai_divulgation.png)\n")
     parts.append("\nLe pipeline tolère une fenêtre de 75 j (`date_confidence`) ; le tableau isole "
                  "la part strictement dans les **45 j légaux** vs la marge 45–75 j vs les retards >75 j.\n")
@@ -352,16 +795,20 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(outliers))
         parts.append("\n")
 
+    # ════════ (c) Distribution des montants ════════
     parts.append("\n## (c) Distribution des montants (`amount_midpoint`)\n")
     parts.append("\nStats globales (USD, midpoint des fourchettes déclarées) :\n\n")
     parts.append("```\n" + amounts["overall"].round(0).to_string() + "\n```\n")
     parts.append("\nPar chambre :\n\n")
     parts.append("```\n" + amounts["by_chamber"].round(0).to_string() + "\n```\n")
+    parts.append("\nPar sous-corpus :\n\n")
+    parts.append("```\n" + amounts["by_corpus"].round(0).to_string() + "\n```\n")
     parts.append("\n![Distribution des montants](quality/distribution_montants.png)\n")
     parts.append("\n**Top 15 déposants par volume estimé (Σ midpoint) :**\n\n")
     parts.append(_md_table(amounts["top_volume"]))
     parts.append("\n")
 
+    # ════════ (d) Coverage par congressman ════════
     parts.append("\n## (d) Coverage par congressman\n")
     parts.append(f"\n{len(coverage)} déposants distincts. **{elig['n_eligibles']}** ont "
                  f"≥ {elig['min_trades']} transactions (éligibles au backtest), dont "
@@ -374,13 +821,16 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(cov_show))
     parts.append("\n")
 
+    # ════════ (e) Achats sans sortie déclarée ════════
     parts.append("\n## (e) Taux de transactions sans sortie déclarée\n")
     parts.append("\nAchats (avec ticker) sans vente ultérieure déclarée par le même membre sur le "
                  "même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.\n\n")
     parts.append(_md_table(unmatched))
+    parts.append("\n\n**Par sous-corpus :**\n\n")
+    parts.append(_md_table(unmatched_purchase_rate(df, dim="corpus")))
     parts.append("\n")
 
-    # ── (f) Validation externe Quiver ──
+    # ════════ (f) Validation externe Quiver ════════
     qv = quiver_validation(repo_root)
     parts.append("\n## (f) Validation externe Quiver (vérité-terrain — actions cotées)\n")
     parts.append("\nQuiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, "
