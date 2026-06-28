@@ -840,8 +840,8 @@ complètent le dépôt. Le secteur (\co{common/sector_enrich}) et la clé (\co{c
 15 & operation_type & Purchase / Sale / … & operation_type_from_code \\
 16 & amount_range & fourchette déclarée & parse / OCR \\
 17 & amount_midpoint & milieu de la fourchette & amount_midpoint \\
-18 & amount_split_flag & lot multi-actifs ? & finalize \\
-19 & owner & propriétaire (self/spouse…) & normalize \\
+18 & amount_split_flag & lot multi-actifs ? & parse \\
+19 & owner & propriétaire (self/spouse…) & parse / OCR \\
 20 & doc_id & identifiant du PTR & 03\_ptr\_index \\
 21 & source_url & URL de la source & 03\_ptr\_index \\
 22 & natural_key_hash & clé de dédup (7 champs) & schema \\
