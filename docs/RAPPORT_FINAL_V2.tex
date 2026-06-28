@@ -555,9 +555,9 @@ tous les déposants pèsent autant, \textbf{1} si un seul concentre tout le volu
 \textbf{98,7\,\%} du volume. La fiabilité des dates de l'OCR, enfin, est suivie à part par
 \co{date_confidence}~: une date est jugée \emph{plausible} si le délai dépôt$-$transaction tombe dans une
 fenêtre de \textbf{75~jours} (au-delà, c'est le signe d'une lecture OCR douteuse)~; \textbf{95,3\,\%} des
-lignes OCR de la Chambre le sont (détail par an en annexe~\ref{anx:metrics}, D.6). Le tableau résume les
+lignes OCR de la Chambre le sont (détail par cluster en annexe~\ref{anx:metrics}, D.4). Le tableau résume les
 quatre familles~; le détail (couverture, qualité, mix, concentration, clusters de scan) est en
-annexe~\ref{anx:metrics} (D.9--D.12).
+annexe~\ref{anx:metrics} (D.2--D.5).
 
 \begin{center}\small
 \begin{tabular}{l r rr r rr}
@@ -574,7 +574,7 @@ annexe~\ref{anx:metrics} (D.9--D.12).
 {\footnotesize \emph{Gini} et \emph{top-10\,\%} mesurent la \textbf{concentration} du volume entre
 déposants~: le Gini va de 0 (tous pèsent autant) à 1 (un seul capte tout)~; \emph{top-10\,\%} = part du
 volume détenue par les dix plus gros déposants du corpus. Couverture, qualité, mix et concentration par
-corpus en annexe~\ref{anx:metrics} (D.9--D.12).}
+corpus en annexe~\ref{anx:metrics} (D.2--D.5).}
 
 \begin{figure}[p]\centering
 \begin{subfigure}[t]{0.46\textwidth}\centering
@@ -665,7 +665,7 @@ rabaissent la couverture stricte à 68\,\%. Quiver \textbf{corrobore donc les tr
 mais ne « valide » pas l'OCR au sens fort~: la \textbf{date} en est la vraie limite, d'où l'exclusion du
 manuscrit (§\ref{sec:hocr}). Le résidu non apparié (\co{only_ours} 13\,067, \co{only_quiver} 8\,160, en
 actions) mêle nos dates fausses et de vrais écarts~: ni « pur bruit », ni « pure valeur ajoutée ». Le détail
-par cluster de scan est en annexe~\ref{anx:metrics} (D.12).
+par cluster de scan est en annexe~\ref{anx:metrics} (D.4).
 
 \textbf{Le papier du Sénat, lui, échappe à tout contrôle externe}~: ses déposants n'apparaissent pas chez
 Quiver (Blumenthal~: zéro ligne) et leur contenu est de toute façon massivement non coté (munis). Il ne se
@@ -859,17 +859,21 @@ Sénat)~; le contenu garanti — les 12 champs « métier » — est identique. 
 
 \subsection{Annexe D — métriques vérifiées (recalculées depuis les FINAL)}
 \label{anx:metrics}
-\textbf{Lue après le rapport, cette annexe dit si l'extraction a bien marché.} Tous les chiffres sont
-recomputés depuis les tables FINAL par \co{tests/regression/audit_metrics.py}, \co{common/quality.py} et
-les réconciliations Quiver figées (\co{07c--07h}).
+\textbf{Lue après le rapport, cette annexe dit si l'extraction a bien marché.} Chaque tableau indique sa
+\textbf{source}~: \textbf{[A]} chiffre \emph{asserté} par le filet de non-régression
+\co{tests/regression/audit_metrics.py} (un écart le fait échouer)~; \textbf{[Q]} recalculé par
+\co{common/quality.py} (descriptif)~; \textbf{[V]} lu des réconciliations \textbf{Quiver figées}
+(\co{07c}--\co{07h}, dans le golden)~; \textbf{[X]} \co{common/crosscheck.py}. La version exhaustive — toutes
+les années, tous les champs — est le rapport qualité \co{docs/RAPPORT_QUALITE.md}, dont cette annexe ne
+retient que l'essentiel.
 
-\textbf{D.1 — Volumes par an.}
+\textbf{D.1 — Volumes par an \& identité} \hfill {\footnotesize\textbf{[A]} totaux \& identité · \textbf{[Q]} ventilation par an}
 \begin{center}\small
 \begin{tabular}{l rrrr @{\hspace{1.4em}} rrrr}
 \toprule
 & \multicolumn{4}{c}{\bfseries\color{houseC}Chambre} & \multicolumn{4}{c}{\bfseries\color{senateC}Sénat}\\
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}
-\bfseries An & élec. & OCR & FINAL & dépos. & élec. & OCR & FINAL & sén.\\
+\bfseries An & élec. & OCR & FINAL & dépos. & élec. & OCR & FINAL & dépos.\\
 \midrule
 2020 & 6\,886 & 8\,791 & 15\,677 & 109 & 1\,706 & 255 & 1\,961 & 33 \\
 2021 & 5\,457 & 6\,816 & 12\,273 & 120 & 1\,098 & 281 & 1\,379 & 35 \\
@@ -883,148 +887,17 @@ les réconciliations Quiver figées (\co{07c--07h}).
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize $^\ast$ bioguides \emph{uniques} sur 7 ans (la somme annuelle compte un élu chaque année).}
+{\footnotesize \emph{élec.} = électronique~; \emph{dépos.} = \co{bioguide_id} \emph{uniques} sur 7 ans
+($^\ast$~total~; la colonne annuelle recompte un élu chaque année). \textbf{Assertés [A]} par
+\co{audit_metrics.py}~: les totaux, l'identité (\textbf{256} bioguides / 275 noms à la Chambre, \textbf{64} /
+67 au Sénat~; \textbf{4} / 0 lignes sans bioguide) et le golden octet-à-octet (\textbf{125} fichiers Chambre,
+\textbf{76} Sénat). \textbf{Total~: 90\,487 transactions.}}
 
-\textbf{D.2 — Couverture des champs enrichis, par an (\% renseigné).}
-\begin{center}\small
-\begin{tabular}{l rrrr @{\hspace{1.2em}} rrrr}
-\toprule
-& \multicolumn{4}{c}{\bfseries\color{houseC}Chambre} & \multicolumn{4}{c}{\bfseries\color{senateC}Sénat}\\
-\cmidrule(lr){2-5}\cmidrule(lr){6-9}
-\bfseries An & ticker & sect. & a.type & comm. & ticker & sect. & a.type & comm.\\
-\midrule
-2020 & 86,5 & 83,4 & 91,0 & 64,9 & 88,1 & 80,5 & 96,3 & 34,5 \\
-2021 & 87,3 & 85,8 & 90,1 & 78,7 & 80,9 & 70,1 & 94,2 & 54,3 \\
-2022 & 87,1 & 85,2 & 91,0 & 89,2 & 79,7 & 65,3 & 96,1 & 78,3 \\
-2023 & 78,9 & 76,6 & 88,6 & 96,8 & 77,7 & 69,5 & 96,3 & 71,4 \\
-2024 & 81,3 & 78,3 & 87,4 & 93,6 & 68,0 & 59,2 & 100 & 77,8 \\
-2025 & 87,8 & 86,3 & 94,8 & 97,6 & \textbf{45,4} & \textbf{37,2} & 100 & 84,9 \\
-2026 & 85,4 & 84,4 & 94,9 & 99,7 & \textbf{43,7} & \textbf{35,7} & 100 & 86,2 \\
-\midrule
-\bfseries Glob. & \bfseries 85,3 & \bfseries 83,2 & \bfseries 91,1 & \bfseries 86,6 & \bfseries 71,4 & \bfseries 62,1 & \bfseries 97,3 & \bfseries 65,6 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{D.3 — Les 6 contrôles qualité} (global).
-\begin{center}\small
-\begin{tabular}{p{8.4cm} r r}
-\toprule
-\bfseries Contrôle & \bfseries Chambre & \bfseries Sénat\\
-\midrule
-(a) dates cohérentes (\co{disclosure ≥ transaction}) & 99,8\,\% & 100,0\,\% \\
-(b) dépôts ≤ 45 j (délai médian 28 j) & 86,9\,\% & 84,9\,\% \\
-(c) montants — médiane / quartile haut & \multicolumn{2}{c}{8\,000\,\$ / 32\,500\,\$} \\
-(d) déposants (≥ 10 trades / ≥ 3 ans) & \multicolumn{2}{c}{320 (206 / 150)} \\
-(e) achats sans sortie déclarée & 22,5\,\% & 39,6\,\% \\
-(f) validation Quiver — scope « les deux » & 86,2\,\% & 99,4\,\% \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{D.4 — Validation Quiver par scope, par an} (couverture \% = trades Quiver retrouvés ;
-\co{common/quiver_scopes.py}).
-\begin{center}\small
-\begin{tabular}{l rrr @{\hspace{1.6em}} rrr}
-\toprule
-& \multicolumn{3}{c}{\bfseries\color{houseC}Chambre} & \multicolumn{3}{c}{\bfseries\color{senateC}Sénat}\\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-\bfseries An & élec. & OCR & les deux & élec. & OCR & les deux\\
-\midrule
-2020 & 99,7 & 61,3 & 85,1 & 99,4 & — & 99,4 \\
-2021 & 99,6 & 56,0 & 88,6 & 98,0 & — & 98,0 \\
-2022 & 98,2 & 68,5 & 80,9 & 99,4 & — & 99,4 \\
-2023 & 96,0 & 67,1 & 81,0 & 99,7 & 0,0 & 99,7 \\
-2024 & 92,0 & 78,8 & 85,8 & 99,6 & 0,0 & 99,6 \\
-2025 & 99,2 & 61,2 & 91,3 & 99,8 & — & 99,8 \\
-2026 & 98,6 & 85,3 & 90,6 & 100,0 & — & 100,0 \\
-\midrule
-\bfseries Glob. & \bfseries 98,2 & \bfseries 68,3 & \bfseries 86,2 & \bfseries 99,4 & \bfseries 0,0 & \bfseries 99,4 \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\footnotesize Le scope OCR du Sénat est « — » (Quiver ne possède aucun de ces trades~: ce sont surtout
-des munis non cotées). Le scope « les deux » est l'\emph{union dédupliquée}, pas la somme.}
-
-\textbf{D.5 — Décomposition Quiver par type d'actif et par cluster} (toutes années~; \co{07g}/\co{07h}).
-\begin{center}\small
-\begin{tabular}{l rrrr r}
-\toprule
-\bfseries Chambre — type d'actif & exact & date\,$\neq$ & no\_match & non\_equity & Quiver a\,\%\\
-\midrule
-Stock & 47\,475 & 9\,301 & 8\,105 & 2\,796 & \textbf{87,5} \\
-Mutual Fund & 130 & 92 & 715 & 575 & 23,7 \\
-Gov Security & 5 & 0 & 23 & 2\,259 & 17,9 \\
-\midrule
-\bfseries Cluster de scan & exact & date\,$\neq$ & no\_match & non\_equity & date juste\,\%\\
-\midrule
-A — tapé droit & 3\,784 & 630 & 600 & 943 & \textbf{85,7} \\
-B — tapé couché & 18\,558 & 8\,653 & 7\,706 & 7\,234 & \textbf{68,2} \\
-C — manuscrit & 100 & 169 & 493 & 100 & \textbf{37,2} \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\footnotesize \emph{Quiver a\,\%} = (exact + date\,$\neq$) / actions~; \emph{date juste\,\%} = exact /
-(exact + date\,$\neq$). Sénat~: les \co{Stock} sont couverts à 84,2\,\%~; l'OCR y est surtout du non-coté
-(Municipal Security, Corporate Bond) → hors périmètre Quiver.}
-
-\textbf{D.6 — Fiabilité des dates OCR (\co{date_confidence}, lignes OCR seulement).}
-\begin{center}\small
-\begin{tabular}{l rr @{\hspace{1.6em}} rr}
-\toprule
-& \multicolumn{2}{c}{\bfseries\color{houseC}Chambre (OCR)} & \multicolumn{2}{c}{\bfseries\color{senateC}Sénat (OCR)}\\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-\bfseries An & plausible\,\% & implausibles & plausible\,\% & implausibles\\
-\midrule
-2020 & 98,6 & 120 & 96,1 & 9 \\
-2021 & \textbf{79,6} & \textbf{1\,389} & 97,5 & 6 \\
-2022 & 96,4 & 394 & 99,5 & 0 \\
-2023 & 99,2 & 50 & 100,0 & 0 \\
-2024 & 96,5 & 220 & 97,6 & 0 \\
-2025 & 98,1 & 118 & 99,0 & 3 \\
-2026 & 100,0 & 0 & 99,7 & 0 \\
-\midrule
-\bfseries Tot. & \bfseries 95,3 & \bfseries 2\,291 & \bfseries 98,5 & \bfseries 18 \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\footnotesize Le creux 2021 Chambre est entièrement Diana Harshbarger (2 documents manuscrits denses).}
-
-\textbf{D.7 — Clusters OCR \& concentration.}
-\begin{center}\small
-\begin{tabular}{p{7.2cm} p{8.2cm}}
-\toprule
-\bfseries Clusters Chambre (census 547 scans) & \bfseries Concentration des déposants OCR\\
-\midrule
-A — tapé droit : 74 docs & Chambre : Khanna 30\,862 (62,9\,\%), McCaul 10\,876 (22,2\,\%),\\
-B — tapé couché : 322 docs & \quad Harshbarger 3\,514 (7,2\,\%) → top~3 = 92,4\,\%, top~10 = 99,0\,\%\\
-C — manuscrit : 151 docs (exclu) & Sénat : Blumenthal 1\,233 (73\,\%), Boozman 379, Burr 52,\\
- & \quad Feinstein 14, Fetterman 2\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\textbf{D.8 — Statut de validation par déposant (Chambre, \co{crosscheck}).}
-\begin{center}\small
-\begin{tabular}{l rrr}
-\toprule
-\bfseries Statut & \bfseries déposants & \bfseries transactions & \bfseries dont OCR\\
-\midrule
-\co{quiver_validable} (Quiver le couvre) & 212 & 78\,530 & 47\,004 \\
-\co{ocr_unique} (Quiver = 0, OCR $\geq$ 50\,\%) & 13 & 1\,957 & 1\,949 \\
-\co{digital} (peu / pas d'OCR) & 31 & 1\,155 & 13 \\
-\bottomrule
-\end{tabular}
-\end{center}
-{\footnotesize Identité~: Chambre 256 bioguides / 275 noms (99,99\,\%), Sénat 64 / 67 (100\,\%). Golden
-(zéro écart)~: \textbf{125} fichiers Chambre, \textbf{76} Sénat. \textbf{Total~: 90\,487 transactions},
-2020--2026.}
-
-\textbf{D.9 — Scorecard par sous-corpus.}
+\textbf{D.2 — Couverture \& qualité, par sous-corpus} \hfill {\footnotesize\textbf{[Q]}}
 \begin{center}\small
 \begin{tabular}{l r rrr r r}
 \toprule
-\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries comm.\,\% & \bfseries cohér.\,\% & \bfseries mont.\,\%\\
+\bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries secteur\,\% & \bfseries commissions\,\% & \bfseries dates cohér.\,\% & \bfseries montant\,\%\\
 \midrule
 {\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 74,7 & 99,9 & 100,0 \\
 {\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 94,5 & 99,7 & 98,2 \\
@@ -1033,18 +906,20 @@ C — manuscrit : 151 docs (exclu) & Sénat : Blumenthal 1\,233 (73\,\%), Boozma
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize \emph{cohér.\,\%} = part où \co{disclosure ≥ transaction}~; \emph{mont.\,\%} = montant
-renseigné. Identité (\co{bioguide_id}) et ancienneté (\co{years_in_office}) = 100\,\% partout~;
-\co{amount_split_flag} partout \co{False}. La plausibilité des dates OCR (\co{date_confidence}, par an et
-par chambre) est donnée à part en D.6.}
+{\footnotesize \emph{dates cohér.\,\%} = part où la divulgation suit la transaction (\co{disclosure ≥
+transaction})~; \emph{montant\,\%} = montant renseigné. Identité et ancienneté = 100\,\% partout. Les
+\textbf{six contrôles globaux} (§\ref{sec:qualite}) en bref~: délai médian \textbf{28~j} (≤45~j~: 86,9\,\%
+Chambre / 84,9\,\% Sénat)~; montant médian \textbf{8\,000\,\$} (quartile haut 32\,500\,\$)~; \textbf{206}
+déposants à ≥10 transactions, dont 150 sur ≥3 ans~; achats sans sortie déclarée 22,5\,\% / 39,6\,\%. Détail
+\textbf{par année} dans \co{RAPPORT_QUALITE.md}.}
 
-\textbf{D.10 — Mix par sous-corpus} (\% des transactions du corpus).
+\textbf{D.3 — Composition des transactions, par sous-corpus} \hfill {\footnotesize\textbf{[Q]} (\% du corpus)}
 \begin{center}\small
 \begin{tabular}{l rr @{\hspace{1.4em}} rrrr}
 \toprule
-& \multicolumn{2}{c}{\bfseries opération} & \multicolumn{4}{c}{\bfseries détenteur déclaré}\\
+& \multicolumn{2}{c}{\bfseries opération} & \multicolumn{4}{c}{\bfseries détenteur du compte}\\
 \cmidrule(lr){2-3}\cmidrule(lr){4-7}
-\bfseries Sous-corpus & achat & vente & perso & conjoint & joint & enfant\\
+\bfseries Sous-corpus & achat & vente & soi-même & conjoint & joint & enfant\\
 \midrule
 Chambre électronique & 49,7 & 49,7 & 51,9 & 19,7 & 26,2 & 2,2 \\
 Chambre OCR & 52,7 & 46,6 & 6,7 & 51,1 & 7,0 & 35,2 \\
@@ -1056,7 +931,7 @@ Sénat OCR & 54,0 & 45,8 & 26,8 & 73,0 & 0,1 & 0,1 \\
 \begin{center}\small
 \begin{tabular}{l rrrrrrrr}
 \toprule
-\bfseries Type d'actif (\%) & action & option & ob.État & muni & ob.corp & fonds & autre & manq.\\
+\bfseries Type d'actif (\%) & action & option & oblig. État & munis & oblig. corp. & fonds & autre & manquant\\
 \midrule
 Chambre électronique & 84,6 & 1,8 & 5,9 & 0,0 & 0,0 & 0,0 & 6,1 & 1,6 \\
 Chambre OCR & 81,7 & 0,0 & 0,8 & 0,0 & 0,1 & 3,1 & 0,6 & 13,8 \\
@@ -1065,38 +940,68 @@ Sénat OCR & 12,9 & 0,0 & 0,0 & 0,8 & 2,6 & 0,0 & 69,6 & 14,2 \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\footnotesize « munis » = obligations municipales~; « autre » et « manquant » = actifs non cotés ou non
+identifiés. Le Sénat OCR (≈87\,\% de non-coté) est ce qui le met hors de portée de Quiver (§\ref{sec:quiver}).}
 
-\textbf{D.11 — Concentration par sous-corpus.}
+\textbf{D.4 — Validation Quiver~: où ça coïncide, où ça coince} \hfill {\footnotesize\textbf{[V]} (\co{07g}/\co{07h}, toutes années)}
 \begin{center}\small
-\begin{tabular}{l rrr r}
+\begin{tabular}{l rrrr r}
 \toprule
-\bfseries Sous-corpus & \bfseries n dépos. & \bfseries HHI & \bfseries Gini & \bfseries top-10 vol.\,\%\\
+\bfseries Chambre — type d'actif & exact & date diff. & absent & non-coté & Quiver a\,\%\\
 \midrule
-Chambre électronique & 234 & 670,7 & 0,878 & 69,0 \\
-Chambre OCR & 40 & 2\,888,3 & 0,913 & 98,7 \\
-Sénat électronique & 61 & 1\,300,2 & 0,837 & 85,0 \\
-Sénat OCR & 5 & 6\,388,7 & 0,695 & 100,0 \\
+Stock (actions) & 47\,475 & 9\,301 & 8\,105 & 2\,796 & \textbf{87,5} \\
+Mutual Fund (fonds) & 130 & 92 & 715 & 575 & 23,7 \\
+Gov Security (oblig. État) & 5 & 0 & 23 & 2\,259 & 17,9 \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize \emph{HHI} $\in [0,\,10\,000]$, \emph{Gini} $\in [0,\,1]$, sur le volume par déposant. Top
-tickers par volume estimé~: MSFT 261,5~M\$, ICE 93,4, BRP 81,8, AAPL 80,7, MET 76,2.}
-
-\textbf{D.12 — Profil des clusters de scan (Chambre OCR).}
 \begin{center}\small
-\begin{tabular}{l rr rr r}
+\begin{tabular}{l rr rrr r}
 \toprule
-\bfseries Cluster & \bfseries n lignes & \bfseries n docs & \bfseries date pl.\,\% & \bfseries ticker\,\% & \bfseries Quiver a\,\%\\
+\bfseries Cluster (Chambre OCR) & n lignes & n docs & Quiver a\,\% & date exacte\,\% & date plaus.\,\% & ticker\,\%\\
 \midrule
-A — tapé droit & 5\,957 & 59 & 99,6 & 84,2 & 88,0 \\
-B — tapé couché & 42\,151 & 295 & 94,7 & 82,8 & 77,9 \\
-C — manuscrit & 862 & 81 & 97,4 & 88,4 & 35,3 \\
+A — tapé droit & 5\,957 & 59 & \textbf{88,0} & 85,7 & 99,6 & 84,2 \\
+B — tapé couché & 42\,151 & 295 & \textbf{77,9} & 68,2 & 94,7 & 82,8 \\
+C — manuscrit & 862 & 81 & \textbf{35,3} & 37,2 & 97,4 & 88,4 \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\footnotesize Complète D.7 (comptes de documents). \emph{Quiver a\,\%} = part des actions dont Quiver
-possède le trade (exact + date différente). La plausibilité interne reste haute même en manuscrit, mais
-l'appariement Quiver — donc la lecture de la \emph{date} — s'effondre (35,3\,\%) → cluster C exclu.}
+{\footnotesize \emph{exact} = même trade, même date~; \emph{date diff.} = bon trade, date OCR fausse~;
+\emph{absent} = pas chez Quiver~; \emph{non-coté} = hors périmètre Quiver. \emph{Quiver a\,\%} = (exact + date
+diff.) / actions~; \emph{date exacte\,\%} = exact / (exact + date diff.)~; \emph{date plaus.\,\%} = délai
+dépôt$-$transaction dans la fenêtre 75~j. Couverture stricte globale (§\ref{sec:quiver})~: électronique 98,2 /
+OCR 68,3 / les deux 86,2\,\% à la Chambre, 99,4\,\% au Sénat~; \textbf{par an et par scope} dans
+\co{RAPPORT_QUALITE.md}.}
+
+\textbf{D.5 — Concentration \& statut des déposants} \hfill {\footnotesize\textbf{[Q]} concentration · \textbf{[X]} statut}
+\begin{center}\small
+\begin{tabular}{l r rr r}
+\toprule
+\bfseries Sous-corpus & \bfseries n déposants & \bfseries HHI & \bfseries Gini & \bfseries top-10 du volume\,\%\\
+\midrule
+{\color{houseC}Chambre électronique} & 234 & 670,7 & 0,878 & 69,0 \\
+{\color{houseC}Chambre OCR} & 40 & 2\,888,3 & 0,913 & 98,7 \\
+{\color{senateC}Sénat électronique} & 61 & 1\,300,2 & 0,837 & 85,0 \\
+{\color{senateC}Sénat OCR} & 5 & 6\,388,7 & 0,695 & 100,0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{center}\small
+\begin{tabular}{l rrr}
+\toprule
+\bfseries Statut de validation (Chambre, \co{crosscheck}) & déposants & transactions & dont OCR\\
+\midrule
+Quiver les couvre & 212 & 78\,530 & 47\,004 \\
+OCR source unique (Quiver = 0, OCR ≥ 50\,\%) & 13 & 1\,957 & 1\,949 \\
+surtout électronique (peu / pas d'OCR) & 31 & 1\,155 & 13 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\footnotesize \emph{HHI} (indice de Herfindahl, $\in [0,\,10\,000]$) et \emph{Gini} ($\in [0,\,1]$) mesurent
+la concentration du volume entre déposants~: 0 = parts égales, maximum = un seul capte tout. Déposants-papier
+dominants~: Khanna \textbf{63,0\,\%} de l'OCR Chambre, McCaul 22,2\,\%, Harshbarger 7,2\,\% (top-3 92,4\,\%)~;
+au Sénat, Blumenthal ≈73\,\% du papier. Top tickers par volume estimé~: MSFT 261,5~M\$, ICE 93,4, AAPL 80,7.}
+
 
 \subsection{Annexe E — reproduire / lancer}
 \label{anx:run}
