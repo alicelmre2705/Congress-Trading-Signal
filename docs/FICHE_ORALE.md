@@ -26,14 +26,55 @@
 - Volumes : Chambre **32 676** électronique + **48 970** scannés ; Sénat **7 161** + **1 680**.
 - Point marquant : **la moitié des déclarations de la Chambre ne sont que des images** (scans) → d'où le recours à l'OCR.
 
-## 5. Le parcours d'une transaction (le pipeline)
-- **(1) Identité** : un nom libre (« Buddy Carter », « N. Pelosi »…) → un **identifiant officiel unique**. → **99,99 %** rattachées (Chambre), **100 %** (Sénat).
-- **(2) Extraction**, selon la forme :
-  - Texte (PDF lisibles, HTML) → **analyse déterministe**.
-  - Images (scans) → **OCR par Claude Vision**, avec **redressement** des pages couchées.
-- **(3) Enrichissement** : ticker → **secteur** (classification GICS, 11 secteurs) → **ETF** correspondant ; montant ramené au milieu de la fourchette ; ancienneté de l'élu.
-- **(4) Table finale homogène** : **12 champs « métier » garantis** sur les deux chambres.
-- **(5) Validation externe** contre Quiver.
+## 5. La construction de la donnée, étape par étape (LE CŒUR — ce qu'on présente en détail)
+
+*Fil rouge : à chaque étape → le **problème** concret, **comment** on le résout, le **résultat**.*
+
+### 5.1 — D'abord : qui a déclaré ? (résolution d'identité)
+- **Problème** : une déclaration ne donne qu'un **nom libre**, écrit différemment selon les dépôts (« Hon. Earl L. Carter » / « Buddy Carter » ; « N. Pelosi »). Sans clé stable, on compte un même élu plusieurs fois et on ne peut pas le rattacher à son parti/ses commissions.
+- **Comment** : on ramène chaque nom à l'**identifiant officiel unique** du membre (le même partout), via le référentiel des élus + un **matcher tolérant** (gère surnoms, accents, titres, et les homonymes au Sénat). Chaque chambre a son propre matcher, car les pièges diffèrent.
+- **Résultat** : **99,99 %** des lignes Chambre et **100 %** du Sénat rattachées. À la Chambre, **256 identifiants pour 275 graphies** = exactement les variantes d'un même élu, ramenées à une seule clé.
+
+### 5.2 — Ensuite : trier les formats (électronique ou scanné ?)
+- **Problème** : une déclaration est soit du **texte** (analysable directement), soit une **image** (à lire par OCR). Se tromper de piste = perdre des transactions ou gaspiller des appels d'API.
+- **Comment** : **Chambre** → on **ouvre chaque PDF** et on teste s'il a une couche de texte (lisible vs scanné). **Sénat** → le portail eFD **indique déjà** le type (page web vs papier).
+- C'est la **fourche** du pipeline ; elle fixe la composition finale (Chambre 32 676 élec + 48 970 scannés ; Sénat 7 161 + 1 680).
+
+### 5.3 — Piste Chambre électronique (PDF lisibles)
+- **Problème** : sur ces PDF, une transaction n'est pas un tableau propre — elle s'étale sur plusieurs lignes, le montant déborde, le ticker se cache entre parenthèses.
+- **Comment** : un **parsing déterministe** qui **reconstitue** chaque transaction (recolle les lignes coupées, repère le motif « opération + 2 dates + fourchette de montant », récupère ticker et libellé autour).
+- **Résultat** : **32 676** transactions, taux d'extraction **99–100 %**.
+
+### 5.4 — Piste Sénat électronique (pages HTML)
+- **Problème** : pas de PDF, mais des **tableaux web** dont l'intitulé et l'ordre des colonnes **changent** d'une déclaration à l'autre.
+- **Comment** : on lit les tableaux et on retrouve les bonnes colonnes par **appariement flou** (la colonne qui contient « ticker », ou « asset » + « name »…) — seule méthode robuste face à des en-têtes irréguliers.
+- **Résultat** : **7 161** transactions.
+
+### 5.5 — Piste Chambre scannée (OCR Claude Vision) — la plus difficile
+- **Problème** : l'autre moitié n'est que des **images**. Un recensement des **547 scans** distingue 3 familles : **tapé droit** (74 docs), **tapé mais couché** (322, le gros du volume), **manuscrit** (151).
+- **Comment** :
+  - **Redressement** : on montre la page sous 4 orientations et on fait **reconnaître** la bonne (plus fiable que de demander l'angle au modèle).
+  - **Lecture** : Claude Vision **lit ET structure** directement en transactions (réponse en format strict, mise en cache → un re-run ne re-paie rien).
+  - **Ticker** : absent des formulaires papier → **ré-associé** depuis les symboles vus en électronique, complété par un LLM.
+  - **Manuscrit (cluster C) exclu par défaut** : dates trop incertaines pour une stratégie datée.
+- **Résultat** : **48 970** lignes, très **concentrées** — Khanna **63 %** à lui seul, le top-3 (Khanna, McCaul, Harshbarger) **92 %** : de gros déposants qui déclarent **exclusivement sur papier**.
+
+### 5.6 — Piste Sénat papier (images .gif)
+- **Problème** : marginal (5 sénateurs) mais bien réel ; des images **droites** (pas besoin de redressement). Surtout : trop peu de données pour bâtir un dictionnaire de tickers année par année.
+- **Comment** : même moteur Vision ; et **enrichissement sur tout le corpus en une passe** (un symbole vu une année sert aux autres). C'est **la seule vraie asymétrie d'architecture**, justifiée par le faible volume.
+- **Résultat** : **1 680** lignes, surtout **Blumenthal (~73 %)**, massivement des **obligations municipales** (non cotées) → c'est ce qui explique la couverture plus basse du Sénat.
+
+### 5.7 — Donner un secteur à chaque ticker (GICS → ETF)
+- **Pourquoi** : la stratégie visée copie **secteur par secteur**, via des **ETF** (fonds cotés qui répliquent tout un secteur), pas action par action.
+- **Comment** : on classe chaque société dans l'un des **11 secteurs GICS**, puis on mappe **1:1** vers l'ETF correspondant. Le secteur est trouvé par une **cascade** (base factuelle → LLM si besoin → corrections manuelles), en gardant la trace de qui a tranché.
+- **À clarifier** : **« couverture » = taux de remplissage**, pas d'exactitude. Les actifs non cotés n'ont **ni ticker ni secteur par nature** — donc < 100 % est normal.
+- **Résultat** : secteur renseigné à **83 % (Chambre) / 62 % (Sénat)** ; ancienneté à **100 %**.
+
+### 5.8 — La table finale : le contrat « 12/12 »
+- **Ce qui assemble tout** : une **clé naturelle de 7 champs** qui exclut volontairement le ticker (ajouté après) et la date de divulgation (pour qu'un dépôt et son amendement restent **une** transaction).
+- **Déduplication non destructrice** : on retire les vrais doublons mais on **préserve les lots multi-comptes réels** (ex. Khanna déclarant plusieurs fois via plusieurs comptes).
+- **Le contrat** : **28 colonnes**, dont **12 champs « métier » garantis** identiques sur les deux chambres.
+- **Nuance d'honnêteté** : *« présent »* n'est pas *« sans valeur manquante »* — ticker/secteur vides pour le non-coté (légitime), commissions = **photo actuelle**, pas l'historique daté.
 
 ## 6. Les résultats clés (à retenir)
 - **90 487** transactions · 2 chambres · 7 ans.
