@@ -17,6 +17,7 @@
 \usepackage{titlesec}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{placeins}
 \usepackage{needspace}
 \usepackage{hyperref}
 \usepackage{underscore}
@@ -525,85 +526,41 @@ annexe~\ref{anx:metrics}.
 \section{Le rapport de qualité}
 \label{sec:qualite}
 
-Une table « pleine » n'est pas pour autant une table \emph{saine}~: ses dates peuvent être incohérentes, les
-délais légaux non respectés, son activité concentrée sur quelques déposants. \co{common/quality.py}
-(\co{build_report}) y répond par \textbf{six contrôles} et quatre figures de contrôle
-(figure~\ref{fig:qualite}), calculés en \textbf{lecture seule} des tables finales, sans aucun appel d'API
-(matplotlib en mode \co{Agg})~:
+Une table « pleine » n'est pas pour autant une table \emph{saine}~: ses dates peuvent être incohérentes,
+les délais légaux non respectés, son activité concentrée sur quelques déposants. \co{common/quality.py}
+(\co{build_report}) y répond en \textbf{lecture seule} des tables finales, sans aucun appel d'API
+(matplotlib en mode \co{Agg})~: il en tire \textbf{six contrôles}, une décomposition par
+\textbf{sous-corpus}, et les figures regroupées en fin de section (\ref{fig:qualite} et~\ref{fig:corpus}).
+\textbf{Sauf mention « par chambre » ou « par sous-corpus », tout porte sur l'ensemble des 90\,487
+transactions finales — électronique et OCR confondus, les deux chambres, 2020--2026.} Les quatre figures
+de contrôle agrègent ainsi tout le corpus (seule « transactions par an » est ventilée par chambre).
+
+Les \textbf{six contrôles} — (a), (b) et (e) donnés par chambre, (c) et (d) globaux, (f) renvoyée à la
+validation externe (§\ref{sec:quiver})~:
 \begin{itemize}[nosep,leftmargin=1.5em]
 \item \textbf{(a) Cohérence des dates} (\co{disclosure_date ≥ transaction_date})~: 99,8\,\% à la Chambre, 100,0\,\% au Sénat.
 \item \textbf{(b) Délai légal}~: 86,9\,\% (Chambre) et 84,9\,\% (Sénat) des dépôts dans les 45~jours prévus par le STOCK Act, pour un délai médian de \textbf{28~jours}.
 \item \textbf{(c) Distribution des montants}~: médiane à \textbf{8\,000\,\$}, quartile supérieur à \textbf{32\,500\,\$}.
 \item \textbf{(d) Couverture par membre}~: 320~déposants, dont \textbf{206} ayant déclaré au moins dix transactions et \textbf{150} actifs sur au moins trois années.
 \item \textbf{(e) Achats sans sortie déclarée}~: 22,5\,\% à la Chambre, 39,6\,\% au Sénat.
-\item \textbf{(f) Validation externe contre Quiver}, par scope — développée à la section suivante (§\ref{sec:quiver}), agrégée ici depuis les réconciliations figées (\co{07c}/\co{07g}/\co{07h}).
+\item \textbf{(f) Validation externe contre Quiver}, par scope — développée à la section suivante (§\ref{sec:quiver}), agrégée depuis les réconciliations figées (\co{07c}/\co{07g}/\co{07h}).
 \end{itemize}
 Le détail par an figure en annexe~\ref{anx:metrics}.
 
-\begin{figure}[htbp]\centering
-\begin{subfigure}[t]{0.48\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/delai_divulgation.png}
-  \caption{Délai \co{disclosure − transaction} (0--200~j)~; lignes 45~j (légal) / 75~j (fenêtre).}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/distribution_montants.png}
-  \caption{Distribution de \co{amount_midpoint} (échelle \co{log10}).}
-\end{subfigure}
-
-\vspace{0.7em}
-\begin{subfigure}[t]{0.48\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/transactions_par_an.png}
-  \caption{Transactions par année de transaction et par chambre.}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/top_deposants.png}
-  \caption{Top~12 déposants par nombre de transactions.}
-\end{subfigure}
-\caption{Les quatre contrôles graphiques de qualité, générés par \co{common/quality.py}
-(lecture seule, aucun appel API)~; la domination des déposants-papier (Khanna, McCaul) est visible en (d).}
-\label{fig:qualite}
-\end{figure}
-
-Le bilan global masque toutefois une dynamique. Au Sénat, la couverture en ticker chute à \textbf{45,4\,\%}
-en 2025 et \textbf{43,7\,\%} en 2026, contre environ 80\,\% les années précédentes, le secteur suivant la
-même pente. La cause n'est pas une dégradation de l'extraction mais une \textbf{composition d'actifs}~: la
-part d'obligations municipales — non cotées, donc légitimement sans ticker — y augmente fortement. La
-fiabilité des dates issues de l'OCR est, elle, suivie par la colonne \co{date_confidence}~: 95,3\,\% de
-dates jugées plausibles à la Chambre, le creux de 2021 (79,6\,\%) tenant entièrement aux deux documents
-manuscrits denses de Diana Harshbarger — une anomalie localisée, non systémique.
-
-Cette colonne repose sur une fenêtre de plausibilité de \textbf{75~jours}~: le STOCK Act vise environ
-45~jours, et l'on tolère cette marge pour absorber le bruit de lecture de l'OCR. C'est une heuristique
-appliquée aux seules lignes OCR, non une vérité-terrain — ce rôle revient à Quiver, objet de la section
-suivante.
-
-\subsection{La donnée vue par sous-corpus}
-\label{sec:corpus}
-Les contrôles ci-dessus agrègent par chambre, mais la matière se répartit en réalité en \textbf{quatre
-sous-corpus} — Chambre et Sénat, chacun en \emph{électronique} et en \emph{OCR papier} — dont la qualité
-et la \emph{composition} diffèrent nettement. \co{common/quality.py} décline donc l'essentiel par ces
-quatre familles (Chambre électronique 32\,676~; Chambre OCR 48\,970~; Sénat électronique 7\,161~; Sénat
-OCR 1\,680).
-
-\textbf{La couverture suit la composition d'actifs, pas la voie d'acquisition.} La part de ticker
-renseigné passe de \textbf{88,6\,\%} (Chambre électronique) à \textbf{33,2\,\%} (Sénat OCR). Ce n'est pas
-un défaut d'extraction~: le Sénat OCR est composé à \textbf{70\,\%} d'actifs « autres » non cotés et de
-14\,\% d'actifs non identifiables, pour seulement \textbf{13\,\%} d'actions — c'est précisément cette
-composition, et non le fait que ce soit du papier, qui explique que Quiver (qui ne suit que les actions)
-« ne voie pas » ce corpus (§\ref{sec:quiver}). À l'inverse, les deux corpus de la Chambre sont à plus de
-\textbf{81\,\%} d'actions.
-
-\textbf{Le type de détenteur change radicalement d'un corpus à l'autre.} L'électronique de la Chambre est
-surtout déclaré en compte propre (51,9\,\%) ou joint (26,2\,\%)~; l'OCR de la Chambre, lui, est dominé par
-les comptes \emph{conjoint} (51,1\,\%) et \emph{enfant à charge} (35,2\,\%) — reflet des gros
-déposants-papier (Khanna, McCaul, Harshbarger), qui déclarent l'essentiel via ces comptes.
-
-\textbf{La concentration est extrême, et croît avec le papier.} Le volume déclaré se concentre sur une
-poignée de déposants~: l'indice de Gini va de \textbf{0,88} (Chambre électronique, 234 déposants) à
-\textbf{0,91} pour l'OCR de la Chambre (40 déposants, dont le top-10 capte \textbf{98,7\,\%} du volume),
-tandis que le Sénat OCR ne compte que \textbf{5} déposants. Le tableau ci-dessous résume les quatre
-familles~; le détail complet (couverture, qualité, mix, concentration, clusters de scan) est en
-annexe~\ref{anx:metrics} (D.9–D.12).
+Le bilan global masque toutefois des écarts marqués entre les \textbf{quatre sous-corpus} — Chambre et
+Sénat, chacun en électronique et en OCR papier (Chambre électronique 32\,676~; Chambre OCR 48\,970~; Sénat
+électronique 7\,161~; Sénat OCR 1\,680). D'abord, la \textbf{couverture suit la composition d'actifs}, pas
+la voie d'acquisition~: la part de ticker renseigné tombe de \textbf{88,6\,\%} (Chambre électronique) à
+\textbf{33,2\,\%} (Sénat OCR), simplement parce que le Sénat OCR ne compte que \textbf{13\,\%} d'actions
+(le reste étant du non-coté ou du non identifié) — c'est cette composition, et non le papier, qui explique
+que Quiver « ne voie pas » ce corpus (§\ref{sec:quiver}). C'est elle aussi qui fait baisser la couverture
+du Sénat en 2025--26 (montée des obligations municipales), sans dégradation de l'extraction. Ensuite, la
+\textbf{concentration} du volume est extrême et croît avec le papier~: l'indice de Gini va de \textbf{0,88}
+(Chambre électronique) à \textbf{0,91} pour l'OCR de la Chambre, dont les dix premiers déposants captent
+\textbf{98,7\,\%} du volume. La fiabilité des dates OCR, enfin, est suivie à part par \co{date_confidence}
+(95,3\,\% de dates plausibles à la Chambre, fenêtre de 75~jours, lignes OCR seulement). Le tableau résume
+les quatre familles~; le détail (couverture, qualité, mix, concentration, clusters de scan) est en
+annexe~\ref{anx:metrics} (D.9--D.12).
 
 \begin{center}\small
 \begin{tabular}{l r rr r r rr}
@@ -619,31 +576,58 @@ annexe~\ref{anx:metrics} (D.9–D.12).
 \end{center}
 {\footnotesize \emph{date pl.\,\%} = part des dates OCR jugées plausibles (fenêtre 75~j)~; « — » pour la
 Chambre électronique (pas d'OCR). \emph{top-10\,\%} = part du volume détenue par les 10 plus gros
-déposants du corpus.}
+déposants du corpus. Couverture/qualité/mix/concentration par corpus en annexe~\ref{anx:metrics}.}
+
+\begin{figure}[htbp]\centering
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/delai_divulgation.png}
+  \caption{Délai \co{disclosure − transaction} (0--200~j)~; lignes 45~j (légal) / 75~j (fenêtre).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/distribution_montants.png}
+  \caption{Distribution de \co{amount_midpoint} (échelle \co{log10}).}
+\end{subfigure}
+
+\vspace{0.7em}
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/transactions_par_an.png}
+  \caption{Transactions par année et par chambre.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}\centering
+  \includegraphics[width=\linewidth]{quality/top_deposants.png}
+  \caption{Top~12 déposants par nombre de transactions.}
+\end{subfigure}
+\caption{\textbf{Quatre vues d'ensemble}, sur les 90\,487 transactions finales (électronique et OCR
+confondus, les deux chambres, 2020--2026)~; seule (c) est ventilée par chambre. Générées par
+\co{common/quality.py} (lecture seule, aucun appel API).}
+\label{fig:qualite}
+\end{figure}
 
 \begin{figure}[htbp]\centering
 \begin{subfigure}[t]{0.48\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/mix_operations_par_corpus.png}
-  \caption{Sens des opérations (achat / vente) par sous-corpus.}
+  \caption{Sens des opérations, \emph{par sous-corpus}.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/mix_actifs_par_corpus.png}
-  \caption{Mix de types d'actifs par sous-corpus.}
+  \caption{Mix de types d'actifs, \emph{par sous-corpus}.}
 \end{subfigure}
 
 \vspace{0.7em}
 \begin{subfigure}[t]{0.48\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/volume_par_secteur.png}
-  \caption{Volume déclaré par secteur GICS (top 12).}
+  \caption{Volume déclaré par secteur GICS (top 12, ensemble).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.48\textwidth}\centering
   \includegraphics[width=\linewidth]{quality/concentration_lorenz.png}
-  \caption{Concentration du volume par déposant (Lorenz, Gini).}
+  \caption{Concentration du volume par déposant (Lorenz, Gini~; ensemble).}
 \end{subfigure}
-\caption{Décomposition par sous-corpus, générée par \co{common/quality.py} (lecture seule)~: le Sénat OCR
-est dominé par le non-coté (b) et le volume est fortement concentré (d).}
+\caption{\textbf{Décomposition} : (a, b) ventilées par sous-corpus~; (c) volume par secteur et
+(d) concentration du volume, sur l'ensemble du corpus. Générées par \co{common/quality.py} (lecture seule).}
 \label{fig:corpus}
 \end{figure}
+
+\FloatBarrier
 
 % ============================ 6. QUIVER ============================
 \section{La validation externe (Quiver)}
