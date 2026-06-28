@@ -202,18 +202,16 @@ moteur OCR forment leurs propres modules (\co{fusion.py}, \co{ocr_engine.py}) l�
 fourchette. La fusion séparée du Sénat, elle, tient au \textbf{volume}~: l'enrichissement y passe sur
 \emph{tout} le corpus en une fois (§\ref{sec:socr}), quand la Chambre traite année par année.
 
-\subsection{Le flux de bout en bout (le schéma à lire en premier)}
+\subsection{Le flux de bout en bout}
 \label{sec:pipeline}
-Le schéma ci-dessous se lit \textbf{en premier}~: il montre, de bout en bout, comment une déclaration
-devient une ligne de la table finale. En haut, les \textbf{deux sources} (Chambre des représentants
-\emph{vs} Sénat)~; au milieu, la \textbf{fourche électronique / scanné} qui oriente chaque document vers
-son extraction~; en bas, le \textbf{tronc commun} partagé par les deux chambres — identité,
-enrichissement, table finale, validation. L'orchestration est tenue par \co{common/pipeline.py}
-(\co{build_steps})~: \textbf{6 étapes} en sous-processus, suivies d'un \textbf{rapport qualité} hors-ligne,
-en lecture seule (\co{common/quality.py}).
 
 \begin{center}
 \begin{tikzpicture}[every node/.style={font=\footnotesize}, node distance=4mm]
+% --- Étiquettes de bandes (bord gauche) ---
+\node[font=\scriptsize\bfseries, text=gray!55, rotate=90] at (-7.9,0) {Acquisition};
+\node[font=\scriptsize\bfseries, text=gray!55, rotate=90] at (-7.9,-1.9) {Tri};
+\node[font=\scriptsize\bfseries, text=gray!55, rotate=90] at (-7.9,-4.5) {Extraction};
+\node[font=\scriptsize\bfseries, text=gray!55, rotate=90] at (-7.9,-9.5) {Tronc commun partagé};
 % --- Acquisition (2 sources) ---
 \node[step=dataC, fill=dataC!10, text width=5.4cm] (acqH) at (-4.0,0)
   {\textbf{\color{houseC}Chambre des représentants}\\[1pt]\footnotesize \emph{House Clerk} → index XML → PDF};
@@ -226,10 +224,10 @@ en lecture seule (\co{common/quality.py}).
 \node[step=senateC, text width=3.0cm] (sgif) at (6.0,-1.9) {\textbf{image papier}\\\footnotesize \co{.gif}, déjà droite};
 \node[file, text width=2.8cm, fill=gray!12, draw=testC] (hC) at (-2.6,-3.3) {\footnotesize scan manuscrit → exclu par défaut};
 % --- Extraction : une phrase de ce qui se passe ---
-\node[step=houseC, text width=3.0cm] (hpar) at (-6.0,-4.3) {\textbf{parsing déterministe}\\\footnotesize chaque transaction repérée dans le texte};
-\node[step=houseC, text width=3.0cm] (hvis) at (-2.6,-4.9) {\textbf{OCR Claude Vision}\\\footnotesize redressée, lue en JSON};
-\node[step=senateC, text width=3.0cm] (spar) at (2.6,-4.3) {\textbf{lecture des tableaux}\\\footnotesize colonnes par appariement flou};
-\node[step=senateC, text width=3.0cm] (svis) at (6.0,-4.3) {\textbf{OCR Claude Vision}\\\footnotesize image déjà droite};
+\node[step=houseC, text width=3.0cm] (hpar) at (-6.0,-4.3) {\textbf{parsing déterministe}\\\footnotesize chaque transaction repérée dans le texte\\[1pt]\textbf{\color{houseC}32\,676}};
+\node[step=houseC, text width=3.0cm] (hvis) at (-2.6,-5.0) {\textbf{OCR Claude Vision}\\\footnotesize redressée, lue en JSON\\[1pt]\textbf{\color{houseC}48\,970}};
+\node[step=senateC, text width=3.0cm] (spar) at (2.6,-4.3) {\textbf{lecture des tableaux}\\\footnotesize colonnes par appariement flou\\[1pt]\textbf{\color{senateC}7\,161}};
+\node[step=senateC, text width=3.0cm] (svis) at (6.0,-4.3) {\textbf{OCR Claude Vision}\\\footnotesize image déjà droite\\[1pt]\textbf{\color{senateC}1\,680}};
 % --- Convergence : la clé naturelle ---
 \node[step=coreC, fill=coreC!12, text width=12.6cm] (conv) at (0,-6.6)
   {\textbf{lignes normalisées} — déclarant, \co{transaction_date}, \co{disclosure_date}, \co{asset_description}, \co{operation_type}, \co{amount_range}, \co{owner} \emph{(les 7 champs de la clé naturelle)}};
@@ -239,9 +237,13 @@ en lecture seule (\co{common/quality.py}).
 \node[step=coreC, text width=12.6cm] (enr) at (0,-9.4)
   {\textbf{enrichissement} — ticker (explicite → dictionnaire → LLM) · secteur \textbf{GICS → ETF SPDR} · montant ramené à son \emph{milieu} · ancienneté};
 \node[file, text width=12.6cm, fill=houseC!10, draw=coreC, line width=1pt] (fin) at (0,-10.7)
-  {\textbf{TABLE FINALE} — \co{06_\{ch\}_\{an\}_FINAL.csv} · 28 colonnes · \textbf{contrat 12 champs métier}};
+  {\textbf{TABLE FINALE} — \textbf{90\,487 transactions} · \co{06_\{ch\}_\{an\}_FINAL.csv} · 28 colonnes · \textbf{contrat 12 champs métier}};
 \node[step=netC, fill=netC!8, text width=12.6cm] (val) at (0,-12.0)
   {\textbf{validation Quiver} — par \emph{scope} (électronique / OCR / les deux), \textbf{jamais réinjectée}};
+% --- Bandeau méta : annotation portant sur tout le pipeline (pas une étape de flux) ---
+\node[draw=gray!50, dashed, rounded corners=2pt, fill=gray!6, text width=12.4cm, align=center,
+      font=\scriptsize, inner sep=4pt] (meta) at (0,-13.4)
+  {\textbf{Orchestré} par \co{common.pipeline} (6 étapes en sous-processus) · \textbf{figé} par un golden octet-à-octet · \textbf{rapport qualité} (6 contrôles, lecture seule)};
 % --- arrows ---
 \draw[arr] (acqH) -- (hpdf); \draw[arr] (acqH) -- (hscan);
 \draw[arr] (acqS) -- (shtml); \draw[arr] (acqS) -- (sgif);
@@ -252,8 +254,6 @@ en lecture seule (\co{common/quality.py}).
 \draw[arr] (spar) |- (conv); \draw[arr] (svis) |- (conv);
 \draw[arr] (conv) -- (ident); \draw[arr] (ident) -- (enr); \draw[arr] (enr) -- (fin); \draw[arr] (fin) -- (val);
 \end{tikzpicture}
-
-{\footnotesize\emph{De haut en bas~: acquisition (deux sources) · tri puis extraction (quatre pistes, une par forme de document) · tronc commun partagé (identité → enrichissement → table finale → validation).}}
 \end{center}
 
 \subsection{À quoi ressemble la donnée}
