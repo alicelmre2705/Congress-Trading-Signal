@@ -1,10 +1,10 @@
-# Fiche de présentation orale — Congress Trading Signal · la couche données
+# Fiche récapitulative — Congress Trading Signal · la couche données
 
-*Support de présentation : vision d'ensemble + résultats clés. Le détail technique est dans le rapport.*
+*Résumé explicatif du projet : vision d'ensemble et résultats clés, sans le détail des fonctions. Le détail technique complet est dans le rapport.*
 
 ---
 
-## 1. Le problème (l'accroche)
+## 1. Le problème
 - Depuis le **STOCK Act (2012)**, les membres du Congrès américain doivent **déclarer publiquement** leurs transactions boursières, en principe sous **45 jours** (rapports appelés *PTR*).
 - Hypothèse de recherche (littérature : Ziobrowski, Karadas) : par leur position (commissions clés, accès à l'information), ces déclarations pourraient contenir un **signal exploitable**.
 - L'idée à terme : une stratégie de **copy-trading** qui réplique ces trades **après** leur publication (jamais avant — principe *anti-look-ahead*).
@@ -26,9 +26,9 @@
 - Volumes : Chambre **32 676** électronique + **48 970** scannés ; Sénat **7 161** + **1 680**.
 - Point marquant : **la moitié des déclarations de la Chambre ne sont que des images** (scans) → d'où le recours à l'OCR.
 
-## 5. La construction de la donnée, étape par étape (LE CŒUR — ce qu'on présente en détail)
+## 5. La construction de la donnée, étape par étape
 
-*Fil rouge : à chaque étape → le **problème** concret, **comment** on le résout, le **résultat**.*
+*Pour chaque étape : le **problème** concret, **comment** on le résout, le **résultat**.*
 
 ### 5.1 — D'abord : qui a déclaré ? (résolution d'identité)
 - **Problème** : une déclaration ne donne qu'un **nom libre**, écrit différemment selon les dépôts (« Hon. Earl L. Carter » / « Buddy Carter » ; « N. Pelosi »). Sans clé stable, on compte un même élu plusieurs fois et on ne peut pas le rattacher à son parti/ses commissions.
@@ -50,7 +50,7 @@
 - **Comment** : on lit les tableaux et on retrouve les bonnes colonnes par **appariement flou** (la colonne qui contient « ticker », ou « asset » + « name »…) — seule méthode robuste face à des en-têtes irréguliers.
 - **Résultat** : **7 161** transactions.
 
-### 5.5 — Piste Chambre scannée (OCR Claude Vision) — la plus difficile
+### 5.5 — Piste Chambre scannée (OCR Claude Vision)
 - **Problème** : l'autre moitié n'est que des **images**. Un recensement des **547 scans** distingue 3 familles : **tapé droit** (74 docs), **tapé mais couché** (322, le gros du volume), **manuscrit** (151).
 - **Comment** :
   - **Redressement** : on montre la page sous 4 orientations et on fait **reconnaître** la bonne (plus fiable que de demander l'angle au modèle).
@@ -67,7 +67,7 @@
 ### 5.7 — Donner un secteur à chaque ticker (GICS → ETF)
 - **Pourquoi** : la stratégie visée copie **secteur par secteur**, via des **ETF** (fonds cotés qui répliquent tout un secteur), pas action par action.
 - **Comment** : on classe chaque société dans l'un des **11 secteurs GICS**, puis on mappe **1:1** vers l'ETF correspondant. Le secteur est trouvé par une **cascade** (base factuelle → LLM si besoin → corrections manuelles), en gardant la trace de qui a tranché.
-- **À clarifier** : **« couverture » = taux de remplissage**, pas d'exactitude. Les actifs non cotés n'ont **ni ticker ni secteur par nature** — donc < 100 % est normal.
+- **Précision** : **« couverture » = taux de remplissage**, pas d'exactitude. Les actifs non cotés n'ont **ni ticker ni secteur par nature** — donc < 100 % est normal.
 - **Résultat** : secteur renseigné à **83 % (Chambre) / 62 % (Sénat)** ; ancienneté à **100 %**.
 
 ### 5.8 — La table finale : le contrat « 12/12 »
@@ -76,13 +76,13 @@
 - **Le contrat** : **28 colonnes**, dont **12 champs « métier » garantis** identiques sur les deux chambres.
 - **Nuance d'honnêteté** : *« présent »* n'est pas *« sans valeur manquante »* — ticker/secteur vides pour le non-coté (légitime), commissions = **photo actuelle**, pas l'historique daté.
 
-## 6. Les résultats clés (à retenir)
+## 6. Les résultats clés
 - **90 487** transactions · 2 chambres · 7 ans.
 - **Identité : 99,99 % / 100 %** rattachées.
 - Couverture **ticker** ≈ 85 % (Chambre) / 71 % (Sénat) ; **secteur** ≈ 83 % / 62 %.
 - Les « trous » de couverture sont surtout des **actifs non cotés** (obligations, *munis*) qui n'ont **légitimement pas** de ticker — pas un défaut.
 
-## 7. La validation Quiver (le point subtil — à bien expliquer)
+## 7. La validation Quiver
 - On compare **au niveau transaction**, par **scope** : électronique seul / OCR seul / les deux.
 - **Limite clé** : Quiver **ne suit que les ACTIONS cotées**. Le non-coté (munis, obligations) est **hors de son périmètre** → ni validable, ni une erreur.
 - **Électronique : quasi parfait (98–99 %)** → confirme que l'analyse de texte est fiable.
@@ -92,13 +92,13 @@
   - → Quiver **corrobore les trades tapés** ; notre vrai point faible est la **lecture des dates manuscrites** (d'où l'exclusion du manuscrit).
 - **Sénat papier** : pas de contrôle externe possible (Quiver n'a pas ces déposants, et c'est surtout du non-coté).
 
-## 8. Qualité & reproductibilité (la rigueur)
+## 8. Qualité & reproductibilité
 - Un **rapport de qualité automatique** (6 contrôles : cohérence des dates, délais légaux, montants, concentration, etc.).
 - **Reproductibilité** : le pipeline n'est pas rejouable hors-ligne, donc on prouve la justesse autrement :
   - **« Golden »** : empreinte exacte de **toutes** les sorties (**125** fichiers Chambre, **76** Sénat) → toute modif involontaire est détectée.
   - Reproductions **fonction par fonction** + un audit qui **asserte les invariants** (totaux, identité).
 
-## 9. Les limites assumées (l'honnêteté)
+## 9. Les limites assumées
 - **Manuscrit exclu** par défaut : lecture des dates trop incertaine.
 - **Pas de ticker/secteur** pour les actifs non cotés (par nature).
 - **Commissions** = photo actuelle, pas l'historique daté.
@@ -107,18 +107,3 @@
 ## 10. Conclusion & suite
 - Une couche de données **complète, identifiée, enrichie, validée honnêtement et reproductible** — sur laquelle une stratégie peut être bâtie **en connaissant ses limites**.
 - **Suite (hors de ce livrable)** : la **stratégie et le backtest** (copy-trading actions, puis ETF sectoriels) — phases S3–S4.
-
----
-
-## Phrases-chocs à placer (si besoin)
-- « 90 487 transactions, deux chambres, sept ans. »
-- « Le vrai défi : la moitié des déclarations ne sont que des images. »
-- « On valide contre Quiver, mais on ne le réinjecte jamais. »
-- « Notre seule vraie limite, ce sont les dates manuscrites. »
-- « Tout est figé et reproductible à l'octet près. »
-
-## Si on me pose la question…
-- **« Pourquoi un LLM (Claude Vision) et pas un OCR classique ? »** → formulaires couchés, manuscrits, cases à cocher : il faut *lire* ET *structurer* d'un coup ; un OCR classique rend du texte brut sans structure.
-- **« Comment vous savez que c'est juste ? »** → électronique validé à 98–99 % par Quiver ; OCR corroboré sur les actions ; et tout est figé/reproductible (golden).
-- **« Pourquoi la couverture du Sénat baisse en 2025–26 ? »** → composition : plus d'obligations municipales (non cotées, donc sans ticker) ; ce n'est pas une dégradation.
-- **« Quiver ne fausse pas la validation ? »** → non : on ne le réinjecte jamais, c'est seulement un point de comparaison externe.
