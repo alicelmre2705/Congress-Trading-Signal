@@ -1,7 +1,12 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[utf8]{inputenc}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}        % XeTeX/LuaTeX (ex. tectonic) : UTF-8 natif, guillemets « » corrects
+\fi
 \usepackage[french]{babel}
 \usepackage[a4paper,margin=2.2cm]{geometry}
 \usepackage{amsmath,amssymb}
@@ -211,6 +216,8 @@ des centaines de trades \emph{corrélés} ; le $t$ honnête se calcule sur \emph
 \section{Résultats}\label{sec:res}
 
 \subsection{Profil des données}
+Avant tout backtest, on profile le flux déclaré --- qui fait quoi, à quelle vitesse c'est divulgué, combien de
+temps c'est détenu --- et on mesure d'emblée ce qui limitera toute la suite :
 \begin{center}\small
 \begin{tabular}{lll}
 \toprule
@@ -223,24 +230,37 @@ Couverture prix & $2\,171/3\,797$ tickers & $1\,626$ délistés absents = \textb
 \bottomrule
 \end{tabular}
 \end{center}
-L'edge éventuel \emph{à la date du trade} n'est pas exploitable : le suiveur n'agit qu'à la divulgation,
-$\sim$28~jours plus tard.
+L'edge éventuel \emph{à la date du trade} n'est pas exploitable par un suiveur, qui n'agit qu'à la divulgation
+(\code{filed}), $\sim$28~jours plus tard. \textbf{Mais le retard n'est pas le seul frein} : le rendement
+anormal de la \emph{fenêtre secrète} \code{traded}\,$\to$\,\code{filed} --- ce que le membre détient en privé
+avant le public --- n'est en moyenne que de \textbf{$+0{,}01\,\%$} (médiane $-0{,}19\,\%$, $48\,\%$ de gagnants,
+$n\approx 45\,800$). \emph{Même au moment du trade}, il n'y a donc quasi rien à voler : ce n'est pas seulement
+qu'on arrive trop tard, c'est qu'il n'y a presque pas d'avance --- ce que confirme la vue
+\code{traded}/\code{filed} de l'étude d'événement ci-dessous.
 
 \subsection{Y a-t-il un signal brut ? (étude d'événement)}
-Rendement anormal des achats (CAR vs SPY) par horizon :
+Pour chaque achat, on mesure le \textbf{rendement anormal cumulé} (CAR) : le rendement du titre sur l'horizon
+\emph{moins} celui de SPY sur les mêmes dates --- « ce trade a-t-il battu le marché ? ». On le calcule à
+\textbf{deux entrées} : à la \textbf{divulgation} (\code{filed}, la vue du \emph{suiveur}) \emph{et} à la
+\textbf{date du trade} (\code{traded}, la vue du \emph{membre}). Lecture : moyenne, médiane, \% de gagnants,
+asymétrie.
 \begin{center}\small
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrcccc}
 \toprule
-Horizon & $n$ & Moyenne & Médiane & \% $>0$ & Asymétrie \\
+ & & \multicolumn{3}{c}{\code{traded} (eux) $/$ \code{filed} (nous)} & \\
+\cmidrule(lr){3-5}
+Horizon & $n$ & Moyenne & Médiane & \% $>0$ & Asym. \\
 \midrule
-1 mois  & $46\,619$ & $+0{,}1\,\%$ & $-0{,}2\,\%$ & $48{,}2\,\%$ & $3{,}1$ \\
-3 mois  & $45\,827$ & $-0{,}4\,\%$ & $-0{,}9\,\%$ & $46{,}6\,\%$ & $5{,}8$ \\
-6 mois  & $44\,494$ & $-0{,}6\,\%$ & $-1{,}7\,\%$ & $45{,}7\,\%$ & $7{,}7$ \\
-\textbf{12 mois} & $40\,832$ & $\mathbf{+0{,}54\,\%}$ & $\mathbf{-3{,}70\,\%}$ & $\mathbf{43{,}9\,\%}$ & $\mathbf{17{,}3}$ \\
+1 mois  & $46\,619$ & $-0{,}12 / +0{,}09\,\%$ & $-0{,}23 / -0{,}23\,\%$ & $48{,}2 / 48{,}2$ & $3{,}1$ \\
+3 mois  & $45\,827$ & $-0{,}33 / -0{,}36\,\%$ & $-0{,}88 / -0{,}88\,\%$ & $46{,}6 / 46{,}6$ & $5{,}8$ \\
+6 mois  & $44\,494$ & $-0{,}62 / -0{,}58\,\%$ & $-1{,}82 / -1{,}67\,\%$ & $45{,}6 / 45{,}7$ & $7{,}7$ \\
+\textbf{12 mois} & $40\,832$ & $\mathbf{+0{,}39 / +0{,}54\,\%}$ & $\mathbf{-4{,}06 / -3{,}70\,\%}$ & $\mathbf{43{,}8 / 43{,}9}$ & $\mathbf{17{,}3}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-À 12~mois, la moyenne est légèrement positive ($+0{,}54\,\%$) \textbf{mais la médiane est négative}
+Les deux entrées coïncident à moins de $0{,}2$~pt par horizon : \textbf{le retard de divulgation n'est pas la
+cause} --- le signal directionnel est faible \emph{à la source}, ce que confirmait déjà la fenêtre secrète
+mesurée plus haut. À 12~mois, la moyenne est légèrement positive ($+0{,}54\,\%$) \textbf{mais la médiane est négative}
 ($-3{,}70\,\%$) et seuls $43{,}9\,\%$ des trades gagnent. En retirant le décile supérieur, la moyenne
 \textbf{tombe à $-9{,}25\,\%$} : l'edge moyen vient \emph{entièrement} de la queue droite (figure~\ref{fig:car}).
 On ne gagne pas par taux de réussite --- c'est une loterie asymétrique.
@@ -250,6 +270,27 @@ On ne gagne pas par taux de réussite --- c'est une loterie asymétrique.
 \caption{Distribution du rendement anormal à 12~mois des achats : médiane négative, gain porté par la queue
 droite (asymétrie $17{,}3$).}\label{fig:car}
 \end{figure}
+
+\paragraph{Les vedettes --- qui porte la queue droite ?} Le top-décile (CAR\,12~m $\geq +37\,\%$, $4\,084$
+trades) concentre à lui seul \textbf{$65\,\%$} de la somme des gains positifs. Ce sont presque toujours les
+mêmes \textbf{méga-caps tech} et quelques fusées (jackpots = trades dans le top-décile / achats évaluables) :
+\begin{center}\small
+\begin{tabular}{lcr@{\qquad}lcr}
+\toprule
+Titre & jackpots & CAR moy & Titre & jackpots & CAR moy \\
+\midrule
+NVDA & $152/264$ & $+118\,\%$ & AVGO & $51/94$  & $+75\,\%$  \\
+AMZN & $85/391$  & $+57\,\%$  & URBN & $45/94$  & $+119\,\%$ \\
+AAPL & $76/449$  & $+56\,\%$  & MSFT & $42/555$ & $+42\,\%$  \\
+FIX  & $68/68$   & $+117\,\%$ & NFLX & $52/185$ & $+71\,\%$  \\
+\bottomrule
+\end{tabular}
+\end{center}
+Côté membres, les plus \emph{prolifiques} placent le plus de billets gagnants (Ro~Khanna, Michael~McCaul,
+Josh~Gottheimer), tandis qu'une poignée affiche un CAR moyen très élevé sur $\geq 30$ achats ---
+Donald~Beyer~Jr \textbf{$+61\,\%$} ($292$ achats), Mark~Green $+31\,\%$. \textbf{La « performance » moyenne du
+Congrès est l'affaire de quelques titres et de quelques personnes} : on retire cette queue et il ne reste
+qu'un rendement anormal négatif. C'est une \emph{loterie} à queue droite, pas un edge régulier.
 
 \textbf{Où l'edge se concentre-t-il ?} (CAR 12~mois par coupe ; $t$ naïfs, à corriger §\ref{sub:hunt}) :
 \begin{center}\small
@@ -267,7 +308,10 @@ Démocrates & $+0{,}0\,\%$ & $0{,}0$ & Hors commission & $+0{,}4\,\%$ & $1{,}2$ 
 Le \textbf{Sénat} et les \textbf{Républicains} ressortent. \emph{Divergences assumées} avec des calculs
 préliminaires sur un périmètre plus court (FINAL 2020--2026) : ici le filtre commissions n'est \emph{pas}
 contre-productif (léger $+$), et l'effet « gros montants » est modeste. On montre les deux plutôt que de
-choisir --- c'est le sens d'une recherche honnête.
+choisir --- c'est le sens d'une recherche honnête. À l'entrée \code{traded}, le classement des coupes est
+\emph{inchangé} (Sénat $+2{,}2\,\%$, Républicains ressortent ; Démocrates $\approx 0$) ; seule différence
+notable, les \textbf{gros montants} sont un peu plus forts à la date du trade ($+1{,}5\,\%$, $t=2{,}6$ contre
+$+0{,}9\,\%$, $t=1{,}6$) --- un léger drift large-cap avant divulgation.
 
 \subsection{Chasse objective au signal (6 angles)}\label{sub:hunt}
 On cherche \emph{activement} du signal, chaque angle étant un test indépendant.
