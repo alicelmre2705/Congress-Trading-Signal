@@ -26,7 +26,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from common import crosscheck
+from common import crosscheck, schema
 
 YEARS = list(range(2020, 2027))
 LEGAL_DELAY_DAYS = 45          # STOCK Act : PTR dû ~45 j après la transaction.
@@ -114,6 +114,20 @@ def load_final(repo_root: Path) -> pd.DataFrame:
         raise FileNotFoundError(f"Aucune table FINAL trouvée sous {repo_root}/data")
     full = pd.concat(frames, ignore_index=True)
 
+    # Dédup CROSS-ANNÉE : une re-divulgation tardive (même transaction re-déposée une autre année — même
+    # natural_key_hash + occurrence_index dans 2 fichiers FINAL) ne doit pas être comptée deux fois dans
+    # les stats. On garde la 1re occurrence (année de dépôt la plus ancienne = divulgation d'origine).
+    # Sénat : 8 841 → 8 245 ; House : 81 646 → 81 612. La dédup PAR ANNÉE des pipelines ne peut pas le
+    # voir (elle opère fichier par fichier) ; ici on assemble le panel multi-années, donc on l'applique.
+    if {"natural_key_hash", "occurrence_index"}.issubset(full.columns):
+        # occurrence_index est stocké tantôt '0' tantôt '0.0' selon l'année → normaliser en numérique
+        # avant la dédup (sinon '0' != '0.0' laisse survivre un doublon, cf. Jefferson Shreve 2025/2026).
+        full = (full.assign(_occ=pd.to_numeric(full["occurrence_index"], errors="coerce"))
+                .sort_values("file_year", kind="stable")
+                .drop_duplicates(["natural_key_hash", "_occ"], keep="first")
+                .drop(columns="_occ").reset_index(drop=True))
+
+    full = schema.apply_txn_date_fixes(full)   # corrige 3 années-coquilles du PTR (lecture seule du figé)
     td = pd.to_datetime(full["transaction_date"], errors="coerce")
     dd = pd.to_datetime(full["disclosure_date"], errors="coerce")
     full["_td"], full["_dd"] = td, dd
@@ -875,11 +889,19 @@ def build_report(repo_root: Path) -> Path:
                  "(Quiver a le trade, notre date diffère → OCR/amendement) ; `ECART_TICKER` (notre ticker "
                  "diffère/manque → **notre erreur corrigible**) ; `STRUCTUREL` (non-coté, hors périmètre "
                  "Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver "
-                 "`MANQUANT_PAPIER` / `NOTRE_MANQUE` (dépôt qu'on n'a pas du tout). Les sommes reproduisent "
-                 "**exactement** les tables figées (07g pour le côté nous, 07c pour `only_quiver`).\n")
+                 "`MANQUANT_PAPIER`, `NON_COTE` (CUSIP/préférentielle/fragment OCR, hors périmètre) et "
+                 "`NOTRE_MANQUE` (dépôt **coté** qu'on n'a pas du tout). Le corpus est **dédupliqué "
+                 "cross-année** avant classification (une re-divulgation tardive comptait double — Sénat "
+                 "8 841 → 8 245 uniques). Ce diagnostic **raffine** les tables figées 07g/07c (qui agrègent "
+                 "`no_match` et ne dédupliquent pas) : mêmes ordres de grandeur côté actions, mais il sépare "
+                 "en plus le ticker récupérable du « vraiment plus complet », et le non-coté du vrai trou.\n")
     if len(diag["synthesis"]):
         parts.append("\n**Synthèse côté NOUS** (part de NOS transactions par grande catégorie ; "
-                     "`notre_erreur_pct` = date OCR + ticker, corrigible) :\n\n")
+                     "`notre_erreur_pct` = `ECART_DATE` + `ECART_TICKER`). Attention : `ECART_TICKER` mêle "
+                     "du **récupérable** (action sans ticker que Quiver confirme, ou ticker lisible chez "
+                     "Quiver) et un **artefact de collision même-jour** (notre ticker est bon mais un autre "
+                     "trade du même jour collisionne la clé) ; le vrai corrigible est plus petit que ce "
+                     "taux — voir les annexes ligne-à-ligne :\n\n")
         parts.append(_md_table(diag["synthesis"]))
         parts.append("\n")
     if len(diag["our_tally"]):
@@ -887,9 +909,12 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(diag["our_tally"]))
         parts.append("\n")
     if len(diag["quiver_tally"]):
-        parts.append("\n**Verdicts Quiver→nous** (les trades Quiver qu'on n'a pas = `only_quiver` = ce que "
-                     "Quiver a et nous non). `NOTRE_MANQUE` = le seul **vrai trou** (dépôt jamais capté) ; "
-                     "tout le reste s'explique par notre date, notre ticker, ou du papier :\n\n")
+        parts.append("\n**Verdicts Quiver→nous** (les trades Quiver qu'on n'a pas = `only_quiver`). "
+                     "`NON_COTE` = un « ticker » Quiver non appariable (CUSIP, préférentielle, fragment OCR) "
+                     "→ hors périmètre. `NOTRE_MANQUE` = le **vrai trou** (action cotée jamais captée), "
+                     "résiduel après filtrage du non-coté : ~10 lignes House (Pelosi UBER/INTC, Bresnahan "
+                     "SPY/QQQ/IWM, James AFRM…) et 3 Sénat. Tout le reste s'explique par notre date, notre "
+                     "ticker, ou du papier :\n\n")
         parts.append(_md_table(diag["quiver_tally"]))
         parts.append("\n")
     if len(diag["coverage_by_year"]):
@@ -901,19 +926,22 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(cby))
         parts.append("\n")
     if len(diag["field_agreement"]):
-        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (paires appariées bio×ticker×date) — "
-                     "un désaccord ici = notre erreur d'extraction sur une donnée pourtant captée :\n\n")
+        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date présentes "
+                     "des deux côtés) — un de nos trades « concorde » s'il existe un trade Quiver de même "
+                     "sens (resp. même sens+montant) dans la cellule. Mesure par **appartenance ensembliste** "
+                     "(robuste à la granularité des lots : l'ancien `merge` cartésien sous-estimait l'accord "
+                     "et gonflait `n_paires`). Un désaccord = vraie erreur d'extraction sur une donnée "
+                     "pourtant captée, listée et **typée** (`sens`/`montant`) dans `desaccord_champ_*.csv` :\n\n")
         parts.append(_md_table(diag["field_agreement"]))
-        parts.append("\n\n`accord_montant_bas_pct` est **sous-estimé** par un artefact connu : quand un "
-                     "membre trade le même ticker le même jour à deux montants, le merge bio×ticker×date "
-                     "produit un appariement croisé (cf. `note` du `07d` Sénat). Le sens, lui, est robuste.\n")
+        parts.append("\n")
     if len(diag["top_notre_manque"]):
         parts.append("\n**Top déposants `NOTRE_MANQUE`** (dépôts Quiver qu'on n'a pas du tout — à investiguer) :\n\n")
         parts.append(_md_table(diag["top_notre_manque"]))
         parts.append("\n")
     parts.append("\nListes actionnables complètes (cas corrigibles, ligne à ligne) → `docs/quiver_validation/` "
                  "(`ecart_ticker_*.csv`, `notre_manque_*.csv`, `manquant_papier_*.csv`, "
-                 "`desaccord_champ_*.csv`, `on_est_plus_complet_*.csv`). Hors golden.\n")
+                 "`desaccord_champ_*.csv` [typé sens/montant], `on_est_plus_complet_*.csv`, "
+                 "`quiver_non_cote_*.csv`). Hors golden.\n")
 
     report = docs / "RAPPORT_QUALITE.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")

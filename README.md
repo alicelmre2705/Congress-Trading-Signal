@@ -46,10 +46,16 @@ pyproject.toml   installable :  pip install -e .
 
 ## Chiffres clés
 
-| Chambre | FINAL | = digital + OCR | Identité | Concordance Quiver |
+| Chambre | FINAL (uniques) | brut = digital + OCR | Identité | Concordance Quiver |
 |---|---|---|---|---|
-| **House** | **81 646** | 32 676 + 48 970 | 99,99 % (256 bioguides / 275 noms) | digital 98,2 % / OCR 68,3 % / both 86,2 % (3 scopes) |
-| **Sénat** | **8 841** | 7 161 + 1 680 | 100 % | 98–100 %/an |
+| **House** | **81 607** | 81 642 = 32 676 + 48 966 | 100 % (256 bioguides / 274 noms) | digital 98,2 % / OCR 68,3 % / both 86,2 % (3 scopes) |
+| **Sénat** | **8 245** | 8 841 = 7 161 + 1 680 | 100 % | 98–100 %/an |
+
+**Périmètre d'analyse = 89 852 transactions uniques de membres élus** (House 81 607 + Sénat 8 245), après
+**dédup cross-année** des re-divulgations tardives (−631 lignes : une transaction re-déposée une autre année
+ne compte qu'une fois). Le pipeline produit **90 483 lignes brutes** ; une déclaration de **collaborateur
+non-élu** (Natalia Henriquez, HASC — 4 lignes, identité OCR « Ada Norah Henriquez »/« PR00 » corrigée) est
+**exclue du périmètre membres**. Détail dans `docs/RAPPORT_QUALITE.md`.
 
 Les deux chambres ont la **table 12/12 champs** (identité, ticker, secteur GICS→ETF, date, montant…) :
 House ticker **85,3 %** / secteur **83,2 %** ; Sénat ticker **71,4 %** / secteur **62,1 %**. Validation

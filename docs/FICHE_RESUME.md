@@ -11,7 +11,7 @@
 - **Mais** avant toute stratégie, il faut une **couche de données irréprochable**. C'est mon livrable.
 
 ## 2. Le livrable en une phrase
-- Une base **propre, traçable et honnêtement validée** de **90 487 transactions**, sur les **2 chambres** (Chambre + Sénat), **2020–2026** : extraites, rattachées à leur auteur, enrichies, et validées contre une source externe.
+- Une base **propre, traçable et honnêtement validée** de **89 852 transactions uniques de membres élus** (le pipeline produit 90 483 lignes brutes ; après exclusion d'une déclaration de collaborateur non-élu et dédup cross-année des re-divulgations tardives), sur les **2 chambres** (Chambre + Sénat), **2020–2026** : extraites, rattachées à leur auteur, enrichies, et validées contre une source externe.
 
 ## 3. D'où viennent les données
 - **Chambre** : le site public du *House Clerk* → un index annuel → les **PDF** des déclarations.
@@ -23,7 +23,7 @@
 ## 4. Le défi central : électronique vs scanné
 - Une déclaration arrive sous **2 formes** : du **texte** exploitable directement, ou une **image** qu'il faut « lire ».
 - C'est la **fourche** du projet → **4 sous-corpus** : Chambre électronique, Chambre OCR, Sénat électronique, Sénat OCR.
-- Volumes : Chambre **32 676** électronique + **48 970** scannés ; Sénat **7 161** + **1 680**.
+- Volumes : Chambre **32 676** électronique + **48 966** scannés ; Sénat **7 161** + **1 680**.
 - Point marquant : **la moitié des déclarations de la Chambre ne sont que des images** (scans) → d'où le recours à l'OCR.
 
 ## 5. La construction de la donnée, étape par étape
@@ -33,12 +33,12 @@
 ### 5.1 — D'abord : qui a déclaré ? (résolution d'identité)
 - **Problème** : une déclaration ne donne qu'un **nom libre**, écrit différemment selon les dépôts (« Hon. Earl L. Carter » / « Buddy Carter » ; « N. Pelosi »). Sans clé stable, on compte un même élu plusieurs fois et on ne peut pas le rattacher à son parti/ses commissions.
 - **Comment** : on ramène chaque nom à l'**identifiant officiel unique** du membre (le même partout), via le référentiel des élus + un **matcher tolérant** (gère surnoms, accents, titres, et les homonymes au Sénat). Chaque chambre a son propre matcher, car les pièges diffèrent.
-- **Résultat** : **99,99 %** des lignes Chambre et **100 %** du Sénat rattachées. À la Chambre, **256 identifiants pour 275 graphies** = exactement les variantes d'un même élu, ramenées à une seule clé.
+- **Résultat** : **100 %** des lignes Chambre et **100 %** du Sénat rattachées (une déclaration de collaborateur non-élu — HASC — écartée du périmètre membres). À la Chambre, **256 identifiants pour 274 graphies** = exactement les variantes d'un même élu, ramenées à une seule clé.
 
 ### 5.2 — Ensuite : trier les formats (électronique ou scanné ?)
 - **Problème** : une déclaration est soit du **texte** (analysable directement), soit une **image** (à lire par OCR). Se tromper de piste = perdre des transactions ou gaspiller des appels d'API.
 - **Comment** : **Chambre** → on **ouvre chaque PDF** et on teste s'il a une couche de texte (lisible vs scanné). **Sénat** → le portail eFD **indique déjà** le type (page web vs papier).
-- C'est la **fourche** du pipeline ; elle fixe la composition finale (Chambre 32 676 élec + 48 970 scannés ; Sénat 7 161 + 1 680).
+- C'est la **fourche** du pipeline ; elle fixe la composition finale (Chambre 32 676 élec + 48 966 scannés ; Sénat 7 161 + 1 680).
 
 ### 5.3 — Piste Chambre électronique (PDF lisibles)
 - **Problème** : sur ces PDF, une transaction n'est pas un tableau propre — elle s'étale sur plusieurs lignes, le montant déborde, le ticker se cache entre parenthèses.
@@ -57,7 +57,7 @@
   - **Lecture** : Claude Vision **lit ET structure** directement en transactions (réponse en format strict, mise en cache → un re-run ne re-paie rien).
   - **Ticker** : absent des formulaires papier → **ré-associé** depuis les symboles vus en électronique, complété par un LLM.
   - **Manuscrit (cluster C) exclu par défaut** : dates trop incertaines pour une stratégie datée.
-- **Résultat** : **48 970** lignes, très **concentrées** — Khanna **63 %** à lui seul, le top-3 (Khanna, McCaul, Harshbarger) **92 %** : de gros déposants qui déclarent **exclusivement sur papier**.
+- **Résultat** : **48 966** lignes, très **concentrées** — Khanna **63 %** à lui seul, le top-3 (Khanna, McCaul, Harshbarger) **92 %** : de gros déposants qui déclarent **exclusivement sur papier**.
 
 ### 5.6 — Piste Sénat papier (images .gif)
 - **Problème** : marginal (5 sénateurs) mais bien réel ; des images **droites** (pas besoin de redressement). Surtout : trop peu de données pour bâtir un dictionnaire de tickers année par année.
@@ -77,8 +77,8 @@
 - **Nuance d'honnêteté** : *« présent »* n'est pas *« sans valeur manquante »* — ticker/secteur vides pour le non-coté (légitime), commissions = **photo actuelle**, pas l'historique daté.
 
 ## 6. Les résultats clés
-- **90 487** transactions · 2 chambres · 7 ans.
-- **Identité : 99,99 % / 100 %** rattachées.
+- **89 852** transactions uniques de membres (90 483 brutes − 631 re-divulgations cross-année) · 2 chambres · 7 ans.
+- **Identité : 100 % / 100 %** rattachées (staffer non-élu exclu).
 - Couverture **ticker** ≈ 85 % (Chambre) / 71 % (Sénat) ; **secteur** ≈ 83 % / 62 %.
 - Les « trous » de couverture sont surtout des **actifs non cotés** (obligations, *munis*) qui n'ont **légitimement pas** de ticker — pas un défaut.
 

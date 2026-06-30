@@ -8,15 +8,22 @@ et CLASSE chaque écart par un verdict :
   côté NOUS (chaque transaction FINAL confrontée à Quiver) :
     CONCORDANT          présent des deux côtés, même date           → rien à corriger
     ECART_DATE          Quiver a le trade (bio×ticker×sens), date ≠ → OCR / amendement
-    ECART_TICKER        Quiver a bio×date×sens, ticker ≠/manquant   → NOTRE erreur (corrigible)
-    STRUCTUREL          notre trade NON COTÉ (pas de ticker)        → hors périmètre Quiver
+    ECART_TICKER        Quiver a bio×date×sens, ticker ≠/manquant   → NOTRE erreur (corrigible) ;
+                        inclut une ACTION (asset_type=Stock) sans ticker que Quiver confirme ce jour-là
+                        (ticker récupérable — N'EST PAS du non-coté, donc pas STRUCTUREL).
+    STRUCTUREL          notre trade NON COTÉ (muni, obligation…)    → hors périmètre Quiver
     ON_EST_PLUS_COMPLET notre action absente de Quiver              → on est plus complet
 
   côté QUIVER (chaque trade Quiver qu'on n'a pas — `only_quiver`) :
     ECART_DATE          on a bio×ticker×sens à une autre date       → OCR / amendement
     ECART_TICKER        on a bio×date×sens, ticker ≠                → NOTRE erreur (corrigible)
     MANQUANT_PAPIER     déposant qu'on OCR, cette ligne ratée       → OCR incomplet (corrigible)
-    NOTRE_MANQUE        dépôt qu'on n'a PAS DU TOUT                 → vrai trou (corrigible)
+    NON_COTE            « ticker » Quiver = CUSIP/préf./fragment OCR → hors périmètre Quiver-actions
+    NOTRE_MANQUE        dépôt coté qu'on n'a PAS DU TOUT            → vrai trou (corrigible)
+
+Le corpus FINAL est dédupliqué cross-année (clé naturelle + occurrence_index, keep-first) AVANT la
+classification — une re-divulgation tardive (même trade re-déposé une autre année) n'est comptée qu'une
+fois (Sénat : 8 841 → 8 245). Sans ça la copie tardive tombait à tort en ON_EST_PLUS_COMPLET.
 
 Sorties : un dict de tables agrégées (consommé par common.quality, section (f)) + des annexes
 actionnables sous `docs/quiver_validation/` (hors golden). Aucun appel API ; tout est offline.
@@ -32,16 +39,18 @@ import pandas as pd
 from house import quiver as hq            # norm_ticker/norm_sense/low_bound/reconcile (source unique)
 from senate import quiver as sq           # reconcile (clés common_senators / ticker_per_sen)
 from common.quiver_scopes import reconcile_scopes
+from common import schema
 
 YEARS = list(range(2020, 2027))
 
-# Verdicts → faut-il corriger ? (drapeau du livrable « est-ce nous »)
+# Verdicts → faut-il corriger ? (drapeau du livrable « est-ce nous »). NON_COTE = un « ticker » Quiver
+# qui n'est pas une action appariable (CUSIP, préférentielle, fragment OCR) → hors périmètre, pas un trou.
 A_CORRIGER = {
-    "CONCORDANT": False, "STRUCTUREL": False, "ON_EST_PLUS_COMPLET": False,
+    "CONCORDANT": False, "STRUCTUREL": False, "ON_EST_PLUS_COMPLET": False, "NON_COTE": False,
     "ECART_DATE": True, "ECART_TICKER": True, "MANQUANT_PAPIER": True, "NOTRE_MANQUE": True,
 }
 OUR_ORDER = ["CONCORDANT", "ECART_DATE", "ECART_TICKER", "STRUCTUREL", "ON_EST_PLUS_COMPLET"]
-QUIVER_ORDER = ["ECART_DATE", "ECART_TICKER", "MANQUANT_PAPIER", "NOTRE_MANQUE"]
+QUIVER_ORDER = ["ECART_DATE", "ECART_TICKER", "MANQUANT_PAPIER", "NON_COTE", "NOTRE_MANQUE"]
 
 
 # ───────────────────────────── Chargement (offline) ─────────────────────────────
@@ -103,9 +112,29 @@ def _quiver_keys(qwin):
 
 
 # ───────────────────────────── Classification ─────────────────────────────
-def _verdict_our_row(bio, tk, d, s, qk):
+def _quiver_untradeable(tk):
+    """Vrai si le « ticker » Quiver n'est PAS une action cotée appariable : fragment OCR de description
+    (espace, ':' ou '/'), action préférentielle ('$'), bon du Trésor (MATUR/WEEK/MONTH) ou CUSIP / mot
+    tronqué (>5 car.). Un vrai ticker action fait ≤5 caractères alphanumériques sans séparateur. Sert à
+    ne PAS classer en NOTRE_MANQUE un non-coté que Quiver liste mais qui est hors de son périmètre actions."""
+    t = str(tk).upper().strip()
+    if not t:
+        return True
+    if any(c in t for c in (" ", ":", "/", "$")):
+        return True
+    if "MATUR" in t or "WEEK" in t or "MONTH" in t:
+        return True
+    return len(t.replace("_", "")) > 5
+
+
+def _verdict_our_row(bio, tk, d, s, qk, asset_type):
     """Verdict d'UNE de nos transactions vs les ensembles Quiver `qk` (full window)."""
     if tk == "":
+        # Une ACTION (asset_type=Stock) sans ticker résolu N'EST PAS du non-coté : si Quiver a le trade
+        # tickerisé le même jour (bio,date,sens), le ticker est récupérable → ECART_TICKER (corrigible).
+        # Tout autre cas sans ticker (muni, obligation, fonds… ou action que Quiver n'a pas) → STRUCTUREL.
+        if str(asset_type).strip().lower() == "stock" and (bio, d, s) in qk["no_ticker"]:
+            return "ECART_TICKER"
         return "STRUCTUREL"
     if (bio, tk, d, s) in qk["exact"]:
         return "CONCORDANT"
@@ -122,6 +151,8 @@ def _verdict_quiver_key(bio, tk, d, s, ok, paper_bios):
         return "ECART_DATE"
     if (bio, d, s) in ok["no_ticker"]:
         return "ECART_TICKER"
+    if _quiver_untradeable(tk):
+        return "NON_COTE"          # CUSIP / préférentielle / fragment OCR → hors périmètre Quiver-actions
     if bio in paper_bios:
         return "MANQUANT_PAPIER"
     return "NOTRE_MANQUE"
@@ -135,8 +166,8 @@ def classify_our_side(final_df, qwin):
     d["_tk"] = d["ticker"].map(hq.norm_ticker)
     d["_s"] = d["operation_type"].map(hq.norm_sense)
     d["_d"] = pd.to_datetime(d["transaction_date"], errors="coerce").dt.date
-    d["verdict"] = [_verdict_our_row(b, t, dt, s, qk)
-                    for b, t, dt, s in zip(d["bioguide_id"], d["_tk"], d["_d"], d["_s"])]
+    d["verdict"] = [_verdict_our_row(b, t, dt, s, qk, at)
+                    for b, t, dt, s, at in zip(d["bioguide_id"], d["_tk"], d["_d"], d["_s"], d["asset_type"])]
     return d
 
 
@@ -164,8 +195,14 @@ def classify_quiver_side(final_df, qwin, paper_bios):
 
 
 def field_disagreements(final_df, qwin):
-    """Sur les paires APPARIÉES (bio×ticker×date) : accord sens & montant (borne basse), + la liste
-    des désaccords (= nos erreurs d'extraction sur une donnée pourtant captée). Parité reconcile."""
+    """Accord sens & montant (borne basse) sur les cellules (bio×ticker×date) présentes des DEUX côtés,
+    mesuré par APPARTENANCE ENSEMBLISTE : un de nos trades « concorde » s'il existe un trade Quiver de
+    même `sens` (resp. `(sens, borne basse)`) dans la même cellule. Robuste aux différences de
+    granularité de lots (Quiver agrège parfois plusieurs lots d'un même jour) — contrairement à l'ancien
+    `merge` bio×ticker×date qui faisait un produit cartésien (n_paires gonflé ~+40 %, accord sous-estimé).
+    Renvoie (n, accord_sens_pct, accord_montant_pct, désaccords) ; `désaccords` = nos trades NON corroborés,
+    typés `sens` (direction absente côté Quiver) ou `montant` (bonne direction, montant absent côté
+    Quiver = vraie erreur d'extraction sur une donnée pourtant captée)."""
     d = final_df.copy()
     d["_tk"] = d["ticker"].map(hq.norm_ticker)
     d["_s"] = d["operation_type"].map(hq.norm_sense)
@@ -178,19 +215,36 @@ def field_disagreements(final_df, qwin):
     q["_s"] = q["Transaction"].map(hq.norm_sense)
     q["_d"] = q["_traded"].dt.date
     q["_qlb"] = pd.to_numeric(q["Trade_Size_USD"], errors="coerce")
-    qo = q[q["_tk"] != ""][["BioGuideID", "_tk", "_d", "_s", "_qlb"]].rename(
-        columns={"BioGuideID": "bioguide_id", "_s": "_sq"})
-    j = o.merge(qo, on=["bioguide_id", "_tk", "_d"])
-    if not len(j):
-        return 0, 0.0, 0.0, pd.DataFrame()
-    sense_ok = (j["_s"] == j["_sq"])
-    amt_ok = (j["_lb"] == j["_qlb"])
-    bad = j[~sense_ok | ~amt_ok].copy()
-    bad = bad.rename(columns={"_tk": "ticker", "_d": "date", "_s": "notre_sens", "_sq": "quiver_sens",
-                              "_lb": "notre_montant_bas", "_qlb": "quiver_montant_bas"})
-    cols = ["bioguide_id", "declarant_name", "ticker", "date",
-            "notre_sens", "quiver_sens", "notre_montant_bas", "quiver_montant_bas"]
-    return len(j), round(100 * sense_ok.mean(), 1), round(100 * amt_ok.mean(), 1), bad[cols]
+    qo = q[q["_tk"] != ""][["BioGuideID", "_tk", "_d", "_s", "_qlb"]].rename(columns={"BioGuideID": "bioguide_id"})
+    if not len(o) or not len(qo):
+        return 0, None, None, pd.DataFrame()
+
+    qmap = {k: (set(g["_s"]), set(zip(g["_s"], g["_qlb"])),
+                "/".join(sorted({str(x) for x in g["_s"]})),
+                "/".join(sorted({str(int(x)) for x in g["_qlb"] if pd.notna(x)})))
+            for k, g in qo.groupby(["bioguide_id", "_tk", "_d"])}
+    n = sense_match = amt_match = 0
+    bad_rows = []
+    for k, og in o.groupby(["bioguide_id", "_tk", "_d"]):
+        qinfo = qmap.get(k)
+        if qinfo is None:
+            continue
+        q_senses, q_pairs, qs, qa = qinfo
+        n += len(og)
+        for _, r in og.iterrows():
+            s_ok = r["_s"] in q_senses
+            a_ok = (r["_s"], r["_lb"]) in q_pairs
+            sense_match += s_ok
+            amt_match += a_ok
+            if not a_ok:
+                bad_rows.append({"bioguide_id": r["bioguide_id"], "declarant_name": r["declarant_name"],
+                                 "ticker": r["_tk"], "date": r["_d"],
+                                 "type_desaccord": "montant" if s_ok else "sens",
+                                 "notre_sens": r["_s"], "notre_montant_bas": r["_lb"],
+                                 "quiver_sens_dispo": qs, "quiver_montants_dispo": qa})
+    sense_pct = round(100 * sense_match / n, 1) if n else None
+    amt_pct = round(100 * amt_match / n, 1) if n else None
+    return n, sense_pct, amt_pct, pd.DataFrame(bad_rows)
 
 
 # ───────────────────────────── Construction du diagnostic ─────────────────────────────
@@ -253,23 +307,36 @@ def build_diagnosis(repo_root) -> dict:
             continue
         coverage.append(_coverage_by_year(repo, chamber, qfull))
 
-        # FINAL concaténé + fenêtre Quiver concaténée (toutes années), pour les verdicts agrégés
-        fins, qwins = [], []
+        # FINAL concaténé de toutes les années, PUIS dédup cross-année : une re-divulgation tardive
+        # (même clé naturelle dans 2 fichiers d'années différentes — ex. Perdue ORCL 2020 re-divulgué
+        # en 2021) est gardée UNE seule fois, dans son année de dépôt la plus ancienne. Sans ça le même
+        # trade serait compté deux fois — CONCORDANT son année d'origine, puis faux ON_EST_PLUS_COMPLET
+        # l'année de re-divulgation (hors fenêtre Quiver filed-year de cette année). Sénat : −596 lignes
+        # (8 245 uniques) ; House : −34. Même invariant que common/schema.dedup_canonical.
+        fins = []
         for y in YEARS:
             _, _, fp = _paths(repo, chamber, y)
             if fp.exists():
                 f = pd.read_csv(fp, dtype=str); f["_year"] = y
-                fins.append(f); qwins.append(_qwin(qfull, y))
+                fins.append(f)
         if not fins:
             continue
-        final_all = pd.concat(fins, ignore_index=True)
+        final_all = schema.apply_txn_date_fixes(pd.concat(fins, ignore_index=True))   # 3 années-coquilles
+        if {"natural_key_hash", "occurrence_index"}.issubset(final_all.columns):
+            # occurrence_index : '0' vs '0.0' selon l'année → normaliser en numérique avant la dédup.
+            final_all = (final_all.assign(_occ=pd.to_numeric(final_all["occurrence_index"], errors="coerce"))
+                         .sort_values("_year", kind="stable")
+                         .drop_duplicates(["natural_key_hash", "_occ"], keep="first")
+                         .drop(columns="_occ").reset_index(drop=True))
         paper_bios = set(final_all[final_all["provenance"].str.contains("ocr", na=False)]["bioguide_id"].dropna())
 
-        # côté NOUS + côté QUIVER, par année (puis agrégé)
+        # côté NOUS + côté QUIVER, par année (sur le corpus dédupliqué), puis agrégé
         our_parts, q_parts, bad_parts = [], [], []
         n_pairs_tot = 0
         sense_w, amt_w = 0.0, 0.0
-        for y, f, qwin in zip([fy for fy in YEARS if (repo / "data" / chamber / "tables" / str(fy) / f"06_{chamber}_{fy}_FINAL.csv").exists()], fins, qwins):
+        for y in [yy for yy in YEARS if (final_all["_year"] == yy).any()]:
+            f = final_all[final_all["_year"] == y]
+            qwin = _qwin(qfull, y)
             our = classify_our_side(f, qwin); our["_year"] = y
             our_parts.append(our)
             qv = classify_quiver_side(f, qwin, paper_bios); qv["year"] = y
@@ -302,10 +369,6 @@ def build_diagnosis(repo_root) -> dict:
                            "on_est_plus_complet_pct": round(100 * plus / n_our, 1)})
 
         # ── annexes actionnables (hors golden) ──
-        def _name(df, biocol):
-            nm = final_all.drop_duplicates("bioguide_id").set_index("bioguide_id")["declarant_name"]
-            return df.assign(name=df[biocol].map(nm))
-
         et = our_all[our_all["verdict"] == "ECART_TICKER"][
             ["bioguide_id", "declarant_name", "ticker", "transaction_date", "operation_type", "asset_type", "_year"]]
         et.to_csv(annex / f"ecart_ticker_{chamber}.csv", index=False)
@@ -314,6 +377,7 @@ def build_diagnosis(repo_root) -> dict:
         pc.to_csv(annex / f"on_est_plus_complet_{chamber}.csv", index=False)
         quiver_all[quiver_all["verdict"] == "NOTRE_MANQUE"].to_csv(annex / f"notre_manque_{chamber}.csv", index=False)
         quiver_all[quiver_all["verdict"] == "MANQUANT_PAPIER"].to_csv(annex / f"manquant_papier_{chamber}.csv", index=False)
+        quiver_all[quiver_all["verdict"] == "NON_COTE"].to_csv(annex / f"quiver_non_cote_{chamber}.csv", index=False)
         if bad_parts:
             pd.concat(bad_parts, ignore_index=True).to_csv(annex / f"desaccord_champ_{chamber}.csv", index=False)
 

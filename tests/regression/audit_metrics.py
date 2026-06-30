@@ -56,10 +56,12 @@ def main():
     h = report("house", "house-pdf-electronic", "house-pdf-ocr")
     s = report("senate", "senate-efd-electronic", "senate-efd-ocr")
     # invariants porteurs
-    assert h["n"] == 81646 and h["dig"] == 32676 and h["ocr"] == 48970, "House totaux"
+    # House : 4 lignes d'une collaboratrice non-élue (Natalia Henriquez, HASC ; OCR « Ada Norah
+    # Henriquez »/« PR00 ») exclues du périmètre membres (06b OCR + 06 FINAL 2023) → 81 642, identité 100 %.
+    assert h["n"] == 81642 and h["dig"] == 32676 and h["ocr"] == 48966, "House totaux"
     assert s["n"] == 8841 and s["dig"] == 7161 and s["ocr"] == 1680, "Sénat totaux"
-    assert h["sans_bio"] == 4 and s["sans_bio"] == 0, "sans-bioguide attendus"
-    assert h["bios"] == 256 and h["names"] == 275, "House déposants"
+    assert h["sans_bio"] == 0 and s["sans_bio"] == 0, "sans-bioguide attendus"
+    assert h["bios"] == 256 and h["names"] == 274, "House déposants"
     assert s["bios"] == 64 and s["names"] == 67, "Sénat déposants"
     print("\nRÉSULTAT : ✅ invariants OK (totaux, identité, déposants) — métriques ci-dessus = source du rapport")
 

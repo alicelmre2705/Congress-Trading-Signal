@@ -91,6 +91,26 @@ def natural_key_hash(row, chamber="house"):
     return hashlib.sha256(natural_key(row, chamber).encode("utf-8")).hexdigest()
 
 
+# Coquilles d'ANNÉE de transaction dans le PTR officiel (digital), confirmées par la date de divulgation.
+# Corrigées À LA LECTURE pour l'analyse : le CSV figé conserve la valeur source (et son natural_key_hash,
+# qui inclut transaction_date — muter le figé casserait la clé). Clés = chaîne brute globalement unique.
+KNOWN_TXN_DATE_FIXES = {
+    "3031-04-30": "2021-04-30",   # Pete Sessions / IBM (doc 20018672) — divulgué 2021-05-03
+    "2202-09-19": "2022-09-19",   # Virginia Foxx / NEWT (doc 20021790) — divulgué 2022-10-12
+    "2220-04-07": "2022-04-07",   # Virginia Foxx / MMP (doc 20020914) — divulgué 2022-05-04
+}
+
+
+def apply_txn_date_fixes(df):
+    """Applique KNOWN_TXN_DATE_FIXES sur `transaction_date` (corrige les rares années illisibles/typo du
+    PTR officiel pour l'analyse, sans toucher au figé). Renvoie une copie si une correction s'applique."""
+    if "transaction_date" not in df.columns:
+        return df
+    df = df.copy()
+    df["transaction_date"] = df["transaction_date"].replace(KNOWN_TXN_DATE_FIXES)
+    return df
+
+
 def add_occurrence_index(df):
     """occurrence_index = rang du lot répété intra-dépôt (préserve les lots identiques d'un même PTR,
     dédup non destructrice). Exige les colonnes doc_id + natural_key_hash."""

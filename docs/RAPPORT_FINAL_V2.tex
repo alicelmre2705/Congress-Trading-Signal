@@ -104,10 +104,11 @@ Les membres du Congrès américain déclarent leurs transactions boursières au 
 Exploiter ces déclarations — par exemple via une stratégie de \emph{copy-trading} — suppose au préalable
 une couche données propre, traçable et honnêtement validée. Ce rapport décrit la construction de cette
 couche, de l'acquisition des sources jusqu'à la table finale enrichie et validée, pour les \textbf{deux
-chambres} du Congrès sur sept ans (2020--2026). Le pipeline reconstruit \textbf{90\,487 transactions}~:
-\textbf{81\,646} pour la \textbf{Chambre des représentants} (32\,676 électroniques + 48\,970 OCR) et
-\textbf{8\,841} pour le \textbf{Sénat} (7\,161 électroniques + 1\,680 papier OCR). Chaque transaction est
-rattachée à son auteur (\textbf{99,99\,\%} des lignes à la Chambre, \textbf{100\,\%} au Sénat) et enrichie
+chambres} du Congrès sur sept ans (2020--2026). Le pipeline reconstruit \textbf{90\,483 lignes} brutes, soit
+\textbf{89\,852 transactions uniques} après dédup cross-année des re-divulgations tardives~: \textbf{81\,607}
+pour la \textbf{Chambre des représentants} (brut 81\,642 = 32\,676 électroniques + 48\,966 OCR) et
+\textbf{8\,245} pour le \textbf{Sénat} (brut 8\,841 = 7\,161 électroniques + 1\,680 papier OCR). Chaque transaction est
+rattachée à son auteur (\textbf{100\,\%} des lignes à la Chambre, \textbf{100\,\%} au Sénat) et enrichie
 (ticker, secteur \textbf{GICS$\rightarrow$ETF SPDR}, type d'actif, montant \emph{midpoint}, ancienneté),
 produisant une table au \textbf{contrat de 12 champs métier}. L'extraction est validée contre \textbf{Quiver
 Quantitative} — vérité-terrain externe \textbf{jamais réinjectée} — au niveau transaction et par
@@ -226,7 +227,7 @@ fourchette. La fusion séparée du Sénat, elle, tient au \textbf{volume}~: l'en
 \node[file, text width=2.8cm, fill=gray!12, draw=testC] (hC) at (-2.6,-3.3) {\footnotesize scan manuscrit → exclu par défaut};
 % --- Extraction : une phrase de ce qui se passe ---
 \node[step=houseC, text width=3.0cm] (hpar) at (-6.0,-4.3) {\textbf{parsing déterministe}\\\footnotesize chaque transaction repérée dans le texte\\[1pt]\textbf{\color{houseC}32\,676}};
-\node[step=houseC, text width=3.0cm] (hvis) at (-2.6,-5.0) {\textbf{OCR Claude Vision}\\\footnotesize redressée, lue en JSON\\[1pt]\textbf{\color{houseC}48\,970}};
+\node[step=houseC, text width=3.0cm] (hvis) at (-2.6,-5.0) {\textbf{OCR Claude Vision}\\\footnotesize redressée, lue en JSON\\[1pt]\textbf{\color{houseC}48\,966}};
 \node[step=senateC, text width=3.0cm] (spar) at (2.6,-4.3) {\textbf{lecture des tableaux}\\\footnotesize colonnes par appariement flou\\[1pt]\textbf{\color{senateC}7\,161}};
 \node[step=senateC, text width=3.0cm] (svis) at (6.0,-4.3) {\textbf{OCR Claude Vision}\\\footnotesize image déjà droite\\[1pt]\textbf{\color{senateC}1\,680}};
 % --- Convergence : la clé naturelle ---
@@ -238,7 +239,7 @@ fourchette. La fusion séparée du Sénat, elle, tient au \textbf{volume}~: l'en
 \node[step=coreC, text width=12.6cm] (enr) at (0,-9.4)
   {\textbf{enrichissement} — ticker (explicite → dictionnaire → LLM) · secteur \textbf{GICS → ETF SPDR} · montant ramené à son \emph{milieu} · ancienneté};
 \node[file, text width=12.6cm, fill=houseC!10, draw=coreC, line width=1pt] (fin) at (0,-10.7)
-  {\textbf{TABLE FINALE} — \textbf{90\,487 transactions} · \co{06_\{ch\}_\{an\}_FINAL.csv} · 28 colonnes · \textbf{contrat 12 champs métier}};
+  {\textbf{TABLE FINALE} — \textbf{89\,852 uniques} (90\,483 lignes) · \co{06_\{ch\}_\{an\}_FINAL.csv} · 28 colonnes · \textbf{contrat 12 champs métier}};
 \node[step=netC, fill=netC!8, text width=12.6cm] (val) at (0,-12.0)
   {\textbf{validation Quiver} — par \emph{scope} (électronique / OCR / les deux), \textbf{jamais réinjectée}};
 % --- Bandeau méta : annotation portant sur tout le pipeline (pas une étape de flux) ---
@@ -317,10 +318,13 @@ d'initiale. Chaque chambre ne fige qu'un seul override (Van Taylor à la Chambre
 L'identité résolue, \co{house/digital.py:join_identity} et \co{senate/identity.py:enrich} y joignent le
 parti, les commissions et le drapeau de commission clé issus du référentiel partagé.
 
-La résolution rattache \textbf{99,99\,\%} des lignes de la Chambre (81\,642 / 81\,646) et \textbf{100\,\%}
-de celles du Sénat~; les quatre exceptions forment une \emph{seule} déclaration manuscrite de 2023
-(Ada~Norah Henriquez, Porto Rico) qu'aucun \co{bioguide_id} ne rattache. À la Chambre, \textbf{256}
-identifiants pour \textbf{275} graphies~: l'écart, ce sont les variantes d'un même élu ramenées à un
+La résolution rattache \textbf{100\,\%} des lignes de la Chambre (81\,642 / 81\,642) et \textbf{100\,\%}
+de celles du Sénat~: toute ligne conservée porte un \co{bioguide_id}. Une \emph{seule} déclaration
+manuscrite de 2023 a été \textbf{exclue du périmètre membres}~: celle d'une \textbf{collaboratrice de
+commission} non-élue (Natalia~Henriquez, \emph{House Armed Services Committee}), identifiée en lisant le
+PDF source (l'OCR avait lu « Ada~Norah Henriquez » et un district « PR00 » erronés~; les agents du Congrès
+n'ont pas de \co{bioguide_id}). À la Chambre, \textbf{256}
+identifiants pour \textbf{274} graphies~: l'écart, ce sont les variantes d'un même élu ramenées à un
 identifiant unique — précisément ce que la résolution corrige.
 
 \subsection{Ensuite, trier les formats : électronique ou scanné ?}
@@ -339,7 +343,7 @@ chaque dépôt portant son type — \co{ptr} pour une déclaration HTML électro
 scannée.
 
 Ce tri d'apparence anodine est la \textbf{fourche} du pipeline~: il fixe la composition finale du corpus —
-32\,676 transactions électroniques et 48\,970 issues de l'OCR à la Chambre, 7\,161 et 1\,680 au Sénat — et
+32\,676 transactions électroniques et 48\,966 issues de l'OCR à la Chambre, 7\,161 et 1\,680 au Sénat — et
 dirige chaque document vers la piste d'extraction décrite dans les sous-sections suivantes.
 
 \subsection{La piste électronique de la Chambre (PDF lisibles)}
@@ -418,7 +422,7 @@ qui écrit directement \co{06_house_\{an\}_FINAL.csv}.
 Le cluster~C manuscrit est, lui, \textbf{exclu par défaut}~: ses dates sont trop incertaines pour une
 stratégie qui les date (une sonde Opus \emph{vs} Sonnet a confirmé que le goulot est l'écriture, pas le
 modèle). Le code le conserve comme catégorie tracée, hormis une récupération ciblée des plus gros déposants.
-Au total, la piste scannée fournit \textbf{48\,970} lignes, très concentrées~: Rohit Khanna en représente à
+Au total, la piste scannée fournit \textbf{48\,966} lignes, très concentrées~: Rohit Khanna en représente à
 lui seul \textbf{63,0\,\%}, et le trio de tête (Khanna, McCaul, Harshbarger) \textbf{92,4\,\%} — de gros
 déposants qui déclarent exclusivement sur papier.
 
@@ -524,8 +528,8 @@ les délais légaux non respectés, son activité concentrée sur quelques dépo
 (\co{build_report}) y répond en \textbf{lecture seule} des tables finales, sans aucun appel d'API
 (matplotlib en mode \co{Agg})~: il en tire \textbf{six contrôles}, une décomposition par
 \textbf{sous-corpus}, et les figures regroupées en fin de section (figure~\ref{fig:qualite}).
-\textbf{Sauf mention « par chambre » ou « par sous-corpus », tout porte sur l'ensemble des 90\,487
-transactions finales — électronique et OCR confondus, les deux chambres, 2020--2026.} Les quatre figures
+\textbf{Sauf mention « par chambre » ou « par sous-corpus », tout porte sur l'ensemble des 89\,852
+transactions finales uniques — électronique et OCR confondus, les deux chambres, 2020--2026.} Les quatre figures
 de contrôle agrègent ainsi tout le corpus (seule « transactions par an » est ventilée par chambre).
 
 Les \textbf{six contrôles} — (a), (b) et (e) donnés par chambre, (c) et (d) globaux, (f) renvoyée à la
@@ -541,7 +545,7 @@ validation externe (§\ref{sec:quiver})~:
 Le détail par an figure en annexe~\ref{anx:metrics}.
 
 Le bilan global masque toutefois des écarts marqués entre les \textbf{quatre sous-corpus} — Chambre et
-Sénat, chacun en électronique et en OCR papier (Chambre électronique 32\,676~; Chambre OCR 48\,970~; Sénat
+Sénat, chacun en électronique et en OCR papier (Chambre électronique 32\,676~; Chambre OCR 48\,966~; Sénat
 électronique 7\,161~; Sénat OCR 1\,680). D'abord, la \textbf{couverture suit la composition d'actifs}, pas
 la voie d'acquisition~: la part de ticker renseigné tombe de \textbf{88,6\,\%} (Chambre électronique) à
 \textbf{33,2\,\%} (Sénat OCR), simplement parce que le Sénat OCR ne compte que \textbf{13\,\%} d'actions
@@ -565,7 +569,7 @@ annexe~\ref{anx:metrics} (D.2--D.5).
 \bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries sect.\,\% & \bfseries médiane\,\$ & \bfseries Gini & \bfseries top-10\,\%\\
 \midrule
 {\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 8\,000 & 0,88 & 69,0 \\
-{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 8\,000 & 0,91 & 98,7 \\
+{\color{houseC}Chambre OCR} & 48\,966 & 83,1 & 81,0 & 8\,000 & 0,91 & 98,7 \\
 {\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 8\,000 & 0,84 & 85,0 \\
 {\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 32\,500 & 0,70 & 100,0 \\
 \bottomrule
@@ -616,7 +620,7 @@ corpus en annexe~\ref{anx:metrics} (D.2--D.5).}
   \caption{Concentration du volume (Lorenz, Gini~; ensemble).}
 \end{subfigure}
 \caption{\textbf{Le rapport de qualité en images}, généré par \co{common/quality.py} (lecture seule, aucun
-appel API). \textbf{(a)--(d)~vues d'ensemble} sur les 90\,487 transactions finales (électronique et OCR
+appel API). \textbf{(a)--(d)~vues d'ensemble} sur les 89\,852 transactions finales uniques (électronique et OCR
 confondus, les deux chambres, 2020--2026~; seule (c) est ventilée par chambre). \textbf{(e)--(h)~
 décomposition}~: (e, f) ventilées par sous-corpus~; (g) volume par secteur et (h) concentration du volume,
 sur l'ensemble.}
@@ -718,16 +722,16 @@ pas d'extraction.
 
 % ============================ 9. PÉRIMÈTRE ============================
 \section{Périmètre \& suite}
-La \textbf{couche données} décrite ici est livrée~: 90\,487 transactions extraites, identifiées,
+La \textbf{couche données} décrite ici est livrée~: 89\,852 transactions uniques (90\,483 lignes brutes) extraites, identifiées,
 enrichies (table 12/12), validées et reproductibles. La \textbf{stratégie et le backtest} associés
 (copy-trading actions puis ETF sectoriels) constituent un travail de recherche séparé, hors-périmètre de
 ce rapport.
 
 % ============================ 10. CONCLUSION ============================
 \section{Conclusion}
-Sur deux chambres et sept ans, le pipeline reconstruit \textbf{90\,487} transactions à partir des
+Sur deux chambres et sept ans, le pipeline reconstruit \textbf{90\,483} lignes (\textbf{89\,852} transactions uniques) à partir des
 sources officielles, en traitant honnêtement les deux pistes (électronique déterministe \emph{et}
-scannée par OCR Vision). Chaque ligne est identifiée (99,99 / 100\,\%), enrichie (table 12/12 sur les
+scannée par OCR Vision). Chaque ligne est identifiée (100 / 100\,\%), enrichie (table 12/12 sur les
 deux chambres) et validée contre Quiver sans jamais le réinjecter, \textbf{par scope}~: 98,2\,\% sur
 l'électronique Chambre, 68,3\,\% sur l'OCR, 86,2\,\% sur l'ensemble~; 99,4\,\% au Sénat. Cette validation
 par scope localise notre seule vraie limite, la \textbf{lecture des dates manuscrites}, et montre que les
@@ -878,20 +882,20 @@ retient que l'essentiel.
 2020 & 6\,886 & 8\,791 & 15\,677 & 109 & 1\,706 & 255 & 1\,961 & 33 \\
 2021 & 5\,457 & 6\,816 & 12\,273 & 120 & 1\,098 & 281 & 1\,379 & 35 \\
 2022 & 3\,601 & 10\,900 & 14\,501 & 110 & 919 & 182 & 1\,101 & 27 \\
-2023 & 4\,161 & 6\,329 & 10\,490 & 100 & 1\,062 & 97 & 1\,159 & 30 \\
+2023 & 4\,161 & 6\,325 & 10\,486 & 100 & 1\,062 & 97 & 1\,159 & 30 \\
 2024 & 2\,694 & 6\,277 & 8\,971 & 97 & 946 & 84 & 1\,030 & 24 \\
 2025 & 7\,577 & 6\,067 & 13\,644 & 107 & 943 & 478 & 1\,421 & 31 \\
 2026 & 2\,300 & 3\,790 & 6\,090 & 84 & 487 & 303 & 790 & 22 \\
 \midrule
-\bfseries Tot. & \bfseries 32\,676 & \bfseries 48\,970 & \bfseries 81\,646 & \bfseries 256$^\ast$ & \bfseries 7\,161 & \bfseries 1\,680 & \bfseries 8\,841 & \bfseries 64$^\ast$\\
+\bfseries Tot. & \bfseries 32\,676 & \bfseries 48\,966 & \bfseries 81\,642 & \bfseries 256$^\ast$ & \bfseries 7\,161 & \bfseries 1\,680 & \bfseries 8\,841 & \bfseries 64$^\ast$\\
 \bottomrule
 \end{tabular}
 \end{center}
 {\footnotesize \emph{élec.} = électronique~; \emph{dépos.} = \co{bioguide_id} \emph{uniques} sur 7 ans
 ($^\ast$~total~; la colonne annuelle recompte un élu chaque année). \textbf{Assertés [A]} par
-\co{audit_metrics.py}~: les totaux, l'identité (\textbf{256} bioguides / 275 noms à la Chambre, \textbf{64} /
-67 au Sénat~; \textbf{4} / 0 lignes sans bioguide) et le golden octet-à-octet (\textbf{125} fichiers Chambre,
-\textbf{76} Sénat). \textbf{Total~: 90\,487 transactions.}}
+\co{audit_metrics.py}~: les totaux, l'identité (\textbf{256} bioguides / 274 noms à la Chambre, \textbf{64} /
+67 au Sénat~; \textbf{0} / 0 lignes sans bioguide) et le golden octet-à-octet (\textbf{125} fichiers Chambre,
+\textbf{76} Sénat). \textbf{Total~: 90\,483 lignes brutes (89\,852 uniques après dédup cross-année).}}
 
 \textbf{D.2 — Couverture \& qualité, par sous-corpus} \hfill {\footnotesize\textbf{[Q]}}
 \begin{center}\small
@@ -900,7 +904,7 @@ retient que l'essentiel.
 \bfseries Sous-corpus & \bfseries n & \bfseries ticker\,\% & \bfseries secteur\,\% & \bfseries commissions\,\% & \bfseries dates cohér.\,\% & \bfseries montant\,\%\\
 \midrule
 {\color{houseC}Chambre électronique} & 32\,676 & 88,6 & 86,6 & 74,7 & 99,9 & 100,0 \\
-{\color{houseC}Chambre OCR} & 48\,970 & 83,1 & 81,0 & 94,5 & 99,7 & 98,2 \\
+{\color{houseC}Chambre OCR} & 48\,966 & 83,1 & 81,0 & 94,5 & 99,7 & 98,2 \\
 {\color{senateC}Sénat électronique} & 7\,161 & 80,3 & 72,1 & 58,5 & 100,0 & 100,0 \\
 {\color{senateC}Sénat OCR} & 1\,680 & 33,2 & 19,4 & 96,1 & 99,8 & 99,5 \\
 \bottomrule
