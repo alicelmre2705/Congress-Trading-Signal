@@ -334,7 +334,7 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 
 Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, **jamais réinjectée**. On confronte nos transactions à Quiver au niveau transaction, par **scope** (digital / OCR / les deux) — voir `common/quiver_scopes.py` pour la définition exhaustive des métriques. Trois constats chiffrés en ressortent :
 
-**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver qu'on retrouve ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades Quiver qu'on n'a pas) :
+**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver qu'on retrouve **à la date exacte** ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades Quiver qu'on n'a pas) :
 
 | chamber | scope | matched | quiver | only_ours | only_quiver | couverture_pct |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -344,6 +344,8 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | senate | both | 4324.0 | 4349.0 | 544.0 | 25.0 | 99.4 |
 | senate | digital | 4324.0 | 4349.0 | 405.0 | 25.0 | 99.4 |
 | senate | ocr | 0.0 | 15.0 | 64.0 | 15.0 | 0.0 |
+
+⚠️ Cette couverture est **exact-date** : elle compte comme « raté » tout trade qu'on a à une **autre** date (artefact de collision) ou sous un autre ticker. **Pour juger la complétude réelle, voir « Quiver ⊆ nous ? » ci-dessous** (inclusion ticker-niveau fenêtrée : House 93,8 % / Sénat 91,5 %, vrai trou coté ≈ 22 / 0).
 
 **1) Quiver ne couvre que les ACTIONS.** Décomposition par type d'actif (`exact_match` = même trade, même date ; `date_mismatch` = bon trade, notre date diffère ; `no_match` = absent de Quiver ; `non_equity` = muni/obligation → **hors périmètre Quiver**, ni validable ni un défaut ; `quiver_a_le_trade_pct` = exact+date_mismatch sur les actions). — **House :**
 

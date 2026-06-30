@@ -853,10 +853,13 @@ def build_report(repo_root: Path) -> Path:
                  "exhaustive des métriques. Trois constats chiffrés en ressortent :\n")
     if len(qv["cov_scope"]):
         parts.append("\n**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver "
-                     "qu'on retrouve ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades "
-                     "Quiver qu'on n'a pas) :\n\n")
+                     "qu'on retrouve **à la date exacte** ; `only_ours` = nos trades absents de Quiver ; "
+                     "`only_quiver` = trades Quiver qu'on n'a pas) :\n\n")
         parts.append(_md_table(qv["cov_scope"]))
-        parts.append("\n")
+        parts.append("\n\n⚠️ Cette couverture est **exact-date** : elle compte comme « raté » tout trade "
+                     "qu'on a à une **autre** date (artefact de collision) ou sous un autre ticker. **Pour "
+                     "juger la complétude réelle, voir « Quiver ⊆ nous ? » ci-dessous** (inclusion ticker-"
+                     "niveau fenêtrée : House 93,8 % / Sénat 91,5 %, vrai trou coté ≈ 22 / 0).\n")
     if len(qv["by_asset"].get("house", [])):
         parts.append("\n**1) Quiver ne couvre que les ACTIONS.** Décomposition par type d'actif "
                      "(`exact_match` = même trade, même date ; `date_mismatch` = bon trade, notre date "
