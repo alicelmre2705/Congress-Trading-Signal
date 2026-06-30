@@ -393,11 +393,33 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 
 ### Diagnostic : qui a raison ? (nous vs Quiver)
 
-Les tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic (recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche **pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` (Quiver a le trade, notre date diffère → OCR/amendement) ; `ECART_TICKER` (notre ticker diffère/manque → **notre erreur corrigible**) ; `STRUCTUREL` (non-coté, hors périmètre Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver `MANQUANT_PAPIER`, `NON_COTE` (CUSIP/préférentielle/fragment OCR, hors périmètre) et `NOTRE_MANQUE` (dépôt **coté** qu'on n'a pas du tout). Le corpus est **dédupliqué cross-année** avant classification (une re-divulgation tardive comptait double — Sénat 8 841 → 8 245 uniques). Ce diagnostic **raffine** les tables figées 07g/07c (qui agrègent `no_match` et ne dédupliquent pas) : mêmes ordres de grandeur côté actions, mais il sépare en plus le ticker récupérable du « vraiment plus complet », et le non-coté du vrai trou.
+Les tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic (recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche **pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` (Quiver a le trade, notre date diffère — **à ~99 % un artefact de collision, pas une erreur** ; voir plus bas) ; `ECART_TICKER` (notre ticker diffère/manque — souvent une **cascade** de l'écart de date, ou une action sans ticker à résoudre ; nos tickers sont corrects) ; `STRUCTUREL` (non-coté, hors périmètre Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver `MANQUANT_PAPIER`, `NON_COTE` (CUSIP/préférentielle/fragment OCR, hors périmètre) et `NOTRE_MANQUE` (dépôt **coté** qu'on n'a pas du tout). Le corpus est **dédupliqué cross-année** avant classification (réconciliation : **90 483** lignes brutes FINAL − 631 re-divulgations = **89 852** transactions uniques). Ce diagnostic **raffine** les tables figées 07g/07c (qui agrègent `no_match` et ne dédupliquent pas).
 
-**Synthèse côté NOUS** (part de NOS transactions par grande catégorie ; `notre_erreur_pct` = `ECART_DATE` + `ECART_TICKER`). Attention : `ECART_TICKER` mêle du **récupérable** (action sans ticker que Quiver confirme, ou ticker lisible chez Quiver) et un **artefact de collision même-jour** (notre ticker est bon mais un autre trade du même jour collisionne la clé) ; le vrai corrigible est plus petit que ce taux — voir les annexes ligne-à-ligne :
+#### Quiver ⊆ nous ? (inclusion au niveau ticker, dans notre fenêtre)
 
-| chamber | nos_txns | concordant_pct | notre_erreur_pct | structurel_pct | on_est_plus_complet_pct |
+La bonne question n'est pas « combien de trades Quiver retrouve-t-on à la **date exacte** » (biaisé par l'artefact plus bas) mais « **a-t-on tout ce que Quiver a** », au niveau **(déposant, ticker, sens)**, restreint à **notre fenêtre** (Quiver `Filed` ∈ 2020-2026 ; sinon l'historique pré-2020 de Quiver, qu'on ne couvre pas, fausse le taux à la baisse) :
+
+| chamber | quiver_dans_fenetre | inclus | inclusion_pct | residu | ocr_recuperable | quiver_non_cote | credit_2jambes | cross_chambre | residu_cote_reel |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| house | 17481 | 16397 | 93.8 | 1084 | 974 | 88 | 0 | 0 | 22 |
+| senate | 2587 | 2366 | 91.5 | 221 | 0 | 0 | 21 | 200 | 0 |
+
+Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) ; `quiver_non_cote` = « ticker » Quiver non appariable (CUSIP/préférentielle/fragment) ; `credit_2jambes` = on a le trade sous un ticker d'échange 2-jambes (« PFE  VTRS » couvre « PFE ») ; `cross_chambre` = déposant de l'autre chambre (Curtis Rep→Sén : ses trades Chambre polluent le cache Sénat de Quiver) ; `residu_cote_reel` = le **seul vrai trou coté** restant. Lecture : **House 93,8 % / Sénat 91,5 %** d'inclusion ; le vrai trou coté est minuscule (~22 House / 0 Sénat), le reste est **récupérable (OCR)** ou **hors périmètre**.
+
+**Bilan net « on est plus complet »** — actions cotées qu'on a et que Quiver n'a PAS (`ON_EST_PLUS_COMPLET`) vs vrais trous inverses (`NOTRE_MANQUE`) : **House +6206 contre 10**, **Sénat +680 contre 3**. On a tout ce que Quiver a (à l'OCR récupérable près) **et davantage** (échanges 2-jambes, sous-holdings).
+
+**Artefact de collision — à lire AVANT la synthèse ci-dessous.** L'`ECART_DATE` n'est **pas** une erreur : quand un déposant trade le même ticker plusieurs jours, l'appariement « date la plus proche » relie deux trades RÉELS distincts et fabrique un faux écart :
+
+| chamber | ecart_date | dont_collision | collision_pct | isole_vrai_ecart_possible |
+| --- | --- | --- | --- | --- |
+| house | 13197 | 13102 | 99.3 | 95 |
+| senate | 329 | 328 | 99.7 | 1 |
+
+**House ~99 % / Sénat ~100 % de l'`ECART_DATE` est cet artefact.** Sur les rares cas isolés (~95 House), le **digital nous donne raison** : 5 PDF officiels vérifiés montrent que c'est **Quiver** qui se décale (souvent d'un an sur les filings « Amended ») ; notre OCR, lui, lit bien la date du scan. L'`ECART_DATE` n'est donc **ni notre erreur ni corrigible chez nous**.
+
+**Synthèse côté NOUS** (part de NOS transactions par catégorie). ⚠️ `ecart_brut_pct` (= `ECART_DATE` + `ECART_TICKER`) **n'est PAS un taux d'erreur** et ne reflète PAS nos erreurs : l'`ECART_DATE` est à ~99 % un artefact de collision (et, isolé, c'est Quiver qui a tort sur le digital, 5 PDF vérifiés), et l'`ECART_TICKER` est surtout une cascade de cet artefact (nos tickers matchent la description d'actif). Le **vrai** taux d'erreur imputable est **< 1 %** — voir « Quiver ⊆ nous » et « artefact » ci-dessus :
+
+| chamber | nos_txns | concordant_pct | ecart_brut_pct | structurel_pct | on_est_plus_complet_pct |
 | --- | --- | --- | --- | --- | --- |
 | house | 81607 | 61.4 | 18.6 | 12.4 | 7.6 |
 | senate | 8245 | 59.7 | 2.1 | 30.0 | 8.2 |

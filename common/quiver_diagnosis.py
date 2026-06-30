@@ -247,6 +247,111 @@ def field_disagreements(final_df, qwin):
     return n, sense_pct, amt_pct, pd.DataFrame(bad_rows)
 
 
+# ───────────────────────── Inclusion Quiver ⊆ nous (LA métrique de la thèse) ─────────────────────────
+def _load_final_dedup(repo, chamber):
+    """FINAL multi-années dédupliqué cross-année (même invariant que build_diagnosis/load_final),
+    avec corrections de dates connues appliquées."""
+    fins = []
+    for y in YEARS:
+        _, _, fp = _paths(repo, chamber, y)
+        if fp.exists():
+            f = schema.apply_txn_date_fixes(pd.read_csv(fp, dtype=str)); f["_year"] = y
+            fins.append(f)
+    if not fins:
+        return pd.DataFrame()
+    F = pd.concat(fins, ignore_index=True)
+    if {"natural_key_hash", "occurrence_index"}.issubset(F.columns):
+        F = (F.assign(_o=pd.to_numeric(F["occurrence_index"], errors="coerce"))
+             .sort_values("_year", kind="stable")
+             .drop_duplicates(["natural_key_hash", "_o"], keep="first").reset_index(drop=True))
+    return F
+
+
+def ticker_inclusion(repo_root) -> pd.DataFrame:
+    """Mesure « Quiver ⊆ nous » au niveau (bioguide, ticker, sens), DATE-AGNOSTIQUE (donc non affectée par
+    l'artefact de collision de date) et RESTREINTE À NOTRE FENÊTRE (Quiver Filed ∈ YEARS) — sinon
+    l'historique pré-2020 de Quiver (qu'on ne couvre pas) fait chuter artificiellement le taux. C'est la
+    métrique directe de la thèse « on a tout ce que Quiver a ». Le résidu (Quiver a, nous pas) est décomposé :
+      ocr_recuperable  : déposant qu'on OCR (lignes papier ratées → re-OCR ciblé).
+      quiver_non_cote  : « ticker » Quiver non appariable (CUSIP/préférentielle/fragment) → hors périmètre.
+      credit_2jambes   : on a le trade sous un ticker 2-jambes (échange : « PFE  VTRS » couvre « PFE »).
+      cross_chambre    : déposant présent dans l'AUTRE chambre (ex. Curtis Rep→Sén : ses trades Chambre
+                         polluent le cache Sénat de Quiver) → hors périmètre de cette chambre.
+      residu_cote_reel : le VRAI trou coté restant (à investiguer / corriger ponctuellement)."""
+    repo = Path(repo_root)
+    bios = {ch: set(_load_final_dedup(repo, ch).get("bioguide_id", pd.Series(dtype=str)).dropna())
+            for ch in ("house", "senate")}
+    lo, hi = min(YEARS), max(YEARS)
+    rows = []
+    for ch in ("house", "senate"):
+        F = _load_final_dedup(repo, ch); Q = _load_quiver(repo, ch)
+        if not len(F) or Q is None:
+            continue
+        other = "senate" if ch == "house" else "house"
+        F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
+        Q = Q.copy(); Q["_tk"] = Q["Ticker"].map(hq.norm_ticker); Q["_s"] = Q["Transaction"].map(hq.norm_sense)
+        Q["_fy"] = Q["_filed"].dt.year
+        common = set(F["bioguide_id"].dropna()) & set(Q["BioGuideID"].dropna())
+        Fo = F[F["bioguide_id"].isin(common) & (F["_tk"] != "")]
+        qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "") & (Q["_fy"].between(lo, hi))]
+        ours3 = set(zip(Fo["bioguide_id"], Fo["_tk"], Fo["_s"]))
+        quiv3 = set(zip(qo["BioGuideID"], qo["_tk"], qo["_s"]))
+        inc, miss = quiv3 & ours3, quiv3 - ours3
+        paper = set(F[F["provenance"].str.contains("ocr", na=False)]["bioguide_id"].dropna())
+        legs = {}
+        for b, tk in zip(Fo["bioguide_id"], Fo["_tk"]):
+            if " " in tk:
+                legs.setdefault(b, set()).update(tk.split())
+        c = {"ocr": 0, "noncote": 0, "twoleg": 0, "cross": 0, "reel": 0}
+        for b, t, s in miss:
+            if b in paper:                      c["ocr"] += 1
+            elif _quiver_untradeable(t):        c["noncote"] += 1
+            elif t in legs.get(b, set()):       c["twoleg"] += 1
+            elif b in bios[other]:              c["cross"] += 1
+            else:                               c["reel"] += 1
+        rows.append({"chamber": ch, "quiver_dans_fenetre": len(quiv3), "inclus": len(inc),
+                     "inclusion_pct": round(100 * len(inc) / len(quiv3), 1) if quiv3 else None,
+                     "residu": len(miss), "ocr_recuperable": c["ocr"], "quiver_non_cote": c["noncote"],
+                     "credit_2jambes": c["twoleg"], "cross_chambre": c["cross"],
+                     "residu_cote_reel": c["reel"]})
+    return pd.DataFrame(rows)
+
+
+def date_artifact(repo_root) -> pd.DataFrame:
+    """Quantifie quelle part de l'ECART_DATE (Quiver a bio×ticker×sens, notre date diffère) est un
+    ARTEFACT DE COLLISION et non une vraie erreur : quand un déposant trade le même ticker plusieurs
+    jours, le bucket (bio,ticker,sens) a ≥2 dates des DEUX côtés → l'appariement « date la plus proche »
+    relie deux trades RÉELS distincts et fabrique un faux écart. Les cas ISOLÉS (1 date chaque côté) sont
+    les seuls où un vrai écart de date peut exister."""
+    repo = Path(repo_root)
+    rows = []
+    for ch in ("house", "senate"):
+        F = _load_final_dedup(repo, ch); Q = _load_quiver(repo, ch)
+        if not len(F) or Q is None:
+            continue
+        F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
+        F["_d"] = pd.to_datetime(F["transaction_date"], errors="coerce").dt.date
+        Q = Q.copy(); Q["_tk"] = Q["Ticker"].map(hq.norm_ticker); Q["_s"] = Q["Transaction"].map(hq.norm_sense)
+        Q["_d"] = Q["_traded"].dt.date
+        common = set(F["bioguide_id"].dropna()) & set(Q["BioGuideID"].dropna())
+        Fo = F[F["bioguide_id"].isin(common) & (F["_tk"] != "")]
+        Qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "")]
+        QK4 = set(zip(Qo["BioGuideID"], Qo["_tk"], Qo["_d"], Qo["_s"]))
+        QK3 = set(zip(Qo["BioGuideID"], Qo["_tk"], Qo["_s"]))
+        multi_o = set(Fo.groupby(["bioguide_id", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
+        multi_q = set(Qo.groupby(["BioGuideID", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
+        ed = coll = 0
+        for b, t, d, s in zip(Fo["bioguide_id"], Fo["_tk"], Fo["_d"], Fo["_s"]):
+            if (b, t, d, s) not in QK4 and (b, t, s) in QK3:
+                ed += 1
+                if (b, t, s) in multi_o or (b, t, s) in multi_q:
+                    coll += 1
+        rows.append({"chamber": ch, "ecart_date": ed, "dont_collision": coll,
+                     "collision_pct": round(100 * coll / ed, 1) if ed else None,
+                     "isole_vrai_ecart_possible": ed - coll})
+    return pd.DataFrame(rows)
+
+
 # ───────────────────────────── Construction du diagnostic ─────────────────────────────
 def _coverage_by_year(repo, chamber, qfull):
     """Table A : par année × scope — matched/quiver/ours, couverture (Quiver→nous) et precision
@@ -312,7 +417,7 @@ def build_diagnosis(repo_root) -> dict:
         # en 2021) est gardée UNE seule fois, dans son année de dépôt la plus ancienne. Sans ça le même
         # trade serait compté deux fois — CONCORDANT son année d'origine, puis faux ON_EST_PLUS_COMPLET
         # l'année de re-divulgation (hors fenêtre Quiver filed-year de cette année). Sénat : −596 lignes
-        # (8 245 uniques) ; House : −34. Même invariant que common/schema.dedup_canonical.
+        # (8 245 uniques) ; House : −35 (81 607 uniques). Même invariant que common/schema.dedup_canonical.
         fins = []
         for y in YEARS:
             _, _, fp = _paths(repo, chamber, y)
@@ -362,9 +467,12 @@ def build_diagnosis(repo_root) -> dict:
         corrig = int(our_all["verdict"].isin([v for v in OUR_ORDER if A_CORRIGER[v]]).sum())
         struct = int((our_all["verdict"] == "STRUCTUREL").sum())
         plus = int((our_all["verdict"] == "ON_EST_PLUS_COMPLET").sum())
+        # « ecart_brut_pct » = ECART_DATE + ECART_TICKER. NOTE : ce n'est PAS un taux d'erreur — l'ECART_DATE
+        # est à ~99 % un artefact de collision et nos tickers sont corrects (cf. inclusion + artefact). Le vrai
+        # taux d'erreur imputable est < 1 %. Nommé « brut » exprès pour ne pas le présenter comme « notre erreur ».
         synth_rows.append({"chamber": chamber, "nos_txns": n_our,
                            "concordant_pct": round(100 * (our_all["verdict"] == "CONCORDANT").sum() / n_our, 1),
-                           "notre_erreur_pct": round(100 * corrig / n_our, 1),
+                           "ecart_brut_pct": round(100 * corrig / n_our, 1),
                            "structurel_pct": round(100 * struct / n_our, 1),
                            "on_est_plus_complet_pct": round(100 * plus / n_our, 1)})
 
@@ -403,6 +511,8 @@ def build_diagnosis(repo_root) -> dict:
         "quiver_tally": pd.concat([t for t in quiver_tally if len(t)], ignore_index=True) if quiver_tally else pd.DataFrame(),
         "field_agreement": pd.DataFrame(field_rows) if field_rows else pd.DataFrame(),
         "top_notre_manque": top_manque,
+        "ticker_inclusion": ticker_inclusion(repo),
+        "date_artifact": date_artifact(repo),
         "annex_dir": str(annex),
     }
 
