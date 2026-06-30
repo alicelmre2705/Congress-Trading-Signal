@@ -1,13 +1,18 @@
 # Congress Trading Signal — Recherche stratégie (Semaines 3-4)
 
-**Toute la recherche tient dans un seul notebook autonome : [`Congress_Trading_Signal_Recherche.ipynb`](Congress_Trading_Signal_Recherche.ipynb).**
+**Toute la recherche tient dans un seul notebook autonome, propre et entièrement expliqué :
+[`03_Recherche_Signal_2014_2026.ipynb`](03_Recherche_Signal_2014_2026.ipynb)** (100 cellules, 0 erreur,
+relançable sur le kernel *S3S4 (.venv)*).
 
 On le lit de haut en bas et on comprend tout — **aucun fichier `.py` à ouvrir** : la **Partie 0** définit
-l'intégralité du moteur (chargement, prix, event-study, portefeuille, métriques, sélection) en cellules
-courtes et expliquées ; les **Parties I-IX** racontent la recherche (contexte → données → event-study →
-chasse au signal → backtest générique → stratégie Ramify V1 actions → V2 ETF → approfondissement →
-littérature → verdict). Déjà exécuté (sorties + graphiques sauvegardés), relançable sur le kernel
-*S3S4 (.venv)*.
+l'intégralité du moteur (chargement, rendement anormal, portefeuille, familles **alpha** CAPM/FF3/FFC4,
+test **GRS**, famille **Sharpe** PSR/DSR/Sortino/IR, sélection point-in-time) en cellules courtes, chaque
+symbole défini et chaque hypothèse posée ; les **Parties 1-6** racontent la recherche :
+données (1) → signal brut event-study **benchmark RSP** (2) → où le signal se concentre, coupes (3) →
+backtest rigoureux, familles alpha/Sharpe + GRS (4) → sélection **11 critères + score total composite**
+en walk-forward (5) → littérature & verdict (6). **V2 ETF et exploration = hors périmètre** (sur demande).
+
+> *La version précédente (V1 ETF incluse) est conservée dans [`_archive_recherche_v1/`](_archive_recherche_v1/).*
 
 - **Seules dépendances** : `numpy / pandas / scipy / scikit-learn / matplotlib / pyyaml` (aucun module maison).
 - **Données** (lecture seule) : journal **et** enrichissement = [`table_congres_2014_2026.csv`](table_congres_2014_2026.csv)
