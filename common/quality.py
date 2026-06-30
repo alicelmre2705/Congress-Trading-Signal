@@ -865,6 +865,56 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(qv["by_cluster"]))
         parts.append("\n")
 
+    # ════════ Diagnostic « qui a raison ? » (recompute offline — common/quiver_diagnosis) ════════
+    from common import quiver_diagnosis as qd
+    diag = qd.build_diagnosis(repo_root)
+    parts.append("\n### Diagnostic : qui a raison ? (nous vs Quiver)\n")
+    parts.append("\nLes tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic "
+                 "(recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche "
+                 "**pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` "
+                 "(Quiver a le trade, notre date diffère → OCR/amendement) ; `ECART_TICKER` (notre ticker "
+                 "diffère/manque → **notre erreur corrigible**) ; `STRUCTUREL` (non-coté, hors périmètre "
+                 "Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver "
+                 "`MANQUANT_PAPIER` / `NOTRE_MANQUE` (dépôt qu'on n'a pas du tout). Les sommes reproduisent "
+                 "**exactement** les tables figées (07g pour le côté nous, 07c pour `only_quiver`).\n")
+    if len(diag["synthesis"]):
+        parts.append("\n**Synthèse côté NOUS** (part de NOS transactions par grande catégorie ; "
+                     "`notre_erreur_pct` = date OCR + ticker, corrigible) :\n\n")
+        parts.append(_md_table(diag["synthesis"]))
+        parts.append("\n")
+    if len(diag["our_tally"]):
+        parts.append("\n**Verdicts nous→Quiver** (chacune de NOS transactions confrontée à Quiver) :\n\n")
+        parts.append(_md_table(diag["our_tally"]))
+        parts.append("\n")
+    if len(diag["quiver_tally"]):
+        parts.append("\n**Verdicts Quiver→nous** (les trades Quiver qu'on n'a pas = `only_quiver` = ce que "
+                     "Quiver a et nous non). `NOTRE_MANQUE` = le seul **vrai trou** (dépôt jamais capté) ; "
+                     "tout le reste s'explique par notre date, notre ticker, ou du papier :\n\n")
+        parts.append(_md_table(diag["quiver_tally"]))
+        parts.append("\n")
+    if len(diag["coverage_by_year"]):
+        cby = diag["coverage_by_year"]
+        cby = cby[cby["scope"] == "both"][["chamber", "year", "matched", "quiver",
+                                           "couverture_pct", "precision_pct"]]
+        parts.append("\n**Couverture (Quiver→nous) et precision (nous→Quiver) par année** (scope `both` ; "
+                     "comble l'axe année absent des tables figées) :\n\n")
+        parts.append(_md_table(cby))
+        parts.append("\n")
+    if len(diag["field_agreement"]):
+        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (paires appariées bio×ticker×date) — "
+                     "un désaccord ici = notre erreur d'extraction sur une donnée pourtant captée :\n\n")
+        parts.append(_md_table(diag["field_agreement"]))
+        parts.append("\n\n`accord_montant_bas_pct` est **sous-estimé** par un artefact connu : quand un "
+                     "membre trade le même ticker le même jour à deux montants, le merge bio×ticker×date "
+                     "produit un appariement croisé (cf. `note` du `07d` Sénat). Le sens, lui, est robuste.\n")
+    if len(diag["top_notre_manque"]):
+        parts.append("\n**Top déposants `NOTRE_MANQUE`** (dépôts Quiver qu'on n'a pas du tout — à investiguer) :\n\n")
+        parts.append(_md_table(diag["top_notre_manque"]))
+        parts.append("\n")
+    parts.append("\nListes actionnables complètes (cas corrigibles, ligne à ligne) → `docs/quiver_validation/` "
+                 "(`ecart_ticker_*.csv`, `notre_manque_*.csv`, `manquant_papier_*.csv`, "
+                 "`desaccord_champ_*.csv`, `on_est_plus_complet_*.csv`). Hors golden.\n")
+
     report = docs / "RAPPORT_QUALITE.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")
     return report

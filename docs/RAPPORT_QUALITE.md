@@ -391,3 +391,84 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | A_tape_droit | 3784 | 630 | 600 | 943 | 5957 | 88.0 |
 | C_manuscrit | 100 | 169 | 493 | 100 | 862 | 35.3 |
 
+### Diagnostic : qui a raison ? (nous vs Quiver)
+
+Les tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic (recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche **pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` (Quiver a le trade, notre date diffère → OCR/amendement) ; `ECART_TICKER` (notre ticker diffère/manque → **notre erreur corrigible**) ; `STRUCTUREL` (non-coté, hors périmètre Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver `MANQUANT_PAPIER` / `NOTRE_MANQUE` (dépôt qu'on n'a pas du tout). Les sommes reproduisent **exactement** les tables figées (07g pour le côté nous, 07c pour `only_quiver`).
+
+**Synthèse côté NOUS** (part de NOS transactions par grande catégorie ; `notre_erreur_pct` = date OCR + ticker, corrigible) :
+
+| chamber | nos_txns | concordant_pct | notre_erreur_pct | structurel_pct | on_est_plus_complet_pct |
+| --- | --- | --- | --- | --- | --- |
+| house | 81646 | 61.3 | 16.4 | 14.7 | 7.6 |
+| senate | 8841 | 55.7 | 2.4 | 28.6 | 13.3 |
+
+**Verdicts nous→Quiver** (chacune de NOS transactions confrontée à Quiver) :
+
+| côté | verdict | n | pct | a_corriger |
+| --- | --- | --- | --- | --- |
+| nous→Quiver (house) | CONCORDANT | 50081 | 61.3 | False |
+| nous→Quiver (house) | ECART_DATE | 9629 | 11.8 | True |
+| nous→Quiver (house) | ECART_TICKER | 3741 | 4.6 | True |
+| nous→Quiver (house) | STRUCTUREL | 11986 | 14.7 | False |
+| nous→Quiver (house) | ON_EST_PLUS_COMPLET | 6209 | 7.6 | False |
+| nous→Quiver (senate) | CONCORDANT | 4922 | 55.7 | False |
+| nous→Quiver (senate) | ECART_DATE | 151 | 1.7 | True |
+| nous→Quiver (senate) | ECART_TICKER | 63 | 0.7 | True |
+| nous→Quiver (senate) | STRUCTUREL | 2531 | 28.6 | False |
+| nous→Quiver (senate) | ON_EST_PLUS_COMPLET | 1174 | 13.3 | False |
+
+**Verdicts Quiver→nous** (les trades Quiver qu'on n'a pas = `only_quiver` = ce que Quiver a et nous non). `NOTRE_MANQUE` = le seul **vrai trou** (dépôt jamais capté) ; tout le reste s'explique par notre date, notre ticker, ou du papier :
+
+| côté | verdict | n | pct | a_corriger |
+| --- | --- | --- | --- | --- |
+| Quiver→nous (house) | ECART_DATE | 3418 | 49.2 | True |
+| Quiver→nous (house) | ECART_TICKER | 2316 | 33.4 | True |
+| Quiver→nous (house) | MANQUANT_PAPIER | 1092 | 15.7 | True |
+| Quiver→nous (house) | NOTRE_MANQUE | 116 | 1.7 | True |
+| Quiver→nous (senate) | ECART_TICKER | 22 | 88.0 | True |
+| Quiver→nous (senate) | NOTRE_MANQUE | 3 | 12.0 | True |
+
+**Couverture (Quiver→nous) et precision (nous→Quiver) par année** (scope `both` ; comble l'axe année absent des tables figées) :
+
+| chamber | year | matched | quiver | couverture_pct | precision_pct |
+| --- | --- | --- | --- | --- | --- |
+| house | 2020 | 7115 | 8359 | 85.1 | 75.0 |
+| house | 2021 | 5222 | 5893 | 88.6 | 63.2 |
+| house | 2022 | 6075 | 7513 | 80.9 | 60.2 |
+| house | 2023 | 6128 | 7567 | 81.0 | 84.7 |
+| house | 2024 | 4670 | 5442 | 85.8 | 79.7 |
+| house | 2025 | 9836 | 10773 | 91.3 | 90.8 |
+| house | 2026 | 4233 | 4674 | 90.6 | 84.9 |
+| senate | 2020 | 1251 | 1259 | 99.4 | 93.6 |
+| senate | 2021 | 398 | 406 | 98.0 | 64.1 |
+| senate | 2022 | 636 | 640 | 99.4 | 96.1 |
+| senate | 2023 | 682 | 684 | 99.7 | 88.2 |
+| senate | 2024 | 558 | 560 | 99.6 | 97.7 |
+| senate | 2025 | 520 | 521 | 99.8 | 88.0 |
+| senate | 2026 | 279 | 279 | 100.0 | 89.1 |
+
+**Accord sur les trades qu'on a TOUS LES DEUX** (paires appariées bio×ticker×date) — un désaccord ici = notre erreur d'extraction sur une donnée pourtant captée :
+
+| chamber | n_paires_appariées | accord_sens_pct | accord_montant_bas_pct |
+| --- | --- | --- | --- |
+| house | 72907 | 91.9 | 88.8 |
+| senate | 7172 | 93.3 | 87.7 |
+
+`accord_montant_bas_pct` est **sous-estimé** par un artefact connu : quand un membre trade le même ticker le même jour à deux montants, le merge bio×ticker×date produit un appariement croisé (cf. `note` du `07d` Sénat). Le sens, lui, est robuste.
+
+**Top déposants `NOTRE_MANQUE`** (dépôts Quiver qu'on n'a pas du tout — à investiguer) :
+
+| chamber | bioguide | name | n_notre_manque |
+| --- | --- | --- | --- |
+| house | A000372 | Richard W. Allen | 33 |
+| house | Y000067 | Rudy Yakym | 28 |
+| house | F000450 | Virginia Foxx | 18 |
+| house | B001327 | Rob Bresnahan | 5 |
+| house | G000591 | Michael Patrick Guest | 4 |
+| house | B000740 | Stephanie Bice | 3 |
+| house | B001325 | Sheri Biggs | 3 |
+| house | C001068 | Steve Cohen | 2 |
+| senate | M001198 | Roger W Marshall | 3 |
+
+Listes actionnables complètes (cas corrigibles, ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*.csv`, `notre_manque_*.csv`, `manquant_papier_*.csv`, `desaccord_champ_*.csv`, `on_est_plus_complet_*.csv`). Hors golden.
+
