@@ -1,13 +1,13 @@
-# Rapport qualité — Données de trading du Congrès américain (2020–2026)
-> Chambre des représentants + Sénat · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**.
+# Rapport qualité — Données de trading du Congrès américain
+> Chambre des représentants + Sénat · 2020–2026 · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**.
 
 ## Résumé exécutif
 
 - **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
-- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (≈ 22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
-- **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre seulement 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
-- **Les « écarts » date/ticker ne sont pas des erreurs** — ~99 % sont un artefact de mesure (même trade tradé plusieurs jours) ; sur le digital, c'est **Quiver** qui se décale (5 PDF officiels vérifiés). Notre taux d'erreur réellement imputable est **< 1 %**.
-- **Données propres** — identité rattachée à ~100 %, dates cohérentes > 99 %, délai de divulgation médian 28 j, montants renseignés > 98 %.
+- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
+- **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
+- **Les « écarts » date/ticker ne sont pas des erreurs** — 99.3 % (House) de l'écart-date est un artefact de mesure (même trade tradé plusieurs jours, voir §6.6) ; nos tickers concordent avec la description d'actif.
+- **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 28 j, montants renseignés 99.0 %.
 
 *Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · §5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*
 
@@ -15,7 +15,7 @@
 
 Les déclarations proviennent de **quatre sous-corpus** très différents (chambre × voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et leur composition diffèrent.
 
-| corpus | n | part_pct |
+| sous-corpus | n | part % |
 | --- | --- | --- |
 | House électronique | 32667 | 36.4 |
 | House OCR | 48940 | 54.5 |
@@ -24,7 +24,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Couverture des champs enrichis (taux de remplissage)
 
-| corpus | n | ticker_% | secteur_% | etf_proxy_% | committee_% | identite_% | anciennete_% |
+| sous-corpus | n | ticker % | secteur % | ETF % | commission % | identité % | ancienneté % |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 88.7 | 86.6 | 86.6 | 74.7 | 100.0 | 100.0 |
 | House OCR | 48940 | 83.1 | 81.0 | 81.0 | 94.5 | 100.0 | 100.0 |
@@ -35,7 +35,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Scorecard de qualité
 
-| corpus | n | dates_coherentes_% | date_plausible_% | annee_implausible_n | montant_renseigne_% |
+| sous-corpus | n | dates cohérentes % | date plausible % | année aberrante (n) | montant renseigné % |
 | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 99.9 | — | 0 | 100.0 |
 | House OCR | 48940 | 99.7 | 95.4 | 0 | 98.2 |
@@ -48,7 +48,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Sens des opérations :**
 
-| corpus | n | achat_% | vente_% | echange_% | autre_% |
+| sous-corpus | n | achat % | vente % | échange % | autre % |
 | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 49.7 | 49.7 | 0.6 | 0.0 |
 | House OCR | 48940 | 52.7 | 46.6 | 0.7 | 0.0 |
@@ -59,7 +59,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Détenteur déclaré :**
 
-| corpus | n | perso_% | conjoint_% | joint_% | enfant_% | autre_% |
+| sous-corpus | n | perso % | conjoint % | joint % | enfant % | autre % |
 | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 51.9 | 19.7 | 26.2 | 2.2 | 0.0 |
 | House OCR | 48940 | 6.7 | 51.1 | 7.0 | 35.2 | 0.0 |
@@ -68,7 +68,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine l'OCR du Sénat) :
 
-| corpus | n | action_% | option_% | oblig.Etat_% | muni_% | oblig.corp_% | fonds_% | autre_% | manquant_% |
+| sous-corpus | n | action % | option % | oblig. État % | muni % | oblig. corp. % | fonds % | autre % | manquant % |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 84.6 | 1.8 | 5.9 | 0.0 | 0.0 | 0.0 | 6.1 | 1.6 |
 | House OCR | 48940 | 81.7 | 0.0 | 0.8 | 0.0 | 0.1 | 3.1 | 0.6 | 13.8 |
@@ -79,7 +79,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Secteurs & sources de résolution
 
-| corpus | n | secteur_renseigne_% | etf_proxy_% | top_3_secteurs |
+| sous-corpus | n | secteur renseigné % | ETF % | top 3 secteurs |
 | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 86.6 | 86.6 | Information Technology 20%, Financials 14%, Health Care 13% |
 | House OCR | 48940 | 81.0 | 81.0 | Information Technology 20%, Financials 16%, Health Care 14% |
@@ -88,7 +88,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :
 
-| corpus | n | elec_dict_% | llm_% | explicit_% | none_% |
+| sous-corpus | n | dico élec % | LLM % | explicite % | aucune % |
 | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | — | — | — | — |
 | House OCR | 48940 | 45.6 | 36.2 | 1.3 | 16.9 |
@@ -97,7 +97,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Origine du secteur** (`sector_source`) :
 
-| corpus | n | yfinance_% | llm_% | manual_% | none_% |
+| sous-corpus | n | yfinance % | LLM % | manuel % | aucune % |
 | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 78.7 | 7.8 | 0.2 | 13.3 |
 | House OCR | 48940 | 75.4 | 5.6 | 0.1 | 18.9 |
@@ -108,7 +108,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Montants par sous-corpus
 
-| corpus | n | mediane_$ | moyenne_$ | P25_$ | P75_$ | P95_$ | volume_total_M$ |
+| sous-corpus | n | médiane $ | moyenne $ | P25_$ | P75_$ | P95_$ | volume total M$ |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 8000 | 53307 | 8000 | 15001 | 100001 | 1741.4 |
 | House OCR | 48940 | 8000 | 49627 | 8000 | 32500 | 175000 | 2386.0 |
@@ -117,7 +117,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Concentration de l'activité
 
-| corpus | n_deposants | HHI | Gini | top10_volume_% |
+| sous-corpus | n déposants | HHI | Gini | top10 volume % |
 | --- | --- | --- | --- | --- |
 | House électronique | 234 | 662.7 | 0.877 | 68.8 |
 | House OCR | 40 | 2888.3 | 0.913 | 98.7 |
@@ -130,7 +130,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Top tickers par volume estimé :**
 
-| ticker | n_trades | volume_M$ |
+| ticker | n trades | volume M$ |
 | --- | --- | --- |
 | MSFT | 1011 | 261.3 |
 | ICE | 110 | 93.4 |
@@ -150,7 +150,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 **Volume par secteur GICS :**
 
-| secteur | n_trades | volume_M$ |
+| secteur | n trades | volume M$ |
 | --- | --- | --- |
 | Information Technology | 14315 | 725.9 |
 | Financials | 10981 | 520.7 |
@@ -166,23 +166,23 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ### Profil des clusters de scan (House OCR)
 
-| cluster | n_lignes | n_docs | date_plausible_% | ticker_% | quiver_a_le_trade_pct |
+| cluster | n lignes | n docs | date plausible % | ticker % | Quiver a le trade % |
 | --- | --- | --- | --- | --- | --- |
 | A_tape_droit | 5957 | 59 | 99.6 | 84.2 | 88.0 |
 | B_tape_tourne | 42125 | 295 | 94.7 | 82.9 | 77.9 |
 | C_manuscrit | 858 | 80 | 97.4 | 88.5 | 35.3 |
 
-A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`quiver_a_le_trade_pct`) **chute** sur le manuscrit (≈35 %) alors qu'il reste élevé sur le tapé (≈78–88 %) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la plausibilité interne (`date_plausible_%`, fenêtre 75 j, reste haute). D'où l'exclusion par défaut du cluster C.
+A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`Quiver a le trade %`) **chute** sur le manuscrit alors qu'il reste élevé sur le tapé (voir colonne) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la plausibilité interne (`date plausible %`, fenêtre 75 j, reste haute). D'où l'exclusion par défaut du cluster C.
 
 ## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)
-| chamber | n | dates_parseables_pct | coherentes_pct | incoherentes | annee_txn_implausible | date_manquante |
+| chambre | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81607 | 99.8 | 99.8 | 159 | 0 | 178 |
 | senate | 8245 | 99.9 | 100.0 | 3 | 0 | 7 |
 
 **Par sous-corpus :**
 
-| corpus | n | dates_parseables_pct | coherentes_pct | incoherentes | annee_txn_implausible | date_manquante |
+| sous-corpus | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
 | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 100.0 | 99.9 | 18 | 0 | 0 |
 | House OCR | 48940 | 99.6 | 99.7 | 141 | 0 | 178 |
@@ -192,14 +192,14 @@ A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`quiver
 Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR papier illisible) ; `coherentes_pct` = part où la divulgation suit bien la transaction. Les `incoherentes` sont surtout des divulgations amendées/antidatées réelles ; `annee_txn_implausible` isole les rares erreurs OCR de lecture d'année (année de transaction postérieure au dépôt ou antérieure à 2012), déjà incluses dans les incohérentes. Des transactions 2013–2019 apparaissent légitimement (divulgations très tardives).
 
 ## 3. Délai légal de divulgation (STOCK Act ~45 j)
-| chamber | n_dates_valides | <=45j_legal_pct | 45-75j_pct | >75j_pct | negatif_pct | delai_median_j |
+| chambre | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81429 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
 | senate | 8238 | 91.0 | 2.8 | 6.2 | 0.0 | 27 |
 
 **Par sous-corpus :**
 
-| corpus | n_dates_valides | <=45j_legal_pct | 45-75j_pct | >75j_pct | negatif_pct | delai_median_j |
+| sous-corpus | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
 | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 81.9 | 4.9 | 13.2 | 0.1 | 28 |
 | House OCR | 48762 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
@@ -212,7 +212,7 @@ Le pipeline tolère une fenêtre de 75 j (`date_confidence`) ; le tableau isole 
 
 **Divulgations les plus tardives (> 365 j, suspects) :**
 
-| declarant_name | chamber | transaction_date | disclosure_date | lag_days | ticker | operation_type |
+| déposant | chambre | date txn | date divulg. | délai (j) | ticker | opération |
 | --- | --- | --- | --- | --- | --- | --- |
 | Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DHR | Purchase |
 | Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DAL | Purchase |
@@ -270,7 +270,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 
 **Top 15 déposants par volume estimé (Σ midpoint) :**
 
-| declarant_name | chamber | n_trades | volume_estime_musd |
+| déposant | chambre | n trades | volume estimé M$ |
 | --- | --- | --- | --- |
 | Michael T. McCaul | house | 10738 | 974.5 |
 | Rohit Khanna | house | 30516 | 667.8 |
@@ -298,7 +298,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 
 **Top 20 déposants (transactions, OCR%, années actives) :**
 
-| name | our_total | our_ocr | ocr_share_pct | n_annees | premiere_annee | derniere_annee |
+| nom | total | dont OCR | OCR % | n années | 1re année | dern. année |
 | --- | --- | --- | --- | --- | --- | --- |
 | Rohit Khanna | 30862 | 30862 | 100 | 8 | 2019 | 2026 |
 | Michael T. McCaul | 10850 | 10850 | 100 | 7 | 2020 | 2026 |
@@ -325,14 +325,14 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 
 Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur le même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.
 
-| chamber | n_achats_avec_ticker | avec_sortie_declaree | sans_sortie_pct |
+| chambre | achats (avec ticker) | avec sortie | sans sortie % |
 | --- | --- | --- | --- |
 | house | 34562 | 26783 | 22.5 |
 | senate | 2468 | 1502 | 39.1 |
 
 **Par sous-corpus :**
 
-| corpus | n_achats_avec_ticker | avec_sortie_declaree | sans_sortie_pct |
+| sous-corpus | achats (avec ticker) | avec sortie | sans sortie % |
 | --- | --- | --- | --- |
 | House électronique | 14010 | 8288 | 40.8 |
 | House OCR | 20552 | 18495 | 10.0 |
@@ -341,15 +341,94 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 
 ## 6. Complétude vs Quiver (vérité-terrain externe)
 
-> **Section clé.** Réponse en une ligne : notre base est, dans sa fenêtre, un **quasi sur-ensemble de Quiver** (inclusion 93,8 % House / 91,5 % Sénat), et on est **plus complet** que lui. Les « écarts » sont à ~99 % des artefacts ou des erreurs de Quiver, pas les nôtres. Le détail suit.
+> **Section clé.** On liste tous les trades Quiver de notre fenêtre, on les confronte aux nôtres, et on montre qu'ils y sont **inclus** (Quiver ⊆ nous) — qu'on est même **plus complet** — puis pourquoi les « écarts » de date ne sont pas des erreurs. Chiffres recalculés par `common/quiver_diagnosis.py`, **jamais réinjectés**.
 
-### 6.1 Couverture exact-date (vue d'ensemble figée)
+### 6.1 Méthode d'appariement
 
-Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, **jamais réinjectée**. On confronte nos transactions à Quiver au niveau transaction, par **scope** (digital / OCR / les deux) — voir `common/quiver_scopes.py` pour la définition exhaustive des métriques. Trois constats chiffrés en ressortent :
+Chaque transaction est confrontée à Quiver par une clé normalisée, sur **deux mesures** : l'**inclusion** (a-t-on le trade) et l'**exact-date** (même trade, même date).
 
-**Couverture par scope et chambre** (`couverture_pct` = part des trades Quiver qu'on retrouve **à la date exacte** ; `only_ours` = nos trades absents de Quiver ; `only_quiver` = trades Quiver qu'on n'a pas) :
+| élément | définition |
+| --- | --- |
+| univers comparé | tous les trades Quiver `Filed` ∈ 2020–2026 (notre fenêtre de scrape) |
+| clé d'appariement | (`bioguide`, ticker normalisé, date, sens) — sans la date pour l'inclusion |
+| normalisation ticker | MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_` |
+| normalisation sens | 1re lettre p/s/e → Purchase / Sale / Exchange |
+| mesure 1 — inclusion | clé SANS date → « a-t-on tout ce que Quiver a » (la vraie complétude) |
+| mesure 2 — exact-date | clé AVEC date → compte raté tout décalage de date (artefact, §6.5) |
 
-| chamber | scope | matched | quiver | only_ours | only_quiver | couverture_pct |
+*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*
+
+### 6.2 Réconciliation du corpus
+
+Le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation tardive ne compte qu'une fois) :
+
+| chambre | lignes brutes | re-divulgations (dédup) | transactions uniques |
+| --- | --- | --- | --- |
+| house | 81642 | 35 | 81607 |
+| senate | 8841 | 596 | 8245 |
+| TOTAL | 90483 | 631 | 89852 |
+### 6.3 Inclusion : a-t-on tout ce que Quiver a ? (Quiver ⊆ nous)
+
+Dans notre fenêtre, on retrouve **93.8 % (House)** et **91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté** est minuscule (22 House / 0 Sénat) ; le reste du résidu est récupérable ou hors périmètre :
+
+| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | dont OCR récup. | dont non-coté | dont 2-jambes | dont autre chambre | vrai trou coté |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| house | 17481 | 16397 | 93.8 | 1084 | 974 | 88 | 0 | 0 | 22 |
+| senate | 2587 | 2366 | 91.5 | 221 | 0 | 0 | 21 | 200 | 0 |
+
+*Légende du résidu :* **OCR récup.** = lignes papier ratées (re-OCR ciblé) · **non-coté** = « ticker » Quiver non appariable (CUSIP, préférentielle, fragment) · **2-jambes** = on a le trade sous un ticker d'échange (« PFE  VTRS » couvre « PFE ») · **autre chambre** = déposant Rep→Sén dont les trades Chambre polluent le cache Sénat de Quiver · **vrai trou coté** = le seul manque réel.
+
+### 6.4 On est plus complet que Quiver (bilan net)
+
+Actions cotées qu'on a et que Quiver n'a PAS (`on_a_en_plus`) vs vrais trous inverses (`vrais_trous`) :
+
+| chambre | actions qu'on a en + | vrais trous | solde net |
+| --- | --- | --- | --- |
+| house | 6206 | 10 | 6196 |
+| senate | 680 | 3 | 677 |
+### 6.5 Pourquoi l'exact-date sous-compte (artefact de collision)
+
+Quand un déposant trade le même ticker plusieurs jours, l'exact-date n'apparie qu'une fraction des trades réels : **99.3 % (House)** de l'écart-date est cet artefact, pas une erreur.
+
+| chambre | écart-date | dont collision | collision % | isolés (vrai écart possible) |
+| --- | --- | --- | --- | --- |
+| house | 13197 | 13102 | 99.3 | 95 |
+| senate | 329 | 328 | 99.7 | 1 |
+
+**Exemple concret (régénéré)** — même (déposant, ticker, sens) tradé de nombreux jours ; nos dates ≈ celles de Quiver, mais le moindre décalage compte comme « raté » :
+
+| chambre | déposant | ticker | sens | nos dates (n) | dates Quiver (n) | exemple nos dates | exemple dates Quiver |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| house | Rohit Khanna | DIS | Purchase | 101 | 62 | 2020-01-08/2020-02-11/2020-02-13/2020-02-26 | 2020-01-08/2020-02-11/2020-02-12/2020-02-26 |
+| senate | Thomas H Tuberville | CLF | Sale | 29 | 29 | 2021-01-21/2021-03-12/2021-04-19/2021-07-19 | 2021-01-21/2021-03-12/2021-04-19/2021-07-19 |
+### 6.6 Écarts de date isolés : qui a raison ?
+
+Les seuls vrais écarts possibles sont les cas **isolés** (hors collision) : 95 House / 1 Sénat. La colonne `delta (j)` tranche : un delta pluriannuel = Quiver a un **vieux trade sans rapport** (pas notre erreur). `doc_id` = pièce consultable.
+
+| chambre | provenance | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| house | house-pdf-ocr | Rohit Khanna | LNT | Purchase | 2026-01-29 | 2018-01-02 | 2949.0 | 8221322 |
+| house | house-pdf-electronic | Pete Sessions | IBM | Purchase | 2021-04-30 | 2013-04-22 | 2930.0 | 20018672 |
+| house | house-pdf-ocr | Rohit Khanna | CSL | Purchase | 2022-11-03 | 2017-11-30 | 1799.0 | 8219288 |
+| house | house-pdf-electronic | John A. Yarmuth | AMGN | Purchase | 2020-05-29 | 2016-02-01 | 1579.0 | 20019291 |
+| house | house-pdf-ocr | Rohit Khanna | ADM | Exchange | 2026-05-27 | 2022-04-17 | 1501.0 | 9116142 |
+| house | house-pdf-ocr | Rohit Khanna | TSM | Exchange | 2025-11-14 | 2021-11-02 | 1473.0 | 8221264 |
+| house | house-pdf-ocr | Rohit Khanna | IONS | Purchase | 2022-04-13 | 2018-04-03 | 1471.0 | 8218730 |
+| house | house-pdf-ocr | Rohit Khanna | SYK | Exchange | 2025-08-04 | 2021-11-02 | 1371.0 | 9115676 |
+| house | house-pdf-ocr | Rohit Khanna | GM | Exchange | 2020-06-18 | 2024-02-20 | -1342.0 | 8217394 |
+| house | house-pdf-ocr | Rohit Khanna | JPM | Exchange | 2022-09-08 | 2019-02-05 | 1311.0 | 8219242 |
+| house | house-pdf-ocr | Rohit Khanna | UTHR | Sale | 2021-11-09 | 2018-05-08 | 1281.0 | 8218490 |
+| house | house-pdf-ocr | Rohit Khanna | LTRPA | Purchase | 2021-08-17 | 2018-04-03 | 1232.0 | 8218338 |
+
+*(Top 12 par |delta| ; les 96 cas sont dans `quiver_validation/ecarts_date_isoles.csv`.)*
+
+### 6.7 Détail figé : couverture exact-date par scope, type d'actif, cluster
+
+Vue d'ensemble **exact-date** (tables figées 07c/07g/07h ; sous-compte par construction, cf. §6.5). `couverture %` = part des trades Quiver retrouvés à la date exacte.
+
+**Couverture par scope et chambre :**
+
+| chambre | scope | appariés | Quiver | nous seul | Quiver seul | couverture % |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | both | 43279.0 | 50221.0 | 13482.0 | 6942.0 | 86.2 |
 | house | digital | 25784.0 | 26252.0 | 415.0 | 468.0 | 98.2 |
@@ -358,11 +437,9 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | senate | digital | 4324.0 | 4349.0 | 405.0 | 25.0 | 99.4 |
 | senate | ocr | 0.0 | 15.0 | 64.0 | 15.0 | 0.0 |
 
-⚠️ Cette couverture est **exact-date** : elle compte comme « raté » tout trade qu'on a à une **autre** date (artefact de collision) ou sous un autre ticker. **Pour juger la complétude réelle, voir « Quiver ⊆ nous ? » ci-dessous** (inclusion ticker-niveau fenêtrée : House 93,8 % / Sénat 91,5 %, vrai trou coté ≈ 22 / 0).
+**Par type d'actif** (`non-coté` = muni/obligation, hors périmètre Quiver-actions) — **House :**
 
-**1) Quiver ne couvre que les ACTIONS.** Décomposition par type d'actif (`exact_match` = même trade, même date ; `date_mismatch` = bon trade, notre date diffère ; `no_match` = absent de Quiver ; `non_equity` = muni/obligation → **hors périmètre Quiver**, ni validable ni un défaut ; `quiver_a_le_trade_pct` = exact+date_mismatch sur les actions). — **House :**
-
-| asset_type | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| type d'actif | exact (date) | date ≠ | absent | non-coté | total | Quiver a le trade % |
 | --- | --- | --- | --- | --- | --- | --- |
 | Stock | 47475 | 9301 | 8105 | 2796 | 67677 | 87.5 |
 | (inconnu) | 1704 | 211 | 1015 | 4345 | 7275 | 65.4 |
@@ -383,9 +460,9 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | RS | 1 | 1 | 0 | 1 | 3 | 100.0 |
 | SA | 1 | 0 | 0 | 2 | 3 | 100.0 |
 
-— **Sénat** (l'OCR y est surtout du non-coté → `non_equity`, ce qui explique l'essentiel du « Quiver ne nous voit pas » ; les `Stock`, eux, sont très bien couverts) :
+— **Sénat** (l'OCR y est surtout du non-coté) :
 
-| asset_type | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| type d'actif | exact (date) | date ≠ | absent | non-coté | total | Quiver a le trade % |
 | --- | --- | --- | --- | --- | --- | --- |
 | Stock | 4071 | 105 | 783 | 68 | 5027 | 84.2 |
 | Other | 350 | 21 | 158 | 1283 | 1812 | 70.1 |
@@ -398,50 +475,28 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | Non-Public Stock | 0 | 0 | 2 | 58 | 60 | 0.0 |
 | Cryptocurrency | 4 | 0 | 2 | 1 | 7 | 66.7 |
 
-**2) Quiver A le papier — notre limite est la DATE de l'OCR.** Par cluster de scan (House) : `quiver_a_le_trade_pct` reste élevé même en manuscrit (Quiver possède le trade), mais la part `exact_match` (date juste) **chute** sur le manuscrit → c'est notre lecture OCR des dates manuscrites qui est faible, **pas** une cécité de Quiver au papier :
+**Par cluster de scan (House)** — Quiver A le papier (`Quiver a le trade %` reste élevé), seule la part exact-date chute sur le manuscrit (lecture OCR des dates) :
 
-| cluster | exact_match | date_mismatch | no_match | non_equity | total | quiver_a_le_trade_pct |
+| cluster | exact (date) | date ≠ | absent | non-coté | total | Quiver a le trade % |
 | --- | --- | --- | --- | --- | --- | --- |
 | B_tape_tourne | 18558 | 8653 | 7706 | 7234 | 42151 | 77.9 |
 | A_tape_droit | 3784 | 630 | 600 | 943 | 5957 | 88.0 |
 | C_manuscrit | 100 | 169 | 493 | 100 | 862 | 35.3 |
 
-### 6.2 Qui a raison ? Inclusion réelle, complétude nette, artefacts
+### 6.8 Verdicts détaillés
 
-Les tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic (recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche **pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` (Quiver a le trade, notre date diffère — **à ~99 % un artefact de collision, pas une erreur** ; voir plus bas) ; `ECART_TICKER` (notre ticker diffère/manque — souvent une **cascade** de l'écart de date, ou une action sans ticker à résoudre ; nos tickers sont corrects) ; `STRUCTUREL` (non-coté, hors périmètre Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver `MANQUANT_PAPIER`, `NON_COTE` (CUSIP/préférentielle/fragment OCR, hors périmètre) et `NOTRE_MANQUE` (dépôt **coté** qu'on n'a pas du tout). Le corpus est **dédupliqué cross-année** avant classification (réconciliation : **90 483** lignes brutes FINAL − 631 re-divulgations = **89 852** transactions uniques). Ce diagnostic **raffine** les tables figées 07g/07c (qui agrègent `no_match` et ne dédupliquent pas).
+Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_brut_pct` (`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'écart-date est l'artefact du §6.5, et nos tickers concordent avec la description d'actif.
 
-#### Quiver ⊆ nous ? (inclusion au niveau ticker, dans notre fenêtre)
+**Synthèse côté NOUS** (part de NOS transactions par catégorie) :
 
-La bonne question n'est pas « combien de trades Quiver retrouve-t-on à la **date exacte** » (biaisé par l'artefact plus bas) mais « **a-t-on tout ce que Quiver a** », au niveau **(déposant, ticker, sens)**, restreint à **notre fenêtre** (Quiver `Filed` ∈ 2020-2026 ; sinon l'historique pré-2020 de Quiver, qu'on ne couvre pas, fausse le taux à la baisse) :
-
-| chamber | quiver_dans_fenetre | inclus | inclusion_pct | residu | ocr_recuperable | quiver_non_cote | credit_2jambes | cross_chambre | residu_cote_reel |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | 17481 | 16397 | 93.8 | 1084 | 974 | 88 | 0 | 0 | 22 |
-| senate | 2587 | 2366 | 91.5 | 221 | 0 | 0 | 21 | 200 | 0 |
-
-Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) ; `quiver_non_cote` = « ticker » Quiver non appariable (CUSIP/préférentielle/fragment) ; `credit_2jambes` = on a le trade sous un ticker d'échange 2-jambes (« PFE  VTRS » couvre « PFE ») ; `cross_chambre` = déposant de l'autre chambre (Curtis Rep→Sén : ses trades Chambre polluent le cache Sénat de Quiver) ; `residu_cote_reel` = le **seul vrai trou coté** restant. Lecture : **House 93,8 % / Sénat 91,5 %** d'inclusion ; le vrai trou coté est minuscule (~22 House / 0 Sénat), le reste est **récupérable (OCR)** ou **hors périmètre**.
-
-**Bilan net « on est plus complet »** — actions cotées qu'on a et que Quiver n'a PAS (`ON_EST_PLUS_COMPLET`) vs vrais trous inverses (`NOTRE_MANQUE`) : **House +6206 contre 10**, **Sénat +680 contre 3**. On a tout ce que Quiver a (à l'OCR récupérable près) **et davantage** (échanges 2-jambes, sous-holdings).
-
-**Artefact de collision — à lire AVANT la synthèse ci-dessous.** L'`ECART_DATE` n'est **pas** une erreur : quand un déposant trade le même ticker plusieurs jours, l'appariement « date la plus proche » relie deux trades RÉELS distincts et fabrique un faux écart :
-
-| chamber | ecart_date | dont_collision | collision_pct | isole_vrai_ecart_possible |
-| --- | --- | --- | --- | --- |
-| house | 13197 | 13102 | 99.3 | 95 |
-| senate | 329 | 328 | 99.7 | 1 |
-
-**House ~99 % / Sénat ~100 % de l'`ECART_DATE` est cet artefact.** Sur les rares cas isolés (~95 House), le **digital nous donne raison** : 5 PDF officiels vérifiés montrent que c'est **Quiver** qui se décale (souvent d'un an sur les filings « Amended ») ; notre OCR, lui, lit bien la date du scan. L'`ECART_DATE` n'est donc **ni notre erreur ni corrigible chez nous**.
-
-**Synthèse côté NOUS** (part de NOS transactions par catégorie). ⚠️ `ecart_brut_pct` (= `ECART_DATE` + `ECART_TICKER`) **n'est PAS un taux d'erreur** et ne reflète PAS nos erreurs : l'`ECART_DATE` est à ~99 % un artefact de collision (et, isolé, c'est Quiver qui a tort sur le digital, 5 PDF vérifiés), et l'`ECART_TICKER` est surtout une cascade de cet artefact (nos tickers matchent la description d'actif). Le **vrai** taux d'erreur imputable est **< 1 %** — voir « Quiver ⊆ nous » et « artefact » ci-dessus :
-
-| chamber | nos_txns | concordant_pct | ecart_brut_pct | structurel_pct | on_est_plus_complet_pct |
+| chambre | nos txns | concordant % | écart brut % | structurel % | on est + complet % |
 | --- | --- | --- | --- | --- | --- |
 | house | 81607 | 61.4 | 18.6 | 12.4 | 7.6 |
 | senate | 8245 | 59.7 | 2.1 | 30.0 | 8.2 |
 
-**Verdicts nous→Quiver** (chacune de NOS transactions confrontée à Quiver) :
+**Verdicts nous→Quiver :**
 
-| côté | verdict | n | pct | a_corriger |
+| côté | verdict | n | % | à corriger |
 | --- | --- | --- | --- | --- |
 | nous→Quiver (house) | CONCORDANT | 50074 | 61.4 | False |
 | nous→Quiver (house) | ECART_DATE | 9629 | 11.8 | True |
@@ -454,9 +509,9 @@ Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) 
 | nous→Quiver (senate) | STRUCTUREL | 2472 | 30.0 | False |
 | nous→Quiver (senate) | ON_EST_PLUS_COMPLET | 680 | 8.2 | False |
 
-**Verdicts Quiver→nous** (les trades Quiver qu'on n'a pas = `only_quiver`). `NON_COTE` = un « ticker » Quiver non appariable (CUSIP, préférentielle, fragment OCR) → hors périmètre. `NOTRE_MANQUE` = le **vrai trou** (action cotée jamais captée), résiduel après filtrage du non-coté : ~10 lignes House (Pelosi UBER/INTC, Bresnahan SPY/QQQ/IWM, James AFRM…) et 3 Sénat. Tout le reste s'explique par notre date, notre ticker, ou du papier :
+**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté (résiduel après filtrage du non-coté), les autres s'expliquent par la date, le ticker, ou du papier :
 
-| côté | verdict | n | pct | a_corriger |
+| côté | verdict | n | % | à corriger |
 | --- | --- | --- | --- | --- |
 | Quiver→nous (house) | ECART_DATE | 3419 | 49.2 | True |
 | Quiver→nous (house) | ECART_TICKER | 2317 | 33.4 | True |
@@ -466,9 +521,9 @@ Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) 
 | Quiver→nous (senate) | ECART_TICKER | 22 | 88.0 | True |
 | Quiver→nous (senate) | NOTRE_MANQUE | 3 | 12.0 | True |
 
-**Couverture (Quiver→nous) et precision (nous→Quiver) par année** (scope `both` ; comble l'axe année absent des tables figées) :
+**Couverture (Quiver→nous) et precision (nous→Quiver) par année** (scope `both`) :
 
-| chamber | year | matched | quiver | couverture_pct | precision_pct |
+| chambre | année | appariés | Quiver | couverture % | precision % |
 | --- | --- | --- | --- | --- | --- |
 | house | 2020 | 7115 | 8359 | 85.1 | 75.0 |
 | house | 2021 | 5222 | 5893 | 88.6 | 63.2 |
@@ -485,16 +540,16 @@ Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) 
 | senate | 2025 | 520 | 521 | 99.8 | 88.0 |
 | senate | 2026 | 279 | 279 | 100.0 | 89.1 |
 
-**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date présentes des deux côtés) — un de nos trades « concorde » s'il existe un trade Quiver de même sens (resp. même sens+montant) dans la cellule. Mesure par **appartenance ensembliste** (robuste à la granularité des lots : l'ancien `merge` cartésien sous-estimait l'accord et gonflait `n_paires`). Un désaccord = vraie erreur d'extraction sur une donnée pourtant captée, listée et **typée** (`sens`/`montant`) dans `desaccord_champ_*.csv` :
+**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date, par appartenance ensembliste) — un désaccord = vraie erreur d'extraction, typée dans `desaccord_champ_*.csv` :
 
-| chamber | n_paires_appariées | accord_sens_pct | accord_montant_bas_pct |
+| chambre | n paires | accord sens % | accord montant % |
 | --- | --- | --- | --- |
 | house | 52258 | 95.8 | 93.1 |
 | senate | 4932 | 99.8 | 99.7 |
 
-**Top déposants `NOTRE_MANQUE`** (dépôts Quiver qu'on n'a pas du tout — à investiguer) :
+**Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :
 
-| chamber | bioguide | name | n_notre_manque |
+| chambre | bioguide | nom | n trous |
 | --- | --- | --- | --- |
 | house | B001327 | Rob Bresnahan | 5 |
 | house | P000197 | Nancy Pelosi | 2 |
@@ -503,5 +558,5 @@ Résidu décomposé : `ocr_recuperable` = lignes papier ratées (re-OCR ciblé) 
 | house | W000797 | Debbie Wasserman Schultz | 1 |
 | senate | M001198 | Roger W Marshall | 3 |
 
-Listes actionnables complètes (cas corrigibles, ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*.csv`, `notre_manque_*.csv`, `manquant_papier_*.csv`, `desaccord_champ_*.csv` [typé sens/montant], `on_est_plus_complet_*.csv`, `quiver_non_cote_*.csv`). Hors golden.
+Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `ecarts_date_isoles`, `exemple_collision`). Hors golden.
 
