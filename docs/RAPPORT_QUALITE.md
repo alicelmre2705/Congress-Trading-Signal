@@ -1,8 +1,17 @@
-# Rapport de qualité des données — Congress Trading
-> Livrable Ramify, Semaine 2. Généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API).
-**Périmètre :** 89 852 transactions FINAL (House 81 607 + Sénat 8 245)  années 2020–2026.
+# Rapport qualité — Données de trading du Congrès américain (2020–2026)
+> Chambre des représentants + Sénat · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**.
 
-## Décomposition par sous-corpus
+## Résumé exécutif
+
+- **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
+- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (≈ 22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
+- **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre seulement 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
+- **Les « écarts » date/ticker ne sont pas des erreurs** — ~99 % sont un artefact de mesure (même trade tradé plusieurs jours) ; sur le digital, c'est **Quiver** qui se décale (5 PDF officiels vérifiés). Notre taux d'erreur réellement imputable est **< 1 %**.
+- **Données propres** — identité rattachée à ~100 %, dates cohérentes > 99 %, délai de divulgation médian 28 j, montants renseignés > 98 %.
+
+*Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · §5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*
+
+## 1. Composition & qualité par sous-corpus
 
 Les déclarations proviennent de **quatre sous-corpus** très différents (chambre × voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et leur composition diffèrent.
 
@@ -165,7 +174,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`quiver_a_le_trade_pct`) **chute** sur le manuscrit (≈35 %) alors qu'il reste élevé sur le tapé (≈78–88 %) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la plausibilité interne (`date_plausible_%`, fenêtre 75 j, reste haute). D'où l'exclusion par défaut du cluster C.
 
-## (a) Cohérence des dates (`disclosure_date ≥ transaction_date`)
+## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)
 | chamber | n | dates_parseables_pct | coherentes_pct | incoherentes | annee_txn_implausible | date_manquante |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81607 | 99.8 | 99.8 | 159 | 0 | 178 |
@@ -182,7 +191,7 @@ A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`quiver
 
 Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR papier illisible) ; `coherentes_pct` = part où la divulgation suit bien la transaction. Les `incoherentes` sont surtout des divulgations amendées/antidatées réelles ; `annee_txn_implausible` isole les rares erreurs OCR de lecture d'année (année de transaction postérieure au dépôt ou antérieure à 2012), déjà incluses dans les incohérentes. Des transactions 2013–2019 apparaissent légitimement (divulgations très tardives).
 
-## (b) Délai légal de divulgation (STOCK Act ~45 j)
+## 3. Délai légal de divulgation (STOCK Act ~45 j)
 | chamber | n_dates_valides | <=45j_legal_pct | 45-75j_pct | >75j_pct | negatif_pct | delai_median_j |
 | --- | --- | --- | --- | --- | --- | --- |
 | house | 81429 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
@@ -221,7 +230,7 @@ Le pipeline tolère une fenêtre de 75 j (`date_confidence`) ; le tableau isole 
 | Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | FB | Sale |
 | Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | KMX | Sale |
 
-## (c) Distribution des montants (`amount_midpoint`)
+## 4. Distribution des montants (`amount_midpoint`)
 
 Stats globales (USD, midpoint des fourchettes déclarées) :
 
@@ -279,7 +288,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Scott H. Peters | house | 334 | 64.6 |
 | Kevin Hern | house | 760 | 60.1 |
 
-## (d) Coverage par congressman
+## 5. Couverture par déposant & structure de l'activité
 
 320 déposants distincts. **206** ont ≥ 10 transactions (éligibles au backtest), dont **150** actifs sur ≥ 3 années.
 
@@ -312,7 +321,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Lois Frankel | 656 | 0 | 0 | 5 | 2019 | 2023 |
 | Mark Green | 653 | 0 | 0 | 6 | 2020 | 2025 |
 
-## (e) Taux de transactions sans sortie déclarée
+### Achats sans sortie déclarée (pour la stratégie)
 
 Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur le même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.
 
@@ -330,7 +339,11 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 | Sénat électronique | 2301 | 1373 | 40.3 |
 | Sénat OCR | 167 | 129 | 22.8 |
 
-## (f) Validation externe Quiver (vérité-terrain — actions cotées)
+## 6. Complétude vs Quiver (vérité-terrain externe)
+
+> **Section clé.** Réponse en une ligne : notre base est, dans sa fenêtre, un **quasi sur-ensemble de Quiver** (inclusion 93,8 % House / 91,5 % Sénat), et on est **plus complet** que lui. Les « écarts » sont à ~99 % des artefacts ou des erreurs de Quiver, pas les nôtres. Le détail suit.
+
+### 6.1 Couverture exact-date (vue d'ensemble figée)
 
 Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépendante**, **jamais réinjectée**. On confronte nos transactions à Quiver au niveau transaction, par **scope** (digital / OCR / les deux) — voir `common/quiver_scopes.py` pour la définition exhaustive des métriques. Trois constats chiffrés en ressortent :
 
@@ -393,7 +406,7 @@ Quiver Quantitative (agrégateur commercial) sert de **vérité-terrain indépen
 | A_tape_droit | 3784 | 630 | 600 | 943 | 5957 | 88.0 |
 | C_manuscrit | 100 | 169 | 493 | 100 | 862 | 35.3 |
 
-### Diagnostic : qui a raison ? (nous vs Quiver)
+### 6.2 Qui a raison ? Inclusion réelle, complétude nette, artefacts
 
 Les tableaux ci-dessus comptent *combien* de trades Quiver on retrouve. Ce diagnostic (recalculé hors-ligne par `common/quiver_diagnosis.py`, **jamais réinjecté**) tranche **pourquoi** on diffère : chaque écart reçoit un verdict — `CONCORDANT` ; `ECART_DATE` (Quiver a le trade, notre date diffère — **à ~99 % un artefact de collision, pas une erreur** ; voir plus bas) ; `ECART_TICKER` (notre ticker diffère/manque — souvent une **cascade** de l'écart de date, ou une action sans ticker à résoudre ; nos tickers sont corrects) ; `STRUCTUREL` (non-coté, hors périmètre Quiver) ; `ON_EST_PLUS_COMPLET` (action absente de Quiver) ; et côté Quiver `MANQUANT_PAPIER`, `NON_COTE` (CUSIP/préférentielle/fragment OCR, hors périmètre) et `NOTRE_MANQUE` (dépôt **coté** qu'on n'a pas du tout). Le corpus est **dédupliqué cross-année** avant classification (réconciliation : **90 483** lignes brutes FINAL − 631 re-divulgations = **89 852** transactions uniques). Ce diagnostic **raffine** les tables figées 07g/07c (qui agrègent `no_match` et ne dédupliquent pas).
 
