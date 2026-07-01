@@ -89,11 +89,11 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Sénat OCR | 1679 | 19.4 | 19.4 | Financials 21%, Communication Services 18%, Information Technology 12% |
 *secteur renseigné % / ETF % = taux de remplissage (vide = non coté) · top 3 = secteurs GICS dominants*
 
-**Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :
+**Origine du ticker** (`ticker_source` — comment le ticker a été obtenu) :
 
 | sous-corpus | n | dico élec % | LLM % | explicite % | aucune % |
 | --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | — | — | — | — |
+| House électronique | 32667 | 0.0 | 0.0 | 88.7 | 11.3 |
 | House OCR | 48940 | 45.6 | 36.2 | 1.3 | 16.9 |
 | Sénat électronique | 6566 | 0.5 | 0.7 | 77.1 | 20.7 |
 | Sénat OCR | 1679 | 9.5 | 8.3 | 15.4 | 66.8 |

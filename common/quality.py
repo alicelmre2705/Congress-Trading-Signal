@@ -137,6 +137,15 @@ def load_final(repo_root: Path) -> pd.DataFrame:
     full["op"] = full["operation_type"].map(op_class)
     full["corpus"] = full["provenance"].map(_corpus_label)
     full["owner_class"] = full["owner"].map(owner_class)
+    # ticker_source : House digital ne le stocke pas (le ticker est lu DIRECTEMENT dans le PDF, entre
+    # parenthèses). On le dérive pour uniformiser les 4 sous-corpus (frozen intact) : « explicit » si le
+    # ticker est présent (donc lu dans la déclaration), « none » sinon. N'affecte que les lignes non taguées.
+    if "ticker_source" in full.columns:
+        _ts = full["ticker_source"].fillna("").astype(str).str.strip().str.lower()
+        _blank = (_ts == "") | (_ts == "nan")
+        _has_tk = _nonblank(full["ticker"])
+        full.loc[_blank & _has_tk, "ticker_source"] = "explicit"
+        full.loc[_blank & ~_has_tk, "ticker_source"] = "none"
     return full
 
 
@@ -877,7 +886,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_leg("secteur renseigné % / ETF % = taux de remplissage (vide = non coté) · top 3 = secteurs "
                       "GICS dominants"))
     sy = source_yield(df)
-    parts.append("\n**Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :\n\n")
+    parts.append("\n**Origine du ticker** (`ticker_source` — comment le ticker a été obtenu) :\n\n")
     parts.append(_md_table(sy["ticker"]))
     parts.append(_leg("comment le ticker est obtenu : dico élec = repris de l'électronique · LLM = résolu par "
                       "LLM · explicite = déjà présent dans la source · aucune = non résolu"))
