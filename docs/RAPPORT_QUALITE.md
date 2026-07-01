@@ -6,7 +6,7 @@
 - **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
 - **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
 - **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
-- **Les « écarts » date/ticker ne sont pas des erreurs** — 99.3 % (House) de l'écart-date est un artefact de mesure (même trade tradé plusieurs jours, voir §6.6) ; nos tickers concordent avec la description d'actif.
+- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.5) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 414 candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 28 j, montants renseignés 99.0 %.
 
 *Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · §5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*
@@ -363,7 +363,7 @@ Chaque transaction est confrontée à Quiver par une clé normalisée, sur **deu
 | normalisation ticker | MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_` |
 | normalisation sens | 1re lettre p/s/e → Purchase / Sale / Exchange |
 | mesure 1 — inclusion | clé SANS date → « a-t-on tout ce que Quiver a » (la vraie complétude) |
-| mesure 2 — exact-date | clé AVEC date → compte raté tout décalage de date (artefact, §6.5) |
+| mesure 2 — réconciliation | appariement 1-à-1 (déposant, ticker, sens) ancré au dépôt → exact / proche / candidat / nous-seul / quiver-seul (§6.5) |
 
 *Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*
 
@@ -395,41 +395,36 @@ Actions cotées qu'on a et que Quiver n'a PAS (`on_a_en_plus`) vs vrais trous in
 | --- | --- | --- | --- |
 | house | 6206 | 10 | 6196 |
 | senate | 680 | 3 | 677 |
-### 6.5 Pourquoi l'exact-date sous-compte (artefact de collision)
+### 6.5 Réconciliation transaction-par-transaction
 
-Quand un déposant trade le même ticker plusieurs jours, l'exact-date n'apparie qu'une fraction des trades réels : **99.3 % (House)** de l'écart-date est cet artefact, pas une erreur.
+L'exact-date compare par **appartenance ensembliste** (« ma date est-elle dans l'ensemble Quiver ? ») → elle **sous-compte** dès qu'un titre est tradé plusieurs jours (elle ne sait pas apparier N trades à M). Ici on **apparie 1-à-1** nos trades à ceux de Quiver par `(déposant, ticker, sens)`, ancré au dépôt (`disclosure ≈ Filed`), date exacte puis plus proche. Chaque trade tombe alors dans **une** catégorie honnête :
 
-| chambre | écart-date | dont collision | collision % | isolés (vrai écart possible) |
-| --- | --- | --- | --- | --- |
-| house | 13196 | 13101 | 99.3 | 95 |
-| senate | 329 | 328 | 99.7 | 1 |
-
-**Exemple concret (régénéré)** — même (déposant, ticker, sens) tradé de nombreux jours ; nos dates ≈ celles de Quiver, mais le moindre décalage compte comme « raté » :
-
-| chambre | déposant | ticker | sens | nos dates (n) | dates Quiver (n) | exemple nos dates | exemple dates Quiver |
+| chambre | apparié exact | apparié proche (≤7j) | candidat écart | dont même dépôt | nous-seul | quiver-seul | candidat % |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | DIS | Purchase | 101 | 62 | 2020-01-08/2020-02-11/2020-02-13/2020-02-26 | 2020-01-08/2020-02-11/2020-02-12/2020-02-26 |
-| senate | Thomas H Tuberville | CLF | Sale | 29 | 29 | 2021-01-21/2021-03-12/2021-04-19/2021-07-19 | 2021-01-21/2021-03-12/2021-04-19/2021-07-19 |
-### 6.6 Écarts de date isolés : qui a raison ?
+| house | 43250 | 467 | 1764 | 414 | 21699 | 4708 | 2.6 |
+| senate | 4361 | 0 | 0 | 0 | 1202 | 385 | 0.0 |
+*apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de date) · candidat écart = paire à 7–90 j à inspecter · dont même dépôt = candidats dans le MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté. Plus de « collision » : un vrai écart est une PAIRE avec delta, pas un artefact d'empilement.*
 
-Les seuls vrais écarts possibles sont les cas **isolés** (hors collision) : 95 House / 1 Sénat. La colonne `delta (j)` tranche : un delta pluriannuel = Quiver a un **vieux trade sans rapport** (pas notre erreur). `doc_id` = pièce consultable.
+### 6.6 Candidats d'écart de date (même dépôt)
 
-| chambre | provenance | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | house-pdf-ocr | Rohit Khanna | LNT | Purchase | 2026-01-29 | 2018-01-02 | 2949.0 | 8221322 |
-| house | house-pdf-electronic | Pete Sessions | IBM | Purchase | 2021-04-30 | 2013-04-22 | 2930.0 | 20018672 |
-| house | house-pdf-ocr | Rohit Khanna | CSL | Purchase | 2022-11-03 | 2017-11-30 | 1799.0 | 8219288 |
-| house | house-pdf-electronic | John A. Yarmuth | AMGN | Purchase | 2020-05-29 | 2016-02-01 | 1579.0 | 20019291 |
-| house | house-pdf-ocr | Rohit Khanna | ADM | Exchange | 2026-05-27 | 2022-04-17 | 1501.0 | 9116142 |
-| house | house-pdf-ocr | Rohit Khanna | TSM | Exchange | 2025-11-14 | 2021-11-02 | 1473.0 | 8221264 |
-| house | house-pdf-ocr | Rohit Khanna | IONS | Purchase | 2022-04-13 | 2018-04-03 | 1471.0 | 8218730 |
-| house | house-pdf-ocr | Rohit Khanna | SYK | Exchange | 2025-08-04 | 2021-11-02 | 1371.0 | 9115676 |
-| house | house-pdf-ocr | Rohit Khanna | GM | Exchange | 2020-06-18 | 2024-02-20 | -1342.0 | 8217394 |
-| house | house-pdf-ocr | Rohit Khanna | JPM | Exchange | 2022-09-08 | 2019-02-05 | 1311.0 | 8219242 |
-| house | house-pdf-ocr | Rohit Khanna | UTHR | Sale | 2021-11-09 | 2018-05-08 | 1281.0 | 8218490 |
-| house | house-pdf-ocr | Rohit Khanna | LTRPA | Purchase | 2021-08-17 | 2018-04-03 | 1232.0 | 8218338 |
+Les **seuls** candidats honnêtes d'erreur de date sont ceux **dans un même dépôt** (414 House / 0 Sénat). Même là, prudence : un petit delta peut être une **convention de date Quiver**, pas notre erreur. Le **vrai contrôle des dates reste l'audit PDF (§2)** — Quiver, lui, n'a souvent pas le trade (« nous-seul ») ou le date autrement. `doc_id` = pièce consultable :
 
-*(Top 12 par |delta| ; les 96 cas sont dans `quiver_validation/ecarts_date_isoles.csv`.)*
+| chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| house | Rohit Khanna | RJF | Purchase | 2022-05-10 | 2022-05-02 | 8 | 8218940 |
+| house | Rohit Khanna | ADM | Sale | 2020-03-13 | 2020-03-05 | 8 | 8217164 |
+| house | Rohit Khanna | F | Purchase | 2020-02-03 | 2020-02-11 | 8 | 8217060 |
+| house | Rohit Khanna | WES | Sale | 2020-02-13 | 2020-02-21 | 8 | 8217060 |
+| house | Rohit Khanna | KEYS | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
+| house | Rohit Khanna | ALB | Sale | 2020-02-11 | 2020-02-19 | 8 | 8217060 |
+| house | Rohit Khanna | PPL | Sale | 2020-03-13 | 2020-03-05 | 8 | 8217164 |
+| house | Rohit Khanna | HLT | Sale | 2020-07-31 | 2020-07-23 | 8 | 8217557 |
+| house | Rohit Khanna | LIN | Purchase | 2022-04-21 | 2022-04-13 | 8 | 8218730 |
+| house | Rohit Khanna | TRGP | Sale | 2020-02-19 | 2020-02-11 | 8 | 8217060 |
+| house | Rohit Khanna | VST | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
+| house | Rohit Khanna | SYK | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
+
+*(Top 12 par delta croissant ; les 414 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 
 ### 6.7 Détail figé : couverture exact-date par scope, type d'actif, cluster
 
@@ -578,5 +573,5 @@ Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_bru
 | house | W000797 | Debbie Wasserman Schultz | 1 |
 | senate | M001198 | Roger W Marshall | 3 |
 
-Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `ecarts_date_isoles`, `exemple_collision`). Hors golden.
+Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). Hors golden.
 

@@ -751,12 +751,12 @@ _COLS = {
     "quiver_dans_fenetre": "trades Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
     "residu": "résidu", "ocr_recuperable": "dont OCR récup.", "quiver_non_cote": "dont non-coté",
     "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre", "residu_cote_reel": "vrai trou coté",
-    "ecart_date": "écart-date", "dont_collision": "dont collision", "collision_pct": "collision %",
-    "isole_vrai_ecart_possible": "isolés (vrai écart possible)",
+    "apparie_exact": "apparié exact", "apparie_proche": "apparié proche (≤7j)", "candidat_ecart": "candidat écart",
+    "dont_meme_depot": "dont même dépôt", "nous_seul": "nous-seul", "quiver_seul": "quiver-seul",
+    "candidat_pct": "candidat %",
     "lignes_brutes": "lignes brutes", "re_divulgations_dedup": "re-divulgations (dédup)",
     "transactions_uniques": "transactions uniques",
-    "declarant": "déposant", "sens": "sens", "nos_dates_n": "nos dates (n)", "quiver_dates_n": "dates Quiver (n)",
-    "exemple_nos_dates": "exemple nos dates", "exemple_quiver_dates": "exemple dates Quiver",
+    "declarant": "déposant", "sens": "sens",
     "provenance": "provenance", "notre_date": "notre date", "quiver_date": "date Quiver",
     "delta_jours": "delta (j)", "doc_id": "doc_id",
     "on_a_en_plus": "actions qu'on a en +", "vrais_trous": "vrais trous", "solde_net": "solde net",
@@ -816,7 +816,7 @@ def build_report(repo_root: Path) -> Path:
     diag = qd.build_diagnosis(repo_root)
     qv = quiver_validation(repo_root)
     inc = diag.get("ticker_inclusion", pd.DataFrame())
-    art = diag.get("date_artifact", pd.DataFrame())
+    drec = diag.get("date_reconciliation", pd.DataFrame())
     recon = diag.get("reconciliation", pd.DataFrame())
 
     def _byc(dd, verdict):
@@ -864,9 +864,9 @@ def build_report(repo_root: Path) -> Path:
         f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} actions cotées "
         f"qu'on a et que Quiver n'a pas, contre {manque.get('house',0)+manque.get('senate',0)} trous "
         "inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.\n"
-        f"- **Les « écarts » date/ticker ne sont pas des erreurs** — {_cell(art,'house','collision_pct')} % "
-        "(House) de l'écart-date est un artefact de mesure (même trade tradé plusieurs jours, voir §6.6) ; "
-        "nos tickers concordent avec la description d'actif.\n"
+        f"- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.5) montre que "
+        f"l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls {_cell(drec,'house','dont_meme_depot')} "
+        "candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).\n"
         f"- **Données propres** — identité rattachée à {id_pct} %, dates cohérentes {coh_pct} %, délai de "
         f"divulgation médian {med_lag} j, montants renseignés {amt_pct} %.\n")
     parts.append("\n*Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · "
@@ -1039,7 +1039,7 @@ def build_report(repo_root: Path) -> Path:
         {"élément": "normalisation ticker", "définition": "MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_`"},
         {"élément": "normalisation sens", "définition": "1re lettre p/s/e → Purchase / Sale / Exchange"},
         {"élément": "mesure 1 — inclusion", "définition": "clé SANS date → « a-t-on tout ce que Quiver a » (la vraie complétude)"},
-        {"élément": "mesure 2 — exact-date", "définition": "clé AVEC date → compte raté tout décalage de date (artefact, §6.5)"},
+        {"élément": "mesure 2 — réconciliation", "définition": "appariement 1-à-1 (déposant, ticker, sens) ancré au dépôt → exact / proche / candidat / nous-seul / quiver-seul (§6.5)"},
     ])
     parts.append(_md_table(_meth))
     parts.append("\n\n*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*\n")
@@ -1073,29 +1073,36 @@ def build_report(repo_root: Path) -> Path:
                      "(`vrais_trous`) :\n\n")
         parts.append(_md_table(diag["net_completeness"]))
 
-    # 6.5 Pourquoi l'exact-date sous-compte (artefact + exemple généré)
-    if len(art):
-        parts.append("\n### 6.5 Pourquoi l'exact-date sous-compte (artefact de collision)\n")
-        parts.append(f"\nQuand un déposant trade le même ticker plusieurs jours, l'exact-date n'apparie qu'une "
-                     f"fraction des trades réels : **{_cell(art,'house','collision_pct')} % (House)** de l'écart-"
-                     "date est cet artefact, pas une erreur.\n\n")
-        parts.append(_md_table(art))
-        if len(diag.get("collision_example", [])):
-            parts.append("\n\n**Exemple concret (régénéré)** — même (déposant, ticker, sens) tradé de nombreux "
-                         "jours ; nos dates ≈ celles de Quiver, mais le moindre décalage compte comme « raté » :\n\n")
-            parts.append(_md_table(diag["collision_example"]))
+    # 6.5 Réconciliation 1-à-1 (remplace l'ancienne heuristique de collision)
+    if len(drec):
+        parts.append("\n### 6.5 Réconciliation transaction-par-transaction\n")
+        parts.append("\nL'exact-date compare par **appartenance ensembliste** (« ma date est-elle dans "
+                     "l'ensemble Quiver ? ») → elle **sous-compte** dès qu'un titre est tradé plusieurs jours "
+                     "(elle ne sait pas apparier N trades à M). Ici on **apparie 1-à-1** nos trades à ceux de "
+                     "Quiver par `(déposant, ticker, sens)`, ancré au dépôt (`disclosure ≈ Filed`), date exacte "
+                     "puis plus proche. Chaque trade tombe alors dans **une** catégorie honnête :\n\n")
+        parts.append(_md_table(drec))
+        parts.append(_leg("apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de "
+                          "date) · candidat écart = paire à 7–90 j à inspecter · dont même dépôt = candidats dans "
+                          "le MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus "
+                          "complet) · quiver-seul = on a raté. Plus de « collision » : un vrai écart est une PAIRE "
+                          "avec delta, pas un artefact d'empilement."))
 
-    # 6.6 Écarts isolés : qui a raison (table générée + doc_id)
-    if len(diag.get("isolated_date_discrepancies", [])):
-        iso = diag["isolated_date_discrepancies"]
-        parts.append("\n### 6.6 Écarts de date isolés : qui a raison ?\n")
-        parts.append(f"\nLes seuls vrais écarts possibles sont les cas **isolés** (hors collision) : "
-                     f"{_cell(art,'house','isole_vrai_ecart_possible')} House / "
-                     f"{_cell(art,'senate','isole_vrai_ecart_possible')} Sénat. La colonne `delta (j)` tranche : "
-                     "un delta pluriannuel = Quiver a un **vieux trade sans rapport** (pas notre erreur). "
-                     "`doc_id` = pièce consultable.\n\n")
-        parts.append(_md_table(iso.head(12)))
-        parts.append(f"\n\n*(Top 12 par |delta| ; les {len(iso)} cas sont dans `quiver_validation/ecarts_date_isoles.csv`.)*\n")
+    # 6.6 Candidats d'écart de date « même dépôt » — les seuls honnêtes (table générée + doc_id)
+    cnd = diag.get("date_candidates", pd.DataFrame())
+    parts.append("\n### 6.6 Candidats d'écart de date (même dépôt)\n")
+    if len(cnd):
+        parts.append(f"\nLes **seuls** candidats honnêtes d'erreur de date sont ceux **dans un même dépôt** "
+                     f"({_cell(drec,'house','dont_meme_depot')} House / {_cell(drec,'senate','dont_meme_depot')} "
+                     "Sénat). Même là, prudence : un petit delta peut être une **convention de date Quiver**, pas "
+                     "notre erreur. Le **vrai contrôle des dates reste l'audit PDF (§2)** — Quiver, lui, n'a "
+                     "souvent pas le trade (« nous-seul ») ou le date autrement. `doc_id` = pièce consultable :\n\n")
+        parts.append(_md_table(cnd.head(12)))
+        parts.append(f"\n\n*(Top 12 par delta croissant ; les {len(cnd)} candidats sont dans "
+                     "`quiver_validation/candidats_ecart_date_meme_depot.csv`.)*\n")
+    else:
+        parts.append("\nAucun candidat d'écart de date « même dépôt » — les écarts résiduels sont soit du "
+                     "« nous-seul » (Quiver n'a pas le trade), soit du bruit de convention de date.\n")
 
     # 6.7 Détail figé exact-date (par scope / type d'actif / cluster)
     parts.append("\n### 6.7 Détail figé : couverture exact-date par scope, type d'actif, cluster\n")
@@ -1172,7 +1179,7 @@ def build_report(repo_root: Path) -> Path:
         parts.append("\n")
     parts.append("\nListes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` "
                  "(`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], "
-                 "`on_est_plus_complet_*`, `quiver_non_cote_*`, `ecarts_date_isoles`, `exemple_collision`). "
+                 "`on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). "
                  "Hors golden.\n")
 
     report = docs / "RAPPORT_QUALITE.md"

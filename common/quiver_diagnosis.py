@@ -301,78 +301,108 @@ def reconciliation(repo_root) -> pd.DataFrame:
     return df
 
 
-def collision_example(repo_root, top_n=1) -> pd.DataFrame:
-    """Exemple CONCRET et régénéré de l'artefact de collision : le plus gros bucket (bioguide×ticker×sens)
-    tradé plusieurs jours des DEUX côtés. Montre nos dates vs dates Quiver côte à côte → l'exact-date ne
-    peut apparier qu'une fraction de N×M trades réels, d'où le faux sous-comptage."""
+# ───────────────── Réconciliation date 1-à-1 (remplace l'heuristique de collision) ─────────────────
+# L'ancienne méthode était de l'appartenance ensembliste : « ma date exacte est-elle dans l'ensemble
+# Quiver ? ». Elle ne peut pas gérer la multiplicité (un déposant qui trade un titre N fois vs M chez
+# Quiver) → elle fabriquait un faux « écart-date » (99 % dit « collision »). Ici on fait une VRAIE
+# réconciliation 1-à-1 par (bio, ticker, sens), ancrée au dépôt (disclosure ≈ Filed).
+RECON_TOL_CLOSE = 7      # jours : bruit / convention de date acceptée (même trade) — absorbe le décalage ~6j
+RECON_MAX_PAIR = 90      # jours : mis-datage max plausible du MÊME trade (au-delà = 2 trades distincts)
+RECON_FILING_TOL = 10    # jours : « même dépôt » = |disclosure − Filed| (médiane 0 j → signal fort)
+
+
+def _reconcile_group(our, quiv):
+    """Réconcilie UN groupe (bio,ticker,sens). `our` = [(date, disclosure, doc_id, declarant)],
+    `quiv` = [(date, filed)]. Retire les matches date-exacte, puis apparie gloutonnement au plus proche
+    dans RECON_MAX_PAIR. Renvoie (n_exact, n_close, ours_only, quiver_only, candidates) où candidates =
+    [(notre_date, quiver_date, delta, meme_depot, doc_id, declarant)] pour TOL_CLOSE < delta ≤ MAX_PAIR."""
+    from collections import Counter
+    oc = Counter(o[0] for o in our); qc = Counter(q[0] for q in quiv)
+    n_exact = 0
+    for d in list(oc):
+        m = min(oc[d], qc.get(d, 0))
+        if m:
+            n_exact += m; oc[d] -= m; qc[d] -= m
+    seen = Counter(); left_o = []
+    for o in sorted(our, key=lambda x: x[0]):
+        if seen[o[0]] < oc[o[0]]:
+            left_o.append(o); seen[o[0]] += 1
+    qseen = Counter(); left_q = []
+    for q in sorted(quiv, key=lambda x: x[0]):
+        if qseen[q[0]] < qc[q[0]]:
+            left_q.append(q); qseen[q[0]] += 1
+    used = [False] * len(left_q)
+    n_close = ours_only = 0; cands = []
+    for od, odisc, doc, nm in left_o:
+        bi, best = -1, None
+        for j, (qd_, _qf) in enumerate(left_q):
+            if used[j]:
+                continue
+            dist = abs((od - qd_).days)
+            if best is None or dist < best:
+                best, bi = dist, j
+        if bi < 0 or best is None or best > RECON_MAX_PAIR:
+            ours_only += 1
+            continue
+        used[bi] = True
+        if best <= RECON_TOL_CLOSE:
+            n_close += 1
+        else:
+            qd_, qf = left_q[bi]
+            same = bool(pd.notna(odisc) and pd.notna(qf) and abs((odisc - qf).days) <= RECON_FILING_TOL)
+            cands.append((od, qd_, best, same, doc, nm))
+    quiver_only = sum(1 for u in used if not u)
+    return n_exact, n_close, ours_only, quiver_only, cands
+
+
+def reconcile_dates(repo_root):
+    """Réconciliation 1-à-1 transaction-par-transaction (remplace date_artifact/collision). Pour chaque
+    (bio, ticker, sens), apparie NOS trades à ceux de Quiver — date exacte d'abord, puis plus proche dans
+    RECON_MAX_PAIR jours — et CLASSE chaque trade : exact / proche (bruit ≤ TOL_CLOSE) / candidat (écart de
+    date à inspecter) / nous-seul (Quiver n'a PAS le trade) / quiver-seul (on a raté). Un vrai écart de date
+    apparaît comme une PAIRE avec delta, pas comme un artefact d'empilement. Renvoie (résumé par chambre,
+    candidats « même dépôt » triés par delta = les seuls candidats honnêtes d'erreur de date)."""
     repo = Path(repo_root)
-    rows = []
+    summ, cand_rows = [], []
     for ch in ("house", "senate"):
         F = _load_final_dedup(repo, ch); Q = _load_quiver(repo, ch)
         if not len(F) or Q is None:
             continue
-        F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
-        F["_d"] = pd.to_datetime(F["transaction_date"], errors="coerce").dt.date
+        F = F.copy(); F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
+        F["_d"] = pd.to_datetime(F["transaction_date"], errors="coerce")
+        F["_disc"] = pd.to_datetime(F["disclosure_date"], errors="coerce")
         Q = Q.copy(); Q["_tk"] = Q["Ticker"].map(hq.norm_ticker); Q["_s"] = Q["Transaction"].map(hq.norm_sense)
-        Q["_d"] = Q["_traded"].dt.date; Q["_fy"] = Q["_filed"].dt.year
+        Q["_d"] = pd.to_datetime(Q["_traded"], errors="coerce"); Q["_fy"] = Q["_filed"].dt.year
+        Q = Q.drop_duplicates(["BioGuideID", "Ticker", "Traded", "Transaction"])   # doublons natifs Quiver
         common = set(F["bioguide_id"].dropna()) & set(Q["BioGuideID"].dropna())
         Fo = F[F["bioguide_id"].isin(common) & (F["_tk"] != "")].dropna(subset=["_d"])
-        Qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "") & (Q["_fy"].between(min(YEARS), max(YEARS)))].dropna(subset=["_d"])
-        on = Fo.groupby(["bioguide_id", "_tk", "_s"])["_d"].nunique()
-        qn = Qo.groupby(["BioGuideID", "_tk", "_s"])["_d"].nunique()
-        cand = sorted(set(on[on >= 2].index) & set(qn[qn >= 2].index), key=lambda k: -(on[k] + qn[k]))
-        for b, t, s in cand[:top_n]:
-            nd = sorted(set(Fo[(Fo.bioguide_id == b) & (Fo._tk == t) & (Fo._s == s)]["_d"]))
-            qd_ = sorted(set(Qo[(Qo.BioGuideID == b) & (Qo._tk == t) & (Qo._s == s)]["_d"]))
-            rows.append({"chamber": ch, "declarant": str(Fo[Fo.bioguide_id == b]["declarant_name"].iloc[0])[:22],
-                         "ticker": t, "sens": s, "nos_dates_n": len(nd), "quiver_dates_n": len(qd_),
-                         "exemple_nos_dates": "/".join(str(x) for x in nd[:4]),
-                         "exemple_quiver_dates": "/".join(str(x) for x in qd_[:4])})
-    return pd.DataFrame(rows)
-
-
-def isolated_date_discrepancies(repo_root, scope="all", top_n=20) -> pd.DataFrame:
-    """Les ECART_DATE ISOLÉS (hors collision : 1 seule date Quiver pour le bucket bio×ticker×sens, et pas
-    de multi-date des deux côtés) — les seuls cas où un vrai écart de date est possible. Colonne `doc_id`
-    = pièce consultable. La colonne `delta_jours` montre directement « qui a raison » : un delta pluriannuel
-    = Quiver a un vieux trade sans rapport (pas notre erreur)."""
-    repo = Path(repo_root)
-    out = []
-    for ch in ("house", "senate"):
-        F = _load_final_dedup(repo, ch); Q = _load_quiver(repo, ch)
-        if not len(F) or Q is None:
-            continue
-        F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
-        F["_d"] = pd.to_datetime(F["transaction_date"], errors="coerce").dt.date
-        Q = Q.copy(); Q["_tk"] = Q["Ticker"].map(hq.norm_ticker); Q["_s"] = Q["Transaction"].map(hq.norm_sense)
-        Q["_d"] = Q["_traded"].dt.date
-        common = set(F["bioguide_id"].dropna()) & set(Q["BioGuideID"].dropna())
-        Fo = F[F["bioguide_id"].isin(common) & (F["_tk"] != "")]
-        Qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "")]
-        QK4 = set(zip(Qo["BioGuideID"], Qo["_tk"], Qo["_d"], Qo["_s"]))
-        q_by3 = {}
-        for b, t, d, s in zip(Qo["BioGuideID"], Qo["_tk"], Qo["_d"], Qo["_s"]):
-            q_by3.setdefault((b, t, s), set()).add(d)
-        multi_o = set(Fo.groupby(["bioguide_id", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
-        multi_q = set(Qo.groupby(["BioGuideID", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
-        sub = Fo[["bioguide_id", "_tk", "_s", "_d", "provenance", "declarant_name", "doc_id"]]
-        for b, tk, s, d, prov, nm, doc in sub.itertuples(index=False, name=None):
-            k3 = (b, tk, s)
-            if (b, tk, d, s) in QK4 or k3 not in q_by3:
-                continue
-            if k3 in multi_o or k3 in multi_q or len(q_by3[k3]) != 1:
-                continue
-            qd1 = next(iter(q_by3[k3]))
-            delta = (d - qd1).days if (pd.notna(d) and pd.notna(qd1)) else None
-            out.append({"chamber": ch, "provenance": prov, "declarant": str(nm)[:20],
-                        "ticker": tk, "sens": s, "notre_date": d, "quiver_date": qd1,
-                        "delta_jours": delta, "doc_id": doc})
-    R = pd.DataFrame(out)
-    if scope == "digital" and len(R):
-        R = R[R["provenance"].str.contains("electronic", na=False)]
-    if len(R):
-        R = R.reindex(R["delta_jours"].abs().sort_values(ascending=False).index).head(top_n).reset_index(drop=True)
-    return R
+        Qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "")
+               & (Q["_fy"].between(min(YEARS), max(YEARS)))].dropna(subset=["_d"])
+        og, qg = {}, {}
+        for b, t, s, d, di, doc, nm in zip(Fo["bioguide_id"], Fo["_tk"], Fo["_s"], Fo["_d"],
+                                           Fo["_disc"], Fo["doc_id"], Fo["declarant_name"]):
+            og.setdefault((b, t, s), []).append((d, di, doc, nm))
+        for b, t, s, d, f in zip(Qo["BioGuideID"], Qo["_tk"], Qo["_s"], Qo["_d"], Qo["_filed"]):
+            qg.setdefault((b, t, s), []).append((d, f))
+        E = C = CA = OO = QO = MD = 0
+        for k in set(og) | set(qg):
+            e, c, oo, qo, cands = _reconcile_group(og.get(k, []), qg.get(k, []))
+            E += e; C += c; OO += oo; QO += qo; CA += len(cands)
+            for od, qd_, delta, same, doc, nm in cands:
+                if same:
+                    MD += 1
+                    cand_rows.append({"chamber": ch, "declarant": str(nm)[:20], "ticker": k[1], "sens": k[2],
+                                      "notre_date": od.date(), "quiver_date": qd_.date(),
+                                      "delta_jours": int(delta), "doc_id": doc})
+        n_app = E + C + CA + OO
+        summ.append({"chamber": ch, "apparie_exact": E, "apparie_proche": C, "candidat_ecart": CA,
+                     "dont_meme_depot": MD, "nous_seul": OO, "quiver_seul": QO,
+                     "candidat_pct": round(100 * CA / n_app, 1) if n_app else None})
+    summary = pd.DataFrame(summ)
+    cands = pd.DataFrame(cand_rows)
+    if len(cands):
+        cands = cands.sort_values(["delta_jours", "chamber"], kind="stable").reset_index(drop=True)
+    return summary, cands
 
 
 def net_completeness_from_tallies(our_tally, quiver_tally) -> pd.DataFrame:
@@ -437,41 +467,6 @@ def ticker_inclusion(repo_root) -> pd.DataFrame:
                      "residu": len(miss), "ocr_recuperable": c["ocr"], "quiver_non_cote": c["noncote"],
                      "credit_2jambes": c["twoleg"], "cross_chambre": c["cross"],
                      "residu_cote_reel": c["reel"]})
-    return pd.DataFrame(rows)
-
-
-def date_artifact(repo_root) -> pd.DataFrame:
-    """Quantifie quelle part de l'ECART_DATE (Quiver a bio×ticker×sens, notre date diffère) est un
-    ARTEFACT DE COLLISION et non une vraie erreur : quand un déposant trade le même ticker plusieurs
-    jours, le bucket (bio,ticker,sens) a ≥2 dates des DEUX côtés → l'appariement « date la plus proche »
-    relie deux trades RÉELS distincts et fabrique un faux écart. Les cas ISOLÉS (1 date chaque côté) sont
-    les seuls où un vrai écart de date peut exister."""
-    repo = Path(repo_root)
-    rows = []
-    for ch in ("house", "senate"):
-        F = _load_final_dedup(repo, ch); Q = _load_quiver(repo, ch)
-        if not len(F) or Q is None:
-            continue
-        F["_tk"] = F["ticker"].map(hq.norm_ticker); F["_s"] = F["operation_type"].map(hq.norm_sense)
-        F["_d"] = pd.to_datetime(F["transaction_date"], errors="coerce").dt.date
-        Q = Q.copy(); Q["_tk"] = Q["Ticker"].map(hq.norm_ticker); Q["_s"] = Q["Transaction"].map(hq.norm_sense)
-        Q["_d"] = Q["_traded"].dt.date
-        common = set(F["bioguide_id"].dropna()) & set(Q["BioGuideID"].dropna())
-        Fo = F[F["bioguide_id"].isin(common) & (F["_tk"] != "")]
-        Qo = Q[Q["BioGuideID"].isin(common) & (Q["_tk"] != "")]
-        QK4 = set(zip(Qo["BioGuideID"], Qo["_tk"], Qo["_d"], Qo["_s"]))
-        QK3 = set(zip(Qo["BioGuideID"], Qo["_tk"], Qo["_s"]))
-        multi_o = set(Fo.groupby(["bioguide_id", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
-        multi_q = set(Qo.groupby(["BioGuideID", "_tk", "_s"])["_d"].nunique().pipe(lambda x: x[x >= 2]).index)
-        ed = coll = 0
-        for b, t, d, s in zip(Fo["bioguide_id"], Fo["_tk"], Fo["_d"], Fo["_s"]):
-            if (b, t, d, s) not in QK4 and (b, t, s) in QK3:
-                ed += 1
-                if (b, t, s) in multi_o or (b, t, s) in multi_q:
-                    coll += 1
-        rows.append({"chamber": ch, "ecart_date": ed, "dont_collision": coll,
-                     "collision_pct": round(100 * coll / ed, 1) if ed else None,
-                     "isole_vrai_ecart_possible": ed - coll})
     return pd.DataFrame(rows)
 
 
@@ -629,13 +624,10 @@ def build_diagnosis(repo_root) -> dict:
 
     our_t = pd.concat([t for t in our_tally if len(t)], ignore_index=True) if our_tally else pd.DataFrame()
     quiv_t = pd.concat([t for t in quiver_tally if len(t)], ignore_index=True) if quiver_tally else pd.DataFrame()
-    iso = isolated_date_discrepancies(repo, scope="all", top_n=10_000)
-    coll = collision_example(repo, top_n=1)
-    # annexes actionnables/preuves (hors golden)
-    if len(iso):
-        iso.to_csv(annex / "ecarts_date_isoles.csv", index=False)
-    if len(coll):
-        coll.to_csv(annex / "exemple_collision.csv", index=False)
+    date_recon, date_cands = reconcile_dates(repo)   # réconciliation 1-à-1 (remplace collision/isolés)
+    # annexe actionnable (hors golden) : candidats d'écart de date « même dépôt » = les seuls à inspecter
+    if len(date_cands):
+        date_cands.to_csv(annex / "candidats_ecart_date_meme_depot.csv", index=False)
 
     return {
         "coverage_by_year": pd.concat(coverage, ignore_index=True) if coverage else pd.DataFrame(),
@@ -645,10 +637,9 @@ def build_diagnosis(repo_root) -> dict:
         "field_agreement": pd.DataFrame(field_rows) if field_rows else pd.DataFrame(),
         "top_notre_manque": top_manque,
         "ticker_inclusion": ticker_inclusion(repo),
-        "date_artifact": date_artifact(repo),
+        "date_reconciliation": date_recon,
+        "date_candidates": date_cands,
         "reconciliation": reconciliation(repo),
-        "collision_example": coll,
-        "isolated_date_discrepancies": iso,
         "net_completeness": net_completeness_from_tallies(our_t, quiv_t) if len(our_t) and len(quiv_t) else pd.DataFrame(),
         "annex_dir": str(annex),
     }
