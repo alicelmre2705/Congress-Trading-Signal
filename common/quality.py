@@ -816,7 +816,6 @@ def build_report(repo_root: Path) -> Path:
     # Calculs Quiver remontés en tête : ils alimentent le résumé exécutif (et sont réutilisés en §6).
     from common import quiver_diagnosis as qd
     diag = qd.build_diagnosis(repo_root)
-    qv = quiver_validation(repo_root)
     inc = diag.get("ticker_inclusion", pd.DataFrame())
     drec = diag.get("date_reconciliation", pd.DataFrame())
     recon = diag.get("reconciliation", pd.DataFrame())
@@ -1026,92 +1025,105 @@ def build_report(repo_root: Path) -> Path:
 
     # ════════ §6 Complétude vs Quiver (tables-first, tout régénérable) ════════
     parts.append("\n## 6. Complétude vs Quiver (vérité-terrain externe)\n")
-    parts.append("\n> **Section clé.** On confronte tous les trades Quiver de notre fenêtre aux nôtres, par "
-                 "**strictesse croissante** : inclusion date-agnostique (Quiver ⊆ nous, on est même plus complet) "
-                 "→ réconciliation date-ancrée au trade près → verdicts actionnables. Chiffres recalculés par "
+    parts.append("\n> **Section clé.** Quiver est un fournisseur commercial des mêmes données = notre **juge "
+                 "externe**. But : montrer qu'on a **au moins tout ce que Quiver a** (Quiver ⊆ nous), qu'on est "
+                 "même **plus complet**, et que nos différences ne sont **pas des erreurs**. On procède comme un "
+                 "**entonnoir, de strictesse croissante** : Niveau 1 → 2 → 3. Chiffres recalculés par "
                  "`common/quiver_diagnosis.py`, **jamais réinjectés**.\n")
 
-    # 6.1 Méthode & périmètre (deux lentilles de strictesse : inclusion date-agnostique → réconciliation date-ancrée)
-    parts.append("\n### 6.1 Méthode & périmètre\n")
-    parts.append("\nChaque transaction est confrontée à Quiver par une clé normalisée, sur **deux lentilles de "
-                 "strictesse croissante** : l'**inclusion date-AGNOSTIQUE** (a-t-on le trade ? §6.2), puis la "
-                 "**réconciliation date-ANCRÉE** (le même trade, à la même date ? §6.3).\n\n")
+    # 6.1 Méthode (clé + les 3 niveaux annoncés + périmètre dédupliqué)
+    parts.append("\n### 6.1 Méthode\n")
+    parts.append("\nChaque transaction est confrontée à Quiver par une clé normalisée, en **trois niveaux de plus "
+                 "en plus stricts** : **N1** a-t-on le trade ? *(sans la date, §6.2)* → **N2** le même trade à la "
+                 "même date ? *(§6.3)* → **N3** qui corrige quoi ? *(§6.5)*.\n\n")
     _meth = pd.DataFrame([
         {"élément": "univers comparé", "définition": f"tous les trades Quiver `Filed` ∈ {yr} (notre fenêtre de scrape)"},
-        {"élément": "clé d'appariement", "définition": "(`bioguide`, ticker normalisé, sens) + date pour la réconciliation ; SANS date pour l'inclusion"},
+        {"élément": "clé d'appariement", "définition": "(`bioguide`, ticker normalisé, sens) — **+ date** au Niveau 2, **sans date** au Niveau 1"},
         {"élément": "normalisation ticker", "définition": "MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_`"},
         {"élément": "normalisation sens", "définition": "1re lettre p/s/e → Purchase / Sale / Exchange"},
-        {"élément": "lentille 1 — inclusion (§6.2)", "définition": "clé SANS date → « a-t-on tout ce que Quiver a » (complétude)"},
-        {"élément": "lentille 2 — réconciliation (§6.3)", "définition": "appariement 1-à-1 ancré au dépôt → exact / proche / candidat / nous-seul / quiver-seul"},
     ])
     parts.append(_md_table(_meth))
-    parts.append("\n\n*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py` "
-                 "(recalcul offline, jamais réinjecté).*\n")
     if len(recon):
-        parts.append("\n**Périmètre comparé** — le FINAL est dédupliqué cross-année avant comparaison (une "
-                     "re-divulgation tardive ne compte qu'une fois) :\n\n")
+        parts.append("\n**Périmètre** — le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation "
+                     "tardive ne compte qu'une fois) :\n\n")
         parts.append(_md_table(recon))
+    parts.append("\n\n*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*\n")
 
-    # 6.2 Inclusion & complétude nette (date-agnostique) — Quiver ⊆ nous + bilan net (même lentille)
+    # 6.2 Niveau 1 — inclusion date-AGNOSTIQUE (a-t-on le trade, sans la date ni le nombre)
     if len(inc):
-        parts.append("\n### 6.2 Inclusion & complétude nette (date-agnostique)\n")
-        parts.append(f"\n**Quiver ⊆ nous.** Dans notre fenêtre, on retrouve **{_cell(inc,'house','inclusion_pct')} % "
-                     f"(House)** et **{_cell(inc,'senate','inclusion_pct')} % (Sénat)** des trades Quiver au niveau "
-                     "(déposant, ticker, sens). Le **vrai trou coté** est minuscule "
-                     f"({_cell(inc,'house','residu_cote_reel')} House / {_cell(inc,'senate','residu_cote_reel')} "
-                     "Sénat) ; le reste du résidu est récupérable ou hors périmètre :\n\n")
+        parts.append("\n### 6.2 Niveau 1 — A-t-on le trade ? (sans la date)\n")
+        parts.append("\nOn compare des **combinaisons** `(membre, action, sens)`, en **ignorant volontairement la "
+                     "date ET le nombre** : `(Khanna, AAPL, Achat)` compte pour **un**, qu'il l'ait acheté 1 fois "
+                     "ou 50. La question est donc grossière **exprès** : *« a-t-on raté une combinaison ENTIÈRE que "
+                     "Quiver connaît ? »* — le comptage trade par trade, c'est le Niveau 2 (§6.3).\n\n")
+        parts.append(f"On retrouve **{_cell(inc,'house','inclusion_pct')} % (House)** et "
+                     f"**{_cell(inc,'senate','inclusion_pct')} % (Sénat)** des combinaisons Quiver. Le **vrai trou** "
+                     f"est minuscule ({_cell(inc,'house','residu_cote_reel')} House / "
+                     f"{_cell(inc,'senate','residu_cote_reel')} Sénat) ; le reste est récupérable ou hors "
+                     "périmètre :\n\n")
         parts.append(_md_table(inc))
-        parts.append("\n\n*Légende du résidu :* **OCR récup.** = lignes papier ratées (re-OCR ciblé) · "
-                     "**non-coté** = « ticker » Quiver non appariable (CUSIP, préférentielle, fragment) · "
-                     "**2-jambes** = on a le trade sous un ticker d'échange (« PFE  VTRS » couvre « PFE ») · "
-                     "**autre chambre** = déposant Rep→Sén dont les trades Chambre polluent le cache Sénat de "
-                     "Quiver · **vrai trou coté** = le seul manque réel.\n")
+        parts.append("\n\n*Résidu :* **OCR récup.** = lignes papier ratées · **non-coté** = « ticker » Quiver non "
+                     "appariable (CUSIP, préférentielle, fragment) · **2-jambes** = trade sous un ticker d'échange "
+                     "(« PFE  VTRS » couvre « PFE ») · **autre chambre** = déposant Rep→Sén polluant le cache Sénat "
+                     "· **vrai trou coté** = le seul manque réel.\n")
         if len(diag.get("net_completeness", [])):
-            parts.append("\n**Bilan net** — actions cotées qu'on a et que Quiver n'a PAS vs vrais trous inverses "
-                         "(même lentille date-agnostique) → on est un **sur-ensemble** de Quiver :\n\n")
+            parts.append("\n**Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → "
+                         "on est un **sur-ensemble** de Quiver :\n\n")
             parts.append(_md_table(diag["net_completeness"]))
 
-    # 6.3 Réconciliation transaction-par-transaction (date-ancrée) — la comparaison honnête au trade près
+    # 6.3 Niveau 2 — réconciliation date-ANCRÉE (avec l'exemple concret d'appariement 1-à-1)
     if len(drec):
-        parts.append("\n### 6.3 Réconciliation transaction-par-transaction (date-ancrée)\n")
-        parts.append("\nOn descend au trade près : on **apparie 1-à-1** nos trades à ceux de Quiver par "
-                     "`(déposant, ticker, sens)`, ancré au dépôt (`disclosure ≈ Filed`), date exacte puis plus "
-                     "proche. Chaque trade tombe dans **une** catégorie (une comparaison ensembliste, elle, "
-                     "sous-compterait dès qu'un titre est tradé plusieurs jours — elle ne sait pas apparier N à M) :\n\n")
+        parts.append("\n### 6.3 Niveau 2 — Le même trade, à la même date ?\n")
+        parts.append("\nOn descend au trade près. Comme un membre peut trader le même titre **plusieurs fois**, on "
+                     "ne demande PAS « ma date est-elle dans l'ensemble Quiver ? » : on **apparie 1-à-1** nos trades "
+                     "à ceux de Quiver, à l'intérieur de chaque `(membre, ticker, sens)`. Exemple :\n\n")
+        parts.append("```\nKhanna, AAPL, Achat — dates :\n"
+                     "  NOUS   : 08-jan-2020 · 13-fév-2020 · 01-juin-2020 · 10-mars-2023\n"
+                     "  QUIVER : 08-jan-2020 · 12-fév-2020 ·                10-mars-2023\n\n"
+                     "Étape 1 — on retire les dates IDENTIQUES (une par une) :\n"
+                     "  08-jan ↔ 08-jan   et   10-mars-2023 ↔ 10-mars-2023   → 2 « apparié exact »\n"
+                     "  (le trade 2023 s'apparie à SON 2023, jamais à un 2020)\n\n"
+                     "Étape 2 — on apparie les RESTES au plus proche (plafond 90 j) :\n"
+                     "  13-fév (nous) ↔ 12-fév (Quiver) = 1 j   → « apparié proche » (≤ 7 j, bruit de date)\n"
+                     "  01-juin (nous) : aucun reste Quiver à < 90 j   → « NOUS-SEUL » (trade en plus)\n"
+                     "```\n")
+        parts.append("\nDeux garde-fous répondent à « comment gérer qu'un membre ait plusieurs trades » : "
+                     "l'appariement **1-à-1 respecte les quantités** (si on a 50 trades et Quiver 40, **≥ 10 "
+                     "restent forcément en « nous-seul »**) ; le **plafond de 90 j** + l'**ancrage au dépôt** "
+                     "empêchent mécaniquement de confondre un trade 2020 et un trade 2023. Chaque trade tombe alors "
+                     "dans **une** catégorie :\n\n")
         parts.append(_md_table(drec))
         parts.append(_leg("apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de "
-                          "date) · candidat écart = paire à 7–90 j à inspecter · dont même dépôt = candidats dans "
-                          "le MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus "
-                          "complet) · quiver-seul = on a raté."))
-        parts.append(f"\n**Pourquoi ces nombres diffèrent du §6.2 — niveau de strictesse.** Au niveau "
-                     f"(déposant, ticker, sens) *date-agnostique* (§6.2), le vrai trou coté est "
-                     f"{_cell(inc,'house','residu_cote_reel')}/{_cell(inc,'senate','residu_cote_reel')} ; au niveau "
-                     f"*transaction date-ancrée* (ici), on compte {_cell(drec,'house','nous_seul')} trades "
-                     "« nous-seul » — normal, on trade plus souvent que Quiver ne capte au trade près. Les deux "
-                     "disent la même chose : **on est plus complet**.\n")
+                          "date) · candidat écart = paire à 7–90 j à inspecter (§6.4) · dont même dépôt = dans le "
+                          "MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) "
+                          "· quiver-seul = on a raté."))
+        parts.append(f"\n**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** "
+                     f"Au Niveau 1 (sans date), le vrai trou est {_cell(inc,'house','residu_cote_reel')}/"
+                     f"{_cell(inc,'senate','residu_cote_reel')} ; au Niveau 2 (trade + date), on compte "
+                     f"{_cell(drec,'house','nous_seul')} trades « nous-seul » — normal, on trade plus souvent que "
+                     "Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**\n")
 
-    # 6.4 Candidats d'écart de date « même dépôt » — les seuls honnêtes (table générée + doc_id)
+    # 6.4 Les candidats d'écart de date « même dépôt » — drill-down du §6.3 (table générée + doc_id)
     cnd = diag.get("date_candidates", pd.DataFrame())
-    parts.append("\n### 6.4 Candidats d'écart de date (même dépôt)\n")
+    parts.append("\n### 6.4 Les candidats d'écart de date (même dépôt)\n")
     if len(cnd):
-        parts.append(f"\nLes **seuls** candidats honnêtes d'erreur de date sont ceux **dans un même dépôt** "
+        parts.append(f"\nLes **seuls** candidats honnêtes d'erreur de date = les paires **dans un même dépôt** "
                      f"({_cell(drec,'house','dont_meme_depot')} House / {_cell(drec,'senate','dont_meme_depot')} "
-                     "Sénat). Même là, prudence : un petit delta peut être une **convention de date Quiver**, pas "
-                     "notre erreur. Le **vrai contrôle des dates reste l'audit PDF (§2)** — Quiver, lui, n'a "
-                     "souvent pas le trade (« nous-seul ») ou le date autrement. `doc_id` = pièce consultable :\n\n")
+                     "Sénat). Prudence : un petit delta peut être une **convention de date Quiver**, pas notre "
+                     "erreur. **Le vrai contrôle des dates reste l'audit PDF (§2)**, pas Quiver. `doc_id` = pièce "
+                     "consultable :\n\n")
         parts.append(_md_table(cnd.head(12)))
         parts.append(f"\n\n*(Top 12 par delta croissant ; les {len(cnd)} candidats sont dans "
                      "`quiver_validation/candidats_ecart_date_meme_depot.csv`.)*\n")
     else:
-        parts.append("\nAucun candidat d'écart de date « même dépôt » — les écarts résiduels sont soit du "
-                     "« nous-seul » (Quiver n'a pas le trade), soit du bruit de convention de date.\n")
+        parts.append("\nAucun candidat « même dépôt » — les écarts résiduels sont du « nous-seul » ou du bruit de "
+                     "convention de date.\n")
 
-    # 6.5 Verdicts actionnables (tri « à corriger » ; ECART_DATE décomposé au §6.3)
-    parts.append("\n### 6.5 Verdicts actionnables\n")
-    parts.append("\nChaque transaction reçoit un verdict (côté nous et côté Quiver) pour trier ce qui est "
-                 "**à corriger**. `ecart_brut_pct` (`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : "
-                 "l'`ECART_DATE` est décomposé honnêtement au §6.3 (surtout « nous-seul » / convention de date), "
-                 "et nos tickers concordent avec la description d'actif.\n")
+    # 6.5 Niveau 3 — verdicts (qui corrige quoi ; ECART_DATE décomposé au §6.3)
+    parts.append("\n### 6.5 Niveau 3 — Qui corrige quoi ? (verdicts)\n")
+    parts.append("\nChaque transaction reçoit un verdict pour trier ce qui est **à corriger**. `ecart_brut_pct` "
+                 "(`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'`ECART_DATE` est décomposé "
+                 "honnêtement au §6.3, et nos tickers concordent avec la description d'actif.\n")
     if len(diag["synthesis"]):
         parts.append("\n**Synthèse côté NOUS** (part de NOS transactions par catégorie) :\n\n")
         parts.append(_md_table(diag["synthesis"]))
@@ -1122,14 +1134,12 @@ def build_report(repo_root: Path) -> Path:
         parts.append("\n")
     if len(diag["quiver_tally"]):
         parts.append("\n**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté "
-                     "(résiduel après filtrage du non-coté), les autres s'expliquent par la date, le ticker, "
-                     "ou du papier :\n\n")
+                     "(les autres s'expliquent par la date, le ticker, ou du papier) :\n\n")
         parts.append(_md_table(diag["quiver_tally"]))
         parts.append("\n")
     if len(diag["field_agreement"]):
-        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date, par "
-                     "appartenance ensembliste) — un désaccord = vraie erreur d'extraction, typée dans "
-                     "`desaccord_champ_*.csv` :\n\n")
+        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (sens & montant) — un désaccord = vraie "
+                     "erreur d'extraction, typée dans `desaccord_champ_*.csv` :\n\n")
         parts.append(_md_table(diag["field_agreement"]))
         parts.append("\n")
     if len(diag["top_notre_manque"]):
@@ -1137,52 +1147,21 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(diag["top_notre_manque"]))
         parts.append("\n")
 
-    # 6.6 Annexe figée : cross-check exact-date historique (par scope / type d'actif / cluster)
-    parts.append("\n### 6.6 Annexe figée : cross-check exact-date (tables historiques)\n")
-    parts.append("\nVue **exact-date** issue des tables **figées** du pipeline. Le rapport ne lit que "
-                 "`07c/07g/07h` ; les autres (`07/07b/07d/07e/07f/06d`) sont des sorties **historiques** du "
-                 "pipeline, gardées pour la lignée/régression. Cette vue **sous-compte par construction** "
-                 "(exact-date ensembliste, cf. §6.3). `couverture %` = part des trades Quiver retrouvés à la date "
-                 "exacte.\n\n")
-    if len(qv["cov_scope"]):
-        parts.append("**Couverture par scope et chambre :**\n\n")
-        parts.append(_md_table(qv["cov_scope"]))
-        parts.append("\n")
-    if len(diag["coverage_by_year"]):
-        cby = diag["coverage_by_year"]
-        cby = cby[cby["scope"] == "both"][["chamber", "year", "matched", "quiver",
-                                           "couverture_pct", "precision_pct"]]
-        parts.append("\n**Couverture / precision par année** (scope `both`) :\n\n")
-        parts.append(_md_table(cby))
-        parts.append("\n")
-    if len(qv["by_asset"].get("house", [])):
-        parts.append("\n**Par type d'actif** (`non-coté` = muni/obligation, hors périmètre Quiver-actions) — "
-                     "**House :**\n\n")
-        parts.append(_md_table(qv["by_asset"]["house"]))
-        if len(qv["by_asset"].get("senate", [])):
-            parts.append("\n\n— **Sénat** (l'OCR y est surtout du non-coté) :\n\n")
-            parts.append(_md_table(qv["by_asset"]["senate"]))
-        parts.append("\n")
+    # 6.6 Annexe (compacte) : note tables figées + profil des clusters de scan House OCR
+    parts.append("\n### 6.6 Annexe\n")
+    parts.append("\nLes tables **figées** `07c/07g/07h` reproduisent la même comparaison en *exact-date* (elles "
+                 "**sous-comptent**, cf. §6.3) ; conservées pour la lignée/régression, non re-rendues ici. Les "
+                 "autres figées (`07/07b/07d/07e/07f/06d`) sont des sorties historiques du pipeline.\n")
     prof = house_ocr_cluster_profile(df, repo_root)
     if len(prof):
-        parts.append("\n**Profil des clusters de scan (House OCR)** — A = tapé droit, B = tapé tourné, "
-                     "C = manuscrit :\n\n")
+        parts.append("\n**Profil des clusters de scan (House OCR)** — pourquoi le manuscrit est exclu (A = tapé "
+                     "droit, B = tapé tourné, C = manuscrit) :\n\n")
         parts.append(_md_table(prof))
-        parts.append(_leg("`date plausible %` et `ticker %` = qualité INTERNE (calculée sans Quiver) · "
-                          "`Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI, appariée "
-                          "sur (membre + ticker + sens), que la date coïncide OU non ; le complément (100 − %) "
-                          "= « absent » côté Quiver."))
-        parts.append("\nSur le manuscrit (C), la qualité interne reste haute (voir `date plausible %` / "
-                     "`ticker %`) mais `Quiver a le trade %` s'effondre. L'appariement étant **date-agnostique**, "
-                     "ce décrochage vient du **ticker/identité mal lus** (ou d'un Quiver mince sur le papier "
-                     "manuscrit), **pas des dates**. Faute de pouvoir **confirmer** le manuscrit contre la "
-                     "vérité-terrain, on l'**exclut par défaut** — choix conservateur, pas « le manuscrit est faux ».\n")
-    if len(qv["by_cluster"]):
-        parts.append("\n**Décomposition en buckets par cluster** — sur le manuscrit l'`absent` domine "
-                     "(ticker/identité) et l'`exact (date)` s'effondre davantage encore (OCR des dates) ; sur le "
-                     "tapé (A/B), `Quiver a le trade %` reste élevé :\n\n")
-        parts.append(_md_table(qv["by_cluster"]))
-        parts.append("\n")
+        parts.append(_leg("`date plausible %` / `ticker %` = qualité INTERNE (sans Quiver) · `Quiver a le trade %` "
+                          "= part de nos trades cotés que Quiver possède AUSSI (appariée sur membre+ticker+sens, "
+                          "date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le "
+                          "trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de "
+                          "pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur)."))
     parts.append("\nListes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` "
                  "(`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], "
                  "`on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). "
