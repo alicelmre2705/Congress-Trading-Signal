@@ -1,5 +1,5 @@
 # Rapport qualité — Données de trading du Congrès américain
-> Chambre des représentants + Sénat · 2020–2026 · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**.
+> Chambre des représentants + Sénat · 2020–2026 · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
 
 ## Résumé exécutif
 
@@ -111,13 +111,13 @@ Le non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :
 
 **Origine du ticker** (`ticker_source`) :
 
-| sous-corpus | n | dico élec % | LLM % | explicite % | aucune % |
-| --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 0.0 | 0.0 | 88.7 | 11.3 |
-| House OCR | 48940 | 45.6 | 36.2 | 1.3 | 16.3 |
-| Sénat électronique | 6566 | 0.5 | 0.7 | 77.1 | 20.7 |
-| Sénat OCR | 1679 | 9.5 | 8.3 | 15.4 | 66.8 |
-*dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent dans la source · aucune = non résolu*
+| sous-corpus | n | dico élec % | LLM % | nom d'actif % | récupéré % | explicite % | aucune % |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32667 | 0.0 | 0.0 | 0.0 | 0.0 | 88.7 | 11.3 |
+| House OCR | 48940 | 45.6 | 36.2 | 0.0 | 0.6 | 1.3 | 16.3 |
+| Sénat électronique | 6566 | 0.5 | 0.7 | 1.0 | 0.0 | 77.1 | 20.7 |
+| Sénat OCR | 1679 | 9.5 | 8.3 | 0.0 | 0.0 | 15.4 | 66.8 |
+*dico élec = repris de l'électronique · LLM = résolu par LLM · nom d'actif = déduit du nom d'actif · récupéré = rendu par la passe nom→ticker vérifiée (cf. §6.2) · explicite = déjà présent dans la source · aucune = non résolu*
 
 **Origine du secteur** (`sector_source`) :
 
@@ -150,7 +150,7 @@ Trois questions, de la plus faible à la plus forte : les dates sont-elles **lis
 | House OCR | 48940 | 99.6 | 99.7 | 136 | 0 | 177 |
 | Sénat électronique | 6566 | 100.0 | 100.0 | 0 | 0 | 0 |
 | Sénat OCR | 1679 | 99.6 | 99.8 | 3 | 0 | 7 |
-*dates exploitables = parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
+*dates exploitables = parseables (% du total ; le reste = OCR illisible) · cohérentes = divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
 
 ### Délai légal de divulgation (STOCK Act ~45 j)
 
@@ -415,18 +415,18 @@ Les **seuls** candidats honnêtes d'erreur de date = les paires issues de la **m
 
 | chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | IDXX | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | GLW | Sale | 2020-09-02 | 2020-09-13 | 11 | 8217686 |
-| house | Rohit Khanna | IT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | AMT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | CHTR | Sale | 2022-09-08 | 2022-09-19 | 11 | 8219242 |
-| house | Rohit Khanna | DHR | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | ADBE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | ETR | Sale | 2020-04-07 | 2020-04-18 | 11 | 8217213 |
-| house | Rohit Khanna | MSCI | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | MPWR | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | NKE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | LMT | Sale | 2020-04-24 | 2020-04-13 | 11 | 8217213 |
+| house | Rohit Khanna | NOW | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | UNP | Sale | 2025-04-04 | 2025-04-15 | 11 | 8220906 |
+| house | Rohit Khanna | WST | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | GLW | Sale | 2020-09-02 | 2020-09-13 | 11 | 8217686 |
+| house | Rohit Khanna | MSCI | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | IDXX | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | GPN | Sale | 2025-04-26 | 2025-04-15 | 11 | 8220906 |
+| house | Rohit Khanna | VRSK | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 
 *(Top 12 par delta croissant ; les 288 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 

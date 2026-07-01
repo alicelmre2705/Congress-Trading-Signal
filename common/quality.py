@@ -465,7 +465,7 @@ def source_yield(df: pd.DataFrame) -> dict:
             rows.append({"corpus": corpus, "n": n,
                          **{f"{k}_%": _pct(int(vc.get(k, 0)), n) for k in order}})
         return pd.DataFrame(rows)
-    return {"ticker": _mixcol("ticker_source", ["elec_dict", "llm", "explicit", "none"]),
+    return {"ticker": _mixcol("ticker_source", ["elec_dict", "llm", "asset_name", "recovered", "explicit", "none"]),
             "sector": _mixcol("sector_source", ["yfinance", "llm", "manual", "none"])}
 
 
@@ -744,6 +744,7 @@ _COLS = {
     "oblig.corp_%": "oblig. corp. %", "fonds_%": "fonds %", "manquant_%": "manquant %",
     "secteur_renseigne_%": "secteur renseigné %", "top_3_secteurs": "top 3 secteurs",
     "elec_dict_%": "dico élec %", "llm_%": "LLM %", "explicit_%": "explicite %", "none_%": "aucune %",
+    "asset_name_%": "nom d'actif %", "recovered_%": "récupéré %",
     "yfinance_%": "yfinance %", "manual_%": "manuel %",
     "mediane_$": "médiane $", "moyenne_$": "moyenne $", "volume_total_M$": "volume total M$",
     "n_deposants": "n déposants", "top10_volume_%": "top10 volume %", "n_trades": "n trades",
@@ -879,7 +880,8 @@ def build_report(repo_root: Path) -> Path:
     parts.append("# Rapport qualité — Données de trading du Congrès américain\n")
     parts.append(f"> Chambre des représentants + Sénat · {yr} · généré par `python -m common.quality` "
                  "(lecture seule des tables FINAL, aucun appel API) · "
-                 "Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**.\n")
+                 "Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. "
+                 "*Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*\n")
     parts.append("\n## Résumé exécutif\n\n")
     parts.append(
         f"- **Périmètre** — {_n(n_total)} transactions uniques de membres élus "
@@ -972,8 +974,9 @@ def build_report(repo_root: Path) -> Path:
     sy = source_yield(df)
     parts.append("\n**Origine du ticker** (`ticker_source`) :\n\n")
     parts.append(_md_table(sy["ticker"]))
-    parts.append(_leg("dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent "
-                      "dans la source · aucune = non résolu"))
+    parts.append(_leg("dico élec = repris de l'électronique · LLM = résolu par LLM · nom d'actif = déduit du nom "
+                      "d'actif · récupéré = rendu par la passe nom→ticker vérifiée (cf. §6.2) · explicite = déjà "
+                      "présent dans la source · aucune = non résolu"))
     parts.append("\n**Origine du secteur** (`sector_source`) :\n\n")
     parts.append(_md_table(sy["sector"]))
     parts.append(_leg("yfinance = base factuelle · LLM · manuel = correction d'audit · aucune"))
@@ -988,10 +991,12 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(coh))
     parts.append("\n\n**Par sous-corpus :**\n\n")
     parts.append(_md_table(date_coherence(df, dim="corpus")))
-    parts.append(_leg("dates exploitables = parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ "
-                      "transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année "
-                      "aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = "
-                      "illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
+    parts.append(_leg("dates exploitables = parseables (% du total ; le reste = OCR illisible) · cohérentes = "
+                      "divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le "
+                      "total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT "
+                      "transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au "
+                      "dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes "
+                      "(divulgations tardives)."))
     parts.append("\n### Délai légal de divulgation (STOCK Act ~45 j)\n\n")
     parts.append(_md_table(delays))
     parts.append("\n\n**Par sous-corpus :**\n\n")
