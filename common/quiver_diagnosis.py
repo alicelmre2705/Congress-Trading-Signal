@@ -256,7 +256,8 @@ def _concat_final_raw(repo, chamber):
     for y in YEARS:
         _, _, fp = _paths(repo, chamber, y)
         if fp.exists():
-            f = schema.apply_txn_date_fixes(pd.read_csv(fp, dtype=str)); f["_year"] = y
+            f = schema.apply_ticker_recovery(schema.apply_txn_date_fixes(pd.read_csv(fp, dtype=str)), repo)
+            f["_year"] = y
             fins.append(f)
     if not fins:
         return pd.DataFrame(), 0
@@ -546,6 +547,7 @@ def build_diagnosis(repo_root) -> dict:
         if not fins:
             continue
         final_all = schema.apply_txn_date_fixes(pd.concat(fins, ignore_index=True))   # 3 années-coquilles
+        final_all = schema.apply_ticker_recovery(final_all, repo)   # récupération ticker (read-time)
         if {"natural_key_hash", "occurrence_index"}.issubset(final_all.columns):
             # occurrence_index : '0' vs '0.0' selon l'année → normaliser en numérique avant la dédup.
             final_all = (final_all.assign(_occ=pd.to_numeric(final_all["occurrence_index"], errors="coerce"))

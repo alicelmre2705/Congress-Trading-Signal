@@ -134,6 +134,40 @@ def apply_txn_date_fixes(df):
     return df
 
 
+def load_ticker_recovery(repo_root):
+    """Carte de récupération ticker (asset_description → ticker), résolue depuis le NOM (hors Quiver, jamais
+    réinjecté) et vérifiée. `data/house/ticker_recovery.json`. Renvoie {} si absente."""
+    import json
+    from pathlib import Path
+    p = Path(repo_root) / "data" / "house" / "ticker_recovery.json"
+    if not p.exists():
+        return {}
+    try:
+        obj = json.loads(p.read_text())
+        return obj.get("map", obj) if isinstance(obj, dict) else {}
+    except Exception:
+        return {}
+
+
+def apply_ticker_recovery(df, repo_root):
+    """Remplit `ticker` À LA LECTURE là où il est vide et où `asset_description` est dans la carte de
+    récupération (faux négatifs du LLM = actions cotées réelles, ex NEENAH PAPER→NP). Marque
+    `ticker_source='recovered'`. Le figé n'est PAS touché ; Quiver n'est jamais réinjecté (résolution
+    depuis le nom, sa validation = baisse du résidu §6.2)."""
+    rec = load_ticker_recovery(repo_root)
+    if not rec or "ticker" not in df.columns or "asset_description" not in df.columns:
+        return df
+    df = df.copy()
+    _blank = df["ticker"].fillna("").astype(str).str.strip() == ""
+    _desc = df["asset_description"].fillna("").astype(str).str.strip()
+    _hit = _blank & _desc.isin(rec)
+    if _hit.any():
+        df.loc[_hit, "ticker"] = _desc[_hit].map(rec)
+        if "ticker_source" in df.columns:
+            df.loc[_hit, "ticker_source"] = "recovered"
+    return df
+
+
 def add_occurrence_index(df):
     """occurrence_index = rang du lot répété intra-dépôt (préserve les lots identiques d'un même PTR,
     dédup non destructrice). Exige les colonnes doc_id + natural_key_hash."""

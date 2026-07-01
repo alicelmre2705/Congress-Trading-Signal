@@ -130,6 +130,7 @@ def load_final(repo_root: Path) -> pd.DataFrame:
                 .drop(columns="_occ").reset_index(drop=True))
 
     full = schema.apply_txn_date_fixes(full)   # corrige 3 années-coquilles du PTR (lecture seule du figé)
+    full = schema.apply_ticker_recovery(full, repo_root)   # récupère les tickers d'actions faux-négatifs (read-time)
     td = pd.to_datetime(full["transaction_date"], errors="coerce")
     dd = pd.to_datetime(full["disclosure_date"], errors="coerce")
     full["_td"], full["_dd"] = td, dd
@@ -1118,10 +1119,18 @@ def build_report(repo_root: Path) -> Path:
         _incd = _incd[["chamber", "quiver_dans_fenetre", "inclus", "inclusion_pct", "residu",
                        "ocr_recuperable", "hors_perimetre", "residu_cote_reel"]]
         parts.append(_md_table(_incd))
-        parts.append("\n\n*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier, ligne ratée "
-                     "→ re-OCR possible · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade "
-                     "sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre "
-                     "polluant le cache · **vrai trou coté** = le seul manque réel.\n")
+        parts.append("\n\n*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier dont on a "
+                     "capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon "
+                     "non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté "
+                     "(CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre "
+                     "de l'autre chambre polluant le cache · **vrai trou coté** = le seul manque réel.\n")
+        _n_rec = int((df["ticker_source"] == "recovered").sum()) if "ticker_source" in df.columns else 0
+        if _n_rec:
+            parts.append(f"\n*Note :* une passe de **récupération nom→ticker** (vérifiée, **hors Quiver**, appliquée "
+                         f"à la lecture — golden intact) a rendu leur ticker à **{_n_rec} trades** d'actions que "
+                         "l'OCR/LLM avaient laissés vides (faux négatifs, ex. NEENAH PAPER→NP, TENCENT→TCEHY). Le "
+                         "« récupérable OCR » restant est surtout des **non-cotés déguisés** (préférentielles, fonds) "
+                         "et du **charabia OCR**, non mappables.\n")
         if len(diag.get("net_completeness", [])):
             parts.append("\n**Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → "
                          "on est un **sur-ensemble** de Quiver :\n\n")
