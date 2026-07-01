@@ -788,7 +788,7 @@ _COLS = {
     "quiver_dans_fenetre": "trades Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
     "residu": "résidu", "ocr_recuperable": "dont OCR récup.", "quiver_non_cote": "dont non-coté",
     "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre", "residu_cote_reel": "vrai trou coté",
-    "apparie_exact": "apparié exact", "apparie_proche": "apparié proche (≤7j)", "candidat_ecart": "candidat écart",
+    "apparie_exact": "apparié exact", "apparie_proche": "apparié proche (≤10j)", "candidat_ecart": "candidat écart",
     "dont_meme_depot": "dont même dépôt", "nous_seul": "nous-seul", "quiver_seul": "quiver-seul",
     "candidat_pct": "candidat %",
     "lignes_brutes": "lignes brutes", "re_divulgations_dedup": "re-divulgations (dédup)",
@@ -1126,7 +1126,7 @@ def build_report(repo_root: Path) -> Path:
                      "  08-jan ↔ 08-jan   et   10-mars-2023 ↔ 10-mars-2023   → 2 « apparié exact »\n"
                      "  (le trade 2023 s'apparie à SON 2023, jamais à un 2020)\n\n"
                      "Étape 2 — on apparie les RESTES au plus proche (plafond 90 j) :\n"
-                     "  13-fév (nous) ↔ 12-fév (Quiver) = 1 j   → « apparié proche » (≤ 7 j, bruit de date)\n"
+                     "  13-fév (nous) ↔ 12-fév (Quiver) = 1 j   → « apparié proche » (≤ 10 j, bruit de date)\n"
                      "  01-juin (nous) : aucun reste Quiver à < 90 j   → « NOUS-SEUL » (trade en plus)\n"
                      "```\n")
         parts.append("\nDeux garde-fous répondent à « comment gérer qu'un membre ait plusieurs trades » : "
@@ -1135,10 +1135,11 @@ def build_report(repo_root: Path) -> Path:
                      "empêchent mécaniquement de confondre un trade 2020 et un trade 2023. Chaque trade tombe alors "
                      "dans **une** catégorie :\n\n")
         parts.append(_md_table(drec))
-        parts.append(_leg("apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de "
-                          "date) · candidat écart = paire à 7–90 j à inspecter (§6.4) · dont même dépôt = dans le "
-                          "MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) "
-                          "· quiver-seul = on a raté."))
+        parts.append(_leg("apparié exact = même date · apparié proche = écart des dates de TRANSACTION ≤ 10 j "
+                          "(bruit/convention de date Quiver, même trade) · candidat écart = paire à 10–90 j, à "
+                          "inspecter (§6.4) · dont même dépôt = les deux viennent du MÊME PTR (écart des dates de "
+                          "DÉPÔT `disclosure`↔`Filed` ≤ 10 j) → seul signal fort · nous-seul = Quiver n'a PAS le "
+                          "trade (on est plus complet) · quiver-seul = on a raté."))
         parts.append(f"\n**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** "
                      f"Au Niveau 1 (sans date), le vrai trou est {_cell(inc,'house','residu_cote_reel')}/"
                      f"{_cell(inc,'senate','residu_cote_reel')} ; au Niveau 2 (trade + date), on compte "

@@ -307,7 +307,7 @@ def reconciliation(repo_root) -> pd.DataFrame:
 # Quiver ? ». Elle ne peut pas gérer la multiplicité (un déposant qui trade un titre N fois vs M chez
 # Quiver) → elle fabriquait un faux « écart-date » (99 % dit « collision »). Ici on fait une VRAIE
 # réconciliation 1-à-1 par (bio, ticker, sens), ancrée au dépôt (disclosure ≈ Filed).
-RECON_TOL_CLOSE = 7      # jours : bruit / convention de date acceptée (même trade) — absorbe le décalage ~6j
+RECON_TOL_CLOSE = 10     # jours : bruit / convention de date acceptée (même trade) — absorbe le décalage de convention ~8j observé chez Quiver
 RECON_MAX_PAIR = 90      # jours : mis-datage max plausible du MÊME trade (au-delà = 2 trades distincts)
 RECON_FILING_TOL = 10    # jours : « même dépôt » = |disclosure − Filed| (médiane 0 j → signal fort)
 
