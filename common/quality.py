@@ -683,6 +683,34 @@ def _figures(df, coverage, outdir: Path) -> list:
     except Exception:
         pass
 
+    # 9. Composition par TRANCHE de montant déclaré, par sous-corpus (barres 100 % empilées) — montre
+    #    visuellement que la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → d'où P25 = médiane.
+    try:
+        edges = [0, 15000, 50000, 250000, 1e6, float("inf")]
+        labs = ["≤ 15 k$", "15–50 k$", "50–250 k$", "250 k–1 M$", "> 1 M$"]
+        amt = df.dropna(subset=["amount_midpoint"]).copy()
+        amt["_bkt"] = pd.cut(amt["amount_midpoint"], bins=edges, labels=labs, include_lowest=True)
+        piv = (amt.groupby(["corpus", "_bkt"]).size().unstack("_bkt")
+                 .reindex(CORPUS_ORDER).reindex(columns=labs).fillna(0))
+        pivp = piv.div(piv.sum(axis=1), axis=0) * 100
+        fig, ax = plt.subplots(figsize=(8.5, 3.2))
+        left = np.zeros(len(pivp)); colors = plt.cm.YlOrRd(np.linspace(0.30, 0.92, len(labs)))
+        for j, lab in enumerate(labs):
+            vals = pivp[lab].values
+            ax.barh(pivp.index, vals, left=left, color=colors[j], label=lab, edgecolor="white", linewidth=0.5)
+            for yi, (l, w) in enumerate(zip(left, vals)):
+                if w >= 6:
+                    ax.text(l + w / 2, yi, f"{w:.0f}%", va="center", ha="center", fontsize=7,
+                            color="white" if j >= 2 else "#333")
+            left += vals
+        ax.set_xlabel("% des transactions"); ax.set_xlim(0, 100); ax.invert_yaxis()
+        ax.set_title("Composition par tranche de montant déclaré — la plus petite tranche domine")
+        ax.legend(loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=8, title="tranche ($)")
+        f9 = outdir / "mix_montants_par_corpus.png"; fig.tight_layout(); fig.savefig(f9, dpi=110); plt.close(fig)
+        figs.append(f9)
+    except Exception:
+        pass
+
     return figs
 
 
@@ -899,6 +927,10 @@ def build_report(repo_root: Path) -> Path:
     parts.append("\n### Montants par sous-corpus\n\n")
     parts.append(_md_table(amount_stats_by_corpus(df)))
     parts.append(_leg("$ = midpoint des fourchettes déclarées · P25/P75/P95 = percentiles · volume total = Σ midpoint"))
+    parts.append("\n\n![Composition par tranche de montant](quality/mix_montants_par_corpus.png)\n")
+    parts.append(_leg("la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, "
+                      "le P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → "
+                      "médiane 32 500 ≠ P25 8 000."))
 
     parts.append("\n### Concentration de l'activité\n\n")
     conc = concentration(df)

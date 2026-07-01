@@ -122,6 +122,11 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Sénat OCR | 1679 | 32500 | 171021 | 8000 | 75000 | 750000 | 285.9 |
 *$ = midpoint des fourchettes déclarées · P25/P75/P95 = percentiles · volume total = Σ midpoint*
 
+
+![Composition par tranche de montant](quality/mix_montants_par_corpus.png)
+
+*la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, le P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → médiane 32 500 ≠ P25 8 000.*
+
 ### Concentration de l'activité
 
 | sous-corpus | n déposants | HHI | Gini | top10 volume % |
