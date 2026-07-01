@@ -207,7 +207,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48762 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
 | Sénat électronique | 6566 | 90.6 | 1.9 | 7.5 | 0.0 | 26 |
 | Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
-*délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction) · délai médian en jours*
+*n dates valides = transactions dont le délai est CALCULABLE (les deux dates, transaction ET divulgation, présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée quand même dans n dates valides · délai médian en jours*
 
 ![Délai de divulgation](quality/delai_divulgation.png)
 

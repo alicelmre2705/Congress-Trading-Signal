@@ -963,9 +963,11 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(delays))
     parts.append("\n\n**Par sous-corpus :**\n\n")
     parts.append(_md_table(delay_buckets(df, dim="corpus")))
-    parts.append(_leg("délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = "
-                      "marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction) · "
-                      "délai médian en jours"))
+    parts.append(_leg("n dates valides = transactions dont le délai est CALCULABLE (les deux dates, transaction "
+                      "ET divulgation, présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = "
+                      "divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · "
+                      ">75 j = retard · négatif = anomalie (divulgation avant transaction), comptée quand même dans "
+                      "n dates valides · délai médian en jours"))
     parts.append("\n![Délai de divulgation](quality/delai_divulgation.png)\n")
     if len(outliers):
         parts.append("\n**Divulgations les plus tardives (> 365 j, suspects) :**\n\n")
