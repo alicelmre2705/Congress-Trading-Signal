@@ -1,9 +1,10 @@
 """Diagnostic Quiver « qui a raison ? » — recompute OFFLINE, lecture seule, jamais réinjecté.
 
-La section (f) de RAPPORT_QUALITE.md mesure *combien* de trades Quiver on retrouve. Ce module répond
-à la question d'après : **pourquoi** diffère-t-on, et **est-ce notre erreur ou pas** ? Il recalcule la
-validation depuis les tables FINAL + le cache Quiver (offline, prouvé identique aux 07c/07g/07h figés)
-et CLASSE chaque écart par un verdict :
+Le §6 de RAPPORT_QUALITE.md confronte nos trades à Quiver par **strictesse croissante** : inclusion
+date-AGNOSTIQUE (`ticker_inclusion`, §6.2 — a-t-on le trade), réconciliation date-ANCRÉE 1-à-1
+(`reconcile_dates`, §6.3 — le même trade à la même date, apparié par dépôt), puis **verdicts
+actionnables** (ci-dessous, §6.5). Tout est recalculé depuis les tables FINAL + le cache Quiver
+(offline, prouvé identique aux 07c/07g/07h figés). Chaque transaction reçoit un verdict :
 
   côté NOUS (chaque transaction FINAL confrontée à Quiver) :
     CONCORDANT          présent des deux côtés, même date           → rien à corriger
@@ -25,8 +26,8 @@ Le corpus FINAL est dédupliqué cross-année (clé naturelle + occurrence_index
 classification — une re-divulgation tardive (même trade re-déposé une autre année) n'est comptée qu'une
 fois (Sénat : 8 841 → 8 245). Sans ça la copie tardive tombait à tort en ON_EST_PLUS_COMPLET.
 
-Sorties : un dict de tables agrégées (consommé par common.quality, section (f)) + des annexes
-actionnables sous `docs/quiver_validation/` (hors golden). Aucun appel API ; tout est offline.
+Sorties : un dict de tables agrégées (consommé par common.quality, §6) + des annexes actionnables
+sous `docs/quiver_validation/` (hors golden). Aucun appel API ; tout est offline.
 
 Réutilise les briques de prod : `house.quiver.{reconcile,norm_ticker,norm_sense,low_bound}` (identiques
 au Sénat) et `common.quiver_scopes.reconcile_scopes`. La clé d'appariement et la fenêtre Quiver sont
@@ -586,8 +587,9 @@ def build_diagnosis(repo_root) -> dict:
         struct = int((our_all["verdict"] == "STRUCTUREL").sum())
         plus = int((our_all["verdict"] == "ON_EST_PLUS_COMPLET").sum())
         # « ecart_brut_pct » = ECART_DATE + ECART_TICKER. NOTE : ce n'est PAS un taux d'erreur — l'ECART_DATE
-        # est à ~99 % un artefact de collision et nos tickers sont corrects (cf. inclusion + artefact). Le vrai
-        # taux d'erreur imputable est < 1 %. Nommé « brut » exprès pour ne pas le présenter comme « notre erreur ».
+        # est décomposé honnêtement par reconcile_dates (§6.3 : surtout du « nous-seul »/convention de date, pas
+        # notre faute) et nos tickers concordent (cf. inclusion §6.2). Nommé « brut » exprès pour ne pas le
+        # présenter comme « notre erreur ».
         synth_rows.append({"chamber": chamber, "nos_txns": n_our,
                            "concordant_pct": round(100 * (our_all["verdict"] == "CONCORDANT").sum() / n_our, 1),
                            "ecart_brut_pct": round(100 * corrig / n_our, 1),

@@ -6,7 +6,7 @@
 - **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
 - **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
 - **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
-- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.5) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 414 candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).
+- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 414 candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 28 j, montants renseignés 99.0 %.
 
 *Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · §5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*
@@ -350,35 +350,33 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 
 ## 6. Complétude vs Quiver (vérité-terrain externe)
 
-> **Section clé.** On liste tous les trades Quiver de notre fenêtre, on les confronte aux nôtres, et on montre qu'ils y sont **inclus** (Quiver ⊆ nous) — qu'on est même **plus complet** — puis pourquoi les « écarts » de date ne sont pas des erreurs. Chiffres recalculés par `common/quiver_diagnosis.py`, **jamais réinjectés**.
+> **Section clé.** On confronte tous les trades Quiver de notre fenêtre aux nôtres, par **strictesse croissante** : inclusion date-agnostique (Quiver ⊆ nous, on est même plus complet) → réconciliation date-ancrée au trade près → verdicts actionnables. Chiffres recalculés par `common/quiver_diagnosis.py`, **jamais réinjectés**.
 
-### 6.1 Méthode d'appariement
+### 6.1 Méthode & périmètre
 
-Chaque transaction est confrontée à Quiver par une clé normalisée, sur **deux mesures** : l'**inclusion** (a-t-on le trade) et l'**exact-date** (même trade, même date).
+Chaque transaction est confrontée à Quiver par une clé normalisée, sur **deux lentilles de strictesse croissante** : l'**inclusion date-AGNOSTIQUE** (a-t-on le trade ? §6.2), puis la **réconciliation date-ANCRÉE** (le même trade, à la même date ? §6.3).
 
 | élément | définition |
 | --- | --- |
 | univers comparé | tous les trades Quiver `Filed` ∈ 2020–2026 (notre fenêtre de scrape) |
-| clé d'appariement | (`bioguide`, ticker normalisé, date, sens) — sans la date pour l'inclusion |
+| clé d'appariement | (`bioguide`, ticker normalisé, sens) + date pour la réconciliation ; SANS date pour l'inclusion |
 | normalisation ticker | MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_` |
 | normalisation sens | 1re lettre p/s/e → Purchase / Sale / Exchange |
-| mesure 1 — inclusion | clé SANS date → « a-t-on tout ce que Quiver a » (la vraie complétude) |
-| mesure 2 — réconciliation | appariement 1-à-1 (déposant, ticker, sens) ancré au dépôt → exact / proche / candidat / nous-seul / quiver-seul (§6.5) |
+| lentille 1 — inclusion (§6.2) | clé SANS date → « a-t-on tout ce que Quiver a » (complétude) |
+| lentille 2 — réconciliation (§6.3) | appariement 1-à-1 ancré au dépôt → exact / proche / candidat / nous-seul / quiver-seul |
 
-*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*
+*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py` (recalcul offline, jamais réinjecté).*
 
-### 6.2 Réconciliation du corpus
-
-Le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation tardive ne compte qu'une fois) :
+**Périmètre comparé** — le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation tardive ne compte qu'une fois) :
 
 | chambre | lignes brutes | re-divulgations (dédup) | transactions uniques |
 | --- | --- | --- | --- |
 | house | 81642 | 35 | 81607 |
 | senate | 8841 | 596 | 8245 |
 | TOTAL | 90483 | 631 | 89852 |
-### 6.3 Inclusion : a-t-on tout ce que Quiver a ? (Quiver ⊆ nous)
+### 6.2 Inclusion & complétude nette (date-agnostique)
 
-Dans notre fenêtre, on retrouve **93.8 % (House)** et **91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté** est minuscule (22 House / 0 Sénat) ; le reste du résidu est récupérable ou hors périmètre :
+**Quiver ⊆ nous.** Dans notre fenêtre, on retrouve **93.8 % (House)** et **91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté** est minuscule (22 House / 0 Sénat) ; le reste du résidu est récupérable ou hors périmètre :
 
 | chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | dont OCR récup. | dont non-coté | dont 2-jambes | dont autre chambre | vrai trou coté |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -387,48 +385,104 @@ Dans notre fenêtre, on retrouve **93.8 % (House)** et **91.5 % (Sénat)** des t
 
 *Légende du résidu :* **OCR récup.** = lignes papier ratées (re-OCR ciblé) · **non-coté** = « ticker » Quiver non appariable (CUSIP, préférentielle, fragment) · **2-jambes** = on a le trade sous un ticker d'échange (« PFE  VTRS » couvre « PFE ») · **autre chambre** = déposant Rep→Sén dont les trades Chambre polluent le cache Sénat de Quiver · **vrai trou coté** = le seul manque réel.
 
-### 6.4 On est plus complet que Quiver (bilan net)
-
-Actions cotées qu'on a et que Quiver n'a PAS (`on_a_en_plus`) vs vrais trous inverses (`vrais_trous`) :
+**Bilan net** — actions cotées qu'on a et que Quiver n'a PAS vs vrais trous inverses (même lentille date-agnostique) → on est un **sur-ensemble** de Quiver :
 
 | chambre | actions qu'on a en + | vrais trous | solde net |
 | --- | --- | --- | --- |
 | house | 6206 | 10 | 6196 |
 | senate | 680 | 3 | 677 |
-### 6.5 Réconciliation transaction-par-transaction
+### 6.3 Réconciliation transaction-par-transaction (date-ancrée)
 
-L'exact-date compare par **appartenance ensembliste** (« ma date est-elle dans l'ensemble Quiver ? ») → elle **sous-compte** dès qu'un titre est tradé plusieurs jours (elle ne sait pas apparier N trades à M). Ici on **apparie 1-à-1** nos trades à ceux de Quiver par `(déposant, ticker, sens)`, ancré au dépôt (`disclosure ≈ Filed`), date exacte puis plus proche. Chaque trade tombe alors dans **une** catégorie honnête :
+On descend au trade près : on **apparie 1-à-1** nos trades à ceux de Quiver par `(déposant, ticker, sens)`, ancré au dépôt (`disclosure ≈ Filed`), date exacte puis plus proche. Chaque trade tombe dans **une** catégorie (une comparaison ensembliste, elle, sous-compterait dès qu'un titre est tradé plusieurs jours — elle ne sait pas apparier N à M) :
 
 | chambre | apparié exact | apparié proche (≤7j) | candidat écart | dont même dépôt | nous-seul | quiver-seul | candidat % |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | house | 43250 | 467 | 1764 | 414 | 21699 | 4708 | 2.6 |
 | senate | 4361 | 0 | 0 | 0 | 1202 | 385 | 0.0 |
-*apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de date) · candidat écart = paire à 7–90 j à inspecter · dont même dépôt = candidats dans le MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté. Plus de « collision » : un vrai écart est une PAIRE avec delta, pas un artefact d'empilement.*
+*apparié exact = même date · apparié proche = même trade à ≤ 7 j (bruit/convention de date) · candidat écart = paire à 7–90 j à inspecter · dont même dépôt = candidats dans le MÊME PTR (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté.*
 
-### 6.6 Candidats d'écart de date (même dépôt)
+**Pourquoi ces nombres diffèrent du §6.2 — niveau de strictesse.** Au niveau (déposant, ticker, sens) *date-agnostique* (§6.2), le vrai trou coté est 22/0 ; au niveau *transaction date-ancrée* (ici), on compte 21699 trades « nous-seul » — normal, on trade plus souvent que Quiver ne capte au trade près. Les deux disent la même chose : **on est plus complet**.
+
+### 6.4 Candidats d'écart de date (même dépôt)
 
 Les **seuls** candidats honnêtes d'erreur de date sont ceux **dans un même dépôt** (414 House / 0 Sénat). Même là, prudence : un petit delta peut être une **convention de date Quiver**, pas notre erreur. Le **vrai contrôle des dates reste l'audit PDF (§2)** — Quiver, lui, n'a souvent pas le trade (« nous-seul ») ou le date autrement. `doc_id` = pièce consultable :
 
 | chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | RJF | Purchase | 2022-05-10 | 2022-05-02 | 8 | 8218940 |
-| house | Rohit Khanna | ADM | Sale | 2020-03-13 | 2020-03-05 | 8 | 8217164 |
-| house | Rohit Khanna | F | Purchase | 2020-02-03 | 2020-02-11 | 8 | 8217060 |
-| house | Rohit Khanna | WES | Sale | 2020-02-13 | 2020-02-21 | 8 | 8217060 |
-| house | Rohit Khanna | KEYS | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
-| house | Rohit Khanna | ALB | Sale | 2020-02-11 | 2020-02-19 | 8 | 8217060 |
+| house | Rohit Khanna | SEE | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
+| house | Rohit Khanna | A | Sale | 2021-09-28 | 2021-09-20 | 8 | 8218398 |
 | house | Rohit Khanna | PPL | Sale | 2020-03-13 | 2020-03-05 | 8 | 8217164 |
+| house | Rohit Khanna | MRK | Purchase | 2020-07-28 | 2020-07-20 | 8 | 8217557 |
 | house | Rohit Khanna | HLT | Sale | 2020-07-31 | 2020-07-23 | 8 | 8217557 |
-| house | Rohit Khanna | LIN | Purchase | 2022-04-21 | 2022-04-13 | 8 | 8218730 |
+| house | Rohit Khanna | F | Purchase | 2020-02-03 | 2020-02-11 | 8 | 8217060 |
 | house | Rohit Khanna | TRGP | Sale | 2020-02-19 | 2020-02-11 | 8 | 8217060 |
-| house | Rohit Khanna | VST | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
 | house | Rohit Khanna | SYK | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
+| house | Rohit Khanna | ALB | Sale | 2020-02-11 | 2020-02-19 | 8 | 8217060 |
+| house | Rohit Khanna | LEA | Sale | 2022-04-21 | 2022-04-13 | 8 | 8218730 |
+| house | Rohit Khanna | KEYS | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
+| house | Rohit Khanna | VMC | Sale | 2022-04-11 | 2022-04-03 | 8 | 8218730 |
 
 *(Top 12 par delta croissant ; les 414 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 
-### 6.7 Détail figé : couverture exact-date par scope, type d'actif, cluster
+### 6.5 Verdicts actionnables
 
-Vue d'ensemble **exact-date** (tables figées 07c/07g/07h ; sous-compte par construction, cf. §6.5). `couverture %` = part des trades Quiver retrouvés à la date exacte.
+Chaque transaction reçoit un verdict (côté nous et côté Quiver) pour trier ce qui est **à corriger**. `ecart_brut_pct` (`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'`ECART_DATE` est décomposé honnêtement au §6.3 (surtout « nous-seul » / convention de date), et nos tickers concordent avec la description d'actif.
+
+**Synthèse côté NOUS** (part de NOS transactions par catégorie) :
+
+| chambre | nos txns | concordant % | écart brut % | structurel % | on est + complet % |
+| --- | --- | --- | --- | --- | --- |
+| house | 81607 | 61.4 | 18.6 | 12.4 | 7.6 |
+| senate | 8245 | 59.7 | 2.1 | 30.0 | 8.2 |
+
+**Verdicts nous→Quiver :**
+
+| côté | verdict | n | % | à corriger |
+| --- | --- | --- | --- | --- |
+| nous→Quiver (house) | CONCORDANT | 50075 | 61.4 | False |
+| nous→Quiver (house) | ECART_DATE | 9628 | 11.8 | True |
+| nous→Quiver (house) | ECART_TICKER | 5539 | 6.8 | True |
+| nous→Quiver (house) | STRUCTUREL | 10159 | 12.4 | False |
+| nous→Quiver (house) | ON_EST_PLUS_COMPLET | 6206 | 7.6 | False |
+| nous→Quiver (senate) | CONCORDANT | 4922 | 59.7 | False |
+| nous→Quiver (senate) | ECART_DATE | 100 | 1.2 | True |
+| nous→Quiver (senate) | ECART_TICKER | 71 | 0.9 | True |
+| nous→Quiver (senate) | STRUCTUREL | 2472 | 30.0 | False |
+| nous→Quiver (senate) | ON_EST_PLUS_COMPLET | 680 | 8.2 | False |
+
+**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté (résiduel après filtrage du non-coté), les autres s'expliquent par la date, le ticker, ou du papier :
+
+| côté | verdict | n | % | à corriger |
+| --- | --- | --- | --- | --- |
+| Quiver→nous (house) | ECART_DATE | 3418 | 49.2 | True |
+| Quiver→nous (house) | ECART_TICKER | 2317 | 33.4 | True |
+| Quiver→nous (house) | MANQUANT_PAPIER | 1066 | 15.4 | True |
+| Quiver→nous (house) | NON_COTE | 132 | 1.9 | False |
+| Quiver→nous (house) | NOTRE_MANQUE | 10 | 0.1 | True |
+| Quiver→nous (senate) | ECART_TICKER | 22 | 88.0 | True |
+| Quiver→nous (senate) | NOTRE_MANQUE | 3 | 12.0 | True |
+
+**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date, par appartenance ensembliste) — un désaccord = vraie erreur d'extraction, typée dans `desaccord_champ_*.csv` :
+
+| chambre | n paires | accord sens % | accord montant % |
+| --- | --- | --- | --- |
+| house | 52259 | 95.8 | 93.1 |
+| senate | 4932 | 99.8 | 99.7 |
+
+**Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :
+
+| chambre | bioguide | nom | n trous |
+| --- | --- | --- | --- |
+| house | B001327 | Rob Bresnahan | 5 |
+| house | P000197 | Nancy Pelosi | 2 |
+| house | J000307 | John James | 1 |
+| house | S000168 | Maria Elvira Salazar | 1 |
+| house | W000797 | Debbie Wasserman Schultz | 1 |
+| senate | M001198 | Roger W Marshall | 3 |
+
+### 6.6 Annexe figée : cross-check exact-date (tables historiques)
+
+Vue **exact-date** issue des tables **figées** du pipeline. Le rapport ne lit que `07c/07g/07h` ; les autres (`07/07b/07d/07e/07f/06d`) sont des sorties **historiques** du pipeline, gardées pour la lignée/régression. Cette vue **sous-compte par construction** (exact-date ensembliste, cf. §6.3). `couverture %` = part des trades Quiver retrouvés à la date exacte.
 
 **Couverture par scope et chambre :**
 
@@ -440,6 +494,25 @@ Vue d'ensemble **exact-date** (tables figées 07c/07g/07h ; sous-compte par cons
 | senate | both | 4324.0 | 4349.0 | 544.0 | 25.0 | 99.4 |
 | senate | digital | 4324.0 | 4349.0 | 405.0 | 25.0 | 99.4 |
 | senate | ocr | 0.0 | 15.0 | 64.0 | 15.0 | 0.0 |
+
+**Couverture / precision par année** (scope `both`) :
+
+| chambre | année | appariés | Quiver | couverture % | precision % |
+| --- | --- | --- | --- | --- | --- |
+| house | 2020 | 7115 | 8359 | 85.1 | 75.0 |
+| house | 2021 | 5222 | 5893 | 88.6 | 63.2 |
+| house | 2022 | 6075 | 7513 | 80.9 | 60.2 |
+| house | 2023 | 6128 | 7567 | 81.0 | 84.7 |
+| house | 2024 | 4670 | 5442 | 85.8 | 79.7 |
+| house | 2025 | 9836 | 10773 | 91.3 | 90.8 |
+| house | 2026 | 4233 | 4674 | 90.6 | 84.9 |
+| senate | 2020 | 1251 | 1259 | 99.4 | 93.6 |
+| senate | 2021 | 398 | 406 | 98.0 | 64.1 |
+| senate | 2022 | 636 | 640 | 99.4 | 96.1 |
+| senate | 2023 | 682 | 684 | 99.7 | 88.2 |
+| senate | 2024 | 558 | 560 | 99.6 | 97.7 |
+| senate | 2025 | 520 | 521 | 99.8 | 88.0 |
+| senate | 2026 | 279 | 279 | 100.0 | 89.1 |
 
 **Par type d'actif** (`non-coté` = muni/obligation, hors périmètre Quiver-actions) — **House :**
 
@@ -497,81 +570,6 @@ Sur le manuscrit (C), la qualité interne reste haute (voir `date plausible %` /
 | B_tape_tourne | 18558 | 8653 | 7706 | 7234 | 42151 | 77.9 |
 | A_tape_droit | 3784 | 630 | 600 | 943 | 5957 | 88.0 |
 | C_manuscrit | 100 | 169 | 493 | 100 | 862 | 35.3 |
-
-### 6.8 Verdicts détaillés
-
-Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_brut_pct` (`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'écart-date est l'artefact du §6.5, et nos tickers concordent avec la description d'actif.
-
-**Synthèse côté NOUS** (part de NOS transactions par catégorie) :
-
-| chambre | nos txns | concordant % | écart brut % | structurel % | on est + complet % |
-| --- | --- | --- | --- | --- | --- |
-| house | 81607 | 61.4 | 18.6 | 12.4 | 7.6 |
-| senate | 8245 | 59.7 | 2.1 | 30.0 | 8.2 |
-
-**Verdicts nous→Quiver :**
-
-| côté | verdict | n | % | à corriger |
-| --- | --- | --- | --- | --- |
-| nous→Quiver (house) | CONCORDANT | 50075 | 61.4 | False |
-| nous→Quiver (house) | ECART_DATE | 9628 | 11.8 | True |
-| nous→Quiver (house) | ECART_TICKER | 5539 | 6.8 | True |
-| nous→Quiver (house) | STRUCTUREL | 10159 | 12.4 | False |
-| nous→Quiver (house) | ON_EST_PLUS_COMPLET | 6206 | 7.6 | False |
-| nous→Quiver (senate) | CONCORDANT | 4922 | 59.7 | False |
-| nous→Quiver (senate) | ECART_DATE | 100 | 1.2 | True |
-| nous→Quiver (senate) | ECART_TICKER | 71 | 0.9 | True |
-| nous→Quiver (senate) | STRUCTUREL | 2472 | 30.0 | False |
-| nous→Quiver (senate) | ON_EST_PLUS_COMPLET | 680 | 8.2 | False |
-
-**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté (résiduel après filtrage du non-coté), les autres s'expliquent par la date, le ticker, ou du papier :
-
-| côté | verdict | n | % | à corriger |
-| --- | --- | --- | --- | --- |
-| Quiver→nous (house) | ECART_DATE | 3418 | 49.2 | True |
-| Quiver→nous (house) | ECART_TICKER | 2317 | 33.4 | True |
-| Quiver→nous (house) | MANQUANT_PAPIER | 1066 | 15.4 | True |
-| Quiver→nous (house) | NON_COTE | 132 | 1.9 | False |
-| Quiver→nous (house) | NOTRE_MANQUE | 10 | 0.1 | True |
-| Quiver→nous (senate) | ECART_TICKER | 22 | 88.0 | True |
-| Quiver→nous (senate) | NOTRE_MANQUE | 3 | 12.0 | True |
-
-**Couverture (Quiver→nous) et precision (nous→Quiver) par année** (scope `both`) :
-
-| chambre | année | appariés | Quiver | couverture % | precision % |
-| --- | --- | --- | --- | --- | --- |
-| house | 2020 | 7115 | 8359 | 85.1 | 75.0 |
-| house | 2021 | 5222 | 5893 | 88.6 | 63.2 |
-| house | 2022 | 6075 | 7513 | 80.9 | 60.2 |
-| house | 2023 | 6128 | 7567 | 81.0 | 84.7 |
-| house | 2024 | 4670 | 5442 | 85.8 | 79.7 |
-| house | 2025 | 9836 | 10773 | 91.3 | 90.8 |
-| house | 2026 | 4233 | 4674 | 90.6 | 84.9 |
-| senate | 2020 | 1251 | 1259 | 99.4 | 93.6 |
-| senate | 2021 | 398 | 406 | 98.0 | 64.1 |
-| senate | 2022 | 636 | 640 | 99.4 | 96.1 |
-| senate | 2023 | 682 | 684 | 99.7 | 88.2 |
-| senate | 2024 | 558 | 560 | 99.6 | 97.7 |
-| senate | 2025 | 520 | 521 | 99.8 | 88.0 |
-| senate | 2026 | 279 | 279 | 100.0 | 89.1 |
-
-**Accord sur les trades qu'on a TOUS LES DEUX** (cellules bio×ticker×date, par appartenance ensembliste) — un désaccord = vraie erreur d'extraction, typée dans `desaccord_champ_*.csv` :
-
-| chambre | n paires | accord sens % | accord montant % |
-| --- | --- | --- | --- |
-| house | 52259 | 95.8 | 93.1 |
-| senate | 4932 | 99.8 | 99.7 |
-
-**Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :
-
-| chambre | bioguide | nom | n trous |
-| --- | --- | --- | --- |
-| house | B001327 | Rob Bresnahan | 5 |
-| house | P000197 | Nancy Pelosi | 2 |
-| house | J000307 | John James | 1 |
-| house | S000168 | Maria Elvira Salazar | 1 |
-| house | W000797 | Debbie Wasserman Schultz | 1 |
-| senate | M001198 | Roger W Marshall | 3 |
 
 Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). Hors golden.
 
