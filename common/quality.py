@@ -15,13 +15,15 @@ Les contrôles :
   (b) Délai légal : `lag = disclosure - transaction` ventilé ≤45 j (légal STOCK Act) / 45–75 j / >75 j.
   (c) Distribution des montants (`amount_midpoint`) : médiane, quartiles, top déposants par volume.
   (d) Coverage par congressman : #trades, #années, première/dernière année, membres ≥10 trades.
-  (e) Taux de transactions sans sortie déclarée : achats sans vente ultérieure (même bioguide+ticker).
+  (e) Devenir des achats à +12 mois (règle du backtest) : revendu ≤12 mois / fermé de force à +12 mois /
+      trop récent pour juger (censuré), apparié sur la date de divulgation (même bioguide+ticker).
   (f) Validation externe Quiver : couverture par scope (digital/ocr/both), décomposition
       exact/date_mismatch/no_match/non_equity par type d'actif et par cluster de scan — agrégée depuis
       les `07c/07g/07h` figés (définition des métriques : common/quiver_scopes.py).
 
 Usage : `python -m common.quality`  (écrit docs/RAPPORT_QUALITE.md + docs/quality/*.png)
 """
+import bisect
 from pathlib import Path
 
 import pandas as pd
@@ -255,26 +257,58 @@ def eligible_members(coverage: pd.DataFrame, min_trades: int = 10) -> dict:
             "n_eligibles_3plus_annees": int((elig["n_annees"] >= 3).sum())}
 
 
-# ───────────────────────────── (e) Achats sans sortie déclarée ─────────────────────────────
-def unmatched_purchase_rate(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
-    """Pour chaque achat (bioguide+ticker), existe-t-il une vente ultérieure (disclosure plus tard) ?
-    Le taux non-apparié = positions qui seraient fermées de force à +12 mois dans la stratégie. La vente
-    est cherchée globalement (une vente, peu importe le corpus, clôt la position)."""
-    d = df[_nonblank(df["ticker"])].copy()
-    d = d.dropna(subset=["_dd"])
-    sells = d[d["op"] == "sell"].groupby(["bioguide_id", "ticker"])["_dd"].max()
+# ───────────────────────── (e) Devenir des achats à +12 mois (règle de la stratégie) ─────────────────────────
+FORCED_CLOSE_HORIZON_DAYS = 365   # la stratégie ferme une position au plus tard 12 mois après l'achat
+
+
+def purchase_exit_breakdown(df: pd.DataFrame, dim: str = "chamber",
+                            horizon_days: int = FORCED_CLOSE_HORIZON_DAYS) -> pd.DataFrame:
+    """Suit CHAQUE achat (avec ticker) dans le temps selon la règle réelle du backtest : est-il revendu
+    par le même membre sur le même ticker DANS l'horizon de `horizon_days` (12 mois) ? L'appariement se
+    fait sur la date de DIVULGATION (`_dd`) — ce que la stratégie peut observer — la première vente
+    strictement postérieure à l'achat faisant foi. Trois issues, calées sur la stratégie :
+      revendu_12m   : une vente est divulguée dans les 12 mois → sortie volontaire avant le plafond.
+      ferme_force   : aucune vente sous 12 mois ET l'achat a ≥12 mois de recul → la stratégie clôt à +12 mois.
+      trop_recents  : aucune vente sous 12 mois MAIS <12 mois de recul (divulgué après window_end−12 mois)
+                      → indéterminé (troncature de fenêtre), EXCLU des dénominateurs.
+    Les deux taux (`*_pct`) portent sur les OBSERVABLES = n_achats − trop_recents.
+    NB : une seule métrique honnête remplace l'ancien « sans sortie » qui, sans horizon ni gestion de la
+    troncature, sous-comptait les fermetures forcées et gonflait le taux avec des achats non observables."""
+    d = df[_nonblank(df["ticker"])].dropna(subset=["_dd"]).copy()
+    window_end = d["_dd"].max()
+    H = pd.Timedelta(days=horizon_days)
+    # dates de vente triées par (membre, ticker) → recherche de la 1re vente postérieure par bisection
+    sell_map = {k: sorted(g) for k, g in
+                d[d["op"] == "sell"].dropna(subset=["_dd"]).groupby(["bioguide_id", "ticker"])["_dd"]}
+
+    def _first_sell_after(bio, tk, buy_dd):
+        arr = sell_map.get((bio, tk))
+        if not arr:
+            return None
+        i = bisect.bisect_right(arr, buy_dd)
+        return arr[i] if i < len(arr) else None
+
     rows = []
     for key in _keys(d, dim):
-        g = d[d[dim] == key]
-        buys = g[g["op"] == "buy"]
+        buys = d[(d[dim] == key) & (d["op"] == "buy")]
         if not len(buys):
             continue
-        last_sell = buys.set_index(["bioguide_id", "ticker"]).index.map(sells.get)
-        matched = pd.Series(last_sell, index=buys.index) > buys["_dd"].values
+        n_sold = n_forced = n_recent = 0
+        for bio, tk, buy_dd in zip(buys["bioguide_id"], buys["ticker"], buys["_dd"]):
+            fs = _first_sell_after(bio, tk, buy_dd)
+            if fs is not None and fs <= buy_dd + H:
+                n_sold += 1                       # revendu dans les 12 mois
+            elif buy_dd + H <= window_end:
+                n_forced += 1                     # assez de recul, pas de vente → fermé de force
+            else:
+                n_recent += 1                     # <12 mois d'observation → censuré
         n = len(buys)
-        n_match = int(pd.Series(matched).fillna(False).sum())
-        rows.append({dim: key, "n_achats_avec_ticker": n, "avec_sortie_declaree": n_match,
-                     "sans_sortie_pct": round(100 * (n - n_match) / n, 1)})
+        obs = n - n_recent
+        rows.append({dim: key, "n_achats": n, "trop_recents": n_recent, "n_observables": obs,
+                     "revendu_12m": n_sold,
+                     "revendu_12m_pct": round(100 * n_sold / obs, 1) if obs else None,
+                     "ferme_force": n_forced,
+                     "ferme_force_pct": round(100 * n_forced / obs, 1) if obs else None})
     return pd.DataFrame(rows)
 
 
@@ -744,8 +778,9 @@ _COLS = {
     "lag_days": "délai (j)", "operation_type": "opération", "volume_estime_musd": "volume estimé M$",
     "name": "nom", "our_total": "total", "our_ocr": "dont OCR", "ocr_share_pct": "OCR %",
     "n_annees": "n années", "premiere_annee": "1re année", "derniere_annee": "dern. année",
-    "n_achats_avec_ticker": "achats (avec ticker)", "avec_sortie_declaree": "avec sortie",
-    "sans_sortie_pct": "sans sortie %",
+    "n_achats": "achats (avec ticker)", "trop_recents": "trop récents", "n_observables": "observables",
+    "revendu_12m": "revendu ≤12m", "revendu_12m_pct": "revendu ≤12m %",
+    "ferme_force": "fermé de force", "ferme_force_pct": "fermé de force +12m %",
     "scope": "scope", "matched": "appariés", "quiver": "Quiver", "only_ours": "nous seul",
     "only_quiver": "Quiver seul", "couverture_pct": "couverture %", "precision_pct": "precision %",
     "asset_type": "type d'actif", "exact_match": "exact (date)", "date_mismatch": "date ≠",
@@ -807,7 +842,7 @@ def build_report(repo_root: Path) -> Path:
     outliers = delay_outliers(df)
     amounts = amount_distribution(df)
     elig = eligible_members(coverage)
-    unmatched = unmatched_purchase_rate(df)
+    exit_bd = purchase_exit_breakdown(df)
 
     n_total = len(df)
     n_house = int((df["chamber"] == "house").sum())
@@ -1013,15 +1048,22 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_leg("total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · "
                       "1re/dern. année = première/dernière année de transaction"))
 
-    # ════════ §5.1 Achats sans sortie déclarée ════════
-    parts.append("\n### Achats sans sortie déclarée (pour la stratégie)\n")
-    parts.append("\nAchats (avec ticker) sans vente ultérieure déclarée par le même membre sur le "
-                 "même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.\n\n")
-    parts.append(_md_table(unmatched))
+    # ════════ §5.1 Devenir des achats à +12 mois (règle de la stratégie) ════════
+    _cut = (df["_dd"].max() - pd.Timedelta(days=FORCED_CLOSE_HORIZON_DAYS)).date()
+    parts.append("\n### Devenir des achats à +12 mois (revente vs fermeture forcée, pour la stratégie)\n")
+    parts.append(f"\nPour chaque achat (avec ticker), on suit la position : est-elle **revendue par le même "
+                 f"membre sur le même ticker dans les 12 mois** (l'horizon de fermeture forcée de la "
+                 f"stratégie) ? L'appariement se fait sur la **date de divulgation** — ce que la stratégie "
+                 f"peut observer. Les achats divulgués il y a **moins de 12 mois** (après {_cut}) n'ont pas "
+                 f"assez de recul pour juger : marqués *trop récents* et exclus des taux.\n\n")
+    parts.append(_md_table(exit_bd))
     parts.append("\n\n**Par sous-corpus :**\n\n")
-    parts.append(_md_table(unmatched_purchase_rate(df, dim="corpus")))
-    parts.append(_leg("achats (avec ticker) · avec sortie = vente ultérieure du même ticker par le même membre · "
-                      "sans sortie % = position jamais fermée"))
+    parts.append(_md_table(purchase_exit_breakdown(df, dim="corpus")))
+    parts.append(_leg("achats (avec ticker) · trop récents = <12 mois de recul depuis la divulgation "
+                      "(indéterminé, hors dénominateur) · observables = achats − trop récents · "
+                      "revendu ≤12m = une vente du même ticker divulguée dans les 12 mois · "
+                      "fermé de force +12m = aucune vente sous 12 mois → la stratégie clôt la position · "
+                      "les deux % portent sur les observables"))
 
     # ════════ §6 Complétude vs Quiver (tables-first, tout régénérable) ════════
     parts.append("\n## 6. Complétude vs Quiver (vérité-terrain externe)\n")
@@ -1119,31 +1161,37 @@ def build_report(repo_root: Path) -> Path:
         parts.append("\nAucun candidat « même dépôt » — les écarts résiduels sont du « nous-seul » ou du bruit de "
                      "convention de date.\n")
 
-    # 6.5 Niveau 3 — verdicts (qui corrige quoi ; ECART_DATE décomposé au §6.3)
-    parts.append("\n### 6.5 Niveau 3 — Qui corrige quoi ? (verdicts)\n")
-    parts.append("\nChaque transaction reçoit un verdict pour trier ce qui est **à corriger**. `ecart_brut_pct` "
-                 "(`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'`ECART_DATE` est décomposé "
-                 "honnêtement au §6.3, et nos tickers concordent avec la description d'actif.\n")
-    if len(diag["synthesis"]):
-        parts.append("\n**Synthèse côté NOUS** (part de NOS transactions par catégorie) :\n\n")
-        parts.append(_md_table(diag["synthesis"]))
-        parts.append("\n")
-    if len(diag["our_tally"]):
-        parts.append("\n**Verdicts nous→Quiver :**\n\n")
-        parts.append(_md_table(diag["our_tally"]))
-        parts.append("\n")
-    if len(diag["quiver_tally"]):
-        parts.append("\n**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté "
-                     "(les autres s'expliquent par la date, le ticker, ou du papier) :\n\n")
-        parts.append(_md_table(diag["quiver_tally"]))
-        parts.append("\n")
+    # 6.5 Niveau 3 — que reste-t-il à corriger ? (champs restants + to-do actionnable)
+    parts.append("\n### 6.5 Niveau 3 — Que reste-t-il à corriger ?\n")
+    parts.append("\nOn a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux choses : les **autres "
+                 "champs** des trades qu'on partage avec Quiver (sens, montant), et la **liste de ce qui est "
+                 "vraiment à corriger**.\n")
     if len(diag["field_agreement"]):
-        parts.append("\n**Accord sur les trades qu'on a TOUS LES DEUX** (sens & montant) — un désaccord = vraie "
-                     "erreur d'extraction, typée dans `desaccord_champ_*.csv` :\n\n")
+        parts.append("\n**Autres champs — sens & montant.** Pour les trades qu'on a **tous les deux** (mêmes "
+                     "membre + ticker + date), est-on d'accord sur le sens (achat/vente) et le montant ?\n\n")
         parts.append(_md_table(diag["field_agreement"]))
-        parts.append("\n")
+        parts.append(_leg("on apparie les cellules (membre, ticker, date) présentes des DEUX côtés ; un désaccord "
+                          "= vraie erreur d'extraction, listée dans `desaccord_champ_*.csv`."))
+    # to-do : compteurs tirés des tallies déjà calculés (via _byc)
+    _et = _byc(diag["our_tally"], "ECART_TICKER") if len(diag.get("our_tally", [])) else {}
+    _mp = _byc(diag["quiver_tally"], "MANQUANT_PAPIER") if len(diag.get("quiver_tally", [])) else {}
+    _todo = pd.DataFrame([
+        {"à corriger": "vrais trous cotés (`NOTRE_MANQUE`)", "House": manque.get("house", 0),
+         "Sénat": manque.get("senate", 0), "nature": "**DUR** — trade coté absent de chez nous (le résidu final filtré)",
+         "annexe": "`notre_manque_*`"},
+        {"à corriger": "lignes OCR papier (`MANQUANT_PAPIER`)", "House": _mp.get("house", 0),
+         "Sénat": _mp.get("senate", 0), "nature": "borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes",
+         "annexe": "`manquant_papier_*`"},
+        {"à corriger": "tickers à revoir (`ECART_TICKER`)", "House": _et.get("house", 0),
+         "Sénat": _et.get("senate", 0), "nature": "borne haute — autre ticker ce jour-là (gonflée par la multiplicité, PAS un taux d'erreur)",
+         "annexe": "`ecart_ticker_*`"},
+    ])
+    parts.append("\n**La to-do (à corriger).** Un seul chiffre est **dur** — les vrais trous `NOTRE_MANQUE` (le "
+                 "résidu après tous les filtres) ; les deux autres sont des **bornes hautes** ensemblistes = des "
+                 "listes à revoir cas par cas dans `docs/quiver_validation/`, pas des taux d'erreur :\n\n")
+    parts.append(_md_table(_todo))
     if len(diag["top_notre_manque"]):
-        parts.append("\n**Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :\n\n")
+        parts.append("\n**Qui ?** — les déposants derrière les vrais trous (`NOTRE_MANQUE`), à investiguer :\n\n")
         parts.append(_md_table(diag["top_notre_manque"]))
         parts.append("\n")
 

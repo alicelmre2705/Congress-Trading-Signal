@@ -329,24 +329,24 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Mark Green | 653 | 0 | 0 | 6 | 2020 | 2025 |
 *total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction*
 
-### Achats sans sortie déclarée (pour la stratégie)
+### Devenir des achats à +12 mois (revente vs fermeture forcée, pour la stratégie)
 
-Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur le même ticker → positions qui seraient fermées de force à +12 mois dans la stratégie.
+Pour chaque achat (avec ticker), on suit la position : est-elle **revendue par le même membre sur le même ticker dans les 12 mois** (l'horizon de fermeture forcée de la stratégie) ? L'appariement se fait sur la **date de divulgation** — ce que la stratégie peut observer. Les achats divulgués il y a **moins de 12 mois** (après 2025-06-25) n'ont pas assez de recul pour juger : marqués *trop récents* et exclus des taux.
 
-| chambre | achats (avec ticker) | avec sortie | sans sortie % |
-| --- | --- | --- | --- |
-| house | 34562 | 26783 | 22.5 |
-| senate | 2468 | 1502 | 39.1 |
+| chambre | achats (avec ticker) | trop récents | observables | revendu ≤12m | revendu ≤12m % | fermé de force | fermé de force +12m % |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| house | 34562 | 2508 | 32054 | 23151 | 72.2 | 8903 | 27.8 |
+| senate | 2468 | 236 | 2232 | 1078 | 48.3 | 1154 | 51.7 |
 
 **Par sous-corpus :**
 
-| sous-corpus | achats (avec ticker) | avec sortie | sans sortie % |
-| --- | --- | --- | --- |
-| House électronique | 14010 | 8288 | 40.8 |
-| House OCR | 20552 | 18495 | 10.0 |
-| Sénat électronique | 2301 | 1373 | 40.3 |
-| Sénat OCR | 167 | 129 | 22.8 |
-*achats (avec ticker) · avec sortie = vente ultérieure du même ticker par le même membre · sans sortie % = position jamais fermée*
+| sous-corpus | achats (avec ticker) | trop récents | observables | revendu ≤12m | revendu ≤12m % | fermé de force | fermé de force +12m % |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 14010 | 1764 | 12246 | 6340 | 51.8 | 5906 | 48.2 |
+| House OCR | 20552 | 744 | 19808 | 16811 | 84.9 | 2997 | 15.1 |
+| Sénat électronique | 2301 | 231 | 2070 | 988 | 47.7 | 1082 | 52.3 |
+| Sénat OCR | 167 | 5 | 162 | 90 | 55.6 | 72 | 44.4 |
+*achats (avec ticker) · trop récents = <12 mois de recul depuis la divulgation (indéterminé, hors dénominateur) · observables = achats − trop récents · revendu ≤12m = une vente du même ticker divulguée dans les 12 mois · fermé de force +12m = aucune vente sous 12 mois → la stratégie clôt la position · les deux % portent sur les observables*
 
 ## 6. Complétude vs Quiver (vérité-terrain externe)
 
@@ -425,67 +425,41 @@ Les **seuls** candidats honnêtes d'erreur de date = les paires **dans un même 
 
 | chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | AGR | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
+| house | Rohit Khanna | LIN | Purchase | 2022-04-21 | 2022-04-13 | 8 | 8218730 |
+| house | Rohit Khanna | WES | Sale | 2020-02-13 | 2020-02-21 | 8 | 8217060 |
+| house | Rohit Khanna | SBUX | Sale | 2023-10-10 | 2023-10-02 | 8 | 8220039 |
+| house | Rohit Khanna | SYK | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
+| house | Rohit Khanna | MRK | Purchase | 2020-07-28 | 2020-07-20 | 8 | 8217557 |
 | house | Rohit Khanna | VST | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
 | house | Rohit Khanna | SEE | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
-| house | Rohit Khanna | FANG | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
-| house | Rohit Khanna | MRK | Purchase | 2020-07-28 | 2020-07-20 | 8 | 8217557 |
-| house | Rohit Khanna | INFO | Purchase | 2020-02-03 | 2020-02-11 | 8 | 8217060 |
-| house | Rohit Khanna | SYK | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
-| house | Rohit Khanna | ALB | Sale | 2020-02-11 | 2020-02-19 | 8 | 8217060 |
-| house | Rohit Khanna | XRX | Purchase | 2020-07-29 | 2020-07-21 | 8 | 8217557 |
+| house | Rohit Khanna | DG | Sale | 2020-02-03 | 2020-02-11 | 8 | 8217060 |
 | house | Rohit Khanna | VMC | Sale | 2022-04-11 | 2022-04-03 | 8 | 8218730 |
-| house | Rohit Khanna | FCX | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
-| house | Rohit Khanna | MS | Purchase | 2023-05-23 | 2023-05-31 | 8 | 8219783 |
+| house | Rohit Khanna | TRGP | Sale | 2020-02-19 | 2020-02-11 | 8 | 8217060 |
+| house | Rohit Khanna | KEYS | Sale | 2020-05-28 | 2020-05-20 | 8 | 8217329 |
+| house | Rohit Khanna | HLT | Sale | 2020-07-31 | 2020-07-23 | 8 | 8217557 |
 
 *(Top 12 par delta croissant ; les 414 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 
-### 6.5 Niveau 3 — Qui corrige quoi ? (verdicts)
+### 6.5 Niveau 3 — Que reste-t-il à corriger ?
 
-Chaque transaction reçoit un verdict pour trier ce qui est **à corriger**. `ecart_brut_pct` (`ECART_DATE`+`ECART_TICKER`) **n'est PAS un taux d'erreur** : l'`ECART_DATE` est décomposé honnêtement au §6.3, et nos tickers concordent avec la description d'actif.
+On a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux choses : les **autres champs** des trades qu'on partage avec Quiver (sens, montant), et la **liste de ce qui est vraiment à corriger**.
 
-**Synthèse côté NOUS** (part de NOS transactions par catégorie) :
-
-| chambre | nos txns | concordant % | écart brut % | structurel % | on est + complet % |
-| --- | --- | --- | --- | --- | --- |
-| house | 81607 | 61.4 | 18.6 | 12.4 | 7.6 |
-| senate | 8245 | 59.7 | 2.1 | 30.0 | 8.2 |
-
-**Verdicts nous→Quiver :**
-
-| côté | verdict | n | % | à corriger |
-| --- | --- | --- | --- | --- |
-| nous→Quiver (house) | CONCORDANT | 50075 | 61.4 | False |
-| nous→Quiver (house) | ECART_DATE | 9628 | 11.8 | True |
-| nous→Quiver (house) | ECART_TICKER | 5539 | 6.8 | True |
-| nous→Quiver (house) | STRUCTUREL | 10159 | 12.4 | False |
-| nous→Quiver (house) | ON_EST_PLUS_COMPLET | 6206 | 7.6 | False |
-| nous→Quiver (senate) | CONCORDANT | 4922 | 59.7 | False |
-| nous→Quiver (senate) | ECART_DATE | 100 | 1.2 | True |
-| nous→Quiver (senate) | ECART_TICKER | 71 | 0.9 | True |
-| nous→Quiver (senate) | STRUCTUREL | 2472 | 30.0 | False |
-| nous→Quiver (senate) | ON_EST_PLUS_COMPLET | 680 | 8.2 | False |
-
-**Verdicts Quiver→nous** (`only_quiver`) — `NOTRE_MANQUE` = le seul vrai trou coté (les autres s'expliquent par la date, le ticker, ou du papier) :
-
-| côté | verdict | n | % | à corriger |
-| --- | --- | --- | --- | --- |
-| Quiver→nous (house) | ECART_DATE | 3418 | 49.2 | True |
-| Quiver→nous (house) | ECART_TICKER | 2317 | 33.4 | True |
-| Quiver→nous (house) | MANQUANT_PAPIER | 1066 | 15.4 | True |
-| Quiver→nous (house) | NON_COTE | 132 | 1.9 | False |
-| Quiver→nous (house) | NOTRE_MANQUE | 10 | 0.1 | True |
-| Quiver→nous (senate) | ECART_TICKER | 22 | 88.0 | True |
-| Quiver→nous (senate) | NOTRE_MANQUE | 3 | 12.0 | True |
-
-**Accord sur les trades qu'on a TOUS LES DEUX** (sens & montant) — un désaccord = vraie erreur d'extraction, typée dans `desaccord_champ_*.csv` :
+**Autres champs — sens & montant.** Pour les trades qu'on a **tous les deux** (mêmes membre + ticker + date), est-on d'accord sur le sens (achat/vente) et le montant ?
 
 | chambre | n paires | accord sens % | accord montant % |
 | --- | --- | --- | --- |
 | house | 52259 | 95.8 | 93.1 |
 | senate | 4932 | 99.8 | 99.7 |
+*on apparie les cellules (membre, ticker, date) présentes des DEUX côtés ; un désaccord = vraie erreur d'extraction, listée dans `desaccord_champ_*.csv`.*
 
-**Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :
+**La to-do (à corriger).** Un seul chiffre est **dur** — les vrais trous `NOTRE_MANQUE` (le résidu après tous les filtres) ; les deux autres sont des **bornes hautes** ensemblistes = des listes à revoir cas par cas dans `docs/quiver_validation/`, pas des taux d'erreur :
+
+| à corriger | House | Sénat | nature | annexe |
+| --- | --- | --- | --- | --- |
+| vrais trous cotés (`NOTRE_MANQUE`) | 10 | 3 | **DUR** — trade coté absent de chez nous (le résidu final filtré) | `notre_manque_*` |
+| lignes OCR papier (`MANQUANT_PAPIER`) | 1066 | 0 | borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes | `manquant_papier_*` |
+| tickers à revoir (`ECART_TICKER`) | 5539 | 71 | borne haute — autre ticker ce jour-là (gonflée par la multiplicité, PAS un taux d'erreur) | `ecart_ticker_*` |
+**Qui ?** — les déposants derrière les vrais trous (`NOTRE_MANQUE`), à investiguer :
 
 | chambre | bioguide | nom | n trous |
 | --- | --- | --- | --- |
