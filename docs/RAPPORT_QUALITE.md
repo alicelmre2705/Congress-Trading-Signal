@@ -21,6 +21,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 54.5 |
 | Sénat électronique | 6566 | 7.3 |
 | Sénat OCR | 1679 | 1.9 |
+*sous-corpus = chambre × voie (électronique déterministe / scan OCR) · n = transactions uniques · part % du total*
 
 ### Couverture des champs enrichis (taux de remplissage)
 
@@ -30,8 +31,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 83.1 | 81.0 | 81.0 | 94.5 | 100.0 | 100.0 |
 | Sénat électronique | 6566 | 79.3 | 71.3 | 71.3 | 62.5 | 100.0 | 100.0 |
 | Sénat OCR | 1679 | 33.2 | 19.4 | 19.4 | 96.1 | 100.0 | 100.0 |
-
-`identite_%` = part rattachée à un `bioguide_id` ; `ticker`/`secteur`/`etf_proxy` sont vides pour les actifs non cotés (légitime, pas un défaut).
+*% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · ticker/secteur/ETF vides = actif non coté (normal, pas un défaut)*
 
 ### Scorecard de qualité
 
@@ -41,8 +41,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 99.7 | 95.4 | 0 | 98.2 |
 | Sénat électronique | 6566 | 100.0 | 92.5 | 0 | 100.0 |
 | Sénat OCR | 1679 | 99.8 | 98.5 | 0 | 99.6 |
-
-`date plausible %` = transaction dans la **fenêtre légale [0, 75 j]** avant la divulgation (transaction récente = plausible ; un délai négatif ou > 75 j = à vérifier). Recalculé pour les 4 sous-corpus depuis le délai (avant, House digital affichait « — » car son pipeline ne stocke pas le flag `date_confidence`, réservé à l'OCR). `amount_split_flag` est partout `False` (aucune fourchette éclatée).
+*dates cohérentes = divulgation ≥ transaction · date plausible = transaction ∈ [0, 75 j] avant divulgation · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · montant renseigné = `amount_midpoint` non vide*
 
 ### Mix par sous-corpus
 
@@ -54,6 +53,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 52.7 | 46.6 | 0.7 | 0.0 |
 | Sénat électronique | 6566 | 48.6 | 50.5 | 0.9 | 0.0 |
 | Sénat OCR | 1679 | 54.0 | 45.8 | 0.2 | 0.0 |
+*achat = `operation_type` contient « Purchase » · vente = contient « Sale » (**inclut Sale (Partial) et (Full)**) · échange = « Exchange » · autre = reste*
 
 ![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)
 
@@ -65,6 +65,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 6.7 | 51.1 | 7.0 | 35.2 | 0.0 |
 | Sénat électronique | 6566 | 15.7 | 41.4 | 40.1 | 2.9 | 0.0 |
 | Sénat OCR | 1679 | 26.9 | 73.0 | 0.1 | 0.1 | 0.0 |
+*titulaire du compte : perso = Self · conjoint = Spouse/SP · joint = Joint/JT · enfant = Dependent/Child/DC · autre = reste ou non déclaré*
 
 **Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine l'OCR du Sénat) :
 
@@ -74,6 +75,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 81.7 | 0.0 | 0.8 | 0.0 | 0.1 | 3.1 | 0.6 | 13.8 |
 | Sénat électronique | 6566 | 67.2 | 9.1 | 0.0 | 10.8 | 3.0 | 0.0 | 10.0 | 0.0 |
 | Sénat OCR | 1679 | 12.9 | 0.0 | 0.0 | 0.8 | 2.6 | 0.0 | 69.6 | 14.2 |
+*familles d'`asset_type` : action = Stock · option · oblig. État = Gov/Treasury · muni = Municipal · oblig. corp. = Bond · fonds = Fund/ETF · manquant = vide*
 
 ![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)
 
@@ -85,6 +87,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 81.0 | 81.0 | Information Technology 20%, Financials 16%, Health Care 14% |
 | Sénat électronique | 6566 | 71.3 | 71.3 | Information Technology 22%, Financials 16%, Consumer Discretionary 10% |
 | Sénat OCR | 1679 | 19.4 | 19.4 | Financials 21%, Communication Services 18%, Information Technology 12% |
+*secteur renseigné % / ETF % = taux de remplissage (vide = non coté) · top 3 = secteurs GICS dominants*
 
 **Origine du ticker** (`ticker_source` ; vide pour House électronique → « — ») :
 
@@ -94,6 +97,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 45.6 | 36.2 | 1.3 | 16.9 |
 | Sénat électronique | 6566 | 0.5 | 0.7 | 77.1 | 20.7 |
 | Sénat OCR | 1679 | 9.5 | 8.3 | 15.4 | 66.8 |
+*comment le ticker est obtenu : dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent dans la source · aucune = non résolu*
 
 **Origine du secteur** (`sector_source`) :
 
@@ -103,6 +107,8 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 75.4 | 5.6 | 0.1 | 18.9 |
 | Sénat électronique | 6566 | 62.1 | 9.0 | 0.9 | 28.0 |
 | Sénat OCR | 1679 | 12.0 | 7.4 | 1.1 | 79.5 |
+*comment le secteur GICS est obtenu : yfinance = base factuelle · LLM · manuel = correction d'audit · aucune*
+
 
 ![Volume par secteur GICS](quality/volume_par_secteur.png)
 
@@ -114,6 +120,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 8000 | 49627 | 8000 | 32500 | 175000 | 2386.0 |
 | Sénat électronique | 6566 | 8000 | 100115 | 8000 | 32500 | 375000 | 657.4 |
 | Sénat OCR | 1679 | 32500 | 171021 | 8000 | 75000 | 750000 | 285.9 |
+*$ = midpoint des fourchettes déclarées · P25/P75/P95 = percentiles · volume total = Σ midpoint*
 
 ### Concentration de l'activité
 
@@ -147,6 +154,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | AVGO | 269 | 18.1 |
 | PYPL | 355 | 17.0 |
 | AESI | 5 | 15.9 |
+*volume M$ = Σ midpoint des trades du ticker · n trades = nombre de transactions*
 
 **Volume par secteur GICS :**
 
@@ -188,8 +196,7 @@ A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`Quiver
 | House OCR | 48940 | 99.6 | 99.7 | 141 | 0 | 178 |
 | Sénat électronique | 6566 | 100.0 | 100.0 | 0 | 0 | 0 |
 | Sénat OCR | 1679 | 99.6 | 99.8 | 3 | 0 | 7 |
-
-Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR papier illisible) ; `coherentes_pct` = part où la divulgation suit bien la transaction. Les `incoherentes` sont surtout des divulgations amendées/antidatées réelles ; `annee_txn_implausible` isole les rares erreurs OCR de lecture d'année (année de transaction postérieure au dépôt ou antérieure à 2012), déjà incluses dans les incohérentes. Des transactions 2013–2019 apparaissent légitimement (divulgations très tardives).
+*dates exploitables = dates parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
 
 ## 3. Délai légal de divulgation (STOCK Act ~45 j)
 | chambre | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
@@ -205,10 +212,9 @@ Lecture : `dates_parseables_pct` mesure les dates exploitables (le reste = OCR p
 | House OCR | 48762 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
 | Sénat électronique | 6566 | 90.6 | 1.9 | 7.5 | 0.0 | 26 |
 | Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
+*délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction) · délai médian en jours*
 
 ![Délai de divulgation](quality/delai_divulgation.png)
-
-Le pipeline tolère une fenêtre de 75 j (`date_confidence`) ; le tableau isole la part strictement dans les **45 j légaux** vs la marge 45–75 j vs les retards >75 j.
 
 **Divulgations les plus tardives (> 365 j, suspects) :**
 
@@ -229,6 +235,7 @@ Le pipeline tolère une fenêtre de 75 j (`date_confidence`) ; le tableau isole 
 | Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | CME | Sale |
 | Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | FB | Sale |
 | Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | KMX | Sale |
+*délai (j) = divulgation − transaction · divulgations > 1 an après la transaction (souvent des amendements ou de vieux comptes régularisés)*
 
 ## 4. Distribution des montants (`amount_midpoint`)
 
@@ -266,6 +273,8 @@ Sénat électronique   6566.0  100115.0   632303.0  8000.0  8000.0   8000.0  325
 Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  75000.0  50000000.0
 ```
 
+*count = nb · mean = moyenne · std = écart-type · 25/50/75 % = quartiles · USD (midpoint des fourchettes déclarées)*
+
 ![Distribution des montants](quality/distribution_montants.png)
 
 **Top 15 déposants par volume estimé (Σ midpoint) :**
@@ -287,6 +296,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | David H McCormick | senate | 293 | 69.0 |
 | Scott H. Peters | house | 334 | 64.6 |
 | Kevin Hern | house | 760 | 60.1 |
+*volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de transactions*
 
 ## 5. Couverture par déposant & structure de l'activité
 
@@ -320,6 +330,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Alan S. Lowenthal | 676 | 0 | 0 | 4 | 2019 | 2022 |
 | Lois Frankel | 656 | 0 | 0 | 5 | 2019 | 2023 |
 | Mark Green | 653 | 0 | 0 | 6 | 2020 | 2025 |
+*total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction*
 
 ### Achats sans sortie déclarée (pour la stratégie)
 
@@ -338,6 +349,7 @@ Achats (avec ticker) sans vente ultérieure déclarée par le même membre sur l
 | House OCR | 20552 | 18495 | 10.0 |
 | Sénat électronique | 2301 | 1373 | 40.3 |
 | Sénat OCR | 167 | 129 | 22.8 |
+*achats (avec ticker) · avec sortie = vente ultérieure du même ticker par le même membre · sans sortie % = position jamais fermée*
 
 ## 6. Complétude vs Quiver (vérité-terrain externe)
 
