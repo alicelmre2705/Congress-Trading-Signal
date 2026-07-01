@@ -945,15 +945,8 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(conc["top_sectors"]))
     parts.append("\n")
 
-    prof = house_ocr_cluster_profile(df, repo_root)
-    if len(prof):
-        parts.append("\n### Profil des clusters de scan (House OCR)\n\n")
-        parts.append(_md_table(prof))
-        parts.append("\n\nA = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver "
-                     "(`Quiver a le trade %`) **chute** sur le manuscrit alors qu'il reste élevé sur le tapé "
-                     "(voir colonne) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la "
-                     "plausibilité interne (`date plausible %`, fenêtre 75 j, reste haute). D'où l'exclusion "
-                     "par défaut du cluster C.\n")
+    # (Le profil des clusters de scan House OCR est en §6.7 : la colonne « Quiver a le trade % »
+    #  est de la vérité-terrain externe → sa place est dans la section Quiver, pas ici.)
 
     # ════════ §2 Cohérence des dates ════════
     parts.append("\n## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)\n")
@@ -1110,9 +1103,24 @@ def build_report(repo_root: Path) -> Path:
             parts.append("\n\n— **Sénat** (l'OCR y est surtout du non-coté) :\n\n")
             parts.append(_md_table(qv["by_asset"]["senate"]))
         parts.append("\n")
+    prof = house_ocr_cluster_profile(df, repo_root)
+    if len(prof):
+        parts.append("\n**Profil des clusters de scan (House OCR)** — A = tapé droit, B = tapé tourné, "
+                     "C = manuscrit :\n\n")
+        parts.append(_md_table(prof))
+        parts.append(_leg("`date plausible %` et `ticker %` = qualité INTERNE (calculée sans Quiver) · "
+                          "`Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI, appariée "
+                          "sur (membre + ticker + sens), que la date coïncide OU non ; le complément (100 − %) "
+                          "= « absent » côté Quiver."))
+        parts.append("\nSur le manuscrit (C), la qualité interne reste haute (voir `date plausible %` / "
+                     "`ticker %`) mais `Quiver a le trade %` s'effondre. L'appariement étant **date-agnostique**, "
+                     "ce décrochage vient du **ticker/identité mal lus** (ou d'un Quiver mince sur le papier "
+                     "manuscrit), **pas des dates**. Faute de pouvoir **confirmer** le manuscrit contre la "
+                     "vérité-terrain, on l'**exclut par défaut** — choix conservateur, pas « le manuscrit est faux ».\n")
     if len(qv["by_cluster"]):
-        parts.append("\n**Par cluster de scan (House)** — Quiver A le papier (`Quiver a le trade %` reste "
-                     "élevé), seule la part exact-date chute sur le manuscrit (lecture OCR des dates) :\n\n")
+        parts.append("\n**Décomposition en buckets par cluster** — sur le manuscrit l'`absent` domine "
+                     "(ticker/identité) et l'`exact (date)` s'effondre davantage encore (OCR des dates) ; sur le "
+                     "tapé (A/B), `Quiver a le trade %` reste élevé :\n\n")
         parts.append(_md_table(qv["by_cluster"]))
         parts.append("\n")
 

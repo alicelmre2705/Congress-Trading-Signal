@@ -177,16 +177,6 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Real Estate | 2729 | 53.6 |
 | Utilities | 1274 | 30.5 |
 
-### Profil des clusters de scan (House OCR)
-
-| cluster | n lignes | n docs | date plausible % | ticker % | Quiver a le trade % |
-| --- | --- | --- | --- | --- | --- |
-| A_tape_droit | 5957 | 59 | 99.6 | 84.2 | 88.0 |
-| B_tape_tourne | 42125 | 295 | 94.7 | 82.9 | 77.9 |
-| C_manuscrit | 858 | 80 | 97.4 | 88.5 | 35.3 |
-
-A = tapé droit, B = tapé tourné, C = manuscrit. L'appariement Quiver (`Quiver a le trade %`) **chute** sur le manuscrit alors qu'il reste élevé sur le tapé (voir colonne) : c'est notre lecture OCR des dates manuscrites qui décroche, pas la plausibilité interne (`date plausible %`, fenêtre 75 j, reste haute). D'où l'exclusion par défaut du cluster C.
-
 ## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)
 | chambre | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -492,7 +482,18 @@ Vue d'ensemble **exact-date** (tables figées 07c/07g/07h ; sous-compte par cons
 | Non-Public Stock | 0 | 0 | 2 | 58 | 60 | 0.0 |
 | Cryptocurrency | 4 | 0 | 2 | 1 | 7 | 66.7 |
 
-**Par cluster de scan (House)** — Quiver A le papier (`Quiver a le trade %` reste élevé), seule la part exact-date chute sur le manuscrit (lecture OCR des dates) :
+**Profil des clusters de scan (House OCR)** — A = tapé droit, B = tapé tourné, C = manuscrit :
+
+| cluster | n lignes | n docs | date plausible % | ticker % | Quiver a le trade % |
+| --- | --- | --- | --- | --- | --- |
+| A_tape_droit | 5957 | 59 | 99.6 | 84.2 | 88.0 |
+| B_tape_tourne | 42125 | 295 | 94.7 | 82.9 | 77.9 |
+| C_manuscrit | 858 | 80 | 97.4 | 88.5 | 35.3 |
+*`date plausible %` et `ticker %` = qualité INTERNE (calculée sans Quiver) · `Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI, appariée sur (membre + ticker + sens), que la date coïncide OU non ; le complément (100 − %) = « absent » côté Quiver.*
+
+Sur le manuscrit (C), la qualité interne reste haute (voir `date plausible %` / `ticker %`) mais `Quiver a le trade %` s'effondre. L'appariement étant **date-agnostique**, ce décrochage vient du **ticker/identité mal lus** (ou d'un Quiver mince sur le papier manuscrit), **pas des dates**. Faute de pouvoir **confirmer** le manuscrit contre la vérité-terrain, on l'**exclut par défaut** — choix conservateur, pas « le manuscrit est faux ».
+
+**Décomposition en buckets par cluster** — sur le manuscrit l'`absent` domine (ticker/identité) et l'`exact (date)` s'effondre davantage encore (OCR des dates) ; sur le tapé (A/B), `Quiver a le trade %` reste élevé :
 
 | cluster | exact (date) | date ≠ | absent | non-coté | total | Quiver a le trade % |
 | --- | --- | --- | --- | --- | --- | --- |
