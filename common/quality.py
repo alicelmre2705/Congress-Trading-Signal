@@ -767,7 +767,7 @@ _COLS = {
     "quiver_dans_fenetre": "trades Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
     "residu": "résidu", "ocr_recuperable": "récupérable (OCR)", "hors_perimetre": "hors périmètre",
     "quiver_non_cote": "dont non-coté", "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre",
-    "residu_cote_reel": "vrai trou coté",
+    "residu_cote_reel": "trou coté (borne haute)",
     "apparie_exact": "apparié exact", "apparie_proche": "apparié proche (≤10j)", "candidat_ecart": "candidat écart",
     "dont_meme_depot": "dont même déclaration", "nous_seul": "nous-seul", "quiver_seul": "quiver-seul",
     "candidat_pct": "candidat %",
@@ -887,9 +887,10 @@ def build_report(repo_root: Path) -> Path:
         "(chambre × voie d'acquisition : électronique déterministe / scan OCR).\n"
         f"- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve "
         f"**{_cell(inc,'house','inclusion_pct')} % (House) / {_cell(inc,'senate','inclusion_pct')} % (Sénat)** "
-        "des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** "
-        f"({_cell(inc,'house','residu_cote_reel')} House / {_cell(inc,'senate','residu_cote_reel')} Sénat) ; le "
-        "reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
+        "des trades Quiver au niveau (déposant, ticker, sens). Le **trou coté est minuscule** — "
+        f"≤ {_cell(inc,'house','residu_cote_reel')} House / {_cell(inc,'senate','residu_cote_reel')} Sénat au niveau "
+        f"ticker (borne haute), dont **{manque.get('house',0)} / {manque.get('senate',0)} vrais trous confirmés au "
+        "trade près** (§6.5) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
         f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} actions cotées "
         f"qu'on a et que Quiver n'a pas, contre {manque.get('house',0)+manque.get('senate',0)} trous "
         "inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.\n"
@@ -1110,10 +1111,11 @@ def build_report(repo_root: Path) -> Path:
                      "ou 50. La question est donc grossière **exprès** : *« a-t-on raté une combinaison ENTIÈRE que "
                      "Quiver connaît ? »* — le comptage trade par trade, c'est le Niveau 2 (§6.3).\n\n")
         parts.append(f"On retrouve **{_cell(inc,'house','inclusion_pct')} % (House)** et "
-                     f"**{_cell(inc,'senate','inclusion_pct')} % (Sénat)** des combinaisons Quiver. Le **vrai trou** "
+                     f"**{_cell(inc,'senate','inclusion_pct')} % (Sénat)** des combinaisons Quiver. Le **trou coté** "
                      f"est minuscule ({_cell(inc,'house','residu_cote_reel')} House / "
-                     f"{_cell(inc,'senate','residu_cote_reel')} Sénat) ; le reste est récupérable ou hors "
-                     "périmètre :\n\n")
+                     f"{_cell(inc,'senate','residu_cote_reel')} Sénat) — c'est une **borne haute (sans date)** ; au "
+                     "trade près (§6.5), seule une partie sont de vrais trous confirmés. Le reste du résidu est "
+                     "récupérable ou hors périmètre :\n\n")
         _incd = inc.copy()
         _incd["hors_perimetre"] = _incd["quiver_non_cote"] + _incd["credit_2jambes"] + _incd["cross_chambre"]
         _incd = _incd[["chamber", "quiver_dans_fenetre", "inclus", "inclusion_pct", "residu",
@@ -1123,7 +1125,9 @@ def build_report(repo_root: Path) -> Path:
                      "capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon "
                      "non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté "
                      "(CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre "
-                     "de l'autre chambre polluant le cache · **vrai trou coté** = le seul manque réel.\n")
+                     "de l'autre chambre polluant le cache · **trou coté (borne haute)** = combos manquants au "
+                     "niveau ticker (sans date) ; au trade près (§6.5), seul un sous-ensemble (`NOTRE_MANQUE`) sont "
+                     "de vrais trous confirmés.\n")
         _n_rec = int((df["ticker_source"] == "recovered").sum()) if "ticker_source" in df.columns else 0
         if _n_rec:
             parts.append(f"\n*Note :* une passe de **récupération nom→ticker** (vérifiée, **hors Quiver**, appliquée "
@@ -1132,8 +1136,9 @@ def build_report(repo_root: Path) -> Path:
                          "« récupérable OCR » restant est surtout des **non-cotés déguisés** (préférentielles, fonds) "
                          "et du **charabia OCR**, non mappables.\n")
         if len(diag.get("net_completeness", [])):
-            parts.append("\n**Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → "
-                         "on est un **sur-ensemble** de Quiver :\n\n")
+            parts.append("\n**Bilan net (au trade près)** — actions cotées qu'on a et que Quiver n'a PAS vs "
+                         "**vrais trous** (`NOTRE_MANQUE` = le sous-ensemble des « trous borne haute » ci-dessus "
+                         "réellement absents au trade près) → on est un **sur-ensemble** de Quiver :\n\n")
             parts.append(_md_table(diag["net_completeness"]))
 
     # 6.3 Niveau 2 — réconciliation date-ANCRÉE (avec l'exemple concret d'appariement 1-à-1)
@@ -1165,7 +1170,7 @@ def build_report(repo_root: Path) -> Path:
                           "de date est un vrai désaccord (seul signal fort) · nous-seul = Quiver n'a PAS le trade "
                           "(on est plus complet) · quiver-seul = on a raté."))
         parts.append(f"\n**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** "
-                     f"Au Niveau 1 (sans date), le vrai trou est {_cell(inc,'house','residu_cote_reel')}/"
+                     f"Au Niveau 1 (sans date), le trou coté (borne haute) est {_cell(inc,'house','residu_cote_reel')}/"
                      f"{_cell(inc,'senate','residu_cote_reel')} ; au Niveau 2 (trade + date), on compte "
                      f"{_cell(drec,'house','nous_seul')} trades « nous-seul » — normal, on trade plus souvent que "
                      "Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**\n")
@@ -1203,7 +1208,7 @@ def build_report(repo_root: Path) -> Path:
     _mp = _byc(diag["quiver_tally"], "MANQUANT_PAPIER") if len(diag.get("quiver_tally", [])) else {}
     _todo = pd.DataFrame([
         {"à corriger": "vrais trous cotés (`NOTRE_MANQUE`)", "House": manque.get("house", 0),
-         "Sénat": manque.get("senate", 0), "nature": "**DUR** — trade coté absent de chez nous (le résidu final filtré)",
+         "Sénat": manque.get("senate", 0), "nature": "**DUR** — vrai trou confirmé au trade près (le sous-ensemble des « trous borne haute » du §6.2 réellement absents)",
          "annexe": "`notre_manque_*`"},
         {"à corriger": "lignes OCR papier (`MANQUANT_PAPIER`)", "House": _mp.get("house", 0),
          "Sénat": _mp.get("senate", 0), "nature": "borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes",

@@ -4,7 +4,7 @@
 ## Résumé exécutif
 
 - **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
-- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.9 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
+- **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.9 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **trou coté est minuscule** — ≤ 22 House / 0 Sénat au niveau ticker (borne haute), dont **10 / 3 vrais trous confirmés au trade près** (§6.5) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
 - **On est plus complet que Quiver** — **+6945 actions cotées qu'on a et que Quiver n'a pas, contre 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
 - **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 288 candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 28 j, montants renseignés 99.0 %.
@@ -364,18 +364,18 @@ Chaque transaction est confrontée à Quiver par une clé normalisée, en **troi
 
 On compare des **combinaisons** `(membre, action, sens)`, en **ignorant volontairement la date ET le nombre** : `(Khanna, AAPL, Achat)` compte pour **un**, qu'il l'ait acheté 1 fois ou 50. La question est donc grossière **exprès** : *« a-t-on raté une combinaison ENTIÈRE que Quiver connaît ? »* — le comptage trade par trade, c'est le Niveau 2 (§6.3).
 
-On retrouve **93.9 % (House)** et **91.5 % (Sénat)** des combinaisons Quiver. Le **vrai trou** est minuscule (22 House / 0 Sénat) ; le reste est récupérable ou hors périmètre :
+On retrouve **93.9 % (House)** et **91.5 % (Sénat)** des combinaisons Quiver. Le **trou coté** est minuscule (22 House / 0 Sénat) — c'est une **borne haute (sans date)** ; au trade près (§6.5), seule une partie sont de vrais trous confirmés. Le reste du résidu est récupérable ou hors périmètre :
 
-| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | récupérable (OCR) | hors périmètre | vrai trou coté |
+| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | récupérable (OCR) | hors périmètre | trou coté (borne haute) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | house | 17481 | 16416 | 93.9 | 1065 | 955 | 88 | 22 |
 | senate | 2587 | 2366 | 91.5 | 221 | 0 | 221 | 0 |
 
-*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier dont on a capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre polluant le cache · **vrai trou coté** = le seul manque réel.
+*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier dont on a capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre polluant le cache · **trou coté (borne haute)** = combos manquants au niveau ticker (sans date) ; au trade près (§6.5), seul un sous-ensemble (`NOTRE_MANQUE`) sont de vrais trous confirmés.
 
 *Note :* une passe de **récupération nom→ticker** (vérifiée, **hors Quiver**, appliquée à la lecture — golden intact) a rendu leur ticker à **289 trades** d'actions que l'OCR/LLM avaient laissés vides (faux négatifs, ex. NEENAH PAPER→NP, TENCENT→TCEHY). Le « récupérable OCR » restant est surtout des **non-cotés déguisés** (préférentielles, fonds) et du **charabia OCR**, non mappables.
 
-**Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → on est un **sur-ensemble** de Quiver :
+**Bilan net (au trade près)** — actions cotées qu'on a et que Quiver n'a PAS vs **vrais trous** (`NOTRE_MANQUE` = le sous-ensemble des « trous borne haute » ci-dessus réellement absents au trade près) → on est un **sur-ensemble** de Quiver :
 
 | chambre | actions qu'on a en + | vrais trous | solde net |
 | --- | --- | --- | --- |
@@ -407,7 +407,7 @@ Deux garde-fous répondent à « comment gérer qu'un membre ait plusieurs trade
 | senate | 4361 | 0 | 0 | 0 | 1202 | 385 | 0.0 |
 *apparié exact = même date · apparié proche = écart des dates de TRANSACTION ≤ 10 j (bruit/convention de date Quiver, même trade) · candidat écart = paire à 10–90 j, à inspecter (§6.4) · dont même déclaration = les deux trades viennent du MÊME formulaire de déclaration (PTR) — notre `disclosure` ≈ `Filed` Quiver ≤ 10 j → même trade, donc l'écart de date est un vrai désaccord (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté.*
 
-**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** Au Niveau 1 (sans date), le vrai trou est 22/0 ; au Niveau 2 (trade + date), on compte 21891 trades « nous-seul » — normal, on trade plus souvent que Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**
+**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** Au Niveau 1 (sans date), le trou coté (borne haute) est 22/0 ; au Niveau 2 (trade + date), on compte 21891 trades « nous-seul » — normal, on trade plus souvent que Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**
 
 ### 6.4 Les candidats d'écart de date (même déclaration)
 
@@ -415,18 +415,18 @@ Les **seuls** candidats honnêtes d'erreur de date = les paires issues de la **m
 
 | chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | NOW | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | IDXX | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | GLW | Sale | 2020-09-02 | 2020-09-13 | 11 | 8217686 |
+| house | Rohit Khanna | IT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | AMT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | CHTR | Sale | 2022-09-08 | 2022-09-19 | 11 | 8219242 |
+| house | Rohit Khanna | DHR | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | ADBE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | ETR | Sale | 2020-04-07 | 2020-04-18 | 11 | 8217213 |
 | house | Rohit Khanna | MSCI | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | CHTR | Sale | 2022-09-08 | 2022-09-19 | 11 | 8219242 |
 | house | Rohit Khanna | MPWR | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | AMT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | LMT | Sale | 2020-04-24 | 2020-04-13 | 11 | 8217213 |
 | house | Rohit Khanna | NKE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | FTV | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | DXC | Sale | 2020-03-25 | 2020-04-05 | 11 | 8217164 |
-| house | Rohit Khanna | ADBE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 
 *(Top 12 par delta croissant ; les 288 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 
@@ -446,7 +446,7 @@ On a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux chos
 
 | à corriger | House | Sénat | nature | annexe |
 | --- | --- | --- | --- | --- |
-| vrais trous cotés (`NOTRE_MANQUE`) | 10 | 3 | **DUR** — trade coté absent de chez nous (le résidu final filtré) | `notre_manque_*` |
+| vrais trous cotés (`NOTRE_MANQUE`) | 10 | 3 | **DUR** — vrai trou confirmé au trade près (le sous-ensemble des « trous borne haute » du §6.2 réellement absents) | `notre_manque_*` |
 | lignes OCR papier (`MANQUANT_PAPIER`) | 1048 | 0 | borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes | `manquant_papier_*` |
 | tickers à revoir (`ECART_TICKER`) | 5393 | 71 | borne haute — autre ticker ce jour-là (gonflée par la multiplicité, PAS un taux d'erreur) | `ecart_ticker_*` |
 **Qui ?** — les déposants derrière les vrais trous (`NOTRE_MANQUE`), à investiguer :
