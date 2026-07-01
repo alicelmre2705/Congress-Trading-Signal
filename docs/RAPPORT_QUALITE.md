@@ -6,14 +6,40 @@
 - **Périmètre** — 89 852 transactions uniques de membres élus (House 81 607 + Sénat 8 245), 2020–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
 - **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.8 % (House) / 91.5 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **vrai trou coté est minuscule** (22 House / 0 Sénat) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
 - **On est plus complet que Quiver** — **+6886 actions cotées qu'on a et que Quiver n'a pas, contre 13 trous inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.
-- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 288 candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).
+- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 288 candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 28 j, montants renseignés 99.0 %.
 
-*Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · §5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*
+*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver (vérité-terrain).*
 
-## 1. Composition & qualité par sous-corpus
+## 1. Construction & validation du corpus
 
-Les déclarations proviennent de **quatre sous-corpus** très différents (chambre × voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et leur composition diffèrent.
+Avant toute statistique, voici **comment le corpus est construit**, dans l'ordre :
+
+1. **Sources** — déclarations officielles : Chambre (*PTR*) et Sénat (*eFD*), chacune en deux voies — **électronique** (formulaire structuré, lecture déterministe) et **papier scanné** (PDF → **OCR** par modèle de vision).
+2. **Extraction** — une ligne = une transaction (membre, date, actif, sens, fourchette de montant, détenteur).
+3. **Enrichissement** — ticker (explicite dans la source · repris de l'électronique · résolu par LLM), secteur GICS (yfinance · LLM), identité (`bioguide_id`), ancienneté.
+4. **Déduplication cross-année** — une même transaction re-divulguée une autre année (amendement, rapport annuel) ne compte qu'**une fois** (clé naturelle + rang d'occurrence).
+
+**Réconciliation — des lignes brutes aux transactions uniques** (c'est notre corpus, pas Quiver) :
+
+| chambre | lignes brutes | re-divulgations (dédup) | transactions uniques |
+| --- | --- | --- | --- |
+| house | 81642 | 35 | 81607 |
+| senate | 8841 | 596 | 8245 |
+| TOTAL | 90483 | 631 | 89852 |
+*lignes brutes = FINAL concaténé 2020–2026 · re-divulgations = doublons cross-année retirés · transactions uniques = le corpus analysé dans tout ce rapport*
+
+### Validation & reproductibilité
+
+Tout est **rejouable hors-ligne** (lecture seule des tables FINAL, **0 appel API**), adossé à trois filets automatiques :
+
+- **Golden octet-à-octet** — 201 tables CSV figées par SHA256 (125 House + 76 Sénat), rejouées à **zéro écart** (`tests/regression/check_golden.py`, `senate_check_golden.py`).
+- **Invariants porteurs** — pour chaque chambre `digital + OCR = FINAL`, identité rattachée à **100.0 %**, 256 bioguides (House) / 64 (Sénat) recomptés (`tests/regression/audit_metrics.py`).
+- **Transformations déterministes** — 11 tests reproduisent chaque étape (clé naturelle, montants, tickers, identité, ancienneté, cache Vision) depuis les colonnes figées.
+
+### Les quatre sous-corpus
+
+Toute la suite distingue **quatre familles** (chambre × voie), car leur qualité et leur composition diffèrent :
 
 | sous-corpus | n | part % |
 | --- | --- | --- |
@@ -23,29 +49,11 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Sénat OCR | 1679 | 1.9 |
 *sous-corpus = chambre × voie (électronique déterministe / scan OCR) · n = transactions uniques · part % du total*
 
-### Couverture des champs enrichis (taux de remplissage)
+## 2. Composition & complétude
 
-| sous-corpus | n | ticker % | secteur % | ETF % | commission % | identité % | ancienneté % |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 88.7 | 86.6 | 86.6 | 74.7 | 100.0 | 100.0 |
-| House OCR | 48940 | 83.1 | 81.0 | 81.0 | 94.5 | 100.0 | 100.0 |
-| Sénat électronique | 6566 | 79.3 | 71.3 | 71.3 | 62.5 | 100.0 | 100.0 |
-| Sénat OCR | 1679 | 33.2 | 19.4 | 19.4 | 96.1 | 100.0 | 100.0 |
-*% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · ticker/secteur/ETF vides = actif non coté (normal, pas un défaut)*
+**Ce que contient le corpus** (opérations, détenteur, familles d'actifs), puis **à quel point les champs sont remplis**.
 
-### Scorecard de qualité
-
-| sous-corpus | n | dates cohérentes % | date plausible % | année aberrante (n) | montant renseigné % |
-| --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 99.9 | 86.8 | 0 | 100.0 |
-| House OCR | 48940 | 99.7 | 95.4 | 0 | 98.2 |
-| Sénat électronique | 6566 | 100.0 | 92.5 | 0 | 100.0 |
-| Sénat OCR | 1679 | 99.8 | 98.5 | 0 | 99.6 |
-*dates cohérentes = divulgation ≥ transaction · date plausible = transaction ∈ [0, 75 j] avant divulgation · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · montant renseigné = `amount_midpoint` non vide*
-
-### Mix par sous-corpus
-
-**Sens des opérations :**
+### Sens des opérations
 
 | sous-corpus | n | achat % | vente % | échange % | autre % |
 | --- | --- | --- | --- | --- | --- |
@@ -57,7 +65,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)
 
-**Détenteur déclaré :**
+### Détenteur déclaré
 
 | sous-corpus | n | perso % | conjoint % | joint % | enfant % | autre % |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -67,7 +75,9 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Sénat OCR | 1679 | 26.9 | 73.0 | 0.1 | 0.1 | 0.0 |
 *titulaire du compte : perso = Self · conjoint = Spouse/SP · joint = Joint/JT · enfant = Dependent/Child/DC · autre = reste ou non déclaré*
 
-**Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine l'OCR du Sénat) :
+### Familles d'actifs
+
+Le non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :
 
 | sous-corpus | n | action % | option % | oblig. État % | muni % | oblig. corp. % | fonds % | autre % | manquant % |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -79,7 +89,17 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 ![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)
 
-### Secteurs & sources de résolution
+### Couverture des champs enrichis (taux de remplissage)
+
+| sous-corpus | n | ticker % | secteur % | ETF % | commission % | identité % | ancienneté % | montant renseigné % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32667 | 88.7 | 86.6 | 86.6 | 74.7 | 100.0 | 100.0 | 100.0 |
+| House OCR | 48940 | 83.1 | 81.0 | 81.0 | 94.5 | 100.0 | 100.0 | 98.2 |
+| Sénat électronique | 6566 | 79.3 | 71.3 | 71.3 | 62.5 | 100.0 | 100.0 | 100.0 |
+| Sénat OCR | 1679 | 33.2 | 19.4 | 19.4 | 96.1 | 100.0 | 100.0 | 99.6 |
+*% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · montant renseigné = `amount_midpoint` non vide · ticker/secteur/ETF vides = actif non coté (normal, pas un défaut)*
+
+### Secteurs & origine des champs résolus
 
 | sous-corpus | n | secteur renseigné % | ETF % | top 3 secteurs |
 | --- | --- | --- | --- | --- |
@@ -89,7 +109,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Sénat OCR | 1679 | 19.4 | 19.4 | Financials 21%, Communication Services 18%, Information Technology 12% |
 *secteur renseigné % / ETF % = taux de remplissage (vide = non coté) · top 3 = secteurs GICS dominants*
 
-**Origine du ticker** (`ticker_source` — comment le ticker a été obtenu) :
+**Origine du ticker** (`ticker_source`) :
 
 | sous-corpus | n | dico élec % | LLM % | explicite % | aucune % |
 | --- | --- | --- | --- | --- | --- |
@@ -97,7 +117,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 45.6 | 36.2 | 1.3 | 16.9 |
 | Sénat électronique | 6566 | 0.5 | 0.7 | 77.1 | 20.7 |
 | Sénat OCR | 1679 | 9.5 | 8.3 | 15.4 | 66.8 |
-*comment le ticker est obtenu : dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent dans la source · aucune = non résolu*
+*dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent dans la source · aucune = non résolu*
 
 **Origine du secteur** (`sector_source`) :
 
@@ -107,12 +127,76 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 75.4 | 5.6 | 0.1 | 18.9 |
 | Sénat électronique | 6566 | 62.1 | 9.0 | 0.9 | 28.0 |
 | Sénat OCR | 1679 | 12.0 | 7.4 | 1.1 | 79.5 |
-*comment le secteur GICS est obtenu : yfinance = base factuelle · LLM · manuel = correction d'audit · aucune*
-
+*yfinance = base factuelle · LLM · manuel = correction d'audit · aucune*
 
 ![Volume par secteur GICS](quality/volume_par_secteur.png)
 
-### Montants par sous-corpus
+## 3. Qualité des dates
+
+Trois questions, de la plus faible à la plus forte : les dates sont-elles **lisibles et cohérentes** (divulgation ≥ transaction) ? le **délai légal** (STOCK Act ~45 j) est-il respecté ? reste-t-il des **anomalies** ?
+
+### Cohérence (`disclosure_date ≥ transaction_date`)
+
+| chambre | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
+| --- | --- | --- | --- | --- | --- | --- |
+| house | 81607 | 99.8 | 99.8 | 154 | 0 | 177 |
+| senate | 8245 | 99.9 | 100.0 | 3 | 0 | 7 |
+
+**Par sous-corpus :**
+
+| sous-corpus | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
+| --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32667 | 100.0 | 99.9 | 18 | 0 | 0 |
+| House OCR | 48940 | 99.6 | 99.7 | 136 | 0 | 177 |
+| Sénat électronique | 6566 | 100.0 | 100.0 | 0 | 0 | 0 |
+| Sénat OCR | 1679 | 99.6 | 99.8 | 3 | 0 | 7 |
+*dates exploitables = parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
+
+### Délai légal de divulgation (STOCK Act ~45 j)
+
+| chambre | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
+| --- | --- | --- | --- | --- | --- | --- |
+| house | 81430 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
+| senate | 8238 | 91.0 | 2.8 | 6.2 | 0.0 | 27 |
+
+**Par sous-corpus :**
+
+| sous-corpus | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
+| --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 32667 | 81.9 | 4.9 | 13.2 | 0.1 | 28 |
+| House OCR | 48763 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
+| Sénat électronique | 6566 | 90.6 | 1.9 | 7.5 | 0.0 | 26 |
+| Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
+*n dates valides = transactions dont le délai est CALCULABLE (les deux dates présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (j) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j*
+
+![Délai de divulgation](quality/delai_divulgation.png)
+
+### Divulgations les plus tardives (> 365 j)
+
+| déposant | chambre | date txn | date divulg. | délai (j) | ticker | opération |
+| --- | --- | --- | --- | --- | --- | --- |
+| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DHR | Purchase |
+| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DAL | Purchase |
+| Richard W. Allen | house | 2017-02-03 | 2023-08-10 | 2379.0 |  | Purchase |
+| Richard W. Allen | house | 2017-02-13 | 2023-08-10 | 2369.0 | O | Sale |
+| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale |
+| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale (Partial) |
+| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | XOM | Sale |
+| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | COST | Purchase |
+| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | GE | Sale |
+| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | FDX | Purchase |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | PCLN | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | DFS | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | CME | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | FB | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | KMX | Sale |
+*délai (j) = divulgation − transaction · divulgations > 1 an après la transaction (souvent des amendements ou de vieux comptes régularisés)*
+
+**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = **notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** (4 dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent flaggées.
+
+## 4. Montants (`amount_midpoint`)
+
+Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent des tranches, pas un chiffre exact). Vue par sous-corpus :
 
 | sous-corpus | n | médiane $ | moyenne $ | P25_$ | P75_$ | P95_$ | volume total M$ |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -120,14 +204,21 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | House OCR | 48940 | 8000 | 49627 | 8000 | 32500 | 175000 | 2386.0 |
 | Sénat électronique | 6566 | 8000 | 100115 | 8000 | 32500 | 375000 | 657.4 |
 | Sénat OCR | 1679 | 32500 | 171021 | 8000 | 75000 | 750000 | 285.9 |
-*$ = midpoint des fourchettes déclarées · P25/P75/P95 = percentiles · volume total = Σ midpoint*
-
+*médiane/moyenne/P25/P75/P95 en $ · volume total = Σ midpoint (M$) · midpoint = milieu de la fourchette déclarée*
 
 ![Composition par tranche de montant](quality/mix_montants_par_corpus.png)
 
 *la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, le P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → médiane 32 500 ≠ P25 8 000.*
 
-### Concentration de l'activité
+**Ensemble** — 88 982 montants renseignés · médiane 8 000 $ · moyenne 56 985 $ · P90 75 000 $ · max 75 000 000 $.
+
+![Distribution des montants](quality/distribution_montants.png)
+
+## 5. Activité & concentration
+
+**Qui trade, à quel point l'activité est concentrée, et ce que deviennent les positions.**
+
+### Concentration du volume
 
 | sous-corpus | n déposants | HHI | Gini | top10 volume % |
 | --- | --- | --- | --- | --- |
@@ -139,6 +230,8 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 `HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par déposant (plus c'est haut, plus quelques déposants dominent).
 
 ![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)
+
+### Où va le volume
 
 **Top tickers par volume estimé :**
 
@@ -176,105 +269,9 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | Materials | 2898 | 61.8 |
 | Real Estate | 2729 | 53.6 |
 | Utilities | 1274 | 30.5 |
+### Top déposants
 
-## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)
-| chambre | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
-| --- | --- | --- | --- | --- | --- | --- |
-| house | 81607 | 99.8 | 99.8 | 154 | 0 | 177 |
-| senate | 8245 | 99.9 | 100.0 | 3 | 0 | 7 |
-
-**Par sous-corpus :**
-
-| sous-corpus | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
-| --- | --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 100.0 | 99.9 | 18 | 0 | 0 |
-| House OCR | 48940 | 99.6 | 99.7 | 136 | 0 | 177 |
-| Sénat électronique | 6566 | 100.0 | 100.0 | 0 | 0 | 0 |
-| Sénat OCR | 1679 | 99.6 | 99.8 | 3 | 0 | 7 |
-*dates exploitables = dates parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
-
-**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = **notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** (4 dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent flaggées.
-
-## 3. Délai légal de divulgation (STOCK Act ~45 j)
-| chambre | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
-| --- | --- | --- | --- | --- | --- | --- |
-| house | 81430 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
-| senate | 8238 | 91.0 | 2.8 | 6.2 | 0.0 | 27 |
-
-**Par sous-corpus :**
-
-| sous-corpus | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
-| --- | --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 81.9 | 4.9 | 13.2 | 0.1 | 28 |
-| House OCR | 48763 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
-| Sénat électronique | 6566 | 90.6 | 1.9 | 7.5 | 0.0 | 26 |
-| Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
-*n dates valides = transactions dont le délai est CALCULABLE (les deux dates, transaction ET divulgation, présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée quand même dans n dates valides · délai médian en jours*
-
-![Délai de divulgation](quality/delai_divulgation.png)
-
-**Divulgations les plus tardives (> 365 j, suspects) :**
-
-| déposant | chambre | date txn | date divulg. | délai (j) | ticker | opération |
-| --- | --- | --- | --- | --- | --- | --- |
-| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DHR | Purchase |
-| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DAL | Purchase |
-| Richard W. Allen | house | 2017-02-03 | 2023-08-10 | 2379.0 |  | Purchase |
-| Richard W. Allen | house | 2017-02-13 | 2023-08-10 | 2369.0 | O | Sale |
-| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale |
-| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale (Partial) |
-| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | XOM | Sale |
-| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | COST | Purchase |
-| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | GE | Sale |
-| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | FDX | Purchase |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | PCLN | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | DFS | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | CME | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | FB | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | KMX | Sale |
-*délai (j) = divulgation − transaction · divulgations > 1 an après la transaction (souvent des amendements ou de vieux comptes régularisés)*
-
-## 4. Distribution des montants (`amount_midpoint`)
-
-Stats globales (USD, midpoint des fourchettes déclarées) :
-
-```
-count       88982.0
-mean        56985.0
-std        595298.0
-min             1.0
-25%          8000.0
-50%          8000.0
-75%         32500.0
-90%         75000.0
-max      75000000.0
-```
-
-Par chambre :
-
-```
-           count      mean       std     min     25%     50%      75%         max
-chamber                                                                          
-house    80744.0   51116.0  569184.0     1.0  8000.0  8000.0  32500.0  75000000.0
-senate    8238.0  114506.0  805522.0  8000.0  8000.0  8000.0  32500.0  50000000.0
-```
-
-Par sous-corpus :
-
-```
-                      count      mean        std     min     25%      50%      75%         max
-corpus                                                                                        
-House électronique  32667.0   53307.0   522013.0     1.0  8000.0   8000.0  15001.0  37500000.0
-House OCR           48077.0   49628.0   599121.0  8000.0  8000.0   8000.0  32500.0  75000000.0
-Sénat électronique   6566.0  100115.0   632303.0  8000.0  8000.0   8000.0  32500.0  15000000.0
-Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  75000.0  50000000.0
-```
-
-*count = nb · mean = moyenne · std = écart-type · 25/50/75 % = quartiles · USD (midpoint des fourchettes déclarées)*
-
-![Distribution des montants](quality/distribution_montants.png)
-
-**Top 15 déposants par volume estimé (Σ midpoint) :**
+**Par volume estimé (Σ midpoint) :**
 
 | déposant | chambre | n trades | volume estimé M$ |
 | --- | --- | --- | --- |
@@ -295,15 +292,7 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Kevin Hern | house | 760 | 60.1 |
 *volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de transactions*
 
-## 5. Couverture par déposant & structure de l'activité
-
-320 déposants distincts. **206** ont ≥ 10 transactions (éligibles au backtest), dont **150** actifs sur ≥ 3 années.
-
-![Top déposants](quality/top_deposants.png)
-
-![Transactions par an](quality/transactions_par_an.png)
-
-**Top 20 déposants (transactions, OCR%, années actives) :**
+**Par nombre de transactions** — 320 déposants distincts, dont **206** avec ≥ 10 transactions (éligibles au backtest) et **150** actifs sur ≥ 3 années :
 
 | nom | total | dont OCR | OCR % | n années | 1re année | dern. année |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -328,6 +317,10 @@ Sénat OCR            1672.0  171021.0  1274262.0  8000.0  8000.0  32500.0  7500
 | Lois Frankel | 656 | 0 | 0 | 5 | 2019 | 2023 |
 | Mark Green | 653 | 0 | 0 | 6 | 2020 | 2025 |
 *total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction*
+
+![Top déposants](quality/top_deposants.png)
+
+![Transactions par an](quality/transactions_par_an.png)
 
 ### Devenir des achats à +12 mois (revente vs fermeture forcée, pour la stratégie)
 
@@ -362,13 +355,8 @@ Chaque transaction est confrontée à Quiver par une clé normalisée, en **troi
 | clé d'appariement | (`bioguide`, ticker normalisé, sens) — **+ date** au Niveau 2, **sans date** au Niveau 1 |
 | normalisation ticker | MAJ + trim ; rejette {vide, NAN, NONE, --} ; retire ` PUT`/` CALL` ; `.`/`-` → `_` |
 | normalisation sens | 1re lettre p/s/e → Purchase / Sale / Exchange |
-**Périmètre** — le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation tardive ne compte qu'une fois) :
+*Périmètre : le corpus FINAL dédupliqué cross-année (89 852 transactions uniques, cf. §1 « Construction & validation du corpus »).*
 
-| chambre | lignes brutes | re-divulgations (dédup) | transactions uniques |
-| --- | --- | --- | --- |
-| house | 81642 | 35 | 81607 |
-| senate | 8841 | 596 | 8245 |
-| TOTAL | 90483 | 631 | 89852 |
 
 *Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*
 
@@ -378,12 +366,12 @@ On compare des **combinaisons** `(membre, action, sens)`, en **ignorant volontai
 
 On retrouve **93.8 % (House)** et **91.5 % (Sénat)** des combinaisons Quiver. Le **vrai trou** est minuscule (22 House / 0 Sénat) ; le reste est récupérable ou hors périmètre :
 
-| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | dont OCR récup. | dont non-coté | dont 2-jambes | dont autre chambre | vrai trou coté |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | 17481 | 16397 | 93.8 | 1084 | 974 | 88 | 0 | 0 | 22 |
-| senate | 2587 | 2366 | 91.5 | 221 | 0 | 0 | 21 | 200 | 0 |
+| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | récupérable (OCR) | hors périmètre | vrai trou coté |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| house | 17481 | 16397 | 93.8 | 1084 | 974 | 88 | 22 |
+| senate | 2587 | 2366 | 91.5 | 221 | 0 | 221 | 0 |
 
-*Résidu :* **OCR récup.** = lignes papier ratées · **non-coté** = « ticker » Quiver non appariable (CUSIP, préférentielle, fragment) · **2-jambes** = trade sous un ticker d'échange (« PFE  VTRS » couvre « PFE ») · **autre chambre** = déposant Rep→Sén polluant le cache Sénat · **vrai trou coté** = le seul manque réel.
+*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier, ligne ratée → re-OCR possible · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre polluant le cache · **vrai trou coté** = le seul manque réel.
 
 **Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → on est un **sur-ensemble** de Quiver :
 
@@ -411,32 +399,32 @@ Khanna, AAPL, Achat — dates :
 
 Deux garde-fous répondent à « comment gérer qu'un membre ait plusieurs trades » : l'appariement **1-à-1 respecte les quantités** (si on a 50 trades et Quiver 40, **≥ 10 restent forcément en « nous-seul »**) ; le **plafond de 90 j** + l'**ancrage au dépôt** empêchent mécaniquement de confondre un trade 2020 et un trade 2023. Chaque trade tombe alors dans **une** catégorie :
 
-| chambre | apparié exact | apparié proche (≤10j) | candidat écart | dont même dépôt | nous-seul | quiver-seul | candidat % |
+| chambre | apparié exact | apparié proche (≤10j) | candidat écart | dont même déclaration | nous-seul | quiver-seul | candidat % |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | house | 43250 | 607 | 1624 | 288 | 21699 | 4708 | 2.4 |
 | senate | 4361 | 0 | 0 | 0 | 1202 | 385 | 0.0 |
-*apparié exact = même date · apparié proche = écart des dates de TRANSACTION ≤ 10 j (bruit/convention de date Quiver, même trade) · candidat écart = paire à 10–90 j, à inspecter (§6.4) · dont même dépôt = les deux viennent du MÊME PTR (écart des dates de DÉPÔT `disclosure`↔`Filed` ≤ 10 j) → seul signal fort · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté.*
+*apparié exact = même date · apparié proche = écart des dates de TRANSACTION ≤ 10 j (bruit/convention de date Quiver, même trade) · candidat écart = paire à 10–90 j, à inspecter (§6.4) · dont même déclaration = les deux trades viennent du MÊME formulaire de déclaration (PTR) — notre `disclosure` ≈ `Filed` Quiver ≤ 10 j → même trade, donc l'écart de date est un vrai désaccord (seul signal fort) · nous-seul = Quiver n'a PAS le trade (on est plus complet) · quiver-seul = on a raté.*
 
 **Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** Au Niveau 1 (sans date), le vrai trou est 22/0 ; au Niveau 2 (trade + date), on compte 21699 trades « nous-seul » — normal, on trade plus souvent que Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**
 
-### 6.4 Les candidats d'écart de date (même dépôt)
+### 6.4 Les candidats d'écart de date (même déclaration)
 
-Les **seuls** candidats honnêtes d'erreur de date = les paires **dans un même dépôt** (288 House / 0 Sénat). Prudence : un petit delta peut être une **convention de date Quiver**, pas notre erreur. **Le vrai contrôle des dates reste l'audit PDF (§2)**, pas Quiver. `doc_id` = pièce consultable :
+Les **seuls** candidats honnêtes d'erreur de date = les paires issues de la **même déclaration (PTR)** (288 House / 0 Sénat). Prudence : un petit delta peut être une **convention de date Quiver**, pas notre erreur. **Le vrai contrôle des dates reste l'audit PDF (§3)**, pas Quiver. `doc_id` = pièce consultable :
 
 | chambre | déposant | ticker | sens | notre date | date Quiver | delta (j) | doc_id |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| house | Rohit Khanna | IT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | LMT | Sale | 2020-04-24 | 2020-04-13 | 11 | 8217213 |
-| house | Rohit Khanna | DXC | Sale | 2020-03-25 | 2020-04-05 | 11 | 8217164 |
-| house | Rohit Khanna | EW | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | WST | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | DHR | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | PG | Sale | 2025-04-04 | 2025-04-15 | 11 | 8220906 |
+| house | Rohit Khanna | ADBE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | EW | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | AMT | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | GLW | Sale | 2020-09-02 | 2020-09-13 | 11 | 8217686 |
-| house | Rohit Khanna | NKE | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
-| house | Rohit Khanna | BX | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
 | house | Rohit Khanna | GPN | Sale | 2025-04-26 | 2025-04-15 | 11 | 8220906 |
+| house | Rohit Khanna | UNP | Sale | 2025-04-04 | 2025-04-15 | 11 | 8220906 |
+| house | Rohit Khanna | CMG | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | CDNS | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | BX | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | FTV | Sale | 2023-10-26 | 2023-11-06 | 11 | 8220039 |
+| house | Rohit Khanna | ETR | Sale | 2020-04-07 | 2020-04-18 | 11 | 8217213 |
 
 *(Top 12 par delta croissant ; les 288 candidats sont dans `quiver_validation/candidats_ecart_date_meme_depot.csv`.)*
 

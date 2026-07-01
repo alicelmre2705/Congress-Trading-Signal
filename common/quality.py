@@ -501,30 +501,8 @@ def coverage_scorecard(df: pd.DataFrame) -> pd.DataFrame:
         row = {"corpus": corpus, "n": n}
         for src, name in cols:
             row[name] = _pct(int(_nonblank(g[src]).sum()), n)
+        row["montant_renseigne_%"] = _pct(int(g["amount_midpoint"].notna().sum()), n)
         rows.append(row)
-    return pd.DataFrame(rows)
-
-
-def quality_scorecard(df: pd.DataFrame) -> pd.DataFrame:
-    """Scorecard de qualité par sous-corpus : cohérence des dates, plausibilité OCR, montant renseigné."""
-    rows = []
-    for corpus in CORPUS_ORDER:
-        g = df[df["corpus"] == corpus]
-        n = len(g)
-        if not n:
-            continue
-        n_valid = int(g["lag_days"].notna().sum())
-        coher = _pct(int((g["lag_days"] >= 0).sum()), n_valid)
-        # date_plausible = transaction dans la fenêtre légale [0, 75 j] avant la divulgation. Recalculé ici
-        # depuis lag_days pour TOUS les sous-corpus (reproduit le flag `date_confidence` stocké côté OCR /
-        # Sénat, et le comble pour House digital, qui ne stocke pas ce flag → uniformité + régénérable).
-        lag = g["lag_days"]
-        dplaus = _pct(int(((lag >= 0) & (lag <= WINDOW_DELAY_DAYS)).sum()), n)
-        ty = g["txn_year"]
-        impl = int(((ty > g["file_year"]) | (ty < 2012)).sum())
-        rows.append({"corpus": corpus, "n": n, "dates_coherentes_%": coher,
-                     "date_plausible_%": dplaus, "annee_implausible_n": impl,
-                     "montant_renseigne_%": _pct(int(g["amount_midpoint"].notna().sum()), n)})
     return pd.DataFrame(rows)
 
 
@@ -786,10 +764,11 @@ _COLS = {
     "asset_type": "type d'actif", "exact_match": "exact (date)", "date_mismatch": "date ≠",
     "no_match": "absent", "non_equity": "non-coté", "total": "total", "cluster": "cluster",
     "quiver_dans_fenetre": "trades Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
-    "residu": "résidu", "ocr_recuperable": "dont OCR récup.", "quiver_non_cote": "dont non-coté",
-    "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre", "residu_cote_reel": "vrai trou coté",
+    "residu": "résidu", "ocr_recuperable": "récupérable (OCR)", "hors_perimetre": "hors périmètre",
+    "quiver_non_cote": "dont non-coté", "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre",
+    "residu_cote_reel": "vrai trou coté",
     "apparie_exact": "apparié exact", "apparie_proche": "apparié proche (≤10j)", "candidat_ecart": "candidat écart",
-    "dont_meme_depot": "dont même dépôt", "nous_seul": "nous-seul", "quiver_seul": "quiver-seul",
+    "dont_meme_depot": "dont même déclaration", "nous_seul": "nous-seul", "quiver_seul": "quiver-seul",
     "candidat_pct": "candidat %",
     "lignes_brutes": "lignes brutes", "re_divulgations_dedup": "re-divulgations (dédup)",
     "transactions_uniques": "transactions uniques",
@@ -882,6 +861,19 @@ def build_report(repo_root: Path) -> Path:
     med_lag = int(_lag[_lag >= 0].median()) if (_lag >= 0).any() else "—"
     amt_pct = round(100 * df["amount_midpoint"].notna().mean(), 1)
 
+    # Garde-fous surfacés en §1 (comptés en direct, jamais hardcodés).
+    import json as _json
+    def _golden_n(p):
+        try:
+            return int(_json.loads((repo_root / p).read_text(encoding="utf-8"))["n_files"])
+        except Exception:
+            return 0
+    _n_gold_h = _golden_n("tests/regression/golden_manifest.json")
+    _n_gold_s = _golden_n("tests/regression/senate_golden_manifest.json")
+    _n_golden = _n_gold_h + _n_gold_s
+    _bio = df.groupby("chamber")["bioguide_id"].nunique()
+    _n_bio_h, _n_bio_s = int(_bio.get("house", 0)), int(_bio.get("senate", 0))
+
     parts = []
     parts.append("# Rapport qualité — Données de trading du Congrès américain\n")
     parts.append(f"> Chambre des représentants + Sénat · {yr} · généré par `python -m common.quality` "
@@ -902,97 +894,116 @@ def build_report(repo_root: Path) -> Path:
         "inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.\n"
         f"- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que "
         f"l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls {_cell(drec,'house','dont_meme_depot')} "
-        "candidats House (même dépôt) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§2).\n"
+        "candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).\n"
         f"- **Données propres** — identité rattachée à {id_pct} %, dates cohérentes {coh_pct} %, délai de "
         f"divulgation médian {med_lag} j, montants renseignés {amt_pct} %.\n")
-    parts.append("\n*Plan : §1 composition · §2 cohérence des dates · §3 délai légal · §4 montants · "
-                 "§5 couverture & structure · §6 complétude vs Quiver (vérité-terrain).*\n")
+    parts.append("\n*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des "
+                 "dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver "
+                 "(vérité-terrain).*\n")
 
-    # ════════ §1 Composition ════════
-    parts.append("\n## 1. Composition & qualité par sous-corpus\n")
-    parts.append("\nLes déclarations proviennent de **quatre sous-corpus** très différents (chambre × "
-                 "voie d'acquisition). Toute la suite distingue ces quatre familles, car leur qualité et "
-                 "leur composition diffèrent.\n\n")
+    # ════════ §1 Construction & validation du corpus ════════
+    parts.append("\n## 1. Construction & validation du corpus\n")
+    parts.append("\nAvant toute statistique, voici **comment le corpus est construit**, dans l'ordre :\n\n"
+                 "1. **Sources** — déclarations officielles : Chambre (*PTR*) et Sénat (*eFD*), chacune en deux "
+                 "voies — **électronique** (formulaire structuré, lecture déterministe) et **papier scanné** "
+                 "(PDF → **OCR** par modèle de vision).\n"
+                 "2. **Extraction** — une ligne = une transaction (membre, date, actif, sens, fourchette de "
+                 "montant, détenteur).\n"
+                 "3. **Enrichissement** — ticker (explicite dans la source · repris de l'électronique · résolu "
+                 "par LLM), secteur GICS (yfinance · LLM), identité (`bioguide_id`), ancienneté.\n"
+                 "4. **Déduplication cross-année** — une même transaction re-divulguée une autre année "
+                 "(amendement, rapport annuel) ne compte qu'**une fois** (clé naturelle + rang d'occurrence).\n")
+    if len(recon):
+        parts.append("\n**Réconciliation — des lignes brutes aux transactions uniques** (c'est notre corpus, "
+                     "pas Quiver) :\n\n")
+        parts.append(_md_table(recon))
+        parts.append(_leg("lignes brutes = FINAL concaténé " + yr + " · re-divulgations = doublons cross-année "
+                          "retirés · transactions uniques = le corpus analysé dans tout ce rapport"))
+
+    parts.append("\n### Validation & reproductibilité\n")
+    parts.append("\nTout est **rejouable hors-ligne** (lecture seule des tables FINAL, **0 appel API**), adossé "
+                 "à trois filets automatiques :\n\n"
+                 f"- **Golden octet-à-octet** — {_n_golden} tables CSV figées par SHA256 ({_n_gold_h} House + "
+                 f"{_n_gold_s} Sénat), rejouées à **zéro écart** (`tests/regression/check_golden.py`, "
+                 "`senate_check_golden.py`).\n"
+                 f"- **Invariants porteurs** — pour chaque chambre `digital + OCR = FINAL`, identité rattachée à "
+                 f"**{id_pct} %**, {_n_bio_h} bioguides (House) / {_n_bio_s} (Sénat) recomptés "
+                 "(`tests/regression/audit_metrics.py`).\n"
+                 "- **Transformations déterministes** — 11 tests reproduisent chaque étape (clé naturelle, "
+                 "montants, tickers, identité, ancienneté, cache Vision) depuis les colonnes figées.\n")
+
+    parts.append("\n### Les quatre sous-corpus\n")
+    parts.append("\nToute la suite distingue **quatre familles** (chambre × voie), car leur qualité et leur "
+                 "composition diffèrent :\n\n")
     parts.append(_md_table(corpus_overview(df)))
     parts.append(_leg("sous-corpus = chambre × voie (électronique déterministe / scan OCR) · n = transactions "
                       "uniques · part % du total"))
 
-    parts.append("\n### Couverture des champs enrichis (taux de remplissage)\n\n")
-    parts.append(_md_table(coverage_scorecard(df)))
-    parts.append(_leg("% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · "
-                      "ticker/secteur/ETF vides = actif non coté (normal, pas un défaut)"))
-
-    parts.append("\n### Scorecard de qualité\n\n")
-    parts.append(_md_table(quality_scorecard(df)))
-    parts.append(_leg("dates cohérentes = divulgation ≥ transaction · date plausible = transaction ∈ [0, 75 j] "
-                      "avant divulgation · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · "
-                      "montant renseigné = `amount_midpoint` non vide"))
-
-    parts.append("\n### Mix par sous-corpus\n")
-    parts.append("\n**Sens des opérations :**\n\n")
+    # ════════ §2 Composition & complétude ════════
+    parts.append("\n## 2. Composition & complétude\n")
+    parts.append("\n**Ce que contient le corpus** (opérations, détenteur, familles d'actifs), puis **à quel "
+                 "point les champs sont remplis**.\n")
+    parts.append("\n### Sens des opérations\n\n")
     parts.append(_md_table(operation_mix(df)))
     parts.append(_leg("achat = `operation_type` contient « Purchase » · vente = contient « Sale » "
                       "(**inclut Sale (Partial) et (Full)**) · échange = « Exchange » · autre = reste"))
     parts.append("\n![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)\n")
-    parts.append("\n**Détenteur déclaré :**\n\n")
+    parts.append("\n### Détenteur déclaré\n\n")
     parts.append(_md_table(owner_mix(df)))
     parts.append(_leg("titulaire du compte : perso = Self · conjoint = Spouse/SP · joint = Joint/JT · "
                       "enfant = Dependent/Child/DC · autre = reste ou non déclaré"))
-    parts.append("\n**Familles d'actifs** (le non-coté — oblig. d'État, munis, obligations — domine "
-                 "l'OCR du Sénat) :\n\n")
+    parts.append("\n### Familles d'actifs\n")
+    parts.append("\nLe non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :\n\n")
     parts.append(_md_table(asset_type_mix(df)))
     parts.append(_leg("familles d'`asset_type` : action = Stock · option · oblig. État = Gov/Treasury · "
                       "muni = Municipal · oblig. corp. = Bond · fonds = Fund/ETF · manquant = vide"))
     parts.append("\n![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)\n")
-
-    parts.append("\n### Secteurs & sources de résolution\n\n")
+    parts.append("\n### Couverture des champs enrichis (taux de remplissage)\n\n")
+    parts.append(_md_table(coverage_scorecard(df)))
+    parts.append(_leg("% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · "
+                      "montant renseigné = `amount_midpoint` non vide · ticker/secteur/ETF vides = actif non "
+                      "coté (normal, pas un défaut)"))
+    parts.append("\n### Secteurs & origine des champs résolus\n\n")
     parts.append(_md_table(sector_mix(df)))
     parts.append(_leg("secteur renseigné % / ETF % = taux de remplissage (vide = non coté) · top 3 = secteurs "
                       "GICS dominants"))
     sy = source_yield(df)
-    parts.append("\n**Origine du ticker** (`ticker_source` — comment le ticker a été obtenu) :\n\n")
+    parts.append("\n**Origine du ticker** (`ticker_source`) :\n\n")
     parts.append(_md_table(sy["ticker"]))
-    parts.append(_leg("comment le ticker est obtenu : dico élec = repris de l'électronique · LLM = résolu par "
-                      "LLM · explicite = déjà présent dans la source · aucune = non résolu"))
+    parts.append(_leg("dico élec = repris de l'électronique · LLM = résolu par LLM · explicite = déjà présent "
+                      "dans la source · aucune = non résolu"))
     parts.append("\n**Origine du secteur** (`sector_source`) :\n\n")
     parts.append(_md_table(sy["sector"]))
-    parts.append(_leg("comment le secteur GICS est obtenu : yfinance = base factuelle · LLM · manuel = "
-                      "correction d'audit · aucune"))
-    parts.append("\n\n![Volume par secteur GICS](quality/volume_par_secteur.png)\n")
+    parts.append(_leg("yfinance = base factuelle · LLM · manuel = correction d'audit · aucune"))
+    parts.append("\n![Volume par secteur GICS](quality/volume_par_secteur.png)\n")
 
-    parts.append("\n### Montants par sous-corpus\n\n")
-    parts.append(_md_table(amount_stats_by_corpus(df)))
-    parts.append(_leg("$ = midpoint des fourchettes déclarées · P25/P75/P95 = percentiles · volume total = Σ midpoint"))
-    parts.append("\n\n![Composition par tranche de montant](quality/mix_montants_par_corpus.png)\n")
-    parts.append(_leg("la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, "
-                      "le P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → "
-                      "médiane 32 500 ≠ P25 8 000."))
-
-    parts.append("\n### Concentration de l'activité\n\n")
-    conc = concentration(df)
-    parts.append(_md_table(conc["inequality"]))
-    parts.append("\n\n`HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par "
-                 "déposant (plus c'est haut, plus quelques déposants dominent).\n")
-    parts.append("\n![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)\n")
-    parts.append("\n**Top tickers par volume estimé :**\n\n")
-    parts.append(_md_table(conc["top_tickers"]))
-    parts.append(_leg("volume M$ = Σ midpoint des trades du ticker · n trades = nombre de transactions"))
-    parts.append("\n**Volume par secteur GICS :**\n\n")
-    parts.append(_md_table(conc["top_sectors"]))
-    parts.append("\n")
-
-    # (Le profil des clusters de scan House OCR est en §6.6 : la colonne « Quiver a le trade % »
-    #  est de la vérité-terrain externe → sa place est dans la section Quiver, pas ici.)
-
-    # ════════ §2 Cohérence des dates ════════
-    parts.append("\n## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)\n")
+    # ════════ §3 Qualité des dates ════════
+    parts.append("\n## 3. Qualité des dates\n")
+    parts.append("\nTrois questions, de la plus faible à la plus forte : les dates sont-elles **lisibles et "
+                 "cohérentes** (divulgation ≥ transaction) ? le **délai légal** (STOCK Act ~45 j) est-il "
+                 "respecté ? reste-t-il des **anomalies** ?\n")
+    parts.append("\n### Cohérence (`disclosure_date ≥ transaction_date`)\n\n")
     parts.append(_md_table(coh))
     parts.append("\n\n**Par sous-corpus :**\n\n")
     parts.append(_md_table(date_coherence(df, dim="corpus")))
-    parts.append(_leg("dates exploitables = dates parseables (le reste = OCR illisible) · cohérentes = "
-                      "divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/"
-                      "antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date "
-                      "manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
+    parts.append(_leg("dates exploitables = parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ "
+                      "transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année "
+                      "aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = "
+                      "illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
+    parts.append("\n### Délai légal de divulgation (STOCK Act ~45 j)\n\n")
+    parts.append(_md_table(delays))
+    parts.append("\n\n**Par sous-corpus :**\n\n")
+    parts.append(_md_table(delay_buckets(df, dim="corpus")))
+    parts.append(_leg("n dates valides = transactions dont le délai est CALCULABLE (les deux dates présentes et "
+                      "lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (j) · "
+                      "≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = "
+                      "anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j"))
+    parts.append("\n![Délai de divulgation](quality/delai_divulgation.png)\n")
+    if len(outliers):
+        parts.append("\n### Divulgations les plus tardives (> 365 j)\n\n")
+        parts.append(_md_table(outliers))
+        parts.append(_leg("délai (j) = divulgation − transaction · divulgations > 1 an après la transaction "
+                          "(souvent des amendements ou de vieux comptes régularisés)"))
     _n_ocr_fix = len(schema.KNOWN_TXN_DATE_FIXES_BY_DOC)
     parts.append(f"\n**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : "
                  f"coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides "
@@ -1002,53 +1013,54 @@ def build_report(repo_root: Path) -> Path:
                  f"OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent "
                  f"flaggées.\n")
 
-    # ════════ §3 Délai légal ════════
-    parts.append("\n## 3. Délai légal de divulgation (STOCK Act ~45 j)\n")
-    parts.append(_md_table(delays))
-    parts.append("\n\n**Par sous-corpus :**\n\n")
-    parts.append(_md_table(delay_buckets(df, dim="corpus")))
-    parts.append(_leg("n dates valides = transactions dont le délai est CALCULABLE (les deux dates, transaction "
-                      "ET divulgation, présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = "
-                      "divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · "
-                      ">75 j = retard · négatif = anomalie (divulgation avant transaction), comptée quand même dans "
-                      "n dates valides · délai médian en jours"))
-    parts.append("\n![Délai de divulgation](quality/delai_divulgation.png)\n")
-    if len(outliers):
-        parts.append("\n**Divulgations les plus tardives (> 365 j, suspects) :**\n\n")
-        parts.append(_md_table(outliers))
-        parts.append(_leg("délai (j) = divulgation − transaction · divulgations > 1 an après la transaction "
-                          "(souvent des amendements ou de vieux comptes régularisés)"))
-
-    # ════════ §4 Distribution des montants ════════
-    parts.append("\n## 4. Distribution des montants (`amount_midpoint`)\n")
-    parts.append("\nStats globales (USD, midpoint des fourchettes déclarées) :\n\n")
-    parts.append("```\n" + amounts["overall"].round(0).to_string() + "\n```\n")
-    parts.append("\nPar chambre :\n\n")
-    parts.append("```\n" + amounts["by_chamber"].round(0).to_string() + "\n```\n")
-    parts.append("\nPar sous-corpus :\n\n")
-    parts.append("```\n" + amounts["by_corpus"].round(0).to_string() + "\n```\n")
-    parts.append(_leg("count = nb · mean = moyenne · std = écart-type · 25/50/75 % = quartiles · USD (midpoint "
-                      "des fourchettes déclarées)"))
+    # ════════ §4 Montants ════════
+    parts.append("\n## 4. Montants (`amount_midpoint`)\n")
+    parts.append("\nLe montant = **midpoint** de la fourchette déclarée (les déclarations donnent des tranches, "
+                 "pas un chiffre exact). Vue par sous-corpus :\n\n")
+    parts.append(_md_table(amount_stats_by_corpus(df)))
+    parts.append(_leg("médiane/moyenne/P25/P75/P95 en $ · volume total = Σ midpoint (M$) · midpoint = milieu de "
+                      "la fourchette déclarée"))
+    parts.append("\n![Composition par tranche de montant](quality/mix_montants_par_corpus.png)\n")
+    parts.append(_leg("la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, le "
+                      "P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → médiane "
+                      "32 500 ≠ P25 8 000."))
+    _ov = amounts["overall"]
+    parts.append(f"\n**Ensemble** — {_n(_ov['count'])} montants renseignés · médiane {_n(_ov['50%'])} $ · "
+                 f"moyenne {_n(_ov['mean'])} $ · P90 {_n(_ov['90%'])} $ · max {_n(_ov['max'])} $.\n")
     parts.append("\n![Distribution des montants](quality/distribution_montants.png)\n")
-    parts.append("\n**Top 15 déposants par volume estimé (Σ midpoint) :**\n\n")
-    parts.append(_md_table(amounts["top_volume"]))
-    parts.append(_leg("volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de transactions"))
 
-    # ════════ §5 Couverture & structure ════════
-    parts.append("\n## 5. Couverture par déposant & structure de l'activité\n")
-    parts.append(f"\n{len(coverage)} déposants distincts. **{elig['n_eligibles']}** ont "
-                 f"≥ {elig['min_trades']} transactions (éligibles au backtest), dont "
-                 f"**{elig['n_eligibles_3plus_annees']}** actifs sur ≥ 3 années.\n")
-    parts.append("\n![Top déposants](quality/top_deposants.png)\n")
-    parts.append("\n![Transactions par an](quality/transactions_par_an.png)\n")
-    parts.append("\n**Top 20 déposants (transactions, OCR%, années actives) :**\n\n")
+    # ════════ §5 Activité & concentration ════════
+    parts.append("\n## 5. Activité & concentration\n")
+    parts.append("\n**Qui trade, à quel point l'activité est concentrée, et ce que deviennent les positions.**\n")
+    conc = concentration(df)
+    parts.append("\n### Concentration du volume\n\n")
+    parts.append(_md_table(conc["inequality"]))
+    parts.append("\n\n`HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par déposant "
+                 "(plus c'est haut, plus quelques déposants dominent).\n")
+    parts.append("\n![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)\n")
+    parts.append("\n### Où va le volume\n")
+    parts.append("\n**Top tickers par volume estimé :**\n\n")
+    parts.append(_md_table(conc["top_tickers"]))
+    parts.append(_leg("volume M$ = Σ midpoint des trades du ticker · n trades = nombre de transactions"))
+    parts.append("\n**Volume par secteur GICS :**\n\n")
+    parts.append(_md_table(conc["top_sectors"]))
+    parts.append("\n### Top déposants\n")
+    parts.append("\n**Par volume estimé (Σ midpoint) :**\n\n")
+    parts.append(_md_table(amounts["top_volume"]))
+    parts.append(_leg("volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de "
+                      "transactions"))
+    parts.append(f"\n**Par nombre de transactions** — {len(coverage)} déposants distincts, dont "
+                 f"**{elig['n_eligibles']}** avec ≥ {elig['min_trades']} transactions (éligibles au backtest) et "
+                 f"**{elig['n_eligibles_3plus_annees']}** actifs sur ≥ 3 années :\n\n")
     cov_show = coverage.head(20)[["name", "our_total", "our_ocr", "ocr_share_pct",
                                   "n_annees", "premiere_annee", "derniere_annee"]]
     parts.append(_md_table(cov_show))
     parts.append(_leg("total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · "
                       "1re/dern. année = première/dernière année de transaction"))
+    parts.append("\n![Top déposants](quality/top_deposants.png)\n")
+    parts.append("\n![Transactions par an](quality/transactions_par_an.png)\n")
 
-    # ════════ §5.1 Devenir des achats à +12 mois (règle de la stratégie) ════════
+    # §5 — Devenir des achats à +12 mois (règle de la stratégie)
     _cut = (df["_dd"].max() - pd.Timedelta(days=FORCED_CLOSE_HORIZON_DAYS)).date()
     parts.append("\n### Devenir des achats à +12 mois (revente vs fermeture forcée, pour la stratégie)\n")
     parts.append(f"\nPour chaque achat (avec ticker), on suit la position : est-elle **revendue par le même "
@@ -1085,10 +1097,8 @@ def build_report(repo_root: Path) -> Path:
         {"élément": "normalisation sens", "définition": "1re lettre p/s/e → Purchase / Sale / Exchange"},
     ])
     parts.append(_md_table(_meth))
-    if len(recon):
-        parts.append("\n**Périmètre** — le FINAL est dédupliqué cross-année avant comparaison (une re-divulgation "
-                     "tardive ne compte qu'une fois) :\n\n")
-        parts.append(_md_table(recon))
+    parts.append(f"\n*Périmètre : le corpus FINAL dédupliqué cross-année ({_n(n_total)} transactions "
+                 "uniques, cf. §1 « Construction & validation du corpus »).*\n")
     parts.append("\n\n*Réf. : `house/quiver.py` (`norm_ticker`, `norm_sense`), `common/quiver_diagnosis.py`.*\n")
 
     # 6.2 Niveau 1 — inclusion date-AGNOSTIQUE (a-t-on le trade, sans la date ni le nombre)
@@ -1103,11 +1113,15 @@ def build_report(repo_root: Path) -> Path:
                      f"est minuscule ({_cell(inc,'house','residu_cote_reel')} House / "
                      f"{_cell(inc,'senate','residu_cote_reel')} Sénat) ; le reste est récupérable ou hors "
                      "périmètre :\n\n")
-        parts.append(_md_table(inc))
-        parts.append("\n\n*Résidu :* **OCR récup.** = lignes papier ratées · **non-coté** = « ticker » Quiver non "
-                     "appariable (CUSIP, préférentielle, fragment) · **2-jambes** = trade sous un ticker d'échange "
-                     "(« PFE  VTRS » couvre « PFE ») · **autre chambre** = déposant Rep→Sén polluant le cache Sénat "
-                     "· **vrai trou coté** = le seul manque réel.\n")
+        _incd = inc.copy()
+        _incd["hors_perimetre"] = _incd["quiver_non_cote"] + _incd["credit_2jambes"] + _incd["cross_chambre"]
+        _incd = _incd[["chamber", "quiver_dans_fenetre", "inclus", "inclusion_pct", "residu",
+                       "ocr_recuperable", "hors_perimetre", "residu_cote_reel"]]
+        parts.append(_md_table(_incd))
+        parts.append("\n\n*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier, ligne ratée "
+                     "→ re-OCR possible · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade "
+                     "sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre "
+                     "polluant le cache · **vrai trou coté** = le seul manque réel.\n")
         if len(diag.get("net_completeness", [])):
             parts.append("\n**Bilan net** — combinaisons cotées qu'on a et que Quiver n'a PAS vs trous inverses → "
                          "on est un **sur-ensemble** de Quiver :\n\n")
@@ -1137,29 +1151,31 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(drec))
         parts.append(_leg("apparié exact = même date · apparié proche = écart des dates de TRANSACTION ≤ 10 j "
                           "(bruit/convention de date Quiver, même trade) · candidat écart = paire à 10–90 j, à "
-                          "inspecter (§6.4) · dont même dépôt = les deux viennent du MÊME PTR (écart des dates de "
-                          "DÉPÔT `disclosure`↔`Filed` ≤ 10 j) → seul signal fort · nous-seul = Quiver n'a PAS le "
-                          "trade (on est plus complet) · quiver-seul = on a raté."))
+                          "inspecter (§6.4) · dont même déclaration = les deux trades viennent du MÊME formulaire de "
+                          "déclaration (PTR) — notre `disclosure` ≈ `Filed` Quiver ≤ 10 j → même trade, donc l'écart "
+                          "de date est un vrai désaccord (seul signal fort) · nous-seul = Quiver n'a PAS le trade "
+                          "(on est plus complet) · quiver-seul = on a raté."))
         parts.append(f"\n**Pourquoi les chiffres semblent contredire le §6.2 : c'est le niveau de strictesse.** "
                      f"Au Niveau 1 (sans date), le vrai trou est {_cell(inc,'house','residu_cote_reel')}/"
                      f"{_cell(inc,'senate','residu_cote_reel')} ; au Niveau 2 (trade + date), on compte "
                      f"{_cell(drec,'house','nous_seul')} trades « nous-seul » — normal, on trade plus souvent que "
                      "Quiver ne capte au trade près. **Les deux disent la même chose : on est plus complet.**\n")
 
-    # 6.4 Les candidats d'écart de date « même dépôt » — drill-down du §6.3 (table générée + doc_id)
+    # 6.4 Les candidats d'écart de date « même déclaration » — drill-down du §6.3 (table générée + doc_id)
     cnd = diag.get("date_candidates", pd.DataFrame())
-    parts.append("\n### 6.4 Les candidats d'écart de date (même dépôt)\n")
+    parts.append("\n### 6.4 Les candidats d'écart de date (même déclaration)\n")
     if len(cnd):
-        parts.append(f"\nLes **seuls** candidats honnêtes d'erreur de date = les paires **dans un même dépôt** "
-                     f"({_cell(drec,'house','dont_meme_depot')} House / {_cell(drec,'senate','dont_meme_depot')} "
+        parts.append(f"\nLes **seuls** candidats honnêtes d'erreur de date = les paires issues de la **même "
+                     f"déclaration (PTR)** ({_cell(drec,'house','dont_meme_depot')} House / "
+                     f"{_cell(drec,'senate','dont_meme_depot')} "
                      "Sénat). Prudence : un petit delta peut être une **convention de date Quiver**, pas notre "
-                     "erreur. **Le vrai contrôle des dates reste l'audit PDF (§2)**, pas Quiver. `doc_id` = pièce "
+                     "erreur. **Le vrai contrôle des dates reste l'audit PDF (§3)**, pas Quiver. `doc_id` = pièce "
                      "consultable :\n\n")
         parts.append(_md_table(cnd.head(12)))
         parts.append(f"\n\n*(Top 12 par delta croissant ; les {len(cnd)} candidats sont dans "
                      "`quiver_validation/candidats_ecart_date_meme_depot.csv`.)*\n")
     else:
-        parts.append("\nAucun candidat « même dépôt » — les écarts résiduels sont du « nous-seul » ou du bruit de "
+        parts.append("\nAucun candidat « même déclaration » — les écarts résiduels sont du « nous-seul » ou du bruit de "
                      "convention de date.\n")
 
     # 6.5 Niveau 3 — que reste-t-il à corriger ? (champs restants + to-do actionnable)
