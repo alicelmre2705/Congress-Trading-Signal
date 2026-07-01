@@ -957,6 +957,14 @@ def build_report(repo_root: Path) -> Path:
                       "divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/"
                       "antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date "
                       "manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
+    _n_ocr_fix = len(schema.KNOWN_TXN_DATE_FIXES_BY_DOC)
+    parts.append(f"\n**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : "
+                 f"coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides "
+                 f"ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = "
+                 f"**notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** "
+                 f"({_n_ocr_fix} dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination "
+                 f"OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent "
+                 f"flaggées.\n")
 
     # ════════ §3 Délai légal ════════
     parts.append("\n## 3. Délai légal de divulgation (STOCK Act ~45 j)\n")

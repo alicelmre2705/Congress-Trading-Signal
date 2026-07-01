@@ -100,14 +100,37 @@ KNOWN_TXN_DATE_FIXES = {
     "2220-04-07": "2022-04-07",   # Virginia Foxx / MMP (doc 20020914) — divulgué 2022-05-04
 }
 
+# Corrections OCR de transaction_date VÉRIFIÉES par re-lecture du PDF source scanné (House OCR) : le
+# formulaire imprime une date LISIBLE et valide, différente de ce que notre OCR a extrait. Clé scopée
+# (doc_id, ticker, date_ocr_erronée) : par ligne, car ces dates fausses sont plausibles et peuvent exister
+# CORRECTEMENT ailleurs — et parce qu'un doc peut avoir un AUTRE actif partageant la même date mal lue mais
+# NON vérifié (ex. doc 8218296 : DaVita vérifié à 05/28, mais Motorola même date → laissé flaggé). Read-time
+# only (le figé garde la valeur source). On ne corrige PAS les coquilles du déposant (ex. le PTR imprime
+# littéralement 01/35/22), ni les cellules vides, ni les scans illisibles — inventer une date (voir §2).
+KNOWN_TXN_DATE_FIXES_BY_DOC = {
+    ("8218338", "COST", "2021-09-31"): "2021-08-16",   # Khanna / Costco — formulaire : 08/16/21
+    ("8217209", "FIX", "2020-08-16"): "2020-03-16",    # McCaul / Comfort Sys — mois 03 lu 08
+    ("8218296", "DVA", "2021-08-21"): "2021-05-28",    # Harshbarger / DaVita (vente fractionnée) — 05/28/21
+    ("8218082", "SQ", "2021-06-14"): "2021-05-14",     # Schrader / Square — mois 05 lu 06
+}
+
 
 def apply_txn_date_fixes(df):
-    """Applique KNOWN_TXN_DATE_FIXES sur `transaction_date` (corrige les rares années illisibles/typo du
-    PTR officiel pour l'analyse, sans toucher au figé). Renvoie une copie si une correction s'applique."""
+    """Applique les corrections de `transaction_date` À LA LECTURE (sans toucher au figé) : d'abord la carte
+    globale `KNOWN_TXN_DATE_FIXES` (coquilles d'année du PTR, chaînes uniques), puis la carte scopée
+    `KNOWN_TXN_DATE_FIXES_BY_DOC` par `(doc_id, ticker, date)` (OCR mal lu, vérifié ligne à ligne)."""
     if "transaction_date" not in df.columns:
         return df
     df = df.copy()
     df["transaction_date"] = df["transaction_date"].replace(KNOWN_TXN_DATE_FIXES)
+    if KNOWN_TXN_DATE_FIXES_BY_DOC and {"doc_id", "ticker"} <= set(df.columns):
+        _doc = df["doc_id"].astype(str).str.replace(r"\.0$", "", regex=True)
+        _tk = df["ticker"].fillna("").astype(str).str.strip()
+        _td = df["transaction_date"].astype(str)
+        df["transaction_date"] = [
+            KNOWN_TXN_DATE_FIXES_BY_DOC.get((d, tk, t), cur)
+            for d, tk, t, cur in zip(_doc, _tk, _td, df["transaction_date"])
+        ]
     return df
 
 

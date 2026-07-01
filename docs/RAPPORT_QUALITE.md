@@ -180,7 +180,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 ## 2. Cohérence des dates (`disclosure_date ≥ transaction_date`)
 | chambre | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
 | --- | --- | --- | --- | --- | --- | --- |
-| house | 81607 | 99.8 | 99.8 | 159 | 0 | 178 |
+| house | 81607 | 99.8 | 99.8 | 154 | 0 | 177 |
 | senate | 8245 | 99.9 | 100.0 | 3 | 0 | 7 |
 
 **Par sous-corpus :**
@@ -188,15 +188,17 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | sous-corpus | n | dates exploitables % | cohérentes % | incohérentes | année aberrante | date manquante |
 | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 100.0 | 99.9 | 18 | 0 | 0 |
-| House OCR | 48940 | 99.6 | 99.7 | 141 | 0 | 178 |
+| House OCR | 48940 | 99.6 | 99.7 | 136 | 0 | 177 |
 | Sénat électronique | 6566 | 100.0 | 100.0 | 0 | 0 | 0 |
 | Sénat OCR | 1679 | 99.6 | 99.8 | 3 | 0 | 7 |
 *dates exploitables = dates parseables (le reste = OCR illisible) · cohérentes = divulgation ≥ transaction · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes (divulgations tardives).*
 
+**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = **notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** (4 dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent flaggées.
+
 ## 3. Délai légal de divulgation (STOCK Act ~45 j)
 | chambre | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
 | --- | --- | --- | --- | --- | --- | --- |
-| house | 81429 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
+| house | 81430 | 87.0 | 5.2 | 7.7 | 0.2 | 28 |
 | senate | 8238 | 91.0 | 2.8 | 6.2 | 0.0 | 27 |
 
 **Par sous-corpus :**
@@ -204,7 +206,7 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 | sous-corpus | n dates valides | ≤45j légal % | 45–75j % | >75j % | négatif % | délai médian (j) |
 | --- | --- | --- | --- | --- | --- | --- |
 | House électronique | 32667 | 81.9 | 4.9 | 13.2 | 0.1 | 28 |
-| House OCR | 48762 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
+| House OCR | 48763 | 90.3 | 5.4 | 4.0 | 0.3 | 28 |
 | Sénat électronique | 6566 | 90.6 | 1.9 | 7.5 | 0.0 | 26 |
 | Sénat OCR | 1672 | 92.4 | 6.5 | 0.9 | 0.2 | 29 |
 *n dates valides = transactions dont le délai est CALCULABLE (les deux dates, transaction ET divulgation, présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (jours) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée quand même dans n dates valides · délai médian en jours*
@@ -399,7 +401,7 @@ Quand un déposant trade le même ticker plusieurs jours, l'exact-date n'apparie
 
 | chambre | écart-date | dont collision | collision % | isolés (vrai écart possible) |
 | --- | --- | --- | --- | --- |
-| house | 13197 | 13102 | 99.3 | 95 |
+| house | 13196 | 13101 | 99.3 | 95 |
 | senate | 329 | 328 | 99.7 | 1 |
 
 **Exemple concret (régénéré)** — même (déposant, ticker, sens) tradé de nombreux jours ; nos dates ≈ celles de Quiver, mais le moindre décalage compte comme « raté » :
@@ -516,8 +518,8 @@ Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_bru
 
 | côté | verdict | n | % | à corriger |
 | --- | --- | --- | --- | --- |
-| nous→Quiver (house) | CONCORDANT | 50074 | 61.4 | False |
-| nous→Quiver (house) | ECART_DATE | 9629 | 11.8 | True |
+| nous→Quiver (house) | CONCORDANT | 50075 | 61.4 | False |
+| nous→Quiver (house) | ECART_DATE | 9628 | 11.8 | True |
 | nous→Quiver (house) | ECART_TICKER | 5539 | 6.8 | True |
 | nous→Quiver (house) | STRUCTUREL | 10159 | 12.4 | False |
 | nous→Quiver (house) | ON_EST_PLUS_COMPLET | 6206 | 7.6 | False |
@@ -531,7 +533,7 @@ Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_bru
 
 | côté | verdict | n | % | à corriger |
 | --- | --- | --- | --- | --- |
-| Quiver→nous (house) | ECART_DATE | 3419 | 49.2 | True |
+| Quiver→nous (house) | ECART_DATE | 3418 | 49.2 | True |
 | Quiver→nous (house) | ECART_TICKER | 2317 | 33.4 | True |
 | Quiver→nous (house) | MANQUANT_PAPIER | 1066 | 15.4 | True |
 | Quiver→nous (house) | NON_COTE | 132 | 1.9 | False |
@@ -562,7 +564,7 @@ Chaque transaction reçoit un verdict (côté nous et côté Quiver). `ecart_bru
 
 | chambre | n paires | accord sens % | accord montant % |
 | --- | --- | --- | --- |
-| house | 52258 | 95.8 | 93.1 |
+| house | 52259 | 95.8 | 93.1 |
 | senate | 4932 | 99.8 | 99.7 |
 
 **Top déposants `NOTRE_MANQUE`** (les rares vrais trous, à investiguer) :
