@@ -37,12 +37,12 @@ Les déclarations proviennent de **quatre sous-corpus** très différents (chamb
 
 | sous-corpus | n | dates cohérentes % | date plausible % | année aberrante (n) | montant renseigné % |
 | --- | --- | --- | --- | --- | --- |
-| House électronique | 32667 | 99.9 | — | 0 | 100.0 |
+| House électronique | 32667 | 99.9 | 86.8 | 0 | 100.0 |
 | House OCR | 48940 | 99.7 | 95.4 | 0 | 98.2 |
 | Sénat électronique | 6566 | 100.0 | 92.5 | 0 | 100.0 |
 | Sénat OCR | 1679 | 99.8 | 98.5 | 0 | 99.6 |
 
-`date_plausible_%` (fenêtre 75 j) n'existe que pour les lignes OCR → « — » pour House électronique (pas de `date_confidence`). `amount_split_flag` est partout `False` (aucune fourchette éclatée).
+`date plausible %` = transaction dans la **fenêtre légale [0, 75 j]** avant la divulgation (transaction récente = plausible ; un délai négatif ou > 75 j = à vérifier). Recalculé pour les 4 sous-corpus depuis le délai (avant, House digital affichait « — » car son pipeline ne stocke pas le flag `date_confidence`, réservé à l'OCR). `amount_split_flag` est partout `False` (aucune fourchette éclatée).
 
 ### Mix par sous-corpus
 

@@ -470,9 +470,11 @@ def quality_scorecard(df: pd.DataFrame) -> pd.DataFrame:
             continue
         n_valid = int(g["lag_days"].notna().sum())
         coher = _pct(int((g["lag_days"] >= 0).sum()), n_valid)
-        dc = g["date_confidence"].fillna("").astype(str).str.strip().str.lower()
-        has_dc = (dc != "") & (dc != "nan")
-        dplaus = "—" if int(has_dc.sum()) == 0 else _pct(int((dc == "plausible").sum()), int(has_dc.sum()))
+        # date_plausible = transaction dans la fenêtre légale [0, 75 j] avant la divulgation. Recalculé ici
+        # depuis lag_days pour TOUS les sous-corpus (reproduit le flag `date_confidence` stocké côté OCR /
+        # Sénat, et le comble pour House digital, qui ne stocke pas ce flag → uniformité + régénérable).
+        lag = g["lag_days"]
+        dplaus = _pct(int(((lag >= 0) & (lag <= WINDOW_DELAY_DAYS)).sum()), n)
         ty = g["txn_year"]
         impl = int(((ty > g["file_year"]) | (ty < 2012)).sum())
         rows.append({"corpus": corpus, "n": n, "dates_coherentes_%": coher,
@@ -843,9 +845,11 @@ def build_report(repo_root: Path) -> Path:
 
     parts.append("\n### Scorecard de qualité\n\n")
     parts.append(_md_table(quality_scorecard(df)))
-    parts.append("\n\n`date_plausible_%` (fenêtre 75 j) n'existe que pour les lignes OCR → « — » pour "
-                 "House électronique (pas de `date_confidence`). `amount_split_flag` est partout `False` "
-                 "(aucune fourchette éclatée).\n")
+    parts.append("\n\n`date plausible %` = transaction dans la **fenêtre légale [0, 75 j]** avant la "
+                 "divulgation (transaction récente = plausible ; un délai négatif ou > 75 j = à vérifier). "
+                 "Recalculé pour les 4 sous-corpus depuis le délai (avant, House digital affichait « — » car "
+                 "son pipeline ne stocke pas le flag `date_confidence`, réservé à l'OCR). `amount_split_flag` "
+                 "est partout `False` (aucune fourchette éclatée).\n")
 
     parts.append("\n### Mix par sous-corpus\n")
     parts.append("\n**Sens des opérations :**\n\n")
