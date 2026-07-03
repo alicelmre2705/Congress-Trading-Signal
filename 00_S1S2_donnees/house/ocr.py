@@ -46,6 +46,19 @@ OCR_CACHE_ROOT = hm.OUTDIR / "ocr_cache"
 CLUSTERS_NON_EXECUTES = {"C_manuscrit"}
 FILERS_C_A_RECUPERER = {"S001180", "L000564", "H001086"}  # Schrader, Lamborn, Harshbarger (≈99 % de la perte dure)
 
+# HÉRITAGE 2020-2026 (audit 2026-07-03, GATC-03) : ces 33 docs C_manuscrit de filers HORS exception
+# ont été OCRisés et curés à la main lors du run 2020-2026, AVANT la politique de gating ci-dessus
+# (posée à l'extension pré-2020). Ils sont dans le corpus FINAL (62 txns, 14 membres) et VALIDÉS —
+# on les CONSERVE : les écarter rétroactivement jetterait de l'information vérifiée pour un pur motif
+# de symétrie. Cette liste rend le pipeline REJOUABLE : un re-run doit les exécuter aussi.
+DOCS_C_HERITES_2020_2026 = {
+    "8217905", "8218411", "8218477", "8218527", "8218534", "8219092", "8219269", "8219291",
+    "8219339", "8219383", "8219414", "8219415", "8219420", "8219430", "8219455", "8219524",
+    "8219843", "8219904", "8219905", "8220037", "8220060", "8220119", "8220508", "8220731",
+    "8220764", "8220765", "8220768", "8220780", "8220828", "8221238", "8221276", "9115549",
+    "9115686",
+}
+
 # ───────────────────────── Constantes OCR (port cellule 7) ─────────────────────────
 from house.amounts import HOUSE_OCR_AMOUNT_MAP as AMOUNT_MAP   # source unique partagée
 OCR_PROMPT = """\
@@ -429,7 +442,10 @@ def run_ocr_year(year, force=False):
     if census_path.exists():
         cen = pd.read_csv(census_path, dtype={"doc_id": str})
         non_exec_ids = set(cen.loc[cen["cluster"].isin(CLUSTERS_NON_EXECUTES), "doc_id"])
-        # exception : on n'exclut PAS les docs des filers à récupérer (résolus via le déclarant du PTR)
+        # exception 1 : l'héritage 2020-2026 (docs C curés main AVANT la politique) reste exécuté —
+        # sans quoi un re-run ne reproduirait pas le corpus FINAL (audit 2026-07-03, GATC-03).
+        non_exec_ids -= DOCS_C_HERITES_2020_2026
+        # exception 2 : on n'exclut PAS les docs des filers à récupérer (résolus via le déclarant du PTR)
         if FILERS_C_A_RECUPERER and "last" in scanned.columns:
             hm.build_reference()
             keep = scanned["doc_id"].isin(non_exec_ids) & scanned.apply(
