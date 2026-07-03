@@ -30,7 +30,7 @@ import pandas as pd
 
 from common import crosscheck, schema
 
-YEARS = list(range(2020, 2027))
+YEARS = list(range(2014, 2027))
 LEGAL_DELAY_DAYS = 45          # STOCK Act : PTR dû ~45 j après la transaction.
 WINDOW_DELAY_DAYS = 75         # Fenêtre de tolérance utilisée par le pipeline (date_confidence).
 

@@ -239,6 +239,75 @@ def parse_ptr(text):
     return out
 
 
+# ───────────────────────── parse_ptr LEGACY (gabarit PDF pré-2018) ─────────────────────────
+# Les PTR House antérieurs à ~2018 utilisent un gabarit PDF différent : casse mixte
+# ("tranSactionS", "aSSet claSS DetailS"), montants coupés sur 2 lignes ("$25,000,001 -\n$50,000,000")
+# et surtout le ticker `(XXX)` posé SUR LA MÊME LIGNE juste avant le type, SANS code `[XX]` inline.
+# `parse_ptr` (calé sur 2020+) exige un code `[XX]`/ticker en continuation pour confirmer une
+# transaction hors début de ligne → il jette ces lignes (sous-comptage massif, cf. sonde 2015-2017).
+# `parse_ptr_legacy` cible ce gabarit ; `parse_ptr_dual` route par SIGNATURE de format
+# (présence de codes `[XX]` = moderne → `parse_ptr` INCHANGÉ, donc golden 2020-2026 intact).
+_LEGACY_TXN_RE = re.compile(
+    r'(?P<type>[PSE])(?:\s*\((?P<sub>[Pp]artial|[Ff]ull)\))?\s+'
+    r'(?P<txn>\d{1,2}/\d{1,2}/\d{4})\s+'
+    r'(?P<notif>\d{1,2}/\d{1,2}/\d{4})\s+'
+    r'(?P<amount>\$[\d,]+\s*-\s*\$[\d,]+|Over\s+\$[\d,]+|\$[\d,]+\+?)')
+_LEGACY_JOIN_RE = re.compile(r'(\$[\d,]+)\s*-\s*\n\s*(\$[\d,]+)')   # rejoint un montant coupé sur 2 lignes
+
+
+def parse_ptr_legacy(text):
+    """Parser du gabarit House pré-2018. Même schéma de sortie que `parse_ptr`."""
+    text = text.replace('\x00', '')
+    text = _LEGACY_JOIN_RE.sub(r'\1 - \2', text)   # 1) recoller les montants coupés
+    out = []
+    for raw in text.splitlines():
+        s = raw.strip()
+        m = _LEGACY_TXN_RE.search(s)
+        if not m:
+            continue
+        st = m.start('type')
+        # le type P/S/E doit être un jeton isolé (pas une majuscule interne à un mot)
+        if st > 0 and s[st - 1].isalnum():
+            continue
+        pre = s[:st].strip()
+        owner_m = OWNER_RE.match(pre)
+        owner_val = owner_m.group(1).upper() if owner_m else None
+        if owner_m:
+            pre = pre[owner_m.end():].strip()
+        # ticker = dernier `(XXX)` plausible (le plus proche du type), sinon repli bourse
+        tk_val = None
+        for mt in TICKER_RE.finditer(pre):
+            if mt.group(1).lower() not in _SUB_WORDS:
+                tk_val = mt.group(1).upper()
+        if tk_val is None:
+            me = EXCH_TICKER_RE.search(pre)
+            tk_val = me.group(1).upper() if me else None
+        desc = TICKER_RE.sub("", pre).strip(" -")
+        amount_str = re.sub(r'\s+', ' ', m.group("amount").strip())
+        out.append({
+            "ticker": tk_val,
+            "asset_type": None,   # pas de code [XX] inline dans l'ancien gabarit (secteur enrichi via ticker en aval)
+            "asset_description": desc,
+            "operation_type": _op_type(m.group("type"), m.group("sub")),
+            "transaction_date": m.group("txn"),
+            "amount_range": amount_str,
+            "amount_midpoint": _amount_midpoint(amount_str),
+            "amount_split_flag": bool(_SPLIT_AMOUNT_RE.search(amount_str)),
+            "owner": owner_val,
+        })
+    return out
+
+
+def parse_ptr_dual(text):
+    """Route par signature de format. Docs modernes (codes `[XX]` inline) → `parse_ptr` INTACT ;
+    docs anciens (sans code `[XX]`) → le parser qui extrait le plus (legacy en pratique)."""
+    if ATYPE_RE.search(text):
+        return parse_ptr(text)                     # gabarit moderne → parser figé (golden préservé)
+    legacy = parse_ptr_legacy(text)
+    modern = parse_ptr(text)
+    return legacy if len(legacy) > len(modern) else modern
+
+
 # ───────────────────────── match_bioguide (délégué à house.identity) ─────────────────────────
 def match_bioguide(last, first):
     """Délègue au matcher House (house.identity.make_matcher), peuplé par build_reference.
@@ -310,12 +379,12 @@ def build_manifest(year, ptr_index, ydir):
     return doc_texts, manifest
 
 
-def parse_docs(doc_texts, ydir):
+def parse_docs(doc_texts, ydir, parser=parse_ptr):
     parsed_rows, failures = [], []
     for doc_id, text in doc_texts.items():
         if not text.strip():
             continue
-        rows = parse_ptr(text)
+        rows = parser(text)
         if rows:
             for r in rows:
                 r["doc_id"] = doc_id
@@ -536,7 +605,10 @@ def run_year(year, win_start=None, win_end=None, do_quiver=True, do_crosscheck=T
     pfx = dict(Counter(manifest["doc_prefix"]))
     print(f"  préfixe DocID : {pfx}")
 
-    parsed_rows, failures, readable, yield_rate = parse_docs(doc_texts, ydir)
+    # Gabarit PDF pré-2018 (casse mixte, ticker inline sans code [XX]) → parser dual gaté par format.
+    # 2020-2026 conservent parse_ptr à l'identique (golden intact).
+    parser = parse_ptr_dual if year <= 2019 else parse_ptr
+    parsed_rows, failures, readable, yield_rate = parse_docs(doc_texts, ydir, parser=parser)
     print(f"  parse : lisibles {readable} | ≥1 ligne {readable - len(failures)} | "
           f"rendement {yield_rate:.1f}% | lignes brutes {len(parsed_rows)}")
 

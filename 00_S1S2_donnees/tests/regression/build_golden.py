@@ -15,7 +15,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 LIVE_TABLES = REPO / "data" / "house" / "tables"
 MANIFEST = Path(__file__).resolve().parent / "golden_manifest.json"
-YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
+YEARS = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
 
 
 def sha256_file(p: Path) -> str:

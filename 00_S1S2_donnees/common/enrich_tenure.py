@@ -20,7 +20,7 @@ from common import reference
 from common.schema import FINAL_POST_ENRICH
 
 REPO = Path(__file__).resolve().parent.parent
-YEARS = range(2020, 2027)
+YEARS = range(2014, 2027)
 COLUMN = FINAL_POST_ENRICH[0]   # "years_in_office" — source unique du nom de colonne
 
 

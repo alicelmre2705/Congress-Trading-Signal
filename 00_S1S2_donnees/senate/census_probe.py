@@ -42,8 +42,8 @@ PAUSE = 1.5
 PTR_LINK_RE = re.compile(r'/search/view/(ptr|paper)/([0-9a-f\-]+)/', re.IGNORECASE)
 DATE_RE = re.compile(r'\b(\d{2}/\d{2}/\d{4})\b')
 
-CENSUS_YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
-PROBE_YEARS = [2020, 2016, 2012]   # tester le format HTML ancien
+CENSUS_YEARS = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+PROBE_YEARS = [2019, 2018, 2017, 2016, 2015, 2014]   # tester le format HTML ancien (refonte eFD ~2016)
 
 
 # ---------------------------------------------------------------- agrément + recherche

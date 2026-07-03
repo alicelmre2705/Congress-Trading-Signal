@@ -137,7 +137,7 @@ def _ocr_doc(rec, cli):
 def _global_ticker_dict():
     """nom normalisé → ticker depuis TOUTES les tables digitales (meilleure couverture que l'année seule)."""
     d = {}
-    for y in range(2020, 2027):
+    for y in range(2014, 2027):
         p = hm.TABROOT / str(y) / f"06_house_{y}_transactions.csv"
         if not p.exists():
             continue

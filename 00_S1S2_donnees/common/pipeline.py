@@ -33,10 +33,14 @@ def parse_years(spec: str):
     return [int(x) for x in spec.split(",") if x.strip()]
 
 
-def build_steps(years_csv, skip_ocr, force, no_quiver, senate_ocr_mode):
+def build_steps(years_csv, skip_ocr, force, no_quiver, senate_ocr_mode, acquire=False):
     """Construit la séquence (label, args-module) selon les options. Modules inchangés."""
     steps = []
     hq = ["--no-quiver"] if no_quiver else []
+    # Étape 0 optionnelle : acquisition House (index {year}FD.xml + PDF) pour les années non
+    # embarquées (ex. 2014-2019). Défaut OFF → une run 2020-2026 reste la séquence historique intacte.
+    if acquire:
+        steps.append(("House — acquisition index+PDF", ["house.acquire", "--years", years_csv]))
     steps.append(("House — PTR électroniques", ["house.digital", "--years", years_csv] + hq))
     if not skip_ocr:
         steps.append(("House — OCR + fusion FINAL",
@@ -60,11 +64,14 @@ def main():
     ap.add_argument("--no-quiver", action="store_true", help="désactive la validation Quiver (House)")
     ap.add_argument("--senate-ocr-mode", choices=["index", "pilote", "full"], default="full",
                     help="mode du moteur OCR Sénat (défaut: full)")
+    ap.add_argument("--acquire", action="store_true",
+                    help="télécharge d'abord index+PDF House (années non embarquées, ex. 2014-2019)")
     ap.add_argument("--dry-run", action="store_true", help="imprime la séquence sans exécuter")
     args = ap.parse_args()
 
     years_csv = ",".join(str(y) for y in parse_years(args.years))
-    steps = build_steps(years_csv, args.skip_ocr, args.force, args.no_quiver, args.senate_ocr_mode)
+    steps = build_steps(years_csv, args.skip_ocr, args.force, args.no_quiver,
+                        args.senate_ocr_mode, args.acquire)
 
     banner = f"Pipeline unifié — années {years_csv} — {len(steps)} étapes"
     print(banner + (" [DRY-RUN]" if args.dry_run else ""))

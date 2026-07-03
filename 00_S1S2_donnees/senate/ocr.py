@@ -29,6 +29,14 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent        # <repo>/senate
 
+# Charge le .env racine (parité house.digital) → ANTHROPIC_API_KEY dispo pour le moteur OCR,
+# que senate.ocr soit lancé seul ou via common.pipeline (garde-fou 2020-2026).
+try:
+    from dotenv import load_dotenv
+    load_dotenv(HERE.parent.parent / ".env")
+except Exception:
+    pass
+
 from senate import ocr_engine as so           # moteur OCR figé (réutilisé tel quel)
 from senate.identity import load_reference, make_matcher, recover_ticker, SCHEMA
 
@@ -89,7 +97,7 @@ SESSION.headers.update({"User-Agent": "congress-trading-research/1.0 (poli, sans
 PAUSE = 1.5
 PTR_LINK_RE = re.compile(r'/search/view/(ptr|paper)/([0-9a-f\-]+)/', re.IGNORECASE)
 DATE_RE = re.compile(r'\b(\d{2}/\d{2}/\d{4})\b')
-INDEX_CSV = DATA / "tables" / "_paper_index_2020_2026.csv"
+INDEX_CSV = DATA / "tables" / "_paper_index_2014_2026.csv"
 
 
 # ----------------------------------------------------------------- scraping (découverte)
@@ -312,7 +320,10 @@ def main():
         print(f"\n  Estimation exhaustif : {len(idx_full)} rapports × ~{avg:.0f} txns/rapport "
               f"≈ {int(len(idx_full)*avg)} txns OCR")
     elif args.mode == "full":
-        print(f"=== OCR EXHAUSTIF : {len(idx)} rapports ===")
+        # Filtre par années demandées : l'index couvre 2014-2026, `--years` borne le run. Sans ce
+        # filtre, un run 2020-2026 (garde-fou) réécrirait aussi 06b_2014..2019 et réciproquement.
+        idx = idx[idx["year"].astype(int).isin(years)].reset_index(drop=True)
+        print(f"=== OCR EXHAUSTIF : {len(idx)} rapports (années {years}) ===")
         df, per_doc, fails, n_ex = build_table(idx, force=args.force)
         # écriture par année
         df["_y"] = pd.to_datetime(df["disclosure_date"], errors="coerce").dt.year

@@ -1,0 +1,70 @@
+{
+  "doc_id": "9108476",
+  "member": "Kenny Marchant",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "0d3d617274e6",
+  "dpi": 200,
+  "n_pages": 2,
+  "created_utc": "2026-07-02T21:07:08.248083+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 2,
+      "status": "ok",
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "Whiting Petroleum",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2016-03-03",
+          "notification_date": "2016-03-10",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "En Link Midstream",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2016-03-03",
+          "notification_date": "2016-03-10",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Whiting",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2016-03-03",
+          "notification_date": "2016-03-10",
+          "amount_code": "A"
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "Whiting Petroleum",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2016-03-03",
+      "notification_date": "2016-03-10",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "En Link Midstream",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2016-03-03",
+      "notification_date": "2016-03-10",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Whiting",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2016-03-03",
+      "notification_date": "2016-03-10",
+      "amount_code": "A"
+    }
+  ]
+}

@@ -42,7 +42,7 @@ from senate import quiver as sq           # reconcile (clés common_senators / t
 from common.quiver_scopes import reconcile_scopes
 from common import schema
 
-YEARS = list(range(2020, 2027))
+YEARS = list(range(2014, 2027))
 
 # Verdicts → faut-il corriger ? (drapeau du livrable « est-ce nous »). NON_COTE = un « ticker » Quiver
 # qui n'est pas une action appariable (CUSIP, préférentielle, fragment OCR) → hors périmètre, pas un trou.

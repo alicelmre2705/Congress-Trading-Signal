@@ -1,0 +1,78 @@
+{
+  "doc_id": "9112308",
+  "member": "Josh Gottheimer",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "0d3d617274e6",
+  "dpi": 200,
+  "n_pages": 2,
+  "created_utc": "2026-07-02T22:05:13.667654+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 2,
+      "status": "ok",
+      "n": 4,
+      "transactions": [
+        {
+          "asset_description": "Microsoft Call Options (see note #1)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2017-12-29",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Microsoft Call Options (see note #2)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2018-01-03",
+          "amount_code": "B"
+        },
+        {
+          "asset_description": "Microsoft Call Options (see note #3)",
+          "transaction_type": "Purchase",
+          "owner": "Joint",
+          "transaction_date": "2018-01-16",
+          "amount_code": "D"
+        },
+        {
+          "asset_description": "Microsoft Call Options (see note #4)",
+          "transaction_type": "Sale",
+          "owner": "Joint",
+          "transaction_date": "2018-01-16",
+          "amount_code": "D"
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "Microsoft Call Options (see note #1)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2017-12-29",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Microsoft Call Options (see note #2)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2018-01-03",
+      "amount_code": "B"
+    },
+    {
+      "asset_description": "Microsoft Call Options (see note #3)",
+      "transaction_type": "Purchase",
+      "owner": "Joint",
+      "transaction_date": "2018-01-16",
+      "amount_code": "D"
+    },
+    {
+      "asset_description": "Microsoft Call Options (see note #4)",
+      "transaction_type": "Sale",
+      "owner": "Joint",
+      "transaction_date": "2018-01-16",
+      "amount_code": "D"
+    }
+  ]
+}

@@ -359,6 +359,12 @@ def date_confidence(transaction_date, disclosure_date):
     lag = (d - t).days
     return "plausible" if 0 <= lag <= DATE_WINDOW_DAYS else "implausible"
 
+def _oneline(s):
+    """Replie les champs texte sur une seule ligne (les descriptions OCR de munis peuvent contenir des
+    retours-ligne \\n/\\v → CSV avec newline intégré, incompatible avec l'append byte-à-byte du golden)."""
+    return re.sub(r"[\r\n\v\t]+", " ", s).strip() if isinstance(s, str) else s
+
+
 def normalize(txn, meta, year):
     code = (txn.get("amount_code") or "").upper()
     amount_range, amount_mid = AMOUNT_MAP.get(code, ("", None))
@@ -369,7 +375,7 @@ def normalize(txn, meta, year):
          "transaction_date": txn.get("transaction_date"),
          "disclosure_date": disclosure,
          "date_confidence": date_confidence(txn.get("transaction_date"), disclosure),
-         "ticker": None, "asset_description": txn.get("asset_description", ""), "asset_type": None,
+         "ticker": None, "asset_description": _oneline(txn.get("asset_description", "")), "asset_type": None,
          "operation_type": txn.get("transaction_type", ""), "amount_range": amount_range,
          "amount_midpoint": amount_mid, "amount_split_flag": False,
          "owner": OWNER_MAP.get(owner_raw, "SELF"), "doc_id": meta["doc_id"],
@@ -390,6 +396,24 @@ SCHEMA_COLS = ["bioguide_id", "declarant_name", "chamber", "party", "state_distr
                "committee_membership", "committees_key_flag", "transaction_date", "disclosure_date",
                "date_confidence", "ticker", "asset_description", "asset_type", "operation_type", "amount_range",
                "amount_midpoint", "amount_split_flag", "owner", "doc_id", "source_url", "natural_key_hash"]
+
+
+def _coerce_ocr_txns(raw):
+    """Rend (liste_de_dicts, n_récupérées) depuis le champ transactions d'une sortie OCR.
+    Robustesse : de rares sorties sérialisent le JSON des transactions en CHAÎNE — voire en
+    LISTE DE CARACTÈRES — au lieu d'une liste d'objets. On recolle et on parse, en retirant les
+    échappements JSON invalides (ex. backslash-v). No-op sur une liste d'objets déjà bien formée."""
+    if isinstance(raw, list) and (not raw or isinstance(raw[0], dict)):
+        return raw, 0
+    s = raw if isinstance(raw, str) else "".join(map(str, raw))
+    s = re.sub(r'\\(?!["\\/bfnrtu])', '', s)   # retire les échappements JSON invalides
+    try:
+        parsed = json.loads(s)
+    except Exception:
+        return [], 0
+    if isinstance(parsed, list):
+        return parsed, sum(1 for t in parsed if isinstance(t, dict))
+    return [], 0
 
 
 # ───────────────────────── Orchestration par année ─────────────────────────
@@ -450,13 +474,21 @@ def run_ocr_year(year, force=False):
         ydir / "06c_ocr_failures.csv", index=False)
 
     # normalisation + filtre ligne-exemple
-    rows, n_example = [], 0
+    rows, n_example, n_recovered, n_dropped = [], 0, 0, 0
     for entry in raw_results:
         meta = meta_lookup.get(entry["doc_id"], {"doc_id": entry["doc_id"], "declarant_name": entry["declarant_name"]})
-        for txn in entry["transactions"]:
+        txns, rec = _coerce_ocr_txns(entry["transactions"])   # récupère les sorties OCR sérialisées
+        n_recovered += rec
+        for txn in txns:
+            if not isinstance(txn, dict):
+                n_dropped += 1; continue
             if _EXAMPLE_RE.search(str(txn.get("asset_description", ""))):
                 n_example += 1; continue
             rows.append(normalize(txn, meta, year))
+    if n_recovered:
+        print(f"  ⚠ {n_recovered} transaction(s) récupérée(s) d'une sortie OCR sérialisée (JSON recollé)")
+    if n_dropped:
+        print(f"  ⚠ {n_dropped} élément(s) OCR non récupérable(s) ignoré(s)")
     df = pd.DataFrame(rows)
     n_txn = len(df)
     print(f"  → {n_txn} transactions OCR ({n_example} ligne-exemple écartée) | {len(failures)} échec(s) batch")

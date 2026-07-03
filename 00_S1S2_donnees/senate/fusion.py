@@ -55,7 +55,7 @@ def date_confidence(transaction_date, disclosure_date):
 
 def main():
     years = sorted(int(re.search(r"/(\d{4})/", p).group(1))
-                   for p in glob.glob(str(DATA / "20*" / "06_senate_*_transactions.csv")))
+                   for p in glob.glob(str(DATA / "tables" / "20*" / "06_senate_*_transactions.csv")))
 
     # --- Étape 1 : fusion non destructrice par année ---
     per_year, meta = {}, {}
