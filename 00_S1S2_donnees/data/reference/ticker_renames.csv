@@ -1,82 +1,83 @@
-ticker_ancien,ticker_nouveau,type,date_effet,note
-FB,META,renommage,2022-06,Meta Platforms (ex-Facebook)
-PCLN,BKNG,renommage,2018-02,Booking Holdings (ex-Priceline)
-RDS-A,SHEL,renommage,2022-01,Shell — unification des classes A/B
-RDS-B,SHEL,renommage,2022-01,Shell — unification des classes A/B
-UTX,RTX,fusion_echange,2020-04,United Technologies + Raytheon -> RTX
-RTN,RTX,fusion_echange,2020-04,Raytheon absorbé — actionnaires payés en RTX
-DISCA,WBD,fusion_echange,2022-04,Discovery -> Warner Bros. Discovery
-DISCK,WBD,fusion_echange,2022-04,Discovery -> Warner Bros. Discovery
-VIAC,PARA,renommage,2022-02,ViacomCBS -> Paramount Global
-CBS,VIAC,fusion_echange,2019-12,CBS + Viacom -> ViacomCBS (puis PARA)
-ANTM,ELV,renommage,2022-06,Elevance Health (ex-Anthem)
-FISV,FI,renommage,2023-06,Fiserv
-SQ,XYZ,renommage,2025-01,Block (ex-Square)
-TOT,TTE,renommage,2021-06,TotalEnergies
-STI,TFC,fusion_echange,2019-12,SunTrust + BB&T -> Truist
-MYL,VTRS,fusion_echange,2020-11,Mylan + Upjohn -> Viatris
-CTL,LUMN,renommage,2020-09,Lumen (ex-CenturyLink)
-COG,CTRA,fusion_echange,2021-10,Cabot + Cimarex -> Coterra
-BLL,BALL,renommage,2022-08,Ball Corp
-WLTW,WTW,renommage,2022-01,Willis Towers Watson
-PKI,RVTY,renommage,2023-05,Revvity (ex-PerkinElmer)
-FBHS,FBIN,renommage,2022-12,Fortune Brands Innovations
-LLL,LHX,fusion_echange,2019-06,L3 + Harris -> L3Harris
-HRS,LHX,fusion_echange,2019-06,L3 + Harris -> L3Harris
-ABC,COR,renommage,2023-08,Cencora (ex-AmerisourceBergen)
-FLT,CPAY,renommage,2024-03,Corpay (ex-FLEETCOR)
-FEYE,MNDT,renommage,2021-10,Mandiant (ex-FireEye) — MNDT racheté GOOG 2022-09
-MNDT,,rachat_delisting,2022-09,racheté Google
-CTRP,TCOM,renommage,2019-10,Trip.com (ex-Ctrip)
-SNE,SONY,renommage,2021-04,Sony Group
-GPS,GAP,renommage,2024-08,Gap Inc.
-CHK,EXE,renommage,2024-10,Expand Energy (ex-Chesapeake post-fusion SWN)
-TWX,,rachat_delisting,2018-06,racheté AT&T
-APC,,rachat_delisting,2019-08,racheté Occidental
-AGN,,rachat_delisting,2020-05,racheté AbbVie
-CELG,,rachat_delisting,2019-11,racheté Bristol-Myers Squibb (actions+CVR)
-ALXN,,rachat_delisting,2021-07,racheté AstraZeneca
-XLNX,,rachat_delisting,2022-02,racheté AMD (actions)
-MXIM,,rachat_delisting,2021-08,racheté Analog Devices (actions)
-CERN,,rachat_delisting,2022-06,racheté Oracle
-ATVI,,rachat_delisting,2023-10,racheté Microsoft
-SGEN,,rachat_delisting,2023-12,racheté Pfizer
-TWTR,,rachat_delisting,2022-10,racheté privé (X Corp)
-KSU,,rachat_delisting,2021-12,racheté Canadian Pacific (cash+actions)
-NLSN,,rachat_delisting,2022-10,racheté privé
-INFO,,rachat_delisting,2022-02,fusion S&P Global (actions SPGI)
-DRE,,rachat_delisting,2022-10,fusion Prologis (actions PLD)
-WCG,,rachat_delisting,2020-01,racheté Centene
-ETFC,,rachat_delisting,2020-10,racheté Morgan Stanley
-PBCT,,rachat_delisting,2022-04,racheté M&T Bank
-TIF,,rachat_delisting,2021-01,racheté LVMH
-XEC,,rachat_delisting,2021-10,fusion Coterra (actions CTRA)
-WPX,,rachat_delisting,2021-01,fusion Devon (actions DVN)
-FDC,,rachat_delisting,2019-07,racheté Fiserv
-MON,,rachat_delisting,2018-06,racheté Bayer
-ESRX,,rachat_delisting,2018-12,racheté Cigna
-CA,,rachat_delisting,2018-11,racheté Broadcom
-RHT,,rachat_delisting,2019-07,racheté IBM
-NBL,,rachat_delisting,2020-10,fusion Chevron (actions CVX)
-CXO,,rachat_delisting,2021-01,fusion ConocoPhillips (actions COP)
-FLIR,,rachat_delisting,2021-05,racheté Teledyne
-NUAN,,rachat_delisting,2022-03,racheté Microsoft
-CTXS,,rachat_delisting,2022-09,racheté privé
-WORK,,rachat_delisting,2021-07,Slack racheté Salesforce
-ZNGA,,rachat_delisting,2022-05,racheté Take-Two
-Y,,rachat_delisting,2022-10,Alleghany racheté Berkshire
-VMW,,rachat_delisting,2023-11,racheté Broadcom
-SPLK,,rachat_delisting,2024-03,racheté Cisco
-PXD,,rachat_delisting,2024-05,fusion ExxonMobil (actions XOM)
-MRO,,rachat_delisting,2024-11,fusion ConocoPhillips (actions COP)
-SWN,,rachat_delisting,2024-10,fusion Chesapeake -> Expand Energy (actions EXE)
-DFS,,rachat_delisting,2025-05,fusion Capital One (actions COF)
-CTLT,,rachat_delisting,2024-12,Catalent racheté Novo Holdings
-STOR,,rachat_delisting,2023-02,racheté privé (GIC/Oak Street)
-SIVB,,faillite_delisting,2023-03,SVB Financial — faillite
-FRC,,faillite_delisting,2023-05,First Republic — saisie/vente JPM
-SBNY,,faillite_delisting,2023-03,Signature Bank — faillite
-BBBY,,faillite_delisting,2023-04,Bed Bath & Beyond — faillite
-SAVE,,faillite_delisting,2024-11,Spirit Airlines — chapitre 11
-HTZ,,recyclage_attention,2021-06,faillite 2020 puis NOUVEAU HTZ 2021 — deux émetteurs sous le même symbole
-DOW,,recyclage_attention,2019-04,DOW pré-2019 (DowDuPont historique) != DOW post-2019 (nouveau Dow Inc.)
+ticker_ancien,ticker_nouveau,type,date_effet,note,historique_valide
+FB,META,renommage,2022-06,Meta Platforms (ex-Facebook),complet
+PCLN,BKNG,renommage,2018-02,Booking Holdings (ex-Priceline),complet
+RDS-A,SHEL,renommage,2022-01,Shell — unification des classes A/B,complet
+RDS-B,SHEL,renommage,2022-01,Shell — unification des classes A/B,complet
+UTX,RTX,fusion_echange,2020-04,United Technologies + Raytheon -> RTX,complet
+RTN,RTX,fusion_echange,2020-04,Raytheon absorbé — actionnaires payés en RTX,post_fusion_seulement
+DISCA,WBD,fusion_echange,2022-04,Discovery -> Warner Bros. Discovery,complet
+DISCK,WBD,fusion_echange,2022-04,Discovery -> Warner Bros. Discovery,post_fusion_seulement
+VIAC,PSKY,renommage,2022-02,ViacomCBS -> Paramount (PARA) -> Paramount Skydance (PSKY 2025-08),complet
+CBS,VIAC,fusion_echange,2019-12,CBS + Viacom -> ViacomCBS (puis PARA),complet
+ANTM,ELV,renommage,2022-06,Elevance Health (ex-Anthem),complet
+FISV,FI,renommage,2023-06,Fiserv,complet
+SQ,XYZ,renommage,2025-01,Block (ex-Square),complet
+TOT,TTE,renommage,2021-06,TotalEnergies,complet
+STI,TFC,fusion_echange,2019-12,SunTrust + BB&T -> Truist,post_fusion_seulement
+MYL,VTRS,fusion_echange,2020-11,Mylan + Upjohn -> Viatris,post_fusion_seulement
+CTL,LUMN,renommage,2020-09,Lumen (ex-CenturyLink),complet
+COG,CTRA,fusion_echange,2021-10,Cabot + Cimarex -> Coterra,complet
+BLL,BALL,renommage,2022-08,Ball Corp,complet
+WLTW,WTW,renommage,2022-01,Willis Towers Watson,complet
+PKI,RVTY,renommage,2023-05,Revvity (ex-PerkinElmer),complet
+FBHS,FBIN,renommage,2022-12,Fortune Brands Innovations,complet
+LLL,LHX,fusion_echange,2019-06,L3 + Harris -> L3Harris,post_fusion_seulement
+HRS,LHX,fusion_echange,2019-06,L3 + Harris -> L3Harris,complet
+ABC,COR,renommage,2023-08,Cencora (ex-AmerisourceBergen),complet
+FLT,CPAY,renommage,2024-03,Corpay (ex-FLEETCOR),complet
+FEYE,MNDT,renommage,2021-10,Mandiant (ex-FireEye) — MNDT racheté GOOG 2022-09,complet
+MNDT,,rachat_delisting,2022-09,racheté Google,
+CTRP,TCOM,renommage,2019-10,Trip.com (ex-Ctrip),complet
+SNE,SONY,renommage,2021-04,Sony Group,complet
+GPS,GAP,renommage,2024-08,Gap Inc.,complet
+CHK,EXE,renommage,2024-10,Expand Energy (ex-Chesapeake post-fusion SWN),complet
+TWX,,rachat_delisting,2018-06,racheté AT&T,
+APC,,rachat_delisting,2019-08,racheté Occidental,
+AGN,,rachat_delisting,2020-05,racheté AbbVie,
+CELG,,rachat_delisting,2019-11,racheté Bristol-Myers Squibb (actions+CVR),
+ALXN,,rachat_delisting,2021-07,racheté AstraZeneca,
+XLNX,,rachat_delisting,2022-02,racheté AMD (actions),
+MXIM,,rachat_delisting,2021-08,racheté Analog Devices (actions),
+CERN,,rachat_delisting,2022-06,racheté Oracle,
+ATVI,,rachat_delisting,2023-10,racheté Microsoft,
+SGEN,,rachat_delisting,2023-12,racheté Pfizer,
+TWTR,,rachat_delisting,2022-10,racheté privé (X Corp),
+KSU,,rachat_delisting,2021-12,racheté Canadian Pacific (cash+actions),
+NLSN,,rachat_delisting,2022-10,racheté privé,
+INFO,,rachat_delisting,2022-02,fusion S&P Global (actions SPGI),
+DRE,,rachat_delisting,2022-10,fusion Prologis (actions PLD),
+WCG,,rachat_delisting,2020-01,racheté Centene,
+ETFC,,rachat_delisting,2020-10,racheté Morgan Stanley,
+PBCT,,rachat_delisting,2022-04,racheté M&T Bank,
+TIF,,rachat_delisting,2021-01,racheté LVMH,
+XEC,,rachat_delisting,2021-10,fusion Coterra (actions CTRA),
+WPX,,rachat_delisting,2021-01,fusion Devon (actions DVN),
+FDC,,rachat_delisting,2019-07,racheté Fiserv,
+MON,,rachat_delisting,2018-06,racheté Bayer,
+ESRX,,rachat_delisting,2018-12,racheté Cigna,
+CA,,rachat_delisting,2018-11,racheté Broadcom,
+RHT,,rachat_delisting,2019-07,racheté IBM,
+NBL,,rachat_delisting,2020-10,fusion Chevron (actions CVX),
+CXO,,rachat_delisting,2021-01,fusion ConocoPhillips (actions COP),
+FLIR,,rachat_delisting,2021-05,racheté Teledyne,
+NUAN,,rachat_delisting,2022-03,racheté Microsoft,
+CTXS,,rachat_delisting,2022-09,racheté privé,
+WORK,,rachat_delisting,2021-07,Slack racheté Salesforce,
+ZNGA,,rachat_delisting,2022-05,racheté Take-Two,
+Y,,rachat_delisting,2022-10,Alleghany racheté Berkshire,
+VMW,,rachat_delisting,2023-11,racheté Broadcom,
+SPLK,,rachat_delisting,2024-03,racheté Cisco,
+PXD,,rachat_delisting,2024-05,fusion ExxonMobil (actions XOM),
+MRO,,rachat_delisting,2024-11,fusion ConocoPhillips (actions COP),
+SWN,,rachat_delisting,2024-10,fusion Chesapeake -> Expand Energy (actions EXE),
+DFS,,rachat_delisting,2025-05,fusion Capital One (actions COF),
+CTLT,,rachat_delisting,2024-12,Catalent racheté Novo Holdings,
+STOR,,rachat_delisting,2023-02,racheté privé (GIC/Oak Street),
+SIVB,,faillite_delisting,2023-03,SVB Financial — faillite,
+FRC,,faillite_delisting,2023-05,First Republic — saisie/vente JPM,
+SBNY,,faillite_delisting,2023-03,Signature Bank — faillite,
+BBBY,,faillite_delisting,2023-04,Bed Bath & Beyond — faillite,
+SAVE,,faillite_delisting,2024-11,Spirit Airlines — chapitre 11,
+HTZ,,recyclage_attention,2021-06,faillite 2020 puis NOUVEAU HTZ 2021 — deux émetteurs sous le même symbole,
+DOW,,recyclage_attention,2019-04,DOW pré-2019 (DowDuPont historique) != DOW post-2019 (nouveau Dow Inc.),
+PARA,PSKY,fusion_echange,2025-08,Paramount + Skydance -> Paramount Skydance (historique PSKY = chaine CBS/Viacom depuis 2005),complet
