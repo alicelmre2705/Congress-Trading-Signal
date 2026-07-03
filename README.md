@@ -14,8 +14,8 @@ Nouveau ici ? Trois documents (dans `00_S1S2_donnees/docs/`) :
   (fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation Quiver par ère) ;
 - **[AUDIT_DONNEES_2014_2026.md](00_S1S2_donnees/docs/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
   du **2026-07-03** (complétude prouvée, +10 856 lignes récupérées, chaque erreur tracée → corrigée) ;
-- **[RAPPORT_FINAL_V2.pdf](00_S1S2_donnees/docs/RAPPORT_FINAL_V2.pdf)** — l'architecture d'origine
-  (*voyage d'une transaction*, `common`+jumeaux) sur 2020-2026 : méthode identique, chiffres plus anciens.
+- **[RAPPORT_FINAL.pdf](00_S1S2_donnees/docs/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
+  (*voyage d'une transaction*, `common`+jumeaux, qualité, validation Quiver, nettoyage backtest) sur **2014-2026**.
 
 **La table prête-recherche** est `00_S1S2_donnees/data/clean/transactions_backtest_2014_2026.csv`
 (**134 464 × 36**, produite par `Nettoyage_Backtest_2014_2026.ipynb` — parti/commissions point-in-time,
@@ -42,7 +42,7 @@ senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identit
 data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                  secteurs, snapshots commissions par Congrès · clean/ ← table canonique de recherche)
 docs/            RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md · PATCHS_S3S4_A_APPLIQUER.md ·
-                 RAPPORT_FINAL_V2.pdf · quality/ · quiver_validation/ · sources/
+                 RAPPORT_FINAL.pdf · quality/ · quiver_validation/ · sources/
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .

@@ -3,19 +3,32 @@
 
 ## Résumé exécutif
 
+**En un clin d'œil** :
+
+| | |
+|---|---|
+| Transactions uniques (2 chambres, 2014–2026) | **169 000** (House 151 989 · Sénat 17 011) |
+| Couverture de l'univers officiel (index House Clerk) | **100 %** des 8 252 PTR traités |
+| Identité rattachée (bioguide) | **100.0 %** (367 membres House · 78 Sénat) |
+| Dates cohérentes / délai médian de divulgation | **99.8 %** / **27 j** |
+| Montants renseignés | **99.4 %** |
+| Combinaisons Quiver retrouvées (déposant, ticker, sens — fenêtre commune) | **93.5 %** House · **92.1 %** Sénat |
+| Table de recherche backtest (§7) | **134 464 lignes × 36 colonnes** |
+| Filet de non-régression | golden **230 + 138 fichiers** (SHA256), zéro écart |
+
 - **Périmètre** — 169 000 transactions uniques de membres élus (House 151 989 + Sénat 17 011), 2014–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
 - **Complétude vs Quiver** *(§6)* — dans notre fenêtre, on retrouve **93.5 % (House) / 92.1 % (Sénat)** des trades Quiver au niveau (déposant, ticker, sens). Le **trou coté est minuscule** — ≤ 31 House / 0 Sénat au niveau ticker (borne haute) ; une mesure COMPLÉMENTAIRE au trade daté (§6.5, clé différente — les deux comptes ne s'emboîtent pas) confirme **27 House / 11 Sénat vrais trous** ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.
-- **On est plus complet que Quiver** — **+26524 combinaisons cotées (déposant, ticker, sens)** qu'on a et que Quiver n'a pas, contre 38 trous inverses → **sur-ensemble** de Quiver. ⚠ Cette avance est **inégale dans le temps** : bien corroborée après ~2017, elle repose avant sur des trades réels que **Quiver (mince pré-2017) ne peut pas confirmer** — détail par année en §6.2.
+- **On est plus complet que Quiver** — **+26 524 combinaisons cotées (déposant, ticker, sens)** qu'on a et que Quiver n'a pas, contre 38 trous inverses → **sur-ensemble** de Quiver. ⚠ Cette avance est **inégale dans le temps** : bien corroborée après ~2017, elle repose avant sur des trades réels que **Quiver (mince pré-2017) ne peut pas confirmer** — détail par année en §6.2.
 - **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 545 candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 27 j, montants renseignés 99.4 %. *Anti-look-ahead : tout usage aval (backtest) entre sur `disclosure_date` (date de dépôt imprimée, fiable), jamais sur la `transaction_date` OCR — quelques dates OCR restent imprécises (§3).*
 
-*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver (vérité-terrain).*
+*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver (vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest).*
 
 ## 1. Construction & validation du corpus
 
 Avant toute statistique, voici **comment le corpus est construit**, dans l'ordre :
 
-1. **Sources** — déclarations officielles : Chambre (*PTR*) et Sénat (*eFD*), chacune en deux voies — **électronique** (formulaire structuré, lecture déterministe) et **papier scanné** (PDF → **OCR** par modèle de vision).
+1. **Sources** — déclarations officielles : Chambre (*PTR — Periodic Transaction Report*) et Sénat (*eFD — electronic Financial Disclosure*), chacune en deux voies — **électronique** (formulaire structuré, lecture déterministe) et **papier scanné** (PDF → **OCR** par modèle de vision).
 2. **Extraction** — une ligne = une transaction (membre, date, actif, sens, fourchette de montant, détenteur).
 3. **Enrichissement** — ticker (explicite dans la source · repris de l'électronique · résolu par LLM), secteur GICS (yfinance · LLM), identité (`bioguide_id`), ancienneté.
 4. **Déduplication cross-année** — une même transaction re-divulguée une autre année (amendement, rapport annuel) ne compte qu'**une fois** (clé naturelle + rang d'occurrence).
@@ -31,7 +44,7 @@ Avant toute statistique, voici **comment le corpus est construit**, dans l'ordre
 
 ### Couverture vs l'univers officiel (House Clerk)
 
-Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; les PTR ont `FilingType='P'`. Depuis l'audit du 2026-07-03, l'index est l'autorité d'appartenance (plus de filtre par fenêtre de dépôt — l'ancien filtre perdait 205 PTR déposés après le 31/12) : **100 % des PTR officiels sont traités** — parsés, OCRisés, ou écartés par une règle écrite (manuscrits, cf. §6.6).
+Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; les PTR ont `FilingType='P'`. **L'index annuel est l'autorité d'appartenance** d'un document à son année : un PTR déposé tardivement (jusqu'à +3 ans après l'année du formulaire) reste rattaché à son index. **100 % des PTR officiels sont traités** — parsés, OCRisés, ou écartés par une règle écrite (manuscrits, cf. §6.6).
 
 | année | PTR officiels | avec transactions | gated manuscrit | sans txn retenue | couverts % |
 | --- | --- | --- | --- | --- | --- |
@@ -49,7 +62,7 @@ Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; l
 | 2025 | 515 | 503 | 6 | 6 | 100.0 |
 | 2026 | 274 | 268 | 2 | 4 | 100.0 |
 | TOTAL | 8252 | 7568 | 582 | 102 | 100.0 |
-*PTR officiels = FilingType『P』 de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`).*
+*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`).*
 
 ### Validation & reproductibilité
 
@@ -99,7 +112,7 @@ Toute la suite distingue **quatre familles** (chambre × voie), car leur qualit�
 
 ### Familles d'actifs
 
-Le non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :
+L'OCR du Sénat se distingue : la part d'actions y tombe et la catégorie « autre » (essentiellement du non-coté : parts de sociétés privées, produits divers) domine :
 
 | sous-corpus | n | action % | option % | oblig. État % | muni % | oblig. corp. % | fonds % | autre % | manquant % |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -149,7 +162,7 @@ Le non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :
 | House OCR | 93261 | 69.2 | 11.9 | 0.1 | 18.8 |
 | Sénat électronique | 13026 | 62.7 | 14.9 | 0.8 | 21.6 |
 | Sénat OCR | 3985 | 32.8 | 13.5 | 0.6 | 53.2 |
-*yfinance = base factuelle · LLM · manuel = correction d'audit · aucune*
+*yfinance = base factuelle · LLM · manuel = correction vérifiée à la main · aucune*
 
 ![Volume par secteur GICS](quality/volume_par_secteur.png)
 
@@ -172,7 +185,7 @@ Trois questions, de la plus faible à la plus forte : les dates sont-elles **lis
 | House OCR | 93261 | 96.9 | 99.8 | 150 | 97 | 2916 |
 | Sénat électronique | 13026 | 100.0 | 99.9 | 9 | 0 | 0 |
 | Sénat OCR | 3985 | 99.0 | 98.8 | 46 | 0 | 38 |
-*dates exploitables = parseables (% du total ; le reste = OCR illisible) · cohérentes = divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au dépôt, ou < 2012) · date manquante = illisible. ⚠ Colonnes NON additives : une même ligne peut cumuler « incohérente » ET « année aberrante » (le décompte disjoint est plus petit que la somme). Des transactions 2013–2019 sont légitimes (divulgations tardives).*
+*dates exploitables = parseables (% du total ; le reste = OCR illisible) · cohérentes = divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT transaction (amendement/antidaté) · année aberrante = année suspecte par défaut (postérieure au dépôt, ou < 2012) · date manquante = illisible. ⚠ Colonnes NON additives : une même ligne peut cumuler « incohérente » ET « année aberrante » (le décompte disjoint est plus petit que la somme). Des transactions 2013–2019 sont légitimes (divulgations tardives).*
 
 ### Délai légal de divulgation (STOCK Act ~45 j)
 
@@ -197,24 +210,24 @@ Trois questions, de la plus faible à la plus forte : les dates sont-elles **lis
 
 | déposant | chambre | date txn | date divulg. | délai (j) | ticker | opération |
 | --- | --- | --- | --- | --- | --- | --- |
-| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DAL | Purchase |
-| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698.0 | DHR | Purchase |
-| Mike Kelly | house | 2007-08-31 | 2017-09-27 | 3680.0 |  | Purchase |
-| Diane Black | house | 2006-02-06 | 2015-03-27 | 3336.0 |  | Sale |
-| Richard W. Allen | house | 2017-02-03 | 2023-08-10 | 2379.0 |  | Purchase |
-| Richard W. Allen | house | 2017-02-13 | 2023-08-10 | 2369.0 | O | Sale |
-| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale |
-| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331.0 | BBT | Sale (Partial) |
-| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | COST | Purchase |
-| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296.0 | XOM | Sale |
-| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | FDX | Purchase |
-| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277.0 | GE | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | COO | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | PCLN | Sale |
-| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174.0 | DFS | Sale |
+| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698 | DAL | Purchase |
+| Jefferson Shreve | house | 2015-05-08 | 2025-06-22 | 3698 | DHR | Purchase |
+| Mike Kelly | house | 2007-08-31 | 2017-09-27 | 3680 |  | Purchase |
+| Diane Black | house | 2006-02-06 | 2015-03-27 | 3336 |  | Sale |
+| Richard W. Allen | house | 2017-02-03 | 2023-08-10 | 2379 |  | Purchase |
+| Richard W. Allen | house | 2017-02-13 | 2023-08-10 | 2369 | O | Sale |
+| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331 | BBT | Sale |
+| Richard W. Allen | house | 2017-03-23 | 2023-08-10 | 2331 | BBT | Sale (Partial) |
+| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296 | COST | Purchase |
+| Richard W. Allen | house | 2017-04-27 | 2023-08-10 | 2296 | XOM | Sale |
+| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277 | FDX | Purchase |
+| Richard W. Allen | house | 2017-05-16 | 2023-08-10 | 2277 | GE | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174 | COO | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174 | PCLN | Sale |
+| Thomas Suozzi | house | 2017-01-05 | 2022-12-19 | 2174 | DFS | Sale |
 *délai (j) = divulgation − transaction · divulgations > 1 an après la transaction (souvent des amendements ou de vieux comptes régularisés)*
 
-**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = **notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** (4 dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent flaggées.
+**Audit des anomalies (échantillon de 12 PDF re-lus à la source).** ~½ sont FIDÈLES : coquilles du **déposant lui-même** (un PTR imprime littéralement `01/35/22`), cellules vides ou parts de société sans date de transaction — on les transcrit sans les inventer. ~⅓ = **notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** (4 dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent flaguées.
 
 ## 4. Montants (`amount_midpoint`)
 
@@ -312,7 +325,7 @@ Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent
 | Jefferson Shreve | house | 631 | 192.9 |
 | Scott Franklin | house | 68 | 188.2 |
 | RICHARD M BURR | senate | 525 | 188.0 |
-*volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de transactions*
+*volume estimé M$ = Σ midpoint des transactions du déposant · n trades = transactions à montant renseigné (effectif légèrement inférieur au tableau par nombre ci-dessous)*
 
 **Par nombre de transactions** — 445 déposants distincts, dont **294** avec ≥ 10 transactions (éligibles au backtest) et **236** actifs sur ≥ 3 années :
 
@@ -338,7 +351,7 @@ Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent
 | Greg Gianforte | 1490 | 0 | 0 | 4 | 2017 | 2020 |
 | Thomas H Tuberville | 1369 | 0 | 0 | 5 | 2021 | 2025 |
 | Daniel Goldman | 1291 | 0 | 0 | 2 | 2023 | 2025 |
-*total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction*
+*total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction (une 1re année < 2014 = vieilles transactions régularisées dans un dépôt 2014+)*
 
 ![Top déposants](quality/top_deposants.png)
 
@@ -386,41 +399,41 @@ Chaque transaction est confrontée à Quiver par une clé normalisée, en **troi
 
 On compare des **combinaisons** `(membre, action, sens)`, en **ignorant volontairement la date ET le nombre** : `(Khanna, AAPL, Achat)` compte pour **un**, qu'il l'ait acheté 1 fois ou 50. La question est donc grossière **exprès** : *« a-t-on raté une combinaison ENTIÈRE que Quiver connaît ? »* — le comptage trade par trade, c'est le Niveau 2 (§6.3).
 
-On retrouve **93.5 % (House)** et **92.1 % (Sénat)** des combinaisons Quiver. Le **trou coté** est minuscule (31 House / 0 Sénat) — c'est une **borne haute (sans date)** ; au trade près (§6.5), seule une partie sont de vrais trous confirmés. Le reste du résidu est récupérable ou hors périmètre :
+On retrouve **93.5 % (House)** et **92.1 % (Sénat)** des combinaisons Quiver. Le **trou coté** est minuscule (31 House / 0 Sénat) — c'est une **borne haute (sans date)** ; au trade DATÉ (§6.5, clé différente — les deux comptes ne s'emboîtent pas), la mesure complémentaire confirme les vrais trous. Le reste du résidu est récupérable ou hors périmètre :
 
-| chambre | trades Quiver (fenêtre) | qu'on a | inclusion % | résidu | récupérable (OCR) | hors périmètre | trou coté (borne haute) |
+| chambre | combinaisons Quiver (fenêtre) | qu'on a | inclusion % | résidu | récupérable (OCR) | hors périmètre | trou coté (borne haute) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | house | 26175 | 24471 | 93.5 | 1704 | 1578 | 95 | 31 |
 | senate | 4540 | 4180 | 92.1 | 360 | 7 | 353 | 0 |
 
-*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier dont on a capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre polluant le cache · **trou coté (borne haute)** = combos manquants au niveau ticker (sans date) ; au trade près (§6.5), seul un sous-ensemble (`NOTRE_MANQUE`) sont de vrais trous confirmés.
+*Le résidu se lit ainsi :* **récupérable (OCR)** = membre lu en OCR papier dont on a capté le trade mais **pas résolu le ticker** (nom lisible → récupérable, cf. note ; sinon non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté (CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre de l'autre chambre polluant le cache · **trou coté (borne haute)** = combos manquants au niveau ticker (sans date) ; au trade DATÉ (§6.5, mesure complémentaire à clé différente), `NOTRE_MANQUE` compte de vrais trous confirmés.
 
 *Note :* une passe de **récupération nom→ticker** (vérifiée, **hors Quiver**, appliquée à la lecture — golden intact) a rendu leur ticker à **2540 trades** d'actions que l'OCR/LLM avaient laissés vides (faux négatifs, ex. NEENAH PAPER→NP, TENCENT→TCEHY). Le « récupérable OCR » restant est surtout des **non-cotés déguisés** (préférentielles, fonds) et du **charabia OCR**, non mappables.
 
-**Bilan net (au trade près)** — actions cotées qu'on a et que Quiver n'a PAS vs **vrais trous** (`NOTRE_MANQUE` = le sous-ensemble des « trous borne haute » ci-dessus réellement absents au trade près) → on est un **sur-ensemble** de Quiver :
+**Bilan net (au trade près)** — actions cotées qu'on a et que Quiver n'a PAS vs **vrais trous** (`NOTRE_MANQUE`, mesure au trade daté — clé différente de la borne ticker-niveau ci-dessus, les deux comptes ne s'emboîtent pas réellement absents au trade près) → on est un **sur-ensemble** de Quiver :
 
 | chambre | actions qu'on a en + | vrais trous | solde net |
 | --- | --- | --- | --- |
 | house | 23562 | 27 | 23535 |
 | senate | 2962 | 11 | 2951 |
 
-**⚠ Honnêteté par ère (corroboration au niveau ACTION, House `asset_type=Stock`).** Le taux global lisse une forte hétérogénéité : **2020-2026 = 87.2 %** d'actions corroborées par Quiver, mais **2014-2019 = 58.7 %** seulement (creux **2015-2016** ≈ 11-17 %). L'écart **ne reflète PAS une erreur de notre côté** : nos 15015 actions « en plus » pré-2020 portent des **tickers réels et d'époque** (vérifiés), mais **Quiver est mince avant ~2017** et ne peut pas les corroborer. En clair : **moins de vérité-terrain externe avant 2017**, à garder en tête pour tout usage aval (backtest).
+**⚠ Honnêteté par ère (corroboration au niveau ACTION, House `asset_type=Stock`).** Le taux global lisse une forte hétérogénéité : **2020-2026 = 87.2 %** d'actions corroborées par Quiver, mais **2014-2019 = 58.7 %** seulement (creux **2015-2016** ≈ 17 %). L'écart **ne reflète PAS une erreur de notre côté** : nos 15 015 actions « en plus » pré-2020 portent des **tickers réels et d'époque** (vérifiés), mais **Quiver est mince avant ~2017** et ne peut pas les corroborer. En clair : **moins de vérité-terrain externe avant 2017**, à garder en tête pour tout usage aval (backtest).
 
 | année | actions_corroborées | actions_only_nous | corroboration_pct |
 | --- | --- | --- | --- |
-| 2014.0 | 1930.0 | 3984.0 | 32.6 |
-| 2015.0 | 540.0 | 2711.0 | 16.6 |
-| 2016.0 | 291.0 | 1458.0 | 16.6 |
-| 2017.0 | 3729.0 | 2241.0 | 62.5 |
-| 2018.0 | 7243.0 | 2722.0 | 72.7 |
-| 2019.0 | 7630.0 | 1899.0 | 80.1 |
-| 2020.0 | 10025.0 | 2801.0 | 78.2 |
-| 2021.0 | 6945.0 | 2803.0 | 71.2 |
-| 2022.0 | 11011.0 | 1286.0 | 89.5 |
-| 2023.0 | 7522.0 | 442.0 | 94.5 |
-| 2024.0 | 6797.0 | 481.0 | 93.4 |
-| 2025.0 | 11095.0 | 408.0 | 96.5 |
-| 2026.0 | 4740.0 | 348.0 | 93.2 |
+| 2014 | 1930 | 3984 | 32.6 |
+| 2015 | 540 | 2711 | 16.6 |
+| 2016 | 291 | 1458 | 16.6 |
+| 2017 | 3729 | 2241 | 62.5 |
+| 2018 | 7243 | 2722 | 72.7 |
+| 2019 | 7630 | 1899 | 80.1 |
+| 2020 | 10025 | 2801 | 78.2 |
+| 2021 | 6945 | 2803 | 71.2 |
+| 2022 | 11011 | 1286 | 89.5 |
+| 2023 | 7522 | 442 | 94.5 |
+| 2024 | 6797 | 481 | 93.4 |
+| 2025 | 11095 | 408 | 96.5 |
+| 2026 | 4740 | 348 | 93.2 |
 *actions_corroborées = appariées à Quiver (exact + date proche) · actions_only_nous = actions réelles qu'on a et que Quiver n'a pas (non corroborables) · corroboration_pct = corroborées / (corroborées + only_nous).*
 
 ### 6.3 Niveau 2 — Le même trade, à la même date ?
@@ -491,7 +504,7 @@ On a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux chos
 | vrais trous cotés (`NOTRE_MANQUE`) | 27 | 11 | **DUR** — vrai trou confirmé au trade près (mesure au trade DATÉ, clé différente de la borne ticker-niveau du §6.2 : les deux comptes ne s'emboîtent pas) | `notre_manque_*` |
 | lignes OCR papier (`MANQUANT_PAPIER`) | 3378 | 0 | borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes | `manquant_papier_*` |
 | tickers à revoir (`ECART_TICKER`) | 8418 | 190 | borne haute — autre ticker ce jour-là (gonflée par la multiplicité, PAS un taux d'erreur) | `ecart_ticker_*` |
-**Qui ?** — les déposants derrière les vrais trous (`NOTRE_MANQUE`), à investiguer :
+**Qui ?** — top 12 des déposants derrière les vrais trous (`NOTRE_MANQUE` ; liste complète ligne à ligne : `docs/quiver_validation/notre_manque_*.csv`) :
 
 | chambre | bioguide | nom | n trous |
 | --- | --- | --- | --- |
@@ -510,7 +523,7 @@ On a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux chos
 
 ### 6.6 Annexe
 
-Les tables **figées** `07c/07g/07h` reproduisent la même comparaison en *exact-date* (elles **sous-comptent**, cf. §6.3) ; conservées pour la lignée/régression, non re-rendues ici. Les autres figées (`07/07b/07d/07e/07f/06d`) sont des sorties historiques du pipeline.
+Les tables **figées** du golden (`data/house/tables/*/07c_*`, `07g_*`, `07h_*` et équivalents Sénat) reproduisent la même comparaison en *exact-date* (elles **sous-comptent**, cf. §6.3) ; conservées comme jeux de référence de non-régression, non re-rendues ici. Les autres tables `07*`/`06d` de chaque année sont des sorties historiques du pipeline.
 
 **Profil des clusters de scan (House OCR)** — pourquoi le manuscrit est exclu (A = tapé droit, B = tapé tourné, C = manuscrit) :
 
@@ -519,7 +532,76 @@ Les tables **figées** `07c/07g/07h` reproduisent la même comparaison en *exact
 | A_tape_droit | 5956 | 59 | 99.6 | 84.5 | 88.0 |
 | B_tape_tourne | 84787 | 1517 | 96.4 | 84.3 | 65.2 |
 | C_manuscrit | 2518 | 193 | 98.6 | 83.3 | 12.9 |
-*`date plausible %` / `ticker %` = qualité INTERNE (sans Quiver) · `Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI (appariée sur membre+ticker+sens, date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur). Exceptions CONSERVÉES et rejouables : 3 filers à forte perte corroborée (FILERS_C_A_RECUPERER) + 33 docs C du run 2020-2026 curés à la main AVANT cette politique (DOCS_C_HERITES_2020_2026, house/ocr.py) ; 70 manuscrits de l'acquisition 2026-07-03 gated selon la même règle.*
+*`date plausible %` / `ticker %` = qualité INTERNE (sans Quiver) · `Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI (appariée sur membre+ticker+sens, date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur). Exceptions explicites et REJOUABLES (house/ocr.py) : 3 déposants à forte perte corroborée (FILERS_C_A_RECUPERER) + 33 documents curés manuellement (DOCS_C_HERITES_2020_2026).*
 
 Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). Hors golden.
+
+## 7. Du corpus à la table de recherche (nettoyage backtest)
+
+Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le notebook `Nettoyage_Backtest_2014_2026.ipynb` dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 464 lignes × 36 colonnes**) par un entonnoir en 4 étapes.
+
+**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport avec les mêmes règles que le notebook, puis confrontés au fichier publié (égalité vérifiée par assertion à chaque run).*
+
+### L'entonnoir
+
+| étape | règle | retirées | restantes |
+| --- | --- | --- | --- |
+| — | corpus unique (`load_final`) | 0 | 169000 |
+| A | dates présentes & cohérentes (divulgation ≥ transaction, année plausible) | 3252 | 165748 |
+| B | actions + ETF cotés (ticker exploitable, réellement coté, famille cotée) | 29771 | 135977 |
+| C | direction claire (achat / vente — les échanges sortent) | 826 | 135151 |
+| D | montant présent (fourchette STOCK Act → point milieu) | 687 | 134464 |
+*169 000 → 134 464 = 79.6 % du corpus conservé. Chaque retrait est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un simple champ vide récupérable.*
+
+### Pourquoi les lignes de l'étape B partent (une seule cause par ligne)
+
+| cause | lignes |
+| --- | --- |
+| ticker vide (aucun symbole → pas de prix) | 27006 |
+| ticker malformé / non coté (CUSIP, fragment OCR…) | 164 |
+| famille non cotée (option, obligation, muni, gouvernement) | 2601 |
+*ticker vide = actifs non cotés (munis, obligations, sociétés privées) qui n'ont légitimement pas de symbole · malformé/non coté = CUSIP, fragments OCR, préférentielles non joignables à un prix · famille non cotée = options, obligations, bons du Trésor (classes détectées ticker-first : une action au type déclaré vide est GARDÉE grâce à son ticker).*
+
+### Composition de la table publiée
+
+**Par chambre et par ère :**
+
+| chambre | ère | transactions |
+| --- | --- | --- |
+| house | 2014-2019 | 56706 |
+| house | 2020-2026 | 66108 |
+| senate | 2014-2019 | 7111 |
+| senate | 2020-2026 | 4539 |
+**Par sens :**
+
+| sens | transactions |
+| --- | --- |
+| buy | 68250 |
+| sell | 66214 |
+**Par classe d'actif :**
+
+| classe d'actif | transactions |
+| --- | --- |
+| stock | 128974 |
+| unknown | 3300 |
+| etf_broad | 2022 |
+| etf_sector | 168 |
+*`stock` = action avec secteur GICS (rempli à 100 % sur les actions) · `etf_sector` = SPDR sectoriel (son propre proxy) · `etf_broad` = ETF diversifié coté, GARDÉ et flagué (pas de secteur GICS par nature) · `unknown` = coté mais classe non résolue, flagué.*
+
+### Ce qui est flagué (gardé, jamais retiré)
+
+| flag | lignes | % |
+| --- | --- | --- |
+| `flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication) | 16349 | 12.2 |
+| `flag_very_late_filing` — divulgation > 365 j | 3075 | 2.3 |
+| `is_delisted` — titre sorti de cote (rachat/faillite, typé via `data/reference/ticker_renames.csv`) | 3542 | 2.6 |
+| `lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer | 11873 | 8.8 |
+| `flag_price_caution` — symbole recyclé / jambe absorbée d'une fusion (join prix par période) | 505 | 0.4 |
+### Ce que la table ajoute au corpus (enrichissements)
+
+- **Parti à la date de la transaction** (les changements de parti en cours de mandat sont datés — `party_affiliations` du référentiel officiel).
+- **Commissions du Congrès de la transaction** (snapshots par Congrès 113-119, `data/reference/committees_snapshots/` ; bascule au 3 janvier) + `committees_key_flag` (fiscalité / défense / renseignement / banque) — la liste complète est exportée, la recherche peut redéfinir son propre flag.
+- **`ticker` fidèle à la déclaration + `ticker_yahoo` prêt pour le join prix** (format Yahoo, renommages et fusions appliqués via `data/reference/ticker_renames.csv` ; les titres délistés sont typés — faillite, rachat — au lieu de disparaître en silence).
+- **`amount_midpoint` = milieu exact de la fourchette STOCK Act** (convention unique sur tout le corpus) ; `owner`, `occurrence_index`, `lot_size`, `doc_id`, `natural_key_hash` pour la traçabilité ligne à ligne.
+- **Invariants garantis à l'export** (assertions) : bioguide, ticker, montant, direction, chronologie (divulgation ≥ transaction) et clé naturelle remplis sur 100 % des lignes.
 

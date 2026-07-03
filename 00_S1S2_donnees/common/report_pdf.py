@@ -25,6 +25,9 @@ body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-siz
 h1 { font-size: 18px; margin: 0 0 6px; }
 h2 { font-size: 14px; margin: 16px 0 4px; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
 h3 { font-size: 11.5px; margin: 11px 0 3px; color: #222; }
+/* jamais de titre orphelin en bas de page (audit rendu 2026-07-04) */
+h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; break-inside: avoid; }
+table, figure { break-inside: avoid-page; }
 p  { margin: 4px 0; }
 ul, ol { margin: 4px 0 4px 18px; }
 li { margin: 1px 0; }

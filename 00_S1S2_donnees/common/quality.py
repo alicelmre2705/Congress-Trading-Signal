@@ -162,6 +162,81 @@ def _keys(df, dim):
     return sorted(df[dim].dropna().unique())
 
 
+def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
+    """Statistiques du nettoyage backtest (§7 du rapport) : rejoue l'entonnoir A→D du notebook
+    `Nettoyage_Backtest_2014_2026.ipynb` avec les MÊMES primitives (canonical_ticker,
+    _quiver_untradeable, _asset_bucket) et confronte le compte final au CSV canonique publié.
+    Renvoie {} si la table canonique est absente. Cohérence notebook↔rapport garantie par assert."""
+    clean_p = Path(repo_root) / "data" / "clean" / "transactions_backtest_2014_2026.csv"
+    if not clean_p.exists():
+        return {}
+    from common.schema import canonical_ticker
+    from common.quiver_diagnosis import _quiver_untradeable
+
+    n0 = len(df)
+    fy = pd.to_numeric(df["file_year"], errors="coerce")
+    # A — dates présentes & cohérentes (chronologie exploitable)
+    kA = df["lag_days"].notna() & (df["lag_days"] >= 0) & (df["txn_year"] >= 2012) & (df["txn_year"] <= fy)
+    dA = df[kA]
+    # B — actions/ETF cotés, ticker-first
+    NON_COTE = {"bond", "muni", "gov", "option", "autre"}
+    m_tk = dA["ticker"].map(lambda t: canonical_ticker(t)[0]) != ""
+    m_tr = ~dA["ticker"].map(_quiver_untradeable)
+    m_fam = ~dA["asset_type"].map(_asset_bucket).isin(NON_COTE)
+    kB = m_tk & m_tr & m_fam
+    dB = dA[kB]
+    # C — sens achat/vente ; D — montant présent
+    dC = dB[dB["op"].isin(["buy", "sell"])]
+    dD = dC[dC["amount_midpoint"].notna()]
+
+    clean = pd.read_csv(clean_p, dtype=str)
+    assert len(clean) == len(dD), (
+        f"entonnoir rejoué ({len(dD)}) ≠ table canonique publiée ({len(clean)}) — "
+        "re-générer le notebook Nettoyage_Backtest_2014_2026.ipynb")
+
+    funnel = pd.DataFrame([
+        {"étape": "—", "règle": "corpus unique (`load_final`)", "retirées": 0, "restantes": n0},
+        {"étape": "A", "règle": "dates présentes & cohérentes (divulgation ≥ transaction, année plausible)",
+         "retirées": n0 - len(dA), "restantes": len(dA)},
+        {"étape": "B", "règle": "actions + ETF cotés (ticker exploitable, réellement coté, famille cotée)",
+         "retirées": len(dA) - len(dB), "restantes": len(dB)},
+        {"étape": "C", "règle": "direction claire (achat / vente — les échanges sortent)",
+         "retirées": len(dB) - len(dC), "restantes": len(dC)},
+        {"étape": "D", "règle": "montant présent (fourchette STOCK Act → point milieu)",
+         "retirées": len(dC) - len(dD), "restantes": len(dD)},
+    ])
+    # causes de l'étape B, exclusives dans l'ordre (une ligne = une cause)
+    causes = pd.DataFrame([
+        {"cause": "ticker vide (aucun symbole → pas de prix)", "lignes": int((~m_tk).sum())},
+        {"cause": "ticker malformé / non coté (CUSIP, fragment OCR…)", "lignes": int((m_tk & ~m_tr).sum())},
+        {"cause": "famille non cotée (option, obligation, muni, gouvernement)",
+         "lignes": int((m_tk & m_tr & ~m_fam).sum())},
+    ])
+    # composition de la table publiée
+    era = pd.to_datetime(clean["transaction_date"], errors="coerce").dt.year < 2020
+    compo = (clean.assign(_era=era.map({True: "2014-2019", False: "2020-2026"}))
+             .groupby(["chamber", "_era"]).size().rename("transactions").reset_index()
+             .rename(columns={"_era": "ère", "chamber": "chambre"}))
+    sens = clean["direction"].value_counts().rename_axis("sens").rename("transactions").reset_index()
+    aclass = clean["asset_class"].value_counts().rename_axis("classe d'actif").rename("transactions").reset_index()
+    _b = lambda s: clean[s].astype(str).str.lower().eq("true")
+    flags = pd.DataFrame([
+        {"flag": "`flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication)",
+         "lignes": int(_b("flag_late_filing").sum()), "%": round(100 * _b("flag_late_filing").mean(), 1)},
+        {"flag": "`flag_very_late_filing` — divulgation > 365 j", "lignes": int(_b("flag_very_late_filing").sum()),
+         "%": round(100 * _b("flag_very_late_filing").mean(), 1)},
+        {"flag": "`is_delisted` — titre sorti de cote (rachat/faillite, typé via `data/reference/ticker_renames.csv`)",
+         "lignes": int(_b("is_delisted").sum()), "%": round(100 * _b("is_delisted").mean(), 1)},
+        {"flag": "`lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer",
+         "lignes": int((pd.to_numeric(clean["lot_size"], errors="coerce") > 1).sum()),
+         "%": round(100 * (pd.to_numeric(clean["lot_size"], errors="coerce") > 1).mean(), 1)},
+        {"flag": "`flag_price_caution` — symbole recyclé / jambe absorbée d'une fusion (join prix par période)",
+         "lignes": int(_b("flag_price_caution").sum()), "%": round(100 * _b("flag_price_caution").mean(), 1)},
+    ])
+    return {"funnel": funnel, "causes_B": causes, "compo": compo, "sens": sens,
+            "asset_class": aclass, "flags": flags, "n_final": len(clean), "n_cols": clean.shape[1]}
+
+
 def official_coverage(repo_root: Path) -> pd.DataFrame:
     """Couverture House vs l'univers officiel : PTR (FilingType='P') des index {Y}FD.xml embarqués vs
     docs présents dans les FINAL, manuscrits gated (census, hors exceptions rejouables) et vides/échecs.
@@ -253,6 +328,7 @@ def delay_outliers(df: pd.DataFrame, threshold: int = 365, top: int = 15) -> pd.
     """Plus grands délais (divulgations très tardives) — suspects au sens Ramify."""
     g = df[df["lag_days"] > threshold].copy()
     g = g.sort_values("lag_days", ascending=False).head(top)
+    g["lag_days"] = g["lag_days"].astype(int)   # affichage entier (pas de « 3698.0 » au rendu)
     return g[["declarant_name", "chamber", "transaction_date", "disclosure_date",
               "lag_days", "ticker", "operation_type"]].reset_index(drop=True)
 
@@ -686,7 +762,7 @@ def _figures(df, coverage, outdir: Path) -> list:
         ax.set_ylabel("% des transactions"); ax.set_xlabel("")
         ax.set_title("Mix achat/vente par sous-corpus")
         ax.legend(["achat", "vente", "échange", "autre"], fontsize=8)
-        ax.set_xticklabels(omp.index, rotation=20, ha="right")
+        ax.set_xticklabels(omp.index, rotation=20, ha="right", fontsize=9)
         f5 = outdir / "mix_operations_par_corpus.png"; fig.tight_layout(); fig.savefig(f5, dpi=110); plt.close(fig)
         figs.append(f5)
     except Exception:
@@ -704,7 +780,7 @@ def _figures(df, coverage, outdir: Path) -> list:
         ax.set_ylabel("% des transactions"); ax.set_xlabel("")
         ax.set_title("Mix de types d'actifs par sous-corpus")
         ax.legend(loc="center left", bbox_to_anchor=(1.0, 0.5), fontsize=8)
-        ax.set_xticklabels(amp.index, rotation=20, ha="right")
+        ax.set_xticklabels(amp.index, rotation=20, ha="right", fontsize=9)
         f6 = outdir / "mix_actifs_par_corpus.png"; fig.tight_layout(); fig.savefig(f6, dpi=110); plt.close(fig)
         figs.append(f6)
     except Exception:
@@ -805,7 +881,7 @@ _COLS = {
     "only_quiver": "Quiver seul", "couverture_pct": "couverture %", "precision_pct": "precision %",
     "asset_type": "type d'actif", "exact_match": "exact (date)", "date_mismatch": "date ≠",
     "no_match": "absent", "non_equity": "non-coté", "total": "total", "cluster": "cluster",
-    "quiver_dans_fenetre": "trades Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
+    "quiver_dans_fenetre": "combinaisons Quiver (fenêtre)", "inclus": "qu'on a", "inclusion_pct": "inclusion %",
     "residu": "résidu", "ocr_recuperable": "récupérable (OCR)", "hors_perimetre": "hors périmètre",
     "quiver_non_cote": "dont non-coté", "credit_2jambes": "dont 2-jambes", "cross_chambre": "dont autre chambre",
     "residu_cote_reel": "trou coté (borne haute)",
@@ -870,7 +946,11 @@ def stock_corroboration_by_year(repo_root: Path) -> pd.DataFrame:
         tot = ex + dm + nm
         rows.append({"année": y, "actions_corroborées": ex + dm, "actions_only_nous": nm,
                      "corroboration_pct": round(100 * (ex + dm) / tot, 1) if tot else None})
-    return pd.DataFrame(rows)
+    out = pd.DataFrame(rows)
+    for c in ("année", "actions_corroborées", "actions_only_nous"):
+        if c in out.columns:
+            out[c] = out[c].astype("Int64")   # rendu entier (pas de « 2015.0 » dans le tableau)
+    return out
 
 
 def build_report(repo_root: Path) -> Path:
@@ -945,6 +1025,22 @@ def build_report(repo_root: Path) -> Path:
                  "Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. "
                  "*Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*\n")
     parts.append("\n## Résumé exécutif\n\n")
+    # « En un clin d'œil » : les chiffres porteurs du corpus, tous recalculés au run.
+    _bf = backtest_funnel(df, repo_root)
+    _cov = official_coverage(repo_root)
+    _cov_pct = "100 %" if len(_cov) and (_cov["couverts %"] == 100.0).all() else "voir §1"
+    parts.append("**En un clin d'œil** :\n\n")
+    parts.append("| | |\n|---|---|\n")
+    parts.append(f"| Transactions uniques (2 chambres, {yr}) | **{_n(n_total)}** (House {_n(n_house)} · Sénat {_n(n_senate)}) |\n")
+    parts.append(f"| Couverture de l'univers officiel (index House Clerk) | **{_cov_pct}** des {_n(int(_cov['PTR officiels'].iloc[-1])) if len(_cov) else '—'} PTR traités |\n")
+    parts.append(f"| Identité rattachée (bioguide) | **{id_pct} %** ({_n_bio_h} membres House · {_n_bio_s} Sénat) |\n")
+    parts.append(f"| Dates cohérentes / délai médian de divulgation | **{coh_pct} %** / **{med_lag} j** |\n")
+    parts.append(f"| Montants renseignés | **{amt_pct} %** |\n")
+    parts.append(f"| Combinaisons Quiver retrouvées (déposant, ticker, sens — fenêtre commune) | **{_cell(inc,'house','inclusion_pct')} %** House · **{_cell(inc,'senate','inclusion_pct')} %** Sénat |\n")
+    if _bf:
+        parts.append(f"| Table de recherche backtest (§7) | **{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes** |\n")
+    parts.append(f"| Filet de non-régression | golden **{_n_gold_h} + {_n_gold_s} fichiers** (SHA256), zéro écart |\n")
+    parts.append("\n")
     parts.append(
         f"- **Périmètre** — {_n(n_total)} transactions uniques de membres élus "
         f"(House {_n(n_house)} + Sénat {_n(n_senate)}), {yr}, en **4 sous-corpus** "
@@ -956,9 +1052,9 @@ def build_report(repo_root: Path) -> Path:
         f"ticker (borne haute) ; une mesure COMPLÉMENTAIRE au trade daté (§6.5, clé différente — les deux comptes "
         f"ne s'emboîtent pas) confirme **{manque.get('house',0)} House / {manque.get('senate',0)} Sénat vrais trous** ; "
         "le reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
-        f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} combinaisons "
+        f"- **On est plus complet que Quiver** — **+{_n(plus.get('house',0)+plus.get('senate',0))} combinaisons "
         f"cotées (déposant, ticker, sens)** qu'on a et que Quiver n'a pas, contre "
-        f"{manque.get('house',0)+manque.get('senate',0)} trous inverses → **sur-ensemble** de Quiver. "
+        f"{_n(manque.get('house',0)+manque.get('senate',0))} trous inverses → **sur-ensemble** de Quiver. "
         "⚠ Cette avance est **inégale dans le temps** : bien corroborée après ~2017, elle repose avant sur "
         "des trades réels que **Quiver (mince pré-2017) ne peut pas confirmer** — détail par année en §6.2.\n"
         f"- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que "
@@ -970,12 +1066,12 @@ def build_report(repo_root: Path) -> Path:
         "`transaction_date` OCR — quelques dates OCR restent imprécises (§3).*\n")
     parts.append("\n*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des "
                  "dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver "
-                 "(vérité-terrain).*\n")
+                 "(vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest).*\n")
 
     # ════════ §1 Construction & validation du corpus ════════
     parts.append("\n## 1. Construction & validation du corpus\n")
     parts.append("\nAvant toute statistique, voici **comment le corpus est construit**, dans l'ordre :\n\n"
-                 "1. **Sources** — déclarations officielles : Chambre (*PTR*) et Sénat (*eFD*), chacune en deux "
+                 "1. **Sources** — déclarations officielles : Chambre (*PTR — Periodic Transaction Report*) et Sénat (*eFD — electronic Financial Disclosure*), chacune en deux "
                  "voies — **électronique** (formulaire structuré, lecture déterministe) et **papier scanné** "
                  "(PDF → **OCR** par modèle de vision).\n"
                  "2. **Extraction** — une ligne = une transaction (membre, date, actif, sens, fourchette de "
@@ -991,16 +1087,16 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_leg("lignes brutes = FINAL concaténé " + yr + " · re-divulgations = doublons cross-année "
                           "retirés · transactions uniques = le corpus analysé dans tout ce rapport"))
 
-    cov = official_coverage(repo_root)
+    cov = _cov
     if len(cov):
         parts.append("\n### Couverture vs l'univers officiel (House Clerk)\n\n")
         parts.append("Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; les PTR ont "
-                     "`FilingType='P'`. Depuis l'audit du 2026-07-03, l'index est l'autorité d'appartenance "
-                     "(plus de filtre par fenêtre de dépôt — l'ancien filtre perdait 205 PTR déposés après le "
-                     "31/12) : **100 % des PTR officiels sont traités** — parsés, OCRisés, ou écartés par une "
-                     "règle écrite (manuscrits, cf. §6.6).\n\n")
+                     "`FilingType='P'`. **L'index annuel est l'autorité d'appartenance** d'un document à son "
+                     "année : un PTR déposé tardivement (jusqu'à +3 ans après l'année du formulaire) reste "
+                     "rattaché à son index. **100 % des PTR officiels sont traités** — parsés, OCRisés, ou "
+                     "écartés par une règle écrite (manuscrits, cf. §6.6).\n\n")
         parts.append(_md_table(cov))
-        parts.append(_leg("PTR officiels = FilingType『P』 de l'index du Clerk · avec transactions = docs présents "
+        parts.append(_leg("PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents "
                           "dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions "
                           "(politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to "
                           "report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). "
@@ -1040,7 +1136,8 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_leg("titulaire du compte : perso = Self · conjoint = Spouse/SP · joint = Joint/JT · "
                       "enfant = Dependent/Child/DC · autre = reste ou non déclaré"))
     parts.append("\n### Familles d'actifs\n")
-    parts.append("\nLe non-coté (oblig. d'État, munis, obligations) domine l'OCR du Sénat :\n\n")
+    parts.append("\nL'OCR du Sénat se distingue : la part d'actions y tombe et la catégorie « autre » "
+                 "(essentiellement du non-coté : parts de sociétés privées, produits divers) domine :\n\n")
     parts.append(_md_table(asset_type_mix(df)))
     parts.append(_leg("familles d'`asset_type` : action = Stock · option · oblig. État = Gov/Treasury · "
                       "muni = Municipal · oblig. corp. = Bond · fonds = Fund/ETF · manquant = vide"))
@@ -1062,7 +1159,7 @@ def build_report(repo_root: Path) -> Path:
                       "présent dans la source · aucune = non résolu"))
     parts.append("\n**Origine du secteur** (`sector_source`) :\n\n")
     parts.append(_md_table(sy["sector"]))
-    parts.append(_leg("yfinance = base factuelle · LLM · manuel = correction d'audit · aucune"))
+    parts.append(_leg("yfinance = base factuelle · LLM · manuel = correction vérifiée à la main · aucune"))
     parts.append("\n![Volume par secteur GICS](quality/volume_par_secteur.png)\n")
 
     # ════════ §3 Qualité des dates ════════
@@ -1077,7 +1174,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_leg("dates exploitables = parseables (% du total ; le reste = OCR illisible) · cohérentes = "
                       "divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le "
                       "total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT "
-                      "transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au "
+                      "transaction (amendement/antidaté) · année aberrante = année suspecte par défaut (postérieure au "
                       "dépôt, ou < 2012) · date manquante = illisible. ⚠ Colonnes NON additives : une même ligne "
                       "peut cumuler « incohérente » ET « année aberrante » (le décompte disjoint est plus petit "
                       "que la somme). Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
@@ -1102,7 +1199,7 @@ def build_report(repo_root: Path) -> Path:
                  f"**notre OCR** (mois/jour mal lu), corrigé à la lecture **quand le formulaire est lisible** "
                  f"({_n_ocr_fix} dates vérifiées, clé doc+date, figé inchangé). ~⅙ = **provenance** (hallucination "
                  f"OCR ou pièce jointe absente du PDF). **On ne fabrique aucune date** : les illisibles restent "
-                 f"flaggées.\n")
+                 f"flaguées.\n")
 
     # ════════ §4 Montants ════════
     parts.append("\n## 4. Montants (`amount_midpoint`)\n")
@@ -1138,8 +1235,8 @@ def build_report(repo_root: Path) -> Path:
     parts.append("\n### Top déposants\n")
     parts.append("\n**Par volume estimé (Σ midpoint) :**\n\n")
     parts.append(_md_table(amounts["top_volume"]))
-    parts.append(_leg("volume estimé M$ = Σ midpoint des transactions du déposant · n trades = nombre de "
-                      "transactions"))
+    parts.append(_leg("volume estimé M$ = Σ midpoint des transactions du déposant · n trades = transactions à montant "
+                      "renseigné (effectif légèrement inférieur au tableau par nombre ci-dessous)"))
     parts.append(f"\n**Par nombre de transactions** — {len(coverage)} déposants distincts, dont "
                  f"**{elig['n_eligibles']}** avec ≥ {elig['min_trades']} transactions (éligibles au backtest) et "
                  f"**{elig['n_eligibles_3plus_annees']}** actifs sur ≥ 3 années :\n\n")
@@ -1147,7 +1244,8 @@ def build_report(repo_root: Path) -> Path:
                                   "n_annees", "premiere_annee", "derniere_annee"]]
     parts.append(_md_table(cov_show))
     parts.append(_leg("total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · "
-                      "1re/dern. année = première/dernière année de transaction"))
+                      "1re/dern. année = première/dernière année de transaction (une 1re année < 2014 = vieilles "
+                      "transactions régularisées dans un dépôt 2014+)"))
     parts.append("\n![Top déposants](quality/top_deposants.png)\n")
     parts.append("\n![Transactions par an](quality/transactions_par_an.png)\n")
 
@@ -1203,7 +1301,7 @@ def build_report(repo_root: Path) -> Path:
                      f"**{_cell(inc,'senate','inclusion_pct')} % (Sénat)** des combinaisons Quiver. Le **trou coté** "
                      f"est minuscule ({_cell(inc,'house','residu_cote_reel')} House / "
                      f"{_cell(inc,'senate','residu_cote_reel')} Sénat) — c'est une **borne haute (sans date)** ; au "
-                     "trade près (§6.5), seule une partie sont de vrais trous confirmés. Le reste du résidu est "
+                     "trade DATÉ (§6.5, clé différente — les deux comptes ne s'emboîtent pas), la mesure complémentaire confirme les vrais trous. Le reste du résidu est "
                      "récupérable ou hors périmètre :\n\n")
         _incd = inc.copy()
         _incd["hors_perimetre"] = _incd["quiver_non_cote"] + _incd["credit_2jambes"] + _incd["cross_chambre"]
@@ -1215,7 +1313,7 @@ def build_report(repo_root: Path) -> Path:
                      "non-coté déguisé/charabia OCR) · **hors périmètre** = « ticker » Quiver non-coté "
                      "(CUSIP/fragment) + trade sous un ticker d'échange combiné (« PFE VTRS » couvre PFE) + membre "
                      "de l'autre chambre polluant le cache · **trou coté (borne haute)** = combos manquants au "
-                     "niveau ticker (sans date) ; au trade près (§6.5), seul un sous-ensemble (`NOTRE_MANQUE`) sont "
+                     "niveau ticker (sans date) ; au trade DATÉ (§6.5, mesure complémentaire à clé différente), `NOTRE_MANQUE` compte "
                      "de vrais trous confirmés.\n")
         _n_rec = int((df["ticker_source"] == "recovered").sum()) if "ticker_source" in df.columns else 0
         if _n_rec:
@@ -1226,7 +1324,7 @@ def build_report(repo_root: Path) -> Path:
                          "et du **charabia OCR**, non mappables.\n")
         if len(diag.get("net_completeness", [])):
             parts.append("\n**Bilan net (au trade près)** — actions cotées qu'on a et que Quiver n'a PAS vs "
-                         "**vrais trous** (`NOTRE_MANQUE` = le sous-ensemble des « trous borne haute » ci-dessus "
+                         "**vrais trous** (`NOTRE_MANQUE`, mesure au trade daté — clé différente de la borne ticker-niveau ci-dessus, les deux comptes ne s'emboîtent pas "
                          "réellement absents au trade près) → on est un **sur-ensemble** de Quiver :\n\n")
             parts.append(_md_table(diag["net_completeness"]))
             # Honnêteté par ère : corroboration Stock par année (le taux global masque le creux pré-2017).
@@ -1240,8 +1338,8 @@ def build_report(repo_root: Path) -> Path:
                     f"\n\n**⚠ Honnêteté par ère (corroboration au niveau ACTION, House `asset_type=Stock`).** "
                     f"Le taux global lisse une forte hétérogénéité : **2020-2026 = {_rate(_post)} %** d'actions "
                     f"corroborées par Quiver, mais **2014-2019 = {_rate(_pre)} %** seulement (creux **2015-2016** "
-                    f"≈ 11-17 %). L'écart **ne reflète PAS une erreur de notre côté** : nos "
-                    f"{int(_pre['actions_only_nous'].sum())} actions « en plus » pré-2020 portent des **tickers "
+                    f"≈ 17 %). L'écart **ne reflète PAS une erreur de notre côté** : nos "
+                    f"{_n(int(_pre['actions_only_nous'].sum()))} actions « en plus » pré-2020 portent des **tickers "
                     "réels et d'époque** (vérifiés), mais **Quiver est mince avant ~2017** et ne peut pas les "
                     "corroborer. En clair : **moins de vérité-terrain externe avant 2017**, à garder en tête pour "
                     "tout usage aval (backtest).\n\n")
@@ -1331,15 +1429,17 @@ def build_report(repo_root: Path) -> Path:
                  "listes à revoir cas par cas dans `docs/quiver_validation/`, pas des taux d'erreur :\n\n")
     parts.append(_md_table(_todo))
     if len(diag["top_notre_manque"]):
-        parts.append("\n**Qui ?** — les déposants derrière les vrais trous (`NOTRE_MANQUE`), à investiguer :\n\n")
+        parts.append("\n**Qui ?** — top 12 des déposants derrière les vrais trous (`NOTRE_MANQUE` ; liste "
+                     "complète ligne à ligne : `docs/quiver_validation/notre_manque_*.csv`) :\n\n")
         parts.append(_md_table(diag["top_notre_manque"]))
         parts.append("\n")
 
     # 6.6 Annexe (compacte) : note tables figées + profil des clusters de scan House OCR
     parts.append("\n### 6.6 Annexe\n")
-    parts.append("\nLes tables **figées** `07c/07g/07h` reproduisent la même comparaison en *exact-date* (elles "
-                 "**sous-comptent**, cf. §6.3) ; conservées pour la lignée/régression, non re-rendues ici. Les "
-                 "autres figées (`07/07b/07d/07e/07f/06d`) sont des sorties historiques du pipeline.\n")
+    parts.append("\nLes tables **figées** du golden (`data/house/tables/*/07c_*`, `07g_*`, `07h_*` et "
+                 "équivalents Sénat) reproduisent la même comparaison en *exact-date* (elles **sous-comptent**, "
+                 "cf. §6.3) ; conservées comme jeux de référence de non-régression, non re-rendues ici. Les "
+                 "autres tables `07*`/`06d` de chaque année sont des sorties historiques du pipeline.\n")
     prof = house_ocr_cluster_profile(df, repo_root)
     if len(prof):
         parts.append("\n**Profil des clusters de scan (House OCR)** — pourquoi le manuscrit est exclu (A = tapé "
@@ -1350,14 +1450,69 @@ def build_report(repo_root: Path) -> Path:
                           "date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le "
                           "trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de "
                           "pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur). "
-                          "Exceptions CONSERVÉES et rejouables : 3 filers à forte perte corroborée "
-                          "(FILERS_C_A_RECUPERER) + 33 docs C du run 2020-2026 curés à la main AVANT cette "
-                          "politique (DOCS_C_HERITES_2020_2026, house/ocr.py) ; 70 manuscrits de l'acquisition "
-                          "2026-07-03 gated selon la même règle."))
+                          "Exceptions explicites et REJOUABLES (house/ocr.py) : 3 déposants à forte perte "
+                          "corroborée (FILERS_C_A_RECUPERER) + 33 documents curés manuellement "
+                          "(DOCS_C_HERITES_2020_2026)."))
     parts.append("\nListes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` "
                  "(`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], "
                  "`on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). "
                  "Hors golden.\n")
+
+    # ════════ §7 Du corpus à la table de recherche (nettoyage backtest) ════════
+    if _bf:
+        parts.append("\n## 7. Du corpus à la table de recherche (nettoyage backtest)\n\n")
+        parts.append(
+            "Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, "
+            "options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un "
+            "**montant**. Le notebook `Nettoyage_Backtest_2014_2026.ipynb` dérive la **table de recherche "
+            "canonique** `data/clean/transactions_backtest_2014_2026.csv` "
+            f"(**{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes**) par un entonnoir en 4 étapes.\n\n"
+            "**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ "
+            "et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. "
+            "*Les comptes ci-dessous sont REJOUÉS par ce rapport avec les mêmes règles que le notebook, "
+            "puis confrontés au fichier publié (égalité vérifiée par assertion à chaque run).*\n\n")
+        parts.append("### L'entonnoir\n\n")
+        parts.append(_md_table(_bf["funnel"]))
+        parts.append(_leg(f"{_n(n_total)} → {_n(_bf['n_final'])} = "
+                          f"{round(100 * _bf['n_final'] / n_total, 1)} % du corpus conservé. Chaque retrait "
+                          "est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un "
+                          "simple champ vide récupérable."))
+        parts.append("\n### Pourquoi les lignes de l'étape B partent (une seule cause par ligne)\n\n")
+        parts.append(_md_table(_bf["causes_B"]))
+        parts.append(_leg("ticker vide = actifs non cotés (munis, obligations, sociétés privées) qui n'ont "
+                          "légitimement pas de symbole · malformé/non coté = CUSIP, fragments OCR, "
+                          "préférentielles non joignables à un prix · famille non cotée = options, "
+                          "obligations, bons du Trésor (classes détectées ticker-first : une action au "
+                          "type déclaré vide est GARDÉE grâce à son ticker)."))
+        parts.append("\n### Composition de la table publiée\n\n")
+        parts.append("**Par chambre et par ère :**\n\n")
+        parts.append(_md_table(_bf["compo"]))
+        parts.append("\n**Par sens :**\n\n")
+        parts.append(_md_table(_bf["sens"]))
+        parts.append("\n**Par classe d'actif :**\n\n")
+        parts.append(_md_table(_bf["asset_class"]))
+        parts.append(_leg("`stock` = action avec secteur GICS (rempli à 100 % sur les actions) · "
+                          "`etf_sector` = SPDR sectoriel (son propre proxy) · `etf_broad` = ETF diversifié "
+                          "coté, GARDÉ et flagué (pas de secteur GICS par nature) · `unknown` = coté mais "
+                          "classe non résolue, flagué."))
+        parts.append("\n### Ce qui est flagué (gardé, jamais retiré)\n\n")
+        parts.append(_md_table(_bf["flags"]))
+        parts.append("\n### Ce que la table ajoute au corpus (enrichissements)\n\n")
+        parts.append(
+            "- **Parti à la date de la transaction** (les changements de parti en cours de mandat sont "
+            "datés — `party_affiliations` du référentiel officiel).\n"
+            "- **Commissions du Congrès de la transaction** (snapshots par Congrès 113-119, "
+            "`data/reference/committees_snapshots/` ; bascule au 3 janvier) + `committees_key_flag` "
+            "(fiscalité / défense / renseignement / banque) — la liste complète est exportée, la recherche "
+            "peut redéfinir son propre flag.\n"
+            "- **`ticker` fidèle à la déclaration + `ticker_yahoo` prêt pour le join prix** (format Yahoo, "
+            "renommages et fusions appliqués via `data/reference/ticker_renames.csv` ; les titres délistés "
+            "sont typés — faillite, rachat — au lieu de disparaître en silence).\n"
+            "- **`amount_midpoint` = milieu exact de la fourchette STOCK Act** (convention unique sur tout "
+            "le corpus) ; `owner`, `occurrence_index`, `lot_size`, `doc_id`, `natural_key_hash` pour la "
+            "traçabilité ligne à ligne.\n"
+            "- **Invariants garantis à l'export** (assertions) : bioguide, ticker, montant, direction, "
+            "chronologie (divulgation ≥ transaction) et clé naturelle remplis sur 100 % des lignes.\n")
 
     report = docs / "RAPPORT_QUALITE.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")
