@@ -448,8 +448,11 @@ def run_ocr_year(year, force=False):
         # exception 2 : on n'exclut PAS les docs des filers à récupérer (résolus via le déclarant du PTR)
         if FILERS_C_A_RECUPERER and "last" in scanned.columns:
             hm.build_reference()
+            # garde NaN : le merge manifest×index peut produire des NaN float (docs ajoutés à
+            # l'audit 2026-07-03) — le matcher exige des chaînes (et NaN est truthy : pas de `or ""`).
+            _s = lambda v: "" if pd.isna(v) else str(v)
             keep = scanned["doc_id"].isin(non_exec_ids) & scanned.apply(
-                lambda r: hm.match_bioguide(r.get("last", ""), r.get("first", "")) in FILERS_C_A_RECUPERER, axis=1)
+                lambda r: hm.match_bioguide(_s(r.get("last")), _s(r.get("first"))) in FILERS_C_A_RECUPERER, axis=1)
             non_exec_ids -= set(scanned.loc[keep, "doc_id"])
         n_before = len(scanned)
         scanned = scanned[~scanned["doc_id"].isin(non_exec_ids)].reset_index(drop=True)

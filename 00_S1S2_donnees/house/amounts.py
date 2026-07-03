@@ -28,8 +28,14 @@ HOUSE_OCR_OWNER_MAP = {"Self": "SELF", "Spouse": "Spouse",
 
 def amount_midpoint(a):
     """Midpoint d'une fourchette « $X - $Y » (piste DIGITALE House). (lo+hi)/2, ou lo seul, ou None.
-    Copie EXACTE de house_multiyear._amount_midpoint (≠ AMOUNT_MAP OCR : .5 vs .0 — voulu)."""
-    nums = [int(x.replace(",", "")) for x in re.findall(r"\$([\d,]+)", str(a))]
+    Copie EXACTE de house_multiyear._amount_midpoint (≠ AMOUNT_MAP OCR : .5 vs .0 — voulu).
+    Cas ajouté (audit 2026-07-03) : le palier ouvert « SP/DC over $1,000,000 » vaut 1 000 001 —
+    la convention canonique du corpus (= clé K de l'OCR), qui le distingue du bracket G $1M-$5M.
+    Aucune ligne digitale HISTORIQUE ne portait ce libellé (vérifié) : zéro régression sur le figé."""
+    s = str(a)
+    nums = [int(x.replace(",", "")) for x in re.findall(r"\$([\d,]+)", s)]
+    if len(nums) == 1 and re.match(r"^\s*SP/DC\s+over\b", s, re.IGNORECASE):
+        return float(nums[0] + 1)
     if len(nums) >= 2:
         return (nums[0] + nums[1]) / 2
     if len(nums) == 1:
