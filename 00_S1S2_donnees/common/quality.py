@@ -1,6 +1,6 @@
 """Rapport de qualité des données — livrable Ramify Semaine 2.
 
-Charge les tables FINAL des deux chambres (2020→2026), calcule SIX contrôles qualité et génère
+Charge les tables FINAL des deux chambres (2014→2026), calcule SIX contrôles qualité et génère
 figures + `docs/RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
 aucun appel API.**
 
@@ -119,8 +119,9 @@ def load_final(repo_root: Path) -> pd.DataFrame:
     # Dédup CROSS-ANNÉE : une re-divulgation tardive (même transaction re-déposée une autre année — même
     # natural_key_hash + occurrence_index dans 2 fichiers FINAL) ne doit pas être comptée deux fois dans
     # les stats. On garde la 1re occurrence (année de dépôt la plus ancienne = divulgation d'origine).
-    # Sénat : 8 841 → 8 245 ; House : 81 642 → 81 607. La dédup PAR ANNÉE des pipelines ne peut pas le
-    # voir (elle opère fichier par fichier) ; ici on assemble le panel multi-années, donc on l'applique.
+    # (une transaction re-déposée une autre année ne compte qu'une fois). La dédup PAR ANNÉE des pipelines
+    # ne peut pas le voir (elle opère fichier par fichier) ; ici on assemble le panel multi-années 2014-2026,
+    # donc on l'applique.
     if {"natural_key_hash", "occurrence_index"}.issubset(full.columns):
         # occurrence_index est stocké tantôt '0' tantôt '0.0' selon l'année → normaliser en numérique
         # avant la dédup (sinon '0' != '0.0' laisse survivre un doublon, cf. Jefferson Shreve 2025/2026).
@@ -564,7 +565,7 @@ def house_ocr_cluster_profile(df: pd.DataFrame, repo_root: Path) -> pd.DataFrame
     """Profil des clusters de scan House OCR (A tapé droit / B tapé tourné / C manuscrit) : effectif,
     plausibilité des dates, couverture ticker + qualité d'appariement Quiver (07h figé)."""
     g = df[df["corpus"] == "House OCR"].copy()
-    census = repo_root / "data" / "house" / "tables" / "_scan_census_547.csv"
+    census = repo_root / "data" / "house" / "tables" / "_scan_census.csv"
     if not len(g) or not census.exists():
         return pd.DataFrame()
     cen = pd.read_csv(census, dtype=str)[["doc_id", "cluster"]]
@@ -811,6 +812,28 @@ def _leg(txt: str) -> str:
     return f"\n*{txt}*\n"
 
 
+def stock_corroboration_by_year(repo_root: Path) -> pd.DataFrame:
+    """Corroboration Quiver au niveau ACTION (House, `asset_type=Stock`) PAR ANNÉE, depuis les 07g.
+    Signal d'HONNÊTETÉ par ère : le taux agrégé masque que la corroboration est faible avant ~2017
+    (Quiver est mince sur les premières années) — ce n'est pas notre erreur (tickers vérifiés réels),
+    mais moins de vérité-terrain externe disponible pré-2020."""
+    base = repo_root / "data" / "house" / "tables"
+    rows = []
+    for y in YEARS:
+        f = base / str(y) / "07g_quiver_match_by_asset.csv"
+        if not f.exists():
+            continue
+        g = pd.read_csv(f)
+        s = g[g["asset_type"] == "Stock"]
+        if not len(s):
+            continue
+        ex, dm, nm = int(s["exact_match"].iloc[0]), int(s["date_mismatch"].iloc[0]), int(s["no_match"].iloc[0])
+        tot = ex + dm + nm
+        rows.append({"année": y, "actions_corroborées": ex + dm, "actions_only_nous": nm,
+                     "corroboration_pct": round(100 * (ex + dm) / tot, 1) if tot else None})
+    return pd.DataFrame(rows)
+
+
 def build_report(repo_root: Path) -> Path:
     df = load_final(repo_root)
     coverage = coverage_per_member(df)
@@ -893,14 +916,18 @@ def build_report(repo_root: Path) -> Path:
         f"≤ {_cell(inc,'house','residu_cote_reel')} House / {_cell(inc,'senate','residu_cote_reel')} Sénat au niveau "
         f"ticker (borne haute), dont **{manque.get('house',0)} / {manque.get('senate',0)} vrais trous confirmés au "
         "trade près** (§6.5) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
-        f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} actions cotées "
-        f"qu'on a et que Quiver n'a pas, contre {manque.get('house',0)+manque.get('senate',0)} trous "
-        "inverses.** La base est, en pratique, un **sur-ensemble** de Quiver.\n"
+        f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} combinaisons "
+        f"cotées (déposant, ticker, sens)** qu'on a et que Quiver n'a pas, contre "
+        f"{manque.get('house',0)+manque.get('senate',0)} trous inverses → **sur-ensemble** de Quiver. "
+        "⚠ Cette avance est **inégale dans le temps** : bien corroborée après ~2017, elle repose avant sur "
+        "des trades réels que **Quiver (mince pré-2017) ne peut pas confirmer** — détail par année en §6.2.\n"
         f"- **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que "
         f"l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls {_cell(drec,'house','dont_meme_depot')} "
         "candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).\n"
         f"- **Données propres** — identité rattachée à {id_pct} %, dates cohérentes {coh_pct} %, délai de "
-        f"divulgation médian {med_lag} j, montants renseignés {amt_pct} %.\n")
+        f"divulgation médian {med_lag} j, montants renseignés {amt_pct} %. *Anti-look-ahead : tout usage "
+        "aval (backtest) entre sur `disclosure_date` (date de dépôt imprimée, fiable), jamais sur la "
+        "`transaction_date` OCR — quelques dates OCR restent imprécises (§3).*\n")
     parts.append("\n*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des "
                  "dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver "
                  "(vérité-terrain).*\n")
@@ -1145,6 +1172,26 @@ def build_report(repo_root: Path) -> Path:
                          "**vrais trous** (`NOTRE_MANQUE` = le sous-ensemble des « trous borne haute » ci-dessus "
                          "réellement absents au trade près) → on est un **sur-ensemble** de Quiver :\n\n")
             parts.append(_md_table(diag["net_completeness"]))
+            # Honnêteté par ère : corroboration Stock par année (le taux global masque le creux pré-2017).
+            _sc = stock_corroboration_by_year(repo_root)
+            if len(_sc):
+                def _rate(x):
+                    c, o = int(x["actions_corroborées"].sum()), int(x["actions_only_nous"].sum())
+                    return round(100 * c / (c + o), 1) if (c + o) else 0.0
+                _pre, _post = _sc[_sc["année"] < 2020], _sc[_sc["année"] >= 2020]
+                parts.append(
+                    f"\n\n**⚠ Honnêteté par ère (corroboration au niveau ACTION, House `asset_type=Stock`).** "
+                    f"Le taux global lisse une forte hétérogénéité : **2020-2026 = {_rate(_post)} %** d'actions "
+                    f"corroborées par Quiver, mais **2014-2019 = {_rate(_pre)} %** seulement (creux **2015-2016** "
+                    f"≈ 11-17 %). L'écart **ne reflète PAS une erreur de notre côté** : nos "
+                    f"{int(_pre['actions_only_nous'].sum())} actions « en plus » pré-2020 portent des **tickers "
+                    "réels et d'époque** (vérifiés), mais **Quiver est mince avant ~2017** et ne peut pas les "
+                    "corroborer. En clair : **moins de vérité-terrain externe avant 2017**, à garder en tête pour "
+                    "tout usage aval (backtest).\n\n")
+                parts.append(_md_table(_sc))
+                parts.append(_leg("actions_corroborées = appariées à Quiver (exact + date proche) · "
+                                  "actions_only_nous = actions réelles qu'on a et que Quiver n'a pas (non "
+                                  "corroborables) · corroboration_pct = corroborées / (corroborées + only_nous)."))
 
     # 6.3 Niveau 2 — réconciliation date-ANCRÉE (avec l'exemple concret d'appariement 1-à-1)
     if len(drec):

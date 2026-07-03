@@ -5,7 +5,7 @@ Deux chambres, **même structure** :
 ```
 data/{house,senate}/
     tables/              ← SORTIES du pipeline (CSV figés au golden)
-        {2020..2026}/    ← une table par étape, par année (voir numérotation)
+        {2014..2026}/    ← une table par étape, par année (voir numérotation)
         00_*.csv         ← tableaux de bord (statut global)
         _*_cache.csv     ← cache Quiver (vérité-terrain figée pour les reproductions)
     reference/           ← ENTRÉES : YAML congress-legislators (+ commissions)

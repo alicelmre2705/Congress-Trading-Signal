@@ -59,10 +59,11 @@ def main():
     # Fenêtre étendue 2014-2026 (branche feature/collecte-2014-2019). Identité ~100 % : quelques
     # déposants anciens (2014-2019, formats/noms OCR anciens) restent non appariés → invariant dig+ocr==n
     # (asserté dans report()) + totaux figés ci-dessous.
-    assert h["n"] == 150647 and h["dig"] == 54170 and h["ocr"] == 96477, "House totaux"
+    # House : scans manuscrits pré-2020 gatés (cluster C_manuscrit) comme en 2020-2026 → 141 225.
+    assert h["n"] == 141225 and h["dig"] == 54170 and h["ocr"] == 87055, "House totaux"
     assert s["n"] == 18839 and s["dig"] == 14813 and s["ocr"] == 4026, "Sénat totaux"
     assert h["sans_bio"] == 42 and s["sans_bio"] == 10, "sans-bioguide (déposants anciens 2014-2019)"
-    assert h["bios"] == 378 and h["names"] == 404, "House déposants"
+    assert h["bios"] == 358 and h["names"] == 382, "House déposants"
     assert s["bios"] == 76 and s["names"] == 92, "Sénat déposants"
     print("\nRÉSULTAT : ✅ invariants OK (totaux, identité, déposants) — métriques ci-dessus = source du rapport")
 

@@ -518,7 +518,7 @@ def _tally(series, order, label):
 
 
 def build_diagnosis(repo_root) -> dict:
-    """Recalcule tout le diagnostic Quiver (offline) pour House+Sénat, 2020-2026. Écrit les annexes
+    """Recalcule tout le diagnostic Quiver (offline) pour House+Sénat, 2014-2026. Écrit les annexes
     actionnables sous docs/quiver_validation/ et renvoie les tables agrégées pour le rapport."""
     repo = Path(repo_root)
     annex = repo / "docs" / "quiver_validation"
@@ -536,8 +536,8 @@ def build_diagnosis(repo_root) -> dict:
         # (même clé naturelle dans 2 fichiers d'années différentes — ex. Perdue ORCL 2020 re-divulgué
         # en 2021) est gardée UNE seule fois, dans son année de dépôt la plus ancienne. Sans ça le même
         # trade serait compté deux fois — CONCORDANT son année d'origine, puis faux ON_EST_PLUS_COMPLET
-        # l'année de re-divulgation (hors fenêtre Quiver filed-year de cette année). Sénat : −596 lignes
-        # (8 245 uniques) ; House : −35 (81 607 uniques). Même invariant que common/schema.dedup_canonical.
+        # l'année de re-divulgation (hors fenêtre Quiver filed-year de cette année) : une transaction
+        # re-déposée une autre année ne compte qu'une fois. Même invariant que common/schema.dedup_canonical.
         fins = []
         for y in YEARS:
             _, _, fp = _paths(repo, chamber, y)

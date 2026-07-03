@@ -425,7 +425,7 @@ def run_ocr_year(year, force=False):
     # Le cluster C (CLUSTERS_NON_EXECUTES) est CONSERVÉ comme catégorie mais NON EXÉCUTÉ par défaut.
     # On garde une EXCEPTION : les docs des filers prioritaires (FILERS_C_A_RECUPERER) restent exécutés,
     # car ils portent ~99 % de la perte Quiver-corroborée (cf. cross-validation). Tout reste tracé au census.
-    census_path = hm.TABROOT / "_scan_census_547.csv"
+    census_path = hm.TABROOT / "_scan_census.csv"
     if census_path.exists():
         cen = pd.read_csv(census_path, dtype={"doc_id": str})
         non_exec_ids = set(cen.loc[cen["cluster"].isin(CLUSTERS_NON_EXECUTES), "doc_id"])
@@ -572,7 +572,7 @@ def run_ocr_year(year, force=False):
             # 07g/07h — décomposition fine « qui a quoi » : exact / date_mismatch / no_match / non_equity,
             # par asset_type ET par cluster de scan (tapé/manuscrit) → révèle que le point faible est la
             # DATE de l'OCR manuscrit, pas une cécité de Quiver. Cf. common/quiver_scopes.match_breakdown.
-            _cmap = pd.read_csv(hm.TABROOT / "_scan_census_547.csv", dtype=str).set_index("doc_id")["cluster"].to_dict()
+            _cmap = pd.read_csv(hm.TABROOT / "_scan_census.csv", dtype=str).set_index("doc_id")["cluster"].to_dict()
             _ba, _bc = match_breakdown(_fin, _q, _hq.norm_ticker, _hq.norm_sense, cluster_map=_cmap)
             _ba.to_csv(ydir / "07g_quiver_match_by_asset.csv", index=False)
             if _bc is not None:
