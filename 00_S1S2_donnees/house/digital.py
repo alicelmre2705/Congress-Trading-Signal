@@ -316,8 +316,15 @@ def match_bioguide(last, first):
 
 
 # ───────────────────────── Index + manifeste par année ─────────────────────────
-def load_ptr_index(year, win_start, win_end):
-    """Lit l'index XML embarqué (data_v1/index), filtre FilingType=P + fenêtre disclosure."""
+def load_ptr_index(year, win_start=None, win_end=None):
+    """Lit l'index XML embarqué (data_v1/index), filtre FilingType=P.
+
+    L'index annuel {Y}FD est l'AUTORITÉ d'appartenance d'un doc à l'année Y : zéro chevauchement de
+    DocID entre les 13 index 2014-2026 (vérifié sur les index officiels frais, audit 2026-07-03).
+    L'ancien filtre « fenêtre année-civile sur la date de dépôt » perdait 205 PTR listés dans {Y}FD
+    mais déposés APRÈS le 31/12 (149 en janvier suivant, retards jusqu'à +3 ans) — perte biaisée
+    contre les trades de fin d'année, jamais rattrapée par un autre index. On ne filtre donc PLUS
+    par date de dépôt ; `win_start`/`win_end` sont conservés pour compatibilité d'appel mais ignorés."""
     xml_path = SEM1_INDEX / f"{year}FD.xml"
     root = ET.fromstring(xml_path.read_bytes())
     members = root.findall("Member") or list(root)
@@ -331,9 +338,7 @@ def load_ptr_index(year, win_start, win_end):
     idx["disclosure_date"] = pd.to_datetime(idx["filing_date_raw"], errors="coerce")
     idx["declarant_name"] = (idx["first"] + " " + idx["last"]).str.strip()
     ft_dist = dict(Counter(idx["filing_type"]))
-    ptr = idx[(idx["filing_type"] == "P") &
-              (idx["disclosure_date"] >= win_start) &
-              (idx["disclosure_date"] <= win_end)].copy()
+    ptr = idx[idx["filing_type"] == "P"].copy()
     ptr["url_pdf"] = ptr["doc_id"].apply(lambda d: HOUSE_PDF_URL.format(year=year, doc_id=d))
     return ptr, ft_dist
 

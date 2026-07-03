@@ -12,6 +12,9 @@ QUIVER_URL = "https://api.quiverquant.com/beta/bulk/congresstrading"
 
 
 # ───────────────────────── Normalisation d'appariement (canonique, port validate_quiver_sample) ──
+# ⚠ PIÈGE (audit 2026-07-03) : cette clé d'appariement traite le ticker MAJUSCULE 'NAN' comme vide,
+# or NAN est un vrai fonds coté (Nuveen). Port verbatim préservé (reproduit les validations figées) —
+# pour l'export backtest, utiliser common.schema.canonical_ticker qui ne confond pas les deux.
 def norm_ticker(t):
     if not isinstance(t, str):
         return ""

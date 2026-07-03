@@ -387,7 +387,9 @@ def reconcile_dates(repo_root):
         for b, t, s, d, f in zip(Qo["BioGuideID"], Qo["_tk"], Qo["_s"], Qo["_d"], Qo["_filed"]):
             qg.setdefault((b, t, s), []).append((d, f))
         E = C = CA = OO = QO = MD = 0
-        for k in set(og) | set(qg):
+        # tri de l'itération : sans lui, l'ordre du set varie avec PYTHONHASHSEED et la table §6.4
+        # du rapport (508 ex æquo à delta=11) change à chaque run — le rapport doit être déterministe.
+        for k in sorted(set(og) | set(qg)):
             e, c, oo, qo, cands = _reconcile_group(og.get(k, []), qg.get(k, []))
             E += e; C += c; OO += oo; QO += qo; CA += len(cands)
             for od, qd_, delta, same, doc, nm in cands:
@@ -403,7 +405,8 @@ def reconcile_dates(repo_root):
     summary = pd.DataFrame(summ)
     cands = pd.DataFrame(cand_rows)
     if len(cands):
-        cands = cands.sort_values(["delta_jours", "chamber"], kind="stable").reset_index(drop=True)
+        cands = cands.sort_values(["delta_jours", "chamber", "declarant", "ticker", "notre_date", "doc_id"],
+                                  kind="stable").reset_index(drop=True)
     return summary, cands
 
 

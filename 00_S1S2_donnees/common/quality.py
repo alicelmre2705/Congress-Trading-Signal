@@ -132,12 +132,14 @@ def load_final(repo_root: Path) -> pd.DataFrame:
 
     full = schema.apply_txn_date_fixes(full)   # corrige 3 années-coquilles du PTR (lecture seule du figé)
     full = schema.apply_ticker_recovery(full, repo_root)   # récupère les tickers d'actions faux-négatifs (read-time)
+    full = schema.apply_identity_fixes(full)   # 4 déposants mal/non rattachés (Craig, Van Hollen, Udall, Casey)
     td = pd.to_datetime(full["transaction_date"], errors="coerce")
     dd = pd.to_datetime(full["disclosure_date"], errors="coerce")
     full["_td"], full["_dd"] = td, dd
     full["txn_year"] = td.dt.year
     full["lag_days"] = (dd - td).dt.days
     full["amount_midpoint"] = pd.to_numeric(full["amount_midpoint"], errors="coerce")
+    full = schema.apply_amount_range_fixes(full)   # fourchettes tronquées à la borne basse (digital House) — après conversion numérique
     full["op"] = full["operation_type"].map(op_class)
     full["corpus"] = full["provenance"].map(_corpus_label)
     full["owner_class"] = full["owner"].map(owner_class)

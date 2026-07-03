@@ -8,6 +8,7 @@ hash figés des tables actuelles (House digital, OCR, FINAL).
 """
 import hashlib
 import math
+import re
 
 # Les 7 champs de la clé naturelle (n'inclut PAS le ticker → robuste à l'enrichissement).
 NATURAL_KEY_FIELDS = ["chamber", "declarant_name", "transaction_date",
@@ -132,6 +133,111 @@ def apply_txn_date_fixes(df):
             for d, tk, t, cur in zip(_doc, _tk, _td, df["transaction_date"])
         ]
     return df
+
+
+# Ratés de résolution d'identité VÉRIFIÉS contre le référentiel congress-legislators (audit 2026-07-03) :
+# 3 déposants jamais rattachés (bioguide vide → membre invisible pour toute analyse par membre) et
+# 1 collision d'homonyme (« Robert P Casey, Jr. » sénateur PA rattaché à C000228 = Robert Casey,
+# représentant TX). Corrigés À LA LECTURE, scopés (doc_id, token du nom) — le CSV figé garde la valeur
+# source. party/state_district recopiés du référentiel (stables : mandats terminés ou uniques).
+KNOWN_IDENTITY_FIXES_BY_DOC = {
+    # doc_id: (token_nom_attendu, bioguide_id, party, state_district)
+    "9115136": ("Craig", "C001119", "Democrat", "MN02"),                                # Angela « Angie » Craig, House 2019
+    "9115439": ("Craig", "C001119", "Democrat", "MN02"),
+    "d729aa53-3864-4ec2-8087-62ba351859c7": ("Van Hollen", "V000128", "Democrat", "MD"),  # Chris Van Hollen, Sénat 2017
+    "3d4fc7ff-d1fc-4b0a-a4a0-493a65ab9d07": ("Udall", "U000039", "Democrat", "NM"),       # Tom Udall, Sénat 2018
+    "c4d18b4c-1474-49db-a057-e1fcb6d96251": ("Udall", "U000039", "Democrat", "NM"),
+    "debe3c76-c386-42a7-85f9-8e15e85d490b": ("Udall", "U000039", "Democrat", "NM"),
+    "1dae4e2c-0fe3-46d5-9ab3-78454252da12": ("Casey", "C001070", "Democrat", "PA"),       # Bob Casey Jr., Sénat 2017 (≠ C000228 TX)
+}
+
+
+def apply_identity_fixes(df):
+    """Applique les corrections d'identité À LA LECTURE (sans toucher au figé) : pour chaque doc de
+    `KNOWN_IDENTITY_FIXES_BY_DOC` dont le nom du déposant contient le token attendu, pose
+    bioguide_id/party/state_district. Ne touche à rien d'autre (commissions/ancienneté recalculées en aval)."""
+    if not {"doc_id", "bioguide_id"} <= set(df.columns):
+        return df
+    df = df.copy()
+    _doc = df["doc_id"].astype(str).str.replace(r"\.0$", "", regex=True)
+    hits = _doc.isin(KNOWN_IDENTITY_FIXES_BY_DOC)
+    if not hits.any():
+        return df
+    name_col = "declarant_name" if "declarant_name" in df.columns else "member_name"
+    for i in df.index[hits]:
+        token, bio, party, sd = KNOWN_IDENTITY_FIXES_BY_DOC[_doc.at[i]]
+        if token.lower() in str(df.at[i, name_col]).lower():
+            df.at[i, "bioguide_id"] = bio
+            if "party" in df.columns:
+                df.at[i, "party"] = party
+            if "state_district" in df.columns:
+                df.at[i, "state_district"] = sd
+    return df
+
+
+# Fourchettes STOCK Act dont le parseur digital House n'a capturé que la borne BASSE (le PDF imprime la
+# fourchette sur deux lignes « $15,001 - » / « $50,000 » ; TXN_RE n'a retenu que la première). La borne
+# basse identifie le bracket de façon UNIQUE → reconstruction déterministe du libellé et du vrai milieu.
+# Ne matche que amount_range == « $X » EXACT (borne seule) : les paliers légitimes à libellé complet
+# (« SP/DC over $1,000,000 », « Over $50,000,000 ») ne sont pas touchés. Read-time only (figé conservé).
+AMOUNT_LOWER_BOUND_TO_BRACKET = {
+    "$1,001":      ("$1,001 - $15,000",           8_000.5),
+    "$15,001":     ("$15,001 - $50,000",         32_500.5),
+    "$50,001":     ("$50,001 - $100,000",        75_000.5),
+    "$100,001":    ("$100,001 - $250,000",      175_000.5),
+    "$250,001":    ("$250,001 - $500,000",      375_000.5),
+    "$500,001":    ("$500,001 - $1,000,000",    750_000.5),
+    "$1,000,001":  ("$1,000,001 - $5,000,000",  3_000_000.5),
+    "$5,000,001":  ("$5,000,001 - $25,000,000", 15_000_000.5),
+    "$25,000,001": ("$25,000,001 - $50,000,000", 37_500_000.5),
+}
+
+
+def apply_amount_range_fixes(df):
+    """Répare À LA LECTURE les fourchettes tronquées à la borne basse (piste digitale House, audit
+    2026-07-03 : 7 995 lignes FINAL, montant sous-estimé ×2) : amount_range reconstruit + amount_midpoint
+    = vrai milieu du bracket. Ajoute `amount_range_repaired` (bool) pour la traçabilité."""
+    if "amount_range" not in df.columns:
+        return df
+    df = df.copy()
+    key = df["amount_range"].astype(str).str.strip()
+    hit = key.isin(AMOUNT_LOWER_BOUND_TO_BRACKET)
+    df["amount_range_repaired"] = hit
+    if hit.any():
+        df.loc[hit, "amount_range"] = key[hit].map(lambda k: AMOUNT_LOWER_BOUND_TO_BRACKET[k][0])
+        if "amount_midpoint" in df.columns:
+            df.loc[hit, "amount_midpoint"] = key[hit].map(lambda k: AMOUNT_LOWER_BOUND_TO_BRACKET[k][1])
+    return df
+
+
+# Symboles Yahoo Finance : les classes d'actions s'écrivent avec un TIRET (BRK-B), les PTR/Quiver
+# mélangent point et tiret. NB : cette canonisation est pour l'EXPORT/le join prix — la clé
+# d'appariement Quiver historique (house/quiver.py::norm_ticker, port verbatim '.'/'-'→'_') ne
+# doit PAS être modifiée (elle reproduit les validations figées).
+_TICKER_OK = re.compile(r"^[A-Z]{1,5}(-[A-Z])?$")
+
+
+def canonical_ticker(t):
+    """Canonise un ticker pour l'export backtest (format Yahoo) SANS jeter d'information.
+    Renvoie (ticker_canonique, flag) ; flag ∈ {'vide','ok','classe_convertie','contient_chiffre',
+    'long','autre'} — les formes suspectes sont GARDÉES et flaguées (décision en aval, pas ici).
+    Les graphies 'nan'/'None' minuscules = artefacts pandas ; 'NAN' MAJUSCULE = vrai fonds coté Nuveen."""
+    if t is None or not isinstance(t, str):
+        return "", "vide"
+    raw = t.strip()
+    if raw in ("", "--") or raw in ("nan", "None", "NaN", "none"):
+        return "", "vide"
+    up = raw.upper()
+    conv = up.replace(".", "-")
+    if _TICKER_OK.fullmatch(up):
+        return up, "ok"
+    if _TICKER_OK.fullmatch(conv):
+        return conv, "classe_convertie"
+    if any(ch.isdigit() for ch in up):
+        return conv, "contient_chiffre"
+    if len(conv.replace("-", "")) > 5:
+        return conv, "long"
+    return conv, "autre"
 
 
 def load_ticker_recovery(repo_root):
