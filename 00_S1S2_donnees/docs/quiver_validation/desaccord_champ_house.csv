@@ -115,12 +115,11 @@ M001157,Michael T. McCaul,UNH,2015-01-30,sens,Sale,100001.0,Purchase,100001,2015
 M001157,Michael T. McCaul,UNH,2015-02-12,montant,Purchase,50001.0,Purchase,100001,2015
 M001157,Michael T. McCaul,WYNN,2015-03-02,montant,Sale,50001.0,Sale,100001,2015
 M001157,Michael T. McCaul,XOM,2015-03-25,montant,Sale,1001.0,Sale,15001,2015
+P000608,Scott H. Peters,UNH,2015-07-10,montant,Purchase,15001.0,Purchase,50001,2015
 S000250,Pete Sessions,BCE,2013-05-31,sens,Purchase,1001.0,Exchange,1001,2015
 S000250,Pete Sessions,BCE,2014-04-23,sens,Sale,1001.0,Exchange,1001,2015
-S001190,Bradley S. Schneider,GOOGL,2014-12-18,montant,Sale,100001.0,Sale,50001,2015
-S001190,Bradley S. Schneider,GOOGL,2014-12-18,montant,Sale,100001.0,Sale,50001,2015
-S001190,Bradley S. Schneider,HD,2014-12-18,montant,Purchase,250001.0,Purchase,100001,2015
-S001190,Bradley S. Schneider,SSYS,2014-12-03,montant,Sale,250001.0,Sale,50001,2015
+T000475,David A. Trott,APL,2015-03-03,montant,Exchange,1001.0,Exchange/Purchase,1/100001,2015
+T000475,David A. Trott,APL,2015-03-03,montant,Exchange,1001.0,Exchange/Purchase,1/100001,2015
 L000579,Alan S. Lowenthal,SPY,2016-08-08,montant,Purchase,439.0,Purchase,439,2016
 L000579,Alan S. Lowenthal,SPY,2016-08-08,montant,Purchase,439.0,Purchase,439,2016
 M001157,Michael T. McCaul,ADP,2016-10-04,montant,Sale,1001.0,Sale,15001,2016
@@ -200,6 +199,7 @@ M001157,Michael T. McCaul,ZTS,2016-10-17,sens,Sale,15001.0,Purchase,50001,2016
 M001180,David B. McKinley,VSM,2016-10-18,montant,Sale,636.0,Sale,636,2016
 M001193,Thomas MacArthur,CRRFY,2016-11-08,sens,Purchase,15001.0,Sale,15001,2016
 M001193,Thomas MacArthur,CRRFY,2016-11-09,sens,Purchase,15001.0,Sale,15001,2016
+T000475,David A. Trott,MWE,2015-12-04,montant,Exchange,15001.0,Exchange,1001/6,2016
 K000389,Rohit Khanna,AAPL,2017-05-09,montant,Sale,100001.0,Sale,1001/15001,2017
 K000389,Rohit Khanna,AAPL,2017-05-09,sens,Purchase,1001.0,Sale,1001/15001,2017
 K000389,Rohit Khanna,ABBV,2017-11-30,sens,Sale,1001.0,Purchase,15001,2017
@@ -624,12 +624,13 @@ L000579,Alan S. Lowenthal,EFX,2018-07-30,montant,Purchase,251.0,Purchase,1001/25
 L000579,Alan S. Lowenthal,EFX,2018-07-31,montant,Purchase,126.0,Purchase,1001/126,2018
 L000579,Alan S. Lowenthal,EFX,2018-10-11,montant,Sale,120.0,Sale,1001/120,2018
 L000579,Alan S. Lowenthal,EFX,2018-10-11,montant,Sale,120.0,Sale,1001/120,2018
-L000579,Alan S. Lowenthal,EFX,2018-10-12,montant,Sale,241.0,Sale,1001/120/241,2018
 L000579,Alan S. Lowenthal,EFX,2018-10-12,montant,Sale,120.0,Sale,1001/120/241,2018
+L000579,Alan S. Lowenthal,EFX,2018-10-12,montant,Sale,241.0,Sale,1001/120/241,2018
 L000579,Alan S. Lowenthal,EFX,2018-11-20,montant,Sale,805.0,Sale,15001/805,2018
 L000579,Alan S. Lowenthal,FB,2018-05-29,montant,Purchase,371.0,Purchase,371,2018
 L000579,Alan S. Lowenthal,FB,2018-07-26,montant,Purchase,524.0,Purchase,524,2018
 L000579,Alan S. Lowenthal,FB,2018-12-20,montant,Sale,659.0,Sale,659,2018
+L000579,Alan S. Lowenthal,GTES,2018-01-30,montant,Purchase,781.0,Purchase,781,2018
 L000579,Alan S. Lowenthal,GTES,2018-05-15,montant,Sale,615.0,Sale,1001/615,2018
 L000579,Alan S. Lowenthal,INFO,2018-06-26,montant,Purchase,616.0,Purchase,616,2018
 L000579,Alan S. Lowenthal,KDP,2018-07-11,montant,Sale,240.0,Sale,1001/240,2018
@@ -637,6 +638,8 @@ L000579,Alan S. Lowenthal,KSU,2018-07-23,montant,Sale,333.0,Sale,1001/333,2018
 L000579,Alan S. Lowenthal,KSU,2018-07-24,montant,Sale,333.0,Sale,1001/333,2018
 L000579,Alan S. Lowenthal,KSU,2018-07-25,montant,Sale,333.0,Sale,333,2018
 L000579,Alan S. Lowenthal,MA,2018-01-02,montant,Sale,152.0,Sale,1001/152,2018
+L000579,Alan S. Lowenthal,MRK,2018-01-08,montant,Sale,567.0,Sale,567,2018
+L000579,Alan S. Lowenthal,MRK,2018-01-08,montant,Sale,567.0,Sale,567,2018
 L000579,Alan S. Lowenthal,MSFT,2018-03-29,montant,Sale,360.0,Sale,1001/360,2018
 L000579,Alan S. Lowenthal,NVS,2018-11-29,montant,Purchase,816.0,Purchase,1001/15001/816,2018
 L000579,Alan S. Lowenthal,NVS,2018-11-30,montant,Purchase,909.0,Purchase,1001/363,2018
@@ -3129,11 +3132,11 @@ K000389,Rohit Khanna,GM,2022-11-10,sens,Purchase,1001.0,Sale,1001,2022
 K000389,Rohit Khanna,GM,2022-11-10,sens,Purchase,1001.0,Sale,1001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-14,montant,Purchase,,Purchase,1001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,1001.0,Sale,100001,2022
-K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,15001.0,Sale,100001,2022
-K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,1001.0,Sale,100001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,1001.0,Sale,100001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-21,montant,Sale,15001.0,Sale,100001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,1001.0,Sale,100001,2022
+K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,1001.0,Sale,100001,2022
+K000389,Rohit Khanna,GOOGL,2022-01-21,sens,Purchase,15001.0,Sale,100001,2022
 K000389,Rohit Khanna,GOOGL,2022-01-25,sens,Sale,1001.0,Purchase,1001,2022
 K000389,Rohit Khanna,GOOGL,2022-02-14,sens,Purchase,1001.0,Sale,50001,2022
 K000389,Rohit Khanna,GOOGL,2022-02-14,montant,Sale,1001.0,Sale,50001,2022
@@ -3287,9 +3290,9 @@ K000389,Rohit Khanna,MSI,2022-07-19,sens,Purchase,1001.0,Sale,1001,2022
 K000389,Rohit Khanna,MTB,2022-09-29,montant,Purchase,,Purchase,1001,2022
 K000389,Rohit Khanna,MTB,2022-11-03,sens,Purchase,1001.0,Sale,1001,2022
 K000389,Rohit Khanna,MTCH,2021-12-07,montant,Sale,1001.0,Sale,50001,2022
+K000389,Rohit Khanna,MTCH,2022-01-21,montant,Sale,1001.0,Sale,15001,2022
+K000389,Rohit Khanna,MTCH,2022-01-21,montant,Sale,1001.0,Sale,15001,2022
 K000389,Rohit Khanna,MTCH,2022-01-21,sens,Purchase,1001.0,Sale,15001,2022
-K000389,Rohit Khanna,MTCH,2022-01-21,montant,Sale,1001.0,Sale,15001,2022
-K000389,Rohit Khanna,MTCH,2022-01-21,montant,Sale,1001.0,Sale,15001,2022
 K000389,Rohit Khanna,MTCH,2022-02-17,montant,Purchase,1001.0,Purchase,15001,2022
 K000389,Rohit Khanna,MTCH,2022-05-05,sens,Purchase,15001.0,Sale,1001/15001,2022
 K000389,Rohit Khanna,MTCH,2022-05-05,sens,Purchase,1001.0,Sale,1001/15001,2022

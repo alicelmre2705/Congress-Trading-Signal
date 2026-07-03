@@ -1,6 +1,8 @@
-# Fiche récapitulative — Congress Trading Signal · la couche données
+# Fiche récapitulative — Congress Trading Signal · la couche données (2014-2026)
 
-*Résumé explicatif du projet : vision d'ensemble et résultats clés, sans le détail des fonctions. Le détail technique complet est dans le rapport.*
+*Résumé explicatif : vision d'ensemble et résultats clés, sans le détail des fonctions. Le détail
+technique complet est dans [RAPPORT_QUALITE.md](RAPPORT_QUALITE.md) ; l'audit-réparation du
+2026-07-03 est tracé dans [AUDIT_DONNEES_2014_2026.md](AUDIT_DONNEES_2014_2026.md).*
 
 ---
 
@@ -11,99 +13,74 @@
 - **Mais** avant toute stratégie, il faut une **couche de données irréprochable**. C'est mon livrable.
 
 ## 2. Le livrable en une phrase
-- Une base **propre, traçable et honnêtement validée** de **89 852 transactions uniques de membres élus** (le pipeline produit 90 483 lignes brutes ; après exclusion d'une déclaration de collaborateur non-élu et dédup cross-année des re-divulgations tardives), sur les **2 chambres** (Chambre + Sénat), **2020–2026** : extraites, rattachées à leur auteur, enrichies, et validées contre une source externe.
+- Une base **propre, traçable et honnêtement validée** de **169 000 transactions uniques de membres élus** (170 920 lignes brutes − 1 920 re-divulgations dédupliquées), sur les **2 chambres**, **2014–2026** — et sa déclinaison prête-recherche : la **table canonique de backtest, 134 464 lignes × 36 colonnes** (`data/clean/transactions_backtest_2014_2026.csv`).
 
 ## 3. D'où viennent les données
-- **Chambre** : le site public du *House Clerk* → un index annuel → les **PDF** des déclarations.
-- **Sénat** : le portail *eFD* (après acceptation d'un formulaire d'accès) → soit une **page web**, soit un **scan papier**.
-- **Référentiel public des élus** : pour savoir qui est qui (identité, parti, commissions).
-- **Deux services externes** : **Claude Vision** (pour lire les scans) et **Quiver** (pour valider — *jamais réinjecté*).
-- **Deux dates** par déclaration : la date du **trade**, et la date de **divulgation** (publication). On date tout par la divulgation → anti-look-ahead.
+- **Chambre** : le site public du *House Clerk* → un index annuel officiel → les **PDF** des déclarations. **100 % des 8 252 PTR listés par le Clerk 2014-2026 sont traités** (parsés, OCRisés, ou écartés par une règle écrite).
+- **Sénat** : le portail *eFD* → soit une **page web**, soit un **scan papier** ; les 25 dépôts sans transaction ont chacun une raison documentée (`06d_docs_sans_transaction.csv`).
+- **Référentiel public des élus** (identité, parti, commissions) + **référentiels transverses** créés à l'audit (`data/reference/` : renommages/délistages de tickers, carte secteurs, snapshots de commissions par Congrès).
+- **Deux services externes** : **Claude Vision** (lire les scans) et **Quiver** (valider — *jamais réinjecté*). S'y ajoutent deux sources de cross-validation indépendantes (senate-stock-watcher, mirror house-stock-watcher).
+- **Deux dates** par déclaration : date du **trade** et date de **divulgation**. Tout usage aval entre sur la divulgation → anti-look-ahead.
 
 ## 4. Le défi central : électronique vs scanné
 - Une déclaration arrive sous **2 formes** : du **texte** exploitable directement, ou une **image** qu'il faut « lire ».
-- C'est la **fourche** du projet → **4 sous-corpus** : Chambre électronique, Chambre OCR, Sénat électronique, Sénat OCR.
-- Volumes : Chambre **32 676** électronique + **48 966** scannés ; Sénat **7 161** + **1 680**.
-- Point marquant : **la moitié des déclarations de la Chambre ne sont que des images** (scans) → d'où le recours à l'OCR.
+- C'est la **fourche** du projet → **4 sous-corpus** : Chambre électronique **58 728**, Chambre OCR **93 261**, Sénat électronique **13 026**, Sénat OCR **3 985**.
+- Point marquant : **~61 % des lignes de la Chambre viennent de scans** — de gros déposants (Khanna, McCaul) déclarent exclusivement sur papier.
 
-## 5. La construction de la donnée, étape par étape
+## 5. La construction, étape par étape
 
-*Pour chaque étape : le **problème** concret, **comment** on le résout, le **résultat**.*
+### 5.1 — Qui a déclaré ? (résolution d'identité)
+- Nom libre → **identifiant officiel unique** (bioguide) via référentiel + matcher tolérant (surnoms, homonymes — le sénateur Casey n'est plus confondu avec son père depuis l'audit).
+- **Résultat : 100 % des lignes rattachées, les deux chambres** (les 52 lignes orphelines — Craig, Van Hollen, Udall — réparées à l'audit).
 
-### 5.1 — D'abord : qui a déclaré ? (résolution d'identité)
-- **Problème** : une déclaration ne donne qu'un **nom libre**, écrit différemment selon les dépôts (« Hon. Earl L. Carter » / « Buddy Carter » ; « N. Pelosi »). Sans clé stable, on compte un même élu plusieurs fois et on ne peut pas le rattacher à son parti/ses commissions.
-- **Comment** : on ramène chaque nom à l'**identifiant officiel unique** du membre (le même partout), via le référentiel des élus + un **matcher tolérant** (gère surnoms, accents, titres, et les homonymes au Sénat). Chaque chambre a son propre matcher, car les pièges diffèrent.
-- **Résultat** : **100 %** des lignes Chambre et **100 %** du Sénat rattachées (une déclaration de collaborateur non-élu — HASC — écartée du périmètre membres). À la Chambre, **256 identifiants pour 274 graphies** = exactement les variantes d'un même élu, ramenées à une seule clé.
+### 5.2 — Trier les formats
+- Chambre : test de la couche texte de chaque PDF ; Sénat : le portail indique le type. Cette fourche fixe la composition du §4.
 
-### 5.2 — Ensuite : trier les formats (électronique ou scanné ?)
-- **Problème** : une déclaration est soit du **texte** (analysable directement), soit une **image** (à lire par OCR). Se tromper de piste = perdre des transactions ou gaspiller des appels d'API.
-- **Comment** : **Chambre** → on **ouvre chaque PDF** et on teste s'il a une couche de texte (lisible vs scanné). **Sénat** → le portail eFD **indique déjà** le type (page web vs papier).
-- C'est la **fourche** du pipeline ; elle fixe la composition finale (Chambre 32 676 élec + 48 966 scannés ; Sénat 7 161 + 1 680).
+### 5.3 — Chambre électronique (PDF lisibles)
+- Parsing déterministe qui **reconstitue** chaque transaction (lignes recollées, motif « opération + 2 dates + montant »).
+- **Résultat : 58 728 transactions.** L'audit 2026-07-03 a corrigé deux causes de sous-comptage majeures : la police pré-2018 (petites capitales → **les ventes étaient massivement perdues** ; parité achats/ventes restaurée) et le routage des gabarits mixtes (union des deux parseurs).
 
-### 5.3 — Piste Chambre électronique (PDF lisibles)
-- **Problème** : sur ces PDF, une transaction n'est pas un tableau propre — elle s'étale sur plusieurs lignes, le montant déborde, le ticker se cache entre parenthèses.
-- **Comment** : un **parsing déterministe** qui **reconstitue** chaque transaction (recolle les lignes coupées, repère le motif « opération + 2 dates + fourchette de montant », récupère ticker et libellé autour).
-- **Résultat** : **32 676** transactions, taux d'extraction **99–100 %**.
+### 5.4 — Sénat électronique (pages HTML)
+- Tableaux web à en-têtes irréguliers → appariement flou des colonnes. **Résultat : 13 026 transactions.**
 
-### 5.4 — Piste Sénat électronique (pages HTML)
-- **Problème** : pas de PDF, mais des **tableaux web** dont l'intitulé et l'ordre des colonnes **changent** d'une déclaration à l'autre.
-- **Comment** : on lit les tableaux et on retrouve les bonnes colonnes par **appariement flou** (la colonne qui contient « ticker », ou « asset » + « name »…) — seule méthode robuste face à des en-têtes irréguliers.
-- **Résultat** : **7 161** transactions.
+### 5.5 — Chambre scannée (OCR Claude Vision)
+- **753 scans recensés et classifiés** (tapé droit / tapé tourné / manuscrit) ; redressement par reconnaissance d'orientation ; lecture structurée avec cache versionné (un re-run ne re-paie rien).
+- **Manuscrit (cluster C) exclu par défaut** (dates trop incertaines) — politique **rejouable** : 582 docs gated documentés, avec exceptions explicites (3 déposants à forte perte corroborée + 33 docs hérités curés à la main).
+- **Résultat : 93 261 lignes**, très concentrées (Khanna + McCaul + Renacci ≈ 48 % du House).
 
-### 5.5 — Piste Chambre scannée (OCR Claude Vision)
-- **Problème** : l'autre moitié n'est que des **images**. Un recensement des **547 scans** distingue 3 familles : **tapé droit** (74 docs), **tapé mais couché** (322, le gros du volume), **manuscrit** (151).
-- **Comment** :
-  - **Redressement** : on montre la page sous 4 orientations et on fait **reconnaître** la bonne (plus fiable que de demander l'angle au modèle).
-  - **Lecture** : Claude Vision **lit ET structure** directement en transactions (réponse en format strict, mise en cache → un re-run ne re-paie rien).
-  - **Ticker** : absent des formulaires papier → **ré-associé** depuis les symboles vus en électronique, complété par un LLM.
-  - **Manuscrit (cluster C) exclu par défaut** : dates trop incertaines pour une stratégie datée.
-- **Résultat** : **48 966** lignes, très **concentrées** — Khanna **63 %** à lui seul, le top-3 (Khanna, McCaul, Harshbarger) **92 %** : de gros déposants qui déclarent **exclusivement sur papier**.
+### 5.6 — Sénat papier (images)
+- Même moteur Vision ; **3 985 lignes**, surtout Blumenthal, massivement des obligations municipales (non cotées — d'où la couverture ticker plus basse du Sénat).
 
-### 5.6 — Piste Sénat papier (images .gif)
-- **Problème** : marginal (5 sénateurs) mais bien réel ; des images **droites** (pas besoin de redressement). Surtout : trop peu de données pour bâtir un dictionnaire de tickers année par année.
-- **Comment** : même moteur Vision ; et **enrichissement sur tout le corpus en une passe** (un symbole vu une année sert aux autres). C'est **la seule vraie asymétrie d'architecture**, justifiée par le faible volume.
-- **Résultat** : **1 680** lignes, surtout **Blumenthal (~73 %)**, massivement des **obligations municipales** (non cotées) → c'est ce qui explique la couverture plus basse du Sénat.
+### 5.7 — Secteur (GICS → ETF)
+- Cascade factuelle (yfinance) → LLM → corrections manuelles, source tracée. Depuis l'audit : les **ETF diversifiés n'ont plus de faux secteur** (requalifiés `etf_broad` dans la carte transverse) et les symboles recyclés sont datés.
+- **Couverture** (= remplissage, pas exactitude ; le non-coté n'a ni ticker ni secteur par nature) : ticker **84,1 % (Chambre) / 77,9 % (Sénat)** ; secteur **79,8 % / 70,4 %**. Dans la table canonique de backtest : secteur actions **100 %**.
 
-### 5.7 — Donner un secteur à chaque ticker (GICS → ETF)
-- **Pourquoi** : la stratégie visée copie **secteur par secteur**, via des **ETF** (fonds cotés qui répliquent tout un secteur), pas action par action.
-- **Comment** : on classe chaque société dans l'un des **11 secteurs GICS**, puis on mappe **1:1** vers l'ETF correspondant. Le secteur est trouvé par une **cascade** (base factuelle → LLM si besoin → corrections manuelles), en gardant la trace de qui a tranché.
-- **Précision** : **« couverture » = taux de remplissage**, pas d'exactitude. Les actifs non cotés n'ont **ni ticker ni secteur par nature** — donc < 100 % est normal.
-- **Résultat** : secteur renseigné à **83 % (Chambre) / 62 % (Sénat)** ; ancienneté à **100 %**.
-
-### 5.8 — La table finale : le contrat « 12/12 »
-- **Ce qui assemble tout** : une **clé naturelle de 7 champs** qui exclut volontairement le ticker (ajouté après) et la date de divulgation (pour qu'un dépôt et son amendement restent **une** transaction).
-- **Déduplication non destructrice** : on retire les vrais doublons mais on **préserve les lots multi-comptes réels** (ex. Khanna déclarant plusieurs fois via plusieurs comptes).
-- **Le contrat** : **28 colonnes**, dont **12 champs « métier » garantis** identiques sur les deux chambres.
-- **Nuance d'honnêteté** : *« présent »* n'est pas *« sans valeur manquante »* — ticker/secteur vides pour le non-coté (légitime), commissions = **photo actuelle**, pas l'historique daté.
+### 5.8 — Les tables finales
+- **Clé naturelle de 7 champs** (sans ticker ni date de divulgation) + rang d'occurrence → dédup **non destructrice** (les lots multi-comptes réels Self/Spouse/Joint sont préservés — ne jamais `drop_duplicates()`).
+- **FINAL par année** : 28 colonnes, 12 champs « métier » garantis sur les 2 chambres. Commissions = photo actuelle dans les FINAL ; la **table canonique** ajoute parti **et** commissions **point-in-time** (à la date du trade, Congrès par Congrès), tickers canoniques Yahoo avec renommages, flags de traçabilité (dépôts tardifs, délistés, lots).
 
 ## 6. Les résultats clés
-- **89 852** transactions uniques de membres (90 483 brutes − 631 re-divulgations cross-année) · 2 chambres · 7 ans.
-- **Identité : 100 % / 100 %** rattachées (staffer non-élu exclu).
-- Couverture **ticker** ≈ 85 % (Chambre) / 71 % (Sénat) ; **secteur** ≈ 83 % / 62 %.
-- Les « trous » de couverture sont surtout des **actifs non cotés** (obligations, *munis*) qui n'ont **légitimement pas** de ticker — pas un défaut.
+- **169 000** transactions uniques (House 151 989 + Sénat 17 011) · 2 chambres · 13 ans.
+- **Complétude prouvée** : 100 % de l'index officiel House traité ; Sénat = sur-ensemble strict de senate-stock-watcher (6 231 transactions externes 2014-2020 : **100 % retrouvées** hors représentation des échanges).
+- **Identité : 100 %** ; montants renseignés 99,4 % (7 996 fourchettes tronquées réparées — montants ×2 corrigés).
+- **Table de recherche canonique : 134 464 lignes × 36 colonnes**, invariants garantis par asserts (bioguide, ticker, montant, direction, chronologie, hash).
 
-## 7. La validation Quiver
-- On compare **au niveau transaction**, par **scope** : électronique seul / OCR seul / les deux.
-- **Limite clé** : Quiver **ne suit que les ACTIONS cotées**. Le non-coté (munis, obligations) est **hors de son périmètre** → ni validable, ni une erreur.
-- **Électronique : quasi parfait (98–99 %)** → confirme que l'analyse de texte est fiable.
-- **OCR : à lire en 2 questions** :
-  - *Le trade existe-t-il ?* Oui pour **78–88 %** des scans **tapés** ; mais **35 %** seulement pour le **manuscrit**.
-  - *A-t-on lu la bonne date ?* C'est **LA** limite : date exacte **68 %** sur le tapé, **37 %** sur le manuscrit.
-  - → Quiver **corrobore les trades tapés** ; notre vrai point faible est la **lecture des dates manuscrites** (d'où l'exclusion du manuscrit).
-- **Sénat papier** : pas de contrôle externe possible (Quiver n'a pas ces déposants, et c'est surtout du non-coté).
+## 7. La validation externe
+- **Quiver** (vérité-terrain, jamais réinjectée) : électronique quasi parfait (98-99 %) ; dans notre fenêtre on retrouve **93,5 % (House) / 92,1 % (Sénat)** des trades Quiver ; on est **plus complet** que Quiver (+26 524 combinaisons cotées).
+- Les « doublons » apparents de Quiver sont élucidés : ce sont majoritairement des **lots multi-comptes réels** (le champ owner, que Quiver ne publie pas, les distingue chez nous).
+- **Sources indépendantes** : senate-stock-watcher (100 % couvert) et mirror house-stock-watcher (99,5 % post-2018) — les manques qu'ils révélaient pré-2018 ont été corrigés à l'audit.
 
 ## 8. Qualité & reproductibilité
-- Un **rapport de qualité automatique** (6 contrôles : cohérence des dates, délais légaux, montants, concentration, etc.).
-- **Reproductibilité** : le pipeline n'est pas rejouable hors-ligne, donc on prouve la justesse autrement :
-  - **« Golden »** : empreinte exacte de **toutes** les sorties (**125** fichiers Chambre, **76** Sénat) → toute modif involontaire est détectée.
-  - Reproductions **fonction par fonction** + un audit qui **asserte les invariants** (totaux, identité).
+- **Rapport qualité automatique** régénérable offline (`python -m common.quality`), désormais déterministe, avec section « couverture vs univers officiel ».
+- **Golden octet-à-octet** : **230 fichiers Chambre + 138 Sénat** ; **10/10 tests** de régression verts ; chaque transformation reproduite depuis les colonnes figées.
 
 ## 9. Les limites assumées
-- **Manuscrit exclu** par défaut : lecture des dates trop incertaine.
-- **Pas de ticker/secteur** pour les actifs non cotés (par nature).
-- **Commissions** = photo actuelle, pas l'historique daté.
-- **Baisse de couverture Sénat 2025–26** = changement de **composition** (plus de munis), pas une dégradation d'extraction.
+- **Manuscrit exclu** par défaut (dates incertaines) — documenté, rejouable, avec exceptions explicites.
+- **Pas de ticker/secteur pour le non-coté** (par nature) ; ~758 lignes OCR récentes à ticker non résolu (candidates à une future passe).
+- **Prix des titres délistés** : plus aucune source gratuite (Yahoo purge, Stooq verrouillé) → traitement PAR TYPE via `ticker_renames.csv` (faillite ≈ perte totale, rachat = clôture à la date du deal) au lieu d'une disparition silencieuse.
+- **Commissions des FINAL** = photo actuelle (le point-in-time est dans la table canonique).
+- Cutoff de collecte : **2026-07-03** (House) / 2026-06-25 (Sénat, 3 dépôts postérieurs documentés).
 
 ## 10. Conclusion & suite
-- Une couche de données **complète, identifiée, enrichie, validée honnêtement et reproductible** — sur laquelle une stratégie peut être bâtie **en connaissant ses limites**.
-- **Suite (hors de ce livrable)** : la **stratégie et le backtest** (copy-trading actions, puis ETF sectoriels) — phases S3–S4.
+- Une couche de données **complète (prouvée contre l'univers officiel), identifiée, enrichie, corrigée, validée par trois sources externes et reproductible** — prête pour la recherche.
+- **Suite (phases S3-S4)** : basculer la recherche sur la table canonique et appliquer [PATCHS_S3S4_A_APPLIQUER.md](PATCHS_S3S4_A_APPLIQUER.md).

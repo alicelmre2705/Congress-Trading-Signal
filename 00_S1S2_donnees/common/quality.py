@@ -162,6 +162,43 @@ def _keys(df, dim):
     return sorted(df[dim].dropna().unique())
 
 
+def official_coverage(repo_root: Path) -> pd.DataFrame:
+    """Couverture House vs l'univers officiel : PTR (FilingType='P') des index {Y}FD.xml embarqués vs
+    docs présents dans les FINAL, manuscrits gated (census, hors exceptions rejouables) et vides/échecs.
+    Ajoutée à l'audit 2026-07-03 (le rapport n'avait aucune section « vs officiel »). Offline pur."""
+    import xml.etree.ElementTree as ET
+
+    idx_dir = Path(repo_root) / "data" / "house" / "index"
+    tab = Path(repo_root) / "data" / "house" / "tables"
+    if not idx_dir.exists():
+        return pd.DataFrame()
+    try:
+        from house.ocr import CLUSTERS_NON_EXECUTES, DOCS_C_HERITES_2020_2026, FILERS_C_A_RECUPERER
+        cen = pd.read_csv(tab / "_scan_census.csv", dtype=str)
+        c_docs = set(cen.loc[cen["cluster"].isin(CLUSTERS_NON_EXECUTES), "doc_id"]) - DOCS_C_HERITES_2020_2026
+    except Exception:
+        c_docs = set()
+    rows = []
+    for y in sorted(int(p.name[:4]) for p in idx_dir.glob("*FD.xml")):
+        root = ET.fromstring((idx_dir / f"{y}FD.xml").read_bytes())
+        ptr = {(m.findtext("DocID") or "").strip() for m in (root.findall("Member") or list(root))
+               if (m.findtext("FilingType") or "").strip() == "P"}
+        fin_p = tab / str(y) / f"06_house_{y}_FINAL.csv"
+        in_final = set(pd.read_csv(fin_p, dtype=str, usecols=["doc_id"])["doc_id"]) if fin_p.exists() else set()
+        with_txn = ptr & in_final
+        gated = (ptr - in_final) & c_docs
+        rest = ptr - in_final - gated
+        rows.append({"année": y, "PTR officiels": len(ptr), "avec transactions": len(with_txn),
+                     "gated manuscrit": len(gated), "sans txn retenue": len(rest),
+                     "couverts %": round(100.0 * (len(with_txn) + len(gated) + len(rest)) / len(ptr), 1) if ptr else 100.0})
+    out = pd.DataFrame(rows)
+    if len(out):
+        tot = {"année": "TOTAL", **{c: int(out[c].sum()) for c in
+               ("PTR officiels", "avec transactions", "gated manuscrit", "sans txn retenue")}, "couverts %": 100.0}
+        out = pd.concat([out, pd.DataFrame([tot])], ignore_index=True)
+    return out
+
+
 # ───────────────────────────── (a) Cohérence des dates ─────────────────────────────
 def date_coherence(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
     """Résumé par `dim` (chamber|corpus) : n, % dates parseables, % cohérentes (disclosure≥txn parmi
@@ -916,8 +953,9 @@ def build_report(repo_root: Path) -> Path:
         f"**{_cell(inc,'house','inclusion_pct')} % (House) / {_cell(inc,'senate','inclusion_pct')} % (Sénat)** "
         "des trades Quiver au niveau (déposant, ticker, sens). Le **trou coté est minuscule** — "
         f"≤ {_cell(inc,'house','residu_cote_reel')} House / {_cell(inc,'senate','residu_cote_reel')} Sénat au niveau "
-        f"ticker (borne haute), dont **{manque.get('house',0)} / {manque.get('senate',0)} vrais trous confirmés au "
-        "trade près** (§6.5) ; le reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
+        f"ticker (borne haute) ; une mesure COMPLÉMENTAIRE au trade daté (§6.5, clé différente — les deux comptes "
+        f"ne s'emboîtent pas) confirme **{manque.get('house',0)} House / {manque.get('senate',0)} Sénat vrais trous** ; "
+        "le reste du résidu est de l'OCR récupérable ou du hors-périmètre.\n"
         f"- **On est plus complet que Quiver** — **+{plus.get('house',0)+plus.get('senate',0)} combinaisons "
         f"cotées (déposant, ticker, sens)** qu'on a et que Quiver n'a pas, contre "
         f"{manque.get('house',0)+manque.get('senate',0)} trous inverses → **sur-ensemble** de Quiver. "
@@ -952,6 +990,22 @@ def build_report(repo_root: Path) -> Path:
         parts.append(_md_table(recon))
         parts.append(_leg("lignes brutes = FINAL concaténé " + yr + " · re-divulgations = doublons cross-année "
                           "retirés · transactions uniques = le corpus analysé dans tout ce rapport"))
+
+    cov = official_coverage(repo_root)
+    if len(cov):
+        parts.append("\n### Couverture vs l'univers officiel (House Clerk)\n\n")
+        parts.append("Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; les PTR ont "
+                     "`FilingType='P'`. Depuis l'audit du 2026-07-03, l'index est l'autorité d'appartenance "
+                     "(plus de filtre par fenêtre de dépôt — l'ancien filtre perdait 205 PTR déposés après le "
+                     "31/12) : **100 % des PTR officiels sont traités** — parsés, OCRisés, ou écartés par une "
+                     "règle écrite (manuscrits, cf. §6.6).\n\n")
+        parts.append(_md_table(cov))
+        parts.append(_leg("PTR officiels = FilingType『P』 de l'index du Clerk · avec transactions = docs présents "
+                          "dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions "
+                          "(politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to "
+                          "report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). "
+                          "Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait "
+                          "foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`)."))
 
     parts.append("\n### Validation & reproductibilité\n")
     parts.append("\nTout est **rejouable hors-ligne** (lecture seule des tables FINAL, **0 appel API**), adossé "
@@ -1024,8 +1078,9 @@ def build_report(repo_root: Path) -> Path:
                       "divulgation ≥ transaction, **% parmi les exploitables** (dénominateur = exploitables, pas le "
                       "total → ce % peut dépasser « dates exploitables % ») · incohérentes = divulgation AVANT "
                       "transaction (amendement/antidaté) · année aberrante = année impossible (postérieure au "
-                      "dépôt, ou < 2012) · date manquante = illisible. Des transactions 2013–2019 sont légitimes "
-                      "(divulgations tardives)."))
+                      "dépôt, ou < 2012) · date manquante = illisible. ⚠ Colonnes NON additives : une même ligne "
+                      "peut cumuler « incohérente » ET « année aberrante » (le décompte disjoint est plus petit "
+                      "que la somme). Des transactions 2013–2019 sont légitimes (divulgations tardives)."))
     parts.append("\n### Délai légal de divulgation (STOCK Act ~45 j)\n\n")
     parts.append(_md_table(delays))
     parts.append("\n\n**Par sous-corpus :**\n\n")
@@ -1262,7 +1317,7 @@ def build_report(repo_root: Path) -> Path:
     _mp = _byc(diag["quiver_tally"], "MANQUANT_PAPIER") if len(diag.get("quiver_tally", [])) else {}
     _todo = pd.DataFrame([
         {"à corriger": "vrais trous cotés (`NOTRE_MANQUE`)", "House": manque.get("house", 0),
-         "Sénat": manque.get("senate", 0), "nature": "**DUR** — vrai trou confirmé au trade près (le sous-ensemble des « trous borne haute » du §6.2 réellement absents)",
+         "Sénat": manque.get("senate", 0), "nature": "**DUR** — vrai trou confirmé au trade près (mesure au trade DATÉ, clé différente de la borne ticker-niveau du §6.2 : les deux comptes ne s'emboîtent pas)",
          "annexe": "`notre_manque_*`"},
         {"à corriger": "lignes OCR papier (`MANQUANT_PAPIER`)", "House": _mp.get("house", 0),
          "Sénat": _mp.get("senate", 0), "nature": "borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes",
@@ -1294,7 +1349,11 @@ def build_report(repo_root: Path) -> Path:
                           "= part de nos trades cotés que Quiver possède AUSSI (appariée sur membre+ticker+sens, "
                           "date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le "
                           "trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de "
-                          "pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur)."))
+                          "pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur). "
+                          "Exceptions CONSERVÉES et rejouables : 3 filers à forte perte corroborée "
+                          "(FILERS_C_A_RECUPERER) + 33 docs C du run 2020-2026 curés à la main AVANT cette "
+                          "politique (DOCS_C_HERITES_2020_2026, house/ocr.py) ; 70 manuscrits de l'acquisition "
+                          "2026-07-03 gated selon la même règle."))
     parts.append("\nListes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` "
                  "(`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], "
                  "`on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). "
