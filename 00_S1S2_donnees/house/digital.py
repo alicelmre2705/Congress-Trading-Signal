@@ -304,12 +304,26 @@ def parse_ptr_legacy(text):
 
 def parse_ptr_dual(text):
     """Route par signature de format. Docs modernes (codes `[XX]` inline) → `parse_ptr` INTACT ;
-    docs anciens (sans code `[XX]`) → le parser qui extrait le plus (legacy en pratique)."""
+    docs anciens (sans code `[XX]`) → UNION dédupliquée des deux parseurs.
+
+    Les deux gabarits coexistent dans certains docs anciens : chaque parseur voit des lignes que
+    l'autre rate (recette 2026-07-03 : sur 20002235, legacy 5 + modern 4 = 9 transactions réelles
+    disjointes). L'ancien routage « celui qui extrait le plus » perdait l'autre moitié (72 ventes
+    sur la seule année 2014). Dédup en MULTISET sur (ticker, date, montant) : les lots réels
+    (plusieurs lignes identiques d'un même dépôt) restent préservés."""
     if ATYPE_RE.search(text):
         return parse_ptr(text)                     # gabarit moderne → parser figé (golden préservé)
     legacy = parse_ptr_legacy(text)
     modern = parse_ptr(text)
-    return legacy if len(legacy) > len(modern) else modern
+    counts = Counter((r["ticker"], r["transaction_date"], r["amount_range"]) for r in legacy)
+    extra = []
+    for r in modern:
+        k = (r["ticker"], r["transaction_date"], r["amount_range"])
+        if counts.get(k, 0) > 0:
+            counts[k] -= 1                          # déjà couverte par legacy
+        else:
+            extra.append(r)
+    return legacy + extra
 
 
 # ───────────────────────── match_bioguide (délégué à house.identity) ─────────────────────────
