@@ -38,9 +38,12 @@ def main():
         mism += n
         if n:
             print(f"  ❌ {chamber} {year} : {n}/{len(df)} écarts")
-    ok = (mism == 0) and (files == 14)
-    print(f"\n{files} fichiers FINAL, {total} lignes vérifiées, {mism} écarts")
-    print("RÉSULTAT :", "✅ years_in_office REPRODUIT (zéro écart, 14 FINAL)"
+    # 13 années (2014-2026) × 2 chambres depuis l'extension pré-2020 (la valeur 14 datait
+    # de la fenêtre 2020-2026 et faisait échouer le test alors que les lignes étaient justes).
+    EXPECTED_FILES = 26
+    ok = (mism == 0) and (files == EXPECTED_FILES)
+    print(f"\n{files} fichiers FINAL (attendus : {EXPECTED_FILES}), {total} lignes vérifiées, {mism} écarts")
+    print("RÉSULTAT :", f"✅ years_in_office REPRODUIT (zéro écart, {EXPECTED_FILES} FINAL)"
           if ok else "❌ ÉCART / fichiers manquants")
     sys.exit(0 if ok else 1)
 
