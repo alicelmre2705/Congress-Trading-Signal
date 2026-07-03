@@ -20,3 +20,22 @@ les `recyclage_attention` exigent un contrôle de recouvrement de dates avant to
 
 Sources : événements de marché publics (dates vérifiées au mois près). Toute entrée douteuse a été
 OMISE plutôt que devinée — compléter au fil des besoins, jamais en aveugle.
+
+## `ticker_sector_map.csv` — carte transverse ticker → classe d'actif / secteur GICS / ETF proxy
+
+Dérivée du cache de résolution S3S4 (`ticker_sector.json` : yfinance factuel + repli LLM) et CORRIGÉE
+des erreurs prouvées à l'audit 2026-07-03 : 97 ETF diversifiés/obligataires/commodities requalifiés
+`etf_broad` (un secteur GICS n'a pas de sens pour eux — l'ancien cache leur donnait des secteurs LLM
+faux : IWD→XLF, GLD→XLB…), 11 SPDR sectoriels = leur propre proxy, NP re-daté (Neenah Paper, recyclage).
+
+| `asset_class` | Sens |
+|---|---|
+| `stock` | action — `sector_gics` + `etf_proxy` SPDR remplis (source yfinance/llm conservée) |
+| `etf_sector` | SPDR sectoriel — proxy = lui-même |
+| `etf_broad` | ETF diversifié — PAS de secteur ; à garder dans un backtest actions/ETF avec flag |
+| `unknown` | non résolu (majoritairement non-coté/obligations) — à flaguer, pas à jeter en aveugle |
+
+## `committees_snapshots/{113..119}/` — commissions par Congrès (point-in-time)
+
+Paires `committees.yaml` + `membership.yaml` (github unitedstates/congress-legislators aux tags
+historiques). Source du `committee_membership` point-in-time de la chaîne de nettoyage canonique.
