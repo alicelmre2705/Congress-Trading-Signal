@@ -247,8 +247,12 @@ def parse_ptr(text):
 # transaction hors début de ligne → il jette ces lignes (sous-comptage massif, cf. sonde 2015-2017).
 # `parse_ptr_legacy` cible ce gabarit ; `parse_ptr_dual` route par SIGNATURE de format
 # (présence de codes `[XX]` = moderne → `parse_ptr` INCHANGÉ, donc golden 2020-2026 intact).
+# Le type accepte AUSSI les minuscules : la police pré-2018 rend les majuscules en PETITES CAPITALES
+# que pdfplumber lit « s »/« e » (sonde 2026-07-03 : 95 % des lignes perdues étaient des VENTES « s » —
+# biais vendeur systématique, ~+10 % de lignes sur 2014-2017). Faux positifs contenus par la garde
+# « jeton isolé » ci-dessous + l'exigence de DEUX dates et d'un montant ; `_op_type` upper()ise déjà.
 _LEGACY_TXN_RE = re.compile(
-    r'(?P<type>[PSE])(?:\s*\((?P<sub>[Pp]artial|[Ff]ull)\))?\s+'
+    r'(?P<type>[PSEpse])(?:\s*\((?P<sub>[Pp]artial|[Ff]ull)\))?\s+'
     r'(?P<txn>\d{1,2}/\d{1,2}/\d{4})\s+'
     r'(?P<notif>\d{1,2}/\d{1,2}/\d{4})\s+'
     r'(?P<amount>\$[\d,]+\s*-\s*\$[\d,]+|Over\s+\$[\d,]+|\$[\d,]+\+?)')
