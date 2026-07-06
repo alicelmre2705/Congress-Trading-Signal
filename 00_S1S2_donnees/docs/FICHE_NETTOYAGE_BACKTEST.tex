@@ -84,11 +84,13 @@ validation seulement --- rien n'y est copié. Trois questions :
             écartés \emph{exprès} (voir \S4) ;
       \item d'autres (95 House, 353 Sénat) ne sont pas backtestables --- actif non coté ou ticker
             fragmenté même chez Quiver ;
-      \item il ne reste, au pire, que 31 combinaisons cotées côté House (0 côté Sénat) qui pourraient
-            être de vrais trous.
+      \item restent 31 combinaisons cotées côté House (0 côté Sénat) à vérifier une par une.
       \end{itemize}
-\item En re-testant proprement \emph{au niveau du trade daté}, il ne reste au total que
-      \textbf{27 vrais manques côté House et 11 côté Sénat}.
+\item Le décompte \emph{honnête} se mesure au \emph{trade daté} (chaque trade à sa date exacte) : il ne
+      manque réellement que \textbf{27 trades côté House et 11 côté Sénat}. \emph{(Autre mesure que les
+      31/0 ci-dessus, sur une autre clé : celle-ci compte chaque trade à sa date, l'autre comptait les
+      paires titre-sens sans date --- un membre peut avoir la bonne paire et un trade daté en moins, d'où
+      les deux ne coïncident pas.)}
 \item \textbf{senate-stock-watcher} (base publique et indépendante du Sénat, 2014--2020, 6\,231 trades
       avec ticker) : on cherche chacune de \emph{ses} lignes chez nous → \textbf{100\,\%} retrouvées. Ses
       36 exceptions ne sont pas des manques : sur un échange de titres, il écrit 2 lignes là où nous en
