@@ -69,18 +69,33 @@ validation seulement --- rien n'y est copié. Trois questions :
 
 \textbf{1) A-t-on tout ce qu'eux ont ?}
 \begin{itemize}
-\item Quiver : \textbf{93{,}5\,\%} (House) / \textbf{92{,}1\,\%} (Sénat) de ses combinaisons retrouvées
-      chez nous. \emph{(Combinaison = ce déposant a déclaré au moins un trade sur ce titre dans ce sens ;
-      clé sans date, pour tolérer les conventions.)}
-\item Après enquête sur le résidu : \textbf{27\,+\,11 « vrais trous »} confirmés, seulement.
-\item senate-stock-watcher : \textbf{100\,\%} des 6\,231 transactions retrouvées (hors représentation des
-      échanges : 2 lignes chez lui, 1 chez nous).
-\item Mirror house-stock-watcher : \textbf{99{,}5\,\%} des lignes 2018--2026 retrouvées (23\,568 transactions).
+\item Quiver, \emph{sans} la date : \textbf{93{,}5\,\%} (House) / \textbf{92{,}1\,\%} (Sénat) de ses
+      combinaisons retrouvées chez nous. \emph{(Combinaison = ce déposant a déclaré au moins un trade sur
+      ce titre dans ce sens ; on compare d'abord sans la date, pour tolérer les conventions de date.)}
+\item Quiver, \emph{avec} la date : \textbf{70\,265} (House) + \textbf{8\,766} (Sénat) trades appariés
+      \textbf{au jour exact}, +\,845 à $\leq$\,10 jours.
+\item Les seuls candidats sérieux d'« erreur de date » : 545 paires issues d'une même déclaration
+      (écart typique 11~j) --- vérification faite, c'est une convention de date de Quiver ; le vrai
+      contrôle des dates est l'audit des PDF officiels.
+\item Le résidu sans-date (1\,704 + 360 combinaisons non retrouvées) s'explique poche par poche :
+      1\,578\,+\,7 relèvent des manuscrits gated (écartés volontairement, pas perdus) ·
+      95\,+\,353 sont hors périmètre (actifs non cotés, fragments) · reste une borne haute de
+      31\,+\,0 combinaisons cotées.
+\item Au trade daté, après tous les filtres : \textbf{27\,+\,11 manques confirmés}, en tout.
+\item senate-stock-watcher (projet GitHub indépendant qui a collecté le Sénat 2014--2020 ; 6\,231
+      transactions tickées) : on cherche chacune de \emph{ses} lignes chez nous (membre + ticker) →
+      \textbf{100\,\%} retrouvées ; ses 36 « non-matchées » = représentation (il éclate un échange en
+      2 lignes, nous 1).
+\item Mirror house-stock-watcher (reconstruit indépendamment \emph{depuis les mêmes PDF officiels} de la
+      Chambre ; 23\,568 transactions 2012--2026) : \textbf{99{,}5\,\%} de ses lignes 2018--2026
+      retrouvées chez nous ; avant 2018, ses écarts nous ont servi de détecteur de manques --- tous
+      ré-acquis et corrigés depuis (\S3).
 \end{itemize}
 
 \textbf{2) A-t-on \emph{plus} qu'eux ?}
 \begin{itemize}
-\item \textbf{+23\,535} trades cotés nets côté House, \textbf{+2\,951} côté Sénat.
+\item \textbf{+23\,535} trades cotés nets côté House, \textbf{+2\,951} côté Sénat ; au trade daté :
+      39\,207 + 3\,140 trades chez nous absents de Quiver.
 \item Le surplus est réel, pas un artefact : \textbf{Quiver est mince avant 2017} (il ne corrobore que
       16{,}6--32{,}6\,\% de nos actions 2014--2016).
 \item Nos lignes « nous-seul » portent des tickers vérifiés sur les PDF officiels.
@@ -115,21 +130,33 @@ D & Montant présent (dimensionner une position exige un notionnel) & 687 & \tex
 \end{tabular}
 \end{center}
 
+\textbf{Étape A --- les trois critères de retrait :}
 \begin{itemize}
-\item \textbf{Étape A} : lignes sans date exploitable, publication \emph{avant} transaction (impossible),
-      années implausibles. Les \emph{dépôts tardifs} (12{,}2\,\% $>45$~j) sont GARDÉS et flagués : c'est
-      de l'information réelle, jouable à sa date de publication.
-\item \textbf{Étape B, décomposée} : 27\,006 lignes \emph{sans aucun symbole} (munis, obligations,
-      sociétés privées --- pas de prix possible) + 164 tickers malformés (CUSIP, fragments OCR) + 2\,601
-      familles non cotées (options, bons du Trésor). \textbf{Logique ticker-first} : 21\,878 lignes au
-      champ « type d'actif » vide sont \emph{sauvées} par leur ticker validé --- l'inverse du filtre naïf
-      par champ déclaré (vide dans 16 à 31\,\% des cas selon le sous-corpus), qui avait écarté à tort une
-      large part des trades exploitables dans une première version de la recherche ; bug trouvé, corrigé,
-      et le nettoyage centralisé ici.
-\item \textbf{Ce que la table contient} : House 91{,}3\,\% / Sénat 8{,}7\,\% ; achats 68\,250 / ventes
-      66\,214 ; actions 128\,974 (secteur GICS 100\,\%) + ETF diversifiés 2\,022 + ETF sectoriels 168 +
-      3\,300 cotés à classe non résolue (flagués) ; les deux ères couvertes (House : 56\,706 en
-      2014--2019, 66\,108 en 2020--2026).
+\item dates illisibles ou absentes (impossible de dater l'entrée) ;
+\item publication \emph{avant} la transaction --- impossible, coquille du déposant ;
+\item année implausible : transaction avant 2012 (avant le STOCK Act) ou après l'année du dépôt ;
+\item en revanche, les \emph{dépôts tardifs} (12{,}2\,\% $>45$~j) sont GARDÉS et flagués : information
+      réelle, jouable à sa date de publication.
+\end{itemize}
+
+\textbf{Étape B --- décomposée :}
+\begin{itemize}
+\item 27\,006 lignes \emph{sans aucun symbole} (munis, obligations, sociétés privées --- pas de prix possible) ;
+\item 164 tickers malformés (CUSIP, fragments OCR) ;
+\item 2\,601 familles non cotées (options, bons du Trésor) ;
+\item \textbf{rescue ticker-first} : 21\,878 lignes au champ « type d'actif » vide sont \emph{sauvées}
+      par leur ticker validé ;
+\item la leçon : le filtre naïf par champ déclaré (vide dans 16 à 31\,\% des cas) avait écarté à tort
+      une large part des trades exploitables dans une première version --- bug trouvé, corrigé,
+      nettoyage centralisé ici.
+\end{itemize}
+
+\textbf{Ce que la table contient :}
+\begin{itemize}
+\item chambres : House 91{,}3\,\% / Sénat 8{,}7\,\% ; sens : achats 68\,250 / ventes 66\,214 ;
+\item classes : actions 128\,974 (secteur GICS 100\,\%) · ETF diversifiés 2\,022 · ETF sectoriels 168 ·
+      3\,300 cotés à classe non résolue (flagués) ;
+\item les deux ères couvertes : House 56\,706 en 2014--2019, 66\,108 en 2020--2026.
 \end{itemize}
 
 % ══════════════════════════════════════════════════════════════════
