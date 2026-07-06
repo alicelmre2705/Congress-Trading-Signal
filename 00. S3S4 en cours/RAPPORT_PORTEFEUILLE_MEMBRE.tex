@@ -64,8 +64,11 @@
 \begin{itemize}
   \item Transactions : table canonique S1/S2\\
         \code{transactions\_backtest\_2014\_2026.csv},\\
-        $134\,464 \to 134\,429$ lignes (fenêtre \code{traded} 2013--2026),
-        \textbf{372 membres}, $4\,618$ tickers ; actions + ETF, nettoyage transactionnel fait en amont.
+        $134\,464 \to 134\,429$ lignes, \textbf{372 membres}, $4\,618$ tickers ;
+        actions + ETF, nettoyage transactionnel fait en amont.
+  \item Dates \emph{déclarées} 2014--2026 ; la date d'\emph{opération} (\code{traded})
+        remonte parfois à 2013 (déclaration à retardement, STOCK Act) --- seules les
+        35 opérations de 2012 sont écartées.
   \item Panel de prix (cache \code{prices\_v2}, Yahoo) : $3\,289$ tickers avec prix,
         $1\,268$ sans prix, \textbf{61 corrompus exclus} $\to$ $16\,400$ trades jetés,
         $\mathbf{118\,029}$ exploitables.
