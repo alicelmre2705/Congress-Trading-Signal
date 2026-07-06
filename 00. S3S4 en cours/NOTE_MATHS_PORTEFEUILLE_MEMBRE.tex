@@ -1,0 +1,147 @@
+% !TEX program = tectonic
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}        % XeTeX/LuaTeX (tectonic) : UTF-8 natif
+\fi
+\usepackage[french]{babel}
+\frenchsetup{StandardLists=true}
+\usepackage[a4paper,margin=1.5cm,columnsep=0.6cm,footskip=0.7cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt}
+\usepackage{xcolor}
+\usepackage[font=small,skip=2pt]{caption}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{0.75em}{0.3em}
+\titleformat{\section}{\normalsize\bfseries}{\thesection.}{0.4em}{}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\raggedbottom
+\setlength{\emergencystretch}{1.5em}
+\abovedisplayskip=3pt plus 1pt \belowdisplayskip=3pt plus 1pt
+\abovedisplayshortskip=2pt \belowdisplayshortskip=2pt
+\newcommand{\code}[1]{\texttt{\small #1}}
+
+\title{\vspace{-1.8em}\textbf{Portefeuille des élus du Congrès --- spécification mathématique}\\[2pt]
+\large Reconstruction, classement, stratégie de copie et ajustement au marché\\[1pt]
+\small Note méthodologique --- \code{05\_Portefeuille\_Membre\_V1.ipynb}}
+\author{\small Alice Lemaire --- 6 juillet 2026}
+\date{\vspace{-2.6em}}
+
+\begin{document}
+\maketitle
+
+\section{Reconstruction du portefeuille d'un membre}
+Notations : $i$ = ticker, $t$ = jour de bourse, $P_i(t)$ = cours de clôture.
+\begin{itemize}
+  \item \textbf{Achat} $\to$ parts, au 1\ier{} jour coté $\ge$ date de transaction :
+        $$q = \frac{\text{montant}}{P_i(\tau)},\qquad \tau = \min\{t \ge \code{traded}\}$$
+  \item \textbf{Vente} $\to$ retire des parts, \emph{short interdit} :
+        $$q^- = \min\!\Big(\tfrac{\text{montant}}{P_i},\; \text{parts détenues}\Big)$$
+        le $\min$ règle la vente sans achat connu.
+  \item \textbf{Détentions cumulées} (une colonne par ticker) :
+        $$n_i(t) = \!\!\sum_{\text{achats}\le t}\! q \;-\!\! \sum_{\text{ventes}\le t}\! q^-$$
+  \item \textbf{Valeur du portefeuille} : $\displaystyle V(t) = \sum_i n_i(t)\,P_i(t)$.
+\end{itemize}
+
+\section{Rendement d'un membre (\emph{time-weighted})}
+On valorise les parts de la \textbf{veille} $\Rightarrow$ un apport n'est jamais compté comme un rendement :
+$$r_P(t) = \frac{\sum_i n_i(t-1)\,P_i(t)}{\sum_i n_i(t-1)\,P_i(t-1)} - 1$$
+\begin{itemize}
+  \item Jour sans position : $r_P(t)=0$ (système ouvert, pas de cash suivi).
+  \item Garde-fou : $r_P \leftarrow \operatorname{clip}(r_P,-0{,}5,+0{,}5)$ (winsorisation $\pm 50\,\%$/jour).
+  \item Courbes et stats depuis l'origine, avec $\mathrm{NAV}^{\max}(t)=\max_{s\le t}\mathrm{NAV}(s)$ :
+        $$\mathrm{NAV}(t)=\!\prod_{s\le t}\!\big(1+r_P(s)\big),\quad
+          \sigma_{\text{ann}}=\sigma(r_P)\sqrt{252}$$
+        $$\mathrm{Sharpe}=\frac{\overline{r_P}}{\sigma(r_P)}\sqrt{252},\ \
+          \mathrm{maxDD}=\min_t\!\Big(\tfrac{\mathrm{NAV}(t)}{\mathrm{NAV}^{\max}(t)}-1\Big)$$
+\end{itemize}
+
+\section{Excès et Information Ratio}
+Marché = SPY, $r_{\text{SPY}}(t)=\tfrac{\text{SPY}(t)}{\text{SPY}(t-1)}-1$. Série d'excès :
+$$x(t)=r_P(t)-r_{\text{SPY}}(t),\qquad
+  \mathrm{IR}=\frac{\overline{x}}{\sigma(x)}\sqrt{252}$$
+Test de significativité (unilatéral, « bat-il le SPY ? ») :
+$$t=\frac{\overline{x}}{\sigma(x)/\sqrt{n}}=\mathrm{IR}\sqrt{\tfrac{n_{\text{jours}}}{252}}\;\;>\;1{,}645$$
+
+\section{Éligibilité \& tests multiples}
+\begin{itemize}
+  \item \textbf{Éligibilité} : $n_{\text{trades}}\ge 10$ et $n_{\text{jours}}\ge 126$ ($\sim$6 mois).
+  \item \textbf{Tests multiples} : sur $M$ membres testés à $5\,\%$, on attend $0{,}05\,M$ « significatifs »
+        par hasard. Correction de Bonferroni : seuil par test $\tfrac{0{,}05}{M}$, soit
+        $t \gtrsim 3{,}5$ pour $M\simeq 223$.
+\end{itemize}
+
+\section{Classement walk-forward (point-in-time)}
+À chaque coupe de fin d'année $Y$, on ne garde que l'information $\le 31/12/Y$ :
+$$\mathrm{classement}(Y)=\big\{\text{éligibles} \;\wedge\; t>1{,}645\big\}\ \text{triés par } \mathrm{IR},$$
+calculés sur $r_P\big|_{\le Y}$. La sélection $\mathrm{topK}(Y)$ prend les $K$ premiers (repli si $<K$).
+Aucun regard vers le futur : $n_i(t)$ ne dépend que des trades $\le t$.
+
+\section{Stratégie top-\texorpdfstring{$K$}{K} : la bonne combinaison}
+On sélectionne fin $Y$ et on suit le panier en $Y{+}1$. Poids \textbf{initiaux} :
+$$w_k=\frac1K \qquad\text{ou}\qquad w_k=\frac{\mathrm{IR}_k}{\sum_j \mathrm{IR}_j},\qquad \sum_k w_k=1.$$
+
+\textbf{Écueil --- la moyenne à poids figés est fausse.} Écrire
+$r_{\text{strat}}(t)=\sum_k w_k\,r_{m_k}(t)$ avec $w_k$ \emph{constants} revient à \textbf{rebalancer
+chaque jour} vers $w_k$ ; or « copier et \emph{tenir} » laisse les poids \textbf{dériver} avec la performance.
+
+\textbf{Combinaison correcte (buy-and-hold).} On compose la NAV de chaque membre depuis le début de l'année,
+puis on pondère :
+$$\mathrm{NAV}_k(t)=\!\!\prod_{\substack{s\le t\\ s\in Y+1}}\!\!\big(1+r_{m_k}(s)\big),\quad
+  N(t)=\sum_k w_k\,\mathrm{NAV}_k(t)$$
+$$\boxed{\,r_{\text{strat}}(t)=\frac{N(t)}{N(t-1)}-1\,}$$
+Les poids \textbf{effectifs} dérivent alors tout seuls :
+$$w_k(t)=\frac{w_k\,\mathrm{NAV}_k(t-1)}{\sum_j w_j\,\mathrm{NAV}_j(t-1)}$$
+Ils sont remis à $w_k$ à chaque re-sélection annuelle (rebalancement \emph{annuel}, pas quotidien).
+
+\textbf{Exemple ($K=2$, $w=\tfrac12,\tfrac12$).} A = Apple, B = Coca. Jour 1 : Apple $+100\,\%$,
+Coca $0\,\%$ ; jour 2 : Apple $0\,\%$, Coca $+20\,\%$.
+
+\begin{center}\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrr}
+\toprule
+ & A & B & Total\\
+\midrule
+Jour 0 & 50 & 50 & 100\\
+Jour 1 & 100 & 50 & 150 \;$(+50\,\%)$\\
+Jour 2 & 100 & 60 & 160 \;$(+6{,}67\,\%)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Au jour 2, la moyenne figée donne $\tfrac12\!\cdot\!0+\tfrac12\!\cdot\!20 = 10\,\%$ (faux) ; la vraie
+valeur est $\tfrac{160}{150}-1 = 6{,}67\,\%$, car les poids ont dérivé à
+$w_A=\tfrac{100}{150}=\tfrac23,\ w_B=\tfrac13$ :
+$$\tfrac23\!\cdot\!0\,\% + \tfrac13\!\cdot\!20\,\% = 6{,}67\,\%.$$
+
+\section{Évaluation annuelle \& ajustement au marché}
+\textbf{Excès par année} ($1$ année $=1$ observation, excès composé). Soit
+$G_Y(r)=\prod_{t\in Y}\big(1+r(t)\big)$ le facteur composé de l'année :
+$$x_{\text{strat},Y}=G_Y(r_{\text{strat}})-G_Y(r_{\text{SPY}})$$
+$$\mathrm{IR}_{\text{ann}}=\frac{\overline{x}_{\text{strat}}}{\sigma(x_{\text{strat}})},\qquad
+  t=\mathrm{IR}_{\text{ann}}\sqrt{n}$$
+avec pour seuil $t_{n-1}\approx 1{,}81$ à $n=11$ années.
+
+\textbf{Ajustement par le marché (}$\boldsymbol\beta$\textbf{).} L'excès brut $r_{\text{strat}}-r_{\text{SPY}}$
+suppose $\beta=1$. On régresse plutôt les rendements quotidiens :
+$$\boxed{\,r_{\text{strat}}(t)=\alpha+\beta\,r_{\text{SPY}}(t)+\varepsilon\,}$$
+\begin{itemize}
+  \item $\beta$ = exposition au marché (levier de \emph{style}) ;
+  \item $\alpha$ = rendement en plus du marché \emph{à exposition égale} (le \emph{talent}) ;
+        annualisé $\alpha_{\text{ann}}=(1+\alpha)^{252}-1$ ;
+  \item significativité par le $t$ de la régression $t_\alpha=\alpha/\mathrm{SE}(\alpha)$
+        (OLS ; un écart-type Newey-West élargirait $\mathrm{SE}$, l'autocorrélation quotidienne étant réelle).
+\end{itemize}
+Si $\beta>1$, une part de l'excès brut n'est que de l'exposition au marché : $\alpha<$ excès brut.
+
+\end{document}
