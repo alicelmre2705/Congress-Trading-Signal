@@ -67,15 +67,15 @@ $$r_P(t) = \frac{\sum_i n_i(t-1)\,P_i(t)}{\sum_i n_i(t-1)\,P_i(t-1)} - 1$$
           \mathrm{maxDD}=\min_t\!\Big(\tfrac{\mathrm{NAV}(t)}{\mathrm{NAV}^{\max}(t)}-1\Big)$$
 \end{itemize}
 
-\section{Excès et Information Ratio}
+\section{Excès, Information Ratio \& ajustement par le marché (\texorpdfstring{$\beta$}{beta})}\label{sec:beta}
 Marché = SPY, $r_{\text{SPY}}(t)=\tfrac{\text{SPY}(t)}{\text{SPY}(t-1)}-1$. Série d'excès :
 $$x(t)=r_P(t)-r_{\text{SPY}}(t),\qquad
   \mathrm{IR}=\frac{\overline{x}}{\sigma(x)}\sqrt{252}$$
 Test de significativité (unilatéral, « bat-il le SPY ? ») :
 $$t=\frac{\overline{x}}{\sigma(x)/\sqrt{n}}=\mathrm{IR}\sqrt{\tfrac{n_{\text{jours}}}{252}}\;\;>\;1{,}645$$
 
-\section{Ajustement par le marché (\texorpdfstring{$\beta$}{beta})}\label{sec:beta}
-L'IR soustrait \emph{tout} le marché $\Rightarrow$ il suppose $\beta=1$. Un portefeuille agressif
+\smallskip
+\textbf{Ajustement par le marché.} L'IR soustrait \emph{tout} le marché $\Rightarrow$ il suppose $\beta=1$. Un portefeuille agressif
 ($\beta>1$) affiche alors un excès positif en marché haussier \emph{sans talent}. On régresse plutôt
 les rendements quotidiens du membre :
 $$r_P(t)=\alpha+\beta\,r_{\text{SPY}}(t)+\varepsilon(t)$$
