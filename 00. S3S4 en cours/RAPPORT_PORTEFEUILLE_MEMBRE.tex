@@ -58,6 +58,8 @@
   \item $\beta \approx 1{,}20 \Rightarrow \alpha = -0{,}4\,\%$/an ($t_{\text{appr}}=-0{,}13$) :
         l'excès n'est que de l'\textbf{exposition au marché}. Pas d'alpha, même en plafond théorique
         (entrée à la transaction, sans frais ; la version jouable est le notebook~06).
+  \item \textbf{Aucun $K$ de 4 à 20 ne sauve la stratégie} --- même en laissant le $K$ se choisir
+        chaque année en walk-forward ($t=1{,}58<1{,}81$, $t_{\text{appr}}=0{,}45$).
 \end{itemize}
 
 \section{Données}
@@ -108,6 +110,36 @@ $$\text{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252},\;\;
   t_{\text{appr}}=\text{appraisal}\sqrt{\tfrac{n}{252}}>1{,}645$$
 $\beta=1 \Rightarrow$ appraisal $=$ IR ; sinon l'IR mélange exposition et talent.
 
+\textbf{Illustration sur un membre (J.~Fetterman).} $V(t)$ saute à chaque trade
+(apports + performance mélangés) ; la NAV isole la performance pure ; la régression
+donne son $\beta$ et son talent : IR 2,48, $\beta$ 1,17, $\alpha_{\text{ann}}$ $+40{,}2\,\%$,
+appraisal 2,24 ($t_{\text{appr}}$ 2,38) ; CAGR $+79{,}7\,\%$, vol 21\,\%, maxDD $-16\,\%$
+--- sur \textbf{284 jours seulement}.
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_nb05b_vt_membre.png}
+\captionof{figure}{$V(t)$ du membre démo --- chaque pointillé est un trade : la \emph{valeur}
+mélange apports et performance.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_nb05b_nav_membre.png}
+\captionof{figure}{La NAV (base 100) du même membre vs SPY : performance pure, débarrassée
+des apports (\emph{time-weighted}).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=0.8\linewidth]{figures/fig_nb05b_reg_membre.png}
+\captionof{figure}{La régression du membre démo : 1 point $=$ 1 jour ; pente $=\beta=1{,}17$,
+ordonnée $=\alpha$ ; la droite grise est l'hypothèse $\beta=1$ de l'IR.}
+\end{minipage}
+\end{center}
+
 \section{Classement : IR vs appraisal}
 \begin{itemize}
   \item \textbf{Éligibilité} : $\ge 10$ trades et $\ge 126$ jours ($\sim$6 mois) $\Rightarrow$
@@ -145,23 +177,99 @@ Babin     &  20 & 2\,573 & 0,69 & 2,21 & 1,18 & 0,62 & 1,99\\
 \end{center}
 
 \begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Membre} & \textbf{trades} & \textbf{jours} & \textbf{IR} & $\boldsymbol{t}$ & $\boldsymbol{\beta}$ & \textbf{appr.} & $\boldsymbol{t_{\text{appr}}}$\\
+\midrule
+Ruiz          &  10 & 2\,261 & $-$0,05 & $-$0,16 & 0,09 & 0,80 & 2,40\\
+Fetterman     &  10 &   284 & 2,48 & 2,64 & 1,17 & 2,24 & 2,38\\
+Comstock      &  85 & 2\,390 & 0,90 & 2,77 & 1,20 & 0,66 & 2,03\\
+Sessions      & 361 & 3\,376 & 0,31 & 1,15 & 0,93 & 0,55 & 2,01\\
+Babin         &  20 & 2\,573 & 0,69 & 2,21 & 1,18 & 0,62 & 1,99\\
+McGarvey      &  24 &   853 & 1,50 & 2,76 & 1,53 & 1,08 & 1,99\\
+Hollingsworth &  18 & 1\,494 & 0,21 & 0,52 & 0,43 & 0,79 & 1,92\\
+Whitehouse    & 718 & 3\,316 & 0,57 & 2,07 & 1,04 & 0,51 & 1,85\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Top-8 par $t_{\text{appr}}$ (test appraisal) : des profils \emph{défensifs}
+(Ruiz, Hollingsworth) apparaissent, invisibles au test IR.}
+\end{minipage}
+\end{center}
+
+\begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=0.88\linewidth]{figures/fig_nb05b_hist_2t.png}
+\includegraphics[width=0.92\linewidth]{figures/fig_nb05b_hist_2t.png}
 \captionof{figure}{Distribution des deux $t$ sur les 223 éligibles : retirer le $\beta$ dégonfle
 la queue droite (20 $\to$ 12 $\approx$ hasard).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=0.85\linewidth]{figures/fig_nb05b_scatter_ir_appr.png}
+\captionof{figure}{IR vs appraisal, couleur $=\beta$ : au-dessus de la diagonale, l'IR
+\emph{flattait} le membre (rouge $=$ haut $\beta$) ; en dessous, il le pénalisait (bleu $=$ défensif).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrc}
+\toprule
+\textbf{Membre} & \textbf{IR} & $\boldsymbol{\beta}$ & \textbf{appr.} & \textbf{rang IR$\to$appr.}\\
+\midrule
+\multicolumn{5}{l}{\emph{Plus grosses chutes (le $\beta$ gonflait l'IR)}}\\
+Fields    & 0,65 & 1,56 & $-$0,27 & 22 $\to$ 168\\
+Thanedar  & 0,04 & 2,47 & $-$0,32 & 80 $\to$ 177\\
+Morrison  & $-$0,18 & 1,52 & $-$0,60 & 117 $\to$ 208\\
+\midrule
+\multicolumn{5}{l}{\emph{Plus grosses montées (talent masqué par l'IR)}}\\
+Graham    & $-$1,03 & 0,09 & 0,52 & 220 $\to$ 25\\
+McCormick & $-$0,86 & 0,58 & 0,12 & 215 $\to$ 71\\
+Crist     & $-$0,58 & 0,27 & 0,07 & 197 $\to$ 84\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Le reclassement IR $\to$ appraisal : qui chute, qui monte (223 éligibles).}
 \end{minipage}
 \end{center}
 
 \section{Walk-forward (sans regard futur)}
 \begin{itemize}
   \item Classement rejoué \textbf{fin de chaque année $Y$} avec les seules données $\le Y$
-        (sélection suivie en $Y{+}1$).
+        (sélection suivie en $Y{+}1$) --- $n_i(t)$ ne dépend que des trades $\le t$, tronquer
+        ne triche jamais.
   \item \textbf{Le n°1 change presque chaque année} : 11 têtes différentes sur 13 fenêtres.
   \item \textbf{Robustes} : DelBene significative à \emph{chaque} fenêtre depuis 2018,
         Comstock à toutes sauf une depuis 2017.
   \item Fetterman et Moody (n°1--2 plein échantillon) n'apparaissent qu'à la \emph{toute
         dernière} fenêtre : jamais suivis en direct $\Rightarrow$ motive un \textbf{top-$K$}.
 \end{itemize}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrll}
+\toprule
+\textbf{Fenêtre} & $\boldsymbol{n_{\text{sig}}}$ & \textbf{n°1} & \textbf{n°2}\\
+\midrule
+2014--2014 &  1 & Reed      & ---\\
+2014--2015 &  4 & McKinley  & Davis\\
+2014--2016 &  2 & Long      & King\\
+2014--2017 &  4 & Comstock  & Long\\
+2014--2018 &  5 & Heck      & Evans\\
+2014--2019 &  8 & Evans     & Heck\\
+2014--2020 & 19 & Beyer     & Cisneros\\
+2014--2021 & 13 & Comstock  & Warner\\
+2014--2022 &  7 & DelBene   & Comstock\\
+2014--2023 & 12 & Landsman  & Sullivan\\
+2014--2024 & 17 & McGarvey  & McClain\\
+2014--2025 & 20 & McGarvey  & Sullivan\\
+2014--2026 & 20 & Fetterman & Moody\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Walk-forward : nb de significatifs et tête du classement à chaque coupe.}
+\end{minipage}
+\end{center}
 
 \section{Stratégie top-4 : la bonne combinaison}
 \begin{itemize}
@@ -172,7 +280,28 @@ la queue droite (20 $\to$ 12 $\approx$ hasard).}
         « Copier et \emph{tenir} » laisse les poids \textbf{dériver} (buy-and-hold) :
         $$N(t)=\sum_k w_k\,\mathrm{NAV}_k(t),\qquad
           r_{\text{strat}}(t)=\frac{N(t)}{N(t-1)}-1$$
-        (ex. $K{=}2$, jour 2 : figé $10\,\%$, dérivé $\mathbf{6{,}67\,\%}$ --- la vraie valeur).
+        avec les poids effectifs $w_k(t)=\tfrac{w_k\,\mathrm{NAV}_k(t-1)}{\sum_j w_j\,\mathrm{NAV}_j(t-1)}$,
+        remis à $w_k$ à chaque re-sélection annuelle.
+\end{itemize}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrl}
+\toprule
+ & \textbf{A (Apple)} & \textbf{B (Coca)} & \textbf{Total} & $\boldsymbol{r_{\text{strat}}}$\\
+\midrule
+jour 0 &  50 & 50 & 100 & ---\\
+jour 1 & 100 & 50 & 150 & $+50{,}00\,\%$\\
+jour 2 & 100 & 60 & 160 & $+6{,}67\,\%$\\
+\bottomrule
+\end{tabular}
+\captionof{table}{L'exemple ($K{=}2$, $w=\tfrac12,\tfrac12$) : au jour 2, la moyenne figée donnerait
+$\tfrac12\!\cdot\!0+\tfrac12\!\cdot\!20=10\,\%$ (faux) ; les poids ont dérivé à $\tfrac23,\tfrac13$
+$\Rightarrow$ $6{,}67\,\%$.}
+\end{minipage}
+\end{center}
+
+\begin{itemize}
   \item Évaluation \textbf{par année} : $n=11$ (2016--2026), seuil $t_{10}\approx 1{,}81$.
         La correction \textbf{abaisse} le résultat :
 \end{itemize}
@@ -190,6 +319,21 @@ $\propto$IR dérive       & $+3{,}0\,\%$ & 0,27 & 0,90 & 7/11\\
 \bottomrule
 \end{tabular}
 \captionof{table}{Stratégie top-4 vs SPY : ancienne combinaison vs corrigée.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_nb05b_nav_strat.png}
+\captionof{figure}{NAV de la stratégie top-4 (corrigée et ancienne) vs SPY, base 100 (2016--2026).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=0.92\linewidth]{figures/fig_nb05b_exces_fige_derive.png}
+\captionof{figure}{Excès annuel top-4 ($1/K$) : combinaison figée vs corrigée (écart le plus net
+en 2021 ; en moyenne la correction abaisse).}
 \end{minipage}
 \end{center}
 
@@ -213,25 +357,94 @@ top-4 $\propto$IR  & 1,21 & $-0{,}6\,\%$ & $-0{,}06$ & $-0{,}19$\\
 
 \begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=0.78\linewidth]{figures/fig_nb05b_regression_strat.png}
+\includegraphics[width=0.8\linewidth]{figures/fig_nb05b_regression_strat.png}
 \captionof{figure}{La régression de la stratégie : pente $\beta=1{,}20$ au-dessus de la droite
 $\beta=1$ --- l'excès brut n'était que du marché amplifié.}
 \end{minipage}
 \end{center}
 
+\section{Choisir $K$ : balayage et walk-forward}
 \begin{itemize}
-  \item \textbf{Robustesse sur $K$ (4$\to$20)} : aucun $K$ ne franchit le seuil --- meilleur
-        $t=1{,}74$ à $K{=}12$ (et encore, choisi \emph{a posteriori}). En laissant la stratégie
-        \textbf{choisir son $K$ chaque année} en walk-forward ($K^*(Y)=\arg\max_K$ IR passé,
-        $K{=}4$ par défaut sans historique) : $+4{,}1\,\%$/an, $t=1{,}58<1{,}81$,
-        $\alpha_{\text{ann}}=+1{,}1\,\%$ ($t_{\text{appr}}=0{,}45$) --- toujours pas d'alpha.
+  \item $K=4$ était arbitraire ; on regarde $K \in [4, 20]$. Au-delà, le panier plafonne
+        (rarement plus de $\sim$20 significatifs une année donnée ; si $n_{\text{sig}}(Y)<K$, repli).
+  \item \textbf{Balayage statique} (diagnostic) : aucun $K$ ne franchit le seuil --- meilleur
+        $t=1{,}74$ à $K{=}12$, et encore, choisi \emph{a posteriori} (regard futur).
+  \item \textbf{Sélection honnête du $K$ (walk-forward)} : à fin $Y$,
+        $$K^*(Y)=\arg\max_{K\in[4,20]}\ \mathrm{IR}_{\text{quotidien}}\big(\text{strat-}K\big|_{2016..Y}\big)$$
+        (les séries strat-$K$ sont point-in-time, les tronquer ne regarde pas le futur ;
+        fin 2015 : aucun historique $\to K^*{=}4$ par défaut). Panier de $K^*(Y)$ tenu en $Y{+}1$.
+  \item Résultat : $+4{,}1\,\%$/an, $t=1{,}58<1{,}81$, $\alpha_{\text{ann}}=+1{,}1\,\%$
+        ($t_{\text{appr}}=0{,}45$) --- \textbf{mieux que $K{=}4$ fixe, mais toujours pas d'alpha}.
 \end{itemize}
 
 \begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=0.85\linewidth]{figures/fig_nb05b_ksweep_t.png}
+\includegraphics[width=0.88\linewidth]{figures/fig_nb05b_ksweep_t.png}
 \captionof{figure}{Balayage du $K$ (combinaison corrigée) : le $t$ plafonne sous le seuil pour
 tout $K$ de 4 à 20.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrr}
+\toprule
+$\boldsymbol{K}$ & $\boldsymbol{n_{\text{moy}}}$ & \textbf{excès/an} & $\boldsymbol{t}$ & $\boldsymbol{t_{\text{appr}}}$\\
+\midrule
+ 4 &  3,8 & $+3{,}1\,\%$ & 0,94 & $-$0,13\\
+ 6 &  5,2 & $+2{,}7\,\%$ & 0,94 & $-$0,15\\
+ 8 &  6,4 & $+3{,}4\,\%$ & 1,19 & 0,06\\
+10 &  7,3 & $+5{,}0\,\%$ & 1,68 & 0,63\\
+\textbf{12} &  8,2 & $+4{,}6\,\%$ & \textbf{1,74} & 0,66\\
+14 &  8,8 & $+4{,}0\,\%$ & 1,53 & 0,47\\
+16 &  9,4 & $+4{,}2\,\%$ & 1,59 & 0,55\\
+18 &  9,8 & $+4{,}3\,\%$ & 1,65 & 0,65\\
+20 & 10,1 & $+4{,}3\,\%$ & 1,62 & 0,62\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Balayage (schéma $1/K$, un $K$ sur deux) : $n_{\text{moy}}$ = taille réelle
+moyenne du panier (repli). Bosse vers $K{=}10$--12, jamais au-dessus de 1,81.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrr}
+\toprule
+\textbf{fin} $\boldsymbol{Y}$ & $\boldsymbol{K^*}$ & \textbf{IR passé} & \textbf{tenue} & \textbf{excès réalisé}\\
+\midrule
+2015 &  4 & ---     & 2016 & $-4{,}2\,\%$\\
+2016 &  4 & $-$0,99 & 2017 & $+8{,}5\,\%$\\
+2017 &  4 & 0,25    & 2018 & $-1{,}4\,\%$\\
+2018 &  4 & 0,11    & 2019 & $+7{,}6\,\%$\\
+2019 &  4 & 0,32    & 2020 & $+15{,}9\,\%$\\
+2020 &  8 & 0,69    & 2021 & $-6{,}1\,\%$\\
+2021 & 18 & 0,49    & 2022 & $-9{,}9\,\%$\\
+2022 & 12 & 0,19    & 2023 & $+12{,}2\,\%$\\
+2023 & 18 & 0,33    & 2024 & $+4{,}4\,\%$\\
+2024 & 18 & 0,37    & 2025 & $+4{,}2\,\%$\\
+2025 & 12 & 0,39    & 2026 & $+13{,}5\,\%$\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Le chemin du $K$ walk-forward (schéma $1/K$) : $K{=}4$ par défaut, puis le panier
+grossit dès que l'historique montre que les grands $K$ font mieux.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\footnotesize\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Stratégie} & \textbf{excès/an} & $\boldsymbol{t}$ & \textbf{gagn.} & $\boldsymbol{\beta}$ & $\boldsymbol{\alpha}_{\text{ann}}$ & $\boldsymbol{t_{\text{appr}}}$\\
+\midrule
+$K{=}4$ fixe ($1/K$)     & $+3{,}1\,\%$ & 0,94 & 7/11 & 1,20 & $-0{,}4\,\%$ & $-$0,13\\
+$K$ w-f ($1/K$)          & $\mathbf{+4{,}1\,\%}$ & \textbf{1,58} & 7/11 & 1,17 & $+1{,}1\,\%$ & 0,45\\
+$K{=}4$ fixe ($\propto$IR) & $+3{,}0\,\%$ & 0,90 & 7/11 & 1,21 & $-0{,}6\,\%$ & $-$0,19\\
+$K$ w-f ($\propto$IR)    & $+3{,}6\,\%$ & 1,43 & 7/11 & 1,18 & $+0{,}6\,\%$ & 0,22\\
+\bottomrule
+\end{tabular}
+\captionof{table}{$K$ fixe vs $K$ choisi en walk-forward : mieux, mais toujours sous le seuil,
+et $\alpha \approx 0$ une fois le $\beta$ retiré.}
 \end{minipage}
 \end{center}
 
@@ -253,7 +466,8 @@ tout $K$ de 4 à 20.}
 \end{itemize}
 \textbf{Verdict} : le classement est crédible et outillé, mais une fois l'exposition au marché
 retirée, \textbf{il ne reste pas de talent mesurable} --- 12 « significatifs » $\approx$ hasard,
-stratégie $\alpha<0$. À ne pas suivre en direct ; la version jouable (entrée à la publication
-+ coûts) est traitée dans le notebook~06.
+stratégie $\alpha<0$ (et $\alpha\approx 0$ même en laissant le $K$ se choisir tout seul).
+À ne pas suivre en direct ; la version jouable (entrée à la publication + coûts) est traitée
+dans le notebook~06.
 
 \end{document}
