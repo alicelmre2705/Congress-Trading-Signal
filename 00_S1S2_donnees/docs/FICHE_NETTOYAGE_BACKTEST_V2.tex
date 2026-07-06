@@ -84,6 +84,29 @@ Les critères, dans l'ordre :
 vide mais dont le ticker est une action cotée valide — on décide sur le \emph{ticker}, pas sur la case
 déclarée (vide dans 16--31\,\% des cas).
 
+\section{L'entonnoir des tickers (couverture prix)}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{quality/entonnoir_tickers.png}
+\captionof{figure}{Du symbole déclaré au prix exploitable (côté recherche, notebooks 05/06 \S3).}
+\end{minipage}
+\end{center}
+
+\begin{itemize}
+  \item \textbf{Amont (nettoyage)} : ticker normalisé au format Yahoo ; \textbf{+2\,540} tickers
+        récupérés depuis la description de l'actif (double preuve) ; renommages appliqués via le
+        référentiel de 84 entrées (FB$\to$META, PCLN$\to$BKNG\ldots{} — 2\,817 lignes re-symbolisées) ;
+        3\,542 lignes sur délistés \emph{typés} (faillite $\ne$ rachat).
+  \item \textbf{Sans prix (1\,268)} : symboles que Yahoo \emph{ne sert plus} — délistés sans
+        successeur coté.
+  \item \textbf{Garde-fou anti-corruption} : série exclue si prix min $< 0{,}10$~\$ ou saut journalier
+        $> 300\,\%$ (61 séries, ex.\ \code{DAIUF} : prix négatifs).
+  \item \textbf{Résultat} : \textbf{3\,289 tickers} exploitables ; couverture \textbf{87{,}8\,\%} des
+        trades (74\,\% en 2014 $\to$ 99\,\% en 2026) $\Rightarrow$ léger biais de survie, à garder en
+        tête côté rendements.
+\end{itemize}
+
 \section{La table finale — aperçu}
 
 \begin{center}
@@ -117,18 +140,21 @@ Les 36 colonnes, par famille :
 \section{Composition}
 
 \begin{center}
-\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{5pt}
+\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrr}
 \toprule
  & \textbf{n} & \textbf{part}\\
 \midrule
-House / Sénat          & 122\,814 / 11\,650 & 91{,}3\,\% / 8{,}7\,\%\\
-achats / ventes        & 68\,250 / 66\,214  & 50{,}8\,\% / 49{,}2\,\%\\
-actions                & 128\,974           & 95{,}9\,\%\\
-ETF diversifiés        & 2\,022             & 1{,}5\,\%\\
-ETF sectoriels         & 168                & 0{,}1\,\%\\
-cotés, classe non résolue (flagués) & 3\,300 & 2{,}5\,\%\\
-2014--2019 / 2020--2026 (House) & 56\,706 / 66\,108 & ---\\
+House                  & 122\,814 & 91{,}3\,\%\\
+Sénat                  & 11\,650  & 8{,}7\,\%\\
+achats                 & 68\,250  & 50{,}8\,\%\\
+ventes                 & 66\,214  & 49{,}2\,\%\\
+actions                & 128\,974 & 95{,}9\,\%\\
+ETF diversifiés        & 2\,022   & 1{,}5\,\%\\
+ETF sectoriels         & 168      & 0{,}1\,\%\\
+cotés, classe non résolue & 3\,300 & 2{,}5\,\%\\
+House 2014--2019       & 56\,706  & ---\\
+House 2020--2026       & 66\,108  & ---\\
 \bottomrule
 \end{tabular}
 \captionof{table}{Composition des 134\,464 transactions.}
@@ -177,7 +203,8 @@ symbole recyclé/fusion (\code{price\_caution}) & 505 & 0{,}4\,\%\\
 
 \section{Validation externe (résultats)}
 \begin{itemize}
-  \item \textbf{Quiver Quant} : 93{,}5\,\% / 92{,}1\,\% de ses combinaisons retrouvées ; au trade daté,
+  \item \textbf{Quiver Quant} (clé : membre $\times$ ticker $\times$ sens, \emph{sans date} —
+        convention de date Quiver décalée) : 93{,}5\,\% / 92{,}1\,\% de ses combinaisons retrouvées ; au trade daté,
         70\,265 + 8\,766 appariés \textbf{au jour exact} ; après enquête, \textbf{31 + 0} combinaisons
         cotées au plus restent inexpliquées. Et on a \textbf{+23\,535 / +2\,951} trades cotés nets
         de plus que lui.
@@ -190,8 +217,7 @@ symbole recyclé/fusion (\code{price\_caution}) & 505 & 0{,}4\,\%\\
 \begin{itemize}
   \item \textbf{582 PTR manuscrits écartés} par décision de périmètre (7{,}1\,\% de l'index,
         concentrés avant 2020) — documentés un par un.
-  \item Côté recherche : couverture prix \textbf{87{,}8\,\%} des trades (74\,\% en 2014 $\to$ 99\,\%
-        en 2026) $\Rightarrow$ léger biais de survie.
+  \item Le biais de survie de la couverture prix : voir l'entonnoir des tickers (\S3).
 \end{itemize}
 
 \end{document}
