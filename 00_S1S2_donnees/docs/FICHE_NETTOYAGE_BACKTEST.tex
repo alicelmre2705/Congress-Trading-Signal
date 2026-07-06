@@ -184,9 +184,6 @@ traiter :
 \item \textbf{lots multi-comptes} (11\,873, 8{,}8\,\%) : le même trade déclaré sur plusieurs comptes
       (Self / conjoint / joint) --- des positions \emph{réelles distinctes}, pas des doublons ; on les
       repère par \code{owner}/\code{occurrence\_index}/\code{lot\_size} → \textbf{ne jamais dédoublonner}.
-\item \code{flag\_price\_caution} --- code ticker recyclé ou emmêlé par une fusion (505, 0{,}4\,\%) : le
-      même symbole a désigné deux sociétés selon l'époque → brancher le cours \emph{en tenant compte de la
-      date}, sinon on colle le prix de la mauvaise entreprise.
 \item \textbf{Assertions finales sur 100\,\% des 134\,464 lignes} : bioguide, ticker, montant, direction
       $\in\{$buy, sell$\}$, chronologie (publication $\geq$ transaction), clé naturelle --- le notebook
       refuse de publier la table sinon.
