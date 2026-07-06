@@ -1,0 +1,221 @@
+% !TEX program = tectonic
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}        % XeTeX/LuaTeX (tectonic) : UTF-8 natif
+\fi
+\usepackage[french]{babel}
+\frenchsetup{StandardLists=true}
+\usepackage[a4paper,margin=1.5cm,columnsep=0.6cm,footskip=0.7cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.5pt,topsep=1.5pt,parsep=0pt}
+\usepackage{xcolor}
+\usepackage[font=small,skip=2pt]{caption}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{0.75em}{0.3em}
+\titleformat{\section}{\normalsize\bfseries}{\thesection.}{0.4em}{}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\raggedbottom
+\setlength{\emergencystretch}{1.5em}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\abovedisplayskip=3pt plus 1pt \belowdisplayskip=3pt plus 1pt
+\abovedisplayshortskip=2pt \belowdisplayshortskip=2pt
+\newcommand{\code}[1]{\texttt{\small #1}}
+
+\title{\vspace{-1.8em}\textbf{Le portefeuille de chaque élu du Congrès bat-il le marché ?}\\[2pt]
+\large Classement par Information Ratio et stratégie de copie top-4 (2014--2026)\\[1pt]
+\small Note de synthèse --- \code{05\_Portefeuille\_Membre\_V1.ipynb}}
+\author{\small Alice Lemaire --- 6 juillet 2026}
+\date{\vspace{-2.6em}}
+
+\begin{document}
+\maketitle
+
+\section{L'essentiel}
+\begin{itemize}
+  \item On reconstruit le portefeuille de \textbf{chaque membre} du Congrès à partir de ses
+        transactions déclarées, on le compare au SPY, on classe, puis on teste une stratégie de copie.
+  \item Classement crédible : \textbf{266 classés} $\to$ \textbf{223 éligibles} $\to$
+        \textbf{20 significatifs} ($t>1{,}645$)\dots{} contre $\sim$11 attendus par pur hasard ;
+        \textbf{aucun} ne passe Bonferroni ($t \gtrsim 3{,}5$).
+  \item En \textbf{walk-forward}, la tête du classement change presque chaque année ;
+        seules \textbf{S.~DelBene} et \textbf{B.~Comstock} sont robustes.
+  \item Stratégie \textbf{top-4} hors-échantillon (2016--2026) : $+3{,}6\,\%$/an vs SPY,
+        mais $t=1{,}14 <$ seuil $\approx 1{,}81$ $\Rightarrow$ \textbf{pas d'alpha démontrable}.
+  \item Entrée à la date de transaction, sans frais $\Rightarrow$ \textbf{plafond théorique} ;
+        la version jouable (publication + 20~bps) est le notebook~06.
+\end{itemize}
+
+\section{Données}
+\begin{itemize}
+  \item Transactions : table canonique S1/S2\\
+        \code{transactions\_backtest\_2014\_2026.csv},\\
+        $134\,464 \to 134\,429$ lignes (fenêtre \code{traded} 2013--2026),
+        \textbf{372 membres}, $4\,618$ tickers ; actions + ETF, nettoyage transactionnel fait en amont.
+  \item Panel de prix (cache \code{prices\_v2}, Yahoo) : $3\,289$ tickers avec prix,
+        $1\,268$ sans prix, \textbf{61 corrompus exclus} $\to$ $16\,400$ trades jetés,
+        $\mathbf{118\,029}$ exploitables.
+  \item Le SPY fournit le calendrier de bourse maître.
+\end{itemize}
+
+\section{Méthode --- étapes 1$\to$9}
+\begin{enumerate}
+  \item \textbf{Chaque achat $\to$ des parts} :
+        $\text{parts} = \text{montant} / P_i(\text{1\ier{} jour} \ge \code{traded})$.
+  \item \textbf{Chaque vente $\to$ retire des parts} (short interdit) :
+        $\min\!\big(\text{montant}/P_i,\ \text{parts détenues}\big)$
+        --- le $\min$ règle la vente sans achat connu.
+  \item \textbf{Détentions cumulées} :
+        $n_i(t) = \sum_{\text{achats} \le t} \text{parts} - \sum_{\text{ventes} \le t} \text{parts}$.
+  \item \textbf{Valeur du portefeuille chaque jour} : $V(t) = \sum_i n_i(t)\,P_i(t)$.
+  \item \textbf{Rendement quotidien} \emph{time-weighted} --- on valorise les parts de la
+        \emph{veille}, un apport n'est jamais un rendement :
+        $$r_P(t) = \frac{\sum_i n_i(t-1)\,P_i(t)}{\sum_i n_i(t-1)\,P_i(t-1)} - 1$$
+  \item \textbf{Jour sans position} : $r_P(t)=0$ (cash). Système \textbf{ouvert} : le produit
+        d'une vente n'est pas réinjecté. Winsorisation $\pm 50\,\%$/jour.
+  \item \textbf{Courbes et stats par membre} ($E$, $\sigma$ depuis le début) :
+        $\mathrm{NAV}(t)=\prod_{s\le t}\big(1+r_P(s)\big)$ et
+        $$\mathrm{vol}=\sigma(r_P)\sqrt{252} \qquad
+          \mathrm{Sharpe}=\tfrac{E(r_P)}{\sigma(r_P)}\sqrt{252}$$
+  \item \textbf{Courbe SPY} : $r_{SPY}(t) = SPY(t)/SPY(t-1) - 1$
+        $\to$ $\mathrm{NAV}_{SPY}$, $\mathrm{vol}_{SPY}$, $\mathrm{Sharpe}_{SPY}$.
+  \item \textbf{Excès et critère de classement} :
+        $$x(t) = r_P(t) - r_{SPY}(t) \qquad \mathrm{IR} = \frac{\bar x}{\sigma(x)}\sqrt{252}$$
+\end{enumerate}
+
+\section{Classement 2014--2026}
+\begin{itemize}
+  \item \textbf{Éligibilité} : $\ge 10$ trades et $\ge 126$ jours ($\sim$6 mois) $\Rightarrow$
+        $266 \to 223$ membres.
+  \item \textbf{Significativité} (talent ou chance ?) --- test unilatéral 5\,\% :
+        $$t = \mathrm{IR}\cdot\sqrt{n_{\text{jours}}/252} > 1{,}645
+        \;\;\Rightarrow\;\; \mathbf{20}\ \text{membres}.$$
+  \item \textbf{Tests multiples} : $223 \times 5\,\% \approx 11$ significatifs attendus par hasard ;
+        20 trouvés ($\sim$1,8:1) = léger surnombre, pas une preuve.
+        Bonferroni durcirait le seuil à $t \gtrsim 3{,}5$ : \textbf{personne ne le passe}.
+  \item \textbf{Biais petits échantillons} : le n°1 par IR, J.~Fetterman
+        (IR 2,48), ne repose que sur \textbf{10 trades / 284 jours}.
+\end{itemize}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Membre} & \textbf{IR} & $\boldsymbol{t}$ & \textbf{trades} & \textbf{jours}\\
+\midrule
+Comstock  & 0,90 & 2,77 &  85 & 2\,390\\
+McGarvey  & 1,50 & 2,76 &  24 &   853\\
+Suozzi    & 0,90 & 2,68 & 662 & 2\,230\\
+Fetterman & 2,48 & 2,64 &  10 &   284\\
+DelBene   & 0,66 & 2,30 & 157 & 3\,054\\
+Lawrence  & 0,72 & 2,24 &  19 & 2\,430\\
+Warner    & 0,80 & 2,22 &  15 & 1\,934\\
+Babin     & 0,69 & 2,21 &  20 & 2\,573\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Top-8 des significatifs, triés par $t$ (aperçu du tableau des 20).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_nb05_top20_ir.png}
+\captionof{figure}{Top-20 par Information Ratio, classement \emph{brut} de la Partie~1
+(avant éligibilité/significativité ; fenêtre complète 2014--2026).}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=0.92\linewidth]{figures/fig_nb05_hist_tstats.png}
+\captionof{figure}{Distribution des $t$ des 223 éligibles ; trait rouge $=1{,}645$.}
+\end{minipage}
+\end{center}
+
+\section{Walk-forward (sans regard futur)}
+\begin{itemize}
+  \item Classement rejoué \textbf{fin de chaque année $Y$} avec les seules données $\le Y$
+        (sélection suivie en $Y{+}1$).
+  \item \textbf{Le n°1 change presque chaque année} : 11 têtes différentes sur 13 fenêtres
+        (Reed $\to$ McKinley $\to$ Long $\to$ Comstock $\to$ Heck $\to$ \dots{} $\to$ Fetterman).
+  \item \textbf{Robustes} : DelBene significative à \emph{chaque} fenêtre depuis 2018,
+        Comstock à toutes sauf une depuis 2017.
+  \item Fetterman et Moody (n°1--2 plein échantillon) n'apparaissent qu'à la
+        \emph{toute dernière} fenêtre : on ne les aurait \textbf{jamais suivis en direct}.
+  \item $\Rightarrow$ motive un portefeuille \textbf{top-$K$} plutôt que le suivi d'un seul élu.
+\end{itemize}
+
+\section{Stratégie top-4 (2016--2026)}
+\begin{itemize}
+  \item Fin d'année $Y$ : sélection des \textbf{4 meilleurs IR} parmi les significatifs
+        point-in-time (repli si moins de 4) ; copie de leur portefeuille en $Y{+}1$ :
+        $$w_k = \tfrac{1}{K} \ \text{ou}\ \tfrac{\mathrm{IR}_k}{\sum_j \mathrm{IR}_j}
+        \qquad r_{\text{strat}}(t) = \sum_k w_k\, r_{m_k}(t)$$
+  \item Évaluation \textbf{par année} (1 année = 1 observation, excès composé) :
+        $$x_{\text{strat},Y} = \prod_{t\in Y}\!\big(1{+}r_{\text{strat}}\big)
+          - \prod_{t\in Y}\!\big(1{+}r_{SPY}\big)$$
+        $\mathrm{IR}_{\text{annuel}} = \bar x/\sigma(x)$, $t = \mathrm{IR}_{\text{annuel}}\sqrt{n}$ ;
+        $n=11$ années, seuil $t_{10} \approx 1{,}81$.
+\end{itemize}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Schéma} & \textbf{excès/an} & $\mathbf{IR_{ann}}$ & $\boldsymbol{t}$ & \textbf{gagn.}\\
+\midrule
+$1/K$          & $+3{,}6\,\%$ & 0,34 & 1,14 & 7/11\\
+$\propto$ IR   & $+3{,}5\,\%$ & 0,33 & 1,09 & 7/11\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Stratégie top-4 vs SPY, 11 années évaluées.}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_nb05_exces_annuels_top4.png}
+\captionof{figure}{Excès annuel de la stratégie top-4 vs SPY (2016--2026).}
+\end{minipage}
+\end{center}
+
+\begin{itemize}
+  \item \textbf{Positif mais non significatif} : $+3{,}6\,\%$/an de moyenne, mais la
+        dispersion annuelle écrase l'excès ($t=1{,}14$), 7/11 années gagnantes seulement.
+\end{itemize}
+
+\section{Garde-fous, limites, verdict}
+\textbf{Garde-fous décisifs} :
+\begin{itemize}
+  \item Filtre anti-corruption Yahoo : ticker exclu si prix min $<0{,}10\,\$$ ou saut
+        journalier $>300\,\%$. \emph{Sans lui, un run précédent affichait $+12\,\%$/an d'excès
+        factice, entièrement dû au seul glitch \code{DAIUF} (2022).}
+  \item Winsorisation $r_P$ à $\pm 50\,\%$/jour ; flags amont S1/S2
+        (\code{is\_delisted} : 51 tickers).
+\end{itemize}
+\textbf{Limites honnêtes} :
+\begin{itemize}
+  \item \textbf{Survivorship} : univers $=$ tickers que Yahoo sert encore $\to$ bornes hautes.
+  \item Entrée \code{traded} $=$ information parfaite ($\sim$1 mois d'avance sur un copieur réel).
+  \item Excès \textbf{brut}, sans coûts de transaction ; $n=11$ années, très peu pour trancher ;
+        tests multiples non corrigés ; seuils ad~hoc (10 trades / 126~j).
+\end{itemize}
+\textbf{Verdict} : le classement est crédible et outillé, mais la copie des meilleurs
+\textbf{ne bat pas le SPY de manière robuste} --- à ne pas suivre en direct ; la version
+jouable (entrée à la publication + coûts) est traitée dans le notebook~06.
+
+\end{document}
