@@ -1,0 +1,223 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}        % XeTeX/LuaTeX (tectonic) : UTF-8 natif
+\fi
+\usepackage[french]{babel}
+\usepackage[a4paper,margin=1.9cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{0.9em}{0.3em}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlist[itemize]{leftmargin=1.3em,itemsep=1pt,topsep=2pt}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newtcolorbox{keybox}[1]{colback=blue!4,colframe=blue!40!black,title=\textbf{#1},left=6pt,right=6pt,top=4pt,bottom=4pt}
+
+\title{\vspace{-1.2em}\textbf{Du corpus brut à la table de backtest}\\
+\large Nettoyage, validations et garanties --- fiche de synthèse (2014--2026)}
+\author{Alice Lemaire \quad---\quad couche données, avant la phase recherche}
+\date{\today}
+
+\begin{document}
+\maketitle
+\vspace{-2.2em}
+
+\begin{keybox}{En une phrase}
+Le corpus source-primaire certifié (\textbf{169\,000} transactions uniques, 100\,\% de l'index officiel
+House traité, census interne documenté côté Sénat) passe par un entonnoir de nettoyage en 4 étapes --- \textbf{chaque retrait compté et justifié, tout
+doute gardé et flagué} --- pour produire la table de recherche
+\code{transactions\_backtest\_2014\_2026.csv} : \textbf{134\,464 lignes $\times$ 36 colonnes} (79{,}6\,\% de
+rétention), validée contre trois sources externes et sous filet de non-régression octet pour octet. La
+phase recherche démarre sur une donnée dont on connaît exactement le contenu, les forces et les limites.
+\end{keybox}
+
+% ══════════════════════════════════════════════════════════════════
+\section{D'où on part : un corpus complet, identifié, vérifié}
+
+\begin{center}\small
+\begin{tabular}{p{7.6cm}p{8.6cm}}
+\toprule
+Transactions uniques (2 chambres, 2014--2026) & \textbf{169\,000} \quad (House 151\,989 · Sénat 17\,011) \\
+\quad\emph{dont} : brutes 170\,920, re-divulgations dédupliquées & 1\,920 \\
+Index officiel House Clerk : PTR traités & \textbf{100\,\% des 8\,252} (7\,568 avec transactions · 582 manuscrits gated · 102 vides documentés) \\
+Identité rattachée (bioguide) & \textbf{100\,\%} (367 House + 78 Sénat) \\
+Dates cohérentes / délai médian de publication & 99{,}8\,\% / 27 jours \\
+Montants renseignés & 99{,}4\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Validé contre trois sources indépendantes} (validation seulement --- aucune donnée n'y est copiée) :
+\begin{itemize}
+\item \textbf{Quiver Quant} : on retrouve chez nous \textbf{93{,}5\,\%} (House) / \textbf{92{,}1\,\%}
+      (Sénat) de ses combinaisons (déposant, ticker, sens) --- et on est \textbf{plus complet} que lui :
+      \textbf{+23\,535} trades cotés nets côté House, \textbf{+2\,951} côté Sénat, pour seulement
+      27\,+\,11 « vrais trous » confirmés chez nous.
+\item Sur les paires appariées 1-à-1 (membre, ticker, date) : accord sur le \textbf{sens} 96{,}8\,\%
+      (House) / 99{,}9\,\% (Sénat), sur le \textbf{montant} 94{,}2\,\% / 99{,}8\,\%.
+\item \textbf{senate-stock-watcher} (projet indépendant, 6\,231 transactions tickées 2014--2020) :
+      \textbf{100\,\%} retrouvées chez nous, hors différence de représentation des échanges (il éclate un
+      échange en 2 lignes, nous 1) --- sur-ensemble strict.
+\item \textbf{Mirror house-stock-watcher} reconstruit (23\,568 transactions) : \textbf{99{,}5\,\%} de ses
+      lignes 2018--2026 retrouvées chez nous ; il sert aussi de seconde jambe à la « double preuve » des
+      tickers récupérés (\S3).
+\item Corroboration \emph{par ère}, honnête : Quiver ne corrobore que 16{,}6--32{,}6\,\% de nos actions
+      2014--2016 --- parce que \textbf{Quiver est mince avant 2017}, pas parce que nous avons un trou :
+      nos lignes « nous-seul » portent des tickers vérifiés sur les PDF officiels.
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════
+\section{L'entonnoir de nettoyage : 4 retraits, tous justifiés}
+
+\emph{Philosophie (écrite en tête du notebook)} : \textbf{on ne retire que l'avéré inutilisable ; tout le
+doute est gardé et flagué} --- aucune ligne écartée en silence, la décision revient à la recherche, pas au
+nettoyage.
+
+\begin{center}\small
+\begin{tabular}{clrrr}
+\toprule
+Étape & Règle (pourquoi) & retirées & restantes & \% \\
+\midrule
+--- & Corpus unique (\code{load\_final}, réparations incluses) & --- & 169\,000 & 100{,}0 \\
+A & Dates présentes \& cohérentes (impossible de dater l'entrée sinon) & 3\,252 & 165\,748 & 98{,}1 \\
+B & Actions + ETF \textbf{cotés} (un backtest exige un prix de marché) & 29\,771 & 135\,977 & 80{,}5 \\
+C & Direction claire achat/vente (les « échanges » n'ont pas de sens directionnel) & 826 & 135\,151 & 80{,}0 \\
+D & Montant présent (dimensionner une position exige un notionnel) & 687 & \textbf{134\,464} & \textbf{79{,}6} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item \textbf{Étape A} : lignes sans date exploitable, publication \emph{avant} transaction (impossible),
+      années implausibles. Les \emph{dépôts tardifs} (12{,}2\,\% $>45$~j) sont GARDÉS et flagués : c'est
+      de l'information réelle, jouable à sa date de publication.
+\item \textbf{Étape B, décomposée} : 27\,006 lignes \emph{sans aucun symbole} (munis, obligations,
+      sociétés privées --- pas de prix possible) + 164 tickers malformés (CUSIP, fragments OCR) + 2\,601
+      familles non cotées (options, bons du Trésor). \textbf{Logique ticker-first} : 21\,878 lignes au
+      champ « type d'actif » vide sont \emph{sauvées} par leur ticker validé --- l'inverse du filtre naïf
+      par champ déclaré (vide dans 16 à 31\,\% des cas selon le sous-corpus), qui avait écarté à tort une
+      large part des trades exploitables dans une première version de la recherche ; bug trouvé, corrigé,
+      et le nettoyage centralisé ici.
+\item \textbf{Ce que la table contient} : House 91{,}3\,\% / Sénat 8{,}7\,\% ; achats 68\,250 / ventes
+      66\,214 ; actions 128\,974 (secteur GICS 100\,\%) + ETF diversifiés 2\,022 + ETF sectoriels 168 +
+      3\,300 cotés à classe non résolue (flagués) ; les deux ères couvertes (House : 56\,706 en
+      2014--2019, 66\,108 en 2020--2026).
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════
+\section{Ce que l'audit a trouvé --- et corrigé, preuve à l'appui}
+
+Trois erreurs \textbf{critiques} détectées par croisement avec l'index officiel et les sources tierces :
+\begin{itemize}
+\item \textbf{205 PTR n'étaient jamais entrés dans la base} : le filtre de téléchargement par année
+      civile ratait les dépôts de janvier (biais systématique contre les trades de décembre).
+      $\Rightarrow$ 293 documents ré-acquis et intégrés ; zéro perte re-prouvée par clé unique sur
+      chacune des 13 années.
+\item \textbf{7\,996 fourchettes de montant tronquées} (borne haute absente $\to$ montants sous-estimés,
+      $\sim$331~M\$ d'écart cumulé). $\Rightarrow$ réparation déterministe à la lecture
+      (borne basse $\to$ fourchette STOCK Act complète, milieu exact recalculé).
+\item \textbf{Aucun référentiel de renommages/délistages} : FB$\to$META, PCLN$\to$BKNG\ldots{} restaient
+      sans prix. $\Rightarrow$ \code{ticker\_renames.csv} (84 entrées typées : renommage, fusion,
+      rachat, faillite, symbole recyclé) ; 2\,817 lignes re-symbolisées pour le join prix, 3\,542
+      délistés \emph{typés} au lieu de disparaître.
+\end{itemize}
+
+Et les corrections \textbf{majeures} (sélection) --- symptôme $\to$ correction $\to$ preuve :
+\begin{itemize}
+\item \textbf{Biais vendeur avant 2018} : la police « petites capitales » des vieux PDF faisait rater
+      des lignes au parseur --- et $\sim$95\,\% des lignes perdues étaient des \emph{ventes}. Regex
+      corrigée ; recette sur 140 documents = 100\,\% du contrôle indépendant ; les ventes digitales 2014
+      \textbf{doublent} (555 $\to$ 1\,170). Sans cette correction, tout backtest pré-2018 aurait vu des
+      achats sans leurs ventes.
+\item \textbf{52 lignes sans bioguide réparées}, plus une collision d'homonyme (Bob Casey Jr.\ rattaché
+      au mauvais Casey) --- réparations ciblées par document, pas de règle aveugle.
+\item \textbf{2\,540 tickers récupérés} depuis la description de l'actif, à double preuve (le symbole
+      manquait sur le formulaire mais l'actif est coté et identifiable).
+\item \textbf{Parti et commissions à la date du trade} (point-in-time) : la photo « 2026 » est remplacée
+      par les référentiels datés (bascule des Congrès au 3 janvier) --- 99{,}1\,\% des lignes résolues,
+      54{,}6\,\% portent le flag « commission clé » (finance/défense/renseignement). Indispensable pour
+      tester la thèse « commissions » sans anachronisme.
+\item \textbf{Convention de montant unifiée} : 91\,634 lignes avaient deux conventions de milieu de
+      fourchette selon le pipeline (OCR vs digital) $\to$ recalcul unique exact depuis la fourchette.
+\item \textbf{Lots multi-comptes protégés} : 11\,873 lignes identiques sont des lots \emph{réels}
+      (comptes Self/Spouse/Joint) identifiés par \code{owner}/\code{occurrence\_index}/\code{lot\_size}
+      --- \textbf{ne jamais appliquer} \code{drop\_duplicates()} ; un doublon naïf détruirait de
+      l'information réelle.
+\end{itemize}
+
+\emph{La règle d'ingénierie} : les corrections \emph{de lecture} (fourchettes, identités, dates, tickers
+récupérés) sont appliquées à la lecture (\code{common/schema.py}) --- les fichiers extraits restent
+figés ; les réparations de \emph{parser} ont été rejouées et le filet golden re-figé en conséquence ; les
+enrichissements (point-in-time, milieu de fourchette, renommages) vivent dans le notebook canonique. Dans
+tous les cas, on remonte du chiffre corrigé au document source.
+
+% ══════════════════════════════════════════════════════════════════
+\section{Les garanties : rien ne bouge sans qu'on le voie}
+
+\begin{center}\small
+\begin{tabular}{lrl}
+\toprule
+Doute flagué (jamais retiré) & lignes & usage en recherche \\
+\midrule
+\code{flag\_late\_filing} --- publication $>45$~j & 16\,349 (12{,}2\,\%) & information réelle, jouable à sa date \\
+\code{flag\_very\_late\_filing} --- $>365$~j & 3\,075 (2{,}3\,\%) & amendements/régularisations, à filtrer si voulu \\
+\code{is\_delisted} --- titre sorti de cote, typé & 3\,542 (2{,}6\,\%) & traitement par type (faillite $\neq$ rachat) \\
+lots multi-comptes (\code{lot\_size}$>1$) & 11\,873 (8{,}8\,\%) & expositions réelles distinctes \\
+\code{flag\_price\_caution} --- symbole recyclé/fusion & 505 (0{,}4\,\%) & join prix par période \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item \textbf{Assertions finales sur 100\,\% des 134\,464 lignes} : bioguide, ticker, montant, direction
+      $\in\{$buy, sell$\}$, chronologie (publication $\geq$ transaction), clé naturelle --- le notebook
+      refuse de publier la table sinon.
+\item \textbf{Filet de non-régression} : 368 fichiers de référence figés SHA-256 (230 House + 138 Sénat),
+      rejoués à \textbf{zéro écart} à chaque modification, + 11 tests de transformation déterministes.
+\item \textbf{Reproductible} : le notebook de nettoyage s'exécute hors-ligne et de façon déterministe ;
+      le filet golden fige les tables amont octet pour octet ; chaque chiffre de cette fiche est tracé
+      vers le rapport qualité, l'audit ou les notebooks.
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════
+\section{Les limites, écrites \emph{avant} la recherche}
+
+\begin{itemize}
+\item \textbf{Montants = fourchettes STOCK Act} : le milieu de fourchette est exact, mais la loi ne donne
+      pas de montant précis --- limite structurelle, pas de nettoyage.
+\item \textbf{Fidélité au déposant} : les coquilles du déposant (dates littéralement impossibles sur le
+      PTR) sont transcrites, pas inventées --- elles tombent à l'étape A, documentées.
+\item \textbf{582 PTR manuscrits écartés} par décision de périmètre : la corroboration externe
+      s'effondre sur les manuscrits (12{,}9\,\%), donc invérifiables contre une vérité-terrain --- choix
+      conservateur, documenté document par document ; 7{,}1\,\% de l'index, concentrés avant 2020.
+\item \textbf{Couverture prix 87{,}8\,\%} des trades (74\,\% en 2014 $\to$ 99\,\% en 2026) : Yahoo ne
+      sert plus certains délistés sans successeur $\Rightarrow$ léger biais de survie, à garder en tête
+      dans l'interprétation des rendements (documenté dans le notebook de recherche).
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════
+\section{Conclusion : on peut passer à la recherche}
+
+La table \code{transactions\_backtest\_2014\_2026.csv} est \textbf{complète} (100\,\% de l'index officiel
+House traité, census Sénat documenté), \textbf{exacte} (validée contre trois sources indépendantes, accords $>94$--$99\,\%$ sur
+les paires), \textbf{réparée} (19 corrections documentées, chacune avec sa preuve), \textbf{honnête} (tout
+doute flagué, limites écrites) et \textbf{reproductible} (golden SHA-256 + assertions). Elle alimente déjà
+les notebooks de recherche (portefeuille par membre, stratégie du brief) sans accroc. \\[2pt]
+\emph{Pour aller plus loin} : \code{docs/RAPPORT\_QUALITE.md} (\S7 : l'entonnoir rejoué par le code),
+\code{docs/AUDIT\_DONNEES\_2014\_2026.md} (chaque correction tracée),
+\code{Nettoyage\_Backtest\_2014\_2026.ipynb} (le notebook qui produit la table).
+
+\end{document}
