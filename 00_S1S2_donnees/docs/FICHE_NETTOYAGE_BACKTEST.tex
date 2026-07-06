@@ -36,6 +36,14 @@
 % ══════════════════════════════════════════════════════════════════
 \section{D'où on part : un corpus complet, identifié, vérifié}
 
+\textbf{La donnée est collectée à la source officielle, pas achetée à un agrégateur.} Depuis le STOCK Act
+(2012), chaque membre du Congrès déclare ses transactions boursières sous 45~jours dans un \emph{PTR}
+(\emph{Periodic Transaction Report}). Nous partons des deux dépôts officiels : l'\textbf{index annuel du
+Clerk de la Chambre} --- qui liste chaque PTR déposé, et sert donc d'univers de référence re-vérifiable ---
+et l'\textbf{eFD du Sénat}. Chaque document est téléchargé puis lu : extraction directe pour les dépôts
+électroniques, lecture Vision (OCR) pour les PDF scannés. On contrôle ainsi toute la chaîne, du document
+officiel à la ligne de donnée, et chaque ligne garde l'identifiant de son document source.
+
 \begin{center}\small
 \begin{tabular}{p{7.6cm}p{8.6cm}}
 \toprule
@@ -49,23 +57,32 @@ Montants renseignés & 99{,}4\,\% \\
 \end{tabular}
 \end{center}
 
-\textbf{Validé contre trois sources indépendantes} (validation seulement --- aucune donnée n'y est copiée) :
+\emph{Lecture du tableau} : « re-divulgations » = un même trade republié dans un amendement, dédoublonné
+par clé naturelle ; « manuscrits gated » = PTR remplis à la main, écartés par décision de périmètre
+(motivée au \S5) ; « vides documentés » = dépôts officiels sans transaction, justifiés un par un.
+
+\textbf{La validation externe.} Notre base est construite indépendamment ; pour la vérifier, on la
+confronte à \textbf{trois sources tierces} qui collectent la même information --- l'agrégateur commercial
+\emph{Quiver Quant} et deux projets open-source (\emph{senate-stock-watcher}, mirror
+\emph{house-stock-watcher}) --- en validation seulement, aucune donnée n'y est copiée. Trois questions,
+dans l'ordre où elles rassurent :
 \begin{itemize}
-\item \textbf{Quiver Quant} : on retrouve chez nous \textbf{93{,}5\,\%} (House) / \textbf{92{,}1\,\%}
-      (Sénat) de ses combinaisons (déposant, ticker, sens) --- et on est \textbf{plus complet} que lui :
-      \textbf{+23\,535} trades cotés nets côté House, \textbf{+2\,951} côté Sénat, pour seulement
-      27\,+\,11 « vrais trous » confirmés chez nous.
-\item Sur les paires appariées 1-à-1 (membre, ticker, date) : accord sur le \textbf{sens} 96{,}8\,\%
-      (House) / 99{,}9\,\% (Sénat), sur le \textbf{montant} 94{,}2\,\% / 99{,}8\,\%.
-\item \textbf{senate-stock-watcher} (projet indépendant, 6\,231 transactions tickées 2014--2020) :
-      \textbf{100\,\%} retrouvées chez nous, hors différence de représentation des échanges (il éclate un
-      échange en 2 lignes, nous 1) --- sur-ensemble strict.
-\item \textbf{Mirror house-stock-watcher} reconstruit (23\,568 transactions) : \textbf{99{,}5\,\%} de ses
-      lignes 2018--2026 retrouvées chez nous ; il sert aussi de seconde jambe à la « double preuve » des
-      tickers récupérés (\S3).
-\item Corroboration \emph{par ère}, honnête : Quiver ne corrobore que 16{,}6--32{,}6\,\% de nos actions
-      2014--2016 --- parce que \textbf{Quiver est mince avant 2017}, pas parce que nous avons un trou :
-      nos lignes « nous-seul » portent des tickers vérifiés sur les PDF officiels.
+\item \textbf{A-t-on tout ce qu'eux ont ?} On retrouve chez nous \textbf{93{,}5\,\%} (House) /
+      \textbf{92{,}1\,\%} (Sénat) des combinaisons de Quiver --- une « combinaison » = ce déposant a bien
+      déclaré au moins un trade sur ce titre dans ce sens (clé volontairement sans date, pour tolérer les
+      différences de convention). Après enquête sur le résidu (lignes hors périmètre, manuscrits gated),
+      il ne reste que \textbf{27\,+\,11 « vrais trous »} confirmés. Côté open-source :
+      \textbf{100\,\%} des 6\,231 transactions de senate-stock-watcher retrouvées (hors représentation
+      des échanges : il les éclate en 2 lignes, nous 1) et \textbf{99{,}5\,\%} des lignes 2018--2026 du
+      mirror House (23\,568 transactions).
+\item \textbf{A-t-on \emph{plus} qu'eux ?} Oui : \textbf{+23\,535} trades cotés nets côté House,
+      \textbf{+2\,951} côté Sénat. Ce surplus est réel, pas un artefact : avant 2017 Quiver ne corrobore
+      que 16{,}6--32{,}6\,\% de nos actions parce que \textbf{Quiver est mince avant 2017} --- nos lignes
+      « nous-seul » portent des tickers vérifiés sur les PDF officiels.
+\item \textbf{Quand on a tous les deux le même trade, dit-on la même chose ?} Sur les $\sim$96\,000
+      paires appariées 1-à-1 (membre, ticker, date) : accord sur le \textbf{sens} 96{,}8\,\% (House) /
+      99{,}9\,\% (Sénat), sur le \textbf{montant} 94{,}2\,\% / 99{,}8\,\%. Les désaccords échantillonnés
+      ont été vérifiés sur les PDF officiels : notre transcription est fidèle au document.
 \end{itemize}
 
 % ══════════════════════════════════════════════════════════════════
