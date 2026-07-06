@@ -144,16 +144,20 @@ D & Montant présent (dimensionner une position exige un notionnel) & 687 & \tex
       réelle, jouable à sa date de publication.
 \end{itemize}
 
-\textbf{Étape B --- décomposée :}
+\textbf{Étape B --- ce qu'on \emph{retire} (29\,771 lignes) :}
 \begin{itemize}
 \item 27\,006 lignes \emph{sans aucun symbole} (munis, obligations, sociétés privées --- pas de prix possible) ;
 \item 164 tickers malformés (CUSIP, fragments OCR) ;
-\item 2\,601 familles non cotées (options, bons du Trésor) ;
-\item \textbf{rescue ticker-first} : 21\,878 lignes au champ « type d'actif » vide sont \emph{sauvées}
-      par leur ticker validé ;
-\item la leçon : le filtre naïf par champ déclaré (vide dans 16 à 31\,\% des cas) avait écarté à tort
-      une large part des trades exploitables dans une première version --- bug trouvé, corrigé,
-      nettoyage centralisé ici.
+\item 2\,601 familles non cotées (options, bons du Trésor).
+\end{itemize}
+
+\textbf{Étape B --- ce qu'on \emph{garde} grâce au ticker-first :}
+\begin{itemize}
+\item \textbf{21\,878 lignes GARDÉES} : leur champ « type d'actif » est vide, mais leur ticker est une
+      action cotée valide → on les garde (on décide sur le ticker, pas sur le champ déclaré).
+\item pourquoi ça compte : ce champ « type d'actif » est vide dans 16 à 31\,\% des cas ; le filtrer
+      naïvement (comme dans une première version) jetait à tort ces 21\,878 vraies actions --- bug
+      trouvé, corrigé, nettoyage centralisé ici.
 \end{itemize}
 
 \textbf{Ce que la table contient :}
