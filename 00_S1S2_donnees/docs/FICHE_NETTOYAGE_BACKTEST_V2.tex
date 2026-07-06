@@ -45,19 +45,6 @@
 \begin{document}
 \maketitle
 
-\section{L'essentiel}
-\begin{itemize}
-  \item Corpus source-primaire : \textbf{169\,000} transactions uniques (100\,\% de l'index officiel
-        House traité, census Sénat documenté).
-  \item Entonnoir de nettoyage en \textbf{4 retraits justifiés} $\to$ table de recherche
-        \textbf{134\,464 lignes $\times$ 36 colonnes} (\textbf{79{,}6\,\%} conservées).
-  \item Validée en externe : \textbf{93{,}5\,\%} (House) / \textbf{92{,}1\,\%} (Sénat) des combinaisons
-        de Quiver retrouvées ; \textbf{100\,\%} de senate-stock-watcher ; \textbf{99{,}5\,\%} du mirror
-        House 2018--2026.
-  \item Tout le doute est \textbf{gardé et flagué} (jamais retiré en silence).
-  \item Déjà consommée telle quelle par les notebooks de recherche 05 et 06.
-\end{itemize}
-
 \section{L'entonnoir}
 
 \begin{center}
@@ -86,25 +73,30 @@ déclarée (vide dans 16--31\,\% des cas).
 
 \section{L'entonnoir des tickers (couverture prix)}
 
+D'où viennent les symboles de la table :
+\begin{itemize}
+  \item chaque ligne porte le ticker déclaré, normalisé au format Yahoo (\code{ticker\_yahoo}) ;
+  \item renommages et fusions appliqués via un référentiel de 84 entrées (FB$\to$META, PCLN$\to$BKNG\ldots) ;
+  \item symbole absent du formulaire mais actif identifiable par sa description $\to$ récupéré
+        (+2\,540 lignes) ;
+  \item au total : \textbf{4\,618 symboles distincts} dans la table.
+\end{itemize}
+
+Du symbole au prix (côté recherche, notebooks 05/06) :
+
 \begin{center}
 \begin{minipage}{\linewidth}\centering
 \includegraphics[width=\linewidth]{quality/entonnoir_tickers.png}
-\captionof{figure}{Du symbole déclaré au prix exploitable (côté recherche, notebooks 05/06 \S3).}
+\captionof{figure}{Du symbole déclaré au prix exploitable.}
 \end{minipage}
 \end{center}
 
 \begin{itemize}
-  \item \textbf{Amont (nettoyage)} : ticker normalisé au format Yahoo ; \textbf{+2\,540} tickers
-        récupérés depuis la description de l'actif (double preuve) ; renommages appliqués via le
-        référentiel de 84 entrées (FB$\to$META, PCLN$\to$BKNG\ldots{} — 2\,817 lignes re-symbolisées) ;
-        3\,542 lignes sur délistés \emph{typés} (faillite $\ne$ rachat).
-  \item \textbf{Sans prix (1\,268)} : symboles que Yahoo \emph{ne sert plus} — délistés sans
-        successeur coté.
-  \item \textbf{Garde-fou anti-corruption} : série exclue si prix min $< 0{,}10$~\$ ou saut journalier
-        $> 300\,\%$ (61 séries, ex.\ \code{DAIUF} : prix négatifs).
-  \item \textbf{Résultat} : \textbf{3\,289 tickers} exploitables ; couverture \textbf{87{,}8\,\%} des
-        trades (74\,\% en 2014 $\to$ 99\,\% en 2026) $\Rightarrow$ léger biais de survie, à garder en
-        tête côté rendements.
+  \item \textbf{1\,268 symboles sans prix} : Yahoo ne les sert plus (délistés sans successeur coté) ;
+  \item \textbf{61 séries corrompues} exclues par le garde-fou : prix min $< 0{,}10$~\$ ou saut
+        journalier $> 300\,\%$ (ex.\ \code{DAIUF}, prix négatifs) ;
+  \item restent \textbf{3\,289 symboles} avec un prix fiable $\to$ \textbf{87{,}8\,\%} des trades sont
+        backtestables (74\,\% en 2014 $\to$ 99\,\% en 2026 ; léger biais de survie).
 \end{itemize}
 
 \section{La table finale — aperçu}
