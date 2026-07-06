@@ -74,6 +74,28 @@ $$x(t)=r_P(t)-r_{\text{SPY}}(t),\qquad
 Test de significativité (unilatéral, « bat-il le SPY ? ») :
 $$t=\frac{\overline{x}}{\sigma(x)/\sqrt{n}}=\mathrm{IR}\sqrt{\tfrac{n_{\text{jours}}}{252}}\;\;>\;1{,}645$$
 
+\section{Ajustement par le marché (\texorpdfstring{$\beta$}{beta})}\label{sec:beta}
+L'IR soustrait \emph{tout} le marché $\Rightarrow$ il suppose $\beta=1$. Un portefeuille agressif
+($\beta>1$) affiche alors un excès positif en marché haussier \emph{sans talent}. On régresse plutôt
+les rendements quotidiens du membre :
+$$r_P(t)=\alpha+\beta\,r_{\text{SPY}}(t)+\varepsilon(t)$$
+\textbf{Pente} $\beta$ (exposition) et \textbf{ordonnée} $\alpha$ (talent), par moindres carrés :
+$$\beta=\frac{\operatorname{Cov}(r_P,\,r_{\text{SPY}})}{\operatorname{Var}(r_{\text{SPY}})},\qquad
+  \alpha=\overline{r_P}-\beta\,\overline{r_{\text{SPY}}}$$
+$$\operatorname{Cov}=\overline{(r_P-\overline{r_P})(r_{\text{SPY}}-\overline{r_{\text{SPY}}})},\;\;
+  \operatorname{Var}=\overline{(r_{\text{SPY}}-\overline{r_{\text{SPY}}})^2}$$
+$\beta$ = pente du nuage de points quotidiens $(r_{\text{SPY}},r_P)$ ; $\alpha$ = son rendement un jour où
+le marché est plat.
+
+\textbf{Ratio d'appréciation} = l'IR \emph{du résidu} $\varepsilon=r_P-(\alpha+\beta\,r_{\text{SPY}})$
+(le talent risque-ajusté, marché retiré) :
+$$\text{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252}$$
+\begin{itemize}
+  \item $\beta=1$ : appraisal $=$ IR (identiques) ;
+  \item $\beta\neq1$ : l'IR mélange exposition et talent, l'appraisal \textbf{isole} le talent ;
+  \item classer par appraisal (au lieu de l'IR) retire le \textbf{levier de style}.
+\end{itemize}
+
 \section{Éligibilité \& tests multiples}
 \begin{itemize}
   \item \textbf{Éligibilité} : $n_{\text{trades}}\ge 10$ et $n_{\text{jours}}\ge 126$ ($\sim$6 mois).
@@ -132,16 +154,12 @@ $$\mathrm{IR}_{\text{ann}}=\frac{\overline{x}_{\text{strat}}}{\sigma(x_{\text{st
   t=\mathrm{IR}_{\text{ann}}\sqrt{n}$$
 avec pour seuil $t_{n-1}\approx 1{,}81$ à $n=11$ années.
 
-\textbf{Ajustement par le marché (}$\boldsymbol\beta$\textbf{).} L'excès brut $r_{\text{strat}}-r_{\text{SPY}}$
-suppose $\beta=1$. On régresse plutôt les rendements quotidiens :
+\textbf{Ajustement (}$\boldsymbol\beta$\textbf{) de la stratégie.} On applique la même régression
+qu'au \S\ref{sec:beta} à la série de la stratégie :
 $$\boxed{\,r_{\text{strat}}(t)=\alpha+\beta\,r_{\text{SPY}}(t)+\varepsilon\,}$$
-\begin{itemize}
-  \item $\beta$ = exposition au marché (levier de \emph{style}) ;
-  \item $\alpha$ = rendement en plus du marché \emph{à exposition égale} (le \emph{talent}) ;
-        annualisé $\alpha_{\text{ann}}=(1+\alpha)^{252}-1$ ;
-  \item significativité par le $t$ de la régression $t_\alpha=\alpha/\mathrm{SE}(\alpha)$
-        (OLS ; un écart-type Newey-West élargirait $\mathrm{SE}$, l'autocorrélation quotidienne étant réelle).
-\end{itemize}
-Si $\beta>1$, une part de l'excès brut n'est que de l'exposition au marché : $\alpha<$ excès brut.
+$\alpha$ annualisé $\alpha_{\text{ann}}=(1+\alpha)^{252}-1$ = le talent de la stratégie ; significativité par
+$t_\alpha=\alpha/\mathrm{SE}(\alpha)$ (OLS ; un écart-type Newey-West élargirait $\mathrm{SE}$,
+l'autocorrélation quotidienne étant réelle). Si $\beta>1$, une part de l'excès brut n'est que de
+l'exposition au marché : $\alpha<$ excès brut.
 
 \end{document}
