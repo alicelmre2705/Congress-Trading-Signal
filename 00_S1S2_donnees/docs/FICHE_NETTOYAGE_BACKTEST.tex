@@ -89,7 +89,7 @@ validation seulement --- rien n'y est copié. Trois questions :
 \item Mirror house-stock-watcher (reconstruit indépendamment \emph{depuis les mêmes PDF officiels} de la
       Chambre ; 23\,568 transactions 2012--2026) : \textbf{99{,}5\,\%} de ses lignes 2018--2026
       retrouvées chez nous ; avant 2018, ses écarts nous ont servi de détecteur de manques --- tous
-      ré-acquis et corrigés depuis (annexe~A).
+      ré-acquis et corrigés depuis (tracé dans \code{docs/AUDIT\_DONNEES\_2014\_2026.md}).
 \end{itemize}
 
 \textbf{2) A-t-on \emph{plus} qu'eux ?}
@@ -208,105 +208,12 @@ lots multi-comptes (\code{lot\_size}$>1$) & 11\,873 (8{,}8\,\%) & expositions r�
 
 La table \code{transactions\_backtest\_2014\_2026.csv} est \textbf{complète} (100\,\% de l'index officiel
 House traité, census Sénat documenté), \textbf{exacte} (validée contre trois sources indépendantes, accords $>94$--$99\,\%$ sur
-les paires), \textbf{réparée} (19 corrections documentées, chacune avec sa preuve --- annexe~A), \textbf{honnête} (tout
+les paires), \textbf{réparée} (19 corrections documentées, chacune avec sa preuve, dans l'audit), \textbf{honnête} (tout
 doute flagué, limites écrites) et \textbf{reproductible} (golden SHA-256 + assertions). Elle alimente déjà
 les notebooks de recherche (portefeuille par membre, stratégie du brief) sans accroc. \\[2pt]
 \emph{Pour aller plus loin} : \code{docs/RAPPORT\_QUALITE.md} (\S7 : l'entonnoir rejoué par le code),
 \code{docs/AUDIT\_DONNEES\_2014\_2026.md} (chaque correction tracée),
 \code{Nettoyage\_Backtest\_2014\_2026.ipynb} (le notebook qui produit la table).
-
-% ══════════════════════════════════════════════════════════════════
-\appendix
-\newpage
-\section{Annexe --- ce que l'audit a trouvé, et corrigé}
-
-Chaque correction suit le même schéma : symptôme $\to$ cause $\to$ correction $\to$ preuve. Le détail
-complet est dans \code{docs/AUDIT\_DONNEES\_2014\_2026.md}.
-
-\textbf{Critique 1 --- 205 PTR n'étaient jamais entrés dans la base.}
-\begin{itemize}
-\item Symptôme : 205 dépôts de l'index officiel introuvables dans la base.
-\item Cause : le téléchargement filtrait par année civile --- les dépôts de janvier (trades de décembre)
-      passaient au travers ; biais systématique contre les trades de fin d'année.
-\item Correction : 293 documents ré-acquis et intégrés.
-\item Preuve : zéro perte, re-prouvée par clé unique sur chacune des 13 années.
-\end{itemize}
-
-\textbf{Critique 2 --- 7\,996 fourchettes de montant tronquées.}
-\begin{itemize}
-\item Symptôme : borne haute absente $\to$ montants sous-estimés ($\sim$331~M\$ d'écart cumulé).
-\item Correction : réparation déterministe à la lecture --- borne basse $\to$ fourchette STOCK Act
-      complète, milieu exact recalculé.
-\end{itemize}
-
-\textbf{Critique 3 --- aucun référentiel de renommages/délistages.}
-\begin{itemize}
-\item Symptôme : FB$\to$META, PCLN$\to$BKNG\ldots{} restaient sans prix au moment du join.
-\item Correction : \code{ticker\_renames.csv} --- 84 entrées typées (renommage, fusion, rachat,
-      faillite, symbole recyclé).
-\item Effet : 2\,817 lignes re-symbolisées pour le join prix ; 3\,542 délistés \emph{typés} au lieu de
-      disparaître.
-\end{itemize}
-
-\textbf{Majeure --- biais vendeur avant 2018.}
-\begin{itemize}
-\item Symptôme : le parseur ratait des lignes sur les vieux PDF --- et $\sim$95\,\% des lignes perdues
-      étaient des \emph{ventes}.
-\item Cause : la police « petites capitales » de ces PDF (le « S » de \emph{Sale} mal reconnu).
-\item Correction : lecture rendue insensible à la casse ; recette sur 140 documents = 100\,\% du
-      contrôle indépendant.
-\item Preuve : les ventes digitales 2014 \textbf{doublent} (555 $\to$ 1\,170).
-\item Enjeu : sans cette correction, tout backtest pré-2018 aurait vu des achats sans leurs ventes.
-\end{itemize}
-
-\textbf{Majeure --- identités.}
-\begin{itemize}
-\item 52 lignes sans bioguide réparées, plus une collision d'homonyme (Bob Casey Jr.\ rattaché au
-      mauvais Casey).
-\item Réparations ciblées par document --- pas de règle aveugle.
-\end{itemize}
-
-\textbf{Majeure --- 2\,540 tickers récupérés.}
-\begin{itemize}
-\item Symptôme : le symbole manquait sur le formulaire, mais l'actif est coté et identifiable par sa
-      description.
-\item Correction : récupération à \emph{double preuve} --- notre résolution, confirmée par le mirror
-      indépendant (\S1).
-\end{itemize}
-
-\textbf{Majeure --- parti et commissions à la date du trade (point-in-time).}
-\begin{itemize}
-\item Symptôme : la photo « 2026 » des partis/commissions était appliquée à toutes les années ---
-      anachronique.
-\item Correction : référentiels datés, bascule des Congrès au 3 janvier.
-\item Résultat : 99{,}1\,\% des lignes résolues ; 54{,}6\,\% portent le flag « commission clé »
-      (finance/défense/renseignement).
-\item Enjeu : tester la thèse « commissions » sans anachronisme.
-\end{itemize}
-
-\textbf{Majeure --- convention de montant unifiée.}
-\begin{itemize}
-\item Symptôme : 91\,634 lignes avaient deux conventions de milieu de fourchette selon le pipeline
-      (OCR vs digital).
-\item Correction : recalcul unique exact depuis la fourchette.
-\end{itemize}
-
-\textbf{Majeure --- lots multi-comptes protégés.}
-\begin{itemize}
-\item 11\,873 lignes identiques = lots \emph{réels} (comptes Self/Spouse/Joint), identifiés par
-      \code{owner}/\code{occurrence\_index}/\code{lot\_size}.
-\item Règle : \textbf{ne jamais appliquer} \code{drop\_duplicates()} --- un doublon naïf détruirait de
-      l'information réelle.
-\end{itemize}
-
-\textbf{Où vivent les corrections (règle d'ingénierie) :}
-\begin{itemize}
-\item corrections \emph{de lecture} (fourchettes, identités, dates, tickers récupérés) : appliquées à la
-      lecture (\code{common/schema.py}) --- les fichiers extraits restent figés ;
-\item réparations de \emph{parser} : rejouées, et le filet golden re-figé en conséquence ;
-\item enrichissements (point-in-time, milieu de fourchette, renommages) : dans le notebook canonique ;
-\item dans tous les cas, on remonte du chiffre corrigé au document source.
-\end{itemize}
 
 \end{document}
 
