@@ -171,21 +171,22 @@ D & Montant présent (dimensionner une position exige un notionnel) & 687 & \tex
 % ══════════════════════════════════════════════════════════════════
 \section{Les garanties : rien ne bouge sans qu'on le voie}
 
-\begin{center}\small
-\begin{tabular}{lrl}
-\toprule
-Doute flagué (jamais retiré) & lignes & usage en recherche \\
-\midrule
-\code{flag\_late\_filing} --- publication $>45$~j & 16\,349 (12{,}2\,\%) & information réelle, jouable à sa date \\
-\code{flag\_very\_late\_filing} --- $>365$~j & 3\,075 (2{,}3\,\%) & amendements/régularisations, à filtrer si voulu \\
-\code{is\_delisted} --- titre sorti de cote, typé & 3\,542 (2{,}6\,\%) & traitement par type (faillite $\neq$ rachat) \\
-lots multi-comptes (\code{lot\_size}$>1$) & 11\,873 (8{,}8\,\%) & expositions réelles distinctes \\
-\code{flag\_price\_caution} --- symbole recyclé/fusion & 505 (0{,}4\,\%) & join prix par période \\
-\bottomrule
-\end{tabular}
-\end{center}
-
+\textbf{Le doute est gardé et flagué} (jamais retiré en silence) --- la recherche a toute l'info pour le
+traiter :
 \begin{itemize}
+\item \code{flag\_late\_filing} --- publication au-delà des 45~jours légaux (16\,349 lignes, 12{,}2\,\%) :
+      c'est de l'information réelle, jouable à sa date de publication ; on la garde.
+\item \code{flag\_very\_late\_filing} --- publication au-delà d'un an (3\,075, 2{,}3\,\%) : amendements ou
+      régularisations très tardives ; la recherche peut les filtrer si elle veut.
+\item \code{is\_delisted} --- le titre a quitté la Bourse pendant la période (3\,542, 2{,}6\,\%), typé
+      \emph{faillite} vs \emph{rachat} : le prix de sortie n'est pas le même (\textasciitilde 0 en
+      faillite, prix du deal en rachat) --- le type indique à la recherche quelle valeur finale prendre.
+\item \textbf{lots multi-comptes} (11\,873, 8{,}8\,\%) : le même trade déclaré sur plusieurs comptes
+      (Self / conjoint / joint) --- des positions \emph{réelles distinctes}, pas des doublons ; on les
+      repère par \code{owner}/\code{occurrence\_index}/\code{lot\_size} → \textbf{ne jamais dédoublonner}.
+\item \code{flag\_price\_caution} --- code ticker recyclé ou emmêlé par une fusion (505, 0{,}4\,\%) : le
+      même symbole a désigné deux sociétés selon l'époque → brancher le cours \emph{en tenant compte de la
+      date}, sinon on colle le prix de la mauvaise entreprise.
 \item \textbf{Assertions finales sur 100\,\% des 134\,464 lignes} : bioguide, ticker, montant, direction
       $\in\{$buy, sell$\}$, chronologie (publication $\geq$ transaction), clé naturelle --- le notebook
       refuse de publier la table sinon.
