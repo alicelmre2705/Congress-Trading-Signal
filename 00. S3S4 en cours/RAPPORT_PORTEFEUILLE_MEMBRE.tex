@@ -146,7 +146,7 @@ Babin     & 0,69 & 2,21 & 1,18 & 0,62 & 1,99\\
 
 \begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=\linewidth]{figures/fig_nb05b_hist_2t.png}
+\includegraphics[width=0.88\linewidth]{figures/fig_nb05b_hist_2t.png}
 \captionof{figure}{Distribution des deux $t$ sur les 223 éligibles : retirer le $\beta$ dégonfle
 la queue droite (20 $\to$ 12 $\approx$ hasard).}
 \end{minipage}
@@ -213,16 +213,25 @@ top-4 $\propto$IR  & 1,21 & $-0{,}6\,\%$ & $-0{,}06$ & $-0{,}19$\\
 
 \begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=0.9\linewidth]{figures/fig_nb05b_regression_strat.png}
+\includegraphics[width=0.78\linewidth]{figures/fig_nb05b_regression_strat.png}
 \captionof{figure}{La régression de la stratégie : pente $\beta=1{,}20$ au-dessus de la droite
 $\beta=1$ --- l'excès brut n'était que du marché amplifié.}
 \end{minipage}
 \end{center}
 
+\begin{itemize}
+  \item \textbf{Robustesse sur $K$ (4$\to$20)} : aucun $K$ ne franchit le seuil --- meilleur
+        $t=1{,}74$ à $K{=}12$ (et encore, choisi \emph{a posteriori}). En laissant la stratégie
+        \textbf{choisir son $K$ chaque année} en walk-forward ($K^*(Y)=\arg\max_K$ IR passé,
+        $K{=}4$ par défaut sans historique) : $+4{,}1\,\%$/an, $t=1{,}58<1{,}81$,
+        $\alpha_{\text{ann}}=+1{,}1\,\%$ ($t_{\text{appr}}=0{,}45$) --- toujours pas d'alpha.
+\end{itemize}
+
 \begin{center}
 \begin{minipage}{\linewidth}\centering
-\includegraphics[width=\linewidth]{figures/fig_nb05b_exces_fige_derive.png}
-\captionof{figure}{Excès annuel top-4 ($1/K$) : combinaison figée vs corrigée (écart le plus net en 2021).}
+\includegraphics[width=0.85\linewidth]{figures/fig_nb05b_ksweep_t.png}
+\captionof{figure}{Balayage du $K$ (combinaison corrigée) : le $t$ plafonne sous le seuil pour
+tout $K$ de 4 à 20.}
 \end{minipage}
 \end{center}
 
