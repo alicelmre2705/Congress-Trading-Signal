@@ -36,6 +36,12 @@ si c'est le même classement ($+1$ = identique, $0$ = aucun lien, $-1$ = invers�
 
 ![](figures/fig_isos_rho.png)
 
+**Et les gros ronds du scatter du §11 ?** Les $K$ identiques ont exactement le même score IS et le
+même score OS → leurs ronds tomberaient pile l'un sur l'autre. On les fusionne en un seul rond
+dont la **taille = le nombre de $K$ empilés** :
+
+![](figures/fig_isos_gros_ronds.png)
+
 **Ce qu'on trouve — 3 faits.**
 
 1. Le $K$ élu sur le bleu finit **mi-tableau ou pire** sur l'orange : rangs 4/5, 12/16, 10/16,
