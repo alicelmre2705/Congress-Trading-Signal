@@ -22,8 +22,19 @@ disséquée, case par case :
 
 Pour lire tout le tableau d'un coup d'œil : descendre la colonne **rang OS** — si choisir $K$ sur
 le passé marchait, elle serait pleine de 1/16 ; en vrai le $K$ élu retombe dans le paquet presque
-à chaque fois. (Les « — » et « 1/1 » de 2016-2019 : moins de significatifs que $K$ à l'époque →
-les 17 stratégies-$K$ étaient toutes identiques, rien à comparer.)
+à chaque fois.
+
+**Pourquoi les rangs sont « sur 16 » (ou 10, ou 1) et pas « sur 17 » ?** Comme une course où 17
+dossards sont portés par moins de 17 coureurs : quand il n'y a que 7 membres significatifs, top-10,
+top-15 et top-20 copient les 7 mêmes personnes — même portefeuille, même score. On ne classe que
+les stratégies **réellement différentes** :
+
+![](figures/fig_isos_rang_dD.png)
+
+**Et la colonne ρ ?** On classe les 17 $K$ sur le bleu, puis on les reclasse sur l'orange ; ρ dit
+si c'est le même classement ($+1$ = identique, $0$ = aucun lien, $-1$ = inversé) :
+
+![](figures/fig_isos_rho.png)
 
 **Ce qu'on trouve — 3 faits.**
 
