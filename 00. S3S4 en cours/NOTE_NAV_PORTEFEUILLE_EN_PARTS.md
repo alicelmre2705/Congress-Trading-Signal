@@ -240,31 +240,9 @@ et $r(t) = \mathrm{NAV}(t)/\mathrm{NAV}(t-1) - 1$.
 
 ## 7. Correspondance avec le notebook 05b
 
-- **Ce que la méthode confirme.** La combinaison *figée* ($\sum_k w_k r_k$ à poids constants) est
-  exactement le rebalancement quotidien caché démontré en §5 — le bug déjà corrigé au §6 du
-  notebook ($t$ 1,14 → 0,94). La méthode du chef et la combinaison « dérive » disent la même chose
-  sur ce point.
-- **L'équivalence, au sein d'une période de tenue.** En divisant $\mathrm{NAV}(t)$ par sa valeur au
-  rebalancement (et en substituant la définition des parts) :
-
-$$
-\frac{\mathrm{NAV}(t)}{\mathrm{NAV}(t_j^R)}
-= \sum_k w_j^k \times \frac{\mathrm{NAV}^k(t)}{\mathrm{NAV}^k(t_j^R)}
-$$
-
-  c'est-à-dire : le facteur de croissance du portefeuille = moyenne pondérée (aux poids cibles du
-  départ) des facteurs de croissance des membres **depuis le rebalancement**. C'est exactement le
-  $N(t) = \sum_k w_k\,\mathrm{NAV}_k(t)$ du notebook, où les $\mathrm{NAV}_k$ sont rebasées à 1 en
-  début de période. Sur une période donnée, `r_dr_eq` et la méthode en parts produisent donc les
-  mêmes rendements quotidiens.
-- **Ce qui change vraiment** par rapport à `run_strategy` :
-  1. **Une seule NAV continue de bout en bout** (base 100 à $t_0^R$), au lieu de blocs annuels
-     rebasés à 1 puis concaténés en rendements ; le raccord entre années n'est plus une couture de
-     code (`ry.iloc[0] = navc.iloc[0] - 1`) mais une conséquence démontrée de l'autofinancement (§4).
-  2. **Les parts $\mathrm{nbr}^k$ sont la variable d'état** ; valeur, poids effectifs et rendements
-     en découlent — le rebalancement (vendre les sortants, financer les entrants) devient explicite
-     et vérifiable (continuité de la NAV à chaque $t^R$).
-  3. Les $\mathrm{NAV}^k$ des membres sont calculées **une fois sur tout leur historique** et on y
-     « achète » au niveau atteint $\mathrm{NAV}^k(t_j^R)$ — pas de re-cumul par bloc.
-  4. Toute évaluation (excès annuel, semestriel, fenêtre $D_H$ quelconque) se lit sur la même série
-     $\mathrm{NAV}(t)$ — une définition unique du rendement à toutes les échelles.
+Depuis le 7 juillet 2026, le notebook calcule le portefeuille **directement en parts** : cette
+méthode est le **§6 du 05b** (`NAVK`, `strategie_en_parts`), utilisée par toutes les sections
+suivantes (top-4 §7, choix de $K$ §8, semestriel §9, IS/OS §10). L'ancienne écriture
+« $\Sigma\,w\cdot$cumprod par bloc » — mathématiquement équivalente (max $|\Delta| \sim 10^{-16}$)
+— ainsi que la démonstration du bug des poids figés ($t$ 1,14 → 0,94) et la preuve d'équivalence
+sont conservées dans `05b_Archives.ipynb`.
