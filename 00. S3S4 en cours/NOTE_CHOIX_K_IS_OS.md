@@ -15,6 +15,16 @@ marché sur **tout** le passé. Problème : le même passé sert à **choisir** 
 
 Le découpage grandit tout seul : 9 mois / 3 mois à la première coupe, ~6 ans / 2 ans en 2023.
 
+**Le tableau du §11 = le journal de ces décisions** (une ligne par année jouée). La ligne « 2024 »
+disséquée, case par case :
+
+![](figures/fig_isos_ligne_tab11.png)
+
+Pour lire tout le tableau d'un coup d'œil : descendre la colonne **rang OS** — si choisir $K$ sur
+le passé marchait, elle serait pleine de 1/16 ; en vrai le $K$ élu retombe dans le paquet presque
+à chaque fois. (Les « — » et « 1/1 » de 2016-2019 : moins de significatifs que $K$ à l'époque →
+les 17 stratégies-$K$ étaient toutes identiques, rien à comparer.)
+
 **Ce qu'on trouve — 3 faits.**
 
 1. Le $K$ élu sur le bleu finit **mi-tableau ou pire** sur l'orange : rangs 4/5, 12/16, 10/16,
