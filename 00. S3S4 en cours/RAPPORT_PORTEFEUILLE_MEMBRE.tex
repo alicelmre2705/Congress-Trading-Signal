@@ -110,11 +110,14 @@ $$\text{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252},\;\;
   t_{\text{appr}}=\text{appraisal}\sqrt{\tfrac{n}{252}}>1{,}645$$
 $\beta=1 \Rightarrow$ appraisal $=$ IR ; sinon l'IR mélange exposition et talent.
 
-\textbf{Illustration sur un membre (J.~Fetterman).} $V(t)$ saute à chaque trade
-(apports + performance mélangés) ; la NAV isole la performance pure ; la régression
-donne son $\beta$ et son talent : IR 2,48, $\beta$ 1,17, $\alpha_{\text{ann}}$ $+40{,}2\,\%$,
-appraisal 2,24 ($t_{\text{appr}}$ 2,38) ; CAGR $+79{,}7\,\%$, vol 21\,\%, maxDD $-16\,\%$
---- sur \textbf{284 jours seulement}.
+\textbf{Illustration sur un membre : B.~Comstock} --- un \emph{bon} exemple : 85 trades
+sur 2\,390 jours, portefeuille diversifié (44 tickers déclarés, AAPL n'en fait que 10),
+robuste au walk-forward et significative \emph{aux deux tests}. $V(t)$ saute à chaque trade
+(apports + performance mélangés) ; la NAV isole la performance pure ; la régression donne
+son $\beta$ et son talent : IR 0,90 ($t$ 2,77), $\beta$ 1,20, $\alpha_{\text{ann}}$ $+7{,}5\,\%$,
+appraisal 0,66 ($t_{\text{appr}}$ 2,03) ; CAGR $+26{,}2\,\%$, vol 25\,\%, maxDD $-33\,\%$.
+\emph{NB : filtre par \code{bioguide\_id} et non par nom --- certains élus portent plusieurs
+variantes de nom dans les dépôts (Comstock en a deux).}
 
 \begin{center}
 \begin{minipage}{\linewidth}\centering
@@ -135,7 +138,7 @@ des apports (\emph{time-weighted}).}
 \begin{center}
 \begin{minipage}{\linewidth}\centering
 \includegraphics[width=0.8\linewidth]{figures/fig_nb05b_reg_membre.png}
-\captionof{figure}{La régression du membre démo : 1 point $=$ 1 jour ; pente $=\beta=1{,}17$,
+\captionof{figure}{La régression du membre démo : 1 point $=$ 1 jour ; pente $=\beta=1{,}20$,
 ordonnée $=\alpha$ ; la droite grise est l'hypothèse $\beta=1$ de l'IR.}
 \end{minipage}
 \end{center}
