@@ -7802,8 +7802,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Portefeuille-des-%C3%A9lus-du-Congr%C3%A8s-%E2%80%94-sp%C3%A9cification-math%C3%A9matique">Portefeuille des élus du Congrès — spécification mathématique<a class="anchor-link" href="#Portefeuille-des-%C3%A9lus-du-Congr%C3%A8s-%E2%80%94-sp%C3%A9cification-math%C3%A9matique">¶</a></h1><p><strong>Reconstruction, classement, stratégie de copie et ajustement au marché</strong></p>
-<p>Notebook calqué sur <code>NOTE_MATHS_PORTEFEUILLE_MEMBRE</code>. Réutilise le pipeline de données du <code>05</code>,
-avec la <strong>combinaison inter-membres en parts</strong> (NAV continue, buy-and-hold autofinancé — méthode formalisée dans <code>NOTE_NAV_PORTEFEUILLE_EN_PARTS.md</code>) et
+<p>Réutilise le pipeline de données du <code>05</code>, avec la <strong>combinaison inter-membres en parts</strong>
+(NAV continue, buy-and-hold autofinancé) et
 l'<strong>ajustement par le marché</strong> ($\beta$, $\alpha$, ratio d'appréciation).</p>
 <p>Notations : $i$ = ticker, $t$ = jour de bourse, $P_i(t)$ = cours de clôture.</p>
 </div>
@@ -9091,7 +9091,11 @@ Même mécanique pour les <strong>deux</strong> critères (IR, appraisal) ; le c
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Le-portefeuille-de-copy-trading-top-$K$-(s%C3%A9lection-IR-%E2%88%A5-appraisal)-:-bat-il-le-SPY-?">6. Le portefeuille de copy-trading top-$K$ (sélection IR ∥ appraisal) : bat-il le SPY ?<a class="anchor-link" href="#6.-Le-portefeuille-de-copy-trading-top-$K$-(s%C3%A9lection-IR-%E2%88%A5-appraisal)-:-bat-il-le-SPY-?">¶</a></h2><h3 id="6.1-La-construction-en-parts">6.1 La construction en parts<a class="anchor-link" href="#6.1-La-construction-en-parts">¶</a></h3><p><strong>Ingrédients.</strong> Coupes de rebalancement $t^R_Y$ = dernier jour coté de l'année $Y$
+<h2 id="6.-Le-portefeuille-de-copy-trading-top-$K$-(s%C3%A9lection-IR-%E2%88%A5-appraisal)-:-bat-il-le-SPY-?">6. Le portefeuille de copy-trading top-$K$ (sélection IR ∥ appraisal) : bat-il le SPY ?<a class="anchor-link" href="#6.-Le-portefeuille-de-copy-trading-top-$K$-(s%C3%A9lection-IR-%E2%88%A5-appraisal)-:-bat-il-le-SPY-?">¶</a></h2><p>Chaque fin d'année, on copie les $K$ premiers membres du classement point-in-time (§5) — classés
+par IR, ou par appraisal — et on tient le panier un an. Ici $K=4$ ; le choix de $K$ est étudié
+au §7. Construction standard des fonds : méthode <strong>unitisée</strong> (parts et NAV), <strong>buy-and-hold</strong>
+entre deux rebalancements.</p>
+<h3 id="6.1-La-construction-en-parts">6.1 La construction en parts<a class="anchor-link" href="#6.1-La-construction-en-parts">¶</a></h3><p><strong>Ingrédients.</strong> Coupes de rebalancement $t^R_Y$ = dernier jour coté de l'année $Y$
 ($Y=2015,\dots,2025$) ; sélection $\mathcal{S}_Y$ = top-$K$ du classement point-in-time à la
 coupe (§5) ; poids cibles $w_k=\frac1K$, $\sum_{k\in\mathcal{S}_Y} w_k=1$ ; richesse initiale
 $W(t^R_{2015})=100$.</p>
@@ -9114,10 +9118,8 @@ $$\mathrm{NAV}(t)=\!\!\sum_{k\in\mathcal{S}_Y}\!\!\mathrm{nbr}^k_Y\,\mathrm{NAV}
 retrait, on ne fait que réallouer.</li>
 <li><strong>Poids effectifs dérivants</strong> : $w_k(t)=\dfrac{\mathrm{nbr}^k_Y\,\mathrm{NAV}^k(t)}{\mathrm{NAV}(t)}
 \ne w_k$ dès le lendemain de la coupe. Les figer — $r_{\text{strat}}(t)=\sum_k w_k\,r_k(t)$ —
-serait un rebalancement quotidien caché ($t$ $1{,}14\to0{,}94$ une fois corrigé).</li>
+reviendrait à rebalancer chaque jour (une stratégie <em>constant-mix</em>, pas du copier-et-tenir).</li>
 </ul>
-<p>(Écriture équivalente sur NAV rebasées $N(t)=\sum_k w_k\,\mathrm{NAV}_k(t)$ : voir
-<code>05b_Archives.ipynb</code>, avec la preuve d'équivalence.)</p>
 </div>
 </div>
 </div>
@@ -9140,8 +9142,8 @@ serait un rebalancement quotidien caché ($t$ $1{,}14\to0{,}94$ une fois corrig�
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="6.2-L'%C3%A9valuation">6.2 L'évaluation<a class="anchor-link" href="#6.2-L'%C3%A9valuation">¶</a></h3><p><strong>Excès par année civile</strong> (1 année = 1 observation), avec $G_Y(r)=\prod_{t\in Y}\big(1+r(t)\big)$ :
-$$x_Y=G_Y(r_{\text{strat}})-G_Y(r_{\text{SPY}}),\qquad
+<h3 id="6.2-L'%C3%A9valuation">6.2 L'évaluation<a class="anchor-link" href="#6.2-L'%C3%A9valuation">¶</a></h3><p><strong>Excès par année civile</strong> (1 année = 1 observation) :
+$$x_Y=\prod_{t\in Y}\big(1+r_{\text{strat}}(t)\big)-\prod_{t\in Y}\big(1+r_{\text{SPY}}(t)\big),\qquad
 \mathrm{IR}_{\text{ann}}=\frac{\overline{x}}{\sigma(x)},\qquad t=\mathrm{IR}_{\text{ann}}\sqrt{n}$$
 Seuil unilatéral 5 % : $t_{10}\approx 1{,}81$ pour $n=11$ années.</p>
 <p><strong>Ajustement au marché</strong> — la régression du §4, appliquée à la série de la stratégie :
