@@ -9783,7 +9783,7 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="9.1-R%C3%A9sultat-top-4-(annuel)">9.1 Résultat top-4 (annuel)<a class="anchor-link" href="#9.1-R%C3%A9sultat-top-4-(annuel)">¶</a></h3><p>Même sélection walk-forward (§5), mêmes 11 années, seuil $t_{10}\approx1{,}81$ ; on ne change que $w$. Colonnes = §6.3/§7.</p>
+<h3 id="9.1-R%C3%A9sultat-top-4-(annuel,-puis-6-mois)">9.1 Résultat top-4 (annuel, puis 6 mois)<a class="anchor-link" href="#9.1-R%C3%A9sultat-top-4-(annuel,-puis-6-mois)">¶</a></h3><p>Même sélection walk-forward (§5), mêmes 11 années, seuil $t_{10}\approx1{,}81$ ; on ne change que $w$. Colonnes = §6.3/§7.</p>
 </div>
 </div>
 </div>
@@ -9898,6 +9898,125 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 <td>0.795444</td>
 <td>-0.010047</td>
 <td>-0.342127</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=262f9939">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>top-4 (rebalancement 6 mois) — ponderation x critere ; 22 semestres, seuil t ≈ 1,72
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>exces_an</th>
+<th>t</th>
+<th>gagnantes</th>
+<th>beta</th>
+<th>alpha_ann</th>
+<th>t_appr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>1/K (sel IR)</th>
+<td>0.00432</td>
+<td>0.137703</td>
+<td>12/22</td>
+<td>1.237727</td>
+<td>-0.024558</td>
+<td>-0.638371</td>
+</tr>
+<tr>
+<th>inverse-vol (sel IR)</th>
+<td>0.00482</td>
+<td>0.171316</td>
+<td>10/22</td>
+<td>1.197166</td>
+<td>-0.02138</td>
+<td>-0.755907</td>
+</tr>
+<tr>
+<th>ERC (sel IR)</th>
+<td>0.004055</td>
+<td>0.145626</td>
+<td>11/22</td>
+<td>1.199866</td>
+<td>-0.021867</td>
+<td>-0.730648</td>
+</tr>
+<tr>
+<th>GMV (sel IR)</th>
+<td>-0.002523</td>
+<td>-0.119549</td>
+<td>11/22</td>
+<td>1.100818</td>
+<td>-0.012976</td>
+<td>-0.457999</td>
+</tr>
+<tr>
+<th>1/K (sel appr)</th>
+<td>-0.050248</td>
+<td>-2.000941</td>
+<td>8/22</td>
+<td>1.047842</td>
+<td>-0.050651</td>
+<td>-1.481435</td>
+</tr>
+<tr>
+<th>inverse-vol (sel appr)</th>
+<td>-0.052386</td>
+<td>-2.375453</td>
+<td>5/22</td>
+<td>0.98591</td>
+<td>-0.047384</td>
+<td>-1.781602</td>
+</tr>
+<tr>
+<th>ERC (sel appr)</th>
+<td>-0.052852</td>
+<td>-2.33243</td>
+<td>8/22</td>
+<td>0.946777</td>
+<td>-0.042662</td>
+<td>-1.481306</td>
+</tr>
+<tr>
+<th>GMV (sel appr)</th>
+<td>-0.046828</td>
+<td>-1.950521</td>
+<td>6/22</td>
+<td>0.808829</td>
+<td>-0.020481</td>
+<td>-0.695966</td>
 </tr>
 </tbody>
 </table>
