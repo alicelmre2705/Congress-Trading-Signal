@@ -9175,9 +9175,29 @@ Si $\beta&gt;1$, une part de l'excès brut n'est que de l'exposition au marché 
 <h3 id="6.3-Le-r%C3%A9sultat-top-4">6.3 Le résultat top-4<a class="anchor-link" href="#6.3-Le-r%C3%A9sultat-top-4">¶</a></h3><p>Cas de référence : $K=4$, poids $1/4$, rebalancement annuel (2016-2026).</p>
 <p>⚠️ <strong>Rétrospectif vs temps réel.</strong> Les classements du §4 sont calculés sur <strong>tout</strong> l'historique
 (photo après coup) ; ici la sélection n'utilise que le passé disponible à chaque coupe, et on
-mesure l'année <strong>suivante</strong>. L'écart entre les deux mesure la <strong>persistance</strong> : un excès négatif
-ici, avec des appraisals positifs au §4.2, signifie que les $\alpha$ passés ne se répètent pas
-(appraisal moyen du top-4 : $+1{,}30$ au moment de la sélection, $-0{,}19$ l'année suivante).</p>
+mesure l'année <strong>suivante</strong>. Appraisal moyen du top-4 : $+1{,}30$ à la sélection, $-0{,}19$
+l'année suivante.</p>
+<p><strong>Pourquoi l'excès de la sélection appraisal est négatif.</strong> L'appraisal estimé mélange talent
+et bruit d'estimation :
+$$\hat a_k = a_k + \varepsilon_k,\qquad SE_k \approx \sqrt{\tfrac{252}{n_k}} \in [0{,}5\,;\,0{,}9]$$</p>
+<ul>
+<li><strong>Fiabilité du classement</strong> : $\rho=\dfrac{\mathrm{Var}(a)}{\mathrm{Var}(a)+SE^2}\approx 0$,
+car $\mathrm{Var}(a)\approx 0$ (§4.2 : 12 significatifs $\approx$ 11 attendus par hasard).
+Régression vers la moyenne : $E[\hat a_{\text{futur}}\mid \hat a_{\text{passé}}]
+= \rho\,\hat a_{\text{passé}} \approx 0$ — le $+1{,}30 \to -0{,}19$ observé.</li>
+<li><em><strong>Winner's curse</strong></em> : prendre le max sur $M=223$ membres sélectionne les plus gros tirages de
+bruit : $E[\max_M \varepsilon_k] \approx SE\sqrt{2\ln M} \approx 0{,}6 \times 3{,}3 \approx 2$ —
+le haut du classement s'explique sans aucun talent.</li>
+<li><strong>Drag géométrique</strong> : l'excès annuel est <strong>composé</strong> ; à espérance quotidienne égale, un
+portefeuille plus volatil compose moins :
+$-\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)
+\approx -\tfrac12\big(0{,}20^2-0{,}18^2\big) \approx -0{,}5\,\%/\text{an}$ — le prix mécanique
+de la concentration à 4 membres.</li>
+<li><strong>Le reste est du bruit</strong> : $t=-1{,}24$, $|t|&lt;1{,}81$ ⇒ pas significativement négatif.</li>
+</ul>
+<p>$$E[x_Y]\;\approx\;\underbrace{\rho\,\hat a_{\text{top}}}_{\approx\,0}
+\;-\;\underbrace{\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)}_{\approx\,0{,}5\,\%/\text{an}}
+\;+\;\text{bruit}$$</p>
 </div>
 </div>
 </div>
