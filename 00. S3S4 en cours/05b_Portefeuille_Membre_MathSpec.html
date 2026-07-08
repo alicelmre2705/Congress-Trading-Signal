@@ -9555,8 +9555,9 @@ tient le <strong>semestre suivant</strong>. Rien ne change au portefeuille des m
 sélection/tenue change, et l'évaluation passe à l'<strong>excès par semestre</strong> :
 $$\mathrm{IR}_{\text{sem}}=\frac{\overline{x_{\text{sem}}}}{\sigma(x_{\text{sem}})},\qquad
 t=\mathrm{IR}_{\text{sem}}\sqrt{n},\quad n\approx 22\ \text{semestres (au lieu de 11 ans)}.$$
-Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}72$</strong> (au lieu de 1,81). On refait
-<strong>tout</strong> : top-4 (IR + appraisal) et choix de $K$ walk-forward, mais à 6 mois.</p>
+Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}72$</strong> (au lieu de 1,81). On rejoue les
+<strong>mêmes 4 stratégies qu'au §7</strong> (K=4 et K walk-forward, sélection IR ∥ appraisal), mais à 6 mois —
+à comparer ligne à ligne au tableau annuel du §7.</p>
 </div>
 </div>
 </div>
@@ -9573,89 +9574,6 @@ Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}7
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=87b03665">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>top-4 : annuel (11 années, seuil 1,81) vs 6 mois (22 semestres, seuil 1,72) — 2 critères de sélection
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>exces_an</th>
-<th>t</th>
-<th>gagnantes</th>
-<th>beta</th>
-<th>alpha_ann</th>
-<th>t_appr</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>top-4 sél IR — annuel</th>
-<td>0.031021</td>
-<td>0.943191</td>
-<td>7/11</td>
-<td>1.198154</td>
-<td>-0.004367</td>
-<td>-0.127805</td>
-</tr>
-<tr>
-<th>top-4 sél IR — 6 mois</th>
-<td>0.00432</td>
-<td>0.137703</td>
-<td>12/22</td>
-<td>1.237727</td>
-<td>-0.024558</td>
-<td>-0.638371</td>
-</tr>
-<tr>
-<th>top-4 sél appraisal — annuel</th>
-<td>-0.025215</td>
-<td>-1.24163</td>
-<td>3/11</td>
-<td>1.009716</td>
-<td>-0.022867</td>
-<td>-0.754999</td>
-</tr>
-<tr>
-<th>top-4 sél appraisal — 6 mois</th>
-<td>-0.050248</td>
-<td>-2.000941</td>
-<td>8/22</td>
-<td>1.047842</td>
-<td>-0.050651</td>
-<td>-1.481435</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=8cb3edbf">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -9663,7 +9581,7 @@ Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}7
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>les 8 variantes — K=4 fixe / K walk-forward × sélection IR / appraisal × rééquilibrage annuel / 6 mois
+<pre>6 mois — 22 semestres, seuil t ≈ 1,72 ; mêmes 4 stratégies qu'au §7 (annuel), à comparer ligne à ligne
 </pre>
 </div>
 </div>
@@ -9696,15 +9614,6 @@ Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}7
 </tr>
 </thead>
 <tbody>
-<tr>
-<th>K=4 fixe (sél IR) — annuel</th>
-<td>0.031021</td>
-<td>0.943191</td>
-<td>7/11</td>
-<td>1.198154</td>
-<td>-0.004367</td>
-<td>-0.127805</td>
-</tr>
 <tr>
 <th>K=4 fixe (sél IR) — 6 mois</th>
 <td>0.00432</td>
@@ -9715,13 +9624,13 @@ Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}7
 <td>-0.638371</td>
 </tr>
 <tr>
-<th>K=4 fixe (sél appraisal) — annuel</th>
-<td>-0.025215</td>
-<td>-1.24163</td>
-<td>3/11</td>
-<td>1.009716</td>
-<td>-0.022867</td>
-<td>-0.754999</td>
+<th>K walk-forward (sél IR) — 6 mois</th>
+<td>0.021345</td>
+<td>0.746801</td>
+<td>12/22</td>
+<td>1.173845</td>
+<td>-0.003847</td>
+<td>-0.143224</td>
 </tr>
 <tr>
 <th>K=4 fixe (sél appraisal) — 6 mois</th>
@@ -9733,34 +9642,7 @@ Le seuil de significativité (unilatéral 5 %) passe donc à <strong>$t&gt;1{,}7
 <td>-1.481435</td>
 </tr>
 <tr>
-<th>K-wf (sél IR) — annuel</th>
-<td>0.040673</td>
-<td>1.58412</td>
-<td>7/11</td>
-<td>1.16856</td>
-<td>0.011487</td>
-<td>0.445576</td>
-</tr>
-<tr>
-<th>K-wf (sél IR) — 6 mois</th>
-<td>0.021345</td>
-<td>0.746801</td>
-<td>12/22</td>
-<td>1.173845</td>
-<td>-0.003847</td>
-<td>-0.143224</td>
-</tr>
-<tr>
-<th>K-wf (sél appraisal) — annuel</th>
-<td>-0.009955</td>
-<td>-0.541885</td>
-<td>5/11</td>
-<td>0.973503</td>
-<td>-0.005792</td>
-<td>-0.289887</td>
-</tr>
-<tr>
-<th>K-wf (sél appraisal) — 6 mois</th>
+<th>K walk-forward (sél appraisal) — 6 mois</th>
 <td>-0.030255</td>
 <td>-1.562113</td>
 <td>10/22</td>
