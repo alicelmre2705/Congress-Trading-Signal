@@ -9172,110 +9172,12 @@ Si $\beta&gt;1$, une part de l'excès brut n'est que de l'exposition au marché 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="6.3-Le-r%C3%A9sultat-top-4">6.3 Le résultat top-4<a class="anchor-link" href="#6.3-Le-r%C3%A9sultat-top-4">¶</a></h3><p>Le cas de référence : $K=4$, poids $1/4$, rebalancement annuel (2016-2026).
-D'abord les <strong>parts en action</strong> à une coupe, puis les métriques, puis la NAV. Le choix de $K$ vient au §7.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=1485bc37">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>les parts en action (top-4 sél IR) — coupe du 2020-12-31 : on compte 245.93 avec les ANCIENNES parts, on redéploie 245.93 aux nouveaux poids — autofinancement, la NAV ne saute pas
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>parts avant (tenue 2020)</th>
-<th>parts après (tenue 2021)</th>
-<th>prix de part NAV^k(tR)</th>
-<th>valeur avant</th>
-<th>valeur après</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>Donald Sternoff Beyer</th>
-<td>0.000</td>
-<td>40.087</td>
-<td>1.534</td>
-<td>0.000</td>
-<td>61.483</td>
-</tr>
-<tr>
-<th>Barbara J. Comstock</th>
-<td>20.778</td>
-<td>18.031</td>
-<td>3.410</td>
-<td>70.849</td>
-<td>61.483</td>
-</tr>
-<tr>
-<th>Gilbert Cisneros</th>
-<td>0.000</td>
-<td>32.957</td>
-<td>1.866</td>
-<td>0.000</td>
-<td>61.483</td>
-</tr>
-<tr>
-<th>Dwight Evans</th>
-<td>21.984</td>
-<td>0.000</td>
-<td>2.512</td>
-<td>55.219</td>
-<td>0.000</td>
-</tr>
-<tr>
-<th>Denny Heck</th>
-<td>24.334</td>
-<td>0.000</td>
-<td>2.353</td>
-<td>57.265</td>
-<td>0.000</td>
-</tr>
-<tr>
-<th>Thomas Suozzi</th>
-<td>28.631</td>
-<td>0.000</td>
-<td>2.186</td>
-<td>62.598</td>
-<td>0.000</td>
-</tr>
-<tr>
-<th>MARK R WARNER</th>
-<td>0.000</td>
-<td>7.749</td>
-<td>7.935</td>
-<td>0.000</td>
-<td>61.483</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<h3 id="6.3-Le-r%C3%A9sultat-top-4">6.3 Le résultat top-4<a class="anchor-link" href="#6.3-Le-r%C3%A9sultat-top-4">¶</a></h3><p>Cas de référence : $K=4$, poids $1/4$, rebalancement annuel (2016-2026).</p>
+<p>⚠️ <strong>Rétrospectif vs temps réel.</strong> Les classements du §4 sont calculés sur <strong>tout</strong> l'historique
+(photo après coup) ; ici la sélection n'utilise que le passé disponible à chaque coupe, et on
+mesure l'année <strong>suivante</strong>. L'écart entre les deux mesure la <strong>persistance</strong> : un excès négatif
+ici, avec des appraisals positifs au §4.2, signifie que les $\alpha$ passés ne se répètent pas
+(appraisal moyen du top-4 : $+1{,}30$ au moment de la sélection, $-0{,}19$ l'année suivante).</p>
 </div>
 </div>
 </div>
@@ -9286,7 +9188,7 @@ D'abord les <strong>parts en action</strong> à une coupe, puis les métriques, 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>top-4 (poids 1/4, rebalancement annuel) — 11 années civiles, seuil t₁₀ ≈ 1,81 : sélection IR vs appraisal
+<pre>top-4 (poids 1/4, rebalancement annuel) — 11 années civiles, seuil t₁₀ ≈ 1,81
 </pre>
 </div>
 </div>
@@ -9310,40 +9212,32 @@ D'abord les <strong>parts en action</strong> à une coupe, puis les métriques, 
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>sélection IR</th>
-<th>sélection appraisal</th>
+<th>exces_an</th>
+<th>t</th>
+<th>gagnantes</th>
+<th>beta</th>
+<th>alpha_ann</th>
+<th>t_appr</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th>excès/an</th>
-<td>+3,1%</td>
-<td>−2,5%</td>
-</tr>
-<tr>
-<th>t</th>
-<td>0,94</td>
-<td>−1,24</td>
-</tr>
-<tr>
-<th>années gagnantes</th>
+<th>sélection IR</th>
+<td>0.031021</td>
+<td>0.943191</td>
 <td>7/11</td>
+<td>1.198154</td>
+<td>-0.004367</td>
+<td>-0.127805</td>
+</tr>
+<tr>
+<th>sélection appraisal</th>
+<td>-0.025215</td>
+<td>-1.24163</td>
 <td>3/11</td>
-</tr>
-<tr>
-<th>β</th>
-<td>1,20</td>
-<td>1,01</td>
-</tr>
-<tr>
-<th>α annualisé</th>
-<td>−0,4%</td>
-<td>−2,3%</td>
-</tr>
-<tr>
-<th>t (appraisal)</th>
-<td>−0,13</td>
-<td>−0,75</td>
+<td>1.009716</td>
+<td>-0.022867</td>
+<td>-0.754999</td>
 </tr>
 </tbody>
 </table>
