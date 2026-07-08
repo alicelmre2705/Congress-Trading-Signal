@@ -9172,32 +9172,18 @@ Si $\beta&gt;1$, une part de l'excès brut n'est que de l'exposition au marché 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="6.3-Le-r%C3%A9sultat-top-4">6.3 Le résultat top-4<a class="anchor-link" href="#6.3-Le-r%C3%A9sultat-top-4">¶</a></h3><p>Cas de référence : $K=4$, poids $1/4$, rebalancement annuel (2016-2026).</p>
-<p>⚠️ <strong>Rétrospectif vs temps réel.</strong> Les classements du §4 sont calculés sur <strong>tout</strong> l'historique
-(photo après coup) ; ici la sélection n'utilise que le passé disponible à chaque coupe, et on
-mesure l'année <strong>suivante</strong>. Appraisal moyen du top-4 : $+1{,}30$ à la sélection, $-0{,}19$
-l'année suivante.</p>
-<p><strong>Pourquoi l'excès de la sélection appraisal est négatif.</strong> L'appraisal estimé mélange talent
-et bruit d'estimation :
-$$\hat a_k = a_k + \varepsilon_k,\qquad SE_k \approx \sqrt{\tfrac{252}{n_k}} \in [0{,}5\,;\,0{,}9]$$</p>
+<h3 id="6.3-Le-r%C3%A9sultat-top-4">6.3 Le résultat top-4<a class="anchor-link" href="#6.3-Le-r%C3%A9sultat-top-4">¶</a></h3><p>Cas de référence : $K=4$, poids $1/4$, rebalancement annuel (2016-2026), deux critères de sélection (IR, appraisal).</p>
+<p><strong>Comment lire la table.</strong> Deux blocs de colonnes, deux mesures différentes :</p>
 <ul>
-<li><strong>Fiabilité du classement</strong> : $\rho=\dfrac{\mathrm{Var}(a)}{\mathrm{Var}(a)+SE^2}\approx 0$,
-car $\mathrm{Var}(a)\approx 0$ (§4.2 : 12 significatifs $\approx$ 11 attendus par hasard).
-Régression vers la moyenne : $E[\hat a_{\text{futur}}\mid \hat a_{\text{passé}}]
-= \rho\,\hat a_{\text{passé}} \approx 0$ — le $+1{,}30 \to -0{,}19$ observé.</li>
-<li><em><strong>Winner's curse</strong></em> : prendre le max sur $M=223$ membres sélectionne les plus gros tirages de
-bruit : $E[\max_M \varepsilon_k] \approx SE\sqrt{2\ln M} \approx 0{,}6 \times 3{,}3 \approx 2$ —
-le haut du classement s'explique sans aucun talent.</li>
-<li><strong>Drag géométrique</strong> : l'excès annuel est <strong>composé</strong> ; à espérance quotidienne égale, un
-portefeuille plus volatil compose moins :
-$-\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)
-\approx -\tfrac12\big(0{,}20^2-0{,}18^2\big) \approx -0{,}5\,\%/\text{an}$ — le prix mécanique
-de la concentration à 4 membres.</li>
-<li><strong>Le reste est du bruit</strong> : $t=-1{,}24$, $|t|&lt;1{,}81$ ⇒ pas significativement négatif.</li>
+<li><strong>excès/an, t, gagnantes</strong> — sur les 11 <strong>excès annuels</strong> $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\text{SPY}})$ (§6.2), qui supposent $\beta=1$ (excès <strong>brut</strong> vs SPY) :<ul>
+<li><strong>excès/an</strong> $=\overline{x}$, la moyenne des 11 ;</li>
+<li><strong>t</strong> $=\dfrac{\overline{x}}{\sigma(x)}\sqrt{11}$, seuil $1{,}81$ ;</li>
+<li><strong>gagnantes</strong> $=$ nombre d'années où $x_Y&gt;0$ (sur 11) ; les autres sont <strong>perdantes</strong> (ex. $7/11 \Rightarrow$ 7 gagnantes, 4 perdantes).</li>
 </ul>
-<p>$$E[x_Y]\;\approx\;\underbrace{\rho\,\hat a_{\text{top}}}_{\approx\,0}
-\;-\;\underbrace{\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)}_{\approx\,0{,}5\,\%/\text{an}}
-\;+\;\text{bruit}$$</p>
+</li>
+<li><strong>β, α annualisé, t (appraisal)</strong> — de la régression <strong>quotidienne</strong> $r_{\text{strat}}=\alpha+\beta\,r_{\text{SPY}}+\varepsilon$ (§4), qui <strong>retire le β</strong> ; $\alpha_{\text{ann}}=(1+\alpha)^{252}-1$.</li>
+</ul>
+<p>⚠️ Les deux blocs ne disent pas la même chose : l'excès brut $+3{,}1\,\%$ (sél IR) devient $\alpha\approx 0$ une fois le $\beta=1{,}20$ retiré — c'était du <strong>style de marché</strong>, pas du talent.</p>
 </div>
 </div>
 </div>
@@ -9263,6 +9249,40 @@ de la concentration à 4 membres.</li>
 </table>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2bc2e071">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>⚠️ <strong>Rétrospectif vs temps réel.</strong> Les classements du §4 sont calculés sur <strong>tout</strong> l'historique
+(photo après coup) ; ici la sélection n'utilise que le passé disponible à chaque coupe, et on
+mesure l'année <strong>suivante</strong>. Appraisal moyen du top-4 : $+1{,}30$ à la sélection, $-0{,}19$
+l'année suivante.</p>
+<p><strong>Pourquoi l'excès de la sélection appraisal est négatif.</strong> L'appraisal estimé mélange talent
+et bruit d'estimation :
+$$\hat a_k = a_k + \varepsilon_k,\qquad SE_k \approx \sqrt{\tfrac{252}{n_k}} \in [0{,}5\,;\,0{,}9]$$</p>
+<ul>
+<li><strong>Fiabilité du classement</strong> : $\rho=\dfrac{\mathrm{Var}(a)}{\mathrm{Var}(a)+SE^2}\approx 0$,
+car $\mathrm{Var}(a)\approx 0$ (§4.2 : 12 significatifs $\approx$ 11 attendus par hasard).
+Régression vers la moyenne : $E[\hat a_{\text{futur}}\mid \hat a_{\text{passé}}]
+= \rho\,\hat a_{\text{passé}} \approx 0$ — le $+1{,}30 \to -0{,}19$ observé.</li>
+<li><em><strong>Winner's curse</strong></em> : prendre le max sur $M=223$ membres sélectionne les plus gros tirages de
+bruit : $E[\max_M \varepsilon_k] \approx SE\sqrt{2\ln M} \approx 0{,}6 \times 3{,}3 \approx 2$ —
+le haut du classement s'explique sans aucun talent.</li>
+<li><strong>Drag géométrique</strong> : l'excès annuel est <strong>composé</strong> ; à espérance quotidienne égale, un
+portefeuille plus volatil compose moins :
+$-\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)
+\approx -\tfrac12\big(0{,}20^2-0{,}18^2\big) \approx -0{,}5\,\%/\text{an}$ — le prix mécanique
+de la concentration à 4 membres.</li>
+<li><strong>Le reste est du bruit</strong> : $t=-1{,}24$, $|t|&lt;1{,}81$ ⇒ pas significativement négatif.</li>
+</ul>
+<p>$$E[x_Y]\;\approx\;\underbrace{\rho\,\hat a_{\text{top}}}_{\approx\,0}
+\;-\;\underbrace{\tfrac12\big(\sigma^2_{\text{strat}}-\sigma^2_{\text{SPY}}\big)}_{\approx\,0{,}5\,\%/\text{an}}
+\;+\;\text{bruit}$$</p>
 </div>
 </div>
 </div>
