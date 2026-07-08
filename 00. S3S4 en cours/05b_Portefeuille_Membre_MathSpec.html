@@ -10059,18 +10059,49 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <!-- §10-MARKER -->
-<h2 id="10.-Robustesse-d'estimation-:-$%5CSigma$-shrink%C3%A9e-(Ledoit-Wolf)">10. Robustesse d'estimation : $\Sigma$ shrinkée (Ledoit-Wolf)<a class="anchor-link" href="#10.-Robustesse-d'estimation-:-$%5CSigma$-shrink%C3%A9e-(Ledoit-Wolf)">¶</a></h2><p>$$\hat\Sigma(\alpha)=(1-\alpha)\,S+\alpha\,F,\qquad \alpha\in[0,1],\quad S=\text{cov d'échantillon (§9)},\quad \alpha^\star=\frac1n\,\frac{\hat\pi-\hat\rho}{\hat\gamma}\ \ (\text{EQM Frobenius min}).$$</p>
-<p>$$F_{\text{diag}}=\mu I,\ \mu=\tfrac{\operatorname{tr}S}{p}\ ;\qquad F_{\text{1f}}=\sigma_m^2\,\beta\beta^\top\ (\text{diag}=\operatorname{diag}S),\ \beta_k=\tfrac{\operatorname{cov}(r_k,r_m)}{\sigma_m^2},\ r_m=\tfrac1K\!\textstyle\sum_k r_k\ ;\qquad F_{\text{cc}}=\bar\rho\,\sigma_i\sigma_j\ (i\neq j),\ F_{ii}=\sigma_i^2.$$</p>
-<p>$$\text{Point-in-time : }S,F\text{ estimés sur }\{s\le t^R\},\text{ appliqués à }Y{+}1.\qquad \text{Seul }w\text{ change}\ \Rightarrow\ \text{moteur §6.1 inchangé.}$$</p>
+<h2 id="10.-Robustesse-d'estimation-:-$%5CSigma$-shrink%C3%A9e-(Ledoit-Wolf)">10. Robustesse d'estimation : $\Sigma$ shrinkée (Ledoit-Wolf)<a class="anchor-link" href="#10.-Robustesse-d'estimation-:-$%5CSigma$-shrink%C3%A9e-(Ledoit-Wolf)">¶</a></h2><p>Le §9 estime $\Sigma$ par la <strong>covariance d'échantillon</strong> brute $\hat\Sigma^{\text{emp}}$. À $K{=}4$ sur des fenêtres courtes, c'est <strong>bruité</strong> — et GMV, qui <strong>inverse</strong> $\Sigma$, amplifie ce bruit (§9.2 : GMV sél appr $-4{,}5\%/t\,{-}2{,}76$ = sur-ajustement ; DeMiguel–Garlappi–Uppal 2009). Le <strong>shrinkage</strong> régularise $\Sigma$ en la tirant vers une <strong>cible stable</strong> $F$ :</p>
+<p>$$\boxed{\ \hat\Sigma^{\text{shrink}}=\delta\,F+(1-\delta)\,\hat\Sigma^{\text{emp}}\ }\qquad 0\le\delta\le 1,\qquad \hat\Sigma^{\text{emp}}_{ij}=\tfrac1T\textstyle\sum_{t\le t^R}(r_{t,i}-\bar r_i)(r_{t,j}-\bar r_j).$$</p>
 <ul>
-<li>$1/K,\ \text{inverse-vol}\Rightarrow$ diagonale seule $\Rightarrow$ <strong>immunisés</strong> (témoins de non-régression).</li>
-<li>Shrinkage $=$ régularisation d'<strong>estimation</strong>, pas d'information $\Rightarrow$ ne peut pas créer d'$\alpha$ ; on teste s'il <strong>dompte</strong> l'artefact GMV du §9.2 ($-4{,}5\%/t\,{-}2{,}76$).</li>
-<li>Cibles : $F_{\text{diag}}$ (LW 2004, neutre bien-conditionnée) ; $F_{\text{1f}}$ (LW 2001, 1 facteur $=$ « marché » des $K$ membres) ; $F_{\text{cc}}$ (LW 2003, garde $\sigma_k$, lisse les corrélations $=$ le paramètre fragile à $K{=}4$). <em>(DGU 2009 : à $K{=}4$, $\Sigma$ = 10 paramètres sur fenêtres courtes.)</em></li>
+<li>$\delta=0\Rightarrow\hat\Sigma^{\text{emp}}$ (cov brute $=$ §9) ; $\ \delta=1\Rightarrow F$ (cible pure). <strong>$\delta$ $=$ poids donné à la cible stable.</strong></li>
+<li>On ne change <strong>que l'estimateur de $\Sigma$</strong> : sélection walk-forward, moteur en parts (§6.1) et formules de poids (§9) <strong>inchangés</strong>. Point-in-time strict : $\hat\Sigma^{\text{emp}},F,\delta$ estimés sur $\{s\le t^R\}$, appliqués à $Y{+}1$.</li>
+<li>$1/K$ et inverse-vol n'utilisent que la <strong>diagonale</strong> ($\sigma_k$) $\Rightarrow$ <strong>immunisés</strong> ; seuls <strong>ERC</strong> et <strong>GMV</strong> (qui utilisent tout $\Sigma$) bougent.</li>
+<li>Shrinkage $=$ régularisation d'<strong>estimation</strong>, pas d'information $\Rightarrow$ il <strong>ne peut pas créer d'$\alpha$</strong> ; on teste s'il <strong>dompte</strong> l'artefact GMV.</li>
 </ul>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell01">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell01">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Le-coefficient-$%5Cdelta$-(intensit%C3%A9-de-shrinkage)">Le coefficient $\delta$ (intensité de shrinkage)<a class="anchor-link" href="#Le-coefficient-$%5Cdelta$-(intensit%C3%A9-de-shrinkage)">¶</a></h3><p>Ledoit–Wolf choisit $\delta$ <strong>automatiquement</strong>, comme un ratio <em>bruit / distance</em> :</p>
+<p>$$\delta\ \approx\ \frac{\text{bruit de }\hat\Sigma^{\text{emp}}}{\text{distance entre }\hat\Sigma^{\text{emp}}\text{ et }F}\qquad\Longrightarrow\qquad \text{bruit élevé}\Rightarrow\delta\uparrow,\qquad F\ \text{loin}\Rightarrow\delta\downarrow.$$</p>
+<p>Forme fermée (base commune aux cibles structurées), $T=$ nombre de jours communs :</p>
+<p>$$\boxed{\ \delta=\frac{\pi-\rho}{T\,\gamma}\ }\qquad\text{puis}\qquad \delta\leftarrow\min\!\big(1,\ \max(0,\delta)\big),$$</p>
+<p>$$\gamma=\big\lVert\hat\Sigma^{\text{emp}}-F\big\rVert_F^2\ \ (\text{distance à la cible}),\qquad \pi=\text{bruit total de }\hat\Sigma^{\text{emp}},\qquad \rho=\text{part du bruit déjà capturée par }F.$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Les-trois-cibles-$F$">Les trois cibles $F$<a class="anchor-link" href="#Les-trois-cibles-$F$">¶</a></h3><p>Même logique partout — <strong>seule la cible $F$ change</strong> (donc $\gamma$ et $\rho$). La diagonale a une forme simplifiée ; les deux autres passent par la base $\pi,\rho,\gamma$.</p>
+<p><strong>Diagonale</strong> (LW 2004) — variances moyennées, corrélations effacées :
+$$F=\mu I,\quad \mu=\tfrac1K\operatorname{tr}\hat\Sigma^{\text{emp}}\ ;\qquad \delta_{\text{diag}}=\frac{b}{d},\quad d=\tfrac1K\!\sum_{i,j}(\hat\Sigma^{\text{emp}}_{ij})^2-\mu^2,\quad 0\le b\le d\ \text{(bruit estimé)}.$$</p>
+<p><strong>Single-factor</strong> (LW 2001) — un seul facteur commun, le « marché » $f_t=\tfrac1K\sum_k r_{t,k}$ :
+$$F_{ij}=\beta_i\beta_j\,\sigma_f^2\ (i\neq j),\quad F_{ii}=\hat\Sigma^{\text{emp}}_{ii}\ ;\qquad \delta_{\text{1f}}=\frac{\pi-\rho_{\text{1f}}}{T\,\gamma_{\text{1f}}}.$$</p>
+<p><strong>Corrélation constante</strong> (LW 2003) — garde les $\sigma_k$, remplace toutes les corrélations par leur moyenne $\bar\rho=\tfrac{1}{K(K-1)}\sum_{i\neq j}\hat\rho_{ij}$ :
+$$F_{ij}=\bar\rho\,\sqrt{\hat\Sigma^{\text{emp}}_{ii}\,\hat\Sigma^{\text{emp}}_{jj}}\ (i\neq j),\quad F_{ii}=\hat\Sigma^{\text{emp}}_{ii}\ ;\qquad \delta_{\text{cc}}=\frac{\pi-\rho_{\text{cc}}}{T\,\gamma_{\text{cc}}}.$$</p>
+<p>La cellule de code ci-dessous calcule exactement ces $F$ et ces $\delta$ (<code>_lw_diagonal</code> / <code>_lw_single_factor</code> / <code>_lw_constant_correlation</code>), puis annualise $\hat\Sigma^{\text{shrink}}\!\times\!252$.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell03">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10084,18 +10115,18 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell02">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell04">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="10.1-Validation">10.1 Validation<a class="anchor-link" href="#10.1-Validation">¶</a></h3><p>Quatre contrôles avant de lire les tables :</p>
 <p>$$\text{(i)}\quad w^{\text{sample}}_{\rm GMV/ERC}\equiv w^{\S9}_{\rm GMV/ERC}\ \ (\alpha{=}0\Rightarrow\hat\Sigma{=}S)\ ;\qquad \text{(ii)}\quad w_{1/K},\,w_{\text{inv-vol}}\ \text{inchangés (diagonale seule)}.$$</p>
-<p>$$\text{(iii)}\quad \alpha^{\text{diag}}_{\rm LW}\ \overset{!}{=}\ \texttt{sklearn.LedoitWolf.shrinkage\_}\ \ (\text{oracle tiers, même estimateur LW 2004, code indépendant})\ ;\qquad \text{(iv)}\quad \text{sanity synthétique}:\ n\!\gg\!K\Rightarrow\alpha\!\to\!0,\ \ \rho\ \text{constant}\Rightarrow\text{ERC}=\text{inv-vol}.$$</p>
+<p>$$\text{(iii)}\quad \delta^{\text{diag}}\ \overset{!}{=}\ \texttt{sklearn.LedoitWolf.shrinkage\_}\ \ (\text{oracle tiers, même estimateur LW 2004, code indépendant})\ ;\qquad \text{(iv)}\quad \text{sanity synthétique}:\ T\!\gg\!K\Rightarrow\delta\!\to\!0,\ \ \rho\ \text{constant}\Rightarrow\text{ERC}=\text{inv-vol}.$$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell03">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell05">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10109,7 +10140,7 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell04">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell06">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10118,7 +10149,7 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell05">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell07">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10348,7 +10379,7 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell06">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell08">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10578,14 +10609,14 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell07">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell09">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>GMV — diagnostics par estimateur (moyennes sur les coupes) : alpha_LW=intensite, cond=conditionnement de Σ, HHI=concentration
+<pre>GMV — diagnostics par estimateur (moyennes sur les coupes) : delta_LW=intensité δ, cond=conditionnement de Σ, HHI=concentration
 </pre>
 </div>
 </div>
@@ -10610,8 +10641,8 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 <tr style="text-align: right;">
 <th></th>
 <th></th>
-<th>n_moy</th>
-<th>alpha_LW</th>
+<th>T_moy</th>
+<th>delta_LW</th>
 <th>cond_brute</th>
 <th>cond_shrink</th>
 <th>replis</th>
@@ -10709,7 +10740,7 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell08">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=s10cell10">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10722,15 +10753,15 @@ $$\boxed{\;w^\star=\arg\min_{\mathbf 1^\top w=1,\;w\ge0}\ w^\top\Sigma\,w\;}\qqu
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell09">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=s10cell11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="10.3-Lecture">10.3 Lecture<a class="anchor-link" href="#10.3-Lecture">¶</a></h3><p>$$\max_{\text{estimateurs}} t_{\rm appr}=+0{,}48\ \ll\ 1{,}645\qquad\Longrightarrow\qquad\text{aucun }\alpha\text{ positif réplicable sous tout estimateur de }\Sigma.$$</p>
 <ul>
-<li><strong>Le shrinkage dompte l'artefact GMV</strong> (sél appr) : cov brute $-4{,}5\%/t\,{-}2{,}76\ \to\ -4{,}3\%/t\,{-}2{,}46$ (LW-diag) ; $\operatorname{cond}\Sigma\ 50\!\to\!25$, $\max_k w_k\ 0{,}77\!\to\!0{,}68$, HHI $0{,}67\!\to\!0{,}55$, intensité $\alpha_{\rm LW}\approx0{,}05$. Artefact <strong>tempéré</strong>, pas inversé en talent.</li>
-<li><strong>Single-factor $\approx$ cov brute</strong> ($\alpha_{\rm LW}\approx0{,}01$, $\operatorname{cond}$ inchangé) : $K{=}4$ NAV de membres $=$ déjà <strong>un seul facteur</strong> (le marché) $\Rightarrow$ rien à shrinker vers un facteur.</li>
+<li><strong>Le shrinkage dompte l'artefact GMV</strong> (sél appr) : cov brute $-4{,}5\%/t\,{-}2{,}76\ \to\ -4{,}3\%/t\,{-}2{,}46$ (LW-diag) ; $\operatorname{cond}\Sigma\ 50\!\to\!25$, $\max_k w_k\ 0{,}77\!\to\!0{,}68$, HHI $0{,}67\!\to\!0{,}55$, intensité $\delta_{\rm LW}\approx0{,}05$. Artefact <strong>tempéré</strong>, pas inversé en talent.</li>
+<li><strong>Single-factor $\approx$ cov brute</strong> ($\delta_{\rm LW}\approx0{,}01$, $\operatorname{cond}$ inchangé) : $K{=}4$ NAV de membres $=$ déjà <strong>un seul facteur</strong> (le marché) $\Rightarrow$ rien à shrinker vers un facteur.</li>
 <li><strong>Les seuls $\lvert t_{\rm appr}\rvert&gt;1{,}645$ sont négatifs</strong> (sous-performance ajustée des paniers sél-appraisal à 6 mois, ex. inverse-vol $t\,{-}1{,}78$) — <strong>hérités du §9</strong>, ni créés ni corrigés par le shrinkage.</li>
 <li><strong>Témoins</strong> ($1/K$, inverse-vol) <strong>identiques au §9</strong> $\Rightarrow$ l'effet observé est bien dû à l'<strong>estimation de $\Sigma$</strong> seule.</li>
 <li><strong>Verdict invariant</strong> : « $\beta$ de style $\approx1{,}20$, zéro $\alpha$ » — au <em>qui</em> (§4-5), <em>combien</em> (§7), <em>comment pondérer</em> (§9), et <em>comment estimer $\Sigma$</em> (§10).</li>
