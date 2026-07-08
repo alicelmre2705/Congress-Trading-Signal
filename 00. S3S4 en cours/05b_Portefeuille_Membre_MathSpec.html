@@ -10756,14 +10756,11 @@ $$F_{ij}=\bar\rho\,\sqrt{\hat\Sigma^{\text{emp}}_{ii}\,\hat\Sigma^{\text{emp}}_{
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <!-- PARTIE2-MARKER -->
-<h1 id="Partie-II-%E2%80%94-Changement-de-r%C3%A8gle-:-classement-par-le-Sharpe">Partie II — Changement de règle : classement par le Sharpe<a class="anchor-link" href="#Partie-II-%E2%80%94-Changement-de-r%C3%A8gle-:-classement-par-le-Sharpe">¶</a></h1><p>La Partie I (§0-§10) cherchait de l'$\alpha$ : sélection par IR/appraisal <strong>significatifs</strong> ($t&gt;1{,}645$),
-verdict « $\beta$ de style, zéro $\alpha$ », invariant à tout. On change complètement de règle :</p>
+<h1 id="Partie-II-%E2%80%94-Changement-de-r%C3%A8gle-:-classement-par-le-Sharpe">Partie II — Changement de règle : classement par le Sharpe<a class="anchor-link" href="#Partie-II-%E2%80%94-Changement-de-r%C3%A8gle-:-classement-par-le-Sharpe">¶</a></h1><p>La Partie I sélectionnait les membres <strong>significatifs</strong> (IR ou appraisal, $t&gt;1{,}645$) ; leur copie n'a produit aucun $\alpha$. On change de règle :</p>
 <ul>
-<li><strong>plus de test de significativité</strong>, plus de minimum de trades — seule reste la porte $n_{\text{days}}\ge126$
-(un Sharpe sur 3 mois ne veut rien dire) ;</li>
-<li><strong>classement par le Sharpe brut</strong> (§2) : $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ —
-performance ajustée du risque, sans benchmark ;</li>
-<li>question : <strong>que donne la copie du top-$K$</strong> (ex. les 20 meilleurs) sous <strong>différentes pondérations</strong> $w$ ?</li>
+<li>on classe par le <strong>Sharpe brut</strong> (§2), $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ — <strong>plus aucun test de significativité</strong> ;</li>
+<li>un seul filtre d'éligibilité : $n_{\text{days}}\ge126$ (le minimum de 10 trades saute) ;</li>
+<li>on copie le top-$K$ et on regarde ce que donnent <strong>plusieurs $K$</strong> (5, 10, 20) et <strong>plusieurs pondérations</strong> $w$.</li>
 </ul>
 </div>
 </div>
@@ -10774,8 +10771,11 @@ performance ajustée du risque, sans benchmark ;</li>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="11.-S%C3%A9lection-par-le-Sharpe">11. Sélection par le Sharpe<a class="anchor-link" href="#11.-S%C3%A9lection-par-le-Sharpe">¶</a></h2><p>Éligibilité v2 : $n_{\text{days}}\ge126$ <strong>seulement</strong> (le $n_{\text{trades}}\ge10$ de la Partie I saute).
-Classement <strong>rétrospectif</strong> d'abord (photo 2014-2026), puis <strong>point-in-time</strong> (coupes des §5/§8) pour la copie.</p>
+<h2 id="11.-S%C3%A9lection-par-le-Sharpe">11. Sélection par le Sharpe<a class="anchor-link" href="#11.-S%C3%A9lection-par-le-Sharpe">¶</a></h2><ul>
+<li>Éligibles v2 : tout membre avec $n_{\text{days}}\ge126$ jours de track — aucune autre condition.</li>
+<li>Le tableau ci-dessous : le top-20 des Sharpe, calculés sur tout l'historique 2014-2026.</li>
+<li>Pour la copie (§12), le classement est recalculé <strong>point-in-time</strong> à chaque coupe (31/12 ; et 30/06 en plus pour la cadence 6 mois) : le Sharpe n'utilise que les jours $\le$ la coupe.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -11118,15 +11118,46 @@ Classement <strong>rétrospectif</strong> d'abord (photo 2014-2026), puis <stron
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="12.-Copie-top-$K$-%C3%97-pond%C3%A9rations-$w$">12. Copie top-$K$ × pondérations $w$<a class="anchor-link" href="#12.-Copie-top-$K$-%C3%97-pond%C3%A9rations-$w$">¶</a></h2><p>Le moteur en parts (§6.1) est inchangé — seules changent la <strong>liste</strong> (top-$K$ du classement Sharpe, sans filtre)
-et la <strong>pondération</strong> :
-$$w\in\Big\{\underbrace{1/K}_{\text{égal}},\quad \underbrace{w_k\propto\max(S_k,0)}_{\propto\text{Sharpe}},\quad \underbrace{w_k\propto1/\sigma_k}_{\text{inverse-vol}},\quad \underbrace{\mathrm{RC}_k\ \text{égaux}}_{\text{ERC}},\quad \underbrace{\arg\min_w w^\top\Sigma w}_{\text{GMV}}\Big\}$$</p>
+<h2 id="12.-Copie-top-$K$-%C3%97-pond%C3%A9rations-$w$">12. Copie top-$K$ × pondérations $w$<a class="anchor-link" href="#12.-Copie-top-$K$-%C3%97-pond%C3%A9rations-$w$">¶</a></h2><p>À chaque coupe, on copie les $K$ premiers du classement Sharpe et on les tient jusqu'à la coupe suivante — moteur en parts du §6.1, inchangé. Cinq pondérations :</p>
+<table>
+<thead>
+<tr>
+<th>poids</th>
+<th>formule</th>
+<th>source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1/K$</td>
+<td>$w_k=1/K$</td>
+<td>§6</td>
+</tr>
+<tr>
+<td>$\propto$Sharpe</td>
+<td>$w_k=\max(S_k,0)\big/\sum_j\max(S_j,0)$, $S_k$ = Sharpe point-in-time</td>
+<td>nouveau</td>
+</tr>
+<tr>
+<td>inverse-vol</td>
+<td>$w_k\propto1/\sigma_k$</td>
+<td>§9</td>
+</tr>
+<tr>
+<td>ERC</td>
+<td>$\mathrm{RC}_k$ égaux</td>
+<td>§9</td>
+</tr>
+<tr>
+<td>GMV</td>
+<td>$\arg\min_{w\ge0,\ \mathbf 1^\top w=1}\ w^\top\Sigma\,w$</td>
+<td>§9</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>$\propto$<strong>Sharpe</strong> (nouveau) : $w_k=\dfrac{\max(S_k,0)}{\sum_j\max(S_j,0)}$, $S_k=$ Sharpe point-in-time ($s\le t^R$) ;
-long-only par construction, rabat $1/K$ si tous $\le0$.</li>
-<li><strong>inverse-vol, ERC, GMV</strong> : formules du §9 (point-in-time), inchangées.</li>
-<li>⚠️ à $K{=}20$, la <strong>fenêtre commune</strong> (intersection des dates, §9) peut devenir courte : si $&lt;60$ jours communs
-(<code>RISK_WINDOW_MIN</code>, §10), ERC/GMV se <strong>rabattent sur inverse-vol</strong> (rabats comptés dans les tables du §12.2).</li>
+<li>$\propto$Sharpe est long-only par construction ; si tous les $S_k\le0$, on prend $1/K$.</li>
+<li>ERC et GMV estiment $\Sigma$ sur la <strong>fenêtre commune</strong> des $K$ membres (§9). Si elle fait moins de 60 jours (<code>RISK_WINDOW_MIN</code>, §10), on applique inverse-vol à la place ; ces cas sont comptés dans les tables (0 en pratique).</li>
 </ul>
 </div>
 </div>
@@ -11150,10 +11181,12 @@ long-only par construction, rabat $1/K$ si tous $\le0$.</li>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="12.1-Validation">12.1 Validation<a class="anchor-link" href="#12.1-Validation">¶</a></h3><p>$$\text{(i)}\ \ K{=}1:\ r_{\text{strat}}\equiv r_{k^\star}\ \text{(la stratégie EST la tête du classement)};\qquad
-\text{(ii)}\ \ w_{\propto\text{Sharpe}}\ \text{recalculé indépendamment, somme}=1,\ w\ge0;$$
-$$\text{(iii)}\ \ \text{tête point-in-time à la dernière coupe}\ \equiv\ \text{tête rétrospective du §11 (même Sharpe)};\qquad
-\text{(iv)}\ \ \text{rabats ERC/GMV comptés dans les tables du §12.2.}$$</p>
+<h3 id="12.1-Validation">12.1 Validation<a class="anchor-link" href="#12.1-Validation">¶</a></h3><ul>
+<li>(i) $K{=}1$ : le portefeuille copie un seul membre $\Rightarrow$ sa série de rendement doit être identique à celle du membre, chaque année tenue.</li>
+<li>(ii) $w_{\propto\text{Sharpe}}$ : poids recalculés indépendamment ; somme $=1$ ; tous $\ge0$.</li>
+<li>(iii) La tête du classement point-in-time à la dernière coupe $=$ la tête du tableau rétrospectif du §11, avec le même Sharpe.</li>
+<li>(iv) Les rabats ERC/GMV (fenêtre $&lt;60$ j) sont comptés dans les tables du §12.2.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -11176,10 +11209,8 @@ $$\text{(iii)}\ \ \text{tête point-in-time à la dernière coupe}\ \equiv\ \tex
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="12.2-R%C3%A9sultat-(annuel,-puis-6-mois)">12.2 Résultat (annuel, puis 6 mois)<a class="anchor-link" href="#12.2-R%C3%A9sultat-(annuel,-puis-6-mois)">¶</a></h3><p>Mêmes 11 années / 22 semestres qu'en Partie I, mêmes seuils ($t_{10}\approx1{,}81$ ; $t\approx1{,}72$), mêmes
-colonnes (§6.3) $+$ le <strong>Sharpe de la stratégie</strong> (le critère de la Partie II doit se lire dans la table ;
-référence : Sharpe du SPY sur la fenêtre de tenue). Contrairement à la carte de la Partie I (un axe à la
-fois contre $\star$), on <strong>croise</strong> ici $K\times w$ : la règle a changé, il n'y a pas de baseline $\star$.</p>
+<h3 id="12.2-R%C3%A9sultat-(annuel,-puis-6-mois)">12.2 Résultat (annuel, puis 6 mois)<a class="anchor-link" href="#12.2-R%C3%A9sultat-(annuel,-puis-6-mois)">¶</a></h3><p>Même évaluation qu'en Partie I : excès par année civile ($n=11$, seuil $t_{10}\approx1{,}81$), puis par semestre ($n=22$, seuil $t\approx1{,}72$), plus la régression quotidienne ($\beta$, $\alpha_{\text{ann}}$, $t_{\text{appr}}$).
+Colonne ajoutée : le <strong>Sharpe de la stratégie</strong>, à comparer au Sharpe du SPY affiché au-dessus de chaque table. Chaque table : $K\in\{5,10,20\}$ en blocs, les cinq $w$ par bloc.</p>
 </div>
 </div>
 </div>
@@ -11617,14 +11648,15 @@ fois contre $\star$), on <strong>croise</strong> ici $K\times w$ : la règle a c
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="12.3-Lecture">12.3 Lecture<a class="anchor-link" href="#12.3-Lecture">¶</a></h3><p>$$\max_{K\times w\times\text{cadence}}\ t=1{,}10\ (&lt;1{,}81),\qquad \max\ t_{\rm appr}=0{,}76\ (&lt;1{,}645)\qquad\Longrightarrow\qquad \text{pas d'}\alpha\ \text{par le Sharpe non plus.}$$</p>
+<h3 id="12.3-Lecture">12.3 Lecture<a class="anchor-link" href="#12.3-Lecture">¶</a></h3><p>$$\max_{K,\ w,\ \text{cadence}}\ t=1{,}10\ (&lt;1{,}81),\qquad \max\ t_{\text{appr}}=0{,}76\ (&lt;1{,}645)\qquad\Longrightarrow\qquad \text{aucune configuration ne bat le SPY significativement.}$$</p>
 <ul>
-<li><strong>Le signal se dilue avec $K$</strong> (annuel, $1/K$) : excès $+3{,}5\,\%$/an à $K{=}5$ $\to$ $+0{,}7\,\%$ à $K{=}10$ $\to$ $-0{,}2\,\%$ à $K{=}20$ — les « 20 meilleurs » n'apportent rien ; ce qui reste à $K{=}5$ ($t\,1{,}10$, $\alpha_{\rm ann}+1{,}8\,\%$, $t_{\rm appr}\,0{,}76$) est indiscernable du hasard.</li>
-<li><strong>Sharpe réalisé $\approx$ SPY</strong> : au mieux $0{,}90$ contre $0{,}87$ (SPY, même fenêtre) — le couple rendement/risque n'est pas amélioré.</li>
-<li><strong>Aucun $w$ ne sauve</strong> : $\propto$Sharpe $\approx1/K$ ; inverse-vol et ERC diversifient vers les membres calmes et dégradent ; <strong>GMV</strong> ($\beta$ $0{,}45$–$0{,}86$) sous-expose au marché $\Rightarrow$ $\approx-6\,\%$/an mécaniques <strong>sans</strong> perte de talent ($t_{\rm appr}$ reste $&gt;0$) — le §9 se répète. 0 rabat : les fenêtres communes tiennent, même à $K{=}20$.</li>
-<li><strong>6 mois</strong> : tout $\le0$ ; les seuls $\lvert t\rvert&gt;1{,}72$ sont <strong>négatifs</strong> (ex. ERC $K{=}20$ : $t\,{-}3{,}21$) — même dégradation qu'aux §8-§9.</li>
-<li><strong>Sans porte de significativité, les têtes de classement sont des tracks courts</strong> (Fetterman 284 j, Britt 306 j, Sewell 4 trades) : du Sharpe chanceux, qui ne se répète pas hors-échantillon.</li>
-<li><strong>Verdict</strong> : règle changée, conclusion inchangée — ni l'IR (Partie I) ni le Sharpe (Partie II) ne rendent la copie des élus <strong>réplicablement</strong> meilleure que le SPY.</li>
+<li>Meilleur cas : $K{=}5$, poids $1/K$, annuel — excès $+3{,}5\,\%$/an, $t=1{,}10$ : compatible avec le hasard.</li>
+<li>Plus on copie large, moins il reste : $+3{,}5\,\%$/an ($K{=}5$) $\to$ $+0{,}7\,\%$ ($K{=}10$) $\to$ $-0{,}2\,\%$ ($K{=}20$).</li>
+<li>Le Sharpe du portefeuille (au mieux $0{,}90$) reste au niveau du SPY ($0{,}87$) : le couple rendement/risque n'est pas amélioré.</li>
+<li>Aucune pondération n'aide : $\propto$Sharpe $\approx1/K$ ; inverse-vol et ERC font moins bien ; GMV ($\beta$ $0{,}45$–$0{,}86$) perd $\approx6\,\%$/an faute d'exposition au marché, avec $\alpha\approx0$ — pas une perte de talent.</li>
+<li>À 6 mois : aucun excès positif ; les seuls $t$ au-delà du seuil sont négatifs (ex. ERC $K{=}20$ : $t=-3{,}21$).</li>
+<li>Sans filtre de significativité, les têtes de classement sont des historiques courts (Fetterman 284 j, Sewell 4 trades) : un bon Sharpe sur si peu de jours ne se reproduit pas l'année suivante.</li>
+<li>Conclusion : le classement par le Sharpe ne fait pas mieux que la Partie I — pas d'$\alpha$.</li>
 </ul>
 </div>
 </div>
