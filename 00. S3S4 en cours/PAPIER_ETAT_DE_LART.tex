@@ -1,0 +1,469 @@
+% !TEX program = tectonic
+\documentclass[11pt,a4paper]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\frenchsetup{StandardLists=true}
+\usepackage[a4paper,margin=2cm,footskip=0.9cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\usepackage{xcolor}
+\definecolor{vert}{RGB}{0,120,60}
+\definecolor{rouge}{RGB}{170,30,30}
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{bleu}{RGB}{30,60,140}
+\usepackage[font=small,skip=3pt]{caption}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{1.1em}{0.4em}
+\titleformat{\section}{\large\bfseries\color{bleu}}{\thesection.}{0.4em}{}
+\titlespacing{\subsection}{0pt}{0.7em}{0.25em}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.4em}{}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=bleu,urlcolor=bleu!70!black,citecolor=bleu}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{gris}État de l'art --- copier les trades du Congrès}
+\fancyhead[R]{\small\color{gris}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\rok}{\textcolor{vert}{\textbf{oui}}}
+\newcommand{\rno}{\textcolor{rouge}{\textbf{non}}}
+\newcommand{\rpart}{\textcolor{gris}{partiel}}
+\newcommand{\mort}{\textcolor{rouge}{$\dagger$}}
+\newcommand{\vivant}{\textcolor{vert}{$\star$}}
+
+\title{\vspace{-1.6em}\textbf{\color{bleu}Copier les trades du Congrès américain}\\[3pt]
+\large État de l'art : ce que font les chercheurs, les produits et le code --- et ce qui reste à tester\\[3pt]
+\normalsize\color{gris} Synthèse de 69 fiches (2004--2026), sources primaires vérifiées}
+\author{\small Alice Lemaire}
+\date{\small 9 juillet 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1.6em}
+
+\begin{center}\small\itshape\color{gris}
+Ce document synthétise la littérature académique, les produits commerciaux et le code public sur la
+réplication des transactions boursières déclarées des membres du Congrès US (STOCK Act / PTR).
+Chaque chiffre provient d'une source primaire consultée ; les 9 corrections issues de la contre-vérification
+adversariale sont intégrées. La dernière colonne de chaque tableau indique la réplicabilité avec
+\textbf{notre} table canonique 2014--2026 (134\,464 transactions, actions + ETF, sans options).
+\end{center}
+
+\section{Le paysage en une page}
+
+\begin{itemize}
+  \item \textbf{Le mythe fondateur est mort.} Ziobrowski \textit{et al.} (2004) trouvait un Sénat qui bat le
+  marché de $+85$~bps/mois sur ses achats ($\approx +10\%$/an) --- mais mesuré à la \emph{date de transaction},
+  non observable à l'époque (dépôts annuels différés), porté par 4 sénateurs et la pondération taille, et
+  \emph{disparu dès 1997}. Eggers \& Hainmueller (2013), sur les portefeuilles \emph{réels} 2004--2008,
+  trouvent l'inverse : les élus \emph{sous-performent} de $\approx -2{,}8\%$/an ; sur 88 alphas estimés,
+  \emph{aucun} n'est positif et significatif.
+  \item \textbf{Le consensus post-STOCK Act (2012) est un} \emph{null}. Belmont \textit{et al.} (JPE 2022) :
+  les achats de la Chambre sous-performent de $-26$~bps à 6~mois, les ventes de $-11$~bps ; les gros achats
+  ($>250$k\$) sont \emph{pires}. Chen \& Sacerdote (NBER 2026) : les élus achètent \emph{après} le pic
+  d'attention retail ; ceux qui « devraient le plus savoir » perdent le plus (leaders $-4{,}4\%$/an, comités
+  de tutelle $-2{,}8\%$/an). Un test ML (arXiv 2026) prédit les trades gagnants à AUROC $\approx 0{,}52$ (= hasard).
+  \item \textbf{Trois poches documentées survivent --- et deux sont observables à la} \emph{disclosure}
+  (donc copiables) :
+  \begin{itemize}
+    \item[\vivant] \emph{Drift post-publication} : Lazzaretto (2024), $>90$~bps le mois \emph{suivant la
+    divulgation}, $\approx 0$ après la transaction, effet \emph{temporaire} (réversion). Pyun (2025) : un
+    portefeuille \emph{value-weighted} d'achats divulgués a un alpha positif, plus fort sur \emph{large caps,
+    Chambre, post-2020} --- exactement notre terrain.
+    \item[\vivant] \emph{Conditionnement} : Abdurakhmonov (SMJ 2023), $+9$--$11$~bps à la divulgation d'un
+    achat, $\approx +50$~bps quand le membre a juridiction de comité sur l'industrie ($5\times$). Wei \& Zhou
+    (NBER 2025) : les 12 \emph{leaders de parti} (pas les présidents de commission) surperforment leurs pairs
+    de $+47$~points/an après leur ascension.
+    \item[\vivant] \emph{Législation} : Cohen-Diether-Malloy (JFE 2013), les \emph{votes} (hors PTR) prédisent
+    $+11$ à $+15{,}6\%$/an ; Li \textit{et al.} (2026), les trades placés le mois avant un jalon législatif.
+  \end{itemize}
+  \item \textbf{Contre-intuitions établies} : le co-achat par plusieurs membres \emph{dégrade} le rendement
+  (Herron 2026) ; l'alpha, quand il existe, est concentré dans les \emph{options / paris baissiers}
+  (Molk \& Partnoy 2025) --- absents de nos données.
+  \item \textbf{Les produits encadrent le S\&P.} L'ETF NANC (démocrates) rend $+23{,}58\%$/an depuis 2023
+  ($+2{,}5$~pts vs S\&P, un \emph{beta mega-cap tech}, pas un alpha du Congrès) ; GOP (républicains)
+  fait \emph{moins} bien que le S\&P sur la même période. Les trackers annoncent des chiffres beaucoup plus
+  élevés (Pelosi $+70{,}9\%$ en 2024) parce qu'ils incluent les \emph{options} et pondèrent au \emph{midpoint}.
+  \item \textbf{Notre verdict, audité, tient} : sur nos 134k trades, max $t = 1{,}58$ sur 160 essais,
+  $E[\max t \,|\, H_0] = 2{,}69$ --- \emph{pas d'alpha copiable démontrable} en actions seules. La bonne
+  nouvelle : la littérature indique \emph{où} regarder ensuite (§\ref{sec:plan}).
+\end{itemize}
+
+\section{Le cadre : STOCK Act, PTR et données}
+
+\begin{itemize}
+  \item \textbf{Obligation} (STOCK Act 2012, P.L. 112-105) : déclarer toute transaction de titres $>1\,000$\$
+  dans les \textbf{30 jours} après notification, plafond \textbf{45 jours} après la transaction ; conjoint et
+  enfants à charge inclus (champ \code{owner}). Support : \emph{Periodic Transaction Report} (PTR).
+  \item \textbf{Montants en 10 tranches} (jamais le montant exact) : \$1\,001--15\,000 ; 15\,001--50\,000 ;
+  50\,001--100\,000 ; 100\,001--250\,000 ; 250\,001--500\,000 ; 500\,001--1\,M ; 1--5\,M ; 5--25\,M ;
+  25--50\,M ; $>$50\,M\$. \emph{C'est la source d'ambiguïté n\textsuperscript{o}1} : midpoint vs plafond vs
+  position réelle inconnue donnent des perfs différentes avant tout désaccord de méthode.
+  \item \textbf{Sanction} : amende forfaitaire de \textbf{200\$}, souvent annulée ; \emph{zéro} poursuite
+  pénale d'un élu en exercice depuis 2012. Taux de dépôt en retard ($>45$~j) $\approx \mathbf{12{,}5\%}$
+  (23\,426 / 189\,595, base GovGreed) --- certains membres à $>20\%$ (McCaul 20,7~\%, Tuberville 22~\%).
+  \item \textbf{Scandale COVID 2020} : Burr vend $>1{,}6$~M\$ le 13/02/2020 ; DOJ clôt le 19/01/2021, SEC clôt
+  le 06/01/2023 --- \emph{zéro} charge. Loeffler, Feinstein, Inhofe blanchis de même.
+  \item \textbf{Risque législatif} : le \emph{HONEST Act} (S.1498) est sorti de commission sénatoriale HSGAC
+  par \textbf{8--7} le 30/07/2025 (première historique) mais n'a \emph{jamais} été voté en séance ; le
+  \emph{PELOSI Act} de Hawley (même texte, ban étendu) a été endossé par Pelosi elle-même. Les prospectus
+  NANC/GOP mentionnent le risque de liquidation.
+  \item \textbf{Chaîne de données} : Clerk de la Chambre (PDF/XML) et eFD du Sénat (HTML) $\to$ agrégateurs
+  (Quiver, 2iQ/Capitol Trades, Unusual Whales). \emph{Notre} pipeline S1/S2 collecte les PTR en source
+  primaire (2014--2026, 158k uniques, backtest 134k) sans les options.
+\end{itemize}
+
+\section{L'arc académique}
+
+\subsection{Les fondateurs et leur démontage}
+
+\begin{itemize}
+  \item \textbf{Ziobrowski 2004} (Sénat, 1993--1998) --- \emph{brique d'inférence} = portefeuille
+  \emph{calendar-time} : chaque jour on détient toutes les transactions des 255 jours de bourse précédents,
+  rééquilibrage mensuel, rendements mensuels régressés en CAPM et Fama-French~3. $\alpha_{FF}$ achats
+  \emph{trade-weighted} $= 85$~bps/mois ($\approx +10{,}2\%$/an) ; portefeuille hedgé long-achats/short-ventes
+  $\approx 97$~bps/mois ($\approx +12\%$/an). Concentré sur 4 sénateurs, plus fort chez les \emph{moins}
+  anciens (contre l'hypothèse « pouvoir »), disparu après 1996.
+  \item \textbf{Ziobrowski 2011} (Chambre, 1985--2001, $>$16\,000 trades) : même mécanique, achats
+  $+55$~bps/mois ($\approx +6\%$/an).
+  \item \textbf{Eggers \& Hainmueller 2013} (« Capitol Losses », portefeuilles réels 2004--2008) : Carhart~4
+  facteurs, $\approx -0{,}23$~pt/mois $= -2{,}8\%$/an (IC95\% $[-4{,}9 ; -0{,}5]\%$). \textbf{88 alphas estimés
+  (22 sous-groupes $\times$ 4 méthodes), aucun positif significatif.} Montre que le résultat de Ziobrowski est
+  fragile au choix de spécification et à la pondération taille.
+  \item \textbf{Pourquoi c'est mort} : entrée à la date de \emph{transaction}, non observable en temps réel
+  $\Rightarrow$ non copiable ; l'alpha ne prouve qu'un avantage des élus, pas une stratégie réplicable.
+\end{itemize}
+
+\subsection{Le consensus \textit{null} post-STOCK Act}
+
+\begin{itemize}
+  \item \textbf{Belmont, Sacerdote \textit{et al.}} --- NBER WP 26975 (Sénat) puis JPE 2022 (Chambre).
+  Event-study BHAR vs benchmark \emph{industrie-taille} (SIC-4 $\times$ quintile de capitalisation). Sénat :
+  achats $-11 / -28 / -17$~bps à 1/3/6~mois (\emph{seul le 3~mois est significatif}). Chambre : achats
+  $-26$~bps, ventes $-11$~bps à 6~mois ; \emph{aucune} surperformance même aux 95\textsuperscript{e} et
+  99\textsuperscript{e} percentiles ; les gros achats sont pires.
+  \item \textbf{Karadas 2019} (Financial Review, $\sim$62k trades) : \emph{seule exception} --- sur
+  2004--2010, en holding \emph{1~semaine}, le buy-minus-sell des Républicains \emph{puissants} (Carhart~4)
+  dépasse $35\%$/an ; mais effet qui \emph{s'éteint après avril 2012} (STOCK Act).
+  \item \textbf{Hanousek \textit{et al.} 2023} (JBE, $\sim$8k trades) : les \emph{mêmes} trades affichent
+  $+4{,}9\%$ de BHAR \emph{market-adjusted} (S\&P) mais $\approx 0$ ajusté de l'industrie. \emph{Le benchmark
+  crée l'alpha} --- règle d'or : toujours $\geq 2$ benchmarks.
+  \item \textbf{Chen \& Sacerdote 2026} (NBER 35041, 2012--2023, 334 membres) : BHAR multi-benchmark, tous
+  $\leq 0$ en equal-weight ($-38$~bps à 6~mois). Ceux à plus fort accès perdent le \emph{plus} :
+  \emph{leaders} $-4{,}4\%$/an, \emph{comités de tutelle} $-2{,}8\%$/an. Mécanisme démontré : les élus
+  \emph{suivent} les signaux publics (recos d'analystes, attention StockTwits/Twitter) --- comportement de
+  \emph{retail non-informé}. Seule spécification positive : value-weighted, $+115$~bps/an, fragile.
+\end{itemize}
+
+\subsection{Les trois poches qui survivent}
+
+\begin{itemize}
+  \item \textbf{Drift post-disclosure} (l'événement que notre backtest time-weighted ne visait pas) :
+  \begin{itemize}
+    \item \emph{Lazzaretto 2024} (Sénat) --- CAAR autour de deux dates concurrentes. Verbatim : les trades
+    « predict abnormal returns in the same direction after disclosure --- exceeding 90~bps in a month --- but
+    not after the actual transaction » ; impact « only temporary » (réversion). Sous-échantillon
+    \emph{spéculatif} (achats+ventes répétés du même titre) $> 9$~bps/jour.
+    \item \emph{Pyun 2025} --- prédictibilité plus forte depuis la transaction (avantage de premier arrivé)
+    mais \emph{« remains economically meaningful after disclosure »} ; un portefeuille \emph{value-weighted}
+    d'achats divulgués a un \emph{alpha positif}, plus fort \emph{large caps / Chambre / post-COVID}. \emph{Le
+    papier le plus réplicable avec notre table.}
+    \item \emph{Blonien-Crane-Crotty 2025} (modèle bayésien hiérarchique) : le trading profitable existe mais
+    est \emph{rare et concentré} ; \emph{aucune} preuve que les trades de comité pertinent soient plus
+    profitables (confirme notre §16).
+  \end{itemize}
+  \item \textbf{Conditionnement} :
+  \begin{itemize}
+    \item \emph{Abdurakhmonov 2023} (SMJ, Sénat 2012--2020) --- event-study CAR à la divulgation d'un achat :
+    $+9$ à $+11$~bps ; \textbf{$\approx +50$~bps} si le sénateur a juridiction de comité sur l'industrie
+    ($5\times$) ; renforcé par lobbying/PAC/témoignages.
+    \item \emph{Li \textit{et al.} 2026} (J.~Business Ethics, $\sim$4\,700 trades sénatoriaux 2014--2021 vs
+    $\sim$1\,400 bills) --- jalons (introduction / engrossment / enrollment / enactment) codés par NLP ;
+    rendements anormaux significatifs pour les trades placés \emph{le mois avant} un jalon, surtout tardif,
+    plus forts chez les sénateurs puissants et le trading séquentiel. \emph{(Le «~$+3$--$5\%$/12~mois~» du
+    bruit de fond n'a pas été confirmé en source primaire --- paywall.)}
+    \item \emph{Cohen-Diether-Malloy 2013} (JFE) --- \emph{les votes, pas les trades} : portefeuille
+    long-short d'industries formé après le vote et signé par les votes des sénateurs « intéressés » :
+    $\alpha_{4F} = +92$~bps/mois ($t=3{,}01$, $\approx +11\%$/an), porté à $+130$~bps ($t=2{,}78$,
+    $\approx +15{,}6\%$/an) en n'écoutant que les intéressés. \emph{Signal distinct des PTR.}
+  \end{itemize}
+  \item \textbf{Leadership --- Wei \& Zhou 2025} (NBER w34524, « Captain Gains on Capitol Hill ») : \emph{le
+  seul alpha "copiable" revendiqué par un papier sérieux}.
+  \begin{itemize}
+    \item \emph{Définition} : 12 postes --- Speaker, les 4 floor leaders (majorité/minorité $\times$ 2
+    chambres), les 4 whips, les 4 présidents de conférence/caucus. \emph{Pas} les présidents de commission.
+    \item \emph{Méthode} : difference-in-differences à effets fixes individuels, 1995--2021. Sur 47 leaders,
+    seuls 20 ont tradé avant \emph{et} après leur ascension $\to$ 20 traités vs 20 pairs appariés.
+    Après ascension : \textbf{$+47$~points de \% par an} vs pairs.
+    \item \emph{Test de copiabilité} (§3.5, alpha de Jensen calendar-time à la \emph{date de disclosure}) : la
+    performance y est « marginally weaker » qu'à la transaction mais \emph{persiste}. Footnote 31 : aucun ETF
+    ne suit spécifiquement les leaders.
+    \item \emph{Réserve} : notre essai SUPP\_A l'infirmait sur l'ancienne donnée (effet porté par 1 membre),
+    mais avec une \emph{autre} définition du leadership $\Rightarrow$ re-test propre obligatoire avec leur
+    liste des 12 postes (on a \code{leadership\_2014\_2026.csv}, 50 postes datés).
+  \end{itemize}
+\end{itemize}
+
+\subsection{Contre-intuitions et littérature adjacente}
+
+\begin{itemize}
+  \item \textbf{Herron \textit{et al.} 2026} (« Congressional Herding », Financial Management) : les membres
+  imitent surtout \emph{leurs propres} trades (ratio 61:1 vs suivre les autres) ; le \emph{co-achat} par
+  plusieurs membres \emph{dégrade} la performance des achats. $\Rightarrow$ un signal « consensus » serait
+  contre-productif.
+  \item \textbf{Molk \& Partnoy 2025} (« Negative Trading in Congress », Indiana LJ) : 587 trades
+  \emph{négatifs} (shorts, puts, calls vendus, ETF inverses) gagnent $+1$ à $+2\%$ sur $\sim$10--15~jours,
+  quand le long moyen perd. \textbf{Angle mort majeur : nos données n'ont ni options ni shorts.}
+  \item \textbf{ML} (arXiv 2602.05514, 2026) : détection de canaux d'information, AUROC $\approx 0{,}52$
+  pour prédire les trades gagnants = hasard.
+  \item \textbf{Littérature 13F} : \emph{Frank \textit{et al.} 2004} (« Copycat Funds ») --- copier des
+  dépôts publics retardés coûte $13$--$42$~bps/6~mois (le délai n'est pas rédhibitoire) ;
+  \emph{Best Ideas} (Cohen-Polk-Silli) --- la conviction par \emph{taille} de position survit des années à la
+  publication ($\alpha_{6F} \approx 37$~bps/mois, $t=3{,}3$). $\Rightarrow$ le problème du Congrès n'est pas
+  le délai de 45~j, c'est le \emph{talent moyen nul} de la source.
+\end{itemize}
+
+\begin{table}[t]\centering\small
+\caption{Synthèse académique --- mécanique, résultat et réplicabilité avec notre table 2014--2026.
+\mort{}~= mort/réfuté, \vivant{}~= poche vivante.}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}p{2.7cm} c p{1.6cm} X c@{}}
+\toprule
+\textbf{Papier} & & \textbf{Quand} & \textbf{Résultat chiffré (vérifié)} & \textbf{Repro.} \\
+\midrule
+Ziobrowski 2004 (Sénat) & \mort & transaction & achats TW $+85$~bps/mois ($\approx\!10\%$/an) ; hedgé $\approx\!12\%$/an ; mort après 1996 & \rpart \\
+Ziobrowski 2011 (Chambre) & \mort & transaction & achats $+55$~bps/mois ($\approx\!6\%$/an) & \rpart \\
+Eggers-Hainmueller 2013 & \mort & réels & $-2{,}8\%$/an ; 0/88 alphas positifs sig. & \rok \\
+Belmont \textit{et al.} 2022 & \mort & 6~mois & achats Ch. $-26$~bps ; gros achats pires & \rok \\
+Karadas 2019 & \mort & 1~sem. & $>35\%$/an (2004--10) \emph{éteint après 2012} & \rok \\
+Hanousek 2023 & \mort & 3~mois & $+4{,}9\%$ mkt-adj vs $\approx\!0$ ind.-adj & \rok \\
+Chen-Sacerdote 2026 & \mort & 6--12~mois & $-38$~bps 6m ; leaders $-4{,}4\%$/an & \rok \\
+\midrule
+Lazzaretto 2024 & \vivant & \textbf{disclosure} & $>90$~bps/mois post-divulg., temporaire & \rok \\
+Pyun 2025 & \vivant & \textbf{disclosure} & value-weight achats : $\alpha>0$, fort large-cap/Ch./post-2020 & \rok \\
+Abdurakhmonov 2023 & \vivant & disclosure & $+9$--$11$~bps ; $+50$~bps si juridiction comité & \rpart \\
+Wei-Zhou 2025 (leaders) & \vivant & les deux & $+47$~pts/an post-ascension ; persiste à la disclosure & \rpart \\
+Cohen-Diether-Malloy 2013 & \vivant & \emph{votes} & $+92$ à $+130$~bps/mois ($t\!\approx\!3$) & \rno \\
+Li \textit{et al.} 2026 & \vivant & jalon bill & trades le mois avant un jalon significatifs & \rpart \\
+\midrule
+Herron 2026 (herding) & --- & --- & co-achat \emph{dégrade} ; auto-suivi 61:1 & \rok \\
+Molk-Partnoy 2025 & --- & 10--15~j & trades négatifs $+1$--$2\%$ (\emph{options/shorts}) & \rno \\
+ML arXiv 2026 & --- & --- & AUROC $0{,}52$ = hasard & \rok \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Les produits --- ce qu'ils font vraiment}
+
+\subsection{Les ETF : NANC (démocrates) et GOP / ex-KRUZ (républicains)}
+
+\emph{Subversive Capital $\times$ Unusual Whales, lancés le 6~février 2023, gérés activement.} Mécanique
+\textbf{identique} au parti près (source : prospectus, consulté le 28/01/2026) :
+\begin{itemize}
+  \item \textbf{Univers} : actions US + ETF \emph{sectoriels} déclarés sur PTR (les fonds \emph{larges} sont
+  exclus, comme les sous-jacents d'options) ; un seul parti (les indépendants sont exclus).
+  \item \textbf{Achats \emph{et} ventes}, lookback 3~ans, achats nettés contre ventes du même titre ; titres
+  acquis \emph{avant} l'entrée en fonction ignorés.
+  \item \textbf{Pondération au \emph{midpoint}} des tranches ; surpondère les gros achats, les achats
+  récurrents, les achats par \emph{plusieurs} élus ; sous-pondère les petits/isolés. 100--200 positions,
+  non-diversifié, rebalancement au fil des PTR (\emph{lag structurel} = notre contrainte point-in-time).
+  \item \textbf{Frais} : NANC 0,72~\%, GOP 0,73~\%. Turnover NANC 10~\%, GOP 16~\%.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\caption{Performance des ETF au 9~juillet 2026 (site des fonds). Le S\&P 500 TR annualisé depuis
+l'inception $= +21{,}06\%$.}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lcccccl@{}}
+\toprule
+& \textbf{Frais} & \textbf{AUM} & \textbf{Depuis 2023} & \textbf{1~an} & \textbf{3~ans} & \textbf{Lecture} \\
+\midrule
+NANC & 0,72~\% & 279~M\$ & $+23{,}58\%$/an & $+21{,}06\%$ & $+22{,}66\%$ & $+2{,}5$~pts/an vs S\&P : \emph{beta tech} \\
+GOP  & 0,73~\% & 86~M\$  & $+19{,}54\%$/an & $+34{,}13\%$ & $+21{,}72\%$ & \emph{sous} le S\&P depuis 2023 ; rally 2026 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+NANC top-10 $= 46{,}3\%$ du portefeuille (NVDA 8,2~\% ; GOOG 6,4~\% ; MSFT 5,2~\% ; AMAT 5,2~\% ; AMZN 4,8~\% ;
+AAPL 4,4~\%) : la surperformance vient d'un \emph{tilt mega-cap tech} (proche de QQQ), pas d'un « alpha du
+Congrès » --- GOP, mêmes règles, autre parti, fait \emph{moins} bien que le S\&P.
+
+\subsection{Les apps : Autopilot (Pelosi Tracker) et Quiver}
+
+\begin{itemize}
+  \item \textbf{Autopilot} (RIA, $\sim$1~Md\$ d'AUM, $\sim$80\,000 abonnés payants) : l'utilisateur connecte
+  son broker ; à chaque déclaration, l'app place le \emph{même trade d'actions}, pondéré à la part du capital
+  alloué. \textbf{Délai moyen $\approx$ 2~semaines} (borné par les 45~j de disclosure), \emph{options non
+  répliquées}. Perf revendiquée du Pelosi Tracker : $+54\%$ en 2024 (n\textsuperscript{o}1), $+66\%$ en 2023,
+  $\approx +22{,}8\%$/an sur 5~ans (non audité).
+  \item \textbf{Quiver Quantitative} --- \emph{backtester} public, pas un fonds. « Congress Buys » (long-only,
+  pondéré taille, rebalancement hebdomadaire, entrée à la disclosure, depuis avril 2020) :
+  \begin{itemize}
+    \item CAGR $+37{,}15\%$, Sharpe $1{,}109$, Win Rate $63{,}5\%$ --- \emph{mais} $\beta = 1{,}14$,
+    max drawdown $-22{,}8\%$, \textbf{aucun coût / slippage}, point de départ post-COVID favorable.
+    \item « Congress Long-Short » (ajout d'un leg short sur les ventes) \emph{dégrade} le Sharpe à $0{,}944$
+    (win rate $51{,}7\%$) : les ventes ne contiennent pas de signal exploitable.
+    \item Mirror « Nancy Pelosi » : Sharpe $0{,}720$, max drawdown $-37{,}4\%$, $\beta = 1{,}14$ --- une
+    exposition tech concentrée en levier, pas un edge.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Les trackers : Unusual Whales, Capitol Trades}
+
+\emph{Unusual Whales — Congress Trading Report 2025} (publié janv.~2026, 311 portefeuilles) : la performance
+est calculée comme la valeur des actions détenues \emph{en début vs fin d'année} (conservateur), les
+\emph{options} valorisées par leur sous-jacent estimé (primes non Black-Scholes). Résultats :
+\begin{itemize}
+  \item \textbf{Seulement 32~\%} (100/311) battent le S\&P en 2025 --- contre $\sim$50~\% en 2024 :
+  l'effet \emph{n'est pas stable} d'une année sur l'autre.
+  \item Démocrates $+14{,}4\%$ (\emph{sous} le S\&P $+16{,}6\%$), Républicains $+17{,}3\%$ --- l'inverse de
+  2024. Pelosi $+20{,}1\%$, rang 28\textsuperscript{e}. Queue : Davidson $+78{,}8\%$, Norcross $+70{,}8\%$.
+  \item $\Rightarrow$ l'effet médiatique est piloté par une \emph{queue} de gros traders d'options, pas par un
+  edge médian.
+\end{itemize}
+
+\begin{table}[h]\centering\small
+\caption{Les produits en un coup d'\oe il. « Perf » = chiffre communiqué le plus récent.}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}p{2.3cm} p{2.2cm} X p{2.6cm}@{}}
+\toprule
+\textbf{Produit} & \textbf{Type} & \textbf{Ce qu'il fait} & \textbf{Perf / statut} \\
+\midrule
+NANC / GOP & ETF actif & réplique achats+ventes d'un parti, poids midpoint, lag disclosure & $+23{,}6$ / $+19{,}5\%$/an dep.~2023 \\
+Autopilot & app RIA & copie les actions d'un membre chez ton broker, $\sim$2~sem.~de délai & Pelosi $+54\%$ (2024, non audité) \\
+Quiver & backtester & simule Congress Buys/Long-Short (sans coûts) & CAGR $37\%$, $\beta\,1{,}14$ \\
+Unusual Whales & tracker/rapport & classe les 311 portefeuilles, options incluses & 32~\% battent le S\&P (2025) \\
+Capitol Trades & tracker (2iQ) & flux PTR, pas de perf agrégée & données \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Le code public}
+
+\begin{itemize}
+  \item \textbf{Aucun code public (GitHub, QuantConnect, Kaggle) ne démontre d'alpha copiable robuste.}
+  L'écosystème est fait de : wrappers d'API (\code{Quiver-Quantitative/python-api}, MIT), dépôts de données
+  mis à jour quotidiennement (\code{senate-stock-watcher-data}, House Stock Watcher), dashboards
+  (\code{kadoa-org/congress-trading-monitor}, 105\,\raisebox{0.1ex}{$\star$}, avec un « alpha index »), et
+  templates pédagogiques (l'algo QuantConnect/LEAN « net-bias » = 100~\% long si net acheteur, sans backtest
+  rigoureux).
+  \item Le seul projet universitaire benchmarkant explicitement vs S\&P (\code{adrianmross/congress\_trades\_dashboard},
+  Lehigh) \emph{conclut au non-signal}.
+  \item \emph{Implication} : personne, en code ouvert, n'a démontré ce que la littérature n'a pas déjà établi ;
+  nos notebooks audités sont plus rigoureux (multiplicité, placebo, DSR) que tout ce qui circule.
+\end{itemize}
+
+\section{Pourquoi les chiffres divergent --- l'anatomie du cas Pelosi 2024}
+
+Même membre, même année, trois chiffres : \textbf{Unusual Whales $+70{,}9\%$}, \textbf{Autopilot $+54\%$},
+\textbf{S\&P 500 $+24{,}9\%$}. L'écart n'est \emph{pas} du bruit --- il décompose exactement les leviers
+méthodologiques :
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{Options / LEAPS} : le gros de la perf « Pelosi » vient de \emph{calls deep-ITM} sur NVDA,
+  GOOGL, AVGO, PANW (leveraged rolls) --- UW les valorise, Autopilot (actions seules) \emph{ne les réplique
+  pas}. \emph{C'est le premier facteur.}
+  \item \textbf{Délai} : Autopilot exécute $\sim$2~semaines après le trade $\Rightarrow$ perd le mouvement
+  initial ; UW mesure depuis la position déclarée.
+  \item \textbf{Sizing} : midpoint des tranches vs fills réels vs positions estimées.
+  \item \textbf{Fenêtre \& benchmark} : année civile vs depuis-trade ; S\&P vs QQQ.
+  \item \textbf{Survivorship narratif} : on ne parle que des années et des membres gagnants.
+\end{enumerate}
+\textbf{L'ETF NANC (actions, lag réel, frais)} rend $+21{,}06\%$ sur 1~an --- \emph{sous} le S\&P
+($+22{,}32\%$) et \emph{très loin} des $+70{,}9\%$ du tracker. \emph{La leçon} : plus une mesure est
+\emph{réplicable} (actions, délai réel, coûts), plus le chiffre baisse et s'approche du marché --- ce qui
+explique précisément pourquoi \emph{nos} chiffres sont bas, et pourquoi ils sont les bons.
+
+\section{Ce que nous avons déjà tranché}
+
+Nos notebooks (03, 04, 05, 05b --- ce dernier \emph{audité} : 73 agents, 4 oracles indépendants,
+ré-exécution byte-identique) répliquent le consensus \emph{null} :
+\begin{itemize}
+  \item \textbf{Pas d'alpha copiable} en actions seules : max $t = 1{,}58$ sur 160 essais comptés,
+  $E[\max t \,|\, H_0] = 2{,}69$, Deflated Sharpe $\approx 0{,}11 \ll 0{,}95$, placebo 1000 tirages.
+  \item \textbf{Commission clé fermée} (§16) aux deux niveaux --- cohérent avec Blonien-Crane-Crotty et Karadas
+  (l'effet comité ne survit pas au STOCK Act).
+  \item \textbf{Toutes les dimensions descriptives fermées} (§17) : ère, owner conjoint/élu, ventes (timing
+  de sortie \emph{négatif}), taille (gros trades \emph{pires} --- comme Belmont), délai, parti/chambre/leadership.
+  \item \textbf{L'excès brut = style, pas talent} (§15) : sélection intra-secteur qui ne survit ni au placebo
+  ni à la dilution ; $\beta \approx 1{,}0$--$1{,}2$, tilt mega-cap tech --- exactement ce que fait NANC.
+\end{itemize}
+\emph{Mais} notre moteur mesure un portefeuille \emph{time-weighted} sur 12~mois : il ne \emph{visait pas}
+l'événement court post-disclosure (Lazzaretto/Pyun), ni la définition Wei-Zhou du leadership, ni les options.
+C'est là que la littérature pointe.
+
+\section{Le plan d'attaque --- ce qui reste ouvert et réplicable}\label{sec:plan}
+
+Trois pistes réellement ouvertes et faisables sur \emph{notre} table, par ordre de rapport
+plausibilité~$\times$~faisabilité. Chacune doit être \textbf{pré-enregistrée} (hypothèse, test unique,
+critère go/no-go) pour ne pas rouvrir la multiplicité que le 05b a refermée.
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{Drift court post-disclosure --- Pyun/Lazzaretto} \hfill \textcolor{vert}{[effort bas, tout en table]}
+  \begin{itemize}
+    \item \emph{Test} : portefeuille \emph{value-weighted} des \emph{achats} entré à la \code{disclosure\_date},
+    horizons courts (5~j / 1~mois / 3~mois) \emph{et} 12~mois ; CAAR à deux dates (transaction vs disclosure)
+    pour isoler le drift copiable ; splits large/small-cap, Chambre/Sénat, pré/post-2020.
+    \item \emph{On a tout} : les deux dates, \code{op}, \code{amount\_midpoint}, GICS, chambre, prix quotidiens.
+    \emph{Go} si le CAAR 1~mois post-disclosure des achats $> 0$ significatif \emph{et} survit aux coûts (20~bps).
+  \end{itemize}
+  \item \textbf{Leadership à la Wei-Zhou} \hfill \textcolor{vert}{[effort moyen]}
+  \begin{itemize}
+    \item \emph{Test} : difference-in-differences avec leur définition exacte des 12 postes
+    (\code{leadership\_2014\_2026.csv}), alpha de Jensen calendar-time à la \emph{disclosure}, membres traités
+    (avant/après ascension) vs pairs appariés. \emph{Go} si l'effet post-ascension tient hors du membre le plus
+    influent (le piège de notre SUPP\_A).
+  \end{itemize}
+  \item \textbf{Réplication Chen-Sacerdote \'etendue + herding} \hfill \textcolor{vert}{[effort bas]}
+  \begin{itemize}
+    \item \emph{Test} : BHAR multi-benchmark (CRSP-VW, industrie-taille, FF3, Carhart) $\times$ splits
+    (buy/sell, chambre, parti, frequent trader, \emph{value-weight vs equal-weight}) --- c'est notre §11--12
+    étendu ; plus une mesure LSV de \emph{herding} (BHAR co-acheté vs non). \emph{Go} si une cellule survit à
+    la correction de multiplicité (notre garde-fou du 05b).
+  \end{itemize}
+\end{enumerate}
+Pistes \emph{coûteuses} (données externes) : comité$\times$industrie à la disclosure en event-study court
+(Abdurakhmonov --- il faut un mapping comité$\to$GICS, notre §16 l'a fait au niveau portefeuille) ; jalons
+législatifs (Li --- \code{congress.gov}) ; votes (Cohen-Diether-Malloy --- Voteview).
+
+\section{Les angles morts à nommer dans toute conclusion}
+
+\begin{itemize}
+  \item \textbf{Options} --- le plus grave. La perf « Pelosi » et le résultat de Molk-Partnoy (trading
+  négatif) vivent dans les \emph{calls/LEAPS/puts}, \emph{absents} de notre table (actions+ETF). Si l'alpha du
+  Congrès est concentré dans les dérivés, notre « pas d'alpha » ne vaut que pour les actions. \emph{Extension} :
+  collecter le champ options des PTR (travail type S1/S2).
+  \item \textbf{Capacité / impact-marché} : un excès en \% peut être infaisable en \$ (small-caps illiquides,
+  $\sim$2,8~\% d'impact pour 5~M\$). Toute stratégie doit chiffrer l'ADV.
+  \item \textbf{Fiscalité / turnover} : le copieur paie l'impôt court terme à chaque rotation ($\sim$2~\%/an de
+  tax-drag pour un signal haute-rotation) quand l'élu diffère.
+  \item \textbf{Crowding / demi-vie} : avec NANC/GOP + apps grand public, le drift post-disclosure peut
+  s'arbitrer et \emph{s'auto-détruire} --- une synthèse 2026 doit poser la question de la demi-vie du signal
+  sous copie de masse.
+\end{itemize}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.4em}
+{\small\color{gris}\textbf{Note de méthode.} 69 fiches produites par un balayage multi-agents (papiers,
+produits, code, cadre), sources primaires exigées ; 62 chiffres confirmés / 9 corrigés / 0 introuvable à la
+contre-vérification adversariale (les valeurs corrigées sont celles ci-dessus : Ziobrowski $10\%$ et non
+$12\%$ pour les achats seuls ; vote HSGAC 8--7 et non 6--3 ; frais NANC/GOP 0,72/0,73~\% ; NANC $+21{,}06\%$
+à 1~an ; etc.). Détail des poches vivantes, chiffres non extraits (paywalls Springer/SSRN) et fiches
+individuelles dans \code{ETAT\_DE\_L\_ART\_STRATEGIES.md}.}
+
+\end{document}
