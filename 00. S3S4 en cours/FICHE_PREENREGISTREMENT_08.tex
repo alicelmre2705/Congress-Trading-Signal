@@ -24,16 +24,16 @@
 \begin{document}
 
 \twocolumn[{\centering
-{\LARGE\bfseries Pré-enregistrement — stratégie « Calendar-Time Disclosure »\par}
+{\LARGE\bfseries Pré-enregistrement --- stratégie \og Calendar-Time Disclosure\fg{}\par}
 \vspace{2pt}
-{\small Notebook 08 · gelé le 10 juillet 2026 · \textbf{à valider avant l'exécution du moindre backtest}\par}
+{\small Notebook 08 $\cdot$ gelé le 10 juillet 2026 $\cdot$ \textbf{à valider avant l'exécution du moindre backtest}\par}
 \vspace{6pt}}]
 
 \section{Pourquoi ce test (et pas un de plus)}
 \begin{itemize}
   \item Nos notebooks 03--07 ferment la copie \emph{par membre} (max $t{=}1{,}30$ ; compte réel Sharpe $0{,}74<$ SPY $0{,}82$) et le drift \emph{équi-pondéré par trade} ($+7$ bps à 1 mois, tué par $2c=40$ bps \emph{par trade}).
   \item La littérature survivante fait \textbf{autre chose} : portefeuille \emph{calendar-time value-weighted} d'achats divulgués, rebalancé mensuellement (Pyun 2025 ; Lazzaretto 2024 ; Chen-Sacerdote 2026 : seule la version value-weighted est positive).
-  \item \textbf{Correction méthodologique} : en calendar-time le coût se paie sur le \emph{turnover du portefeuille} : $\alpha^{net}>0 \iff \mathbb{E}[\mathrm{CAAR}_W] > 2c\rho$, $\rho$ = fraction de poids renouvelée ($\ll 1$ avec des mégacaps rachetées en continu). Le « non » du 06 ne préjugeait pas de ce test.
+  \item \textbf{Correction méthodologique} : en calendar-time le coût se paie sur le \emph{turnover du portefeuille} : $\alpha^{net}>0 \iff \mathbb{E}[\mathrm{CAAR}_W] > 2c\rho$, $\rho$ = fraction de poids renouvelée ($\ll 1$ avec des mégacaps rachetées en continu). Le \og non\fg{} du 06 ne préjugeait pas de ce test.
   \item Re-lecture : le $t{=}1{,}9$ du 06 supposait 58\,910 événements indépendants ; corrigé du clustering intra-mois (Moulton, $\bar m\approx390$, $\rho_c\approx0{,}05$), $t\approx0{,}4$. Le calendar-time \emph{est} la correction (Fama 1998).
 \end{itemize}
 
@@ -59,7 +59,7 @@ $\mathbb{E}[\max t\,|\,H_0]\approx1{,}66$ (Gumbel, validée par Monte-Carlo et b
   \item P2 tickers permutés intra GICS$\times$mois$\times$tercile ADV (réfute : rotation sectorielle) ;
   \item ventes $\approx0$ ; aucun membre ne porte seul le résultat (drop-one, piège Wei-Zhou).
 \end{itemize}
-$t\in\,]2;3]$ = « réplication confirmatoire » ; $t>3$ = « découverte » (famille historique $\sim$160 essais, $\mathbb{E}[\max t]\approx2{,}7$) ; \textbf{zone grise $t\in[1{,}3;2[$ = no-go ferme} : aucune re-spécification sur les mêmes données (seules extensions : mois futurs, champ options).
+$t\in\,]2;3]$ = \og réplication confirmatoire\fg{} ; $t>3$ = \og découverte\fg{} (famille historique $\sim$160 essais, $\mathbb{E}[\max t]\approx2{,}7$) ; \textbf{zone grise $t\in[1{,}3;2[$ = no-go ferme} : aucune re-spécification sur les mêmes données (seules extensions : mois futurs, champ options).
 \emph{Procédure aveugle} : $\hat\sigma_\varepsilon$ et $N_{eff}$ regardés avant $\hat\alpha$ ; seul degré de liberté : $\hat\sigma_\varepsilon>2{,}5\,\%$/mois $\Rightarrow$ cap $5\,\%$.
 
 \section{Puissance ex ante (un nul sera une conclusion)}
@@ -78,7 +78,7 @@ $\sigma_\varepsilon$/mois & MDE$_{50}$ & MDE$_{80}$ & si $\alpha$ vrai $=50$ bps
 L'effet revendiqué par la littérature (50--90 bps/mois brut) serait vu avec une puissance de 70--100\,\%. Le split post-févr.-2023 (crowding NANC/Autopilot) ne détecte que $\geq66$ bps $\to$ descriptif, jamais décisionnel.
 
 \section{Ce que le test ne couvre pas (assumé)}
-Options / trades négatifs (l'angle mort n°1 : la perf « Pelosi » vit dans les calls, absents de nos PTR actions) ; jalons législatifs et votes (pipelines externes) ; leadership Wei-Zhou (6 traders actifs $\Rightarrow$ puissance $\approx0$).
+Options / trades négatifs (l'angle mort n\textsuperscript{o}\,1 : la perf \og Pelosi\fg{} vit dans les calls, absents de nos PTR actions) ; jalons législatifs et votes (pipelines externes) ; leadership Wei-Zhou (6 traders actifs $\Rightarrow$ puissance $\approx0$).
 
 \section{État au moment de la pause}
 \begin{itemize}
@@ -88,11 +88,11 @@ Options / trades négatifs (l'angle mort n°1 : la perf « Pelosi » vit dans le
   \item \textbf{Aucun rendement de stratégie réel n'a été calculé.}
 \end{itemize}
 \vspace{2pt}
-\textbf{Demande} : valider ce protocole (grille, seuils, coûts, matrice comités). Après accord, \texttt{CHEF\_A\_VALIDE = True} et le notebook s'exécute d'un trait — le verdict (positif \emph{ou} négatif) sera mécanique.
+\textbf{Demande} : valider ce protocole (grille, seuils, coûts, matrice comités). Après accord, \texttt{CHEF\_A\_VALIDE = True} et le notebook s'exécute d'un trait --- le verdict (positif \emph{ou} négatif) sera mécanique.
 
 \vspace{4pt}
 \hrule
 \vspace{2pt}
-{\footnotesize\color{gris} Sources clés : Pyun (2025) ; Lazzaretto (2024) ; Chen \& Sacerdote (NBER 2026) ; Belmont et al. (JPE 2022) ; Herron et al. (2026) ; Abdurakhmonov et al. (SMJ 2023) ; Hanousek et al. (2023) ; Bailey \& López de Prado (DSR) — détail dans \texttt{ETAT\_DE\_L\_ART\_STRATEGIES.md} et \texttt{PAPIER\_ETAT\_DE\_LART.pdf}.}
+{\footnotesize\color{gris} Sources clés : Pyun (2025) ; Lazzaretto (2024) ; Chen \& Sacerdote (NBER 2026) ; Belmont et al. (JPE 2022) ; Herron et al. (2026) ; Abdurakhmonov et al. (SMJ 2023) ; Hanousek et al. (2023) ; Bailey \& López de Prado (DSR) --- détail dans \texttt{ETAT\_DE\_L\_ART\_STRATEGIES.md} et \texttt{PAPIER\_ETAT\_DE\_LART.pdf}.}
 
 \end{document}
