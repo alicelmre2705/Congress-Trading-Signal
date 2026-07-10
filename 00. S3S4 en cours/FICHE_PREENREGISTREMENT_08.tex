@@ -1,0 +1,98 @@
+% !TEX program = tectonic
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[margin=1.1cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\definecolor{bleu}{RGB}{20,45,90}
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{vert}{RGB}{0,110,60}
+\definecolor{rouge}{RGB}{170,30,30}
+\setlength{\columnsep}{0.55cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist[itemize]{leftmargin=*,topsep=1pt,itemsep=1pt,parsep=0pt}
+\titleformat{\section}{\normalsize\bfseries\color{bleu}}{}{0pt}{}[\vspace{-3pt}\titlerule]
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\begin{document}
+
+\twocolumn[{\centering
+{\LARGE\bfseries Pré-enregistrement — stratégie « Calendar-Time Disclosure »\par}
+\vspace{2pt}
+{\small Notebook 08 · gelé le 10 juillet 2026 · \textbf{à valider avant l'exécution du moindre backtest}\par}
+\vspace{6pt}}]
+
+\section{Pourquoi ce test (et pas un de plus)}
+\begin{itemize}
+  \item Nos notebooks 03--07 ferment la copie \emph{par membre} (max $t{=}1{,}30$ ; compte réel Sharpe $0{,}74<$ SPY $0{,}82$) et le drift \emph{équi-pondéré par trade} ($+7$ bps à 1 mois, tué par $2c=40$ bps \emph{par trade}).
+  \item La littérature survivante fait \textbf{autre chose} : portefeuille \emph{calendar-time value-weighted} d'achats divulgués, rebalancé mensuellement (Pyun 2025 ; Lazzaretto 2024 ; Chen-Sacerdote 2026 : seule la version value-weighted est positive).
+  \item \textbf{Correction méthodologique} : en calendar-time le coût se paie sur le \emph{turnover du portefeuille} : $\alpha^{net}>0 \iff \mathbb{E}[\mathrm{CAAR}_W] > 2c\rho$, $\rho$ = fraction de poids renouvelée ($\ll 1$ avec des mégacaps rachetées en continu). Le « non » du 06 ne préjugeait pas de ce test.
+  \item Re-lecture : le $t{=}1{,}9$ du 06 supposait 58\,910 événements indépendants ; corrigé du clustering intra-mois (Moulton, $\bar m\approx390$, $\rho_c\approx0{,}05$), $t\approx0{,}4$. Le calendar-time \emph{est} la correction (Fama 1998).
+\end{itemize}
+
+\section{La spécification S0 (le seul test qui décide)}
+Achats d'\textbf{actions} divulgués (dédup \texttt{natural\_key\_hash}), entrée J+1 de la publication, fenêtre $W=21$ j de bourse, netting $[\mathrm{Buy}-\mathrm{Sell}]^+$ par ticker ; univers : $\geq126$ prix, prix frais $\leq5$ j, $\mathrm{ADV}^{63}\geq5$ M\$/j ; poids $\propto \mathrm{ADV}^{63}$ (proxy value-weighted point-in-time), cap $10\,\%$ itératif ; rebalancement fin de mois, 2014-06 $\to$ 2026-04 (143 mois) ; coûts $c\cdot TO$, décision à $c=10$ bps/jambe (20/40 en stress).
+\[
+r^{p,net}_t - r^f_t = \alpha + \beta' F^{C4}_t + \varepsilon_t,\quad t_{NW}(L{=}21)
+\]
+Benchmarks $\geq2$ (Hanousek) : SPY \textbf{et} composite sectoriel auto-répliquant $\sum_s \omega_{s,t} r^{XL_s}_t$ (même mix sectoriel jour par jour $\Rightarrow$ l'excès restant = sélection intra-secteur).
+
+\textbf{Révision de ma note maths} (0 paramètre libre) : bonus multi-acheteurs \textcolor{rouge}{supprimé} (Herron 2026 : le co-achat dégrade), bonus gros trades \textcolor{rouge}{supprimé} (Belmont 2022 : $>250$k\$ pires) ; récurrence et ventes récentes absorbées par le flux et le netting ; s'ajoutent 2 \emph{filtres} sourcés : \textbf{Spec} (aller-retour du même titre $<1$ an, Lazzaretto $+9$ bps/j) et \textbf{CI} (juridiction comité $\to$ secteur GICS, Abdurakhmonov $\times5$ ; matrice de 31 codes gelée, justifiée par les \texttt{jurisdiction} officielles).
+
+\section{Grille fermée et multiplicité}
+\[
+\underbrace{W\in\{21,63\}}_{2}\times\underbrace{\{\mathrm{ADV},\log(1{+}\mathrm{NetBuy})\}}_{2}\times\underbrace{\{\text{tous},\mathrm{Spec},\mathrm{CI}\}}_{3}=\mathbf{12}
+\]
+$\mathbb{E}[\max t\,|\,H_0]\approx1{,}66$ (Gumbel, validée par Monte-Carlo et bootstrap par blocs). Secondaires revendicables à $t\geq3$ seulement (Bonferroni $5\,\%/12=2{,}87$). Tout le reste (equal-weight, ventes, House/Sénat, sous-périodes, ex-top-5, ancrages, sensibilités) = \textbf{diagnostics non revendicables}, pré-listés.
+
+\section{Décision, gates, placebos (mécaniques)}
+\textbf{GO ssi, sur S0 seule} : $t_{NW}\geq2$ \textbf{et} $\alpha^{net}\geq150$ bps/an à $c{=}10$ \textbf{et} signe $\alpha>0$ sur 2014-19 \emph{et} 2020-26 \textbf{et} IR vs composite sectoriel $\geq0{,}3$ \textbf{et} placebos passés ($B{=}1000$, $p<0{,}05$) :
+\begin{itemize}
+  \item P1 dates $+U\{63..252\}$ j (réfute : tilt statique) ;
+  \item P2 tickers permutés intra GICS$\times$mois$\times$tercile ADV (réfute : rotation sectorielle) ;
+  \item ventes $\approx0$ ; aucun membre ne porte seul le résultat (drop-one, piège Wei-Zhou).
+\end{itemize}
+$t\in\,]2;3]$ = « réplication confirmatoire » ; $t>3$ = « découverte » (famille historique $\sim$160 essais, $\mathbb{E}[\max t]\approx2{,}7$) ; \textbf{zone grise $t\in[1{,}3;2[$ = no-go ferme} : aucune re-spécification sur les mêmes données (seules extensions : mois futurs, champ options).
+\emph{Procédure aveugle} : $\hat\sigma_\varepsilon$ et $N_{eff}$ regardés avant $\hat\alpha$ ; seul degré de liberté : $\hat\sigma_\varepsilon>2{,}5\,\%$/mois $\Rightarrow$ cap $5\,\%$.
+
+\section{Puissance ex ante (un nul sera une conclusion)}
+$t=\alpha/(\sigma_\varepsilon/\sqrt{n})$, $n=143$ mois non chevauchants :
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\sigma_\varepsilon$/mois & MDE$_{50}$ & MDE$_{80}$ & si $\alpha$ vrai $=50$ bps \\
+\midrule
+1,0\,\% & 17 bps & 23 bps & $\mathbb{E}[t]=6{,}0$ \\
+1,5\,\% & 25 bps & 35 bps & $\mathbb{E}[t]=4{,}0$ \\
+2,5\,\% & 42 bps & 59 bps & $\mathbb{E}[t]=2{,}4$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+L'effet revendiqué par la littérature (50--90 bps/mois brut) serait vu avec une puissance de 70--100\,\%. Le split post-févr.-2023 (crowding NANC/Autopilot) ne détecte que $\geq66$ bps $\to$ descriptif, jamais décisionnel.
+
+\section{Ce que le test ne couvre pas (assumé)}
+Options / trades négatifs (l'angle mort n°1 : la perf « Pelosi » vit dans les calls, absents de nos PTR actions) ; jalons législatifs et votes (pipelines externes) ; leadership Wei-Zhou (6 traders actifs $\Rightarrow$ puissance $\approx0$).
+
+\section{État au moment de la pause}
+\begin{itemize}
+  \item Cadre gelé (\S0 du notebook), \textbf{avant} tout calcul de rendement de stratégie.
+  \item Données prouvées : cache prix \emph{adjusted close} (test G0(a) : $\beta=1$, $\alpha\approx0$, $R^2\geq0{,}98$ vs facteur marché) ; couverture du flux d'achat $\geq85\,\%$ en \$ (G0(b)) ; nouveau cache volumes (ADV) construit.
+  \item Machinerie validée par oracles : moteur vs boucle naïve ($<10^{-12}$), Newey-West main vs \texttt{statsmodels} ($<10^{-8}$), cap itératif (2\,000 tirages), contrôle dégénéré 1 titre, équivalence 06 (contrôle NVDA, $<10^{-12}$).
+  \item \textbf{Aucun rendement de stratégie réel n'a été calculé.}
+\end{itemize}
+\vspace{2pt}
+\textbf{Demande} : valider ce protocole (grille, seuils, coûts, matrice comités). Après accord, \texttt{CHEF\_A\_VALIDE = True} et le notebook s'exécute d'un trait — le verdict (positif \emph{ou} négatif) sera mécanique.
+
+\vspace{4pt}
+\hrule
+\vspace{2pt}
+{\footnotesize\color{gris} Sources clés : Pyun (2025) ; Lazzaretto (2024) ; Chen \& Sacerdote (NBER 2026) ; Belmont et al. (JPE 2022) ; Herron et al. (2026) ; Abdurakhmonov et al. (SMJ 2023) ; Hanousek et al. (2023) ; Bailey \& López de Prado (DSR) — détail dans \texttt{ETAT\_DE\_L\_ART\_STRATEGIES.md} et \texttt{PAPIER\_ETAT\_DE\_LART.pdf}.}
+
+\end{document}
