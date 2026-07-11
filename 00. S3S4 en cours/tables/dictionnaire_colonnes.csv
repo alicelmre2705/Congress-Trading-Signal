@@ -1,146 +1,146 @@
 table,famille,colonne,definition,source,type
-membres,A identité,name,mode des variantes de nom (canonique 𝒯 prioritaire),dfx name_canon / dfb,str
-membres,A identité,party,mode sur les trades,dfb,str
-membres,A identité,chamber,mode sur les trades (un House→Senate a un mode arbitraire),dfb,str
-membres,A identité,state,state_district[:2],dfb,str
-membres,A identité,congress_first,min(congress),dfb,int
-membres,A identité,congress_last,max(congress),dfb,int
-membres,A identité,years_in_office,max years_in_office,table_congres_2014_2026.csv,float
-membres,A identité,leader,bioguide ∈ leadership_2014_2026.csv (12 postes de parti),leadership CSV,bool
-membres,A identité,leader_postes,"postes occupés, séparés par |",leadership CSV,str
-membres,A identité,comites,"∪ codes THOMAS racine (4 lettres), séparés par |",committee_membership,str
-membres,A identité,comite_cle,∃ trade avec committees_key_flag,dfb,bool
-membres,A identité,secteurs_juridiction,"∪ COMITE_GICS[comites], séparés par |",matrice §1,str
-membres,A identité,n_secteurs_juridiction,cardinal de secteurs_juridiction,dérivé,int
-membres,B activité,n_trades_brut,# trades dans 𝒯^brut (134 429),dfb,int
-membres,B activité,n_trades,# trades dans 𝒯 (118 029),dfx,int
-membres,B activité,n_buy,# achats,dfx,int
-membres,B activité,n_sell,# ventes,dfx,int
-membres,B activité,buy_share,n_buy / n_trades,dfx,float
-membres,B activité,notional_total,"Σ A_j (midpoint, censuré par intervalle)",dfx,float
-membres,B activité,notional_buy,Σ A_j achats,dfx,float
-membres,B activité,notional_sell,Σ A_j ventes,dfx,float
-membres,B activité,taille_med,med(A_j),dfx,float
-membres,B activité,pct_1re_fourchette,"P(A_j ≤ 8 000,5) — 1re tranche STOCK Act",dfx,float
-membres,B activité,lag_med,med(disclosure − traded) en jours,dfx lag_days,float
-membres,B activité,part_late,P(lag > 45 j),flag_late_filing,float
-membres,B activité,part_very_late,P(lag > 365 j),flag_very_late_filing,float
-membres,B activité,owner_dom,mode(owner normalisé : élu/conjoint/joint/enfant),dfx owner_n,str
-membres,B activité,part_conjoint,P(owner = conjoint),dfx,float
-membres,B activité,part_self,P(owner = élu),dfx,float
-membres,B activité,first_trade,min(τ_j),dfx,date
-membres,B activité,last_trade,max(τ_j),dfx,date
-membres,B activité,duree_activite_j,(last − first) en jours,dérivé,int
-membres,B activité,n_annees_actives,# années avec ≥1 trade,dfx,int
-membres,B activité,actif_12m,last_trade ≥ max(cal) − 365 j,dérivé,bool
-membres,C portefeuille,reconstruit,série r_m disponible,moteur §1,bool
-membres,C portefeuille,n_days,T_m = # jours actifs,wf_ret,int
-membres,C portefeuille,n_tickers,# tickers distincts,dfx,int
-membres,C portefeuille,valeur_moy,V̄_m sur jours actifs,passe §4,float
-membres,C portefeuille,valeur_fin,V_m(dernier jour),passe §4,float
-membres,C portefeuille,hhi,moyenne_t Σ_k w²,passe §4,float
-membres,C portefeuille,n_eff,1/HHI,passe §4,float
-membres,C portefeuille,top1,moyenne_t max_k w,passe §4,float
-membres,C portefeuille,n_pos_moy,# positions ouvertes moyen,passe §4,float
-membres,C portefeuille,turnover,ΣA_j / (2 V̄) · 252/T,passe §4,float
-membres,C portefeuille,n_episodes_fermes,# épisodes FIFO clos,passe §4,int
-membres,C portefeuille,duree_med_fermee,médiane pondérée-parts des durées closes (j),fifo §6,float
-membres,C portefeuille,duree_km_med,"inf{t : S_m(t) ≤ 0,5}, Kaplan-Meier pondéré (NaN si non atteinte)",§6,float
-membres,C portefeuille,part_ouverte,parts encore détenues / parts totales,fifo §6,float
-membres,C portefeuille,n_allers_retours_30j,# épisodes clos < 30 j,fifo §6,int
-membres,C portefeuille,top1_ticker,1er ticker par notional d'achat,dfx,str
-membres,C portefeuille,top1_part,sa part du notional d'achat,dfx,float
-membres,C portefeuille,top2_ticker,2e ticker,dfx,str
-membres,C portefeuille,top2_part,sa part,dfx,float
-membres,C portefeuille,top3_ticker,3e ticker,dfx,str
-membres,C portefeuille,top3_part,sa part,dfx,float
-membres,C portefeuille,top10_tickers,"top-10 tickers par notional d'achat, séparés par |",dfx,str
-membres,C portefeuille,sect_dom,mode(GICS) des achats,dfx,str
-membres,C portefeuille,part_sect_dom,part du notional d'achat du secteur dominant,dérivé,float
-membres,C portefeuille,sect_info_tech,part du notional d'achat en Information Technology (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_financials,part du notional d'achat en Financials (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_health,part du notional d'achat en Health Care (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_industrials,part du notional d'achat en Industrials (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_conso_disc,part du notional d'achat en Consumer Discretionary (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_comm,part du notional d'achat en Communication Services (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_conso_stap,part du notional d'achat en Consumer Staples (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_energy,part du notional d'achat en Energy (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_materials,part du notional d'achat en Materials (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_real_estate,part du notional d'achat en Real Estate (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_utilities,part du notional d'achat en Utilities (Σ des 12 = 1),dfx sector_gics,float
-membres,C portefeuille,sect_nc,part du notional d'achat en secteur GICS manquant (Σ des 12 = 1),dfx sector_gics,float
-membres,D risque/perf,cagr,NAV^(252/T) − 1,moteur §1,float
-membres,D risque/perf,vol,σ(r_m)·√252,moteur §1,float
-membres,D risque/perf,sharpe,r̄/σ·√252,moteur §1,float
-membres,D risque/perf,sortino,r̄/σ(r⁻)·√252,moteur §1,float
-membres,D risque/perf,maxdd,min(NAV/cummax − 1),moteur §1,float
-membres,D risque/perf,t_sharpe,sharpe·√(T/252),§5,float
-membres,D risque/perf,ir,IR vs SPY (β implicite = 1),moteur §1,float
-membres,D risque/perf,t_ir,IR·√(T/252),§5,float
-membres,D risque/perf,beta,pente OLS r_m ~ r_SPY,moteur §1,float
-membres,D risque/perf,alpha_ann,(1+α)^252 − 1,moteur §1,float
-membres,D risque/perf,appraisal,α/σ_ε·√252,moteur §1,float
-membres,D risque/perf,t_appr,appraisal·√(T/252),moteur §1,float
-membres,D risque/perf,exces_cagr_spy,CAGR_m − CAGR_SPY (même fenêtre),moteur §1,float
-membres,D risque/perf,eligible,n_trades ≥ 10 et T ≥ 126,§5,bool
-membres,F track record,n_trades_evalues,# achats avec x_j calculable,§5bis,int
-membres,F track record,hit_rate,P(x_j > 0),§5bis,float
-membres,F track record,exces_moyen_trade,moyenne des x_j,§5bis,float
-membres,F track record,exces_med_trade,med(x_j),§5bis,float
-membres,F track record,ret_brut_moyen_trade,moyenne des rendements bruts,§5bis,float
-membres,F track record,profit_factor,"min(Σx⁺/|Σx⁻|, 10)",§5bis,float
-membres,F track record,t_exces_trade,x̄/(σ_x/√n),§5bis,float
-membres,E comportement,part_ci_achats,P(GICS du titre ∈ juridiction des comités du membre | achat),matrice §1,float
-membres,E comportement,part_trades_repetes,P(ticker déjà tradé avant par le membre),dfx,float
-membres,E comportement,part_coachat,"P(achat dans un (ticker, mois) à ≥3 acheteurs)",dfx,float
-tickers,A identité,description,"mode(asset_description), 80 caractères",dfb,str
-tickers,A identité,asset_class,mode,dfb,str
-tickers,A identité,is_broad_etf,any,dfb,bool
-tickers,A identité,sector_gics,mode,dfb,str
-tickers,A identité,etf_proxy,mode (ETF SPDR du secteur),dfb,str
-tickers,A identité,is_delisted,any,dfb,bool
-tickers,A identité,delist_type,mode (rachat/faillite/recyclage),dfb,str
-tickers,A identité,flag_price_caution,any,dfb,bool
-tickers,B flux Congrès,n_trades_brut,# trades 𝒯^brut,dfb,int
-tickers,B flux Congrès,n_trades,# trades 𝒯,dfx,int
-tickers,B flux Congrès,n_buy,# achats,dfx,int
-tickers,B flux Congrès,n_sell,# ventes,dfx,int
-tickers,B flux Congrès,notional_buy,Σ A_j achats,dfx,float
-tickers,B flux Congrès,notional_sell,Σ A_j ventes,dfx,float
-tickers,B flux Congrès,notional_net,buy − sell,dérivé,float
-tickers,B flux Congrès,n_membres,# membres distincts,dfx,int
-tickers,B flux Congrès,n_membres_buy,# acheteurs distincts,dfx,int
-tickers,B flux Congrès,n_membres_sell,# vendeurs distincts,dfx,int
-tickers,B flux Congrès,part_dem,part du notional d'achat venant de Démocrates,dfx,float
-tickers,B flux Congrès,part_senate,part des trades venant du Sénat,dfx,float
-tickers,B flux Congrès,part_conjoint,part des trades owner = conjoint,dfx,float
-tickers,B flux Congrès,part_ci_achats,part des achats alignés comité×secteur,matrice §1,float
-tickers,B flux Congrès,first_trade,min(τ_j),dfx,date
-tickers,B flux Congrès,last_trade,max(τ_j),dfx,date
-tickers,B flux Congrès,n_mois_actifs,"# (année, mois) avec ≥1 trade",dfx,int
-tickers,B flux Congrès,coachat_max,max mensuel d'acheteurs distincts,dfx,int
-tickers,B flux Congrès,top_membres,"top-3 bioguide_id par notional, séparés par |",dfx,str
-tickers,C marché,px_couvert,ticker ∈ cache prix exploitable,prices_v2,bool
-tickers,C marché,px_first,1re cotation observée,prices_v2 brut,date
-tickers,C marché,px_last,dernière cotation observée,prices_v2 brut,date
-tickers,C marché,px_n_obs,# jours cotés,prices_v2 brut,int
-tickers,C marché,adv_med,med(close_brut × volume) $/jour,volume_v1,float
-tickers,C marché,vol_ann,σ(Δlog P)·√252 (jours cotés),prices_v2 brut,float
-tickers,C marché,beta_spy,pente OLS r_k ~ r_SPY (≥126 obs),prices_v2 brut,float
-tickers,C marché,cagr_fenetre,(P_last/P_first)^(252/n_obs) − 1,prices_v2 brut,float
-tickers,C marché,maxdd,min(P/cummax − 1),prices_v2 brut,float
-tickers,C marché,ret_total,P_last/P_first − 1,prices_v2 brut,float
-tickers,D croisement,exces_21j_moy,"moyenne des excès à 21 j des achats (entrée J+1 de τ, brut vs SPY)",§10,float
-tickers,D croisement,exces_63j_moy,idem à 63 j,§10,float
-tickers,D croisement,n_achats_evalues,# achats avec fenêtre 21 j complète,§10,int
-membres_annees,panel,n_trades,# trades de l'année,dfx,int
-membres_annees,panel,n_buy,# achats,dfx,int
-membres_annees,panel,buy_share,part d'achats,dfx,float
-membres_annees,panel,notional,Σ A_j,dfx,float
-membres_annees,panel,n_tickers,# tickers distincts,dfx,int
-membres_annees,panel,sect_dom,mode GICS,dfx,str
-membres_annees,panel,n_days,# jours actifs de r_m dans l'année,wf_ret,int
-membres_annees,panel,vol,σ(r_m)·√252 (NaN si <40 j),wf_ret,float
-membres_annees,panel,sharpe,r̄/σ·√252 (NaN si <40 j),wf_ret,float
-membres_annees,panel,ret_annee,Π(1+r_m) − 1 (NaN si <40 j),wf_ret,float
-membres_annees,panel,exces_spy_annee,ret_annee − ret_SPY (mêmes jours),wf_ret,float
+membres,identite (§2),name,mode des variantes de nom,§2,str
+membres,identite (§2),party,mode sur les trades,§2,str
+membres,identite (§2),chamber,mode sur les trades (un House→Senate a un mode arbitraire),§2,str
+membres,identite (§2),state,state_district[:2],§2,str
+membres,identite (§2),congress_first,n° du premier Congrès tradé (mandat de 2 ans ; 113e = 2013-2014),§2,int
+membres,identite (§2),congress_last,n° du dernier Congrès tradé,§2,int
+membres,identite (§2),years_in_office,ancienneté (années de mandat),table_congres_2014_2026.csv,float
+membres,identite (§2),leader,occupe l'un des 12 postes de direction des partis,leadership_2014_2026.csv,bool
+membres,identite (§2),leader_postes,"postes occupés, séparés par |",leadership_2014_2026.csv,str
+membres,identite (§2),comites,"∪ codes THOMAS racine (4 lettres), séparés par |",§2,str
+membres,identite (§2),comite_cle,∃ trade avec committees_key_flag,§2,bool
+membres,identite (§2),secteurs_juridiction,"∪ secteurs GICS supervisés par ses comités, séparés par |",matrice §1,str
+membres,identite (§2),n_secteurs_juridiction,cardinal de secteurs_juridiction,§2,int
+membres,activite (§3),n_trades_brut,# trades dans 𝒯^brut (134 429),§3,int
+membres,activite (§3),n_trades,# trades dans 𝒯 (118 029),§3,int
+membres,activite (§3),n_buy,# achats,§3,int
+membres,activite (§3),n_sell,# ventes,§3,int
+membres,activite (§3),buy_share,n_buy / n_trades,§3,float
+membres,activite (§3),notional_total,Σ A_j (milieux de fourchettes),§3,float
+membres,activite (§3),notional_buy,Σ A_j achats,§3,float
+membres,activite (§3),notional_sell,Σ A_j ventes,§3,float
+membres,activite (§3),taille_med,med(A_j),§3,float
+membres,activite (§3),pct_1re_fourchette,"P(A_j ≤ 8 000,5) — la plus petite fourchette légale",§3,float
+membres,activite (§3),lag_med,"med(δ_j − τ_j) : délai médian de déclaration, en jours",§3,float
+membres,activite (§3),part_late,P(lag > 45 j) — au-delà du délai légal,§3,float
+membres,activite (§3),part_very_late,P(lag > 365 j),§3,float
+membres,activite (§3),owner_dom,mode(owner : élu/conjoint/joint/enfant),§3,str
+membres,activite (§3),part_conjoint,P(owner = conjoint),§3,float
+membres,activite (§3),part_self,P(owner = élu),§3,float
+membres,activite (§3),first_trade,min(τ_j),§3,date
+membres,activite (§3),last_trade,max(τ_j),§3,date
+membres,activite (§3),duree_activite_j,(last − first) en jours,§3,int
+membres,activite (§3),n_annees_actives,# années avec ≥1 trade,§3,int
+membres,activite (§3),actif_12m,last_trade ≥ max(cal) − 365 j,§3,bool
+membres,portefeuille (§4),reconstruit,série r_m calculable,moteur §1,bool
+membres,portefeuille (§4),n_days,T_m = # jours actifs,moteur §1,int
+membres,portefeuille (§4),n_tickers,# tickers distincts,§4,int
+membres,portefeuille (§4),valeur_moy,V̄_m sur jours actifs,§4,float
+membres,portefeuille (§4),valeur_fin,V_m(dernier jour),§4,float
+membres,portefeuille (§4),hhi,concentration : moyenne_t Σ_k w²,§4,float
+membres,portefeuille (§4),n_eff,1/HHI : nombre équivalent de lignes équipondérées,§4,float
+membres,portefeuille (§4),top1,poids moyen de la plus grosse ligne,§4,float
+membres,portefeuille (§4),n_pos_moy,# positions ouvertes moyen,§4,float
+membres,portefeuille (§4),turnover,rotation : ΣA_j / (2 V̄) · 252/T,§4,float
+membres,portefeuille (§4),n_episodes_fermes,# épisodes achat→revente clos (FIFO),§4,int
+membres,durees (§5),duree_med_fermee,médiane pondérée-parts des durées closes (j),§5,float
+membres,durees (§5),duree_km_med,"durée médiane de détention, Kaplan-Meier (NaN si >50 % jamais revendu)",§5,float
+membres,durees (§5),part_ouverte,parts encore détenues / parts totales,§5,float
+membres,durees (§5),n_allers_retours_30j,# épisodes clos < 30 j,§5,int
+membres,actions_secteurs (§6),top1_ticker,1er ticker par notional d'achat,§6,str
+membres,actions_secteurs (§6),top1_part,sa part du notional d'achat,§6,float
+membres,actions_secteurs (§6),top2_ticker,2e ticker,§6,str
+membres,actions_secteurs (§6),top2_part,sa part,§6,float
+membres,actions_secteurs (§6),top3_ticker,3e ticker,§6,str
+membres,actions_secteurs (§6),top3_part,sa part,§6,float
+membres,actions_secteurs (§6),top10_tickers,"top-10 tickers par notional d'achat, séparés par |",§6,str
+membres,actions_secteurs (§6),sect_dom,secteur GICS le plus fréquent des achats,§6,str
+membres,actions_secteurs (§6),part_sect_dom,part du notional d'achat du secteur dominant,§6,float
+membres,actions_secteurs (§6),sect_info_tech,part du notional d'achat en Information Technology (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_financials,part du notional d'achat en Financials (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_health,part du notional d'achat en Health Care (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_industrials,part du notional d'achat en Industrials (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_conso_disc,part du notional d'achat en Consumer Discretionary (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_comm,part du notional d'achat en Communication Services (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_conso_stap,part du notional d'achat en Consumer Staples (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_energy,part du notional d'achat en Energy (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_materials,part du notional d'achat en Materials (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_real_estate,part du notional d'achat en Real Estate (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_utilities,part du notional d'achat en Utilities (Σ des 12 = 1),§6,float
+membres,actions_secteurs (§6),sect_nc,part du notional d'achat en secteur GICS manquant (Σ des 12 = 1),§6,float
+membres,risque_perf (§7),cagr,croissance annualisée : NAV^(252/T) − 1,§7,float
+membres,risque_perf (§7),vol,volatilité annualisée : σ(r_m)·√252,§7,float
+membres,risque_perf (§7),sharpe,rendement par unité de risque : r̄/σ·√252,§7,float
+membres,risque_perf (§7),sortino,"comme le Sharpe, seule la vol de baisse pénalise : r̄/σ(r⁻)·√252",§7,float
+membres,risque_perf (§7),maxdd,pire perte depuis un sommet : min(NAV/cummax − 1),§7,float
+membres,risque_perf (§7),t_sharpe,t de Student du Sharpe : sharpe·√(T/252),§7,float
+membres,risque_perf (§7),ir,information ratio vs SPY,§7,float
+membres,risque_perf (§7),t_ir,t de Student de l'IR : IR·√(T/252),§7,float
+membres,risque_perf (§7),beta,sensibilité au marché : pente de la régression r_m ~ r_SPY,§7,float
+membres,risque_perf (§7),alpha_ann,reste annualisé une fois l'effet marché retiré : (1+α)^252 − 1,§7,float
+membres,risque_perf (§7),appraisal,alpha / risque résiduel : α/σ_ε·√252,§7,float
+membres,risque_perf (§7),t_appr,t de Student de l'appraisal : appraisal·√(T/252),§7,float
+membres,risque_perf (§7),exces_cagr_spy,CAGR_m − CAGR_SPY (même fenêtre),§7,float
+membres,risque_perf (§7),eligible,n_trades ≥ 10 et T ≥ 126 j (seuils du §0.1),§7,bool
+membres,track_record (§8),n_trades_evalues,# achats avec x_j calculable,§8,int
+membres,track_record (§8),hit_rate,P(x_j > 0) : part des achats qui battent le marché,§8,float
+membres,track_record (§8),exces_moyen_trade,moyenne des x_j,§8,float
+membres,track_record (§8),exces_med_trade,med(x_j),§8,float
+membres,track_record (§8),ret_brut_moyen_trade,moyenne des rendements bruts par achat,§8,float
+membres,track_record (§8),profit_factor,"Σ excès gagnés / Σ excès perdus, plafonné à 10",§8,float
+membres,track_record (§8),t_exces_trade,t de Student de l'excès moyen : x̄/(σ_x/√n),§8,float
+membres,comportement (§9),part_ci_achats,P(secteur du titre ∈ juridiction des comités du membre | achat),§9,float
+membres,comportement (§9),part_trades_repetes,P(ticker déjà tradé avant par le membre),§9,float
+membres,comportement (§9),part_coachat,"P(achat dans un (ticker, mois) à ≥3 acheteurs)",§9,float
+tickers,identite (§10),description,"mode(asset_description), 80 caractères",§10,str
+tickers,identite (§10),asset_class,mode (action / ETF),§10,str
+tickers,identite (§10),is_broad_etf,ETF large (type S&P 500),§10,bool
+tickers,identite (§10),sector_gics,mode,§10,str
+tickers,identite (§10),etf_proxy,mode (ETF sectoriel correspondant),§10,str
+tickers,identite (§10),is_delisted,titre sorti de la cote,§10,bool
+tickers,identite (§10),delist_type,mode (rachat/faillite/recyclage),§10,str
+tickers,identite (§10),flag_price_caution,série de prix à manier avec prudence,§10,bool
+tickers,flux_congres (§10),n_trades_brut,# trades 𝒯^brut,§10,int
+tickers,flux_congres (§10),n_trades,# trades 𝒯,§10,int
+tickers,flux_congres (§10),n_buy,# achats,§10,int
+tickers,flux_congres (§10),n_sell,# ventes,§10,int
+tickers,flux_congres (§10),notional_buy,Σ A_j achats,§10,float
+tickers,flux_congres (§10),notional_sell,Σ A_j ventes,§10,float
+tickers,flux_congres (§10),notional_net,"achats − ventes, en $",§10,float
+tickers,flux_congres (§10),n_membres,# membres distincts,§10,int
+tickers,flux_congres (§10),n_membres_buy,# acheteurs distincts,§10,int
+tickers,flux_congres (§10),n_membres_sell,# vendeurs distincts,§10,int
+tickers,flux_congres (§10),part_dem,part du notional d'achat venant de Démocrates,§10,float
+tickers,flux_congres (§10),part_senate,part des trades venant du Sénat,§10,float
+tickers,flux_congres (§10),part_conjoint,part des trades owner = conjoint,§10,float
+tickers,flux_congres (§10),part_ci_achats,part des achats alignés comité×secteur,§10,float
+tickers,flux_congres (§10),first_trade,min(τ_j),§10,date
+tickers,flux_congres (§10),last_trade,max(τ_j),§10,date
+tickers,flux_congres (§10),n_mois_actifs,"# (année, mois) avec ≥1 trade",§10,int
+tickers,flux_congres (§10),coachat_max,record mensuel d'acheteurs distincts,§10,int
+tickers,flux_congres (§10),top_membres,"top-3 bioguide_id par notional, séparés par |",§10,str
+tickers,marche (§11),px_couvert,ticker avec série de prix exploitable,§11,bool
+tickers,marche (§11),px_first,1re cotation observée,§11,date
+tickers,marche (§11),px_last,dernière cotation observée,§11,date
+tickers,marche (§11),px_n_obs,# jours cotés,§11,int
+tickers,marche (§11),adv_med,"volume d'échanges médian, $/jour (liquidité)",§11,float
+tickers,marche (§11),vol_ann,volatilité annualisée du titre,§11,float
+tickers,marche (§11),beta_spy,sensibilité au marché (≥126 jours communs),§11,float
+tickers,marche (§11),cagr_fenetre,croissance annualisée sur la fenêtre observée,§11,float
+tickers,marche (§11),maxdd,pire perte depuis un sommet,§11,float
+tickers,marche (§11),ret_total,rendement total sur la fenêtre observée,§11,float
+tickers,apres_achats (§11),exces_21j_moy,excès moyen vs SPY à 21 j après les achats du Congrès,§11,float
+tickers,apres_achats (§11),exces_63j_moy,idem à 63 j,§11,float
+tickers,apres_achats (§11),n_achats_evalues,# achats avec fenêtre 21 j complète,§11,int
+membres_annees,panel (§12),n_trades,# trades de l'année,§12,int
+membres_annees,panel (§12),n_buy,# achats,§12,int
+membres_annees,panel (§12),buy_share,part d'achats,§12,float
+membres_annees,panel (§12),notional,Σ A_j,§12,float
+membres_annees,panel (§12),n_tickers,# tickers distincts,§12,int
+membres_annees,panel (§12),sect_dom,mode GICS,§12,str
+membres_annees,panel (§12),n_days,# jours actifs de r_m dans l'année,§12,int
+membres_annees,panel (§12),vol,σ(r_m)·√252 (NaN si <40 j),§12,float
+membres_annees,panel (§12),sharpe,r̄/σ·√252 (NaN si <40 j),§12,float
+membres_annees,panel (§12),ret_annee,Π(1+r_m) − 1 (NaN si <40 j),§12,float
+membres_annees,panel (§12),exces_spy_annee,ret_annee − ret_SPY (mêmes jours),§12,float
