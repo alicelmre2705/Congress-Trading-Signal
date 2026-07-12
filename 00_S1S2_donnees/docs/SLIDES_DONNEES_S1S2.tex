@@ -520,124 +520,89 @@
   {\scriptsize\color{black!60} lues par OCR (Claude Vision) — \emph{détail : étape 5}}
 \end{frame}
 
-% ── II.5 · Le site du Sénat ── (capture réelle efdsearch.senate.gov)
-\begin{frame}{Le chemin Sénat (1/5) — le site eFD et sa barrière}
-  \begin{columns}[T]
-    \begin{column}{0.64\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_senate_efd.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} efdsearch.senate.gov — la page d'accès
-       (capture réelle)}
-    \end{column}
-    \begin{column}{0.34\textwidth}
-      \badge{alertred}{la barrière : accord + jeton CSRF}\\[2.5mm]
-      {\footnotesize
-      · la case encadrée : l'\textbf{accord obligatoire} avant toute recherche\\[1.5mm]
-      · notre collecteur l'accepte et récupère le \textbf{jeton de session}\\[1.5mm]
-      · ensuite seulement : on peut \textbf{chercher} (slide suivante)}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── II.5a · Le formulaire de recherche ── (session réelle 2026-07-12, reconstitution fidèle)
-\begin{frame}{Le chemin Sénat (2/5) — chercher : Sénateur × PTR}
-  \begin{columns}[T]
-    \begin{column}{0.66\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=\linewidth]{slides/site_senate_form.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} le formulaire, une fois l'accord accepté
-       (reconstitution fidèle de la page réelle)}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \badge{selec}{on coche : Senator × PTR}\\[2.5mm]
-      {\footnotesize
-      · les PTR sont \textbf{un type parmi d'autres} (Annual, Blind Trusts,
-        Extensions…)\\[1.5mm]
-      · notre collecteur envoie la même requête : \co{report\_types=[11]}
-        (= PTR), paginée\\[1.5mm]
-      · la note du site l'annonce déjà : un rapport s'affiche
-        \textbf{tel qu'il a été déposé} — texte ou images}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── II.5bis · La page de résultats eFD ── (capture réelle Senator × PTR : 1 705 entrées)
-\begin{frame}{Le chemin Sénat (3/5) — la liste des rapports}
-  \begin{columns}[T]
-    \begin{column}{0.66\textwidth}\centering
+% ── II.5 · Le chemin Sénat en un schéma ── (parcours eFD + justification du filtre PTR :
+%    Annual Part 4a « PTR Summary » vérifié en direct 2026-07-12 ; House 173 actions mesuré)
+\begin{frame}{Le chemin Sénat (1/3) — de l'accès au document}
+  \centering
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=6mm]
+    \node[step=alertred, text width=2.3cm] (a) {\textbf{Accord}\\+ jeton CSRF};
+    \node[step=selec, text width=3.1cm, right=of a] (b) {\textbf{Recherche}\\on ne coche que \textbf{PTR}};
+    \node[step=selec, text width=2.4cm, right=of b] (c) {\textbf{Liste}\\de rapports};
+    \node[step=grisC, text width=3.4cm, right=of c] (d) {le clic \textbf{ouvre le rapport} dans son format};
+    \node[bande=selec, text width=2.6cm, right=8mm of d, yshift=7mm] (e1) {\textbf{texte} → page HTML};
+    \node[bande=socr, text width=2.6cm, right=8mm of d, yshift=-7mm] (e2) {\textbf{image} → scan};
+    \draw[arr] (a)--(b); \draw[arr] (b)--(c); \draw[arr] (c)--(d);
+    \draw[arr] (d.east) to[out=20,in=180] (e1.west);
+    \draw[arr] (d.east) to[out=-20,in=180] (e2.west);
+  \end{tikzpicture}}
+  \vspace{3.5mm}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}\centering
       \fcolorbox{black!25}{white}{\includegraphics[width=\linewidth]{slides/site_senate_results.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} résultats d'une recherche « Sénateur × PTR »
-       (page réelle, \textbf{1 705} rapports)}
+      {\scriptsize\color{black!60} la liste réelle : 1\,705 rapports « Sénateur × PTR »}
     \end{column}
-    \begin{column}{0.32\textwidth}
-      \badge{selec}{une liste, un lien par dépôt}\\[2.5mm]
-      {\footnotesize
-      · chaque ligne = un rapport à \textbf{cliquer}\\[1.5mm]
-      · un dépôt s'ouvre \textbf{dans son format d'origine} :}\\[1.5mm]
-      \colorbox{selec!14}{\parbox{0.95\linewidth}{\scriptsize
-        « \emph{Reports will display… either \textbf{electronically (text)} or on
-        \textbf{paper (images)}} »}}\\[1.5mm]
-      {\footnotesize → soit une \textbf{page HTML}, soit un \textbf{PDF} scanné
-       (les deux slides suivantes)}
+    \begin{column}{0.46\textwidth}
+      \colorbox{selec!12}{\parbox{0.96\linewidth}{\vspace{0.5mm}\footnotesize
+        \textbf{Pourquoi ne prendre que les PTR ?}\\[1mm]
+        {\scriptsize c'est \textbf{le} document des transactions (déclaré sous 45 j) ;
+        les autres types n'apportent pas de trades exploitables :\\[1.2mm]
+        · \textbf{Annual} — ne fait que \emph{résumer} les PTR (« \emph{Part 4a} »)\\[0.6mm]
+        · \textbf{Blind Trust} — trades \textbf{non dirigés} par l'élu\\[0.6mm]
+        · \textbf{Extension / Other} — administratif}\vspace{0.8mm}}}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── II.6 · Sénat électronique (issue 1 du clic) ── (vérifié sur les 1 777 HTML du cache :
-%    UNE seule signature d'en-têtes 2014-2026 ; 178 amendements ; ticker -- omniprésent)
-\begin{frame}{Le chemin Sénat (4/5) — le clic ouvre… une page HTML}
+% ── II.6 · Sénat électronique ── (vérifié sur les 1 777 HTML : UNE signature d'en-têtes 2014-2026)
+\begin{frame}{Le chemin Sénat (2/3) — le cas électronique}
   \begin{columns}[T]
     \begin{column}{0.60\textwidth}\centering
-      \fcolorbox{selec}{white}{\includegraphics[width=\linewidth]{sources/senate_digital.png}}\\[1mm]
-      \fcolorbox{selec!50}{white}{\includegraphics[height=16mm,trim=0 700 0 80,clip]{slides/senat_elec_amendement.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} variante réelle : « …(Amendment 1) », déposé 7 mois après}
+      \fcolorbox{selec}{white}{\includegraphics[width=\linewidth]{sources/senate_digital.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} une page web : table propre, ticker cliquable}
     \end{column}
     \begin{column}{0.38\textwidth}
-      \badge{selec}{cas électronique — 13\,026 · 7,7\,\%}\\[2.5mm]
+      \badge{selec}{13\,026 transactions · 7,7\,\%}\\[3mm]
+      {\footnotesize un \textbf{gabarit unique} depuis 2014 — mêmes 9 colonnes sur les
+       \textbf{1\,777} rapports.}\\[2.5mm]
+      {\footnotesize ce qui varie, c'est le \textbf{contenu} :}\\[1.5mm]
       {\footnotesize
-      · un \textbf{gabarit unique} depuis 2014 : mêmes 9 colonnes sur les
-        \textbf{1\,777} rapports du corpus (vérifié)\\[1.5mm]
-      · ce qui varie, c'est le \textbf{contenu} :\\}
-      {\scriptsize
-      — \textbf{178 amendements} (10\,\%), déposés parfois des mois après\\[0.8mm]
-      — ticker « \co{--} » pour le \textbf{non-coté} (LLC, munis) dans
-        l'immense majorité des rapports\\[0.8mm]
-      — champs optionnels remplis au fil des ans (Asset Type vide en 2014,
-        sous-lignes \emph{Company/Description} ensuite)}
+      · \textbf{amendements} (10\,\%)\\[1mm]
+      · ticker « \co{--} » pour le \textbf{non-coté}\\[1mm]
+      · champs remplis au fil des ans}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── II.7 · Sénat papier (issue 2 du clic) ── (typologie vérifiée sur les 373 rapports/967 pages :
-%    5 gabarits ; 255/373 ont la p.1 en paysage — jamais dire « déjà droites »)
-\begin{frame}{Le chemin Sénat (5/5) — …ou des images scannées : 5 réalités}
+% ── II.7 · Sénat papier ── (typologie vérifiée : 5 gabarits ; 255/373 en paysage)
+\begin{frame}{Le chemin Sénat (3/3) — le cas papier : 5 types}
   \centering
-  {\footnotesize \textbf{373 rapports papier} (967 pages) — 5 déposants font 95\,\%
-   (Blumenthal 120, Burr 84, Boozman 74…) — et 5 gabarits réels :}\\[2mm]
   \begin{columns}[T]
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=31mm]{slides/senat_papier_couche.png}}\\[0.8mm]
-      {\scriptsize\textbf{formulaire couché}\\tapé — le cas dominant\\(Burr 2015)}
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_couche.png}}\\[0.8mm]
+      {\scriptsize\textbf{couché} (le plus courant)}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=31mm]{slides/senat_papier_droit.png}}\\[0.8mm]
-      {\scriptsize\textbf{formulaire droit}\\grille A→L cochée\\(Blumenthal 2020)}
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_droit.png}}\\[0.8mm]
+      {\scriptsize\textbf{droit}, grille A→L}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=31mm]{slides/senat_papier_annexe.png}}\\[0.8mm]
-      {\scriptsize\textbf{annexe libre}\\« See Attachment »\\(Boozman 2018)}
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_annexe.png}}\\[0.8mm]
+      {\scriptsize\textbf{annexe} « See Attachment »}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=31mm]{slides/senat_papier_avocat.png}}\\[0.8mm]
-      {\scriptsize\textbf{lettre d'avocat} en p.1\\Elias Law Group, 2021+\\(Blumenthal 2025)}
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_avocat.png}}\\[0.8mm]
+      {\scriptsize\textbf{lettre d'avocat}}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=31mm]{slides/senat_papier_courrier.png}}\\[0.8mm]
-      {\scriptsize\textbf{courrier explicatif}\\du sénateur\\(Feinstein 2021)}
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_courrier.png}}\\[0.8mm]
+      {\scriptsize\textbf{courrier} du sénateur}
     \end{column}
   \end{columns}
-  \vspace{2mm}
-  \badgel{socr}{cas papier — 3\,985 txns · 2,4\,\%}\quad
-  {\scriptsize\color{black!60} 255/373 arrivent \textbf{couchés} ou en annexe paysage ·
-   aucun symbole boursier imprimé → ticker à ré-associer}
+  \vspace{3mm}
+  \badgel{socr}{3\,985 transactions · 2,4\,\%}\quad
+  {\scriptsize\color{black!60} 373 rapports · 5 déposants = 95\,\% ·
+   255/373 arrivent \textbf{couchés} → ticker à ré-associer}
 \end{frame}
 
 % ── II.8 · Les autres sources, en vrai ── (captures/extraits réels ; 100 334 wc cache)
