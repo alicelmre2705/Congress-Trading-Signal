@@ -27,6 +27,7 @@
 \usepackage{newunicodechar}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc}
+\hypersetup{colorlinks=true, urlcolor=helec, linkcolor=white}   % liens cliquables ; linkcolor=white pour le pied de page Madrid
 
 % Caractères Unicode → commandes (fontes T1)
 \newunicodechar{→}{\ensuremath{\rightarrow}}
@@ -102,139 +103,89 @@
   \titlepage
 \end{frame}
 
-% ── S1bis · En un clin d'œil + plan ── (chiffres : RAPPORT_QUALITE résumé + §1)
-\begin{frame}{En un clin d'œil — et le plan}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
-      \tableofcontents
-    \end{column}
-    \begin{column}{0.40\textwidth}
-      \centering
-      \colorbox{helec}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
-        {\color{white}\large\textbf{169\,000}} {\color{white}\footnotesize transactions uniques}}}\\[2mm]
-      \colorbox{selec}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
-        {\color{white}\large\textbf{13 ans}} {\color{white}\footnotesize 2014 → 2026}}}\\[2mm]
-      \colorbox{okgreen}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
-        {\color{white}\large\textbf{445}} {\color{white}\footnotesize élus (367 Chambre + 78 Sénat)}}}\\[2mm]
-      \colorbox{warnorange}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
-        {\color{white}\large\textbf{4 voies}} {\color{white}\footnotesize 2 chambres × 2 formats}}}
-    \end{column}
-  \end{columns}
-\end{frame}
+\section{Comprendre la donnée — la Chambre}
 
-\section{Contexte \& sources}
-
-% ── S2 · Contexte : pourquoi ce projet ── (RAPPORT_FINAL §1 ; délais RAPPORT_QUALITE §3)
-\begin{frame}{Pourquoi ce projet ?}
-  \begin{columns}[T]
-    \begin{column}{0.56\textwidth}
-      \centering
-      \begin{tikzpicture}[node distance=4.5mm]
-        \node[step=helec, text width=4.9cm] (a)
-          {\textbf{un élu trade} — commissions clés (Finance, \emph{Armed Services}, Intelligence),
-           accès à l'information};
-        \node[step=warnorange, text width=4.9cm, below=of a] (b)
-          {\textbf{il doit déclarer} — STOCK Act (2012) : un PTR sous \textbf{45 jours}};
-        \node[step=selec, text width=4.9cm, below=of b] (c)
-          {\textbf{la déclaration devient publique} — portail officiel de sa chambre};
-        \node[step=okgreen, text width=4.9cm, below=of c] (d)
-          {\textbf{idée : copy-trading} — répliquer \emph{après} publication
-           (anti-\emph{look-ahead} : on date tout à la divulgation)};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.42\textwidth}
-      \footnotesize
-      signal documenté académiquement :\\
-      {\scriptsize Ziobrowski \emph{et al.} 2004/2011 · Karadas 2019}\\[2mm]
-      \includegraphics[width=\linewidth]{quality/delai_divulgation.png}\\[0.5mm]
-      \badge{okgreen}{délai médian réel : 27 j · 24 j}\\[3.5mm]
-      \colorbox{helec}{\parbox{0.96\linewidth}{\footnotesize\color{white}\centering
-        avant toute stratégie :\\une couche de données \textbf{irréprochable}}}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── S3 · Sources & acquisition (panorama) ── (RAPPORT_FINAL §2 ; crosscheck.py pour Kadoa)
-\begin{frame}{Les sources : où on récupère quoi}
-  \begin{columns}[T]
-    \begin{column}{0.32\textwidth}
-      \carte{helec}{Chambre — \emph{House Clerk}}{archive ZIP annuelle → index XML
-        (\co{\{an\}FD.xml}) → PDF de chaque PTR. L'index fait \textbf{autorité} :
-        \textbf{8\,252 PTR}, 100\,\% traités}\\[2mm]
-      \carte{selec}{Sénat — \emph{eFD}}{accord + jeton CSRF → recherche paginée →
-        page \textbf{HTML} ou \textbf{image papier} (.gif)}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \carte{okgreen}{Référentiel d'élus}{\emph{congress-legislators} : nom →
-        \co{bioguide\_id} officiel, parti, commissions (repli YAML embarqué, hors-ligne)}\\[2mm]
-      \carte{warnorange}{Claude Vision}{lit les scans : formulaire → transactions
-        JSON structurées (cache versionné)}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \carte{alertred}{Quiver Quantitative}{agrégateur commercial = \textbf{vérité-terrain
-        externe}, \textbf{jamais réinjectée}}\\[2mm]
-      \carte{grisC}{Sources indépendantes}{senate-stock-watcher ·
-        miroir house-stock-watcher · \textbf{Kadoa} — triangulation, jamais réinjectées}
-    \end{column}
-  \end{columns}
-  \vspace{3mm}
-  \centering
-  \colorbox{black!6}{\parbox{0.9\textwidth}{\footnotesize\centering
-    \textbf{deux dates par déclaration} : date du \textbf{trade} · date de \textbf{divulgation}
-    — tout l'aval s'appuie sur la divulgation (anti-look-ahead)}}
-\end{frame}
-
-% ═════════════ II. À QUOI RESSEMBLE LA DONNÉE (8 slides, « de l'écran au document ») ═════════════
-\section{À quoi ressemble la donnée brute}
-
-% ── II.1 · Le site de la Chambre ── (capture réelle disclosures-clerk.house.gov ; 8 252 RQ §1)
-\begin{frame}{Le chemin Chambre (1/4) — le site officiel}
+% ── C1 · Le site du House Clerk (lien cliquable) ── (capture réelle)
+\begin{frame}{La Chambre (1/6) — le point de départ : le site officiel}
   \begin{columns}[T]
     \begin{column}{0.64\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_house_clerk.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} disclosures-clerk.house.gov — page publique
-       « \emph{Financial Disclosure Reports} » (capture réelle)}
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_house_clerk.png}}\\[0.8mm]
+      {\footnotesize \href{https://disclosures-clerk.house.gov/FinancialDisclosure}%
+       {\texttt{disclosures-clerk.house.gov}}} {\scriptsize\color{black!55}(cliquable)}
     \end{column}
     \begin{column}{0.34\textwidth}
-      \badge{helec}{1 archive ZIP par année}\\[2.5mm]
-      {\footnotesize
-      · la zone encadrée : le téléchargement \textbf{par année} (2008 → 2026)\\[1.5mm]
-      · on prend \textbf{13 années} : 2014 → 2026\\[1.5mm]
-      · chaque ZIP contient l'\textbf{index XML} de l'année → slide suivante\\[1.5mm]
-      · au total, ces index listent \textbf{8\,252 PTR}}
+      \vspace{6mm}
+      {\footnotesize on accède au site public de la Chambre :}\\[3mm]
+      · une \textbf{liste de téléchargements}\\[2mm]
+      · \textbf{une archive par année} (zone encadrée)\\[2mm]
+      · on prend les années \textbf{2014 → 2026}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── II.2 · L'index XML ── (2024FD.xml réel ; 2 256 DocID comptés ; URL house/digital.py:52)
-\begin{frame}{Le chemin Chambre (2/4) — dedans : l'index XML}
+% ── C2 · ZIP → index XML ── (URLs house/acquire.py ; un <Member> par dépôt)
+\begin{frame}{La Chambre (2/6) — l'archive ZIP contient l'index XML}
   \begin{columns}[T]
-    \begin{column}{0.60\textwidth}\centering
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[node distance=6mm]
+        \node[step=helec, text width=4.6cm] (z) {on télécharge l'archive de l'année\\[1mm]\co{2024FD.zip}};
+        \node[step=helec, text width=4.6cm, below=of z] (x) {on la dézippe → un fichier\\[1mm]\co{2024FD.xml}};
+        \node[step=grisC, text width=4.6cm, below=of x] (i) {c'est l'\textbf{index annuel} :\\un bloc \co{<Member>} par \textbf{dépôt}};
+        \draw[arr] (z) -- (x); \draw[arr] (x) -- (i);
+      \end{tikzpicture}\\[2mm]
+      {\scriptsize\color{black!55} \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2024FD.zip}%
+       {\texttt{…/financial-pdfs/2024FD.zip}}}
+    \end{column}
+    \begin{column}{0.54\textwidth}\centering
       \includegraphics[width=\linewidth]{slides/fichier_index_xml.png}
     \end{column}
-    \begin{column}{0.38\textwidth}
-      {\footnotesize
-      · un bloc \co{<Member>} par dépôt — \textbf{2\,256} dans l'index 2024\\[1.8mm]
-      · \co{FilingType} : \textbf{P = PTR}, on le garde ; les autres types
-        (rapports annuels, candidatures…) sont ignorés\\[1.8mm]
-      · le \co{DocID} donne l'\textbf{URL du PDF} :\\
-        {\scriptsize\ttfamily …/ptr-pdfs/2024/20024277.pdf}\\[2.5mm]}
-      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
-        l'index fait \textbf{autorité} :\\100\,\% des 8\,252 PTR traités}}
-    \end{column}
   \end{columns}
 \end{frame}
 
-% ── II.3 · Chambre électronique ── (RAPPORT_FINAL §4.3 « dans la source » ; volume §1 RQ)
-\begin{frame}{Le chemin Chambre (3/4) — le document : PTR électronique}
+% ── C3 · FilingType = P ── (répartition réelle 35 315 dépôts ; fig_filingtypes)
+\begin{frame}{La Chambre (3/6) — on ne garde que les PTR (\texttt{FilingType = P})}
+  \centering
+  \includegraphics[width=0.76\textwidth]{slides/fig_filingtypes.png}\\[1.5mm]
+  {\footnotesize \textbf{P} = \emph{Periodic Transaction Report} — les \textbf{déclarations de
+   transactions boursières}, la seule chose qui nous intéresse.}\\[0.8mm]
+  {\scriptsize\color{black!60} les autres = candidatures, annuels, extensions, terminaisons,
+   amendements — pas des transactions \;(\textbf{*}\,libellés indicatifs)}
+\end{frame}
+
+% ── C4 · DocID → PDF lisible ou scanné ── (préfixe 2/8/9 ; 71/29 %)
+\begin{frame}{La Chambre (4/6) — le \texttt{DocID} ouvre le document (un PDF)}
+  \centering
+  \vspace{2mm}
+  \resizebox{0.96\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=9mm]
+    \node[step=helec, text width=3.2cm] (d) {le \co{DocID} du dépôt\\[1mm]\co{20024277}};
+    \node[step=grisC, text width=4.8cm, right=10mm of d] (u)
+      {une URL de PDF\\[1mm]{\scriptsize\ttfamily …/ptr-pdfs/2024/20024277.pdf}};
+    \node[step=helec, fill=helec!16, text width=4.4cm, above right=1mm and 11mm of u] (lis)
+      {\textbf{PDF lisible} (numérique)\\{\scriptsize couche texte — DocID en \co{2…}}};
+    \node[step=hocr, fill=hocr!40, text width=4.4cm, below right=1mm and 11mm of u] (sc)
+      {\textbf{PDF scanné} (image)\\{\scriptsize à lire par OCR — DocID en \co{8…}/\co{9…}}};
+    \draw[arr] (d) -- (u);
+    \draw[arr] (u.east) -- (lis.west);
+    \draw[arr] (u.east) -- (sc.west);
+  \end{tikzpicture}}
+
+  \vspace{5mm}
+  {\footnotesize selon le dépôt, le PDF est déjà \textbf{lisible par machine}
+   ou seulement une \textbf{image scannée} — ce sont les deux voies suivantes.}\\[1mm]
+  {\scriptsize\color{black!60} sur les PTR : environ \textbf{71 \%} lisibles · \textbf{29 \%} scannés}
+\end{frame}
+
+% ── C5 · PTR lisible (exemple) ── (RAPPORT_FINAL §4.3 « dans la source »)
+\begin{frame}{La Chambre (5/6) — le document : un PTR lisible}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
       \fcolorbox{helec}{white}{\includegraphics[height=72mm]{slides/fig_ptr_digital.png}}\\[0.5mm]
       {\scriptsize\color{black!60} PTR électronique complet (Hon. John A. Yarmuth, KY03)}
     \end{column}
     \begin{column}{0.43\textwidth}
-      \badge{helec}{58\,728 transactions — 34,8\,\% du corpus}\\[3mm]
+      \badge{helec}{DocID en \co{2…} → PDF lisible}\\[3mm]
       {\footnotesize
       · un PDF \textbf{avec couche texte} : lisible machine\\[1.5mm]
       · le ticker est imprimé \textbf{entre parenthèses} : \co{(BA)},
@@ -247,7 +198,7 @@
 \end{frame}
 
 % ── II.3bis · Le défi de l'extraction électronique ── (§4.3 ; audit §4 : 7 996 montants tronqués)
-\begin{frame}{Le chemin Chambre (3/4) — le défi de l'extraction}
+\begin{frame}{La Chambre (5/6) — le défi : lire un PDF irrégulier}
   \begin{columns}[T]
     \begin{column}{0.62\textwidth}\centering
       \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
@@ -270,7 +221,7 @@
 \end{frame}
 
 % ── II.4 · Chambre scannée : les différents cas (simple, pages entières) ── (§4.5 ; détail à l'étape 5)
-\begin{frame}{Le chemin Chambre (4/4) — le document : PTR scanné}
+\begin{frame}{La Chambre (6/6) — le document : un PTR scanné}
   \centering
   {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} — et il arrive
    sous trois formes (pages réelles) :}\\[2.5mm]
