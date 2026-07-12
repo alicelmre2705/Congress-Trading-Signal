@@ -185,11 +185,49 @@
     — tout l'aval s'appuie sur la divulgation (anti-look-ahead)}}
 \end{frame}
 
-% ═════════════ II. À QUOI RESSEMBLE LA DONNÉE (4 slides) ═════════════
+% ═════════════ II. À QUOI RESSEMBLE LA DONNÉE (8 slides, « de l'écran au document ») ═════════════
 \section{À quoi ressemble la donnée brute}
 
-% ── S4 · Chambre électronique ── (RAPPORT_FINAL §4.3 « dans la source » ; volume §1 RQ)
-\begin{frame}{À quoi ça ressemble (1/4) — Chambre, PTR électronique}
+% ── II.1 · Le site de la Chambre ── (capture réelle disclosures-clerk.house.gov ; 8 252 RQ §1)
+\begin{frame}{Le chemin Chambre (1/4) — le site officiel}
+  \begin{columns}[T]
+    \begin{column}{0.64\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_house_clerk.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} disclosures-clerk.house.gov — page publique
+       « \emph{Financial Disclosure Reports} » (capture réelle)}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \badge{helec}{1 archive ZIP par année}\\[2.5mm]
+      {\footnotesize
+      · la zone encadrée : le téléchargement \textbf{par année} (2008 → 2026)\\[1.5mm]
+      · on prend \textbf{13 années} : 2014 → 2026\\[1.5mm]
+      · chaque ZIP contient l'\textbf{index XML} de l'année → slide suivante\\[1.5mm]
+      · au total, ces index listent \textbf{8\,252 PTR}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.2 · L'index XML ── (2024FD.xml réel ; 2 256 DocID comptés ; URL house/digital.py:52)
+\begin{frame}{Le chemin Chambre (2/4) — dedans : l'index XML}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fichier_index_xml.png}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      {\footnotesize
+      · un bloc \co{<Member>} par dépôt — \textbf{2\,256} dans l'index 2024\\[1.8mm]
+      · \co{FilingType} : \textbf{P = PTR}, on le garde ; les autres types
+        (rapports annuels, candidatures…) sont ignorés\\[1.8mm]
+      · le \co{DocID} donne l'\textbf{URL du PDF} :\\
+        {\scriptsize\ttfamily …/ptr-pdfs/2024/20024277.pdf}\\[2.5mm]}
+      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
+        l'index fait \textbf{autorité} :\\100\,\% des 8\,252 PTR traités}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.3 · Chambre électronique ── (RAPPORT_FINAL §4.3 « dans la source » ; volume §1 RQ)
+\begin{frame}{Le chemin Chambre (3/4) — le document : PTR électronique}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
       \fcolorbox{helec}{white}{\includegraphics[height=64mm]{sources/house_digital.png}}
@@ -207,8 +245,8 @@
   \end{columns}
 \end{frame}
 
-% ── S5 · Chambre scannée ── (§4.5 ; census/motifs slide 13)
-\begin{frame}{À quoi ça ressemble (2/4) — Chambre, PTR scanné}
+% ── II.4 · Chambre scannée ── (§4.5 ; census/motifs slide OCR)
+\begin{frame}{Le chemin Chambre (4/4) — le document : PTR scanné}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
       \fcolorbox{hocr}{white}{\includegraphics[height=57mm]{sources/house_ocr.png}}\\[0.6mm]
@@ -227,8 +265,28 @@
   \end{columns}
 \end{frame}
 
-% ── S6 · Sénat électronique ── (§4.4 « dans la source »)
-\begin{frame}{À quoi ça ressemble (3/4) — Sénat, déclaration eFD}
+% ── II.5 · Le site du Sénat ── (capture réelle efdsearch.senate.gov ; 2 150 comptés)
+\begin{frame}{Le chemin Sénat (1/3) — le site eFD et sa barrière}
+  \begin{columns}[T]
+    \begin{column}{0.64\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_senate_efd.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} efdsearch.senate.gov — la page d'accès
+       (capture réelle)}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \badge{alertred}{la barrière : accord + jeton CSRF}\\[2.5mm]
+      {\footnotesize
+      · la case encadrée : l'\textbf{accord obligatoire} avant toute recherche\\[1.5mm]
+      · notre collecteur l'accepte et récupère le \textbf{jeton de session}\\[1.5mm]
+      · ensuite : recherche paginée (type PTR) → \textbf{2\,150} pages HTML
+        mises en cache\\[1.5mm]
+      · le \textbf{papier} (images .gif) est servi \textbf{hors barrière}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.6 · Sénat électronique ── (§4.4 « dans la source »)
+\begin{frame}{Le chemin Sénat (2/3) — le document : déclaration web}
   \begin{columns}[T]
     \begin{column}{0.62\textwidth}\centering
       \fcolorbox{selec}{white}{\includegraphics[width=\linewidth]{sources/senate_digital.png}}
@@ -244,8 +302,8 @@
   \end{columns}
 \end{frame}
 
-% ── S7 · Sénat papier ── (§4.6 « dans la source »)
-\begin{frame}{À quoi ça ressemble (4/4) — Sénat, papier scanné}
+% ── II.7 · Sénat papier ── (§4.6 « dans la source »)
+\begin{frame}{Le chemin Sénat (3/3) — le document : papier scanné}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
       \fcolorbox{socr}{white}{\includegraphics[height=64mm]{sources/senate_ocr.png}}
@@ -260,6 +318,26 @@
       · \textbf{14 déposants} sur 13 ans, massivement du \textbf{non-coté}
         (obligations municipales) — Blumenthal en tête\\[1.5mm]
       · aucun symbole boursier imprimé → ticker à ré-associer}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.8 · Les autres sources, en vrai ── (captures/extraits réels ; 100 334 wc cache)
+\begin{frame}{Les autres sources, en vrai}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.82\linewidth]{slides/site_quiver.png}}\\[0.4mm]
+      {\scriptsize\color{black!60} quiverquant.com (vérité-terrain externe)…}\\[0.8mm]
+      \includegraphics[width=0.88\linewidth]{slides/fichier_cache_quiver.png}\\[0.2mm]
+      {\scriptsize\color{black!60} …et son export brut dans notre cache}
+    \end{column}
+    \begin{column}{0.42\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fichier_referentiel_yaml.png}\\[0.4mm]
+      {\scriptsize\color{black!60} le référentiel d'identité \emph{congress-legislators}
+       (nom → \co{bioguide\_id}, parti, mandats)}\\[3mm]
+      \colorbox{black!6}{\parbox{0.95\linewidth}{\footnotesize\centering
+        ces sources servent à \textbf{identifier} et à \textbf{mesurer} —\\
+        \textbf{jamais réinjectées} dans nos tables}}
     \end{column}
   \end{columns}
 \end{frame}
