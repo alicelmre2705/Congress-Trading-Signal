@@ -14,115 +14,135 @@
 \definecolor{bleu}{RGB}{20,45,90}
 \definecolor{gris}{RGB}{90,90,90}
 \setlength{\columnsep}{0.55cm}
+\raggedbottom
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
 \setlist[itemize]{leftmargin=*,topsep=1pt,itemsep=0.5pt,parsep=0pt}
 \titleformat{\section}{\normalsize\bfseries\color{bleu}}{}{0pt}{}[\vspace{-3pt}\titlerule]
 \titlespacing*{\section}{0pt}{5pt}{2pt}
+\newcommand{\sect}[1]{\textbf{\color{bleu}#1}}
 \begin{document}
 
 \twocolumn[{\centering
-{\LARGE\bfseries Tables de données --- membres, tickers, panel annuel\par}
+{\LARGE\bfseries Plan du notebook 09 --- tables de données\par}
 \vspace{2pt}
-{\small Notebook 09 $\cdot$ 4 CSV dans \texttt{tables/} $\cdot$ donnée propre et comprise, avant toute stratégie\par}
+{\small membres $\cdot$ tickers $\cdot$ panel annuel $\cdot$ donnée propre et comprise, avant toute stratégie\par}
 \vspace{6pt}}]
 
-\section{Les 4 fichiers}
+\section{Objet : 4 fichiers CSV}
 \begin{center}\small
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule
-\texttt{membres.csv} & 1 ligne = 1 membre & $372 \times 94$ \\
-\texttt{tickers.csv} & 1 ligne = 1 ticker & $4\,618 \times 40$ \\
-\texttt{membres\_annees.csv} & 1 ligne = (membre, année) & $2\,628 \times 11$ \\
-\texttt{dictionnaire\_colonnes.csv} & définition de chaque colonne & $145$ \\
+fichier & 1 ligne = & lignes $\times$ col. \\
+\midrule
+\texttt{membres.csv} & 1 membre & $372 \times 94$ \\
+\texttt{tickers.csv} & 1 ticker & $4\,618 \times 40$ \\
+\texttt{membres\_annees.csv} & 1 (membre, année) & $2\,628 \times 11$ \\
+\texttt{dictionnaire\_colonnes.csv} & 1 colonne & $145$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
-Deux périmètres nommés partout : $\mathcal{T}^{brut}$ = table canonique 2013-2026
-(\textbf{134\,429} trades, 372 membres, 4\,618 tickers) ; $\mathcal{T} \subset \mathcal{T}^{brut}$ =
-trades dont le ticker a un prix exploitable (\textbf{118\,029} trades, 3\,289 tickers) --- le périmètre
-du moteur 05b/07. Toute colonne de flux/portefeuille vit sur $\mathcal{T}$ ;
-\texttt{n\_trades\_brut} garde la trace de $\mathcal{T}^{brut}$.
+Le dictionnaire est la carte de lecture : pour chaque colonne, sa définition, la section qui la
+calcule et son type. Un contrôle garantit qu'il couvre exactement les colonnes écrites.
 
-\section{membres.csv --- 6 familles}
-\textbf{A Identité/mandat (13)} : parti, chambre, état, congrès min/max, ancienneté,
-\texttt{leader} (+postes, fichier vérifié des 12 postes de parti), comités THOMAS et
-\texttt{secteurs\_juridiction} = $\bigcup_c \mathrm{COMITE\_GICS}[c]$ (matrice gelée du 08).
+\section{L'entonnoir des données (\S 0.1)}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}Xr@{}}
+\toprule
+dépôts uniques collectés (2014-2026) & $\sim$169\,000 \\
+table nettoyée des transactions (point de départ) & 134\,464 \\
+fenêtre 2013-2026 (35 trades datés 2012 écartés) & 134\,429 \\
+$\mathcal{T}$ : ticker avec prix exploitable & \textbf{118\,029} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+Rien n'est perdu dans les tables : les 372 membres et 4\,618 tickers gardent leur ligne
+(\texttt{n\_trades\_brut} trace le volume complet) ; seules les colonnes qui exigent un prix sont
+calculées sur $\mathcal{T}$. Chaîne des membres :
+$372 \to 359$ ($\ge 1$ trade avec prix) $\to 266$ \textbf{reconstruits} (série de rendement $r_m$
+calculable) $\to 223$ \textbf{éligibles} ($\ge 10$ trades et $\ge 126$ jours actifs --- en
+dessous, vol et Sharpe annualisés n'ont pas de sens).
 
-\textbf{B Activité, temps de présence (21)} : $n$ trades (brut/$\mathcal{T}$/achats/ventes),
-notional $\sum A_j$ (midpoint --- mesure censurée par intervalle), taille médiane,
-$\mathbb{P}(A_j \le 8\,000{,}5)$, délai médian de déclaration, parts de retard ($>45$ j, $>365$ j),
-owner dominant, parts conjoint/élu, premier/dernier trade, durée d'activité,
-\texttt{actif\_12m} (\og encore dans le jeu\fg{} : 103 membres).
+\section{Les deux dates du trade (\S 0.2)}
+Trade $j$ : $(m_j, k_j, d_j, \tau_j, \delta_j, A_j)$ --- membre, ticker, sens, date de
+\textbf{transaction} $\tau_j$, date de \textbf{divulgation} $\delta_j$, montant $A_j$ (milieu de
+la fourchette légale). Le portefeuille se reconstruit à $\tau_j$ (ce que le membre a fait) ;
+$\delta_j$ mesure la transparence : $\mathrm{lag}_j = \delta_j - \tau_j$ (délai légal 45 j).
 
-\textbf{C Portefeuille reconstruit (36 ; NaN si non reconstruit)} --- parts FIFO
-$n_k^m(t)$, $V_m = \sum_k n_k^m P_k$, $w_k^m = n_k^m P_k / V_m$ :
-$$\mathrm{HHI} = \overline{\textstyle\sum_k (w_k^m)^2}, \quad N^{e\!f\!f} = 1/\mathrm{HHI}, \quad
-\mathrm{TO} = \frac{\sum_j A_j}{2 \bar V_m}\cdot\frac{252}{T_m}$$
-durées de détention par épisodes FIFO : médiane pondérée-parts et médiane de survie
-\textbf{Kaplan-Meier} (censure = position encore ouverte ; NaN si $>50\,\%$ encore détenu ---
-lire avec \texttt{part\_ouverte}) ; actions principales \texttt{top1..3\_ticker} + parts,
-\texttt{top10\_tickers} ; 12 parts sectorielles GICS ($\sum = 1$).
-
-\textbf{D Risque/performance (14 ; série time-weighted $r_m$)} :
-$$\texttt{vol} = \sigma(r_m)\sqrt{252}, \qquad \texttt{sharpe} = \tfrac{\bar r_m}{\sigma}\sqrt{252}$$
-$$\texttt{sortino} = \tfrac{\bar r_m}{\sigma(r_m^-)}\sqrt{252}, \qquad
-r_m = \alpha + \beta r_{SPY} + \varepsilon$$
-$$\beta,\ \alpha_{ann},\ \texttt{appraisal} = \tfrac{\alpha}{\sigma_\varepsilon}\sqrt{252},\ t_{appr}$$
-plus CAGR, maxDD, IR vs SPY ($+t$), excès de CAGR vs SPY, \texttt{eligible}
-($n \ge 10$ trades et $T_m \ge 126$ j : 223 membres).
-
-\textbf{F Track record par trade (7 ; critères du 03)} --- pour chaque achat $j$, entrée
-$J{+}1(\tau_j)$, sortie $\min(\text{première vente FIFO}, +252\,\text{j})$, \textbf{brut} vs SPY :
-$$\texttt{hit\_rate} = \mathbb{P}(x_j > 0), \qquad t_x = \tfrac{\bar x}{\sigma_x/\sqrt{n}}$$
-$$\texttt{profit\_factor} = \min\!\Big(\tfrac{\sum x^+}{|\sum x^-|},\ 10\Big)$$
-(58\,926 achats évalués ; excès moyen pooled $-0{,}23\,\%$ --- cohérent avec le
-\og copier tout le monde perd\fg{} du 06).
-
-\textbf{E Comportement (3)} : \texttt{part\_ci\_achats} (achats alignés comité$\times$secteur,
-$16{,}4\,\%$ sur $\mathcal{T}$), \texttt{part\_trades\_repetes}, \texttt{part\_coachat}
-($\ge 3$ acheteurs le même mois).
-
-\section{tickers.csv --- 4 familles}
-\textbf{A Identité (8)} : description, classe d'actif, secteur GICS, ETF proxy, délisté (+type).
-\textbf{B Flux Congrès (19)} : trades/achats/ventes, notionals (net $=$ buy $-$ sell),
-$n$ membres (acheteurs/vendeurs), part Démocrate du notional d'achat, part Sénat, part conjoint,
-part alignée comité, bornes de dates, mois actifs, \texttt{coachat\_max}, top-3 membres.
-\textbf{C Marché (10)} --- sur la série de prix \textbf{brute} (jours cotés, pas le forward-fill du
-moteur, qui biaiserait la vol des délistés vers 0) : $\sigma(\Delta\log P)\sqrt{252}$,
-$\beta$ vs SPY ($\ge 126$ obs), CAGR fenêtre, maxDD, ADV\$ $= \operatorname{med}(P^{raw}\cdot\mathrm{Vol})$
-(cache volume dédié).
-\textbf{D Croisement (3)} : excès moyen à 21/63 j après les achats (entrée $J{+}1(\tau_j)$, brut vs SPY).
-
-\section{membres\_annees.csv --- panel}
-Par (membre, année) : activité ($n$ trades, notional, tickers, secteur dominant) et performance
-annuelle de $r_m$ (vol, Sharpe, $\texttt{ret\_annee} = \prod(1+r_m)-1$, excès vs SPY mêmes jours ;
-NaN si $<40$ jours actifs).
-
-\section{Ce qui garantit les chiffres}
+\section{Le schéma de chaque section}
+\emph{définitions mathématiques $\to$ calcul $\to$ contrôles $\to$ aperçu en tableau $\to$
+démonstration visuelle sur un membre} (changeable par son nom au \S 1.2 ; ticker de démo
+changeable aussi). Contrôles de 3 types --- si un seul échoue, rien n'est écrit :
 \begin{itemize}
-  \item Moteur \textbf{recopié à l'identique} des notebooks audités (05b via 07 ; étiquettes
-  \og COPIE EXACTE\fg{} dans le notebook) ; validations : périmètre $118\,029 / 3\,289 / 266 / 223$,
-  Khanna ($32\,684$ trades, Sharpe $0{,}87$) et McCaul reproduits, épisodes FIFO
-  $61\,963 / 28\,944$ ($44\,\%$ encore détenus), KM pooled $910$ j, Pelosi 2024 $= +38{,}5\,\%$,
-  alignement comité $17{,}0\,\%$ (nb) $/ 15{,}2\,\%$ (\$) sur le périmètre du 08.
-  \item \textbf{8 contrôles croisés} avant écriture (sommes de trades et de notionals identiques
-  entre les deux tables au centime, bipartite $\sum_k n_{membres} = \sum_m n_{tickers}$, bornes de
-  dates, compteurs de population) : aucun CSV incohérent ne peut sortir.
-  \item Dictionnaire aligné par \texttt{assert} sur les colonnes réellement écrites (145).
+  \item \textbf{recalcul à la main} d'un cas réel (un membre entier en boucle naïve $=$ le moteur ;
+  un trade NVDA pas à pas ; comptages directs) ;
+  \item \textbf{deuxième méthode} indépendante (fonction de contrôle réécrite, formules fermées,
+  exemples synthétiques à réponse connue) ;
+  \item \textbf{recoupements de sommes} entre les tables (\S 13).
 \end{itemize}
 
-\section{Limites à garder en tête}
-Montants = midpoints de tranches STOCK Act (censure par intervalle) ; options absentes des PTR
-collectés ; \texttt{chamber}/\texttt{party} par mode (un House$\to$Sénat a un mode arbitraire) ;
-1\,329 tickers sans prix exploitable (colonnes marché NaN) ; certains \og délistés\fg{} cotent
-encore en OTC chez Yahoo (ex. BBBY).
+\section{Le plan, section par section}
+\small
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\sect{\S 0} & Objet, entonnoir des données, notations, mode d'emploi. \\
+\sect{\S 1} & \textbf{Le moteur} : table des trades, prix ajustés, calendrier, reconstruction
+FIFO des parts $n_k^m(t)$, rendement time-weighted $r_m(t)$, fonctions de mesure, matrice
+comité $\to$ secteurs (affichée en clair). Contrôles : entonnoir + membre entier recalculé
+naïvement. Sélecteur du membre/ticker de démo. \\
+\midrule
+\multicolumn{2}{@{}l@{}}{\emph{Table \texttt{membres} --- une ligne par membre}} \\
+\sect{\S 2} & \textbf{Identité \& mandat} : parti, chambre, État, Congrès (113\up{e} = 2013-2014\ldots),
+ancienneté, postes de direction, comités (codes THOMAS) et secteurs sous juridiction. \\
+\sect{\S 3} & \textbf{Activité \& présence} : volumes, notional, tailles, délais de déclaration
+($\mathrm{lag}$, retards), qui trade dans le foyer, premières/dernières dates, \og temps dans le
+jeu \fg{}, encore actif ? \\
+\sect{\S 4} & \textbf{Portefeuille} : valeur $V_m(t)$, concentration (HHI, N\_eff, top1),
+rotation (turnover), épisodes achat$\to$revente (FIFO). \\
+\sect{\S 5} & \textbf{Durées de détention} : médiane pondérée des épisodes clos, médiane de
+survie de Kaplan-Meier (gère les positions jamais revendues = censure), part encore détenue,
+allers-retours $<$ 30 j. \\
+\sect{\S 6} & \textbf{Actions principales \& secteurs} : top 1-3 et top 10 tickers, parts du
+notional d'achat, répartition sur les 11 secteurs GICS ($\Sigma = 1$). \\
+\sect{\S 7} & \textbf{Risque \& performance} (sur $r_m$) : cagr, vol, Sharpe, Sortino, max
+drawdown, $\beta$, $\alpha$, information ratio, appraisal, leurs $t$ de Student, éligibilité. \\
+\sect{\S 8} & \textbf{Track record par trade} : pour chaque achat, excès $x_j$ du titre vs SPY
+entre l'achat et la première revente (plafond 1 an) --- hit rate, excès moyen/médian, profit
+factor, $t$. \\
+\sect{\S 9} & \textbf{Comportement} : part d'achats alignés comité$\times$secteur (conflit
+d'intérêts potentiel), part de trades répétés (conviction/spéculation), part de co-achat
+(suivisme). \\
+\midrule
+\multicolumn{2}{@{}l@{}}{\emph{Table \texttt{tickers} --- une ligne par titre}} \\
+\sect{\S 10} & \textbf{Identité \& flux Congrès} : description, secteur, ETF, sorti de cote ;
+qui achète/vend, combien, quand ; notional net ; record mensuel d'acheteurs ; top membres. \\
+\sect{\S 11} & \textbf{Marché \& après-achats} : volatilité, $\beta$, liquidité (ADV \$/jour),
+croissance et pire perte sur la fenêtre cotée ; excès du titre vs SPY à 21 et 63 jours après les
+achats du Congrès. \\
+\midrule
+\sect{\S 12} & \textbf{Panel (membre, année)} : activité et performance annuelles
+(\texttt{ret\_annee}, excès vs SPY sur les mêmes jours ; NaN sous 40 jours actifs). \\
+\sect{\S 13} & \textbf{Contrôles croisés} : trades, notionals, paires membre-ticker, bornes de
+dates --- les trois tables doivent se recouper exactement. \\
+\sect{\S 14} & \textbf{Écriture} des 4 CSV + dictionnaire complet affiché + 3 distributions pour
+prendre les tables en main. \\
+\bottomrule
+\end{tabularx}
 
-\vspace{3pt}
+\section{Où trouver quoi}
+\begin{itemize}
+  \item \texttt{09\_Tables\_Membres\_Tickers.ipynb} --- le notebook complet (122 cellules,
+  ré-exécution $\approx$ 1 min, hors-ligne) ;
+  \item \texttt{09\_Tables\_Membres\_Tickers.html} --- \textbf{la version lisible sans le code}
+  (textes, formules, tableaux, figures) ;
+  \item \texttt{tables/} --- les 4 CSV ; commencer par \texttt{dictionnaire\_colonnes.csv}.
+\end{itemize}
+
+\vspace{2pt}
 \hrule
 \vspace{2pt}
-{\footnotesize\color{gris} Détail complet : \texttt{09\_Tables\_Membres\_Tickers.ipynb}
-(69 cellules, Run All $\approx$ 1 min hors-ligne, validations \S1.1-\S12) et
-\texttt{tables/dictionnaire\_colonnes.csv}.}
+{\footnotesize\color{gris} Limites assumées : pas d'options ni de dérivés (absents des dépôts
+collectés) ; montants connus par fourchettes (milieu utilisé) ; couverture prix 87,8\,\% des
+trades (74\,\% en 2014, 99\,\% en 2026).}
 
 \end{document}
