@@ -562,47 +562,42 @@
       {\scriptsize\color{black!60} une page web : table propre, ticker cliquable}
     \end{column}
     \begin{column}{0.38\textwidth}
-      \badge{selec}{13\,026 transactions · 7,7\,\%}\\[3mm]
-      {\footnotesize un \textbf{gabarit unique} depuis 2014 — mêmes 9 colonnes sur les
-       \textbf{1\,777} rapports.}\\[2.5mm]
-      {\footnotesize ce qui varie, c'est le \textbf{contenu} :}\\[1.5mm]
+      \badge{selec}{13\,026 transactions}\\[3mm]
+      {\footnotesize les \textbf{9 mêmes colonnes} sur les \textbf{1\,777} rapports
+       2014→2026 (vérifié) — \textbf{jamais} de changement de colonnes.}\\[2.5mm]
+      {\footnotesize seul le \textbf{contenu} change :}\\[1.5mm]
       {\footnotesize
       · \textbf{amendements} (10\,\%)\\[1mm]
-      · ticker « \co{--} » pour le \textbf{non-coté}\\[1mm]
-      · champs remplis au fil des ans}
+      · ticker « \co{--} » = \textbf{non-coté} (LLC, munis)\\[1mm]
+      · cellules parfois vides (ex.\ \emph{Asset Type} en 2014)}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── II.7 · Sénat papier ── (typologie vérifiée : 5 gabarits ; 255/373 en paysage)
-\begin{frame}{Le chemin Sénat (3/3) — le cas papier : 5 types}
+% ── II.7 · Sénat papier ── (vérifié : la donnée = LE formulaire officiel, parfois une annexe ;
+%    lettre d'avocat / courrier = pages de garde, le vrai formulaire suit — Blumenthal 2025 p.4, Feinstein 2021 p.2)
+\begin{frame}{Le chemin Sénat (3/3) — le cas papier : un formulaire, parfois une annexe}
   \centering
+  {\footnotesize la donnée est toujours dans \textbf{un seul formulaire} (le même depuis 2014) —
+   parfois remplacé par une \textbf{annexe} :}\\[2.5mm]
   \begin{columns}[T]
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_couche.png}}\\[0.8mm]
-      {\scriptsize\textbf{couché} (le plus courant)}
+    \begin{column}{0.30\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=33mm]{slides/senat_papier_couche.png}}\\[0.6mm]
+      {\scriptsize\textbf{formulaire — couché}}\\{\tiny 255/373 (à redresser)}
     \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_droit.png}}\\[0.8mm]
-      {\scriptsize\textbf{droit}, grille A→L}
+    \begin{column}{0.30\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=33mm]{slides/senat_papier_droit.png}}\\[0.6mm]
+      {\scriptsize\textbf{…ou droit}}\\{\tiny même formulaire, grille A→L}
     \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_annexe.png}}\\[0.8mm]
-      {\scriptsize\textbf{annexe} « See Attachment »}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_avocat.png}}\\[0.8mm]
-      {\scriptsize\textbf{lettre d'avocat}}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/senat_papier_courrier.png}}\\[0.8mm]
-      {\scriptsize\textbf{courrier} du sénateur}
+    \begin{column}{0.30\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=33mm]{slides/senat_papier_annexe.png}}\\[0.6mm]
+      {\scriptsize\textbf{l'annexe « courtier »}}\\{\tiny « See Attachment » → liste libre}
     \end{column}
   \end{columns}
-  \vspace{3mm}
-  \badgel{socr}{3\,985 transactions · 2,4\,\%}\quad
-  {\scriptsize\color{black!60} 373 rapports · 5 déposants = 95\,\% ·
-   255/373 arrivent \textbf{couchés} → ticker à ré-associer}
+  \vspace{1.5mm}
+  \badgel{socr}{3\,985 transactions}\quad
+  {\scriptsize\color{black!60} lettre d'avocat / courrier du sénateur = \textbf{pages de garde}
+   (p.1), pas des types — le formulaire suit, on l'ignore}
 \end{frame}
 
 % ── II.8 · Les autres sources, en vrai ── (captures/extraits réels ; 100 334 wc cache)
@@ -816,16 +811,16 @@
       mise en cache disque — un re-run ne retélécharge rien};
     \node[step=selec, text width=3.6cm, right=of b] (c) {\textbf{lecture des tableaux}\\
       \co{pd.read\_html} → DataFrames bruts};
-    \node[step=warnorange, text width=3.6cm, right=of c] (d) {\textbf{appariement flou}\\
-      des colonnes par mots-clés (« ticker », « asset », « name »)};
+    \node[step=selec, text width=3.6cm, right=of c] (d) {\textbf{colonnes repérées}\\
+      par mots-clés (« ticker », « asset », « name »)};
     \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
   \end{tikzpicture}}
 
   \vspace{5mm}
   \colorbox{black!6}{\parbox{0.85\textwidth}{\footnotesize\centering
-    pourquoi « flou » ? \textbf{l'intitulé et l'ordre des colonnes varient}
-    d'une déclaration à l'autre — on retient la colonne dont l'en-tête contient
-    les bons mots-clés, seule approche robuste}}\\[3mm]
+    on repère chaque colonne par son mot-clé \textbf{par robustesse} — mais en pratique
+    le gabarit est \textbf{stable} : les mêmes \textbf{9 colonnes} sur les 1\,777 rapports
+    2014→2026 (vérifié)}}\\[3mm]
   {\scriptsize\color{black!60} identité, ticker et déduplication : délégués au tronc commun
    — même clé naturelle que la Chambre}
 \end{frame}
