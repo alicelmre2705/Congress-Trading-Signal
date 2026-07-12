@@ -5,11 +5,14 @@
 % docs/RAPPORT_FINAL.tex §4 — références en commentaire sur chaque slide.
 % Figures : docs/quality/*.png + docs/slides/*.png + docs/sources/*.png.
 \documentclass[11pt,aspectratio=169]{beamer}
-\usetheme{default}
-\usecolortheme{seagull}
+\definecolor{helec}{HTML}{3B6EA5}   % couleur maîtresse (Chambre électronique)
+\usetheme{Madrid}
+\usecolortheme[named=helec]{structure}
 \setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}{%
-  \hfill\textcolor{black!45}{\scriptsize\insertframenumber\,/\,\inserttotalframenumber}\hspace{2mm}\vspace{1.5mm}}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamerfont{section in toc}{size=\large}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
@@ -39,6 +42,8 @@
 \newunicodechar{✓}{\checkmark}
 \newunicodechar{✗}{\ensuremath{\times}}
 \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{œ}{\oe}
+\newunicodechar{Œ}{\OE}
 \newunicodechar{°}{\textdegree}
 \newunicodechar{§}{\S}
 \newunicodechar{«}{\og}
@@ -54,11 +59,6 @@
 \definecolor{warnorange}{HTML}{E67E22}
 \definecolor{dataC}{RGB}{176,110,14}  % tables livrées (ocre, comme le RAPPORT_FINAL)
 \definecolor{grisC}{RGB}{90,90,90}    % cartes neutres (mixable en !10)
-
-\setbeamercolor{frametitle}{fg=helec,bg=white}
-\setbeamerfont{frametitle}{series=\bfseries,size=\large}
-\setbeamercolor{title}{fg=helec}
-\setbeamercolor{structure}{fg=helec}
 
 % Styles TikZ du flux (repris de RAPPORT_FINAL.tex, adaptés)
 \newcommand{\co}[1]{\texttt{#1}}
@@ -87,29 +87,42 @@
   \colorbox{#1!10}{\parbox[t][23mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
     {\color{#1}\footnotesize\textbf{#2}}\\[0.8mm]{\scriptsize #3}}}}
 
-\title{La couche données — collecte \& validation}
+\title[La couche données]{La couche données — collecte \& validation}
 \subtitle{Transactions boursières du Congrès américain · Chambre \& Sénat · 2014--2026}
-\author{Alice Lemaire}
+\author[A.~Lemaire]{Alice Lemaire}
+\institute[Ramify]{Document de recherche — livrable Ramify}
 \date{Juillet 2026}
 
 \begin{document}
 
 % ═════════════ I. OUVERTURE ═════════════
 
-% ── S1 · Titre ── (chiffres : RAPPORT_QUALITE résumé + §1)
-\begin{frame}
-  \vspace{6mm}
-  {\color{helec}\LARGE\textbf{La couche données — collecte \& validation}}\\[1.5mm]
-  {\large Transactions boursières du Congrès américain · Chambre \& Sénat · 2014--2026}\\[1mm]
-  {\color{black!55}\small Alice Lemaire · juillet 2026}
-  \vspace{9mm}
-
-  \centering
-  \tuile{helec}{169\,000}{transactions uniques}\hfill
-  \tuile{selec}{13 ans}{2014 → 2026}\hfill
-  \tuile{okgreen}{445}{élus identifiés\\(367 Chambre + 78 Sénat)}\hfill
-  \tuile{warnorange}{4 voies}{2 chambres × 2 formats\\(électronique / papier scanné)}
+% ── S1 · Page de titre ──
+\begin{frame}[plain]
+  \titlepage
 \end{frame}
+
+% ── S1bis · En un clin d'œil + plan ── (chiffres : RAPPORT_QUALITE résumé + §1)
+\begin{frame}{En un clin d'œil — et le plan}
+  \begin{columns}[c]
+    \begin{column}{0.56\textwidth}
+      \tableofcontents
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \colorbox{helec}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
+        {\color{white}\large\textbf{169\,000}} {\color{white}\footnotesize transactions uniques}}}\\[2mm]
+      \colorbox{selec}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
+        {\color{white}\large\textbf{13 ans}} {\color{white}\footnotesize 2014 → 2026}}}\\[2mm]
+      \colorbox{okgreen}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
+        {\color{white}\large\textbf{445}} {\color{white}\footnotesize élus (367 Chambre + 78 Sénat)}}}\\[2mm]
+      \colorbox{warnorange}{\parbox[c][13mm][c]{0.86\linewidth}{\centering
+        {\color{white}\large\textbf{4 voies}} {\color{white}\footnotesize 2 chambres × 2 formats}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Contexte \& sources}
 
 % ── S2 · Contexte : pourquoi ce projet ── (RAPPORT_FINAL §1 ; délais RAPPORT_QUALITE §3)
 \begin{frame}{Pourquoi ce projet ?}
@@ -173,6 +186,7 @@
 \end{frame}
 
 % ═════════════ II. À QUOI RESSEMBLE LA DONNÉE (4 slides) ═════════════
+\section{À quoi ressemble la donnée brute}
 
 % ── S4 · Chambre électronique ── (RAPPORT_FINAL §4.3 « dans la source » ; volume §1 RQ)
 \begin{frame}{À quoi ça ressemble (1/4) — Chambre, PTR électronique}
@@ -251,6 +265,7 @@
 \end{frame}
 
 % ═════════════ III. LE FLUX ═════════════
+\section{Le flux de bout en bout}
 
 % ── S8 · Flux de bout en bout ── (adaptation 16:9 du diagramme §3.2 de RAPPORT_FINAL.tex l.228-278)
 \begin{frame}{Le flux de bout en bout}
@@ -318,6 +333,7 @@
 \end{frame}
 
 % ═════════════ IV. CONSTRUCTION, ÉTAPE PAR ÉTAPE ═════════════
+\section{Construction de la donnée, étape par étape}
 
 % ── S9 · Identité ── (RAPPORT_FINAL §4.1 ; 100 %/367/78 RQ §1 ; Casey/Craig AUDIT §4)
 \begin{frame}{Étape 1 — d'abord, savoir qui a déclaré (identité)}
@@ -579,6 +595,7 @@
 \end{frame}
 
 % ═════════════ V. VALIDATION ═════════════
+\section{Validation}
 
 % ── S17 · Quiver N1 ── (RQ §6.1-6.2)
 \begin{frame}{Validation (1/3) — Quiver, niveau 1 : a-t-on tout ?}
@@ -668,6 +685,7 @@
 \end{frame}
 
 % ═════════════ VI. LIVRABLE ═════════════
+\section{Le livrable}
 
 % ── S20 · Entonnoir ── (RQ §7)
 \begin{frame}{Du corpus à la table de recherche : l'entonnoir}
