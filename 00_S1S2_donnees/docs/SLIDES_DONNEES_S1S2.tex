@@ -240,8 +240,31 @@
       · le ticker est imprimé \textbf{entre parenthèses} : \co{(BA)},
         le type d'actif entre crochets : \co{[ST]}\\[1.5mm]
       · deux dates par ligne (trade / notification) + fourchette de montant\\[1.5mm]
-      · \textcolor{alertred}{le défi} : une transaction s'étale sur
-        \textbf{plusieurs lignes} (descriptions, montants coupés)}
+      · lisible… mais pas si régulier : \textcolor{alertred}{le défi} sur la slide
+        suivante}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.3bis · Le défi de l'extraction électronique ── (§4.3 ; audit §4 : 7 996 montants tronqués)
+\begin{frame}{Le chemin Chambre (3/4) — le défi de l'extraction}
+  \begin{columns}[T]
+    \begin{column}{0.62\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
+      {\scriptsize\color{black!60} extrait réel (Hon.\ Bob Gibbs, OH07) — cadres ajoutés}
+    \end{column}
+    \begin{column}{0.36\textwidth}
+      {\footnotesize le PDF n'est \textbf{pas un tableau régulier} :}\\[2mm]
+      {\footnotesize
+      · le \textbf{montant} déborde sur la ligne suivante
+        (\co{\$15,001 -} puis \co{\$50,000})\\[1.5mm]
+      · le \textbf{libellé} d'un actif court sur \textbf{4 lignes}\\[1.5mm]
+      · un découpage ligne à ligne raterait la moitié}\\[3mm]
+      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
+        → on \textbf{reconstruit} chaque transaction\\
+        (recollage des lignes coupées)\\ avant de la lire}}\\[2mm]
+      {\scriptsize\color{black!60} le montant coupé à lui seul : \textbf{7\,996}
+       lignes réparées}
     \end{column}
   \end{columns}
 \end{frame}
