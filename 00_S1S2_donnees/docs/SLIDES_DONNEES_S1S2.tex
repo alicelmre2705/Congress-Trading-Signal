@@ -269,32 +269,31 @@
   \end{columns}
 \end{frame}
 
-% ── II.4 · Chambre scannée : les différents cas (simple) ── (§4.5 ; détail à l'étape 5)
+% ── II.4 · Chambre scannée : les différents cas (simple, pages entières) ── (§4.5 ; détail à l'étape 5)
 \begin{frame}{Le chemin Chambre (4/4) — le document : PTR scanné}
   \centering
-  \badgel{hocr}{93\,261 transactions — 55,2\,\% du corpus}\\[1mm]
   {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} — et il arrive
-   sous trois formes :}\\[3mm]
+   sous trois formes (pages réelles) :}\\[2.5mm]
   \begin{columns}[T]
-    \begin{column}{0.32\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_droit.png}}\\[1.2mm]
-      {\footnotesize\textbf{Tapé, droit}}\\[0.5mm]
-      {\scriptsize formulaire dactylographié, lisible}
+    \begin{column}{0.37\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=35mm]{slides/scan_full_droit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, droit}}\\[0.3mm]
+      {\scriptsize dactylographié, lisible tel quel}
     \end{column}
-    \begin{column}{0.32\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_tourne.png}}\\[1.2mm]
-      {\footnotesize\textbf{Tapé, couché}}\\[0.5mm]
-      {\scriptsize tapé mais \textbf{tourné à 90°} (le plus courant)}
+    \begin{column}{0.21\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=35mm]{slides/scan_full_couche.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, couché}}\\[0.3mm]
+      {\scriptsize tapé mais \textbf{tourné à 90°}\\(le plus courant)}
     \end{column}
-    \begin{column}{0.32\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_manuscrit.png}}\\[1.2mm]
-      {\footnotesize\textbf{Manuscrit}}\\[0.5mm]
+    \begin{column}{0.37\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=35mm]{slides/scan_full_manuscrit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Manuscrit}}\\[0.3mm]
       {\scriptsize rempli \textbf{à la main}, en cursif}
     \end{column}
   \end{columns}
-  \vspace{4mm}
-  {\scriptsize\color{black!60} on les lit par OCR (Claude Vision) —
-   \emph{comment, et ce qu'on en récupère : étape 5}}
+  \vspace{2mm}
+  \badgel{hocr}{93\,261 transactions — 55,2\,\% du corpus}\quad
+  {\scriptsize\color{black!60} lues par OCR (Claude Vision) — \emph{détail : étape 5}}
 \end{frame}
 
 % ── II.5 · Le site du Sénat ── (capture réelle efdsearch.senate.gov ; 2 150 comptés)
