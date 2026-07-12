@@ -520,6 +520,57 @@
   {\scriptsize\color{black!60} lues par OCR (Claude Vision) — \emph{détail : étape 5}}
 \end{frame}
 
+% ═════ Validation Chambre : entrée (H) + transactions (P) = sortie (T) ? ═════
+% chiffres : docs/ANALYSE_COHERENCE_PORTEFEUILLE.md (PoC, 33 élus H+T)
+
+% ── VC1 · l'idée du contrôle ──
+\begin{frame}{La Chambre — valider qu'on a tout : entrée + transactions = sortie ?}
+  \centering
+  {\footnotesize on a montré (aparté) que le rapport d'\textbf{entrée (H)} et de
+   \textbf{sortie (T)} listent le \textbf{patrimoine détenu} (Schedule A). D'où un test
+   de complétude :}\\[4mm]
+  \resizebox{0.97\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=14mm]
+    \node[step=okgreen, text width=3.5cm, minimum height=1.7cm, font=\footnotesize] (h)
+      {\textbf{patrimoine d'ENTRÉE}\\rapport \co{H}\\{\scriptsize ce qu'il détient en arrivant}};
+    \node[step=helec, text width=3.5cm, minimum height=1.7cm, font=\footnotesize, right=of h] (p)
+      {\textbf{+ toutes les transactions}\\les \co{PTR} du mandat\\{\scriptsize achats / ventes datés}};
+    \node[step=dataC, text width=3.5cm, minimum height=1.7cm, font=\footnotesize, right=of p] (t)
+      {\textbf{= patrimoine de SORTIE}\\rapport \co{T}\\{\scriptsize ce qu'il détient en partant}};
+    \draw[-{Latex[length=2.6mm]}, line width=1pt] (h) -- (p);
+    \draw[-{Latex[length=2.6mm]}, line width=1pt] (p) -- (t);
+    \node[below=6mm of p, font=\small\bfseries, color=alertred] {on doit retomber dessus — sinon, il manque une transaction};
+  \end{tikzpicture}}
+  \\[5mm]
+  {\footnotesize testé sur les \textbf{33 élus} entrés \textbf{et} sortis entre 2014 et 2026
+   (ceux qui ont un H \emph{et} un T) — reconstruction titre par titre}
+\end{frame}
+
+% ── VC2 · le résultat ──
+\begin{frame}{La Chambre — résultat : 80 \% du portefeuille de sortie reconstruit}
+  \centering
+  \includegraphics[width=0.9\textwidth]{coherence/fig_coherence.png}\\[2mm]
+  \begin{columns}[T]
+    \begin{column}{0.63\textwidth}
+      {\footnotesize
+      · \badge{okgreen}{80 \% cohérent} — entrée + nos transactions reconstruisent le
+        portefeuille de sortie → \textbf{flux PTR largement complet}\\[1.2mm]
+      · \textbf{27 \% détenus tout du long, jamais tradés} → \textbf{invisibles} à la
+        reconstruction actuelle (qui part de zéro) : le \textbf{patrimoine d'entrée est
+        la brique qui manque}}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      {\scriptsize\color{black!70}
+      \textbf{exemple} — M.\ T.\ Greene détient
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2020/10042733.pdf}{BMY \& MCD à l'entrée}
+      et à la
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2026/10073322.pdf}{sortie}, \textbf{0 PTR}.\\[1.2mm]
+      9 élus sur 33 n'ont \textbf{presque aucun PTR} mais détiennent des actions →
+      le patrimoine est leur \textbf{seule} fenêtre.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ── II.5 · Le chemin Sénat en un schéma ── (parcours eFD + justification du filtre PTR :
 %    Annual Part 4a « PTR Summary » vérifié en direct 2026-07-12 ; House 173 actions mesuré)
 \begin{frame}{Le chemin Sénat (1/3) — de l'accès au document}
