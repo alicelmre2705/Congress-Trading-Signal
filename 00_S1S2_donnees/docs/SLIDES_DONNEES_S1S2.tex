@@ -269,24 +269,32 @@
   \end{columns}
 \end{frame}
 
-% ── II.4 · Chambre scannée ── (§4.5 ; census/motifs slide OCR)
+% ── II.4 · Chambre scannée : les différents cas (simple) ── (§4.5 ; détail à l'étape 5)
 \begin{frame}{Le chemin Chambre (4/4) — le document : PTR scanné}
+  \centering
+  \badgel{hocr}{93\,261 transactions — 55,2\,\% du corpus}\\[1mm]
+  {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} — et il arrive
+   sous trois formes :}\\[3mm]
   \begin{columns}[T]
-    \begin{column}{0.55\textwidth}\centering
-      \fcolorbox{hocr}{white}{\includegraphics[height=57mm]{sources/house_ocr.png}}\\[0.6mm]
-      {\scriptsize scan tapé, \textbf{couché}, tampon \emph{HAND DELIVERED} (Anna P.\ Luna)}
+    \begin{column}{0.32\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_droit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, droit}}\\[0.5mm]
+      {\scriptsize formulaire dactylographié, lisible}
     \end{column}
-    \begin{column}{0.43\textwidth}
-      \badgel{hocr}{93\,261 transactions — 55,2\,\% du corpus}\\[2.5mm]
-      {\footnotesize
-      · une \textbf{image}, pas de texte : formulaire à \textbf{cases cochées}
-        (type, fourchette A→K)\\[1.5mm]
-      · souvent \textbf{tourné à 90°}, déposé à la main\\[1.5mm]
-      · \textcolor{alertred}{le cas extrême} : le \textbf{manuscrit cursif} →}\\[1.5mm]
-      \fcolorbox{alertred}{white}{\includegraphics[height=26mm]{slides/fig_pdf_manuscrit_clay.png}}\\[0.6mm]
-      \badge{alertred}{écarté — règle rejouable (→ étape 5)}
+    \begin{column}{0.32\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_tourne.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, couché}}\\[0.5mm]
+      {\scriptsize tapé mais \textbf{tourné à 90°} (le plus courant)}
+    \end{column}
+    \begin{column}{0.32\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[width=\linewidth]{slides/thumb_scan_manuscrit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Manuscrit}}\\[0.5mm]
+      {\scriptsize rempli \textbf{à la main}, en cursif}
     \end{column}
   \end{columns}
+  \vspace{4mm}
+  {\scriptsize\color{black!60} on les lit par OCR (Claude Vision) —
+   \emph{comment, et ce qu'on en récupère : étape 5}}
 \end{frame}
 
 % ── II.5 · Le site du Sénat ── (capture réelle efdsearch.senate.gov ; 2 150 comptés)
@@ -571,77 +579,32 @@
    — même clé naturelle que la Chambre}
 \end{frame}
 
-% ── S13a · Trois familles de scans (galerie de scénarios) ── (census 74/1575/775 ; §6.6 88/65/13)
-\begin{frame}{Étape 5 — trois familles de scans, trois résultats}
+% ── S13 · Piste scannée Chambre (OCR) ── (§4.5 ; census vérifié awk ; 12,9 % RQ §6.6)
+\begin{frame}{Étape 5 — la piste scannée de la Chambre (OCR Vision)}
   \centering
-  {\footnotesize sur \textbf{2\,424 scans} recensés, ce qu'on arrive à lire dépend
-   du type de document :}\\[1.5mm]
-  % Ligne 1 : tapé droit
-  \begin{columns}[c]
-    \begin{column}{0.58\textwidth}\centering
-      \fcolorbox{okgreen}{white}{\includegraphics[height=16mm]{slides/thumb_scan_droit.png}}
-    \end{column}
-    \begin{column}{0.40\textwidth}
-      {\footnotesize\textbf{\color{okgreen}Tapé, droit} — 74 scans}\\[0.5mm]
-      \badge{okgreen}{✓ lu directement}\\[0.5mm]
-      {\scriptsize corroboré par Quiver à \textbf{88\,\%}}
-    \end{column}
-  \end{columns}
-  \vspace{1.2mm}
-  % Ligne 2 : tapé tourné
-  \begin{columns}[c]
-    \begin{column}{0.58\textwidth}\centering
-      \fcolorbox{helec}{white}{\includegraphics[height=16mm]{slides/thumb_scan_tourne.png}}
-    \end{column}
-    \begin{column}{0.40\textwidth}
-      {\footnotesize\textbf{\color{helec}Tapé, couché} — 1\,575 scans (le gros)}\\[0.5mm]
-      \badge{helec}{↻ redressé, puis lu}\\[0.5mm]
-      {\scriptsize corroboré à \textbf{65\,\%} — cf.\ slide suivante}
-    \end{column}
-  \end{columns}
-  \vspace{1.2mm}
-  % Ligne 3 : manuscrit
-  \begin{columns}[c]
-    \begin{column}{0.58\textwidth}\centering
-      \fcolorbox{alertred}{white}{\includegraphics[height=16mm]{slides/thumb_scan_manuscrit.png}}
-    \end{column}
-    \begin{column}{0.40\textwidth}
-      {\footnotesize\textbf{\color{alertred}Manuscrit} — 775 scans}\\[0.5mm]
-      \badge{alertred}{✗ dates non fiables → écarté}\\[0.5mm]
-      {\scriptsize corroboré à \textbf{13\,\%} seulement}
-    \end{column}
-  \end{columns}
-\end{frame}
+  \includegraphics[width=0.70\textwidth]{slides/fig_deskew_rotations.png}
 
-% ── S13b · Ligne par ligne : récupéré, corrigé, écarté ── (echantillon match ; schema.py ; RQ §6.2 2540)
-\begin{frame}{Étape 5 — ligne par ligne : récupéré, corrigé, ou écarté}
+  \vspace{1mm}
   \begin{columns}[T]
-    \begin{column}{0.40\textwidth}\centering
-      \includegraphics[width=\linewidth]{slides/fig_deskew_rotations.png}\\[1mm]
-      {\scriptsize\color{black!60} \textbf{redresser} d'abord : 525/547 scans arrivent
-       couchés → on choisit la bonne rotation avant l'OCR}
+    \begin{column}{0.46\textwidth}\footnotesize
+      \textbf{1.} redresser — reconnaissance d'orientation (4 candidates)\\[0.8mm]
+      \textbf{2.} classer — census \textbf{2\,424 scans} : 74 droits ·
+        1\,575 tournés · \textbf{775 manuscrits}\\[0.8mm]
+      \textbf{3.} lire — \co{tool\_use} forcé, JSON strict, \textbf{cache versionné}
+        (un re-run ne re-paie rien), prompt durci sur échantillon
     \end{column}
-    \begin{column}{0.58\textwidth}
-      {\footnotesize puis, pour chaque ligne lue :}\\[1.5mm]
-      \colorbox{okgreen!12}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{✓ lu correctement} — la majorité\\
-        \co{MICROSOFT CORP} → \textbf{MSFT}, 27/12/2019 (identique à Quiver)}}\\[1.2mm]
-      \colorbox{helec!12}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{⚙ ticker absent → récupéré} par LLM\\
-        \co{« NEENAH PAPER »} (nom lisible, pas de symbole) → \textbf{NP}
-        — \textbf{2\,540 lignes} ainsi récupérées}}\\[1.2mm]
-      \colorbox{warnorange!16}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{⚙ date suspecte → corrigée} au PDF\\
-        Khanna / Costco : l'OCR lit \co{2021-09-31} (le 31 sept.\ n'existe pas)
-        → relu → \textbf{2021-08-16}}}\\[1.2mm]
-      \colorbox{alertred!12}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{✗ non récupérable → écarté / flaggé}\\
-        manuscrit cursif ou charabia OCR — \textbf{on n'invente jamais} une date}}
+    \begin{column}{0.52\textwidth}\footnotesize
+      \colorbox{alertred!10}{\parbox{0.97\linewidth}{\scriptsize
+        \textbf{\textcolor{alertred}{gating manuscrit}} — Quiver ne corrobore que
+        \textbf{12,9\,\%} du manuscrit (88\,\% du tapé droit) : dates cursives trop
+        incertaines → \textbf{582 écartés}, règle écrite \textbf{rejouable},
+        exceptions explicites (3 déposants + 33 docs curés)}}\\[1.5mm]
+      \badgel{hocr}{93\,261 lignes — très concentrées}\\[1mm]
+      {\scriptsize Khanna à lui seul \textbf{44,0\,\%} · trio Khanna, McCaul,
+       Harshbarger \textbf{77,1\,\%} — de gros déposants qui déclarent
+       \textbf{exclusivement sur papier}}
     \end{column}
   \end{columns}
-  \vspace{1mm}
-  {\scriptsize\color{black!60} bilan : \textbf{93\,261 lignes} (Khanna 44\,\%, trio de tête 77\,\%) ·
-   \textbf{582 manuscrits écartés}, règle rejouable (exceptions : 3 déposants + 33 docs curés)}
 \end{frame}
 
 % ── S14 · Piste papier Sénat ── (§4.6 ; JSON Boozman = ocr_cache réel)
