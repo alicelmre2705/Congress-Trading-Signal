@@ -307,7 +307,7 @@
 %    5 U.S.C. §13103 dépôts, §13105 STOCK Act PTR, §13103(e) exemption de sortie)
 \begin{frame}{Comment on entre au Congrès : qui dépose quoi, et quand (la loi)}
   \centering
-  \includegraphics[width=0.99\textwidth]{fig_house_loi_cycle.png}\\[1mm]
+  \includegraphics[width=0.86\textwidth]{fig_house_loi_cycle.png}\\[1mm]
   {\footnotesize \badge{alertred}{2 règles non écrites}\;
    un candidat déjà déclaré \textbf{saute le H} ; qui part au Sénat / à l'exécutif / décède
    \textbf{ne dépose pas de T}}\\[0.6mm]
@@ -381,7 +381,7 @@
 \end{frame}
 
 % ── H10 · La preuve : matrice préfixe × contenu ── (V1_House.ipynb §5.2 ; validation L4=0)
-\begin{frame}{Le \texttt{DocID} (2/4) — le préfixe dit-il vrai ? Vérifié sur 23\,246 PDF}
+\begin{frame}{Le \texttt{DocID} (2/4) — le préfixe dit-il vrai ? Vérifié sur 24\,078 PDF}
   \centering
   {\footnotesize deux définitions \textbf{indépendantes} de « scanné », confrontées
    document par document :}\\[1mm]
@@ -395,10 +395,10 @@
     préfixe numérique (\co{1}/\co{2}/\co{3}/\co{4}) &
       \textcolor{okgreen}{\textbf{20\,821}} & \textcolor{alertred}{\textbf{0}} \\
     préfixe scanné (\co{8}/\co{9}) &
-      \textcolor{alertred}{\textbf{0}} & \textcolor{okgreen}{\textbf{2\,425}} \\
+      \textcolor{alertred}{\textbf{0}} & \textcolor{okgreen}{\textbf{3\,257}} \\
     \bottomrule
   \end{tabular}}\\[4mm]
-  \badge{okgreen}{0 désaccord sur 23\,246 documents — validation L4}\\[2mm]
+  \badge{okgreen}{0 désaccord sur 24\,078 documents — validation L4}\\[2mm]
   {\scriptsize\color{black!60} périmètre : PDF en cache, types P·C·H·O·T·A · 2014-2026 —
    le tri lisible/scanné n'est \textbf{pas une hypothèse}, c'est une \textbf{mesure} ;
    l'ancien pipeline, lui, ne regardait que le contenu (fragile aux PDF mal formés)}
@@ -568,25 +568,46 @@
   \end{columns}
 \end{frame}
 
-% ── H16 · Le tableau de bord ── (MANIFEST.json : 48 validations, 0 rouge ; fig_house_dashboard)
-\begin{frame}{Le tableau de bord — 48 validations, 0 rouge}
+% ── H15c · B3 : le patrimoine papier OCRisé ── (§17 ; F1 526 · F4 78,3 · F5 87,1 · F6 54)
+\begin{frame}{B3 — le patrimoine papier, lu à son tour : la conclusion tient}
   \centering
-  \includegraphics[width=0.70\textwidth]{fig_house_dashboard.png}
+  {\footnotesize 556 photos scannées OCRisées — 12 H + 100 T + 444 annuels $\leq$ 12 pages,
+   $\approx$ 50 \$ — dont 526 avec contenu → \textbf{15\,489 holdings papier},
+   cache versionné \co{reference/ocr\_cache\_fd\_v1/}}\\[2mm]
+  \includegraphics[width=0.79\textwidth]{fig_house_entonnoir_b3.png}\\[1mm]
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      {\footnotesize la cohorte passe de 45 à \textbf{49 membres} (+ Dold, Guinta,
+      Lawrence, Trott) et les taux \textbf{tiennent} : \badge{okgreen}{78,3 \% (achats PTR)}
+      \badge{okgreen}{87,1 \% toutes déclarations}}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      {\scriptsize\color{black!60} restent hors d'atteinte d'un suivi par ticker :
+       54 membres à patrimoine fonds/comptes/immobilier · les 276 annuels-monstres
+       (annexes de courtier, $\approx$ 267 \$) : décision séparée}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-% ── H17 · Conclusion ── (comptes MANIFEST : 161 076 signal · 198 615 holdings · 23 246 PDF)
+% ── H16 · Le tableau de bord ── (MANIFEST.json : 54 validations, 0 rouge ; fig_house_dashboard)
+\begin{frame}{Le tableau de bord — 54 validations, 0 rouge}
+  \centering
+  \includegraphics[width=0.66\textwidth]{fig_house_dashboard.png}
+\end{frame}
+
+% ── H17 · Conclusion ── (comptes MANIFEST : 161 076 signal · 198 615 holdings · 24 078 PDF)
 \begin{frame}{Ce que ce deck prouve — et la suite}
   \centering
   \tuile{helec}{161\,076}{transactions PTR\\= le signal, couvert à 100\,\%}\hfill
   \tuile{dataC}{198\,615}{holdings Schedule A\\(photos de patrimoine)}\hfill
-  \tuile{grisC}{23\,246}{PDF archivés\\+ index irremplaçables}\hfill
-  \tuile{okgreen}{48 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
+  \tuile{grisC}{24\,078}{PDF archivés\\+ index irremplaçables}\hfill
+  \tuile{okgreen}{54 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
   {\footnotesize
   \badge{helec}{1. source exhaustive et archivée — le site détruit (5 U.S.C. §13107), pas nous}\\[1.5mm]
   \badge{helec}{2. tri lisible/scanné mesuré (0 désaccord) — l'OCR au strict nécessaire}\\[1.5mm]
   \badge{helec}{3. chaque portefeuille se recoupe — 87,8 \% toutes déclarations, 3,3 \% d'inexpliqué}}\\[4mm]
   {\scriptsize\color{black!60} suites naturelles : le Sénat sur le même modèle ·
-   OCR des H/T/O scannés pour doubler la cohorte de cohérence (45 → 106 membres) ·
+   appariement par NOM d'actif (les 54 membres sans ticker) et les 276 annuels-monstres ·
    brancher le patrimoine d'entrée (H) dans le moteur de stratégie S3}
 \end{frame}
 

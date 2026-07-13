@@ -1,0 +1,44 @@
+{
+ "doc_id": "8217354",
+ "member": "Bonnie Watson Coleman",
+ "filing_type": "O",
+ "model": "claude-sonnet-5",
+ "prompt_sha": "76ca0838b43c",
+ "dpi": 200,
+ "n_pages": 10,
+ "created_utc": "2026-07-13T13:11:12.947473+00:00",
+ "status": "ok",
+ "batches": 2,
+ "holdings": [
+  {
+   "asset_description": "Deferred Compensation Plan (NJ State)",
+   "owner": "Self",
+   "ticker": null,
+   "value_range": "$250,001-$500,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Trenton Trust Employee Plan (NJ State)",
+   "owner": "Self",
+   "ticker": null,
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "599 N Church St",
+   "owner": "Joint",
+   "ticker": null,
+   "value_range": null,
+   "txn_flag": "S(part)"
+  }
+ ],
+ "transactions": [
+  {
+   "asset_description": "599 N Church St",
+   "transaction_type": "Partial Sale",
+   "owner": "Joint",
+   "transaction_date": "2019",
+   "amount_range": "$15,001-$50,000"
+  }
+ ]
+}

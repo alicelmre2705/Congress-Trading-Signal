@@ -36,7 +36,7 @@
   "comptes": {
     "recensement": 35377,
     "ledger": 35359,
-    "pdf_en_cache": 23246,
+    "pdf_en_cache": 24078,
     "transactions_v1": 166149,
     "transactions_signal_ptr": 56002,
     "holdings_v1": 198615,
@@ -49,7 +49,7 @@
     "scanne_hors_V1": 2851,
     "ocr_herite_parse": 2425,
     "hors_perimetre_blind_trust": 23,
-    "en_attente_telechargement": 1
+    "absent_404": 1
   },
   "validations": {
     "L2a": {
@@ -243,16 +243,42 @@
     "C-f": {
       "valeur": 3.3,
       "verdict": "VERT"
+    },
+    "F1": {
+      "valeur": 526.0,
+      "verdict": "INFO"
+    },
+    "F2": {
+      "valeur": 26.3,
+      "verdict": "INFO"
+    },
+    "F3": {
+      "valeur": 97.5,
+      "verdict": "VERT"
+    },
+    "F4": {
+      "valeur": 78.3,
+      "verdict": "VERT"
+    },
+    "F5": {
+      "valeur": 87.1,
+      "verdict": "VERT"
+    },
+    "F6": {
+      "valeur": 54.0,
+      "verdict": "INFO"
     }
   },
   "sha_tables": {
     "01_recensement_depots.csv": "c11ec3651437694a1148ba2e9719b7db83f967e18f82681f0ea2f2f2201a34fc",
-    "02_ledger_docs.csv": "70fd5752aa062753f692cc82aaa8c3d09b5a9a372171fa0bae4407ee0b11dbf2",
-    "03_pdf_inventory.csv": "ef11b8fc28cf915fbf4120be0daf32738932ed4da0eefaf53f81a1d130b1af67",
+    "02_ledger_docs.csv": "6dfb439d38eeb87b5cab346d5a205f6f55befb221c809baf4bad7448f4c386e5",
+    "03_pdf_inventory.csv": "bf5aa17c2b74c528840371beaf4c3aaf8d0623e54900cb292c11281ada71f373",
     "04_transactions_v1.csv": "f9273aff6a008d0b2f7f321d00bd063055363fa39d37c0b5fba71746fdef24ce",
     "05_holdings_v1.csv": "1ee62b71389ccb611944478e561d349625c128f48826acc9ccb2e15ce0daff35",
     "06_identites_v1.csv": "466a331d7b0bdc3d7f4577c5332b54a43308e5e1fcbde79d4271aa862c7a65c9",
     "07_transactions_ptr_ocr.csv": "279e7f91048c1148744becaad7223b3366c59cb1b4234d1b47dcafa747e86112",
+    "08_holdings_fd_ocr.csv": "61d492bde9ef637cf0413413f9109c0e99da3cbbc281adc7c92022baed985a88",
+    "09_transactions_fd_ocr.csv": "e5c63a287995be257664f728b1a5ef2ff69617c77158f33da15da8e0c66b7d0f",
     "annexe_actions_annuel_seul.csv": "ceb8f3172bd3bd30f6cd80cbdf8ff3d198bca8d2f22d397e0d3195caf7b60386",
     "annexe_coherence_trous_v1.csv": "56e1c466e926372751208f485ca71cdef2ca2d84ff45b2087ec308cc9df3991a"
   }
