@@ -89,6 +89,18 @@
   \colorbox{#1!10}{\parbox[t][23mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
     {\color{#1}\footnotesize\textbf{#2}}\\[0.8mm]{\scriptsize #3}}}}
 
+% Séparateur de partie plein cadre : \partdivider{couleur}{PARTIE X}{Grand titre}{sous-titre / pont}
+\newcommand{\partdivider}[4]{%
+  {\setbeamercolor{background canvas}{bg=#1}
+  \begin{frame}[plain]
+    \centering\vfill
+    {\color{white}\Large\textbf{#2}}\\[3.5mm]
+    {\color{white!75}\rule{0.40\textwidth}{1pt}}\\[4.5mm]
+    {\color{white}\fontsize{32}{36}\selectfont\textbf{#3}}\\[5.5mm]
+    {\color{white!88}\large #4}
+    \vfill
+  \end{frame}}}
+
 \title[La couche données]{La couche données — collecte \& validation}
 \subtitle{Transactions boursières du Congrès américain · Chambre \& Sénat · 2014--2026}
 \author[A.~Lemaire]{Alice Lemaire}
@@ -103,6 +115,9 @@
 \begin{frame}[plain]
   \titlepage
 \end{frame}
+
+% ── Séparateur · PARTIE I ──
+\partdivider{helec}{PARTIE I}{La donnée}{collecter, extraire, valider — une donnée de recherche que l'on peut croire}
 
 \section{Comprendre la donnée — la Chambre}
 
@@ -1334,6 +1349,10 @@
 % (Parties I §0-§10 et II §11-§12 ; la Partie III « autopsie » viendra plus tard.)
 % Toutes les figures fig_05b_* sont recalculées par le MÊME moteur que le notebook,
 % avec contrôles bloquants sur chaque scalaire imprimé (118 029 / 266 / 223 / 20-12 / t 0,94 / etc.)
+
+% ── Séparateur · PARTIE II ──
+\partdivider{helec}{PARTIE II}{Le backtest}{reconstruire les portefeuilles, copier les meilleurs, mesurer l'alpha face au SPY}
+
 \section{S3 — Le portefeuille des élus : le copy-trading bat-il le marché ?}
 
 % ── S3-1 · Pont : le pipeline de la question ──
