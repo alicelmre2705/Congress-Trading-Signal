@@ -27,6 +27,7 @@
 \usepackage{newunicodechar}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc}
+\graphicspath{{../../00_S1S2_donnees/docs/}{figs/}}   % figures historiques + figures V1
 \hypersetup{colorlinks=true, urlcolor=helec, linkcolor=white}   % liens cliquables ; linkcolor=white pour le pied de page Madrid
 
 % Caractères Unicode → commandes (fontes T1)
@@ -1235,6 +1236,98 @@
       {\tiny doc 8217474 — écarté (gating)}
     \end{column}
   \end{columns}
+\end{frame}
+
+
+% ═════════════ V. LA REFONTE V1 — chiffres : cache/MANIFEST.json (run 2026-07-13) ═════════════
+\section{La refonte V1 — la Chambre refaite et prouvée}
+
+% ── V1-0 · Pourquoi et quoi ── (tuiles = MANIFEST.json)
+\begin{frame}{La V1 en un coup d'œil — un notebook qui se prouve lui-même}
+  \centering
+  {\footnotesize toute la chaîne Chambre refaite dans \textbf{un seul notebook autonome}
+   (\co{01\_v1\_house/V1\_House.ipynb}) — et \textbf{validée de l'intérieur}, sans source externe}\\[3mm]
+  \tuile{helec}{35 377}{dépôts recensés\\(index site $\cup$ instantané)}\hfill
+  \tuile{helec}{23 245}{PDF en cache\\(2 Go, sha256, 1 seul 404)}\hfill
+  \tuile{okgreen}{56 002}{transactions signal\\(PTR électroniques)}\hfill
+  \tuile{okgreen}{198 615}{holdings Schedule A\\(patrimoine, 1\iere{} fois)}\\[2mm]
+  \tuile{dataC}{110 147}{transactions contexte\\(annuels O/T/A/C)}\hfill
+  \tuile{dataC}{6+1}{types parsés\\(P + O/H/T/A/C)}\hfill
+  \tuile{okgreen}{37}{validations\\\textbf{0 rouge}}\hfill
+  \tuile{grisC}{100 \%}{couverture réelle\\de l'électronique}\\[3mm]
+  {\scriptsize\color{black!60} règle d'or héritée de l'incident « 50/50 vs 71/29 » :
+   \textbf{aucun ratio sans ses trois étiquettes} — unité × périmètre × fenêtre}
+\end{frame}
+
+% ── V1-1 · La source s'efface ── (fig recalculée depuis cache/index*)
+\begin{frame}{Découverte — la source primaire s'efface sous nos yeux}
+  \centering
+  \includegraphics[width=0.94\textwidth]{fig_v1_purge_index.png}\\[1mm]
+  {\footnotesize le Clerk \textbf{purge} les index au-delà de $\sim$6 ans (STOCK Act) :
+   les \textbf{PDF répondent encore}, mais la \emph{liste de quoi demander} a disparu du site}\\[0.8mm]
+  {\scriptsize\color{black!60} → notre \textbf{instantané} est un actif critique ;
+   le recensement V1 = union \{site aujourd'hui\} $\cup$ \{instantané\}, chaque ligne tracée —
+   et au passage \textbf{+15 nouveaux PTR} de juillet captés}
+\end{frame}
+
+% ── V1-2 · Le ledger ── (fig depuis 02_ledger_docs.csv)
+\begin{frame}{Le ledger — plus aucun document ne disparaît sans trace}
+  \centering
+  \includegraphics[width=0.97\textwidth]{fig_v1_ledger.png}\\[1.5mm]
+  {\footnotesize l'ancienne métrique de couverture valait 100 \%
+   \textbf{par construction} (une partition déguisée) ; celle-ci peut échouer —
+   c'est ce qui lui donne sa valeur}
+\end{frame}
+
+% ── V1-3 · Les témoins ── (asserts littéraux du notebook, §7.2/§8.2/§8.3)
+\begin{frame}{Cinq documents témoins, comptés à la main, verrouillent les parseurs}
+  \centering
+  {\footnotesize chaque gabarit est validé par un \textbf{assert littéral} sur un document
+   ouvert et compté à la main — si un parseur régresse, le notebook \textbf{s'arrête}}\\[2.5mm]
+  {\small
+  \begin{tabular}{@{}llll@{}}
+  \toprule
+  témoin & gabarit & compté à la main & piège couvert \\
+  \midrule
+  \href{https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2014/20002235.pdf}{Yoder 2014} & PTR legacy & \textbf{5} txns & petites capitales, ticker en continuation \\
+  \href{https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2020/20016985.pdf}{Allen 2020} & PTR moderne & \textbf{3} txns & montants coupés sur 2 lignes \\
+  \href{https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2017/20006475.pdf}{Peters 2017} & PTR conjoint & \textbf{3} txns & palier « Spouse/DC over \$1M » \\
+  \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2020/10042733.pdf}{Greene 2020 (H)} & Schedule A & \textbf{101} holdings & blocs « conteneur $\Rightarrow$ », IRA \\
+  \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2015/10010857.pdf}{Pelosi 2015 (O)} & Schedule B FD & \textbf{5} txns & (partial) et borne sur ligne suivante \\
+  \bottomrule
+  \end{tabular}}\\[2.5mm]
+  \badge{alertred}{401(k) lu « ticker K » : 567 faux — corrigé}\;
+  \badge{warnorange}{montants exacts « \$955.10 » — captés}\;
+  \badge{okgreen}{ETF exemptés de PTR par la loi — classés}
+\end{frame}
+
+% ── V1-4 · Le procès de l'ancien ── (X1/X2, arbitrage marqueurs)
+\begin{frame}{L'ancien pipeline au tribunal des documents}
+  \centering
+  \includegraphics[width=0.96\textwidth]{fig_v1_fantomes.png}\\[1mm]
+  {\scriptsize\color{black!60} chaque désaccord de compte est tranché par le document
+   lui-même — pas par confiance envers l'un ou l'autre code}
+\end{frame}
+
+% ── V1-5 · Cohérence portefeuille ── (C-a/C-b + §11.7 blind trusts)
+\begin{frame}{L'idée maîtresse validée : les portefeuilles se recoupent}
+  \centering
+  \includegraphics[width=0.99\textwidth]{fig_v1_coherence.png}\\[1.5mm]
+  {\footnotesize et l'hypothèse « blind trust » vérifiée (§11.7) : le portefeuille visible
+   \textbf{s'effondre} à l'entrée du trust (Phillips : 284 $\to$ 1 position, repliées dans
+   une ligne opaque « Qualified Blind Trust » \$5-25M) — une \emph{disparition}, pas un écart ;
+   \textbf{0} position inexpliquée de la cohorte ne vient d'un trust}
+\end{frame}
+
+% ── V1-6 · Tableau de bord + suites ──
+\begin{frame}{Le tableau de bord — et la suite}
+  \centering
+  \includegraphics[width=0.88\textwidth]{fig_v1_dashboard.png}\\[1.5mm]
+  {\footnotesize\badge{helec}{V2 : OCR des 5 276 scannés}\;
+   \badge{selec}{V-Sénat sur le même modèle}\;
+   \badge{okgreen}{S3 : partir du patrimoine d'entrée (H)}}\\[1mm]
+  {\scriptsize\color{black!60} les 4 orange sont des \emph{mesures documentées}
+   (PTR papier hors V1, codes de district exotiques) — le notebook les liste une à une}
 \end{frame}
 
 \end{document}
