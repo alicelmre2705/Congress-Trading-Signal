@@ -101,6 +101,17 @@
     \vfill
   \end{frame}}}
 
+% Intercalaire de chapitre (plus discret que \partdivider) : \chapdivider{label}{Grand titre}{sous-titre}
+\newcommand{\chapdivider}[3]{%
+  \begin{frame}[plain]
+    \centering\vfill
+    {\color{helec!85}\large\textbf{#1}}\\[3.5mm]
+    {\color{black!88}\fontsize{29}{33}\selectfont\textbf{#2}}\\[4mm]
+    {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[4mm]
+    {\color{black!55}\large #3}
+    \vfill
+  \end{frame}}
+
 \title[La couche données]{La couche données — collecte \& validation}
 \subtitle{Transactions boursières du Congrès américain · Chambre \& Sénat · 2014--2026}
 \author[A.~Lemaire]{Alice Lemaire}
@@ -1355,56 +1366,32 @@
 
 \section{S3 — Le portefeuille des élus : le copy-trading bat-il le marché ?}
 
-% ── S3-1 · Pont : le pipeline de la question ──
-\begin{frame}{La donnée est prête — la question change : peut-on la trader ?}
+% ══ Carte chronologique (remplace l'ancien « pont ») : les 2 stratégies, un même verdict ══
+\begin{frame}{Le plan : deux stratégies, un même verdict}
   \centering
-  {\footnotesize 118\,029 trades datés, chiffrés, tracés — reste LA question :
-   \textbf{copier les élus rapporte-t-il de l'alpha ?}}\\[4mm]
+  {\footnotesize la donnée est prête — \textbf{copier les élus rapporte-t-il de l'alpha ?}}\\[6mm]
   \resizebox{\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=5mm]
-    \node[step=dataC, text width=2.9cm] (d) {\co{transactions\_ backtest\_2014\_2026}\\[0.5mm]134\,429 trades · 372 élus};
-    \node[step=helec, text width=2.6cm, right=of d] (a) {\textbf{A. le moteur}\\[0.5mm]1 élu = 1 portefeuille en parts : $n_i(t)$, NAV};
-    \node[step=helec, text width=2.6cm, right=of a] (b) {\textbf{B. la mesure}\\[0.5mm]qui bat le SPY ?\\IR vs appraisal};
-    \node[step=helec, text width=2.6cm, right=of b] (c) {\textbf{C. la stratégie}\\[0.5mm]copier le top-$K$\\walk-forward};
-    \node[step=grisC, text width=2.6cm, right=of c] (v) {\textbf{D. les variantes}\\[0.5mm]$K$ · cadence · poids $w$ · $\Sigma$};
-    \node[step=selec, text width=2.6cm, right=of v] (s) {\textbf{E. rejouer au Sharpe}\\[0.5mm](Partie II)};
-    \node[step=alertred, text width=1.9cm, right=of s] (f) {\textbf{le verdict}\\[0.5mm]$\alpha \overset{?}{>} 0$};
-    \draw[arr] (d) -- (a); \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-    \draw[arr] (c) -- (v); \draw[arr] (v) -- (s); \draw[arr] (s) -- (f);
-  \end{tikzpicture}}\\[4mm]
-  \badge{helec}{Partie I : significativité (§1-§10)}\;
-  \badge{selec}{Partie II : Sharpe (§11-§12)}\;
-  \badge{grisC}{notebook 05b — chaque chiffre recalculé de zéro}\\[2mm]
-  {\scriptsize\color{black!60} une seule question, posée de six façons différentes —
-   et un résultat \textbf{négatif}, assumé et prouvé}
+  \begin{tikzpicture}[node distance=9mm]
+    \node[step=helec, text width=3.0cm] (a) {\textbf{A · Construire}\\[0.6mm]1 élu = 1 portefeuille en parts, valorisé jour par jour};
+    \node[step=helec, text width=3.4cm, right=of a] (b) {\textbf{B · Stratégie 1}\\[0.6mm]classer par l'IR \& l'alpha, copier le top-$K$};
+    \node[step=selec, text width=3.4cm, right=of b] (c) {\textbf{C · Stratégie 2}\\[0.6mm]changer de règle : classer au Sharpe brut};
+    \node[step=alertred, text width=2.4cm, right=of c] (d) {\textbf{D · Verdict}\\[0.6mm]$\beta$ de style,\\$\alpha \approx 0$};
+    \draw[arr] (a) -- (b);
+    \draw[arr] (b) -- (c) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
+    \draw[arr] (c) -- (d) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
+  \end{tikzpicture}}\\[6mm]
+  {\scriptsize\color{black!60} le même moteur de portefeuille sert les deux stratégies — seule la \textbf{règle de sélection} change}
 \end{frame}
 
-% ── S3-2 · §0 Données & prix ──
-\begin{frame}{D'abord blinder les prix : 118\,029 trades backtestables sur 134\,429}
-  \centering
-  \tuile{dataC}{134 429}{trades déclarés\\(dates 2013-2026)}\hfill
-  \tuile{dataC}{372}{membres\\du Congrès}\hfill
-  \tuile{dataC}{4 618}{tickers\\distincts}\hfill
-  \tuile{grisC}{SPY}{benchmark\\= calendrier maître}\\[2mm]
-  \tuile{alertred}{1 268 + 61}{tickers sans prix\\ou corrompus}\hfill
-  \tuile{alertred}{16 400}{trades jetés\\avec eux}\hfill
-  \tuile{okgreen}{118 029}{trades\\exploitables}\hfill
-  \tuile{okgreen}{266}{portefeuilles\\reconstructibles}\\[3mm]
-  \badge{alertred}{prix < 0,10 \$}\;
-  \badge{alertred}{saut > 300 \%/jour}\;
-  \badge{alertred}{< 2 points de prix}\quad
-  {\footnotesize → tout prix douteux disqualifie le \textbf{ticker entier}}\\[1.5mm]
-  {\scriptsize\color{black!60} prix Yahoo en cache figé (\co{prices\_v2}, ffill sur le calendrier SPY) ;
-   les 743 trades exécutés en 2013 (déclarés en 2014+) sont gardés}
-\end{frame}
+% ═════════════ CHAPITRE A ═════════════
+\chapdivider{Chapitre A}{Construire le portefeuille}{un flux de trades $\rightarrow$ une NAV valorisée jour par jour}
 
-% ── S3-3 · §1 Le moteur : reconstruction en parts ──
+% ── A1 · Reconstruction en parts (données repliées en 1 ligne d'entrée) ──
 \begin{frame}{Le moteur — un flux de trades devient un portefeuille en parts}
   \begin{columns}[T]
     \begin{column}{0.47\textwidth}
-      {\footnotesize $P_i(t)$ = cours de clôture du ticker $i$ ;\\
-       montant = \textbf{milieu de la fourchette} STOCK Act ;\\
-       $\tau$ = 1\iere{} séance cotée $\geq$ date du trade}\\[2mm]
+      {\footnotesize entrée : \textbf{118\,029} trades exploitables (sur 134\,429 ; prix Yahoo blindés) ;
+       montant = milieu de fourchette STOCK Act ; $\tau$ = 1\iere{} séance cotée $\geq$ date du trade}\\[2mm]
       {\color{helec}\footnotesize\textbf{acheter → recevoir des parts}}
       $$q=\frac{\text{montant}}{P_i(\tau)}$$
       {\color{alertred}\footnotesize\textbf{vendre → en rendre (short interdit)}}
@@ -1414,24 +1401,27 @@
     \end{column}
     \begin{column}{0.51\textwidth}\centering
       \includegraphics[width=\linewidth]{fig_05b_pelosi_valeur.png}\\[1mm]
-      {\scriptsize\color{black!60} la valeur $V(t)$ mélange apports et performance
+      {\scriptsize\color{black!60} $V(t)$ mélange apports et performance
        → il faut un rendement qui les sépare}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── S3-4 · §2 Rendement time-weighted ──
+% ── A2 · Rendement time-weighted ──
 \begin{frame}{Le rendement time-weighted : un apport n'est jamais une performance}
   \centering
-  {\footnotesize on valorise \textbf{les parts d'hier} aux prix d'aujourd'hui — l'argent frais n'entre qu'au lendemain}\\[1mm]
+  {\footnotesize on valorise \textbf{les parts d'hier} aux prix d'aujourd'hui — l'argent frais n'entre qu'au lendemain\;
+   (winsor ±50 \%/jour)}\\[1mm]
   $r_P(t)=\dfrac{\sum_i n_i(t{-}1)\,P_i(t)}{\sum_i n_i(t{-}1)\,P_i(t{-}1)}-1
-   \qquad\quad \mathrm{NAV}(t)=\prod_{s\le t}\bigl(1+r_P(s)\bigr)$\\[1.5mm]
-  \badge{warnorange}{winsorisation ±50 \%/jour}\;
-  \badgel{hocr}{jour sans position : $r_P=0$}\\[2mm]
-  \includegraphics[height=0.5\textheight]{fig_05b_spaghetti_nav.png}
+   \qquad\quad \mathrm{NAV}(t)=\prod_{s\le t}\bigl(1+r_P(s)\bigr)$\\[2mm]
+  \includegraphics[height=0.52\textheight]{fig_05b_spaghetti_nav.png}\\[0.5mm]
+  {\scriptsize\color{black!60} 266 portefeuilles reconstruits — médianes : CAGR 12,8 \%, Sharpe 0,71}
 \end{frame}
 
-% ── S3-5 · §3 Éligibilité ──
+% ═════════════ CHAPITRE B — STRATÉGIE 1 ═════════════
+\chapdivider{Chapitre B · Stratégie 1}{Repérer et copier les « talents »}{qui bat le SPY ? on classe par l'IR et l'alpha, on copie le top-$K$}
+
+% ── B1 · Éligibilité ──
 \begin{frame}{La porte d'entrée : 223 membres sur 266 sont jugeables}
   \centering
   {\footnotesize éligible $\iff$ $n_{\text{trades}} \geq 10$ \textbf{et} $n_{\text{jours}} \geq 126$ ($\sim$ 6 mois de bourse)}\\[2mm]
@@ -1440,7 +1430,7 @@
    \textbf{exclus du jugement}, pas des données}
 \end{frame}
 
-% ── S3-6 · §4 Les deux mètres : IR vs appraisal ──
+% ── B2 · Les deux mètres : IR & alpha ──
 \begin{frame}{Deux mètres pour « battre le SPY » : l'écart brut (IR) ou l'alpha ajusté du $\beta$}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}
@@ -1453,8 +1443,7 @@
         \alpha_{\mathrm{ann}}=(1+\alpha)^{252}-1$$
       \centering
       \badgel{hocr}{$\beta=1 \ \Rightarrow\ $ appraisal $=$ IR}\\[1mm]
-      {\scriptsize même échelle de test : $t=\text{critère}\times\sqrt{n/252}$,
-       unilatéral, seuil $t>1{,}645$}
+      {\scriptsize test unilatéral, seuil $t>1{,}645$}
     \end{column}
     \begin{column}{0.44\textwidth}\centering
       \includegraphics[width=0.93\linewidth]{fig_05b_regression_demo.png}\\[0.5mm]
@@ -1464,101 +1453,124 @@
   \end{columns}
 \end{frame}
 
-% ── S3-7 · §4.1-4.2 Résultat : 20 → 12 ≈ hasard ──
-\begin{frame}{20 « gagnants » au mètre IR… 12 au mètre appraisal — le hasard en promettait 11}
+% ── B3 · La mesure ne trouve presque rien (20 → 12 ≈ 11) ──
+\begin{frame}{La mesure ne trouve presque rien : 20 « gagnants », 12 après le $\beta$, 11 par hasard}
   \centering
-  \includegraphics[height=0.52\textheight]{fig_05b_hist_t.png}\\[1.5mm]
-  \badge{helec}{IR : 20 membres à $t>1{,}645$}\;
-  \badge{selec}{appraisal : 12}\;
-  \badge{grisC}{attendus sous H$_0$ : ≈ 11 (5 \% de 223)}\\[1.5mm]
-  {\scriptsize\color{black!60} ajusté du $\beta$, le surnombre de « talents » retombe au niveau du bruit —
-   la tête (Fetterman, IR 2,48) tient sur 284 jours seulement}
+  \includegraphics[height=0.58\textheight]{fig_05b_hist_t.png}\\[2mm]
+  {\footnotesize \textbf{20} membres battent le SPY à l'IR, \textbf{12} seulement une fois le $\beta$ retiré (appraisal) —
+   pour \textbf{$\approx$11} attendus par pur hasard (5 \% de 223)}\\[0.6mm]
+  {\scriptsize\color{black!60} ajusté du $\beta$, le surnombre de « talents » retombe au niveau du bruit
+   (détail en annexe)}
 \end{frame}
 
-% ── S3-8 · §4.3 Le lien IR ↔ appraisal ──
-\begin{frame}{La contre-preuve point par point : la queue droite de l'IR, c'était du $\beta$}
-  \centering
-  \includegraphics[height=0.63\textheight]{fig_05b_ir_vs_appraisal.png}\\[1mm]
-  {\footnotesize au-dessus de la diagonale : classé par l'IR \textbf{grâce à son $\beta$} —
-   l'ajustement dégonfle la queue droite}\\[0.8mm]
-  {\scriptsize\color{black!60} on garde les DEUX mètres pour la suite :
-   chaque stratégie sera jugée en excès brut \textbf{et} en $t_{\mathrm{appr}}$}
-\end{frame}
-
-% ── S3-9 · §5 Walk-forward point-in-time ──
-\begin{frame}{Ne jamais regarder le futur : classé fin $Y$, copié pendant $Y{+}1$}
+% ── B4 · On copie le top-K en parts (walk-forward + parts, fusionnés) ──
+\begin{frame}{On copie le top-$K$ en parts — sans jamais regarder le futur}
   \begin{columns}[T]
-    \begin{column}{0.52\textwidth}\centering
-      \vspace{2mm}
-      \resizebox{\linewidth}{!}{%
-      \begin{tikzpicture}
-        \draw[arr] (-0.4,0) -- (7.6,0);
-        \foreach \x in {0.6, 3.4, 6.2} \draw[line width=1pt, gray] (\x,-0.12) -- (\x,0.12);
-        \draw[line width=2.4pt, okgreen] (3.4,0) -- (6.2,0);
-        \node[below, font=\scriptsize, gray] at (0.6,-0.15) {31/12/$Y{-}1$};
-        \node[below, font=\scriptsize] at (3.4,-0.15) {\textbf{coupe 31/12/$Y$}};
-        \node[below, font=\scriptsize, okgreen] at (6.2,-0.15) {31/12/$Y{+}1$};
-        \node[below, font=\scriptsize\bfseries, okgreen] at (4.8,-0.62) {année de tenue $Y{+}1$};
-        \node[step=helec, text width=4.5cm, above=9mm of {(2.4,0)}] (cl)
-          {$\mathrm{classement}(Y)$ : éligibles \textbf{et} $t_{\text{crit}}>1{,}645$,\\
-           triés par le critère (IR ou appraisal)};
-        \node[step=okgreen, text width=2.6cm, above=9mm of {(6.0,0)}] (tk)
-          {\textbf{top-$K$} suivi toute l'année $Y{+}1$};
-        \draw[arr] (cl.south) -- (3.4,0.18);
-        \draw[arr] (cl.east) -- (tk.west);
-      \end{tikzpicture}}\\[3mm]
-      \badge{alertred}{aucune info postérieure à la coupe}\\[1.5mm]
-      {\scriptsize\color{black!60} 11 coupes : fin 2015 → fin 2025 ;\\
-       s'il y a moins de $K$ significatifs, on copie tous les significatifs}
+    \begin{column}{0.51\textwidth}
+      {\footnotesize \textbf{walk-forward} : à chaque coupe fin $Y$, on classe les éligibles
+       ($t_{\text{crit}}>1{,}645$) et on tient le top-$K$ toute l'année $Y{+}1$ —
+       \textbf{aucune info postérieure à la coupe}}\\[2.5mm]
+      {\footnotesize \textbf{en parts} : chaque élu $k$ = un fonds de prix $\mathrm{NAV}^k$ ;
+       à la coupe on redéploie le capital $W$, puis buy-and-hold}
+      $$\mathrm{nbr}^k_Y=\frac{w_k\,W}{\mathrm{NAV}^k(t^R_Y)},\qquad w_k=\tfrac{1}{|S_Y|}$$
+      $$\mathrm{NAV}(t)=\!\!\sum_{k\in S_Y}\!\!\mathrm{nbr}^k_Y\,\mathrm{NAV}^k(t)$$
+      $$r_{\text{strat}}(t)=\frac{\mathrm{NAV}(t)}{\mathrm{NAV}(t{-}1)}-1$$
+      {\scriptsize\color{black!60} autofinancé (NAV continue) ; 11 coupes, fin 2015 → fin 2025
+       — mécanique détaillée en annexe}
     \end{column}
-    \begin{column}{0.46\textwidth}\centering
+    \begin{column}{0.47\textwidth}\centering
       \includegraphics[width=\linewidth]{fig_05b_nsig_par_an.png}\\[1mm]
-      {\scriptsize\color{black!60} le vivier n'est jamais vide —
-       de quoi alimenter un top-$K$ chaque année (au pire 2 noms, IR fin 2016)}
+      {\scriptsize\color{black!60} le vivier à chaque coupe :
+       de quoi alimenter un top-$K$ chaque année}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── S3-10 · §6 Le moteur en parts (la NAV du chef) ──
-\begin{frame}{Copier en parts : chaque élu devient un fonds — compter, redéployer, tenir}
-  \centering
-  {\footnotesize membre $k$ = un fonds au prix de part $\mathrm{NAV}^k(t)=\prod_{s\le t}(1+r_k(s))$ ;
-   on en détient $\mathrm{nbr}^k$ parts ; poids cibles $w_k=1/|S_Y|$ ; capital initial $W = 100$}\\[4mm]
-  \resizebox{0.98\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=7mm]
-    \node[step=grisC, text width=4.4cm] (n1)
-      {\textbf{(i) COMPTER} à la coupe $t^R_Y$\\[1.5mm]
-       $\displaystyle W=\!\!\sum_{k\in S_{Y-1}}\!\!\mathrm{nbr}^k_{Y-1}\,\mathrm{NAV}^k(t^R_Y)$};
-    \node[step=helec, text width=4.0cm, right=of n1] (n2)
-      {\textbf{(ii) REDÉPLOYER} sur la nouvelle sélection $S_Y$\\[1.5mm]
-       $\displaystyle \mathrm{nbr}^k_Y=\frac{w_k\,W}{\mathrm{NAV}^k(t^R_Y)}$};
-    \node[step=okgreen, text width=5.0cm, right=of n2] (n3)
-      {\textbf{(iii) TENIR} (buy-and-hold, parts figées)\\[1.5mm]
-       $\displaystyle \mathrm{NAV}(t)=\sum_{k\in S_Y}\mathrm{nbr}^k_Y\,\mathrm{NAV}^k(t)$\\[1mm]
-       $\displaystyle r_{\text{strat}}(t)=\frac{\mathrm{NAV}(t)}{\mathrm{NAV}(t{-}1)}-1$};
-    \draw[arr] (n1) -- (n2);
-    \draw[arr] (n2) -- (n3);
-    \draw[arr] (n3.south) .. controls +(0,-1.1) and +(0,-1.1) .. (n1.south)
-      node[midway, below, font=\scriptsize\bfseries, gray] {coupe suivante};
-  \end{tikzpicture}}\\[4mm]
-  \badge{okgreen}{autofinancé — aucun apport, aucun retrait : la NAV est continue}\;
-  \badge{warnorange}{entre deux coupes les poids DÉRIVENT (buy-and-hold, pas constant-mix)}
-\end{frame}
-
-% ── S3-11 · §6.3 Résultat top-4 ──
-\begin{frame}{Top-4 : +3,1 \%/an d'excès… $t = 0{,}94$ — et l'alpha dit zéro}
+% ── B5 · Résultat top-4 ──
+\begin{frame}{Top-4 : +3,1 \%/an d'excès… mais $t = 0{,}94$, et l'alpha dit zéro}
   \centering
   {\footnotesize 1 année civile = 1 observation :
    $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\mathrm{SPY}})$ ;\;
    $t=\overline{x}/\sigma(x)\cdot\sqrt{11}$ ; seuil $t_{10}\approx 1{,}81$}\\[1mm]
-  \includegraphics[height=0.47\textheight]{fig_05b_nav_top4.png}\\[1.5mm]
-  \tuile{helec}{+3,1 \%/an}{excès top-4 IR\\7/11 années gagnantes}\hfill
-  \tuile{alertred}{t = 0,94}{< 1,81 — indiscernable\\du hasard}\hfill
-  \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du levier\\de style, $t_{\text{appr}}$ −0,13}\hfill
-  \tuile{grisC}{−2,5 \%/an}{le mètre « propre »\\(appraisal) fait pire}
+  \includegraphics[height=0.47\textheight]{fig_05b_nav_top4.png}\\[2mm]
+  \tuile{helec}{+3,1 \%/an}{excès brut\\7/11 années}\hfill
+  \tuile{alertred}{t = 0,94}{$<$ 1,81 —\\indiscernable du hasard}\hfill
+  \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du style,\\pas du talent}\hfill
+  \tuile{grisC}{$\alpha \approx 0$}{$t_{\text{appr}}$ −0,13 ;\\appraisal −2,5 \%/an}
 \end{frame}
 
-% ── S3-12 · §7-§8 K et cadence ──
+% ═════════════ CHAPITRE C — STRATÉGIE 2 ═════════════
+\chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{on abandonne l'alpha, on classe au rendement/risque brut}
+
+% ── C1 · Le Sharpe brut ──
+\begin{frame}{Nouvelle règle : classer au Sharpe brut, sans test de significativité}
+  \centering
+  {\footnotesize $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ ;\quad
+   éligible v2 $\iff n_{\text{jours}}\ge 126$ \textbf{et} $\mathrm{Sharpe}>0{,}4$ — \textbf{plus aucun test t}}\\[1.5mm]
+  \includegraphics[height=0.52\textheight]{fig_05b_hist_sharpe.png}\\[1.5mm]
+  {\footnotesize \textbf{224} éligibles (vs 223 en stratégie 1 — presque les mêmes) ;
+   \textbf{même moteur} de copie en parts, seule la règle de classement change}\\[0.4mm]
+  {\scriptsize\color{black!60} au prix d'admettre des historiques courts en tête (Fetterman 284 j, Sewell 4 trades)}
+\end{frame}
+
+% ── C2 · Balayage K ──
+\begin{frame}{Même résultat : le $t$ plafonne à 1,22, loin du seuil}
+  \centering
+  \includegraphics[width=0.62\textwidth]{fig_05b_balayage_k.png}\\[2mm]
+  {\footnotesize testé sur \textbf{5 pondérations × $K$ de 2 à 20 × 2 cadences} : le meilleur cas est $K=6$,
+   \textbf{$t=1{,}22$} ($<1{,}81$) ; l'excès se dilue quand $K$ grandit}\\[0.6mm]
+  {\scriptsize\color{black!60} Sharpe 0,93 vs SPY 0,87 — le couple rendement/risque ne bouge pas ;
+   pas mieux que la stratégie 1}
+\end{frame}
+
+% ═════════════ CHAPITRE D — VERDICT ═════════════
+% ── D1 · Verdict ──
+\begin{frame}{Verdict : un $\beta$ de style $\approx$ 1,2 — et zéro alpha, sous toutes les coutures}
+  \centering
+  \resizebox{0.97\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=4.5mm]
+    \node[bande=helec, text width=2.9cm] (q1) {\textbf{QUI}\\[0.5mm]IR · appraisal · Sharpe};
+    \node[bande=helec, text width=2.9cm, right=of q1] (q2) {\textbf{COMBIEN}\\[0.5mm]$K\in[2,20]$, fixe\\ou walk-forward};
+    \node[bande=helec, text width=2.9cm, right=of q2] (q3) {\textbf{QUAND}\\[0.5mm]annuel · 6 mois};
+    \node[bande=helec, text width=2.9cm, right=of q3] (q4) {\textbf{COMMENT}\\[0.5mm]5 pondérations ×\\4 estimateurs $\Sigma$};
+    \node[bande=alertred, text width=2.4cm, right=of q4] (q5) {\textbf{même\\verdict}};
+    \draw[arr] (q1) -- (q2); \draw[arr] (q2) -- (q3);
+    \draw[arr] (q3) -- (q4); \draw[arr] (q4) -- (q5);
+  \end{tikzpicture}}\\[4mm]
+  \tuile{alertred}{1,58}{max $t$, stratégie 1\\(seuil 1,81)}\hfill
+  \tuile{alertred}{1,22}{max $t$, stratégie 2\\(seuil 1,81)}\hfill
+  \tuile{alertred}{+0,99}{max $t_{\text{appr}}$, tout compris\\(seuil 1,645)}\hfill
+  \tuile{warnorange}{$\beta$ ≈ 1,20}{l'excès brut n'était\\que du style}\\[2.5mm]
+  {\footnotesize ce n'est pas un réglage manqué : ni \emph{qui}, ni \emph{combien},
+   ni \emph{quand}, ni \emph{comment} — rien n'apporte d'$\alpha$}
+\end{frame}
+
+% ── D2 · La suite ──
+\begin{frame}{Un résultat négatif propre — et trois portes encore ouvertes}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{Le signal événementiel}{réagir au moment de la \textbf{divulgation}
+       des PTR (fenêtres courtes autour du dépôt), plutôt que détenir en continu}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{selec}{Le protocole pré-enregistré}{hypothèses, grille de tests et jalons
+       \textbf{gelés avant} de regarder les données — plus de balayage a posteriori}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{okgreen}{L'out-of-sample}{\textbf{geler} les règles, juger sur les données
+       neuves que le pipeline S1-S2 continue de capter}
+    \end{column}
+  \end{columns}
+  \vspace{5mm}
+  \centering
+  \badge{grisC}{et POURQUOI le classement ne pouvait pas marcher : l'autopsie (Partie III) — au prochain épisode}\\[3mm]
+  {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
+\end{frame}
+
+% ═════════════ ANNEXE — PARTIE II : robustesse ═════════════
+\chapdivider{Annexe · Partie II}{Ce qui ne change rien}{les réglages poussés à fond : $K$, cadence, pondérations, shrinkage — et les contre-preuves}
+
+% ── An1 · K et cadence (ex-S3-12) ──
 \begin{frame}{Optimiser $K$, accélérer la cadence : le $t$ ne franchit jamais le seuil}
   \centering
   {\footnotesize $K^{*}(Y)=\arg\max_{K\in[4,20]}\ \mathrm{score}\big(K \,\big|\, \text{passé} \le t^R_Y\big)$
@@ -1571,7 +1583,7 @@
   {\scriptsize\color{black!60} plus de degrés de liberté = plus de chances de sur-ajuster — pas plus d'alpha}
 \end{frame}
 
-% ── S3-13 · §9 Pondérations ──
+% ── An2 · Pondérations (ex-S3-13) ──
 \begin{frame}{Quatre façons de pondérer, zéro alpha : max $t_{\text{appr}} = +0{,}48$}
   \begin{columns}[T]
     \begin{column}{0.44\textwidth}\centering
@@ -1599,7 +1611,7 @@
   \end{columns}
 \end{frame}
 
-% ── S3-14 · §10 Ledoit-Wolf ──
+% ── An3 · Ledoit-Wolf (ex-S3-14) ──
 \begin{frame}{Le shrinkage répare l'estimateur de $\Sigma$ — pas la stratégie}
   \centering
   {\footnotesize $\Sigma_{\text{shrink}}=\delta\,F+(1-\delta)\,\Sigma_{\text{emp}}$,\;
@@ -1614,73 +1626,40 @@
    verdict invariant à l'estimateur : \textbf{$\beta$ de style $\approx$ 1,20, zéro $\alpha$}}
 \end{frame}
 
-% ── S3-15 · §11 Partie II : le Sharpe ──
-\begin{frame}{Partie II — on change la règle du jeu : le Sharpe brut, sans test}
+% ── An4 · Contre-preuve IR ↔ β (ex-S3-8) ──
+\begin{frame}{La contre-preuve point par point : la queue droite de l'IR, c'était du $\beta$}
   \centering
-  {\footnotesize $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ ;\quad
-   éligible v2 $\iff n_{\text{jours}}\ge 126$ \textbf{et} $\mathrm{Sharpe}>0{,}4$
-   — plus de minimum de trades, \textbf{plus aucun test t}}\\[1.5mm]
-  \includegraphics[height=0.5\textheight]{fig_05b_hist_sharpe.png}\\[2mm]
-  \badge{selec}{224 éligibles v2}\;
-  \badgel{socr}{Partie I : 223 — presque les mêmes visages}\;
-  \badge{warnorange}{les têtes = historiques courts : Fetterman 284 j, Sewell 4 trades}\\[1.5mm]
-  {\scriptsize\color{black!60} on classe au rendement/risque brut —
-   au prix d'admettre des historiques courts en tête de classement}
+  \includegraphics[height=0.63\textheight]{fig_05b_ir_vs_appraisal.png}\\[1mm]
+  {\footnotesize au-dessus de la diagonale : classé par l'IR \textbf{grâce à son $\beta$} —
+   l'ajustement dégonfle la queue droite}\\[0.8mm]
+  {\scriptsize\color{black!60} c'est la version « membre par membre » du 20 → 12 :
+   on juge chaque stratégie en excès brut \textbf{et} en $t_{\mathrm{appr}}$}
 \end{frame}
 
-% ── S3-16 · §12 Résultat Partie II ──
-\begin{frame}{5 pondérations × $K$ de 2 à 20 × 2 cadences : le max plafonne à $t = 1{,}22$}
+% ── An5 · Moteur en parts détaillé (ex-S3-10) ──
+\begin{frame}{Le moteur en parts, en détail : compter, redéployer, tenir}
   \centering
-  \includegraphics[width=0.57\textwidth]{fig_05b_balayage_k.png}\\[1mm]
-  \badge{selec}{meilleure table : K=5, 1/K, annuel — +3,5 \%/an, t = 1,10}\;
-  \badge{selec}{max du balayage : K=6 — t = 1,22, t\_appr = 0,99}\\[0.8mm]
-  \badgel{socr}{Sharpe 0,93 vs SPY 0,87 — le couple rendement/risque ne bouge pas}\;
-  \badge{alertred}{dilution : +3,5 \% (K=5) → +0,7 \% (K=10) → −0,2 \% (K=20) ; GMV : −6,5 \%/an}\\[1mm]
-  {\scriptsize\color{black!60} le signal, s'il existe, ne survit ni à la largeur du panier ni au mètre ajusté —
-   pas mieux que la Partie I}
-\end{frame}
-
-% ── S3-17 · Verdict ──
-\begin{frame}{Verdict : un $\beta$ de style $\approx$ 1,2 — et zéro alpha, sous toutes les coutures}
-  \centering
-  \resizebox{0.97\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=4.5mm]
-    \node[bande=helec, text width=2.9cm] (q1) {\textbf{QUI}\\[0.5mm]IR · appraisal · Sharpe};
-    \node[bande=helec, text width=2.9cm, right=of q1] (q2) {\textbf{COMBIEN}\\[0.5mm]$K\in[2,20]$, fixe\\ou walk-forward};
-    \node[bande=helec, text width=2.9cm, right=of q2] (q3) {\textbf{QUAND}\\[0.5mm]annuel · 6 mois};
-    \node[bande=helec, text width=2.9cm, right=of q3] (q4) {\textbf{COMMENT}\\[0.5mm]5 pondérations ×\\4 estimateurs $\Sigma$};
-    \node[bande=alertred, text width=2.4cm, right=of q4] (q5) {\textbf{même\\verdict}};
-    \draw[arr] (q1) -- (q2); \draw[arr] (q2) -- (q3);
-    \draw[arr] (q3) -- (q4); \draw[arr] (q4) -- (q5);
+  {\footnotesize membre $k$ = un fonds au prix de part $\mathrm{NAV}^k(t)=\prod_{s\le t}(1+r_k(s))$ ;
+   on en détient $\mathrm{nbr}^k$ parts ; poids cibles $w_k=1/|S_Y|$ ; capital initial $W = 100$}\\[4mm]
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=7mm]
+    \node[step=grisC, text width=4.4cm] (n1)
+      {\textbf{(i) COMPTER} à la coupe $t^R_Y$\\[1.5mm]
+       $\displaystyle W=\!\!\sum_{k\in S_{Y-1}}\!\!\mathrm{nbr}^k_{Y-1}\,\mathrm{NAV}^k(t^R_Y)$};
+    \node[step=helec, text width=4.0cm, right=of n1] (n2)
+      {\textbf{(ii) REDÉPLOYER} sur la nouvelle sélection $S_Y$\\[1.5mm]
+       $\displaystyle \mathrm{nbr}^k_Y=\frac{w_k\,W}{\mathrm{NAV}^k(t^R_Y)}$};
+    \node[step=okgreen, text width=5.0cm, right=of n2] (n3)
+      {\textbf{(iii) TENIR} (buy-and-hold, parts figées)\\[1.5mm]
+       $\displaystyle \mathrm{NAV}(t)=\sum_{k\in S_Y}\mathrm{nbr}^k_Y\,\mathrm{NAV}^k(t)$\\[1mm]
+       $\displaystyle r_{\text{strat}}(t)=\frac{\mathrm{NAV}(t)}{\mathrm{NAV}(t{-}1)}-1$};
+    \draw[arr] (n1) -- (n2);
+    \draw[arr] (n2) -- (n3);
+    \draw[arr] (n3.south) .. controls +(0,-1.1) and +(0,-1.1) .. (n1.south)
+      node[midway, below, font=\scriptsize\bfseries, gray] {coupe suivante};
   \end{tikzpicture}}\\[4mm]
-  \tuile{alertred}{1,58}{max $t$, Partie I\\(seuil 1,81)}\hfill
-  \tuile{alertred}{1,22}{max $t$, Partie II\\(seuil 1,81)}\hfill
-  \tuile{alertred}{+0,99}{max $t_{\text{appr}}$, tout compris\\(seuil 1,645)}\hfill
-  \tuile{warnorange}{$\beta$ ≈ 1,20}{l'excès brut n'était\\que du style}\\[2.5mm]
-  {\footnotesize ce n'est pas un réglage manqué : ni \emph{qui}, ni \emph{combien},
-   ni \emph{quand}, ni \emph{comment} — rien n'apporte d'$\alpha$}
-\end{frame}
-
-% ── S3-18 · La suite ──
-\begin{frame}{Un résultat négatif propre — et trois portes encore ouvertes}
-  \begin{columns}[T]
-    \begin{column}{0.32\textwidth}
-      \carte{helec}{Le signal événementiel}{réagir au moment de la \textbf{divulgation}
-       des PTR (fenêtres courtes autour du dépôt), plutôt que détenir en continu}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \carte{selec}{Le protocole pré-enregistré}{hypothèses, grille de tests et jalons
-       \textbf{gelés avant} de regarder les données — plus de balayage a posteriori}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \carte{okgreen}{L'out-of-sample}{\textbf{geler} les règles, juger sur les données
-       neuves que le pipeline S1-S2 continue de capter}
-    \end{column}
-  \end{columns}
-  \vspace{5mm}
-  \centering
-  \badge{grisC}{et POURQUOI le classement ne pouvait pas marcher : l'autopsie (Partie III) — au prochain épisode}\\[3mm]
-  {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
+  \badge{okgreen}{autofinancé — aucun apport, aucun retrait : la NAV est continue}\;
+  \badge{warnorange}{entre deux coupes les poids DÉRIVENT (buy-and-hold, pas constant-mix)}
 \end{frame}
 
 \end{document}
