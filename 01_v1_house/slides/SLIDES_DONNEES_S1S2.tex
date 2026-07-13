@@ -1499,8 +1499,41 @@
   \tuile{grisC}{$\alpha \approx 0$}{$t_{\text{appr}}$ −0,13 ;\\appraisal −2,5 \%/an}
 \end{frame}
 
+% ── B6 · On pousse : optimiser K et la cadence ──
+\begin{frame}{On pousse : optimiser le nombre $K$, accélérer la cadence}
+  \centering
+  {\footnotesize le top-4 ne passe pas → on laisse $K$ \textbf{s'ajuster chaque année}
+   ($K^{*}(Y)=\arg\max_{K\in[4,20]}$ score sur le passé, walk-forward) et on rebalance tous les 6 mois}\\[1mm]
+  \includegraphics[width=0.66\textwidth]{fig_05b_k_et_cadence.png}\\[1.5mm]
+  \badge{helec}{K walk-forward : +4,1 \%/an, t = 1,58 < 1,81}\;
+  \badge{warnorange}{6 mois : +0,4 \%/an, t = 0,14}\\[1.2mm]
+  {\scriptsize\color{black!60} plus de liberté sur $K$ et la cadence — le $t$ monte un peu, ne passe jamais le seuil}
+\end{frame}
+
+% ── B7 · On pousse encore : changer la pondération ──
+\begin{frame}{On pousse encore : changer la répartition du capital}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}
+      {\footnotesize au lieu de $1/K$, on pondère par le \textbf{risque} :}\\[2mm]
+      {\footnotesize \textbf{inverse-vol} — $w_k \propto 1/\sigma_k$\\[1mm]
+       \textbf{ERC} — contributions au risque égales\\[1mm]
+       \textbf{GMV} — variance minimale, $\min_{w}\, w^{\top}\Sigma w$}\\[2.5mm]
+      {\scriptsize\color{black!60} + on stabilise $\Sigma$ par shrinkage (Ledoit-Wolf) — détail en annexe}
+    \end{column}
+    \begin{column}{0.52\textwidth}\centering
+      \includegraphics[width=\linewidth]{fig_05b_ponderations.png}\\[1mm]
+      \badgel{hocr}{inverse-vol : t 0,94 → 1,49}\;
+      \badge{alertred}{GMV : sur-ajuste, −4,5 \%/an}
+    \end{column}
+  \end{columns}
+  \vspace{1.5mm}
+  \centering
+  {\scriptsize\color{black!60} \textbf{max $t_{\text{appr}} = +0{,}48$} sur toutes les pondérations —
+   aucune ne fait apparaître d'$\alpha$}
+\end{frame}
+
 % ═════════════ CHAPITRE C — STRATÉGIE 2 ═════════════
-\chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{on abandonne l'alpha, on classe au rendement/risque brut}
+\chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{ni $K$, ni la cadence, ni les poids n'ont passé le seuil — on change la règle de sélection}
 
 % ── C1 · Le Sharpe brut ──
 \begin{frame}{Nouvelle règle : classer au Sharpe brut, sans test de significativité}
@@ -1567,49 +1600,8 @@
   {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
 \end{frame}
 
-% ═════════════ ANNEXE — PARTIE II : robustesse ═════════════
-\chapdivider{Annexe · Partie II}{Ce qui ne change rien}{les réglages poussés à fond : $K$, cadence, pondérations, shrinkage — et les contre-preuves}
-
-% ── An1 · K et cadence (ex-S3-12) ──
-\begin{frame}{Optimiser $K$, accélérer la cadence : le $t$ ne franchit jamais le seuil}
-  \centering
-  {\footnotesize $K^{*}(Y)=\arg\max_{K\in[4,20]}\ \mathrm{score}\big(K \,\big|\, \text{passé} \le t^R_Y\big)$
-   — le choix de $K$ est lui-même walk-forward ;\quad
-   6 mois : coupes 30/06 \& 31/12, $n=22$, seuil $1{,}72$}\\[1mm]
-  \includegraphics[width=0.67\textwidth]{fig_05b_k_et_cadence.png}\\[1.2mm]
-  \badge{helec}{K walk-forward : +4,1 \%/an, t = 1,58 < 1,81}\;
-  \badge{warnorange}{6 mois : +0,4 \%/an, t = 0,14}\;
-  \badge{grisC}{le K choisi saute : 4 → 8 → 18 → 12…}\\[1.5mm]
-  {\scriptsize\color{black!60} plus de degrés de liberté = plus de chances de sur-ajuster — pas plus d'alpha}
-\end{frame}
-
-% ── An2 · Pondérations (ex-S3-13) ──
-\begin{frame}{Quatre façons de pondérer, zéro alpha : max $t_{\text{appr}} = +0{,}48$}
-  \begin{columns}[T]
-    \begin{column}{0.44\textwidth}\centering
-      \begin{tikzpicture}[node distance=3.2mm]
-        \node[step=grisC, text width=5.3cm] (w1) {$1/K$ — ignore tout};
-        \node[step=helec, text width=5.3cm, below=of w1] (w2)
-          {inverse-vol : $w_k=\dfrac{1/\sigma_k}{\sum_j 1/\sigma_j}$ — lit les variances};
-        \node[step=helec, text width=5.3cm, below=of w2] (w3)
-          {ERC : $w_k(\Sigma w)_k = w_j(\Sigma w)_j\ \forall k,j$\\[0.5mm]
-           GMV : $\min_{w\ge 0,\ \mathbf{1}^{\top}w=1}\ w^{\top}\Sigma\,w$ — lisent $\Sigma$ entière};
-        \node[step=grisC, text width=5.3cm, below=of w3] (w4)
-          {Markowitz complet — \textbf{refusé} :\\il faudrait prédire les rendements $\mu$};
-        \draw[arr] (w1) -- (w2) node[midway, right=1mm, font=\tiny, gray] {+ d'info};
-        \draw[arr] (w2) -- (w3) node[midway, right=1mm, font=\tiny, gray] {+ d'info};
-        \draw[arr] (w3) -- (w4);
-      \end{tikzpicture}\\[1.5mm]
-      {\scriptsize\color{black!60} $\sigma_k$, $\Sigma$ estimés \textbf{point-in-time}\\
-       (rendements $\le t^R_Y$, fenêtre commune)}
-    \end{column}
-    \begin{column}{0.54\textwidth}\centering
-      \includegraphics[width=0.96\linewidth]{fig_05b_ponderations.png}\\[1mm]
-      \badgel{hocr}{inverse-vol : t 0,94 → 1,49 — sans $\alpha$}\;
-      \badge{alertred}{GMV sél. appr : −4,5 \%/an, t −2,76}
-    \end{column}
-  \end{columns}
-\end{frame}
+% ═════════════ ANNEXE — PARTIE II : compléments techniques ═════════════
+\chapdivider{Annexe · Partie II}{Sous le capot}{le détail technique : shrinkage de $\Sigma$, contre-preuve membre par membre, moteur en parts}
 
 % ── An3 · Ledoit-Wolf (ex-S3-14) ──
 \begin{frame}{Le shrinkage répare l'estimateur de $\Sigma$ — pas la stratégie}
