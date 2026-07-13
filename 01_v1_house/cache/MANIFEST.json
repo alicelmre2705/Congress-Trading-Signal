@@ -36,7 +36,7 @@
   "comptes": {
     "recensement": 35377,
     "ledger": 35359,
-    "pdf_en_cache": 23245,
+    "pdf_en_cache": 23246,
     "transactions_v1": 166149,
     "transactions_signal_ptr": 56002,
     "holdings_v1": 198615,
@@ -46,8 +46,8 @@
     "parse_ok": 15190,
     "hors_perimetre_admin": 9238,
     "parse_ok_vide": 5631,
-    "scanne_hors_V1": 2923,
-    "ocr_herite_parse": 2353,
+    "scanne_hors_V1": 2851,
+    "ocr_herite_parse": 2425,
     "hors_perimetre_blind_trust": 23,
     "en_attente_telechargement": 1
   },
@@ -201,11 +201,11 @@
       "verdict": "ORANGE"
     },
     "O1": {
-      "valeur": 97.0,
+      "valeur": 100.0,
       "verdict": "VERT"
     },
     "O2": {
-      "valeur": 68.1,
+      "valeur": 67.8,
       "verdict": "VERT"
     },
     "O3": {
@@ -219,12 +219,12 @@
   },
   "sha_tables": {
     "01_recensement_depots.csv": "c11ec3651437694a1148ba2e9719b7db83f967e18f82681f0ea2f2f2201a34fc",
-    "02_ledger_docs.csv": "7ce15dfab22f6502a08272acb70b70dc579873a8d0ea58387e8d820f54f24970",
-    "03_pdf_inventory.csv": "eefd8c6d0f0832cf4738be7a5d3edaa07abbaadf8598dd7c2556741b981a98fa",
+    "02_ledger_docs.csv": "70fd5752aa062753f692cc82aaa8c3d09b5a9a372171fa0bae4407ee0b11dbf2",
+    "03_pdf_inventory.csv": "ef11b8fc28cf915fbf4120be0daf32738932ed4da0eefaf53f81a1d130b1af67",
     "04_transactions_v1.csv": "f9273aff6a008d0b2f7f321d00bd063055363fa39d37c0b5fba71746fdef24ce",
     "05_holdings_v1.csv": "1ee62b71389ccb611944478e561d349625c128f48826acc9ccb2e15ce0daff35",
     "06_identites_v1.csv": "466a331d7b0bdc3d7f4577c5332b54a43308e5e1fcbde79d4271aa862c7a65c9",
-    "07_transactions_ptr_ocr.csv": "9741939aabc9734818c61019ccbb3981b9549408e9321d5036caf1fd0e35ec4d",
+    "07_transactions_ptr_ocr.csv": "279e7f91048c1148744becaad7223b3366c59cb1b4234d1b47dcafa747e86112",
     "annexe_actions_annuel_seul.csv": "ceb8f3172bd3bd30f6cd80cbdf8ff3d198bca8d2f22d397e0d3195caf7b60386"
   }
 }
