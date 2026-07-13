@@ -240,6 +240,24 @@
    détail par type : annexes}
 \end{frame}
 
+% ── H6a · Les sections A→J (matrice) ── (fig_sections_matrix, repris S1S2 — structure du formulaire)
+\begin{frame}{Le formulaire de l'intérieur — des sections A→J en commun}
+  \centering
+  \includegraphics[width=0.72\textwidth]{slides/fig_sections_matrix.png}\\[1mm]
+  {\scriptsize\color{black!60} tous ces documents partagent un socle (A·C·D·E·F) —
+   ce qui change d'un type à l'autre, c'est surtout la présence de la
+   \textbf{section B, les transactions}}
+\end{frame}
+
+% ── H6b · Le rôle des sections ── (fig_sections_roles, repris S1S2)
+\begin{frame}{Les sections A→J — laquelle est le signal ?}
+  \centering
+  \includegraphics[width=0.88\textwidth]{slides/fig_sections_roles.png}\\[1mm]
+  {\footnotesize on trade la \textbf{section B} (transactions datées) ; la
+   \textbf{section A} (patrimoine) sert seulement à \emph{vérifier} qu'on n'a rien
+   loupé — c'est tout l'objet de la §4 de ce deck}
+\end{frame}
+
 % ── H7 · Administratifs + blind trust (reprise deck S1S2, comptes V1) ──
 \begin{frame}{À quoi correspond chaque type (2/2) — les administratifs, et le cas à part}
   \centering
@@ -301,6 +319,64 @@
   \vspace{1.5mm}
   {\scriptsize\color{black!60} le patrimoine ne sert pas à trader (divulgation médiane
    \textbf{406 j}) — il sert à \textbf{vérifier} le flux P : c'est la §4 de ce deck}
+\end{frame}
+
+% ── H8c · Surprise : Schedule B dans les annuels ── (Pelosi, repris S1S2)
+\begin{frame}{Surprise — les annuels contiennent des transactions}
+  \centering
+  \badge{warnorange}{type O — Annual Report 2015, Nancy Pelosi}\\[2mm]
+  \fcolorbox{black!25}{white}{\includegraphics[width=0.80\textwidth]{slides/fig_pelosi_schedb.png}}\\[1.5mm]
+  {\footnotesize la \textbf{Schedule B} d'un rapport annuel \textbf{récapitule les trades
+   de l'année} — mais divulgués \textbf{un an après}. Les a-t-on déjà, au fil de l'eau,
+   par les PTR ? \emph{(mesuré : slide suivante)} \;
+   {\scriptsize\color{black!60}\href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2015/10010857.pdf}{ouvrir ce rapport}}}
+\end{frame}
+
+% ── H8d · Que rate-t-on ? ── (entonnoir V1 recalculé fig_house_entonnoir_schedb ; O4 = 83,7 %)
+\begin{frame}{Que rate-t-on dans ces Schedule B ? (mesuré)}
+  \centering
+  \includegraphics[width=0.80\textwidth]{fig_house_entonnoir_schedb.png}\\[1.5mm]
+  \begin{columns}[c]
+    \begin{column}{0.57\textwidth}
+      {\footnotesize \textbf{45 \%} des lignes n'ont \emph{aucun} ticker (fonds nommés,
+      immobilier, comptes) ; parmi les \textbf{actions},
+      \badge{okgreen}{83,7 \% déjà en PTR} (validation O4)}
+    \end{column}
+    \begin{column}{0.41\textwidth}
+      {\scriptsize\color{black!60} les ETF / fonds cotés ne sont pas dans les PTR car la
+      \textbf{loi les en exempte} (« excepted investment funds ») — pas parce qu'on les rate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── H8e · Ce qu'on en a fait ── (bilan : Schedule B numériques + OCR B3)
+\begin{frame}{Ce qu'on en a fait — le patrimoine entièrement récupéré}
+  \centering
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \colorbox{okgreen!12}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{okgreen}\footnotesize\textbf{✓ Schedule B numériques — industrialisés}}\\[0.8mm]
+        {\scriptsize \textbf{110\,147} transactions de contexte (fd\_O/A/T) extraites —
+         table séparée, flag « divulgation annuelle »}}}\\[2mm]
+      \colorbox{okgreen!12}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{okgreen}\footnotesize\textbf{✓ Rapports scannés — OCRisés (B3)}}\\[0.8mm]
+        {\scriptsize \textbf{556} documents H/T/O papier lus → \textbf{15\,489}
+         holdings de plus ; là où vivaient les vieilles actions manquantes}}}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \colorbox{grisC!10}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{grisC}\footnotesize\textbf{· Fonds sans ticker (49\,438)}}\\[0.8mm]
+        {\scriptsize « vue patrimoine » — appariement par \emph{nom} d'actif =
+         suite (priorité basse)}}}\\[2mm]
+      \colorbox{grisC!10}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{grisC}\footnotesize\textbf{· Blind trusts (23 docs)}}\\[0.8mm]
+        {\scriptsize analysés à part · \textbf{jamais dans le signal} (non dirigé par l'élu)}}}
+    \end{column}
+  \end{columns}
+  \vspace{2.5mm}
+  \colorbox{alertred}{\parbox{0.9\textwidth}{\footnotesize\color{white}\centering
+    dans tous les cas : \textbf{jamais dans le backtest daté} — divulgation médiane
+    \textbf{406 j} après le trade (vs \textbf{27 j} via PTR) → de la complétude, pas du signal}}
 \end{frame}
 
 % ── H8a · La loi du parcours, en un schéma ── (workflow source-primaire vérifié :
@@ -381,6 +457,71 @@
        \co{P} → \co{…/ptr-pdfs/…} · tous les autres → \co{…/financial-pdfs/…}}
     \end{column}
   \end{columns}
+\end{frame}
+
+% ── H9a · Un PTR lisible ── (fig_ptr_digital, Yarmuth ; repris S1S2)
+\begin{frame}{Le \texttt{DocID} en \texttt{2…} — à quoi ressemble un PTR lisible}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}\centering
+      \fcolorbox{helec}{white}{\includegraphics[height=64mm]{slides/fig_ptr_digital.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} PTR électronique complet (Hon. John A. Yarmuth, KY03)}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \badge{helec}{DocID en \co{2…} → PDF lisible}\\[3mm]
+      {\footnotesize
+      · un PDF \textbf{avec couche texte} : lisible machine\\[1.5mm]
+      · le ticker imprimé \textbf{entre parenthèses} : \co{(BA)}, le type d'actif
+        entre crochets : \co{[ST]}\\[1.5mm]
+      · deux dates par ligne (trade / notification) + fourchette de montant\\[1.5mm]
+      · lisible… mais pas si régulier : \textcolor{alertred}{le défi} en face}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── H9b · Le défi de l'extraction ── (fig_ptr_multiligne, Gibbs ; V1 : 119 montants recollés)
+\begin{frame}{Le défi — un PDF lisible n'est pas un tableau régulier}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
+      {\scriptsize\color{black!60} extrait réel (Hon.\ Bob Gibbs, OH07) — cadres ajoutés}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      {\footnotesize
+      · le \textbf{montant} déborde sur la ligne suivante (\co{\$15,001 -} puis
+        \co{\$50,000})\\[1.2mm]
+      · le \textbf{libellé} d'un actif court sur \textbf{4 lignes}\\[1.2mm]
+      · un découpage ligne à ligne raterait la moitié}\\[2mm]
+      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
+        → le parseur V1 \textbf{reconstruit} chaque\\ transaction (recollage des
+        lignes coupées)}}\\[1.5mm]
+      {\scriptsize\color{black!60} montant recousu sur 2 lignes : \textbf{119} cas
+       (le parseur gère le reste nativement)}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── H9c · Un PTR scanné (3 formes) ── (V1 : 105 074 txns OCR = 65 % du signal)
+\begin{frame}{Le \texttt{DocID} en \texttt{8…}/\texttt{9…} — à quoi ressemble un PTR scanné}
+  \centering
+  {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} — sous trois formes
+   (pages réelles) :}\\[2.5mm]
+  \begin{columns}[T]
+    \begin{column}{0.37\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/scan_full_droit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, droit}}\\[0.3mm]{\scriptsize dactylographié, lisible tel quel}
+    \end{column}
+    \begin{column}{0.21\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/scan_full_couche.png}}\\[1.2mm]
+      {\footnotesize\textbf{Tapé, couché}}\\[0.3mm]{\scriptsize tourné à 90°\\(le plus courant)}
+    \end{column}
+    \begin{column}{0.37\textwidth}\centering
+      \fcolorbox{black!30}{white}{\includegraphics[height=34mm]{slides/scan_full_manuscrit.png}}\\[1.2mm]
+      {\footnotesize\textbf{Manuscrit}}\\[0.3mm]{\scriptsize rempli \textbf{à la main}, en cursif}
+    \end{column}
+  \end{columns}
+  \vspace{2mm}
+  \badgel{hocr}{105\,074 transactions lues par OCR — 65 \% du signal PTR}\quad
+  {\scriptsize\color{black!60} Claude Vision (cache hérité + B3)}
 \end{frame}
 
 % ── H10 · La preuve : matrice préfixe × contenu ── (V1_House.ipynb §5.2 ; validation L4=0)
