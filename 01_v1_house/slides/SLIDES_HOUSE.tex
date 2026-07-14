@@ -122,7 +122,7 @@
   \colorbox{alertred}{\parbox{0.9\textwidth}{\scriptsize\color{white}
     \textbf{7 · Verdict} — ce qui est prouvé, ce qui reste}}\\[3mm]
   {\scriptsize\color{black!55} tous les chiffres sortent des tables versionnées
-   (\co{01\_v1\_house/cache/tables/} + \co{MANIFEST.json}) — 57 validations, 0 rouge}
+   (\co{01\_v1\_house/cache/tables/} + \co{MANIFEST.json}) — 58 validations, 0 rouge}
 \end{frame}
 
 % ── H3 · Le site du Clerk + la purge ── (recensement : 01_recensement_depots.csv, union site∪instantané)
@@ -608,11 +608,11 @@
   \end{columns}
   \vspace{2mm}
   \badgel{hocr}{105\,074 transactions lues par OCR — 65 \% du signal PTR}\quad
-  {\scriptsize\color{black!60} Claude Vision (cache hérité + B3)}
+  {\scriptsize\color{black!60} Claude Vision (cache OCR hérité)}
 \end{frame}
 
 % ── H10 · La preuve : matrice préfixe × contenu ── (V1_House.ipynb §5.2 ; validation L4=0)
-\begin{frame}{Le \texttt{DocID} (2/4) — le préfixe dit-il vrai ? Vérifié sur 24\,078 PDF}
+\begin{frame}{Le \texttt{DocID} (2/4) — le préfixe dit-il vrai ? Vérifié sur 26\,088 PDF}
   \centering
   {\footnotesize deux définitions \textbf{indépendantes} de « scanné », confrontées
    document par document :}\\[1mm]
@@ -626,10 +626,10 @@
     préfixe numérique (\co{1}/\co{2}/\co{3}/\co{4}) &
       \textcolor{okgreen}{\textbf{20\,821}} & \textcolor{alertred}{\textbf{0}} \\
     préfixe scanné (\co{8}/\co{9}) &
-      \textcolor{alertred}{\textbf{0}} & \textcolor{okgreen}{\textbf{3\,257}} \\
+      \textcolor{alertred}{\textbf{0}} & \textcolor{okgreen}{\textbf{5\,267}} \\
     \bottomrule
   \end{tabular}}\\[4mm]
-  \badge{okgreen}{0 désaccord sur 24\,078 documents — validation L4}\\[2mm]
+  \badge{okgreen}{0 désaccord sur 26\,088 documents — validation L4}\\[2mm]
   {\scriptsize\color{black!60} périmètre : PDF en cache, types P·C·H·O·T·A · 2014-2026 —
    le tri lisible/scanné n'est \textbf{pas une hypothèse}, c'est une \textbf{mesure} ;
    l'ancien pipeline, lui, ne regardait que le contenu (fragile aux PDF mal formés)}
@@ -678,7 +678,7 @@
     \end{column}
     \begin{column}{0.43\textwidth}
       \badge{helec}{rien de parsable ne part en OCR}\\[1.5mm]
-      {\scriptsize\color{black!60} Vision ne lit QUE les 2\,425 P réellement
+      {\scriptsize\color{black!60} côté signal, Vision ne lit QUE les 2\,425 P réellement
        scannés (préfixe 8/9, 0 désaccord de contenu) — les 5\,842 P
        électroniques sont parsés au texte}
     \end{column}
@@ -687,26 +687,26 @@
 
 \section{Rien d'oublié — la comptabilité des 35 377}
 
-% ── H8e · Ce qu'on en a fait ── (bilan : Schedule B numériques + OCR B3)
+% ── H8e · Ce qu'on en a fait ── (bilan : Schedule B numériques + OCR B3+B4 COMPLET)
 \begin{frame}{Ce qu'on en a fait — le patrimoine entièrement récupéré}
   \centering
   \begin{columns}[T]
     \begin{column}{0.49\textwidth}
-      \colorbox{okgreen!12}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
         {\color{okgreen}\footnotesize\textbf{✓ Schedule B numériques — industrialisés}}\\[0.8mm]
         {\scriptsize \textbf{110\,147} transactions de contexte (fd\_O/A/T) extraites —
          table séparée, flag « divulgation annuelle »}}}\\[2mm]
-      \colorbox{okgreen!12}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{okgreen}\footnotesize\textbf{✓ Rapports scannés — OCRisés (B3)}}\\[0.8mm]
-        {\scriptsize \textbf{556} documents H/T/O papier lus → \textbf{15\,489}
-         holdings de plus ; là où vivaient les vieilles actions manquantes}}}
+      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{okgreen}\footnotesize\textbf{✓ Tous les rapports scannés — OCRisés}}\\[0.8mm]
+        {\scriptsize \textbf{2\,842} documents FD papier lus (H/T/O/A/C, \emph{tous}
+         formats) → \textbf{188\,970} holdings + \textbf{155\,306} transactions de plus}}}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \colorbox{grisC!10}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{grisC}\footnotesize\textbf{· Fonds sans ticker (49\,438)}}\\[0.8mm]
-        {\scriptsize « vue patrimoine » — appariement par \emph{nom} d'actif =
-         suite (priorité basse)}}}\\[2mm]
-      \colorbox{grisC!10}{\parbox[t][22mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{grisC}\footnotesize\textbf{· Non coté (56,8 \% des holdings papier)}}\\[0.8mm]
+        {\scriptsize fonds nommés, comptes de retraite, immobilier — pas de ticker par
+         \emph{nature} ; appariement par \emph{nom} d'actif = suite}}}\\[2mm]
+      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
         {\color{grisC}\footnotesize\textbf{· Blind trusts (23 docs)}}\\[0.8mm]
         {\scriptsize analysés à part · \textbf{jamais dans le signal} (non dirigé par l'élu)}}}
     \end{column}
@@ -717,39 +717,40 @@
     \textbf{371 j} après le trade (vs \textbf{28 j} via PTR) → de la complétude, pas du signal}}
 \end{frame}
 
-% ── N3 · La comptabilité finale ── (§18 : G-1 BLOQUANT 35 377 · G-2 18 171 · G-3 2 296 ; fig_house_compta)
+% ── N3 · La comptabilité finale ── (§18 post-B4 : G-1 35 377 · G-0 0 · G-2 20 457 · G-3 10 ; fig_house_compta)
 \begin{frame}{Rien d'oublié — chaque dépôt a un traitement, la somme boucle}
   \centering
   \includegraphics[width=0.88\textwidth]{fig_house_compta.png}\\[1.5mm]
   {\footnotesize \badge{okgreen}{G-1 (bloquant) : Σ = 35\,377 ✓}\;
-   \badge{okgreen}{18\,171 docs → données (G-2)}\;
+   \badge{okgreen}{20\,457 docs → données (G-2)}\;
    \badgel{dataC!30}{\textcolor{dataC}{\textbf{14\,892 recensés, rien à extraire}}}\;
-   \badgel{grisC!25}{\textcolor{grisC}{\textbf{2\,296 différés — tous tracés (G-3)}}}}\\[1mm]
+   \badgel{grisC!25}{\textcolor{grisC}{\textbf{10 exclus — PDF morts (G-3)}}}}\\[1mm]
   {\scriptsize\color{black!60} vert = données extraites · ocre = recensé sans donnée
-   (vides, admin, blind trusts) · gris = différé/exclu avec raison écrite —
-   table nominative : \co{10\_comptabilite\_traitement.csv}}
+   (vides, admin, blind trusts) · gris = exclu avec raison écrite —
+   \textbf{0 scanné laissé de côté} (G-0, bloquant) : tout le périmètre scannable est OCRisé}
 \end{frame}
 
-% ── N4 · Ce que ça a livré ── (04/05/07/08/09 : 280 677 txns + 214 104 holdings)
+% ── N4 · Ce que ça a livré ── (post-B4 : 426 529 txns + 387 585 holdings ; signal 161 076 inchangé)
 \begin{frame}{Ce que ces documents ont livré}
   \centering
-  \tuile{helec}{280\,677}{transactions\\extraites au total}\hfill
-  \tuile{dataC}{214\,104}{holdings\\(photos de patrimoine)}\hfill
+  \tuile{helec}{426\,529}{transactions\\extraites au total}\hfill
+  \tuile{dataC}{387\,585}{holdings\\(photos de patrimoine)}\hfill
   \tuile{okgreen}{161\,076}{= le SIGNAL\\(PTR datés au trade)}\hfill
-  \tuile{grisC}{119\,601}{= le CONTEXTE\\(Schedule B des annuels)}\\[4mm]
+  \tuile{grisC}{265\,453}{= le CONTEXTE\\(Schedule B des annuels)}\\[4mm]
   {\footnotesize\setlength{\tabcolsep}{8pt}
   \begin{tabular}{l r l r}
     \toprule
     \textbf{transactions} & & \textbf{holdings} & \\
     \midrule
     PTR électroniques & 56\,002 & Schedule A électroniques & 198\,615 \\
-    PTR scannés (OCR) & 105\,074 & Schedule A scannés (OCR B3) & 15\,489 \\
+    PTR scannés (OCR) & 105\,074 & Schedule A scannés (OCR) & 188\,970 \\
     Schedule B électroniques (O/A/T) & 110\,147 & & \\
-    Schedule B scannés (OCR B3) & 9\,454 & & \\
+    Schedule B scannés (OCR) & 155\,306 & & \\
     \bottomrule
   \end{tabular}}\\[2.5mm]
-  {\scriptsize\color{black!60} seul le signal (PTR) est tradable — le contexte sert
-   aux contrôles de cohérence de l'acte 6}
+  {\scriptsize\color{black!60} seul le signal (PTR, 161\,076) est tradable et
+   \textbf{inchangé par l'OCR du papier} — le reste est du contexte/patrimoine pour
+   les contrôles de cohérence de l'acte 6}
 \end{frame}
 
 \section{Les portefeuilles se recoupent — entrée + transactions ⊇ sortie}
@@ -892,48 +893,49 @@
   \end{columns}
 \end{frame}
 
-% ── H15c · B3 : le patrimoine papier OCRisé ── (§17 ; F1 526 · F4 78,3 · F5 87,1 · F6 54)
-\begin{frame}{B3 — le patrimoine papier, lu à son tour : la conclusion tient}
+% ── H15c · le patrimoine papier OCRisé EN ENTIER ── (§17 post-B4 ; F1 2453 · F4 78,3 · F5 87,1 · F6 54)
+\begin{frame}{Le patrimoine papier, lu en entier : la conclusion tient}
   \centering
-  {\footnotesize 556 photos scannées OCRisées — 12 H + 100 T + 444 annuels $\leq$ 12 pages,
-   $\approx$ 50 \$ — dont 526 avec contenu → \textbf{15\,489 holdings papier},
+  {\footnotesize \textbf{2\,842} photos scannées OCRisées — H, T, O, A, C, \emph{tous}
+   formats (y compris les annuels-monstres à annexes de courtier) — dont 2\,453 avec
+   contenu → \textbf{188\,970 holdings papier} + \textbf{155\,306 transactions},
    cache versionné \co{reference/ocr\_cache\_fd\_v1/}}\\[2mm]
   \includegraphics[width=0.79\textwidth]{fig_house_entonnoir_b3.png}\\[1mm]
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}
-      {\footnotesize la cohorte passe de 45 à \textbf{49 membres} (+ Dold, Guinta,
-      Lawrence, Trott) et les taux \textbf{tiennent} : \badge{okgreen}{78,3 \% (achats PTR)}
+      {\footnotesize la cohorte de contrôle passe de 45 à \textbf{49 membres} (+ Dold,
+      Guinta, Lawrence, Trott) et les taux \textbf{tiennent} : \badge{okgreen}{78,3 \% (achats PTR)}
       \badge{okgreen}{87,1 \% toutes déclarations}}
     \end{column}
     \begin{column}{0.43\textwidth}
-      {\scriptsize\color{black!60} restent hors d'atteinte d'un suivi par ticker :
-       54 membres à patrimoine fonds/comptes/immobilier · les 276 annuels-monstres
-       (annexes de courtier, $\approx$ 267 \$) : décision séparée}
+      {\scriptsize\color{black!60} le blocage restant n'est plus le scan mais la
+       \emph{nature} du patrimoine : 54 membres sur 106 ne détiennent que
+       fonds / comptes / immobilier — invisibles à un suivi par ticker}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── H16 · Le tableau de bord ── (MANIFEST.json : 57 validations, 0 rouge ; fig_house_dashboard)
-\begin{frame}{Le tableau de bord — 57 validations, 0 rouge}
+% ── H16 · Le tableau de bord ── (MANIFEST.json : 58 validations collecte, 0 rouge ; fig_house_dashboard)
+\begin{frame}{Le tableau de bord — 58 validations, 0 rouge}
   \centering
   \includegraphics[width=0.585\textwidth]{fig_house_dashboard.png}
 \end{frame}
 
 \section{Verdict}
 
-% ── H17 · Conclusion ── (comptes MANIFEST : 161 076 signal · 198 615 holdings · 24 078 PDF)
+% ── H17 · Conclusion ── (comptes MANIFEST post-B4 : 161 076 signal · 387 585 holdings · 26 088 PDF)
 \begin{frame}{Ce que ce deck prouve — et la suite}
   \centering
   \tuile{helec}{161\,076}{transactions PTR\\= le signal, couvert à 100\,\%}\hfill
-  \tuile{dataC}{198\,615}{holdings Schedule A\\(photos de patrimoine)}\hfill
-  \tuile{grisC}{24\,078}{PDF archivés\\+ index irremplaçables}\hfill
-  \tuile{okgreen}{57 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
+  \tuile{dataC}{387\,585}{holdings Schedule A\\(élec + papier OCRisé)}\hfill
+  \tuile{grisC}{26\,088}{PDF archivés\\+ index irremplaçables}\hfill
+  \tuile{okgreen}{58 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
   {\footnotesize
   \badge{helec}{1. source exhaustive et archivée — le site détruit (5 U.S.C. §13107), pas nous}\\[1.5mm]
-  \badge{helec}{2. tri lisible/scanné mesuré (0 désaccord) — l'OCR au strict nécessaire}\\[1.5mm]
+  \badge{helec}{2. tri lisible/scanné mesuré (0 désaccord) — tout le papier OCRisé, 0 laissé de côté}\\[1.5mm]
   \badge{helec}{3. chaque portefeuille se recoupe — 87,8 \% toutes déclarations, 3,3 \% d'inexpliqué}}\\[4mm]
   {\scriptsize\color{black!60} suites naturelles : le Sénat sur le même modèle ·
-   appariement par NOM d'actif (les 54 membres sans ticker) et les 276 annuels-monstres ·
+   appariement par NOM d'actif (les 54 membres sans ticker, patrimoine non coté) ·
    brancher le patrimoine d'entrée (H) dans le moteur de stratégie S3}
 \end{frame}
 

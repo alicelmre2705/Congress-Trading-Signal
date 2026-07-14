@@ -1,0 +1,2060 @@
+{
+ "doc_id": "9107508",
+ "member": "Josh Gottheimer",
+ "filing_type": "C",
+ "model": "claude-sonnet-5",
+ "prompt_sha": "76ca0838b43c",
+ "dpi": 200,
+ "n_pages": 48,
+ "created_utc": "2026-07-13T23:01:51.875006+00:00",
+ "status": "ok",
+ "batches": 8,
+ "holdings": [
+  {
+   "asset_description": "DC College 529 Plan",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "DC College 529 Plan",
+   "owner": "Spouse",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "SPDR S&P Dow Jones Industrial Average (DIA)",
+   "owner": "Joint",
+   "ticker": "DIA",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "SPDR S&P Homebuilders (XHB)",
+   "owner": "Joint",
+   "ticker": "XHB",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Apple Inc.",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "SPDR S&P 500 (SPY)",
+   "owner": "Joint",
+   "ticker": "SPY",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "20/10 Fund",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Allianz Se ADS",
+   "owner": "Self",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Atlas Copco A ADR",
+   "owner": "Self",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Anheuser Busch Inbev ADR",
+   "owner": "Self",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Air Liquide ADR",
+   "owner": "Self",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Aia Group Ltd ADR",
+   "owner": "Self",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "ICICI Bank Ltd",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Hindustan Lever/Unilever",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fuchs Petrolub AG",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fresenius Medical Care",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fanuc Corp (unsp)",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "DBS Group Holdings Ltd",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Dassault Systemes SA",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "CSL Ltd",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Canadian Natl Railway Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ambev SA",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "BG Group Plc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Baidu Inc ADS",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ryanair Ltd",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Banco Bradesco S.A. ADS",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "BanColombia S.A. ADR/ADRs",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Schlumberger/Baker Sr Notes",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "S&P AR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Roche Holding AG",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Novo Nordisk A/S ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Nestle S.A. Rep",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mitsui O.S.K. Lines Ltd",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Nakaido Co Ltd ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mitsubishi Estate Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "LVMH Moet Hennessy Louis Vuitton",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Lonza Group AG",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Lonza Ltd Spon ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Kone Oyj ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "JGC Corp UNSP ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Itau Unibanco Holding Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Imperial Oil Co Ltd Com",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "WPP Plc Spon New ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Unicharm Corp UNSP ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "United States Steel Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Taiwan Semi Mfg Co ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Toa Reinsurance Co Ltd",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sunrise Ac Unlp ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Swiss Rehe Holding AG ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sysmex Corp UNSP ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sasol Ltd Spon ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sodexo Unsp ADR ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Shumang Corp Ltd",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Shire Plc ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Spons Canada Ltd UNSP ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American New Perspective",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Investment Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Bond",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Balanced",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Am Cap",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "Fidelity Government Money Market",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fidelity Asset Manager 85%",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Spartan 500 Index FD Investor",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fidelity Diversified International",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR S&P 500 ETF Trust UNIT Ser 1",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Retire Savings Trust III",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "T Rowe Price MRCE Fund",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "Artisan International Fund",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "T Rowe Price Sm Cap",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Vanguard Target Retirement 2035",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "65 Financial Square Money Mrkt",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Russell US Small Cap",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Russell Intermational Devlpmt",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Russell Commodity Strategies",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Russell Global Infrastructure",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Russell Global Opportun.",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Russell Global Real Estate",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Russell Emerging Markets",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Russell Multi-Strgy Alt.",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Russell US Strategic",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Russell Global Eq.",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR S&P 500",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "iShares MSCI EAFE",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Wash. Mut.",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Small Cap",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Wshtn Money Insight",
+   "owner": "Self",
+   "value_range": "None"
+  },
+  {
+   "asset_description": "American Small Cap World Class",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Growth Fnd of Amrica",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Capital Income Builder",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard Index",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Valley Natl. Bancorp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR S&P 500",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Microsoft",
+   "owner": "Self",
+   "value_range": "$500,001-$1,000,000"
+  },
+  {
+   "asset_description": "Call MSFT",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Fidelity Asset Manager Fund",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Microsoft",
+   "owner": "Self",
+   "value_range": "$1,000,001-$5,000,000"
+  },
+  {
+   "asset_description": "ST Akamai Technologies Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Alliance Data Systems Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Adobe Systems Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Ameriosurceberger Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Apple Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Boeing Wgner Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Burlington Stores Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Best Buy Hldgs Inc Com",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Biogen Inc Com",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Boeing Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST American Express Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Homeaway Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST On Assignment Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Airgas Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST A O Smith Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Arista Networks Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Amazon Com Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST TD Ameritrade Holding Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Alexion Pharm Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ST Align Technology",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Estee Lauder Co Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Dollar Tree Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Delphi Automotive PLC",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Walt Disney Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Danaher Corporation",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Tableau Software Inc Cl A",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Concho Res Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cashr Group Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Criteo S.A ADR",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Salesforce.com, Inc.",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Costco Wholesale Corp New",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Chipotle Mexican Grill Inc Cor",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Center Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Celgene Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cubent Design System",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Incyte Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Genesee & Wyoming Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Google Inc Cl C",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Google Inc Cl C",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Gilead Science",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Synageva Biopharma Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Forthnet Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fitch Ratings Group Inc Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Financial Engines",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Fleetmatics Group PLC",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Five Below",
+   "owner": "Self",
+   "value_range": null
+  },
+  {
+   "asset_description": "Facebook Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Envision Healthcare Hldg Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Everyday Health Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Envestnet Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mineral Resource Dev Corp",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Monsanto Co/New",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Markit-axess Holdings Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Medivation Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Medtronic PLC SHS",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Microchip Technology Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mastercard Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ginnal Canyon Ed Div Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "LKQ Corporation",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Kansas Cy South Ind New",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Carmax Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Kar Auction SVG Inc",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "I.T.T Corp New",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Intuitive Surgical Inc",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Innovation Hldg Inc Cor Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Proxcar Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "PHC Therapeutics Inc",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Pros Hldg Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Perrigo Co Ltd",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Proofpoint Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Parsley Energy Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Publicity Holding Corporation",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Plum Pharmaceuticals Inc Con",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Priceline GRP Inc Com New",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Paycom Software Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Spark Therapeutics Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Oasis Petroleum Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Abercrombie Southern Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Servicenow Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mettler Toledo Int'l",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vale Armour Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Trucker Supply Co",
+   "owner": "Self",
+   "value_range": null
+  },
+  {
+   "asset_description": "Solarwinds Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Shutterstock Inc Com",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Splunk Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Synchronoss Tech Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Silicon Lab Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sketchers USA Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sprouts Farmers Market",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Starbucks Corp Washington",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Raymond James Find Sr",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Regeneron Pharm",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Qualcomm Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Quintiles Transnational Hldgs",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Pioneer Natural Resources Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "VCA Antech Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Whiting Petroleum Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Waste Connections",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vantiv Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Veeva Sys Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ultsa Inc Cl A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "United Technologies Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "United Parcel Svc Inc Cl B",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Union Pacific Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "United National Foods Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ultimate Software of Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Capital One Financial Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "CA Incorporated",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Bristol Myers Squibb Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "BlackRock Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Albemarle Corporation",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Kinder Morgan Inc",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Intel Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Hasbro Inc",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Corning Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "General Electric Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "General Dynamics Corp",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Federated Investors Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Duke Energy Corp NW",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Dominion Res Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Corrections Corp of Amer",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Chevron Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Cisco Sys Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Communication Sltns Integrated",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "ConocoPhillips",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Cincinnati Financial Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Windstream Hldgs Inc com",
+   "owner": "Joint",
+   "value_range": null,
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Wells Fargo & Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Verizon Communications",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Reynolds American Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Pfizer Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "PostcHex Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Newmarket Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Microsoft Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "The Mosaic Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Altria Group Inc",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Lowes Companies Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Lorillard Inc",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Eli Lilly & Co",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Coca Cola Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Box Financial Corp/New",
+   "owner": "Joint",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Bank of America Corp",
+   "owner": "Joint",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "AES Corp",
+   "owner": "Joint",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Adobe Systems Inc Com",
+   "owner": "Joint",
+   "value_range": "Indefinite",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Absolute Inc Com",
+   "owner": "Joint",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Jill Tool Works Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Itc Holdings",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Hershey Company",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Home Depot Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Halliburton Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "General Electric Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Gen Dynamics Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "First Republic Bank",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "EMC Corp Mass",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "EVOLAB Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "eBay Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Dow Chemical Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Diageo PLC Spon ADR New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Deere & Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Coty Inc Com Cl A",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Banco Santander SA",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Frontier Natural Resources Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Phillips 66 Com",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Oshkosh Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Oracle Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Novartis Ag ADR",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Natl Fuel Gas Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Messaging (VJ) Global Group Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "M&T Bank Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Allison Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Martin Marietta Materials",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Meridional PLC SDS",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Mondelez Intl Wl Com",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Lennar Corporation",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "JP Morgan Chase & Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Walgreens Boots Alliance Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Whole Foods Market Inc New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Texas Instruments",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Time Warner Inc New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "TE Connectivity Ltd New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "North Halcyon NJ GO Bond",
+   "owner": "Joint",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "North Carolina NJ GO Bond",
+   "owner": "Joint",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "Monroe Twp NJ Bond",
+   "owner": "Joint",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "Maine Gov't Bond",
+   "owner": "Joint",
+   "value_range": "$250,001-$500,000"
+  },
+  {
+   "asset_description": "ST Buckeye Az Bond",
+   "owner": "Joint",
+   "value_range": "Indefinite"
+  },
+  {
+   "asset_description": "GS HY Fund",
+   "owner": "Joint",
+   "value_range": "$50,001-$100,000"
+  },
+  {
+   "asset_description": "GS EM Debt Fund",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard TTL Mkt",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR Trust Series 1",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Eli Lilly",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Goldman Sachs",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "EMC Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Stafford TWP NJ Bond",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "ST Port Authority NY/NJ",
+   "owner": "Joint",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Aspen Technology Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "AmeriSafe Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Analogic Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Air Methods Corp Inc 7",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "American Cap Agility",
+   "owner": "Joint",
+   "value_range": "Indefinite"
+  },
+  {
+   "asset_description": "Skill-Quip Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Catalent Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cepheid Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cohen & Steers Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cboe Corp Holding Co",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Compass Minerals Inter",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cantel Medical Corp Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Clarcor Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Copper Inc Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ceb Inc Com",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cavium Inc Com",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cathay General Bancorp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Cardtronics Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Blackbaud Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Belcher CP",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "ICU Medical Inc",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Iberia 2K Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Heartland Express",
+   "owner": "Joint",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "HMS Holding Corp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Hibbett Sports Inc",
+   "owner": "Joint",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Heico Corp Class A",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Heico Corp New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "HHH Core Svc Grp",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Globus Medical Inc A New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Glacier Bancorp Inc New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Flotek Ind Inc (NE)",
+   "owner": "Joint",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Forum Energy Technologies",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "FEI Company",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "EPAM Systems",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "MWS Ecology Inc New",
+   "owner": "Joint",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Bidiotroot Hotel TR.com",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Oxford Industries Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Northwestern Corporation",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "National Health Investors Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Metador Res Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Moore Muhller+Brake",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Marketaxess Holdings Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mobile Mini Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Mattress Firm Holding",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Meridian Solutions Inc Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Grand Canyon Ed Inc Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Laymei Inc Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Lithia Motors Inc. A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Keystone Paper and Packaging",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "IPC Healthcare Inc/Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Stag Ind Inc Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Sequent Inc Adv Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Solera Holdings Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Signa Hldgs Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Site1 Financial Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ryland Group Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Robo-Stor Tech Inc Old",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "RBC Bearings Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ritchie Bros Auctioneers",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Proto Labs",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Primoris Svcs Corp Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "PRA Group Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "OneSource CP",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Power Integrations Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Pier 1 Imports Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vitael Pharmaceutical Svcs Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Wright Med Grp Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "WD 40 Company",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Webster Finl Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Universal Forest Products Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Tyler Technologies Inc",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Texas Roadhouse Hldg A",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Tupperware Brands Corp",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Tumi Holdings Inc Con",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Toro Co",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Texas Cap Bncshrs Inc (DEL)",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "iShares Nat'l AMT Free Mun",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Synchrony Bank",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard IRA",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Leading Club",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Emigrant Direct (Cash)",
+   "owner": "Self",
+   "value_range": "$250,001-$500,000"
+  },
+  {
+   "asset_description": "Barclays (Cash)",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Ford (Cash)",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Wells Fargo (Cash)",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Wells Fargo (Cash)",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Wells Fargo (Cash)",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Vanguard FTSE Dev Mkt",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard Div Apprec",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard FTSE EM Mkt",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Vanguard Index Total Mkt",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Schwab Strat Tr Int'l",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR Nuveen Mun Bnd",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Select Sector SPDR Trust",
+   "owner": "Self",
+   "value_range": "$1-$1,000"
+  },
+  {
+   "asset_description": "Rhodes Small Cap",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Ford",
+   "owner": "Self",
+   "value_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "Facebook",
+   "owner": "Self",
+   "value_range": "$250,001-$500,000"
+  },
+  {
+   "asset_description": "Apple",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "Amazon",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "SPDR S&P 500",
+   "ticker": null,
+   "owner": "Self",
+   "value_range": "$100,001-$250,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "SPDR Dow Jones",
+   "ticker": null,
+   "owner": "Self",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Powershares QQQ",
+   "ticker": null,
+   "owner": "Self",
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  }
+ ],
+ "transactions": []
+}

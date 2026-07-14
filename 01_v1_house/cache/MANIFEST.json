@@ -36,7 +36,7 @@
   "comptes": {
     "recensement": 35377,
     "ledger": 35359,
-    "pdf_en_cache": 24078,
+    "pdf_en_cache": 26088,
     "transactions_v1": 166149,
     "transactions_signal_ptr": 56002,
     "holdings_v1": 198615,
@@ -245,15 +245,15 @@
       "verdict": "VERT"
     },
     "F1": {
-      "valeur": 526.0,
+      "valeur": 2453.0,
       "verdict": "INFO"
     },
     "F2": {
-      "valeur": 26.3,
+      "valeur": 43.2,
       "verdict": "INFO"
     },
     "F3": {
-      "valeur": 97.5,
+      "valeur": 96.0,
       "verdict": "VERT"
     },
     "F4": {
@@ -272,12 +272,16 @@
       "valeur": 35377.0,
       "verdict": "VERT"
     },
+    "G-0": {
+      "valeur": 0.0,
+      "verdict": "VERT"
+    },
     "G-2": {
-      "valeur": 18171.0,
+      "valeur": 20457.0,
       "verdict": "INFO"
     },
     "G-3": {
-      "valeur": 2296.0,
+      "valeur": 10.0,
       "verdict": "INFO"
     },
     "S-1": {
@@ -297,28 +301,28 @@
       "verdict": "VERT"
     },
     "P-1": {
-      "valeur": 792.0,
+      "valeur": 825.0,
       "verdict": "INFO"
     },
     "P-2": {
-      "valeur": 69.8,
+      "valeur": 66.7,
       "verdict": "VERT"
     }
   },
   "sha_tables": {
     "01_recensement_depots.csv": "c11ec3651437694a1148ba2e9719b7db83f967e18f82681f0ea2f2f2201a34fc",
     "02_ledger_docs.csv": "6dfb439d38eeb87b5cab346d5a205f6f55befb221c809baf4bad7448f4c386e5",
-    "03_pdf_inventory.csv": "bf5aa17c2b74c528840371beaf4c3aaf8d0623e54900cb292c11281ada71f373",
+    "03_pdf_inventory.csv": "51a153641684489beaf81aa5e94ea7c580c9f280a274e3c1091c630cf4fc4b45",
     "04_transactions_v1.csv": "f9273aff6a008d0b2f7f321d00bd063055363fa39d37c0b5fba71746fdef24ce",
     "05_holdings_v1.csv": "1ee62b71389ccb611944478e561d349625c128f48826acc9ccb2e15ce0daff35",
     "06_identites_v1.csv": "466a331d7b0bdc3d7f4577c5332b54a43308e5e1fcbde79d4271aa862c7a65c9",
     "07_transactions_ptr_ocr.csv": "279e7f91048c1148744becaad7223b3366c59cb1b4234d1b47dcafa747e86112",
-    "08_holdings_fd_ocr.csv": "61d492bde9ef637cf0413413f9109c0e99da3cbbc281adc7c92022baed985a88",
-    "09_transactions_fd_ocr.csv": "e5c63a287995be257664f728b1a5ef2ff69617c77158f33da15da8e0c66b7d0f",
-    "10_comptabilite_traitement.csv": "3ab01d0c714796e7150a0fa69d6f54b3f8ef214e4f27c5a4180b5ae7532a715e",
+    "08_holdings_fd_ocr.csv": "b0894d1c824d9b39fd95faabbb59eac1b6586e9ae62fb4140dd2f9b92738a284",
+    "09_transactions_fd_ocr.csv": "489c503b49ad8b5cd7906b834172b4b4b4cade616dae18c0dc843ff4e61b9efc",
+    "10_comptabilite_traitement.csv": "956b36eb4bf9e91497fb47bb9b0b338989d54b25a2f2e303654f17fbef01782a",
     "11_holdings_complets.csv": "c6231b3acd705611c2518aad74b8ad84daf0edb69e6dbda0ae35d2355813d9f3",
-    "12_portefeuilles_dates.csv": "b8723a16fb32b1818ae7f23f9b308704c0cfe54258500d01d4d3045b5bc29a57",
-    "13_recalages.csv": "1a4f9a71d7bb4cb75e3d1e60f492e5ae024f5d7001de5e5dc0998de5176adabd",
+    "12_portefeuilles_dates.csv": "6b1ad61b2cfeae93a4f516b3476f926f73118fc49c513969308b8d01aaf3f523",
+    "13_recalages.csv": "905aba1851a0ce9315737ff6bdbd1c5a22974d215b704442deb107e53dcd91e0",
     "annexe_actions_annuel_seul.csv": "ceb8f3172bd3bd30f6cd80cbdf8ff3d198bca8d2f22d397e0d3195caf7b60386",
     "annexe_coherence_trous_v1.csv": "56e1c466e926372751208f485ca71cdef2ca2d84ff45b2087ec308cc9df3991a"
   }
