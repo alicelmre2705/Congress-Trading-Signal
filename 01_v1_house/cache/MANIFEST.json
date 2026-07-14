@@ -49,7 +49,7 @@
     "scanne_hors_V1": 2851,
     "ocr_herite_parse": 2425,
     "hors_perimetre_blind_trust": 23,
-    "absent_404": 1
+    "en_attente_telechargement": 1
   },
   "validations": {
     "L2a": {
@@ -72,14 +72,6 @@
       "valeur": 0.0,
       "verdict": "VERT"
     },
-    "R1": {
-      "valeur": 100.0,
-      "verdict": "VERT"
-    },
-    "R2": {
-      "valeur": 100.0,
-      "verdict": "VERT"
-    },
     "I1-P": {
       "valeur": 99.9,
       "verdict": "VERT"
@@ -100,25 +92,65 @@
       "valeur": 0.0,
       "verdict": "VERT"
     },
+    "D-2": {
+      "valeur": 81.4,
+      "verdict": "INFO"
+    },
+    "D-1": {
+      "valeur": 98.1,
+      "verdict": "VERT"
+    },
+    "D-3": {
+      "valeur": 281.0,
+      "verdict": "INFO"
+    },
+    "D-4": {
+      "valeur": 900.0,
+      "verdict": "INFO"
+    },
+    "R1": {
+      "valeur": 100.0,
+      "verdict": "VERT"
+    },
+    "R2": {
+      "valeur": 100.0,
+      "verdict": "VERT"
+    },
+    "O1": {
+      "valeur": 100.0,
+      "verdict": "VERT"
+    },
+    "S-1": {
+      "valeur": 90.9,
+      "verdict": "VERT"
+    },
+    "S-2": {
+      "valeur": 420916.0,
+      "verdict": "INFO"
+    },
+    "E-1": {
+      "valeur": 284.0,
+      "verdict": "INFO"
+    },
+    "E-2": {
+      "valeur": 32.0,
+      "verdict": "INFO"
+    },
     "RB5": {
       "valeur": 1.0,
       "verdict": "VERT"
     },
-    "L1f": {
-      "valeur": 1.0,
+    "O2": {
+      "valeur": 67.8,
       "verdict": "VERT"
     },
-    "L3a": {
-      "valeur": 100.0,
+    "O3": {
+      "valeur": 99.6,
       "verdict": "VERT"
     },
-    "L3b": {
-      "valeur": 100.0,
-      "verdict": "VERT"
-    },
-    "L7": {
-      "valeur": 0.0,
-      "verdict": "VERT"
+    "N-1": {
+      "valeur": 26115.0,
+      "verdict": "INFO"
     },
     "RB1": {
       "valeur": 100.0,
@@ -184,49 +216,9 @@
       "valeur": 0.0,
       "verdict": "VERT"
     },
-    "X1": {
-      "valeur": 0.0,
-      "verdict": "VERT"
-    },
-    "X2": {
-      "valeur": 0.0,
-      "verdict": "VERT"
-    },
-    "X2b": {
-      "valeur": 1.0,
-      "verdict": "ORANGE"
-    },
-    "X3": {
-      "valeur": 1.5,
-      "verdict": "ORANGE"
-    },
-    "O1": {
-      "valeur": 100.0,
-      "verdict": "VERT"
-    },
-    "O2": {
-      "valeur": 67.8,
-      "verdict": "VERT"
-    },
-    "O3": {
-      "valeur": 99.6,
-      "verdict": "VERT"
-    },
     "O4": {
       "valeur": 83.7,
       "verdict": "VERT"
-    },
-    "D-2": {
-      "valeur": 81.4,
-      "verdict": "INFO"
-    },
-    "D-1": {
-      "valeur": 98.1,
-      "verdict": "VERT"
-    },
-    "D-3": {
-      "valeur": 281.0,
-      "verdict": "INFO"
     },
     "C-a-ocr": {
       "valeur": 78.8,
@@ -268,28 +260,12 @@
       "valeur": 54.0,
       "verdict": "INFO"
     },
-    "G-1": {
-      "valeur": 35377.0,
-      "verdict": "VERT"
-    },
-    "G-0": {
-      "valeur": 0.0,
-      "verdict": "VERT"
-    },
-    "G-2": {
-      "valeur": 20457.0,
+    "C-a-C": {
+      "valeur": 7.0,
       "verdict": "INFO"
     },
-    "G-3": {
-      "valeur": 10.0,
-      "verdict": "INFO"
-    },
-    "S-1": {
-      "valeur": 90.9,
-      "verdict": "VERT"
-    },
-    "S-2": {
-      "valeur": 420916.0,
+    "C-a-C2": {
+      "valeur": 71.9,
       "verdict": "INFO"
     },
     "M-1": {
@@ -307,11 +283,79 @@
     "P-2": {
       "valeur": 66.7,
       "verdict": "VERT"
+    },
+    "P-2'": {
+      "valeur": 66.7,
+      "verdict": "INFO"
+    },
+    "REG-1": {
+      "valeur": 900.0,
+      "verdict": "VERT"
+    },
+    "REG-2": {
+      "valeur": 18.3,
+      "verdict": "INFO"
+    },
+    "CH-1": {
+      "valeur": 93.2,
+      "verdict": "INFO"
+    },
+    "CH-2": {
+      "valeur": 81.5,
+      "verdict": "INFO"
+    },
+    "L1f": {
+      "valeur": 1.0,
+      "verdict": "VERT"
+    },
+    "L3a": {
+      "valeur": 100.0,
+      "verdict": "VERT"
+    },
+    "L3b": {
+      "valeur": 100.0,
+      "verdict": "VERT"
+    },
+    "L7": {
+      "valeur": 0.0,
+      "verdict": "VERT"
+    },
+    "G-1": {
+      "valeur": 35377.0,
+      "verdict": "VERT"
+    },
+    "G-0": {
+      "valeur": 0.0,
+      "verdict": "VERT"
+    },
+    "G-2": {
+      "valeur": 20457.0,
+      "verdict": "INFO"
+    },
+    "G-3": {
+      "valeur": 10.0,
+      "verdict": "INFO"
+    },
+    "X1": {
+      "valeur": 0.0,
+      "verdict": "VERT"
+    },
+    "X2": {
+      "valeur": 0.0,
+      "verdict": "VERT"
+    },
+    "X2b": {
+      "valeur": 1.0,
+      "verdict": "ORANGE"
+    },
+    "X3": {
+      "valeur": 1.5,
+      "verdict": "ORANGE"
     }
   },
   "sha_tables": {
     "01_recensement_depots.csv": "c11ec3651437694a1148ba2e9719b7db83f967e18f82681f0ea2f2f2201a34fc",
-    "02_ledger_docs.csv": "6dfb439d38eeb87b5cab346d5a205f6f55befb221c809baf4bad7448f4c386e5",
+    "02_ledger_docs.csv": "70fd5752aa062753f692cc82aaa8c3d09b5a9a372171fa0bae4407ee0b11dbf2",
     "03_pdf_inventory.csv": "51a153641684489beaf81aa5e94ea7c580c9f280a274e3c1091c630cf4fc4b45",
     "04_transactions_v1.csv": "f9273aff6a008d0b2f7f321d00bd063055363fa39d37c0b5fba71746fdef24ce",
     "05_holdings_v1.csv": "1ee62b71389ccb611944478e561d349625c128f48826acc9ccb2e15ce0daff35",
@@ -319,10 +363,15 @@
     "07_transactions_ptr_ocr.csv": "279e7f91048c1148744becaad7223b3366c59cb1b4234d1b47dcafa747e86112",
     "08_holdings_fd_ocr.csv": "b0894d1c824d9b39fd95faabbb59eac1b6586e9ae62fb4140dd2f9b92738a284",
     "09_transactions_fd_ocr.csv": "489c503b49ad8b5cd7906b834172b4b4b4cade616dae18c0dc843ff4e61b9efc",
-    "10_comptabilite_traitement.csv": "956b36eb4bf9e91497fb47bb9b0b338989d54b25a2f2e303654f17fbef01782a",
+    "10_comptabilite_traitement.csv": "865f46f15a3d392bdd24be235caa5fb0ed8481e1be3e8d92381c0043a4fc30d2",
     "11_holdings_complets.csv": "c6231b3acd705611c2518aad74b8ad84daf0edb69e6dbda0ae35d2355813d9f3",
     "12_portefeuilles_dates.csv": "6b1ad61b2cfeae93a4f516b3476f926f73118fc49c513969308b8d01aaf3f523",
     "13_recalages.csv": "905aba1851a0ce9315737ff6bdbd1c5a22974d215b704442deb107e53dcd91e0",
+    "14_registre_membres.csv": "e1b0553f385d1a30cc999e66f6d1a91cd15bf235068ab5c57207e334fbd46998",
+    "15_portefeuille_entree.csv": "0bc46473792466fe9078a0f1de439331d26a0879dfd9a9fccab02af04e04d807",
+    "16_flux_oat_net.csv": "5f539f17638c9a00ad311e5ce4006f6e119ae0bf29f1cecd9dd19502045073b2",
+    "17_recalages_oat.csv": "d2858948f2ed732793a4f33445fe1d1d9df8c82d2ef9b7631b1682d9858da3c5",
+    "18_churn_decompose.csv": "5f9236af7d7b6822c067a42f0de981230beda8f8376db81923f7759f0af09306",
     "annexe_actions_annuel_seul.csv": "ceb8f3172bd3bd30f6cd80cbdf8ff3d198bca8d2f22d397e0d3195caf7b60386",
     "annexe_coherence_trous_v1.csv": "56e1c466e926372751208f485ca71cdef2ca2d84ff45b2087ec308cc9df3991a"
   }

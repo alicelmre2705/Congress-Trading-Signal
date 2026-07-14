@@ -97,35 +97,39 @@
 
 \begin{document}
 
-\section{La source — le site du Clerk, un ZIP, un index XML}
+
+\section{É1 · Récupérer — le site du Clerk, un ZIP, un index XML}
+
 
 % ── H1 · Page de titre ──
 \begin{frame}[plain]
   \titlepage
 \end{frame}
 
-% ── H2 · Le fil ── (7 actes chronologiques ; sommaire manuel — la TOC hyperref serait blanche)
-\begin{frame}{Le fil — sept actes, dans l'ordre du réel}
+% ── H2 · Le fil ── (plan canonique 10 étapes ; sommaire manuel — la TOC hyperref serait blanche)
+\begin{frame}{Le fil — dix étapes, deux compteurs}
   \centering
-  \colorbox{helec}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{1 · La source} — le site du Clerk, un ZIP par année, un index XML par dépôt}}\\[1.5mm]
-  \colorbox{dataC}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{2 · L'inventaire} — les 12 FilingType et les sections A→J du formulaire}}\\[1.5mm]
-  \colorbox{okgreen}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{3 · La chronologie d'un élu} — candidature C → entrée H → mandat P/O/A → sortie T}}\\[1.5mm]
-  \colorbox{hocr}{\parbox{0.9\textwidth}{\scriptsize\color{black!80}
-    \textbf{4 · Les documents} — lisible ou scanné, le préfixe du DocID le dit (et on l'a prouvé)}}\\[1.5mm]
-  \colorbox{grisC}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{5 · Rien d'oublié} — 35\,377 dépôts, un traitement chacun, la somme boucle}}\\[1.5mm]
-  \colorbox{warnorange}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{6 · Les portefeuilles} — entrée + transactions ⊇ sortie, membre par membre}}\\[1.5mm]
-  \colorbox{alertred}{\parbox{0.9\textwidth}{\scriptsize\color{white}
-    \textbf{7 · Verdict} — ce qui est prouvé, ce qui reste}}\\[3mm]
-  {\scriptsize\color{black!55} tous les chiffres sortent des tables versionnées
-   (\co{01\_v1\_house/cache/tables/} + \co{MANIFEST.json}) — 58 validations, 0 rouge}
+  {\footnotesize\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.12}
+  \begin{tabular}{l l}
+    \textbf{É1 · Récupérer} & 13 index annuels → 35\,377 dépôts recensés \\
+    \textbf{É2 · Router} & lisible ou scanné — le préfixe le dit, prouvé sur 26\,088 PDF \\
+    \textbf{É3 · Identifier} & du nom imprimé au \co{bioguide} — la clé qui relie tout \\
+    \textbf{É4 · Cycle de vie} & C·H·P·O·A·T — qui entre, qui sort, qui reste \\
+    \textbf{É5 · Extraire} & Schedule A (patrimoine) + B (transactions), élec + OCR \\
+    \textbf{É6 · Portefeuille d'entrée} & la photo de départ : H, à défaut C sous garde-fous \\
+    \textbf{É7 · Flux dédupliqués} & P (signal) + ce que O/A/T ajoutent vraiment \\
+    \textbf{É8 · Vérifier} & entrée + flux $\supseteq$ sortie, position par position \\
+    \textbf{É9 · Reconstruire} & le portefeuille daté de chaque membre + son statut \\
+    \textbf{É10 · Rien d'oublié} & la somme boucle — comptabilité et tableau de bord \\
+  \end{tabular}}\\[2.5mm]
+  \colorbox{helec}{\parbox{0.92\textwidth}{\footnotesize\color{white}\centering
+    \textbf{deux compteurs, jamais confondus} : RECONSTRUIRE (la série datée du
+    patrimoine, pour un maximum de membres) $\neq$ VÉRIFIER (entrée + flux
+    $\supseteq$ sortie, possible sur les seuls cycles complets tickérisés)}}
 \end{frame}
 
-% ── H3 · Le site du Clerk + la purge ── (recensement : 01_recensement_depots.csv, union site∪instantané)
+
+% ── H3 · Le site du Clerk + la purge ── (recensement : 01_recensement_depots.csv, union site$\cup$instantané)
 \begin{frame}{La source (1/2) — le site officiel : une archive par année}
   \begin{columns}[T]
     \begin{column}{0.60\textwidth}\centering
@@ -178,330 +182,8 @@
   \end{columns}
 \end{frame}
 
-\section{L'inventaire — 12 FilingType, et les sections A→J du formulaire}
+\section{É2 · Router — lisible ou scanné, le préfixe du DocID le dit}
 
-% ── H5 · LA TABLE FilingType × année ── (source : 01_recensement_depots.csv, 35 377 ; asserts gen_figs_house.py)
-\begin{frame}{Les 12 \texttt{FilingType} — tout l'index, compté type par type}
-  \centering
-  {\setlength{\tabcolsep}{3pt}\scriptsize
-  \begin{tabular}{l rrrrrrrrrrrrr r r}
-    \toprule
-    & 2014 & 2015 & 2016 & 2017 & 2018 & 2019 & 2020 & 2021 & 2022 & 2023 & 2024 & 2025 & 2026 & total & \% \\
-    \midrule
-    \textcolor{dataC}{\textbf{C}} & 776 & 401 & 715 & 1\,001 & 1\,075 & 964 & 780 & 753 & 861 & 621 & 661 & 892 & 629 & \textbf{10\,129} & 28,6\,\% \\
-    \textcolor{helec}{\textbf{P}} & 708 & 728 & 765 & 801 & 830 & 683 & 733 & 680 & 624 & 460 & 451 & 515 & 289 & \textbf{8\,267} & 23,4\,\% \\
-    \textcolor{black!45}{X} & 208 & 298 & 299 & 509 & 319 & 743 & 567 & 489 & 464 & 553 & 454 & 709 & 239 & \textbf{5\,851} & 16,5\,\% \\
-    \textcolor{dataC}{\textbf{O}} & 397 & 440 & 393 & 437 & 355 & 434 & 374 & 432 & 367 & 431 & 372 & 194 & · & \textbf{4\,626} & 13,1\,\% \\
-    \textcolor{dataC}{\textbf{A}} & 310 & 213 & 230 & 256 & 239 & 202 & 161 & 164 & 180 & 129 & 103 & 89 & 29 & \textbf{2\,305} & 6,5\,\% \\
-    \textcolor{black!45}{D} & 224 & 130 & 164 & 336 & 228 & 413 & 164 & 116 & 86 & 79 & 70 & 132 & 57 & \textbf{2\,199} & 6,2\,\% \\
-    \textcolor{black!45}{W} & 109 & 31 & 87 & 91 & 279 & 107 & 83 & 19 & 71 & 19 & 66 & 47 & 93 & \textbf{1\,102} & 3,1\,\% \\
-    \textcolor{dataC}{\textbf{H}} & 50 & · & 45 & · & 87 & · & 62 & 1 & 76 & 4 & 66 & 2 & 2 & \textbf{395} & 1,1\,\% \\
-    \textcolor{dataC}{\textbf{T}} & 7 & 50 & 5 & 49 & 6 & 85 & 4 & 53 & 8 & 65 & 7 & 53 & 2 & \textbf{394} & 1,1\,\% \\
-    \textcolor{black!45}{G} & 5 & 1 & 1 & 1 & 22 & · & · & 4 & 1 & 8 & 3 & 5 & · & \textbf{51} & 0,1\,\% \\
-    \textcolor{black!45}{E} & 1 & 5 & · & 7 & 2 & 5 & 2 & 4 & · & 3 & 1 & 5 & · & \textbf{35} & 0,1\,\% \\
-    \textcolor{black!45}{B} & · & · & · & · & 1 & · & · & 3 & 6 & 7 & 4 & 2 & · & \textbf{23} & 0,1\,\% \\
-    \midrule
-    total & 2\,795 & 2\,297 & 2\,704 & 3\,488 & 3\,443 & 3\,636 & 2\,930 & 2\,718 & 2\,744 & 2\,379 & 2\,258 & 2\,645 & 1\,340 & \textbf{35\,377} & 100\,\% \\
-    \bottomrule
-  \end{tabular}}\\[1.8mm]
-  {\footnotesize \badge{helec}{P = le signal}\;
-   \badgel{dataC!30}{\textcolor{dataC}{\textbf{O·C·H·T·A} = le patrimoine}}\;
-   {\color{black!50}\textbf{X·D·W·G·E·B} = administratif ou à part}}\\[0.8mm]
-  {\scriptsize\color{black!55} unité : dépôt · recensement V1 = union site $\cup$
-   instantané (les creux des H suivent le calendrier électoral)}
-\end{frame}
-
-% ── H6 · Famille patrimoine (reprise deck S1S2, comptes V1) ── (recensement V1)
-\begin{frame}{À quoi correspond chaque type — la famille « patrimoine »}
-  \centering
-  {\footnotesize cinq types, un socle commun (le \emph{Financial Disclosure Report}) —
-   les \textbf{transactions (Schedule B) n'existent que dans O, T et leurs amendements}}\\[2mm]
-  \begin{columns}[T]
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_o.png}}}\\[0.8mm]
-      {\footnotesize\textbf{O — Annual}}\\{\scriptsize bilan annuel · \textbf{4\,626}}
-\end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_c.png}}}\\[0.8mm]
-      {\footnotesize\textbf{C — Candidate}}\\{\scriptsize candidat · \textbf{10\,129}}
-\end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_h.png}}}\\[0.8mm]
-      {\footnotesize\textbf{H — New Filer}}\\{\scriptsize 1\iere{} déclaration · \textbf{395}}
-\end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_t.png}}}\\[0.8mm]
-      {\footnotesize\textbf{T — Termination}}\\{\scriptsize départ · \textbf{394}}
-\end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_a.png}}}\\[0.8mm]
-      {\footnotesize\textbf{A — Amendment}}\\{\scriptsize correction · \textbf{2\,305}}
-\end{column}
-  \end{columns}
-  \vspace{2.5mm}
-  \badge{helec}{chaque vignette est cliquable → ouvre le vrai document}\quad
-  {\scriptsize\color{black!60} significations vérifiées en ouvrant les documents ·
-   détail par type : acte 3}
-\end{frame}
-
-% ── H6a · Les sections A→J (matrice) ── (fig_sections_matrix, repris S1S2 — structure du formulaire)
-\begin{frame}{Le formulaire de l'intérieur — des sections A→J en commun}
-  \centering
-  \includegraphics[width=0.62\textwidth]{slides/fig_sections_matrix.png}\\[0.8mm]
-  {\footnotesize on trade la \textbf{section B} (transactions datées) ; la
-   \textbf{section A} (patrimoine) sert à \emph{vérifier} qu'on n'a rien loupé —
-   l'objet de l'acte 6}\\[0.5mm]
-  {\scriptsize\color{black!60} tous ces documents partagent un socle (A·C·D·E·F) —
-   ce qui change d'un type à l'autre, c'est la présence de la section B}
-\end{frame}
-
-
-% ── H7 · Administratifs + blind trust (reprise deck S1S2, comptes V1) ──
-\begin{frame}{À quoi correspond chaque type — les administratifs, et le cas à part}
-  \centering
-  {\footnotesize cinq types \textbf{sans aucune transaction} — chaque vignette est \textbf{cliquable} :}\\[1.5mm]
-  \begin{columns}[T]
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2026/30026963.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=20mm]{slides/ftype_x.png}}}\\[0.6mm]
-      {\scriptsize\textbf{X — Extension}\\délai · \textbf{5\,851}}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2026/40004992.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=20mm]{slides/ftype_d.png}}}\\[0.6mm]
-      {\scriptsize\textbf{D — Camp. Notice}\\\textless\,5\,000 \$ levés · \textbf{2\,199}}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2026/8067.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=20mm]{slides/ftype_w.png}}}\\[0.6mm]
-      {\scriptsize\textbf{W — idem, papier}\\(ou retrait) · \textbf{1\,102}}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/40004775.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=20mm]{slides/ftype_e.png}}}\\[0.6mm]
-      {\scriptsize\textbf{E — Exemption}\\poste fédéral · \textbf{35}}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2021/50000145.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=20mm]{slides/ftype_g.png}}}\\[0.6mm]
-      {\scriptsize\textbf{G — Gift Waiver}\\dérogation cadeau · \textbf{51}}
-    \end{column}
-  \end{columns}
-  \vspace{2.5mm}
-  \begin{columns}[c]
-    \begin{column}{0.14\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/8220736.pdf}{\fcolorbox{alertred}{white}{\includegraphics[height=19mm]{slides/ftype_b.png}}}
-    \end{column}
-    \begin{column}{0.80\textwidth}
-      \colorbox{alertred!10}{\parbox{0.97\linewidth}{\footnotesize
-        \textbf{\textcolor{alertred}{B — Blind Trust}} (23 dépôts) : la banque du
-        \emph{trust} liste des ventes (eBay, Meta, Tesla…) — de vraies transactions,
-        mais \textbf{pas décidées par l'élu} : c'est le principe de la fiducie aveugle.}}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\section{La chronologie d'un élu — de la candidature à la sortie}
-
-
-% ── H8a · La loi du parcours, en un schéma ── (workflow source-primaire vérifié :
-%    5 U.S.C. §13103 dépôts, §13105 STOCK Act PTR, §13103(e) exemption de sortie)
-\begin{frame}{Comment on entre au Congrès : qui dépose quoi, et quand (la loi)}
-  \centering
-  \includegraphics[width=0.72\textwidth]{fig_house_loi_cycle.png}\\[1mm]
-  {\footnotesize \badge{alertred}{2 dérogations de la loi}\;
-   un candidat déjà déclaré \textbf{saute le H} (§13103) ;
-   qui rejoint le Sénat ou l'exécutif \textbf{ne dépose pas de T} (§13103(e))}\\[1.2mm]
-  {\footnotesize
-   \badge{okgreen}{ENTRÉES}\; sur \textbf{470} : \textbf{82,1 \%} un H, \textbf{98,1 \%} un H \emph{ou} un C\quad
-   \badge{dataC}{SORTIES}\; sur \textbf{463} : \textbf{81,4 \%} un T}\\[0.8mm]
-  {\scriptsize\color{black!55} le reste des T manquants = décès / départs très récents
-   (cas de fait) · mesuré au §15 du notebook (validations D-1, D-2)}
-\end{frame}
-
-% ── AN2 · C ── (recensement V1 : 10 129 ; ledger : 8 533/1 583)
-\begin{frame}{La candidature — \texttt{C}, le rapport du candidat}
-  \begin{columns}[c]
-    \begin{column}{0.34\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_c.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} Adam Hollier, candidat MI13, 2023 — cliquable}
-    \end{column}
-    \begin{column}{0.64\textwidth}
-      {\footnotesize
-      \textbf{Qui, quand} — toute personne qui \textbf{se porte candidate} à la
-      Chambre (une fois sa campagne au-delà de 5\,000 \$) — avant d'être élue, et
-      le plus souvent sans jamais l'être.\\[1.2mm]
-      \textbf{Ce qu'il contient} — la photo du patrimoine du candidat :
-      actifs (A), salaires (C), dettes (D), postes (E), accords (F),
-      compensations >\,5\,000 \$ (J). \textbf{Pas de section transactions} —
-      0 sur les 39 échantillonnés.\\[1.2mm]
-      \textbf{En chiffres} — \textbf{10\,129} dépôts, le type le plus fréquent de
-      l'index · \textbf{77 \% déposés par des candidats jamais élus} ·
-      3 pages en médiane.}\\[1.5mm]
-      \badgel{grisC!30}{sans transactions — mais photo d'entrée de ceux qui seront élus}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── AN3 · H ── (recensement V1 : 395 ; ledger : 383/12)
-\begin{frame}{L'entrée en fonction — \texttt{H}, la photo de départ du portefeuille}
-  \begin{columns}[c]
-    \begin{column}{0.34\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_h.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} Gabe Amo, nouveau membre RI01, 2023 — cliquable}
-    \end{column}
-    \begin{column}{0.64\textwidth}
-      {\footnotesize
-      \textbf{Qui, quand} — un \textbf{membre qui vient d'entrer en fonction}
-      (élection partielle, prise de poste) : sa photo de départ.\\[1.2mm]
-      \textbf{Ce qu'il contient} — le même formulaire réduit que le candidat :
-      actifs (A), salaires (C), dettes (D), postes (E), accords (F),
-      compensations (J). \textbf{Pas de section transactions} —
-      0 sur les 369 numériques analysés.\\[1.2mm]
-      \textbf{En chiffres} — \textbf{395} dépôts (97 \% membres) ·
-      quasi tout numérique (383) · 4 pages en médiane.}\\[1.5mm]
-      \badge{okgreen}{la photo d'ENTRÉE : le point de départ du contrôle H + P ⊇ T}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── N1 · Le mandat : P, la pièce datée ── (8 267 P ; ≤45 j ; RB4 médiane 28 j ; 161 076 txns signal)
-\begin{frame}{Au fil du mandat — \texttt{P}, le seul dépôt daté au trade}
-  \centering
-  {\footnotesize pendant tout le mandat, chaque transaction \textbf{> 1\,000 \$} doit être
-   déclarée sous \textbf{45 jours} (STOCK Act, 5 U.S.C. §13105) :}\\[4mm]
-  \resizebox{0.9\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=11mm]
-    \node[step=grisC, text width=3.2cm, minimum height=1.5cm, font=\footnotesize] (t)
-      {\textbf{le trade}\\{\scriptsize achat ou vente > 1\,000 \$}};
-    \node[step=helec, text width=3.6cm, minimum height=1.5cm, font=\footnotesize, right=of t] (p)
-      {\textbf{le PTR}\\{\scriptsize déposé $\leq$ 45 j\\médiane réelle : \textbf{28 j}}};
-    \node[step=okgreen, text width=3.8cm, minimum height=1.5cm, font=\footnotesize, right=of p] (s)
-      {\textbf{notre signal}\\{\scriptsize \textbf{161\,076} transactions datées\\(100 \% des 8\,267 P)}};
-    \draw[-{Latex[length=2.6mm]}, line width=1pt] (t) -- (p);
-    \draw[-{Latex[length=2.6mm]}, line width=1pt] (p) -- (s);
-  \end{tikzpicture}}\\[4mm]
-  \badge{helec}{c'est la SEULE pièce utilisable pour trader}\quad
-  {\scriptsize\color{black!60} tous les autres dépôts (O/A/T) arrivent trop tard
-   (divulgation médiane \textbf{371 j}) — ils servent à \textbf{vérifier}, pas à trader}
-\end{frame}
-
-% ── AN1 · O ── (recensement V1 : 4 626 ; ledger : 3 903/721)
-\begin{frame}{Chaque année du mandat — \texttt{O}, le rapport annuel}
-  \begin{columns}[c]
-    \begin{column}{0.34\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_o.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} Alma Adams, 2023 — cliquable}
-    \end{column}
-    \begin{column}{0.64\textwidth}
-      {\footnotesize
-      \textbf{Qui, quand} — chaque \textbf{membre en poste}, une fois par an,
-      au printemps-été suivant l'année couverte (pics mesurés : mai, puis août
-      après extension).\\[1.2mm]
-      \textbf{Ce qu'il contient} — 9 sections : actifs \& revenus de placement (A),
-      \textbf{transactions de l'année (B)}, salaires (C), dettes (D), postes occupés (E),
-      accords (F), cadeaux (G), voyages payés (H), dons reçus (I).\\[1.2mm]
-      \textbf{En chiffres} — \textbf{4\,626} dépôts (dont 2 doublons d'index) ·
-      3\,903 numériques / \textbf{721 scannés} · 5 pages en médiane ·
-      \textbf{31 \%} ont des transactions en Schedule B.}\\[1.5mm]
-      \badge{warnorange}{le plus gros gisement hors PTR — divulgué à N+1}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── H8c · Surprise : Schedule B dans les annuels ── (Pelosi, repris S1S2)
-\begin{frame}{Surprise — les annuels contiennent des transactions}
-  \centering
-  \badge{warnorange}{type O — Annual Report 2015, Nancy Pelosi}\\[2mm]
-  \fcolorbox{black!25}{white}{\includegraphics[width=0.80\textwidth]{slides/fig_pelosi_schedb.png}}\\[1.5mm]
-  {\footnotesize la \textbf{Schedule B} d'un rapport annuel \textbf{récapitule les trades
-   de l'année} — mais divulgués \textbf{un an après}. Les a-t-on déjà, au fil de l'eau,
-   par les PTR ? \emph{(mesuré : slide suivante)} \;
-   {\scriptsize\color{black!60}\href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2015/10010857.pdf}{ouvrir ce rapport}}}
-\end{frame}
-
-% ── H8d · Que rate-t-on ? ── (entonnoir V1 recalculé fig_house_entonnoir_schedb ; O4 = 83,7 %)
-\begin{frame}{Que rate-t-on dans ces Schedule B ? (mesuré)}
-  \centering
-  \includegraphics[width=0.80\textwidth]{fig_house_entonnoir_schedb.png}\\[1.5mm]
-  \begin{columns}[c]
-    \begin{column}{0.57\textwidth}
-      {\footnotesize \textbf{45 \%} des lignes n'ont \emph{aucun} ticker (fonds nommés,
-      immobilier, comptes) ; parmi les \textbf{actions},
-      \badge{okgreen}{83,7 \% déjà en PTR} (validation O4)}
-    \end{column}
-    \begin{column}{0.41\textwidth}
-      {\scriptsize\color{black!60} les ETF / fonds cotés ne sont pas dans les PTR car la
-      \textbf{loi les en exempte} (« excepted investment funds ») — pas parce qu'on les rate}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-% ── AN5 · A ── (recensement V1 : 2 305 ; ledger : 1 870/433)
-\begin{frame}{À tout moment — \texttt{A}, l'amendement qui corrige un dépôt}
-  \begin{columns}[c]
-    \begin{column}{0.34\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_a.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} Sarah Albertson-Corkery, 2023 — cliquable}
-    \end{column}
-    \begin{column}{0.64\textwidth}
-      {\footnotesize
-      \textbf{Qui, quand} — n'importe quel déposant qui \textbf{corrige un dépôt
-      antérieur} (annuel, candidat, sortie…) — le document corrigé est re-déposé
-      en entier.\\[1.2mm]
-      \textbf{Ce qu'il contient} — les sections \textbf{du document qu'il corrige} :
-      un amendement d'annuel a une Schedule B, un amendement de candidat n'en a pas
-      (mesuré : 26 \% avec transactions).\\[1.2mm]
-      \textbf{En chiffres} — \textbf{2\,305} dépôts (72 \% membres,
-      le reste candidats) · 5 pages en médiane.\\[1.2mm]
-      \textbf{Piège mesuré} — l'amendement \textbf{répète} les trades de l'annuel
-      qu'il corrige (ex. Pelosi 2014 : le même trade apparaît 3 fois O+A+A) —
-      la dédup V1 les compte une fois.}\\[1.5mm]
-      \badgel{grisC!30}{rien de neuf en soi : suit le sort du document corrigé}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── AN4 · T ── (recensement V1 : 394 ; ledger : 291/102)
-\begin{frame}{La sortie — \texttt{T}, la photo finale du portefeuille}
-  \begin{columns}[c]
-    \begin{column}{0.34\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_t.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} Cindy Axne, départ de la Chambre, 2023 — cliquable}
-    \end{column}
-    \begin{column}{0.64\textwidth}
-      {\footnotesize
-      \textbf{Qui, quand} — un membre qui \textbf{quitte la Chambre} (fin de mandat,
-      démission) — déposé surtout en janvier-février suivant le départ (mesuré).\\[1.2mm]
-      \textbf{Ce qu'il contient} — le formulaire complet du rapport annuel
-      (9 sections, \textbf{dont les transactions (B)}) sur l'année partielle
-      jusqu'au départ. \textbf{28 \%} en contiennent.\\[1.2mm]
-      \textbf{En chiffres} — \textbf{394} dépôts (99 \% membres, dont 1 doublon d'index) ·
-      291 numériques / 102 scannés · 5 pages en médiane.\\[1.2mm]
-      \textbf{Exemple réel} — la sortie d'Eric Cantor (2014) contient des achats
-      d'ETF jamais déposés en PTR — ils font partie des 173 trades « annuel-seul ».}\\[1.5mm]
-      \badge{dataC}{la photo de SORTIE : l'autre borne du contrôle H + P ⊇ T}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── H8b · Le bilan démographique H/T ── (§15 du notebook ; D-1 98,1 · D-2 81,4 · D-3 281 = 258+23)
-\begin{frame}{H = 395, T = 394 — et pourtant il ne « reste » pas 1}
-  \centering
-  \includegraphics[width=0.97\textwidth]{fig_house_flux.png}\\[1.5mm]
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
-      {\footnotesize soustraire H et T n'a pas de sens : les \textbf{439 déjà en poste}
-      en 2014 n'ont jamais déposé de H, 18 \% des entrants sont \textbf{dispensés de H
-      par leur rapport de candidat C}, et 18,6 \% des sortants ne déposent pas de T
-      (bascule au \textbf{Sénat}, administration, décès, départs trop récents).}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \badge{helec}{il en reste 437 (431 votants)}\\[1.5mm]
-      {\scriptsize\color{black!60} et seuls \textbf{106} membres ont les DEUX photos
-       (H et T) : c'est le vivier de la cohorte de cohérence de l'acte 6 —
-       45 exploitables en électronique}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\section{Les documents — lisible ou scanné, le préfixe du DocID le dit}
 
 % ── H9 · La nomenclature des préfixes ── (02_ledger_docs.csv : croisé 1er car. × type)
 \begin{frame}{Le \texttt{DocID} (1/4) — son premier chiffre annonce la nature du PDF}
@@ -541,54 +223,15 @@
         \draw[arr] (u.south) -- (sc.north);
       \end{tikzpicture}}\\[1.5mm]
       {\scriptsize\color{black!55} deux règles d'URL, apprises en ouvrant les documents :
-       \co{P} → \co{…/ptr-pdfs/…} · tous les autres → \co{…/financial-pdfs/…}}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── H9a · Un PTR lisible ── (fig_ptr_digital, Yarmuth ; repris S1S2)
-\begin{frame}{Le \texttt{DocID} en \texttt{2…} — à quoi ressemble un PTR lisible}
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}\centering
-      \fcolorbox{helec}{white}{\includegraphics[height=64mm]{slides/fig_ptr_digital.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} PTR électronique complet (Hon. John A. Yarmuth, KY03)}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \badge{helec}{DocID en \co{2…} → PDF lisible}\\[3mm]
-      {\footnotesize
-      · un PDF \textbf{avec couche texte} : lisible machine\\[1.5mm]
-      · le ticker imprimé \textbf{entre parenthèses} : \co{(BA)}, le type d'actif
-        entre crochets : \co{[ST]}\\[1.5mm]
-      · deux dates par ligne (trade / notification) + fourchette de montant\\[1.5mm]
-      · lisible… mais pas si régulier : \textcolor{alertred}{le défi} en face}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── H9b · Le défi de l'extraction ── (fig_ptr_multiligne, Gibbs ; V1 : 119 montants recollés)
-\begin{frame}{Le défi — un PDF lisible n'est pas un tableau régulier}
-  \begin{columns}[T]
-    \begin{column}{0.60\textwidth}\centering
-      \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
-      {\scriptsize\color{black!60} extrait réel (Hon.\ Bob Gibbs, OH07) — cadres ajoutés}
-    \end{column}
-    \begin{column}{0.38\textwidth}
-      {\footnotesize
-      · le \textbf{montant} déborde sur la ligne suivante (\co{\$15,001 -} puis
-        \co{\$50,000})\\[1.2mm]
-      · le \textbf{libellé} d'un actif court sur \textbf{4 lignes}\\[1.2mm]
-      · un découpage ligne à ligne raterait la moitié}\\[2mm]
-      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
-        → le parseur V1 \textbf{reconstruit} chaque\\ transaction (recollage des
-        lignes coupées)}}\\[1.5mm]
-      {\scriptsize\color{black!60} montant recousu sur 2 lignes : \textbf{119} cas
-       (le parseur gère le reste nativement)}
+       \co{P} → \co{…/ptr-pdfs/…} · tous les autres → \co{…/financial-pdfs/…} ·
+       les 12 types (P, C, H, O, T…) sont présentés à l'étape É4 — ici, seul
+       le FORMAT compte}
     \end{column}
   \end{columns}
 \end{frame}
 
 % ── H9c · Un PTR scanné (3 formes) ── (V1 : 105 074 txns OCR = 65 % du signal)
-\begin{frame}{Le \texttt{DocID} en \texttt{8…}/\texttt{9…} — à quoi ressemble un PTR scanné}
+\begin{frame}{Anatomie d'un PTR scanné — l'image, sous trois formes}
   \centering
   {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} — sous trois formes
    (pages réelles) :}\\[2.5mm]
@@ -685,49 +328,329 @@
   \end{columns}
 \end{frame}
 
-\section{Rien d'oublié — la comptabilité des 35 377}
+\section{É3 · Identifier — du nom imprimé au bioguide}
 
-% ── H8e · Ce qu'on en a fait ── (bilan : Schedule B numériques + OCR B3+B4 COMPLET)
-\begin{frame}{Ce qu'on en a fait — le patrimoine entièrement récupéré}
+
+% ── E3a · Identité bioguide ── (§9 ; I1-* et I3 du MANIFEST ; 1 443 rattachés)
+\begin{frame}{Du nom imprimé au \texttt{bioguide} — la clé qui relie tout}
   \centering
-  \begin{columns}[T]
-    \begin{column}{0.49\textwidth}
-      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{okgreen}\footnotesize\textbf{✓ Schedule B numériques — industrialisés}}\\[0.8mm]
-        {\scriptsize \textbf{110\,147} transactions de contexte (fd\_O/A/T) extraites —
-         table séparée, flag « divulgation annuelle »}}}\\[2mm]
-      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{okgreen}\footnotesize\textbf{✓ Tous les rapports scannés — OCRisés}}\\[0.8mm]
-        {\scriptsize \textbf{2\,842} documents FD papier lus (H/T/O/A/C, \emph{tous}
-         formats) → \textbf{188\,970} holdings + \textbf{155\,306} transactions de plus}}}
-    \end{column}
-    \begin{column}{0.49\textwidth}
-      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{grisC}\footnotesize\textbf{· Non coté (56,8 \% des holdings papier)}}\\[0.8mm]
-        {\scriptsize fonds nommés, comptes de retraite, immobilier — pas de ticker par
-         \emph{nature} ; appariement par \emph{nom} d'actif = suite}}}\\[2mm]
-      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        {\color{grisC}\footnotesize\textbf{· Blind trusts (23 docs)}}\\[0.8mm]
-        {\scriptsize analysés à part · \textbf{jamais dans le signal} (non dirigé par l'élu)}}}
-    \end{column}
-  \end{columns}
-  \vspace{2.5mm}
-  \colorbox{alertred}{\parbox{0.9\textwidth}{\footnotesize\color{white}\centering
-    dans tous les cas : \textbf{jamais dans le backtest daté} — divulgation médiane
-    \textbf{371 j} après le trade (vs \textbf{28 j} via PTR) → de la complétude, pas du signal}}
+  {\footnotesize l'index ne donne qu'un NOM (\co{Last, First, Suffix, StateDst}) ;
+   pour croiser les documents d'un même élu (PTR ↔ annuels ↔ entrée/sortie), il faut
+   un identifiant stable : le \textbf{bioguide} du référentiel du Congrès}\\[3mm]
+  \resizebox{0.96\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=6mm]
+    \node[step=helec, text width=2.6cm, font=\footnotesize] (a) {nom exact\\{\scriptsize normalisé}};
+    \node[step=helec, text width=2.6cm, font=\footnotesize, right=of a] (b) {surnom\\{\scriptsize nickname}};
+    \node[step=helec, text width=2.6cm, font=\footnotesize, right=of b] (c) {préfixe de prénom};
+    \node[step=helec, text width=2.9cm, font=\footnotesize, right=of c] (d) {nom unique\\{\scriptsize + départage État}};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+  \end{tikzpicture}}\\[3mm]
+  \badge{okgreen}{P rattachés : 99,9 \% · O : 98,9 \% · H : 99,2 \% · T : 99,2 \%}\\[1.5mm]
+  \badge{okgreen}{0 déclarant ambigu porteur de PTR (I3) — garde anti-homonyme par l'État}\\[2.5mm]
+  {\scriptsize\color{black!60} 1\,443 déclarants rattachés ·
+   les candidats jamais élus (type C) restent volontairement bas ($\approx$ 10 \%) —
+   ils n'ont pas de bioguide, c'est attendu · l'identité ne lit QUE l'index, jamais les PDF}
 \end{frame}
 
-% ── N3 · La comptabilité finale ── (§18 post-B4 : G-1 35 377 · G-0 0 · G-2 20 457 · G-3 10 ; fig_house_compta)
-\begin{frame}{Rien d'oublié — chaque dépôt a un traitement, la somme boucle}
+
+\section{É4 · Le cycle de vie — qui entre, qui sort, qui reste}
+
+
+% ── H8a · La loi du parcours, en un schéma ── (workflow source-primaire vérifié :
+%    5 U.S.C. §13103 dépôts, §13105 STOCK Act PTR, §13103(e) exemption de sortie)
+\begin{frame}{Comment on entre au Congrès : qui dépose quoi, et quand (la loi)}
   \centering
-  \includegraphics[width=0.88\textwidth]{fig_house_compta.png}\\[1.5mm]
-  {\footnotesize \badge{okgreen}{G-1 (bloquant) : Σ = 35\,377 ✓}\;
-   \badge{okgreen}{20\,457 docs → données (G-2)}\;
-   \badgel{dataC!30}{\textcolor{dataC}{\textbf{14\,892 recensés, rien à extraire}}}\;
-   \badgel{grisC!25}{\textcolor{grisC}{\textbf{10 exclus — PDF morts (G-3)}}}}\\[1mm]
-  {\scriptsize\color{black!60} vert = données extraites · ocre = recensé sans donnée
-   (vides, admin, blind trusts) · gris = exclu avec raison écrite —
-   \textbf{0 scanné laissé de côté} (G-0, bloquant) : tout le périmètre scannable est OCRisé}
+  \includegraphics[width=0.72\textwidth]{fig_house_loi_cycle.png}\\[1mm]
+  {\footnotesize \badge{alertred}{2 dérogations de la loi}\;
+   un candidat déjà déclaré \textbf{saute le H} (§13103) ;
+   qui rejoint le Sénat ou l'exécutif \textbf{ne dépose pas de T} (§13103(e))}\\[1.2mm]
+  {\footnotesize \badge{okgreen}{470 entrées}\; \badge{dataC}{463 sorties définitives}
+   — leur couverture par les photos (H ou C à l'entrée, T à la sortie) :
+   le quadrant, en fin d'étape}\\[0.8mm]
+  {\scriptsize\color{black!55} T manquants = Sénat/exécutif (dérogation), décès,
+   départs très récents · mesuré au §15 du notebook (validations D-1, D-2)}
+\end{frame}
+
+% ── H5 · LA TABLE FilingType × année ── (source : 01_recensement_depots.csv, 35 377 ; asserts gen_figs_house.py)
+\begin{frame}{Les 12 \texttt{FilingType} — tout l'index, compté type par type}
+  \centering
+  {\setlength{\tabcolsep}{3pt}\scriptsize
+  \begin{tabular}{l rrrrrrrrrrrrr r r}
+    \toprule
+    & 2014 & 2015 & 2016 & 2017 & 2018 & 2019 & 2020 & 2021 & 2022 & 2023 & 2024 & 2025 & 2026 & total & \% \\
+    \midrule
+    \textcolor{dataC}{\textbf{C}} & 776 & 401 & 715 & 1\,001 & 1\,075 & 964 & 780 & 753 & 861 & 621 & 661 & 892 & 629 & \textbf{10\,129} & 28,6\,\% \\
+    \textcolor{helec}{\textbf{P}} & 708 & 728 & 765 & 801 & 830 & 683 & 733 & 680 & 624 & 460 & 451 & 515 & 289 & \textbf{8\,267} & 23,4\,\% \\
+    \textcolor{black!45}{X} & 208 & 298 & 299 & 509 & 319 & 743 & 567 & 489 & 464 & 553 & 454 & 709 & 239 & \textbf{5\,851} & 16,5\,\% \\
+    \textcolor{dataC}{\textbf{O}} & 397 & 440 & 393 & 437 & 355 & 434 & 374 & 432 & 367 & 431 & 372 & 194 & · & \textbf{4\,626} & 13,1\,\% \\
+    \textcolor{dataC}{\textbf{A}} & 310 & 213 & 230 & 256 & 239 & 202 & 161 & 164 & 180 & 129 & 103 & 89 & 29 & \textbf{2\,305} & 6,5\,\% \\
+    \textcolor{black!45}{D} & 224 & 130 & 164 & 336 & 228 & 413 & 164 & 116 & 86 & 79 & 70 & 132 & 57 & \textbf{2\,199} & 6,2\,\% \\
+    \textcolor{black!45}{W} & 109 & 31 & 87 & 91 & 279 & 107 & 83 & 19 & 71 & 19 & 66 & 47 & 93 & \textbf{1\,102} & 3,1\,\% \\
+    \textcolor{dataC}{\textbf{H}} & 50 & · & 45 & · & 87 & · & 62 & 1 & 76 & 4 & 66 & 2 & 2 & \textbf{395} & 1,1\,\% \\
+    \textcolor{dataC}{\textbf{T}} & 7 & 50 & 5 & 49 & 6 & 85 & 4 & 53 & 8 & 65 & 7 & 53 & 2 & \textbf{394} & 1,1\,\% \\
+    \textcolor{black!45}{G} & 5 & 1 & 1 & 1 & 22 & · & · & 4 & 1 & 8 & 3 & 5 & · & \textbf{51} & 0,1\,\% \\
+    \textcolor{black!45}{E} & 1 & 5 & · & 7 & 2 & 5 & 2 & 4 & · & 3 & 1 & 5 & · & \textbf{35} & 0,1\,\% \\
+    \textcolor{black!45}{B} & · & · & · & · & 1 & · & · & 3 & 6 & 7 & 4 & 2 & · & \textbf{23} & 0,1\,\% \\
+    \midrule
+    total & 2\,795 & 2\,297 & 2\,704 & 3\,488 & 3\,443 & 3\,636 & 2\,930 & 2\,718 & 2\,744 & 2\,379 & 2\,258 & 2\,645 & 1\,340 & \textbf{35\,377} & 100\,\% \\
+    \bottomrule
+  \end{tabular}}\\[1.8mm]
+  {\footnotesize \badge{helec}{P = le signal}\;
+   \badgel{dataC!30}{\textcolor{dataC}{\textbf{O·C·H·T·A} = le patrimoine}}\;
+   {\color{black!50}\textbf{X·D·W·G·E·B} = administratif ou à part}}\\[0.8mm]
+  {\scriptsize\color{black!55} unité : dépôt · recensement V1 = union site $\cup$
+   instantané (les creux des H suivent le calendrier électoral)}
+\end{frame}
+
+% ── H6 · Famille patrimoine (reprise deck S1S2, comptes V1) ── (recensement V1)
+\begin{frame}{À quoi correspond chaque type — la famille « patrimoine »}
+  \centering
+  {\footnotesize cinq types, un socle commun (le \emph{Financial Disclosure Report}) —
+   les \textbf{transactions (Schedule B) n'existent que dans O, T et leurs amendements}}\\[2mm]
+  \begin{columns}[T]
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_o.png}}}\\[0.8mm]
+      {\footnotesize\textbf{O — Annual}}\\{\scriptsize bilan annuel · \textbf{4\,626}}
+\end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_c.png}}}\\[0.8mm]
+      {\footnotesize\textbf{C — Candidate}}\\{\scriptsize candidat · \textbf{10\,129}}
+\end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_h.png}}}\\[0.8mm]
+      {\footnotesize\textbf{H — New Filer}}\\{\scriptsize 1\iere{} déclaration · \textbf{395}}
+\end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_t.png}}}\\[0.8mm]
+      {\footnotesize\textbf{T — Termination}}\\{\scriptsize départ · \textbf{394}}
+\end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_a.png}}}\\[0.8mm]
+      {\footnotesize\textbf{A — Amendment}}\\{\scriptsize correction · \textbf{2\,305}}
+\end{column}
+  \end{columns}
+  \vspace{2.5mm}
+  \badge{helec}{chaque vignette est cliquable → ouvre le vrai document}\quad
+  {\scriptsize\color{black!60} significations vérifiées en ouvrant les documents ·
+   détail par type : slides suivantes}
+\end{frame}
+
+% ── H6a · Les sections A→J (matrice) ── (fig_sections_matrix, repris S1S2 — structure du formulaire)
+\begin{frame}{Le formulaire de l'intérieur — des sections A→J en commun}
+  \centering
+  \includegraphics[width=0.62\textwidth]{slides/fig_sections_matrix.png}\\[0.8mm]
+  {\footnotesize on trade la \textbf{section B} (transactions datées) ; la
+   \textbf{section A} (patrimoine) sert à \emph{vérifier} qu'on n'a rien loupé —
+   l'objet de l'étape É8}\\[0.5mm]
+  {\scriptsize\color{black!60} tous ces documents partagent un socle (A·C·D·E·F) —
+   ce qui change d'un type à l'autre, c'est la présence de la section B}
+\end{frame}
+
+% ── AN2 · C ── (recensement V1 : 10 129 ; ledger : 8 533/1 583)
+\begin{frame}{La candidature — \texttt{C}, le rapport du candidat}
+  \begin{columns}[c]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_c.png}}}\\[0.5mm]
+      {\scriptsize\color{black!60} Adam Hollier, candidat MI13, 2023 — cliquable}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      {\footnotesize
+      \textbf{Qui, quand} — toute personne qui \textbf{se porte candidate} à la
+      Chambre (une fois sa campagne au-delà de 5\,000 \$) — avant d'être élue, et
+      le plus souvent sans jamais l'être.\\[1.2mm]
+      \textbf{Ce qu'il contient} — la photo du patrimoine du candidat :
+      actifs (A), salaires (C), dettes (D), postes (E), accords (F),
+      compensations >\,5\,000 \$ (J). \textbf{Pas de Schedule B exigée} — 0 transaction
+      sur les C électroniques ; $\approx$ 5 \% des C papier en déclarent
+      quand même (lues par OCR, jamais dans le signal).\\[1.2mm]
+      \textbf{En chiffres} — \textbf{10\,129} dépôts, le type le plus fréquent de
+      l'index · \textbf{77 \% déposés par des candidats jamais élus} ·
+      3 pages en médiane.}\\[1.5mm]
+      \badgel{grisC!30}{sans transactions — mais photo d'entrée de ceux qui seront élus}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── AN3 · H ── (recensement V1 : 395 ; ledger : 383/12)
+\begin{frame}{L'entrée en fonction — \texttt{H}, la photo de départ du portefeuille}
+  \begin{columns}[c]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_h.png}}}\\[0.5mm]
+      {\scriptsize\color{black!60} Gabe Amo, nouveau membre RI01, 2023 — cliquable}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      {\footnotesize
+      \textbf{Qui, quand} — un \textbf{membre qui vient d'entrer en fonction}
+      (élection partielle, prise de poste) : sa photo de départ.\\[1.2mm]
+      \textbf{Ce qu'il contient} — le même formulaire réduit que le candidat :
+      actifs (A), salaires (C), dettes (D), postes (E), accords (F),
+      compensations (J). \textbf{Pas de section transactions} —
+      0 sur les 369 numériques analysés.\\[1.2mm]
+      \textbf{En chiffres} — \textbf{395} dépôts (97 \% membres) ·
+      quasi tout numérique (383) · 4 pages en médiane.}\\[1.5mm]
+      \badge{okgreen}{la photo d'ENTRÉE : le point de départ du contrôle H + P ⊇ T}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── N1 · Le mandat : P, la pièce datée ── (8 267 P ; ≤45 j ; RB4 médiane 28 j ; 161 076 txns signal)
+\begin{frame}{Au fil du mandat — \texttt{P}, le seul dépôt daté au trade}
+  \centering
+  {\footnotesize pendant tout le mandat, chaque transaction \textbf{> 1\,000 \$} doit être
+   déclarée sous \textbf{45 jours} (STOCK Act, 5 U.S.C. §13105) :}\\[4mm]
+  \resizebox{0.9\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=11mm]
+    \node[step=grisC, text width=3.2cm, minimum height=1.5cm, font=\footnotesize] (t)
+      {\textbf{le trade}\\{\scriptsize achat ou vente > 1\,000 \$}};
+    \node[step=helec, text width=3.6cm, minimum height=1.5cm, font=\footnotesize, right=of t] (p)
+      {\textbf{le PTR}\\{\scriptsize déposé $\leq$ 45 j\\médiane réelle : \textbf{28 j}}};
+    \node[step=okgreen, text width=3.8cm, minimum height=1.5cm, font=\footnotesize, right=of p] (s)
+      {\textbf{notre signal}\\{\scriptsize \textbf{161\,076} transactions datées\\(100 \% des 8\,267 P)}};
+    \draw[-{Latex[length=2.6mm]}, line width=1pt] (t) -- (p);
+    \draw[-{Latex[length=2.6mm]}, line width=1pt] (p) -- (s);
+  \end{tikzpicture}}\\[4mm]
+  \badge{helec}{c'est la SEULE pièce utilisable pour trader}\quad
+  {\scriptsize\color{black!60} tous les autres dépôts (O/A/T) arrivent trop tard
+   (divulgation médiane \textbf{371 j}) — ils servent à \textbf{vérifier}, pas à trader}
+\end{frame}
+
+% ── AN1 · O ── (recensement V1 : 4 626 ; ledger : 3 903/721)
+\begin{frame}{Chaque année du mandat — \texttt{O}, le rapport annuel}
+  \begin{columns}[c]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_o.png}}}\\[0.5mm]
+      {\scriptsize\color{black!60} Alma Adams, 2023 — cliquable}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      {\footnotesize
+      \textbf{Qui, quand} — chaque \textbf{membre en poste}, une fois par an,
+      au printemps-été suivant l'année couverte (pics mesurés : mai, puis août
+      après extension).\\[1.2mm]
+      \textbf{Ce qu'il contient} — 9 sections : actifs \& revenus de placement (A),
+      \textbf{transactions de l'année (B)}, salaires (C), dettes (D), postes occupés (E),
+      accords (F), cadeaux (G), voyages payés (H), dons reçus (I).\\[1.2mm]
+      \textbf{En chiffres} — \textbf{4\,626} dépôts (dont 2 doublons d'index) ·
+      3\,903 numériques / \textbf{721 scannés} · 5 pages en médiane ·
+      \textbf{58 \%} des O électroniques portent une Schedule B (mesure V1).}\\[1.5mm]
+      \badge{warnorange}{le plus gros gisement hors PTR — divulgué à N+1}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── AN5 · A ── (recensement V1 : 2 305 ; ledger : 1 870/433)
+\begin{frame}{À tout moment — \texttt{A}, l'amendement qui corrige un dépôt}
+  \begin{columns}[c]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_a.png}}}\\[0.5mm]
+      {\scriptsize\color{black!60} Sarah Albertson-Corkery, 2023 — cliquable}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      {\footnotesize
+      \textbf{Qui, quand} — n'importe quel déposant qui \textbf{corrige un dépôt
+      antérieur} (annuel, candidat, sortie…) — le document corrigé est re-déposé
+      en entier.\\[1.2mm]
+      \textbf{Ce qu'il contient} — les sections \textbf{du document qu'il corrige} :
+      un amendement d'annuel a une Schedule B, un amendement de candidat n'en a pas
+      (mesure V1 : 17 \% avec transactions).\\[1.2mm]
+      \textbf{En chiffres} — \textbf{2\,305} dépôts (72 \% membres,
+      le reste candidats) · 5 pages en médiane.\\[1.2mm]
+      \textbf{Piège mesuré} — l'amendement \textbf{répète} les trades de l'annuel
+      qu'il corrige (ex. Pelosi 2014 : le même trade apparaît 3 fois O+A+A) —
+      la dédup V1 les compte une fois.}\\[1.5mm]
+      \badgel{grisC!30}{rien de neuf en soi : suit le sort du document corrigé}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── AN4 · T ── (recensement V1 : 394 ; ledger : 291/102)
+\begin{frame}{La sortie — \texttt{T}, la photo finale du portefeuille}
+  \begin{columns}[c]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=54mm]{slides/ftype_t.png}}}\\[0.5mm]
+      {\scriptsize\color{black!60} Cindy Axne, départ de la Chambre, 2023 — cliquable}
+    \end{column}
+    \begin{column}{0.64\textwidth}
+      {\footnotesize
+      \textbf{Qui, quand} — un membre qui \textbf{quitte la Chambre} (fin de mandat,
+      démission) — déposé surtout en janvier-février suivant le départ (mesuré).\\[1.2mm]
+      \textbf{Ce qu'il contient} — le formulaire complet du rapport annuel
+      (9 sections, \textbf{dont les transactions (B)}) sur l'année partielle
+      jusqu'au départ. \textbf{54 \%} des T électroniques en contiennent (mesure V1).\\[1.2mm]
+      \textbf{En chiffres} — \textbf{394} dépôts (99 \% membres, dont 1 doublon d'index) ·
+      291 numériques / 102 scannés · 5 pages en médiane.\\[1.2mm]
+      \textbf{Exemple réel} — la sortie d'Eric Cantor (2014) contient des achats
+      d'ETF jamais déposés en PTR — des trades vus seulement dans un annuel (mesurés à l'étape É7).}\\[1.5mm]
+      \badge{dataC}{la photo de SORTIE : l'autre borne du contrôle H + P ⊇ T}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── E4q · Quadrant population ── (D-4 = 900 ; table 14 col. quadrant ; D-1/D-2 §15.2)
+\begin{frame}{Le quadrant des 900 — pourquoi si peu de cycles complets}
+  \centering
+  \includegraphics[width=0.72\textwidth]{fig_house_quadrant.png}\\[1mm]
+  {\footnotesize \badge{okgreen}{entrées couvertes par une photo (H ou C) : 98,1 \%}\;
+   \badgel{dataC!30}{\textcolor{dataC}{\textbf{sorties couvertes par un T : 81,4 \%}}}}\\[1mm]
+  {\scriptsize\color{black!60} seul le quadrant vert (entré APRÈS 2014 ET reparti AVANT 2026)
+   peut avoir les DEUX photos — c'est le plafond structurel de la vérification ;
+   les 439 déjà-en-poste n'ont pas de H,
+   les 437 encore-en-poste n'ont pas de T}
+\end{frame}
+
+
+\section{É5 · Extraire — les schedules A et B, sur quatre canaux}
+
+
+% ── H9a · Un PTR lisible ── (fig_ptr_digital, Yarmuth ; repris S1S2)
+\begin{frame}{Anatomie d'un PTR lisible — du texte, directement}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}\centering
+      \fcolorbox{helec}{white}{\includegraphics[height=64mm]{slides/fig_ptr_digital.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} PTR électronique complet (Hon. John A. Yarmuth, KY03)}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \badge{helec}{DocID en \co{2…} → PDF lisible}\\[3mm]
+      {\footnotesize
+      · un PDF \textbf{avec couche texte} : lisible machine\\[1.5mm]
+      · le ticker imprimé \textbf{entre parenthèses} : \co{(BA)}, le type d'actif
+        entre crochets : \co{[ST]}\\[1.5mm]
+      · deux dates par ligne (trade / notification) + fourchette de montant\\[1.5mm]
+      · lisible… mais pas si régulier : \textcolor{alertred}{le défi} : slide suivante}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── H9b · Le défi de l'extraction ── (fig_ptr_multiligne, Gibbs ; V1 : 119 montants recollés)
+\begin{frame}{Le défi — un PDF lisible n'est pas un tableau régulier}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
+      {\scriptsize\color{black!60} extrait réel (Hon.\ Bob Gibbs, OH07) — cadres ajoutés}
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      {\footnotesize
+      · le \textbf{montant} déborde sur la ligne suivante (\co{\$15,001 -} puis
+        \co{\$50,000})\\[1.2mm]
+      · le \textbf{libellé} d'un actif court sur \textbf{4 lignes}\\[1.2mm]
+      · un découpage ligne à ligne raterait la moitié}\\[2mm]
+      \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
+        → le parseur V1 \textbf{reconstruit} chaque\\ transaction (recollage des
+        lignes coupées)}}\\[1.5mm]
+      {\scriptsize\color{black!60} montant recousu sur 2 lignes : \textbf{119} cas
+       (le parseur gère le reste nativement)}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── H8c · Surprise : Schedule B dans les annuels ── (Pelosi, repris S1S2)
+\begin{frame}{Surprise — les annuels contiennent des transactions}
+  \centering
+  \badge{warnorange}{type O — Annual Report 2015, Nancy Pelosi}\\[2mm]
+  \fcolorbox{black!25}{white}{\includegraphics[width=0.80\textwidth]{slides/fig_pelosi_schedb.png}}\\[1.5mm]
+  {\footnotesize la \textbf{Schedule B} d'un rapport annuel \textbf{récapitule les trades
+   de l'année} — mais divulgués \textbf{un an après}. Les a-t-on déjà, au fil de l'eau,
+   par les PTR ? \emph{(mesuré à l'étape É7)} \;
+   {\scriptsize\color{black!60}\href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2015/10010857.pdf}{ouvrir ce rapport}}}
 \end{frame}
 
 % ── N4 · Ce que ça a livré ── (post-B4 : 426 529 txns + 387 585 holdings ; signal 161 076 inchangé)
@@ -750,10 +673,108 @@
   \end{tabular}}\\[2.5mm]
   {\scriptsize\color{black!60} seul le signal (PTR, 161\,076) est tradable et
    \textbf{inchangé par l'OCR du papier} — le reste est du contexte/patrimoine pour
-   les contrôles de cohérence de l'acte 6}
+   les contrôles de cohérence de l'étape É8}
 \end{frame}
 
-\section{Les portefeuilles se recoupent — entrée + transactions ⊇ sortie}
+% ── H8e · Ce qu'on en a fait ── (bilan : Schedule B numériques + OCR B3+B4 COMPLET)
+\begin{frame}{Ce qu'on en a fait — le patrimoine entièrement récupéré}
+  \centering
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{okgreen}\footnotesize\textbf{✓ Schedule B numériques — industrialisés}}\\[0.8mm]
+        {\scriptsize transactions de contexte (fd\_O/A/T) industrialisées —
+         table séparée, flag « divulgation annuelle »}}}\\[2mm]
+      \colorbox{okgreen!12}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{okgreen}\footnotesize\textbf{✓ Tous les rapports scannés — OCRisés}}\\[0.8mm]
+        {\scriptsize \textbf{2\,842} documents FD papier lus (H/T/O/A/C, \emph{tous}
+         formats) — \textbf{zéro} scanné parsable laissé de côté (G-0, bloquant)}}}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{grisC}\footnotesize\textbf{· Non coté (56,8 \% des holdings papier)}}\\[0.8mm]
+        {\scriptsize fonds nommés, comptes de retraite, immobilier — pas de ticker par
+         \emph{nature} ; appariement par \emph{nom} d'actif = suite}}}\\[2mm]
+      \colorbox{grisC!10}{\parbox[t][24mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+        {\color{grisC}\footnotesize\textbf{· Blind trusts (23 docs)}}\\[0.8mm]
+        {\scriptsize analysés à part · \textbf{jamais dans le signal} (non dirigé par l'élu)}}}
+    \end{column}
+  \end{columns}
+  \vspace{2.5mm}
+  \colorbox{alertred}{\parbox{0.9\textwidth}{\footnotesize\color{white}\centering
+    dans tous les cas : \textbf{jamais dans le backtest daté} — de la complétude,
+    pas du signal (les délais sont mesurés à l'étape É7)}}
+\end{frame}
+
+\section{É6 · Le portefeuille d'entrée — H, à défaut C}
+
+
+% ── E6a · Portefeuille d'entrée ── (E-1 = 284 · E-2 = 32 ; table 15)
+\begin{frame}{La photo de départ — le H, à défaut le C sous trois garde-fous}
+  \centering
+  \tuile{helec}{284}{membres avec une\\photo d'entrée tickérisée}\hfill
+  \tuile{okgreen}{252}{par le H\\(rapport d'entrée)}\hfill
+  \tuile{dataC}{32}{par la porte C\\(candidats dispensés de H)}\hfill
+  \tuile{grisC}{616}{sans photo d'entrée\\(assis avant 2014…)}\\[4mm]
+  {\footnotesize la porte C n'est ouverte que sous \textbf{trois garde-fous} :}\\[1mm]
+  {\footnotesize \badge{helec}{1. électronique (parsable)}\;
+   \badge{helec}{2. $\geq$ 1 position tickérisée}\;
+   \badge{helec}{3. déposé $\leq$ 365 j AVANT un début de mandat}}\\[2.5mm]
+  \colorbox{alertred}{\parbox{0.9\textwidth}{\footnotesize\color{white}\centering
+    le C est un \textbf{instantané seulement} — pas de Schedule B exigée
+    (0 transaction sur les C électroniques) ; le C de réélection d'un incumbent
+    n'est PAS une photo d'entrée (écarté par le garde-fou 3)}}\\[1.5mm]
+  {\scriptsize\color{black!60} table nominative : \co{15\_portefeuille\_entree.csv} —
+   sans H ni C, l'ancre de reconstruction est le 1er annuel O (série partielle)}
+\end{frame}
+
+
+\section{É7 · Les flux dédupliqués — P, et ce que O/A/T ajoutent}
+
+
+% ── E7a · Gain net O/A/T ── (N-1 = 26115 ; table 16 ; ventilation O/T/A)
+\begin{frame}{Ce que les annuels ajoutent vraiment — le gain net O/A/T}
+  \centering
+  {\footnotesize les transactions ne vivent pas que dans les P : les Schedule B des
+   annuels (O), terminaisons (T) et amendements (A) en déclarent aussi —
+   mais un même trade y est souvent \textbf{re-déclaré}}\\[3mm]
+  \tuile{grisC}{54\,129}{candidates O/A/T\\tickérisées dédupliquées}\hfill
+  \tuile{dataC}{28\,014}{déjà dans un PTR\\($\pm$365 j, même sens)}\hfill
+  \tuile{okgreen}{26\,115}{= le GAIN NET\\jamais vues en PTR}\hfill
+  \tuile{helec}{374 j}{divulgation médiane\\du gain net}\\[4mm]
+  {\footnotesize\setlength{\tabcolsep}{10pt}
+  \begin{tabular}{l r l}
+    \toprule
+    annuels (O) & 22\,216 & le gros du gisement \\
+    terminaisons (T) & 2\,478 & les trades de la dernière année \\
+    amendements (A) & 1\,421 & corrections a posteriori \\
+    \bottomrule
+  \end{tabular}}\\[2.5mm]
+  {\scriptsize\color{black!60} définition : unique par membre$\times$ticker$\times$sens$\times$date,
+   sans écho PTR (élec + OCR) à $\pm$365 j — validation N-1 · divulgué $\approx$ 1 an trop tard
+   → nourrit le PATRIMOINE et la vérification, jamais le signal}
+\end{frame}
+
+
+% ── H8d · Que rate-t-on ? ── (entonnoir V1 recalculé fig_house_entonnoir_schedb ; O4 = 83,7 %)
+\begin{frame}{Que rate-t-on dans ces Schedule B ? (mesuré)}
+  \centering
+  \includegraphics[width=0.80\textwidth]{fig_house_entonnoir_schedb.png}\\[1.5mm]
+  \begin{columns}[c]
+    \begin{column}{0.57\textwidth}
+      {\footnotesize \textbf{45 \%} des lignes n'ont \emph{aucun} ticker (fonds nommés,
+      immobilier, comptes) ; parmi les \textbf{actions},
+      \badge{okgreen}{83,7 \% déjà en PTR} (validation O4)}
+    \end{column}
+    \begin{column}{0.41\textwidth}
+      {\scriptsize\color{black!60} les ETF / fonds cotés ne sont pas dans les PTR car la
+      \textbf{loi les en exempte} (« excepted investment funds ») — pas parce qu'on les rate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{É8 · Vérifier — entrée + flux ⊇ sortie}
+
 
 % ── H13 · L'idée : H + ΣP ⊇ T, contrôlé par O/A ── (V1_House.ipynb §11)
 \begin{frame}{Le contrôle final — la chronologie d'un mandat doit se recouper}
@@ -784,68 +805,6 @@
    position (ticker), membre par membre}
 \end{frame}
 
-% ── H14 · Le moteur : créer le portefeuille d'un membre ── (adaptation « positions » de la slide moteur S3)
-\begin{frame}{Le moteur — reconstruire le portefeuille d'un élu, position par position}
-  \centering
-  \resizebox{0.96\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=7mm]
-    \node[step=okgreen, text width=4.2cm] (n1)
-      {\textbf{(i) PARTIR} du patrimoine\\d'entrée\\[1.2mm]
-       Schedule A du \co{H} :\\l'ensemble $\{$tickers détenus$\}$};
-    \node[step=helec, text width=4.6cm, right=of n1] (n2)
-      {\textbf{(ii) APPLIQUER} chaque PTR\\[1.2mm]
-       achat → le ticker \textbf{entre}\\vente → le ticker \textbf{sort}};
-    \node[step=dataC, text width=4.6cm, right=of n2] (n3)
-      {\textbf{(iii) COMPARER} à la sortie\\[1.2mm]
-       chaque position du \co{T} doit être\\
-       \textbf{expliquée} : déjà en H, ou achetée en P};
-    \draw[arr] (n1) -- (n2);
-    \draw[arr] (n2) -- (n3);
-  \end{tikzpicture}}\\[4mm]
-  % mini-exemple bout en bout
-  {\footnotesize\setlength{\tabcolsep}{7pt}\renewcommand{\arraystretch}{1.25}
-  \begin{tabular}{l l l}
-    \toprule
-    \textcolor{okgreen}{\textbf{H (entrée)}} & \textcolor{helec}{\textbf{P (mandat)}} &
-      \textcolor{dataC}{\textbf{T (sortie) — attendu}} \\
-    \midrule
-    \co{AAPL} · \co{MSFT} · \co{XOM} &
-      achat \co{NVDA} · vente \co{XOM} &
-      \co{AAPL} ✓ (H) · \co{MSFT} ✓ (H) · \co{NVDA} ✓ (P) \\
-    \bottomrule
-  \end{tabular}}\\[3.5mm]
-  {\scriptsize\color{black!60} même logique que le moteur en parts de la stratégie S3
-   (montant/prix → quantités) — ici en \textbf{présence par ticker}, car H et T donnent
-   des fourchettes de valeur, pas des quantités ; brancher le patrimoine d'entrée dans
-   le moteur S3 est la suite prévue}
-\end{frame}
-
-% ── N2 · Le moteur en parts ── (adapté de la slide « moteur » du deck S1S2/S3 ; fig_05b_pelosi_valeur)
-\begin{frame}{Du flux de trades au portefeuille en parts — le pont vers la stratégie}
-  \begin{columns}[T]
-    \begin{column}{0.47\textwidth}
-      {\scriptsize la présence par ticker valide la \textbf{collecte} ; pour
-       \textbf{trader}, on convertit chaque flux en \textbf{parts}
-       (montant = milieu de fourchette ; $\tau$ = 1\iere{} séance cotée
-       $\geq$ trade)}\\[0.5mm]
-      {\setlength{\abovedisplayskip}{4pt}\setlength{\belowdisplayskip}{4pt}
-      {\color{helec}\scriptsize\textbf{acheter → recevoir des parts}}
-      \begin{displaymath}q=\frac{\text{montant}}{P_i(\tau)}\end{displaymath}
-      {\color{alertred}\scriptsize\textbf{vendre → en rendre (short interdit)}}
-      \begin{displaymath}q^{-}=\min\!\Big(\frac{\text{montant}}{P_i(\tau)},\ n_i\Big)\end{displaymath}
-      {\color{grisC}\scriptsize\textbf{cumuler, puis valoriser}}
-      \begin{displaymath}n_i(t)=\!\!\sum_{\text{trades}\,\le\,t}\!\!\pm q \qquad
-        V(t)=\sum_i n_i(t)\,P_i(t)\end{displaymath}}
-\end{column}
-    \begin{column}{0.51\textwidth}\centering
-      \includegraphics[width=0.86\linewidth]{fig_05b_pelosi_valeur.png}\\[1mm]
-      {\scriptsize\color{black!60} exemple réel : $V(t)$ d'un membre — la brique
-       de la stratégie S3 ; brancher le \textbf{patrimoine d'entrée (H)} comme
-       capital initial est la suite prévue}
-    \end{column}
-  \end{columns}
-\end{frame}
-
 % ── H15 · Les résultats ── (MANIFEST : C-a 78,7 · C-b 85,0 · O4 83,7 · C-d/C-e 0 ; fig_v1_coherence)
 \begin{frame}{Résultat — les portefeuilles se recoupent, et les trous s'expliquent}
   \centering
@@ -864,9 +823,7 @@
       {\scriptsize\color{black!70}
       \textbf{et le 21 \% inexpliqué ?} réglé \textbf{un par un} — slide
       suivante. Une certitude d'abord : \textbf{0 blind trust}
-      (C-d = C-e = 0) — le trust, lui, fait \emph{disparaître} :
-      Dean Phillips entre avec \textbf{284} positions, sort avec \textbf{1}
-      ligne opaque « \emph{Qualified Blind Trust [EQ]} », sans ticker.}
+      (C-d = C-e = 0) — slide dédiée en fin d'étape.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -915,13 +872,159 @@
   \end{columns}
 \end{frame}
 
-% ── H16 · Le tableau de bord ── (MANIFEST.json : 58 validations collecte, 0 rouge ; fig_house_dashboard)
-\begin{frame}{Le tableau de bord — 58 validations, 0 rouge}
+% ── E8b · Blind trust ── (condensé de H7 ; §11.7 d'Alice ; C-d = C-e = 0)
+\begin{frame}{Le cas à part — le blind trust ne crée pas de faux trous}
+  \begin{columns}[T]
+    \begin{column}{0.34\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/8220736.pdf}%
+      {\fcolorbox{black!30}{white}{\includegraphics[height=40mm]{slides/ftype_b.png}}}\\[1mm]
+      {\scriptsize type \co{B} — 23 dépôts, 5 élus\\(vignette cliquable)}
+    \end{column}
+    \begin{column}{0.62\textwidth}
+      {\footnotesize un élu peut placer son patrimoine dans une fiducie AVEUGLE :
+       il ne dirige plus rien, et le portefeuille visible \textbf{disparaît} —
+       ramassé en une ligne opaque « Qualified Blind Trust »}\\[2mm]
+      \badgel{grisC!25}{\textcolor{grisC}{\textbf{Phillips : 284 positions à l'entrée → 1 ligne à la sortie}}}\\[1.5mm]
+      \badge{okgreen}{C-d = 0 : aucun portefeuille de sortie non effondré}\\[1.5mm]
+      \badge{okgreen}{C-e = 0 : aucune position inexpliquée attribuée à un trust}\\[2.5mm]
+      {\scriptsize\color{black!60} vérifié cas par cas (§11.7) : la conservation
+       n'est pas VIOLÉE par les trusts, elle devient \emph{invisible} — un manque
+       de couverture assumé, jamais dans le signal}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\section{É9 · Reconstruire — le portefeuille daté de chaque membre}
+
+
+% ── H14 · Le moteur : créer le portefeuille d'un membre ── (adaptation « positions » de la slide moteur S3)
+\begin{frame}{Le moteur — reconstruire le portefeuille d'un élu, position par position}
+  \centering
+  \resizebox{0.96\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=7mm]
+    \node[step=okgreen, text width=4.2cm] (n1)
+      {\textbf{(i) PARTIR} du patrimoine\\d'entrée\\[1.2mm]
+       Schedule A du \co{H} :\\l'ensemble $\{$tickers détenus$\}$};
+    \node[step=helec, text width=4.6cm, right=of n1] (n2)
+      {\textbf{(ii) APPLIQUER} chaque PTR\\[1.2mm]
+       achat → le ticker \textbf{entre}\\vente → le ticker \textbf{sort}};
+    \node[step=dataC, text width=4.6cm, right=of n2] (n3)
+      {\textbf{(iii) COMPARER} à la sortie\\[1.2mm]
+       chaque position du \co{T} doit être\\
+       \textbf{expliquée} : déjà en H, ou achetée en P};
+    \draw[arr] (n1) -- (n2);
+    \draw[arr] (n2) -- (n3);
+  \end{tikzpicture}}\\[4mm]
+  % mini-exemple bout en bout
+  {\footnotesize\setlength{\tabcolsep}{7pt}\renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{l l l}
+    \toprule
+    \textcolor{okgreen}{\textbf{H (entrée)}} & \textcolor{helec}{\textbf{P (mandat)}} &
+      \textcolor{dataC}{\textbf{T (sortie) — attendu}} \\
+    \midrule
+    \co{AAPL} · \co{MSFT} · \co{XOM} &
+      achat \co{NVDA} · vente \co{XOM} &
+      \co{AAPL} ✓ (H) · \co{MSFT} ✓ (H) · \co{NVDA} ✓ (P) \\
+    \bottomrule
+  \end{tabular}}\\[3.5mm]
+  {\scriptsize\color{black!60} même logique que le moteur en parts de la stratégie S3
+   (montant/prix → quantités) — ici en \textbf{présence par ticker}, car H et T donnent
+   des fourchettes de valeur, pas des quantités ; brancher le patrimoine d'entrée dans
+   le moteur S3 est la suite prévue}
+\end{frame}
+
+% ── E9c · Les deux compteurs ── (P-1 = 825 · registre strict = 56 · P-2/P-2')
+\begin{frame}{Les deux compteurs — reconstruire n'est pas vérifier}
+  \centering
+  \tuile{helec}{825}{membres\\RECONSTRUITS\\(série datée, P-1)}\hfill
+  \tuile{okgreen}{56}{membres\\VÉRIFIÉS stricts\\(entrée+flux⊇sortie)}\hfill
+  \tuile{dataC}{66,7 \%}{confirmées photo→photo\\flux PTR (P-2)}\hfill
+  \tuile{grisC}{66,7 \%}{variante + O/A/T net\\(P-2', mesurée)}\\[4mm]
+  {\footnotesize \badge{alertred}{ces compteurs ne s'additionnent JAMAIS : pour
+   $\approx$ 90 \% des membres on reconstruit sans pouvoir vérifier}}\\[2mm]
+  {\scriptsize\color{black!60} P-2' $=$ P-2 : le gain net O/A/T (26\,115 trades,
+   $\approx$ 1 an de retard) ne déplace PAS la médiane de confirmation — mesuré, publié ·
+   la vérification reste bornée par la loi : fourchettes sans quantités
+   → cohérence ensembliste (présence + sens), pas bilan comptable}
+\end{frame}
+
+
+% ── E9r · Registre de statuts ── (REG-1 = 900 partition · REG-2 = 18.3 % ; table 14)
+\begin{frame}{Le registre — un statut explicite pour chacun des 900}
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig_house_registre.png}\\[1.5mm]
+  {\footnotesize \badge{okgreen}{REG-1 (bloquant) : partition = 900 ✓}\;
+   \badgel{dataC!30}{\textcolor{dataC}{\textbf{strict + complet = 18,3 \% des membres}}}}\\[1mm]
+  {\scriptsize\color{black!60} « chaque membre » se dit honnêtement : qui est testé,
+   qui est reconstruit ancré, qui est partiel, qui est hors d'atteinte — et pourquoi ·
+   table nominative : \co{14\_registre\_membres.csv}}
+\end{frame}
+
+
+% ── E9h · Churn décomposé ── (CH-1 = 93.2 · CH-2 = 81.5 ; table 18)
+\begin{frame}{Le churn photo→photo, décomposé — publié, pas caché}
+  \centering
+  {\footnotesize entre deux photos, des positions APPARAISSENT et DISPARAISSENT sans
+   flux correspondant — on ne le cache pas : on le \textbf{décompose}}\\[2mm]
+  \includegraphics[width=0.94\textwidth]{fig_house_churn.png}\\[1.5mm]
+  {\scriptsize\color{black!60} le gros du churn = l'appariement par NOM (libellés
+   qui dérivent d'une année à l'autre — le fuzzy matching est la suite naturelle) ;
+   le résiduel (7\,225 apparitions · 24\,058 disparitions)
+   = candidats trades réels hors flux · table : \co{18\_churn\_decompose.csv}}
+\end{frame}
+
+
+% ── N2 · Le moteur en parts ── (adapté de la slide « moteur » du deck S1S2/S3 ; fig_05b_pelosi_valeur)
+\begin{frame}{Du flux de trades au portefeuille en parts — le pont vers la stratégie}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      {\scriptsize la présence par ticker valide la \textbf{collecte} ; pour
+       \textbf{trader}, on convertit chaque flux en \textbf{parts}
+       (montant = milieu de fourchette ; $\tau$ = 1\iere{} séance cotée
+       $\geq$ trade)}\\[0.5mm]
+      {\setlength{\abovedisplayskip}{4pt}\setlength{\belowdisplayskip}{4pt}
+      {\color{helec}\scriptsize\textbf{acheter → recevoir des parts}}
+      \begin{displaymath}q=\frac{\text{montant}}{P_i(\tau)}\end{displaymath}
+      {\color{alertred}\scriptsize\textbf{vendre → en rendre (short interdit)}}
+      \begin{displaymath}q^{-}=\min\!\Big(\frac{\text{montant}}{P_i(\tau)},\ n_i\Big)\end{displaymath}
+      {\color{grisC}\scriptsize\textbf{cumuler, puis valoriser}}
+      \begin{displaymath}n_i(t)=\!\!\sum_{\text{trades}\,\le\,t}\!\!\pm q \qquad
+        V(t)=\sum_i n_i(t)\,P_i(t)\end{displaymath}}
+\end{column}
+    \begin{column}{0.51\textwidth}\centering
+      \includegraphics[width=0.86\linewidth]{fig_05b_pelosi_valeur.png}\\[1mm]
+      {\scriptsize\color{black!60} exemple réel : $V(t)$ d'un membre — la brique
+       de la stratégie S3 ; brancher le \textbf{patrimoine d'entrée (H)} comme
+       capital initial est la suite prévue}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{É10 · Rien d'oublié — la somme boucle}
+
+
+% ── N3 · La comptabilité finale ── (§18 post-B4 : G-1 35 377 · G-0 0 · G-2 20 457 · G-3 10 ; fig_house_compta)
+\begin{frame}{Rien d'oublié — chaque dépôt a un traitement, la somme boucle}
+  \centering
+  \includegraphics[width=0.88\textwidth]{fig_house_compta.png}\\[1.5mm]
+  {\footnotesize \badge{okgreen}{G-1 (bloquant) : Σ = 35\,377 ✓}\;
+   \badge{okgreen}{20\,457 docs → données (G-2)}\;
+   \badgel{dataC!30}{\textcolor{dataC}{\textbf{14\,892 recensés, rien à extraire}}}\;
+   \badgel{grisC!25}{\textcolor{grisC}{\textbf{10 exclus — PDF morts (G-3)}}}}\\[1mm]
+  {\scriptsize\color{black!60} vert = données extraites · ocre = recensé sans donnée
+   (vides, admin, blind trusts) · gris = exclu avec raison écrite —
+   \textbf{0 scanné laissé de côté} (G-0, bloquant) : tout le périmètre scannable est OCRisé}
+\end{frame}
+
+% ── H16 · Le tableau de bord ── (MANIFEST.json : 75 validations (plan complet), 0 rouge ; fig_house_dashboard)
+\begin{frame}{Le tableau de bord — 75 validations, 0 rouge}
   \centering
   \includegraphics[width=0.585\textwidth]{fig_house_dashboard.png}
 \end{frame}
 
 \section{Verdict}
+
 
 % ── H17 · Conclusion ── (comptes MANIFEST post-B4 : 161 076 signal · 387 585 holdings · 26 088 PDF)
 \begin{frame}{Ce que ce deck prouve — et la suite}
@@ -929,16 +1032,14 @@
   \tuile{helec}{161\,076}{transactions PTR\\= le signal, couvert à 100\,\%}\hfill
   \tuile{dataC}{387\,585}{holdings Schedule A\\(élec + papier OCRisé)}\hfill
   \tuile{grisC}{26\,088}{PDF archivés\\+ index irremplaçables}\hfill
-  \tuile{okgreen}{58 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
+  \tuile{okgreen}{75 / 0}{validations / rouge\\tout re-jouable}\\[5mm]
   {\footnotesize
   \badge{helec}{1. source exhaustive et archivée — le site détruit (5 U.S.C. §13107), pas nous}\\[1.5mm]
   \badge{helec}{2. tri lisible/scanné mesuré (0 désaccord) — tout le papier OCRisé, 0 laissé de côté}\\[1.5mm]
-  \badge{helec}{3. chaque portefeuille se recoupe — 87,8 \% toutes déclarations, 3,3 \% d'inexpliqué}}\\[4mm]
-  {\scriptsize\color{black!60} suites naturelles : le Sénat sur le même modèle ·
-   appariement par NOM d'actif (les 54 membres sans ticker, patrimoine non coté) ·
-   brancher le patrimoine d'entrée (H) dans le moteur de stratégie S3}
+  \badge{helec}{3. chaque portefeuille se recoupe — 87,8 \% (élec) · 87,1 \% (élargie), 3,3 \% d'inexpliqué}}\\[4mm]
+  {\scriptsize\color{black!60} suites naturelles : le Sénat sur le même modèle · le fuzzy matching des noms
+   (churn « nom ») · brancher le patrimoine d'entrée (É6) dans le moteur de stratégie S3}
 \end{frame}
-
 
 
 \end{document}
