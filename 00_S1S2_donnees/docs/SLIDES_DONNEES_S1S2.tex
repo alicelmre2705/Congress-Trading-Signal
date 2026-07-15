@@ -1005,23 +1005,30 @@
 \end{frame}
 
 % ── Coh-4 · Le résultat : les portefeuilles se recoupent ── (REMPLACE 80 %, fig_v1_coherence, SLIDES_HOUSE l.832)
-\begin{frame}{Cohérence (4/6) --- le résultat : les portefeuilles se recoupent}
+\begin{frame}{Cohérence (4/6) --- le résultat : de 292 inexpliquées à 45 (3,3 \%)}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \begin{columns}[c]
-    \begin{column}{0.56\textwidth}\centering
-      \includegraphics[width=\linewidth]{slides/fig_v1_coherence.png}
+    \begin{column}{0.44\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_v1_coherence.png}\\[0.5mm]
+      {\scriptsize\color{black!60} le point de départ : entrée + achats PTR expliquent \textbf{78,7 \%}
+       des \textbf{1\,371} positions de sortie (45 membres) → il reste \textbf{292 inexpliquées} (21,3 \%)}
     \end{column}
-    \begin{column}{0.42\textwidth}
-      {\footnotesize entrée + transactions reconstruisent la sortie ; on part à \textbf{78,7 \%} ($\sim$21 \% manquant) et on monte l'escalier :}\\[1.5mm]
-      {\scriptsize
-      · PTR électroniques \textbf{78,7 \%}\\[0.5mm]
-      · + PTR papier \textbf{78,8 \%}\\[0.5mm]
-      · + annuels O/A \textbf{84,2 \%}\\[0.5mm]
-      · + Schedule B du T \textbf{87,8 \%}}\\[2.5mm]
-      \badge{alertred}{résidu vraiment inexpliqué : 3,3 \%}\\[1.5mm]
-      {\scriptsize = 45 positions chez 14 membres · le reste des « trous » = du \textbf{non-filing documenté}
-       (l'élu a déclaré ailleurs), pas un trou de collecte}\\[2mm]
-      {\scriptsize\color{black!60} blind trust \textbf{Phillips} : 284 positions à l'entrée → 1 à la sortie = 0 faux trou}
+    \begin{column}{0.54\textwidth}
+      \centering
+      {\footnotesize les 292 sont alors traitées \textbf{une par une} :}\\[1mm]
+      \begin{tikzpicture}[node distance=2.2mm]
+        \node[bande=grisC, text width=7.0cm] (a) {\textbf{292 positions inexpliquées} (21,3 \%)};
+        \node[bande=helec, text width=7.0cm, below=of a] (b)
+          {\textbf{−125 déclarées AILLEURS} : annuel O/A (74) · Schedule B du T (49) · PTR papier (2)\\
+           {\tiny du non-filing des déposants — ajoutées, le taux monte : 78,7 → 78,8 → 84,2 → \textbf{87,8 \%}}};
+        \node[bande=dataC, text width=7.0cm, below=of b] (c)
+          {\textbf{−122 structurelles} : comptes gérés (59) · $\leq$ 15\,k\$ (32) · ETF exemptés de PTR (30) · renommage (1)};
+        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
+              align=center, font=\scriptsize, text width=7.0cm, minimum height=0.62cm, below=of c] (d)
+          {\color{white}\textbf{45 vraiment inexpliquées = 3,3 \%} (14 membres)};
+        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+      \end{tikzpicture}\\[1.2mm]
+      {\scriptsize\color{black!60} table nominative en cache · blind trust \textbf{Phillips} (284 → 1) : 0 faux trou}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1039,33 +1046,38 @@
   \colorbox{alertred}{\parbox{0.92\textwidth}{\footnotesize\color{white}\centering
     ces trades \textbf{comblent des trous du portefeuille} (l'élu oublie son \co{P} mais l'inscrit à l'annuel) ---
     découverts \textbf{$\sim$1 an trop tard} : ils nourrissent le \textbf{patrimoine}, jamais le \textbf{signal}}}\\[2mm]
-  {\scriptsize\color{black!55} les 26 115 sont surtout des \textbf{ETF/fonds cotés}, \textbf{pas un sous-total} des 57\,259 Schedule B (deux mesures parallèles) ; les vraies \textbf{actions} manquantes au signal = \textbf{173}, toutes pré-2018}
+  {\scriptsize\color{black!55} les 26 115 sont surtout des \textbf{ETF/fonds cotés} — (57\,259 = les lignes \textbf{brutes} hors PTR, doublons compris ; 26\,115 = le \textbf{net} jamais vu en PTR) ; les vraies \textbf{actions} manquantes au signal = \textbf{173}, toutes pré-2018}
 \end{frame}
 
-% ── Coh-6 · Reconstruire ≠ vérifier ── (REFONTE : poupées russes 900 ⊃ 825 ⊃ 56, registre retiré pour épurer)
+% ── Coh-6 · Reconstruire ≠ vérifier ── (REFONTE 2 : le REGISTRE 4 statuts exclusifs, somme = 900 ;
+%    les poupées russes 900⊃825⊃56 retirées — le « 825 » n'était ni emboîté ni bien défini, cf. fix P-1)
 \begin{frame}{Cohérence (6/6) --- reconstruire n'est pas vérifier}
-  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[2mm]
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \centering
-  \resizebox{!}{0.60\textheight}{%
-  \begin{tikzpicture}
-    % 900 · tous les membres
-    \draw[rounded corners=6pt, draw=grisC, line width=1pt, fill=grisC!6] (0,0) rectangle (13,6.6);
-    \node[anchor=west, font=\small, text=black!55] at (0.4,6.15) {\textbf{900} · membres passés par la Chambre, 2014--2026};
-    % 825 · reconstruits
-    \draw[rounded corners=5pt, draw=dataC, line width=1pt, fill=dataC!12] (0.55,0.5) rectangle (12.45,5.55);
-    \node[anchor=west, font=\Large\bfseries, text=dataC] at (1.0,5.0) {825 · RECONSTRUITS};
-    \node[anchor=west, font=\normalsize, text=black!70] at (1.0,4.35) {photo d'entrée + transactions → série datée par membre};
-    % 56 · vérifiés
-    \draw[rounded corners=5pt, draw=okgreen, line width=1pt, fill=okgreen] (1.25,0.95) rectangle (9.1,3.8);
-    \node[anchor=west, font=\Large\bfseries, text=white] at (1.7,3.25) {56 · VÉRIFIÉS};
-    \node[anchor=west, font=\normalsize, text=white] at (1.7,2.6) {…et confirmés par la photo de sortie};
-    \node[anchor=west, font=\small, text=white] at (1.7,2.05) {(entrée + flux $\supseteq$ sortie, réellement testé)};
-    % l'espace vide = les reconstruits non vérifiables
-    \node[anchor=center, align=center, font=\scriptsize, text=black!60, text width=2.9cm] at (10.75,2.2)
-      {\emph{les autres :}\\reconstruits, mais pas vérifiables\\{\scriptsize (photo de sortie manquante,\\ou rien de coté)}};
-  \end{tikzpicture}}\\[2mm]
-  {\footnotesize on \textbf{reconstruit} une série datée pour \textbf{825} membres ; on ne peut la \textbf{prouver}
-   de bout en bout que pour \textbf{56} --- le petit est \emph{dans} le grand, les deux ne s'additionnent jamais}
+  {\footnotesize chacun des \textbf{900} membres de la fenêtre reçoit \textbf{un seul statut} — du moins au plus exigeant :}\\[1mm]
+  \begin{tikzpicture}[node distance=2mm]
+    \node[rectangle, rounded corners=2pt, draw=grisC, fill=grisC!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt] (r1)
+      {\makebox[0.85cm][r]{\normalsize\textbf{20}}\;\; \textbf{hors d'atteinte} --- rien d'exploitable
+       (patrimoine 100\,\% non coté, blind trust)};
+    \node[rectangle, rounded corners=2pt, draw=dataC, fill=dataC!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r1] (r2)
+      {\makebox[0.85cm][r]{\normalsize\textbf{715}}\;\; \textbf{reconstructible partiel} --- au moins
+       une photo de patrimoine \textbf{ou} des transactions → des \textbf{morceaux datés}, pas une série continue};
+    \node[rectangle, rounded corners=2pt, draw=helec, fill=helec!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r2] (r3)
+      {\makebox[0.85cm][r]{\normalsize\textbf{109}}\;\; \textbf{reconstructible complet} --- photo
+       d'\textbf{entrée} + $\geq$ 2 photos + transactions → \textbf{série datée de bout en bout}\ldots{}
+       mais pas de photo de \textbf{sortie} : \textbf{non testable}};
+    \node[rectangle, rounded corners=2pt, draw=okgreen, fill=okgreen, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r3] (r4)
+      {\color{white}\makebox[0.85cm][r]{\normalsize\textbf{56}}\;\; \textbf{vérifiable strict} ---
+       les \textbf{deux} photos + actions cotées → l'équation entrée $+$ flux $=$ sortie
+       \textbf{réellement testée} (le 87,8 \%)};
+  \end{tikzpicture}\\[1mm]
+  {\scriptsize\color{black!60} 20 + 715 + 109 + 56 = \textbf{900} — une partition, rien ne se recouvre}\\[1mm]
+  {\footnotesize \textbf{reconstruire} = dresser la série datée ($\geq$ \textbf{2 photos} : deux points pour tracer) ·
+   \textbf{vérifier} = la prouver bouclée — $\sim$9 sur 10 restent \textbf{sans preuve}}
 \end{frame}
 
 \subsection{Corroboration — Quiver et les preuves indépendantes}
