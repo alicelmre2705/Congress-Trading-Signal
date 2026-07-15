@@ -148,24 +148,39 @@
 \end{frame}
 
 \subsection{La Chambre}
-% ── S2 · Chambre : site → ZIP → index XML ── (fusion ex-C1+C2)
-\begin{frame}{La Chambre --- tout part d'un index XML public}
+% ── S2a · Chambre : le site officiel ── (ex-C1, dé-fusionné)
+\begin{frame}{La Chambre --- le point de départ : le site officiel}
   \begin{columns}[T]
-    \begin{column}{0.42\textwidth}
-      \centering
-      \begin{tikzpicture}[node distance=5mm]
-        \node[step=grisC, text width=4.6cm] (s) {le site public du \emph{House Clerk}\\{\scriptsize une archive par année, 2014 → 2026}};
-        \node[step=helec, text width=4.6cm, below=of s] (z) {on télécharge l'archive\\[0.5mm]\co{2024FD.zip}};
-        \node[step=helec, text width=4.6cm, below=of z] (x) {on la dézippe → l'\textbf{index annuel}\\[0.5mm]\co{2024FD.xml}};
-        \node[step=okgreen, text width=4.6cm, below=of x] (i) {un bloc \co{<Member>}\\par \textbf{dépôt déclaré}};
-        \draw[arr] (s) -- (z); \draw[arr] (z) -- (x); \draw[arr] (x) -- (i);
-      \end{tikzpicture}\\[1.5mm]
-      {\scriptsize \href{https://disclosures-clerk.house.gov/FinancialDisclosure}%
+    \begin{column}{0.62\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_house_clerk.png}}\\[0.8mm]
+      {\footnotesize \href{https://disclosures-clerk.house.gov/FinancialDisclosure}%
        {\texttt{disclosures-clerk.house.gov}}} {\scriptsize\color{black!55}(cliquable)}
     \end{column}
-    \begin{column}{0.56\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[height=36mm]{slides/site_house_clerk.png}}\\[1.5mm]
-      \includegraphics[height=30mm]{slides/fichier_index_xml.png}
+    \begin{column}{0.34\textwidth}
+      \vspace{6mm}
+      {\footnotesize on part du site public de la Chambre :}\\[3mm]
+      · une \textbf{liste de téléchargements}\\[2.5mm]
+      · \textbf{une archive par année} (zone encadrée)\\[2.5mm]
+      · on prend les années \textbf{2014 → 2026}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── S2b · Chambre : ZIP → index XML ── (ex-C2, dé-fusionné)
+\begin{frame}{La Chambre --- l'archive ZIP contient l'index XML}
+  \begin{columns}[T]
+    \begin{column}{0.44\textwidth}\centering
+      \begin{tikzpicture}[node distance=6mm]
+        \node[step=helec, text width=4.6cm] (z) {on télécharge l'archive de l'année\\[1mm]\co{2024FD.zip}};
+        \node[step=helec, text width=4.6cm, below=of z] (x) {on la dézippe → un fichier\\[1mm]\co{2024FD.xml}};
+        \node[step=okgreen, text width=4.6cm, below=of x] (i) {c'est l'\textbf{index annuel} :\\un bloc \co{<Member>} par \textbf{dépôt}};
+        \draw[arr] (z) -- (x); \draw[arr] (x) -- (i);
+      \end{tikzpicture}\\[2mm]
+      {\scriptsize\color{black!55} \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2024FD.zip}%
+       {\texttt{…/financial-pdfs/2024FD.zip}}}
+    \end{column}
+    \begin{column}{0.54\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fichier_index_xml.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -210,23 +225,45 @@
   \end{columns}
 \end{frame}
 
-% ── S5 · Le lisible et ses pièges ── (fusion ex-C5+C5bis)
-\begin{frame}{Le monde lisible : propre… sauf les multilignes}
+% ── S5a · PTR lisible : le document ── (ex-C5, dé-fusionné)
+\begin{frame}{Le document lisible : un PTR électronique}
   \begin{columns}[T]
-    \begin{column}{0.60\textwidth}\centering
+    \begin{column}{0.55\textwidth}\centering
+      \fcolorbox{helec}{white}{\includegraphics[height=66mm]{slides/fig_ptr_digital.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} PTR électronique complet (Hon.\ John A.\ Yarmuth, KY03)}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \badge{helec}{DocID en \co{2…} → couche texte}\\[3mm]
+      {\footnotesize
+      · un PDF \textbf{lisible par machine}\\[1.5mm]
+      · le ticker est imprimé \textbf{entre parenthèses} : \co{(BA)},
+        le type d'actif entre crochets : \co{[ST]}\\[1.5mm]
+      · deux dates par ligne (trade / notification) + fourchette de montant\\[1.5mm]
+      · lisible… mais pas si régulier : \textcolor{alertred}{le défi} sur la
+        slide suivante}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── S5b · Le défi multiligne ── (ex-C5bis, dé-fusionné)
+\begin{frame}{Le défi : un PDF lisible n'est pas un tableau régulier}
+  \begin{columns}[T]
+    \begin{column}{0.62\textwidth}\centering
       \includegraphics[width=\linewidth]{slides/fig_ptr_multiligne.png}\\[0.5mm]
       {\scriptsize\color{black!60} extrait réel (Hon.\ Bob Gibbs, OH07) — cadres ajoutés}
     \end{column}
-    \begin{column}{0.38\textwidth}
-      \badge{helec}{DocID en \co{2…} → couche texte}\\[2mm]
+    \begin{column}{0.36\textwidth}
+      {\footnotesize le PDF n'est \textbf{pas un tableau régulier} :}\\[2mm]
       {\footnotesize
-      · le ticker est \textbf{imprimé} : \co{(BA)}, le type d'actif : \co{[ST]},
-        2 dates + fourchette\\[1.5mm]
-      · mais le PDF n'est \textbf{pas un tableau régulier} : le \textbf{montant} déborde
-        sur la ligne suivante, un \textbf{libellé} court sur 4 lignes}\\[2.5mm]
+      · le \textbf{montant} déborde sur la ligne suivante
+        (\co{\$15,001 -} puis \co{\$50,000})\\[1.5mm]
+      · le \textbf{libellé} d'un actif court sur \textbf{4 lignes}\\[1.5mm]
+      · un découpage ligne à ligne raterait la moitié}\\[3mm]
       \colorbox{helec}{\parbox{0.95\linewidth}{\footnotesize\color{white}\centering
-        → on \textbf{reconstruit} chaque transaction\\(recollage) avant de la lire}}\\[2mm]
-      {\scriptsize\color{black!60} le montant coupé à lui seul : \textbf{7\,996} lignes réparées}
+        → on \textbf{reconstruit} chaque transaction\\
+        (recollage des lignes coupées)\\ avant de la lire}}\\[2mm]
+      {\scriptsize\color{black!60} le montant coupé à lui seul : \textbf{7\,996}
+       lignes réparées}
     \end{column}
   \end{columns}
 \end{frame}
@@ -259,33 +296,53 @@
 \end{frame}
 
 \subsection{Le Sénat}
-% ── S7 · Sénat : accès + électronique ── (fusion ex-II.5+II.6)
-\begin{frame}{Le Sénat --- un portail à apprivoiser, un cas électronique propre}
-  \centering
-  \resizebox{0.94\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=6mm]
-    \node[step=alertred, text width=2.4cm] (a) {\textbf{Accord}\\+ jeton d'accès (CSRF)};
-    \node[step=selec, text width=3.1cm, right=of a] (b) {\textbf{Recherche}\\on ne coche que \textbf{PTR}};
-    \node[step=selec, text width=2.4cm, right=of b] (c) {\textbf{Liste}\\de rapports};
-    \node[bande=selec, text width=2.6cm, right=8mm of c, yshift=7mm] (e1) {\textbf{texte} → page HTML};
-    \node[bande=socr, text width=2.6cm, right=8mm of c, yshift=-7mm] (e2) {\textbf{image} → scan};
-    \draw[arr] (a)--(b); \draw[arr] (b)--(c);
-    \draw[arr] (c.east) to[out=20,in=180] (e1.west);
-    \draw[arr] (c.east) to[out=-20,in=180] (e2.west);
-  \end{tikzpicture}}
+% ── S7a · Sénat : la barrière (accord + jeton) ── (ex-Sénat 1/5 restaurée, capture réelle)
+\begin{frame}{Le Sénat --- le portail eFD et sa barrière}
+  \begin{columns}[T]
+    \begin{column}{0.64\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth]{slides/site_senate_efd.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} \emph{efdsearch.senate.gov} --- la page d'accès (capture réelle)}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \badge{alertred}{la barrière : accord + jeton (CSRF)}\\[2.5mm]
+      {\footnotesize
+      · la case encadrée : l'\textbf{accord obligatoire} avant toute recherche\\[1.5mm]
+      · notre collecteur l'accepte et récupère le \textbf{jeton de session}\\[1.5mm]
+      · ensuite seulement : on peut \textbf{chercher} (slide suivante)}
+    \end{column}
+  \end{columns}
+\end{frame}
 
+% ── S7b · Sénat : chercher puis la liste ── (ex-Sénat 2/5+3/5 restaurées, captures réelles)
+\begin{frame}{Le Sénat --- chercher (Senator × PTR), puis la liste}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=\linewidth]{slides/site_senate_form.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} le formulaire : on coche \textbf{Senator} × \textbf{PTR}}
+    \end{column}
+    \begin{column}{0.5\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=\linewidth]{slides/site_senate_results.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} la liste réelle : \textbf{1\,705} rapports, un lien par dépôt}
+    \end{column}
+  \end{columns}
   \vspace{2.5mm}
+  \centering
+  {\footnotesize les PTR sont \textbf{un type parmi d'autres} (Annual, Blind Trusts, Extensions…)
+   --- on envoie \co{report\_types=[11]} ; un dépôt s'ouvre \textbf{dans son format} :
+   \textbf{page HTML} (texte) ou \textbf{scan} (image)}
+\end{frame}
+
+% ── S7c · Sénat : le cas électronique ── (ex-II.6)
+\begin{frame}{Le Sénat électronique : une table propre}
   \begin{columns}[T]
     \begin{column}{0.56\textwidth}\centering
       \fcolorbox{selec}{white}{\includegraphics[width=0.96\linewidth]{sources/senate_digital.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} le portail \textbf{eFD} (\emph{electronic Financial Disclosure}) :
-       table propre, ticker cliquable}
+      {\scriptsize\color{black!60} le cas électronique : table propre, ticker cliquable}
     \end{column}
     \begin{column}{0.42\textwidth}
       \badge{selec}{13\,026 transactions électroniques}\\[2.5mm]
       {\footnotesize
-      · \textbf{1\,705} rapports « Sénateur × PTR » listés\\[1.2mm]
-      · un gabarit de table \textbf{stable sur 13 ans} (détail en Partie 2)\\[1.2mm]
+      · un gabarit de table \textbf{stable sur 13 ans} (les 9 mêmes colonnes, détail en Partie 2)\\[1.2mm]
       · seul le contenu change : amendements (10\,\%), ticker « \co{--} » = non-coté,
         cellules parfois vides}
     \end{column}
@@ -445,20 +502,17 @@
     \draw[arr] (spar.south) -- (conv.north -| spar.south);
     \draw[arr] (svis.south) -- (conv.north -| svis.south);
     \draw[arr] (conv) -- (ident); \draw[arr] (ident) -- (enr);}
-    % ---- bande 4 : Livraison ----
+    % ---- bande 4 : Livraison ---- (validation retirée : elle n'est plus « seulement Quiver » → Partie 4)
     \visible<4->{
-    \node[bande=dataC, fill=dataC!14, text width=13.6cm] (fin) at (0,-7.55)
+    \node[bande=dataC, fill=dataC!14, text width=13.6cm] (fin) at (0,-7.65)
       {\textbf{TABLE FINALE} — \textbf{169\,000 uniques} (170\,920 lignes) ·
        \co{06\_\{ch\}\_\{an\}\_FINAL.csv} · 28 colonnes · contrat 12 champs métier};
-    \node[bande=alertred, text width=13.6cm] (val) at (0,-8.45)
-      {\textbf{validation} — Quiver (3 niveaux : existence / date / champs) + sources indépendantes
-       + tables « golden » figées (SHA-256) — \textbf{jamais réinjectées}};
-    \node[bande=dataC, fill=dataC!14, text width=13.6cm] (clean) at (0,-9.35)
+    \node[bande=dataC, fill=dataC!14, text width=13.6cm] (clean) at (0,-8.65)
       {\textbf{TABLE DE RECHERCHE} — \textbf{134\,464 × 36} ·
        \co{data/clean/transactions\_backtest\_2014\_2026.csv} · entonnoir A→D + point-in-time};
-    \node[font=\tiny\bfseries, text=gray!60, rotate=90] at (-7.6,-8.9) {Livraison};
+    \node[font=\tiny\bfseries, text=gray!60, rotate=90] at (-7.6,-8.15) {Livraison};
     \draw[arr] (enr) -- (fin);
-    \draw[arr] (fin) -- (val); \draw[arr] (val) -- (clean);}
+    \draw[arr] (fin) -- (clean);}
   \end{tikzpicture}}
 \end{frame}
 
@@ -617,33 +671,51 @@
   {\normalsize\itshape\color{black!55} Que faut-il ajouter pour qu'un backtest puisse s'en servir ?}
 \end{frame}
 
-% ── S16 · Cascade ticker + GICS→ETF ── (ex-Étape 7 reprise)
-\begin{frame}{Un ticker, un secteur, un ETF : la cascade}
-  \begin{columns}[T]
-    \begin{column}{0.52\textwidth}\footnotesize
-      \textbf{résoudre le ticker} (cascade, source tracée) :\\[1mm]
-      \begin{tikzpicture}[node distance=2.2mm]
-        \node[bande=helec, text width=6.4cm] (t1) {1. \textbf{explicite} — déjà imprimé dans la source};
-        \node[bande=helec, text width=6.4cm, below=of t1] (t2) {2. \textbf{dictionnaire} — nom vu ailleurs dans le corpus};
-        \node[bande=helec, text width=6.4cm, below=of t2] (t3) {3. \textbf{LLM} filtré « action » — jamais d'obligation/muni tickerisée};
-        \node[bande=okgreen, text width=6.4cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve — \textbf{2\,540 lignes} retrouvent leur symbole};
+% ── S16a · Résoudre le ticker ── (ex-Étape 7, moitié ticker)
+\begin{frame}{D'abord : résoudre le ticker (une cascade tracée)}
+  \begin{columns}[c]
+    \begin{column}{0.58\textwidth}\footnotesize
+      \begin{tikzpicture}[node distance=2.6mm]
+        \node[bande=helec, text width=6.8cm] (t1) {1. \textbf{explicite} — déjà imprimé dans la source (l'électronique)};
+        \node[bande=helec, text width=6.8cm, below=of t1] (t2) {2. \textbf{dictionnaire} — le nom vu ailleurs dans le corpus (le papier)};
+        \node[bande=helec, text width=6.8cm, below=of t2] (t3) {3. \textbf{LLM} filtré « action » — jamais d'obligation/muni tickerisée};
+        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve — \textbf{2\,540 lignes} retrouvent leur symbole};
         \draw[arr] (t1) -- (t2); \draw[arr] (t2) -- (t3); \draw[arr] (t3) -- (t4);
-      \end{tikzpicture}\\[2mm]
-      \textbf{puis le secteur} : yfinance (factuel) → LLM contraint GICS
-      (+ garde-fou \co{is\_listed}) → overrides manuels
+      \end{tikzpicture}
     \end{column}
-    \begin{column}{0.46\textwidth}\footnotesize
+    \begin{column}{0.40\textwidth}\footnotesize
+      \badge{helec}{ticker renseigné}\\[1mm]
+      {\footnotesize \textbf{84,1\,\%} Chambre · \textbf{77,9\,\%} Sénat}\\[3mm]
+      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
+        \textbf{couverture = remplissage, pas exactitude} — les vides sont le
+        \textbf{non-coté légitime} (munis, obligations, fonds privés),
+        pas des défauts d'extraction}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── S16b · Secteur GICS → ETF ── (ex-Étape 7, moitié secteur)
+\begin{frame}{Ensuite : un secteur GICS, et son ETF}
+  \begin{columns}[c]
+    \begin{column}{0.50\textwidth}\footnotesize
+      \textbf{donner un secteur} (cascade indépendante) :\\[1.5mm]
+      \begin{tikzpicture}[node distance=2.6mm]
+        \node[bande=dataC, text width=6.0cm] (g1) {1. \textbf{yfinance} — le secteur factuel de l'entreprise};
+        \node[bande=dataC, text width=6.0cm, below=of g1] (g2) {2. \textbf{LLM} contraint GICS (+ garde-fou \co{is\_listed})};
+        \node[bande=okgreen, text width=6.0cm, below=of g2] (g3) {3. \textbf{overrides} manuels — les cas connus};
+        \draw[arr] (g1) -- (g2); \draw[arr] (g2) -- (g3);
+      \end{tikzpicture}\\[2.5mm]
+      \badge{dataC}{secteur renseigné}\quad
+      {\footnotesize \textbf{79,8\,\%} Ch.\ · \textbf{70,4\,\%} Sén.}
+    \end{column}
+    \begin{column}{0.48\textwidth}\footnotesize
       \textbf{11 secteurs GICS → 11 ETF} \emph{Select Sector SPDR} :\\[1.5mm]
       {\scriptsize\ttfamily
       Energy→XLE · Materials→XLB · Industrials→XLI · Cons.\ Discr.→XLY ·
       Cons.\ Staples→XLP · Health Care→XLV · Financials→XLF · Info.\ Tech.→XLK ·
       Comm.\ Services→XLC · Utilities→XLU · Real Estate→XLRE}\\[3mm]
-      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{couverture = remplissage, pas exactitude} : ticker renseigné
-        \textbf{84,1\,\%} Chambre / \textbf{77,9\,\%} Sénat ; secteur
-        \textbf{79,8\,\%} / \textbf{70,4\,\%} — les vides sont le
-        \textbf{non-coté légitime} (munis, obligations, fonds privés),
-        pas des défauts d'extraction}}
+      {\scriptsize\color{black!60} l'ETF proxy sert de « panier secteur » quand on
+       veut exposer un thème plutôt qu'un titre}
     \end{column}
   \end{columns}
 \end{frame}
