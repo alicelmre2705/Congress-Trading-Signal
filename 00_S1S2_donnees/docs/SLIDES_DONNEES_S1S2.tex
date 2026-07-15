@@ -906,7 +906,7 @@
 % → aucun conflit avec la Complétude S1S2 (35 315 / 8 252 / 173). Remplace l'ancienne slide 33 élus/80 %.
 
 % ── Coh-1 · Qui dépose quoi : la couverture des entrées/sorties ── (NEUVE, SLIDES_HOUSE l.367)
-\begin{frame}{Cohérence (1/5) --- qui dépose quoi : la couverture réelle}
+\begin{frame}{Cohérence (1/6) --- qui dépose quoi : la couverture réelle}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \centering
   \begin{tabular}{@{}p{0.30\textwidth} p{0.56\textwidth}@{}}
@@ -926,7 +926,7 @@
 \end{frame}
 
 % ── Coh-2 · Le quadrant des 900 ── (NEUVE, fig_house_quadrant, SLIDES_HOUSE l.589)
-\begin{frame}{Cohérence (2/5) --- les 900 de la fenêtre : qui est testable de bout en bout ?}
+\begin{frame}{Cohérence (2/6) --- les 900 de la fenêtre : qui est testable de bout en bout ?}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \centering
   \includegraphics[width=0.67\textwidth]{slides/fig_house_quadrant.png}\\[1.5mm]
@@ -935,7 +935,7 @@
 \end{frame}
 
 % ── Coh-3 · De 149 à 56 testables + la photo d'entrée ── (NEUVE, V2 l.376 + l.308)
-\begin{frame}{Cohérence (3/5) --- de 149 cycles complets à 56 réellement testables}
+\begin{frame}{Cohérence (3/6) --- de 149 cycles complets à 56 réellement testables}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[3mm]
   \centering
   \begin{tikzpicture}[node distance=8mm]
@@ -954,7 +954,7 @@
 \end{frame}
 
 % ── Coh-4 · Le résultat : les portefeuilles se recoupent ── (REMPLACE 80 %, fig_v1_coherence, SLIDES_HOUSE l.832)
-\begin{frame}{Cohérence (4/5) --- le résultat : les portefeuilles se recoupent}
+\begin{frame}{Cohérence (4/6) --- le résultat : les portefeuilles se recoupent}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \begin{columns}[c]
     \begin{column}{0.56\textwidth}\centering
@@ -975,8 +975,24 @@
   \end{columns}
 \end{frame}
 
-% ── Coh-5 · Les deux compteurs + le registre ── (NEUVE capstone, fig_house_registre, SLIDES_HOUSE l.938/954)
-\begin{frame}{Cohérence (5/5) --- reconstruire n'est pas vérifier}
+% ── Coh-5 · Le gain net O/A/T ── (NEUVE, table 16 : 26 115 vérifié · O 22 216/T 2 478/A 1 421/374 j ; SANS la ligne dédup 166 149 = clash de lignée)
+\begin{frame}{Cohérence (5/6) --- ce que les O/A/T ajoutent : du patrimoine, pas du signal}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[2mm]
+  \centering
+  {\footnotesize les annuels (\co{O}), amendements (\co{A}) et sorties (\co{T}) déclarent \textbf{aussi} des transactions
+   --- souvent les mêmes, re-déclarées ; une fois les doublons \textbf{et} les échos PTR retirés, il reste :}\\[3.5mm]
+  \tuile{okgreen}{26\,115}{trades jamais vus dans un \co{P}}\hfill
+  \tuile{dataC}{22\,216}{via les annuels \co{O}}\hfill
+  \tuile{dataC}{3\,899}{via sorties + amendements}\hfill
+  \tuile{grisC}{374 j}{délai médian trade → pub.}\\[3.5mm]
+  \colorbox{alertred}{\parbox{0.92\textwidth}{\footnotesize\color{white}\centering
+    ces trades \textbf{comblent des trous du portefeuille} (l'élu oublie son \co{P} mais l'inscrit à l'annuel) ---
+    découverts \textbf{$\sim$1 an trop tard} : ils nourrissent le \textbf{patrimoine}, jamais le \textbf{signal}}}\\[2mm]
+  {\scriptsize\color{black!55} les 26 115 sont surtout des \textbf{ETF/fonds cotés} ; les vraies \textbf{actions} manquantes au signal = \textbf{173}, toutes pré-2018 (cf.\ Complétude 4/4)}
+\end{frame}
+
+% ── Coh-6 · Les deux compteurs + le registre ── (NEUVE capstone, fig_house_registre, SLIDES_HOUSE l.938/954)
+\begin{frame}{Cohérence (6/6) --- reconstruire n'est pas vérifier}
   \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \begin{columns}[c]
     \begin{column}{0.32\textwidth}\centering
