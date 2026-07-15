@@ -365,7 +365,7 @@
     \begin{column}{0.42\textwidth}
       \badge{selec}{13\,026 transactions électroniques}\\[2.5mm]
       {\footnotesize
-      · une \textbf{table structurée}, lue directement (le repérage des colonnes : Partie 2)\\[1.2mm]
+      · un gabarit de table \textbf{stable sur 13 ans} (les 9 mêmes colonnes, détail en Partie 2)\\[1.2mm]
       · seul le contenu change : amendements (10\,\%), ticker « \co{--} » = non-coté,
         cellules parfois vides}
     \end{column}
@@ -385,7 +385,7 @@
     \begin{column}{0.24\textwidth}\centering
       \href{https://efd-media-public.senate.gov/media/2015/3/000/002/000002618.gif}{%
         \fcolorbox{black!30}{white}{\includegraphics[width=0.95\linewidth]{slides/senat_papier_couche.png}}}\\[0.8mm]
-      {\scriptsize\textbf{tapé, couché}}
+      {\scriptsize\textbf{tapé, couché} — 255/373}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \href{https://efd-media-public.senate.gov/media/2014/1/000/012/000012036.gif}{%
@@ -610,8 +610,8 @@
         \draw[arr] (a) -- (b2); \draw[arr] (b2) -- (c2);
       \end{tikzpicture}\\[2mm]
       \colorbox{black!6}{\parbox{0.94\linewidth}{\scriptsize
-        les en-têtes \textbf{varient} d'un dépôt à l'autre (refonte eFD $\sim$2016) →
-        on repère chaque colonne par \textbf{mots-clés}, pas par position — robuste sur 13 ans}}
+        en pratique le gabarit est \textbf{stable} : les \textbf{9 mêmes colonnes}
+        sur les 1\,777 pages HTML 2014→2026 (vérifié) — rien à déjouer côté format}}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
@@ -1523,7 +1523,7 @@
 % ANNEXES — PARTIE II (backtest, « Sous le capot »)  copiées depuis v1-house
 % ══════════════════════════════════════════════════════════════════
 % ═════════════ ANNEXE — PARTIE II : compléments techniques ═════════════
-\chapdivider{Annexe · Partie II}{Sous le capot}{le détail technique : shrinkage de $\Sigma$, contre-preuve membre par membre, moteur en parts}
+\chapdivider{Annexe · Partie II}{Sous le capot}{le détail technique : shrinkage de $\Sigma$, et la contre-preuve membre par membre}
 
 % ── An3 · Ledoit-Wolf (ex-S3-14) ──
 \begin{frame}{Le shrinkage répare l'estimateur de $\Sigma$ — pas la stratégie}
