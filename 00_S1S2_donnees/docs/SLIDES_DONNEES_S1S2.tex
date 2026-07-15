@@ -991,21 +991,30 @@
   {\scriptsize\color{black!55} les 26 115 sont surtout des \textbf{ETF/fonds cotés} ; les vraies \textbf{actions} manquantes au signal = \textbf{173}, toutes pré-2018 (cf.\ Complétude 4/4)}
 \end{frame}
 
-% ── Coh-6 · Les deux compteurs + le registre ── (NEUVE capstone, fig_house_registre, SLIDES_HOUSE l.938/954)
+% ── Coh-6 · Reconstruire ≠ vérifier ── (REFONTE : poupées russes 900 ⊃ 825 ⊃ 56, registre retiré pour épurer)
 \begin{frame}{Cohérence (6/6) --- reconstruire n'est pas vérifier}
-  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
-  \begin{columns}[c]
-    \begin{column}{0.32\textwidth}\centering
-      \colorbox{dataC}{\parbox{0.88\linewidth}{\centering\vspace{1mm}{\color{white}\Large\textbf{825}}\\[0.5mm]{\color{white}\scriptsize membres RECONSTRUITS\\(série datée)}\vspace{1mm}}}\\[4mm]
-      \colorbox{okgreen}{\parbox{0.88\linewidth}{\centering\vspace{1mm}{\color{white}\Large\textbf{56}}\\[0.5mm]{\color{white}\scriptsize membres VÉRIFIÉS\\de bout en bout}\vspace{1mm}}}
-    \end{column}
-    \begin{column}{0.66\textwidth}\centering
-      \includegraphics[width=\linewidth]{slides/fig_house_registre.png}
-    \end{column}
-  \end{columns}
-  \vspace{1.5mm}
-  {\footnotesize les deux compteurs ne s'additionnent jamais : pour \textbf{$\sim$9 membres sur 10} on \textbf{reconstruit}
-   une série datée sans pouvoir la \textbf{vérifier} de bout en bout --- le registre le dit membre par membre (partition = 900)}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[2mm]
+  \centering
+  \resizebox{!}{0.60\textheight}{%
+  \begin{tikzpicture}
+    % 900 · tous les membres
+    \draw[rounded corners=6pt, draw=grisC, line width=1pt, fill=grisC!6] (0,0) rectangle (13,6.6);
+    \node[anchor=west, font=\small, text=black!55] at (0.4,6.15) {\textbf{900} · membres passés par la Chambre, 2014--2026};
+    % 825 · reconstruits
+    \draw[rounded corners=5pt, draw=dataC, line width=1pt, fill=dataC!12] (0.55,0.5) rectangle (12.45,5.55);
+    \node[anchor=west, font=\Large\bfseries, text=dataC] at (1.0,5.0) {825 · RECONSTRUITS};
+    \node[anchor=west, font=\normalsize, text=black!70] at (1.0,4.35) {photo d'entrée + transactions → série datée par membre};
+    % 56 · vérifiés
+    \draw[rounded corners=5pt, draw=okgreen, line width=1pt, fill=okgreen] (1.25,0.95) rectangle (9.1,3.8);
+    \node[anchor=west, font=\Large\bfseries, text=white] at (1.7,3.25) {56 · VÉRIFIÉS};
+    \node[anchor=west, font=\normalsize, text=white] at (1.7,2.6) {…et confirmés par la photo de sortie};
+    \node[anchor=west, font=\small, text=white] at (1.7,2.05) {(entrée + flux $\supseteq$ sortie, réellement testé)};
+    % l'espace vide = les reconstruits non vérifiables
+    \node[anchor=center, align=center, font=\scriptsize, text=black!60, text width=2.9cm] at (10.75,2.2)
+      {\emph{les autres :}\\reconstruits, mais pas vérifiables\\{\scriptsize (photo de sortie manquante,\\ou rien de coté)}};
+  \end{tikzpicture}}\\[2mm]
+  {\footnotesize on \textbf{reconstruit} une série datée pour \textbf{825} membres ; on ne peut la \textbf{prouver}
+   de bout en bout que pour \textbf{56} --- le petit est \emph{dans} le grand, les deux ne s'additionnent jamais}
 \end{frame}
 
 \subsection{Corroboration — Quiver et les preuves indépendantes}
