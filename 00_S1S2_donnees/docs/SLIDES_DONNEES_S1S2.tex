@@ -794,7 +794,7 @@
         {\footnotesize « Les flux se \textbf{recollent}-ils comptablement ? »}\\[3mm]
         {\scriptsize patrimoine d'entrée + nos transactions
          $\overset{?}{=}$ patrimoine de sortie}\\[2.5mm]
-        {\color{okgreen}\Large\textbf{80\,\%}}\\[0.5mm]{\tiny du portefeuille de sortie reconstruit}}}
+        {\color{okgreen}\Large\textbf{87,8\,\%}}\\[0.5mm]{\tiny du portefeuille de sortie reconstruit (Chambre)}}}
     \end{column}
     \begin{column}{0.32\textwidth}\centering
       \colorbox{dataC!10}{\parbox[t][47mm][t]{\dimexpr\linewidth-8pt}{\vspace{1.5mm}\centering
@@ -812,12 +812,13 @@
 
 \subsection{Complétude — les autres dépôts}
 % ── S19 · La vie déclarative d'un élu ── (fusion ex-aparté 1+2+3/13)
-\begin{frame}{Complétude (1/4) --- la vie déclarative d'un élu}
+\begin{frame}{Complétude (1/4) --- la vie déclarative d'un élu, et sa loi}
   \badgel{helec!30}{Question 1 · Complétude}\\[0.5mm]
   \centering
-  \includegraphics[width=0.76\textwidth]{slides/fig_cycle_vie.png}\\[1mm]
-  {\footnotesize chaque étape a son dépôt — même formulaire à \textbf{sections A→J} :
-   la \textbf{B} = les transactions ; la \textbf{A} (patrimoine) servira à \emph{vérifier}}
+  \includegraphics[width=0.84\textwidth]{slides/fig_house_loi_cycle.png}\\[1mm]
+  {\footnotesize chaque étape a son dépôt \textbf{et son délai légal} — Schedule \textbf{A} = le patrimoine
+   (les photos), Schedule \textbf{B} = les transactions ; deux dérogations : un \co{C} dispense du \co{H},
+   partir au Sénat/exécutif dispense du \co{T}}
 \end{frame}
 
 % ── S20 · La famille patrimoine ── (ex-aparté 4/13, chiffres des fiches 5-9/13 intégrés)
@@ -900,37 +901,95 @@
 \end{frame}
 
 \subsection{Cohérence — entrée + flux = sortie}
-% ── S23 · H + ΣP = T ── (fusion ex-VC1+VC2, déplacées ici)
-\begin{frame}{Cohérence --- entrée + transactions = sortie ?}
-  \badgel{okgreen!30}{Question 2 · Cohérence}\\[0.5mm]
+% ═══ Sous-partie Cohérence : arc en 5 slides (travail House V1, « Chambre uniquement ») ═══
+% Lignée V1 (35 377 / 8 267 / 78,7→87,8 %) — chiffres en membres/entrées/%, jamais en totaux de dépôts
+% → aucun conflit avec la Complétude S1S2 (35 315 / 8 252 / 173). Remplace l'ancienne slide 33 élus/80 %.
+
+% ── Coh-1 · Qui dépose quoi : la couverture des entrées/sorties ── (NEUVE, SLIDES_HOUSE l.367)
+\begin{frame}{Cohérence (1/5) --- qui dépose quoi : la couverture réelle}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \centering
-  \resizebox{0.78\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=11mm]
-    \node[step=okgreen, text width=3.5cm, minimum height=1.5cm, font=\footnotesize] (h)
-      {\textbf{patrimoine d'ENTRÉE}\\rapport \co{H}\\{\scriptsize ce qu'il détient en arrivant}};
-    \node[step=helec, text width=3.5cm, minimum height=1.5cm, font=\footnotesize, right=of h] (p)
-      {\textbf{+ toutes les transactions}\\les \co{PTR} du mandat\\{\scriptsize achats / ventes datés}};
-    \node[step=dataC, text width=3.5cm, minimum height=1.5cm, font=\footnotesize, right=of p] (t)
-      {\textbf{= patrimoine de SORTIE}\\rapport \co{T}\\{\scriptsize ce qu'il détient en partant}};
-    \draw[-{Latex[length=2.6mm]}, line width=1pt] (h) -- (p);
-    \draw[-{Latex[length=2.6mm]}, line width=1pt] (p) -- (t);
-  \end{tikzpicture}}\\[1.5mm]
+  \begin{tabular}{@{}p{0.30\textwidth} p{0.56\textwidth}@{}}
+    \toprule
+    \textbf{470 entrées} au Congrès\newline (depuis 2014) &
+      \textbf{82 \%} ont déposé un \textbf{H} (déclaration d'entrée)\newline
+      \textbf{16 \%} un \textbf{C} à la place (la loi les dispense du H)\newline
+      \textbf{2 \%} ni l'un ni l'autre → \textbf{98 \% couverts} \\
+    \midrule
+    \textbf{463 sorties} définitives &
+      \textbf{81 \%} ont déposé un \textbf{T} (déclaration de sortie)\newline
+      \textbf{86 sans T} : partis au Sénat ou à l'exécutif (dispensés), décès, départs très récents \\
+    \bottomrule
+  \end{tabular}\\[1.5mm]
+  {\footnotesize presque chaque entrée a sa \textbf{photo de patrimoine} --- mais une entrée sur cinq qui ressort ne laisse \textbf{pas de photo de sortie}}\\[0.5mm]
+  {\scriptsize\color{black!55} c'est cette disponibilité, et elle seule, qui décide de qui sera vérifiable de bout en bout}
+\end{frame}
+
+% ── Coh-2 · Le quadrant des 900 ── (NEUVE, fig_house_quadrant, SLIDES_HOUSE l.589)
+\begin{frame}{Cohérence (2/5) --- les 900 de la fenêtre : qui est testable de bout en bout ?}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
+  \centering
+  \includegraphics[width=0.67\textwidth]{slides/fig_house_quadrant.png}\\[1.5mm]
+  {\footnotesize \textbf{439} déjà en poste en 2014 (pas de photo d'entrée) · \textbf{437} encore en poste en 2026
+   (pas de photo de sortie) → seuls les \textbf{149 entrés PUIS sortis} peuvent avoir les \textbf{deux} photos}
+\end{frame}
+
+% ── Coh-3 · De 149 à 56 testables + la photo d'entrée ── (NEUVE, V2 l.376 + l.308)
+\begin{frame}{Cohérence (3/5) --- de 149 cycles complets à 56 réellement testables}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[3mm]
+  \centering
+  \begin{tikzpicture}[node distance=8mm]
+    \node[step=dataC, fill=dataC!14, text width=3.3cm, minimum height=1.5cm, font=\footnotesize] (a)
+      {\textbf{\large 149}\\{\scriptsize cycles complets\\(entrés PUIS sortis)}};
+    \node[step=helec, text width=3.3cm, minimum height=1.5cm, font=\footnotesize, right=of a] (b)
+      {\textbf{\large 106}\\{\scriptsize les DEUX photos réellement déposées}};
+    \node[step=okgreen, text width=3.3cm, minimum height=1.5cm, font=\footnotesize, right=of b] (c)
+      {\textbf{\large 56}\\{\scriptsize actions cotées des deux côtés → testables}};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+  \end{tikzpicture}\\[2mm]
+  {\footnotesize la moitié des membres à double photo \textbf{ne détient aucune action cotée} (fonds, comptes gérés, immobilier)}\\[3.5mm]
+  \colorbox{black!6}{\parbox{0.9\textwidth}{\footnotesize\centering\vspace{0.5mm}
+    \textbf{la photo d'entrée} : \textbf{252} ancrés par un \textbf{H} · \textbf{32} par un \textbf{C} (dispensés de H)
+    = \textbf{284} portefeuilles d'entrée datés · \textbf{616} déjà en poste en 2014 n'en ont pas\vspace{0.5mm}}}
+\end{frame}
+
+% ── Coh-4 · Le résultat : les portefeuilles se recoupent ── (REMPLACE 80 %, fig_v1_coherence, SLIDES_HOUSE l.832)
+\begin{frame}{Cohérence (4/5) --- le résultat : les portefeuilles se recoupent}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
   \begin{columns}[c]
-    \begin{column}{0.52\textwidth}\centering
-      \includegraphics[width=0.92\linewidth]{coherence/fig_coherence.png}
+    \begin{column}{0.56\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_v1_coherence.png}
     \end{column}
-    \begin{column}{0.46\textwidth}
-      {\footnotesize
-      · testé sur les \textbf{33 élus} entrés \textbf{et} sortis 2014-2026\\[0.8mm]
-      · \badge{okgreen}{80 \% cohérent} → le flux PTR est largement complet\\[0.8mm]
-      · \textbf{27 \% détenus tout du long}, jamais tradés → invisibles au flux seul}\\[1.2mm]
-      {\scriptsize\color{black!60} méthode : \textbf{57\,890} lignes de patrimoine
-       (Schedule A) extraites de 2\,621 rapports — nouveau parseur ·
-       ex.\ M.\,T.\ Greene : BMY \& MCD à
-       \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2020/10042733.pdf}{l'entrée}
-       et à la \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2026/10073322.pdf}{sortie} — BMY : 0 PTR}
+    \begin{column}{0.42\textwidth}
+      {\footnotesize entrée + transactions reconstruisent le portefeuille de sortie --- l'escalier :}\\[1.5mm]
+      {\scriptsize
+      · PTR électroniques \textbf{78,7 \%}\\[0.5mm]
+      · + PTR papier \textbf{78,8 \%}\\[0.5mm]
+      · + annuels O/A \textbf{84,2 \%}\\[0.5mm]
+      · + Schedule B du T \textbf{87,8 \%}}\\[2.5mm]
+      \badge{alertred}{résidu vraiment inexpliqué : 3,3 \%}\\[1.5mm]
+      {\scriptsize = 45 positions chez 14 membres · le reste des « trous » = du \textbf{non-filing documenté}
+       (l'élu a déclaré ailleurs), pas un trou de collecte}\\[2mm]
+      {\scriptsize\color{black!60} blind trust \textbf{Phillips} : 284 positions à l'entrée → 1 à la sortie = 0 faux trou}
     \end{column}
   \end{columns}
+\end{frame}
+
+% ── Coh-5 · Les deux compteurs + le registre ── (NEUVE capstone, fig_house_registre, SLIDES_HOUSE l.938/954)
+\begin{frame}{Cohérence (5/5) --- reconstruire n'est pas vérifier}
+  \badgel{okgreen!30}{Question 2 · Cohérence}\hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
+  \begin{columns}[c]
+    \begin{column}{0.32\textwidth}\centering
+      \colorbox{dataC}{\parbox{0.88\linewidth}{\centering\vspace{1mm}{\color{white}\Large\textbf{825}}\\[0.5mm]{\color{white}\scriptsize membres RECONSTRUITS\\(série datée)}\vspace{1mm}}}\\[4mm]
+      \colorbox{okgreen}{\parbox{0.88\linewidth}{\centering\vspace{1mm}{\color{white}\Large\textbf{56}}\\[0.5mm]{\color{white}\scriptsize membres VÉRIFIÉS\\de bout en bout}\vspace{1mm}}}
+    \end{column}
+    \begin{column}{0.66\textwidth}\centering
+      \includegraphics[width=\linewidth]{slides/fig_house_registre.png}
+    \end{column}
+  \end{columns}
+  \vspace{1.5mm}
+  {\footnotesize les deux compteurs ne s'additionnent jamais : pour \textbf{$\sim$9 membres sur 10} on \textbf{reconstruit}
+   une série datée sans pouvoir la \textbf{vérifier} de bout en bout --- le registre le dit membre par membre (partition = 900)}
 \end{frame}
 
 \subsection{Corroboration — Quiver et les preuves indépendantes}
