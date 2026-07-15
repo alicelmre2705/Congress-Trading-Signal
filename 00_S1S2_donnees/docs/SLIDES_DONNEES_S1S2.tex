@@ -82,6 +82,11 @@
 \newcommand{\badge}[2]{\colorbox{#1}{\textcolor{white}{\footnotesize\textbf{#2}}}}
 \newcommand{\badgel}[2]{\colorbox{#1}{\textcolor{black!80}{\footnotesize\textbf{#2}}}}
 
+% Partie III — bande maths : \bmaths{noms exacts des colonnes}{formule(s), 1 ligne max}
+\newcommand{\bmaths}[2]{%
+  {\scriptsize\color{black!55}#1}\\[0.2mm]
+  {\small$\displaystyle #2$}\\[2mm]}
+
 % Carte source (slide 3) : \carte{couleur}{titre}{contenu}
 \newcommand{\carte}[3]{%
   \colorbox{#1!10}{\parbox[t][23mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
@@ -143,9 +148,6 @@
 \node[rectangle, rounded corners=2.5pt, draw=okgreen, fill=okgreen!10, line width=0.8pt, text width=2.35cm, minimum height=1.05cm, align=center, font=\scriptsize] (b5) at (14.004999999999999,0) {\color{okgreen}\textbf{5 · Livrable}};
 \node[below=1.2mm of b5, align=center, font=\tiny, text=black!60] {134\,464 $\times$ 36\\+ limites écrites};
 \end{tikzpicture}\\[13mm]
-  \colorbox{black!5}{\parbox{0.86\textwidth}{\footnotesize\centering\vspace{1mm}
-    à la fin : vous saurez \textbf{ce que contient la table}, \textbf{comment elle a été construite},
-    et \textbf{pourquoi on peut lui faire confiance} --- limites comprises.\vspace{1mm}}}\\[3mm]
   {\scriptsize\color{black!55} cadre légal : STOCK Act 2012 --- chaque élu du Congrès doit déclarer
    ses transactions boursières sous \textbf{45 jours} (\emph{Periodic Transaction Report}, « PTR »)}
 \end{frame}
@@ -1648,81 +1650,140 @@
 % ── T2 · L'entonnoir ──
 \begin{frame}{Rien n'entre dans les tables sans passer l'entonnoir}
   \centering
-  \includegraphics[width=0.86\textwidth]{figs/fig_09_entonnoir.png}\\[2.5mm]
+  \bmaths{deux portes : le trade exploitable, puis l'élu jugeable}%
+    {\text{reconstruit}\iff r_m\ \text{calculable}\qquad
+     \text{éligible}\iff n_{\text{trades}}\ge 10\ \text{et}\ n_{\text{jours}}\ge 126}
+  \includegraphics[width=0.80\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_entonnoir.png}\\[2mm]
   {\footnotesize des 169\,000 dépôts bruts, seuls les trades à \textbf{prix exploitable} alimentent
-   les quatre tables — et la chaîne des élus suit : 372 → 359 → 266 reconstruits → 223 éligibles}\\[2mm]
+   les quatre tables — et la chaîne des élus suit : 372 → 359 → 266 reconstruits → 223 éligibles}\\[1.5mm]
   \badge{helec}{118\,029 trades exploitables}\;
-  \badge{helec}{223 élus éligibles (≥ 10 trades, ≥ 126 j)}
+  \badge{helec}{223 élus éligibles}
 \end{frame}
 
-% ── T3 · Famille 1 : identité ──
-\begin{frame}{Chaque élu a sa fiche — suivons-en une}
+% ── T2bis · Le moteur : ce qu'on reconstruit ──
+\begin{frame}{Ce qu'on reconstruit : du trade déclaré au portefeuille quotidien}
   \centering
-  \includegraphics[width=0.86\textwidth]{figs/fig_09_identite.png}\\[2.5mm]
+  {\footnotesize chaque trade a \textbf{deux dates} : $\tau_j$ = \textbf{transaction} (reconstruit
+   le portefeuille) ; $\delta_j$ = \textbf{divulgation} (la transparence) —
+   $\mathrm{lag}_j=\delta_j-\tau_j$, loi $\le 45$ j}\\[3mm]
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=6mm]
+    \node[step=grisC, text width=4.0cm] (n1)
+      {\textbf{LE TRADE}\\[1mm]
+       $j=(m_j,\,k_j,\,d_j,\,\tau_j,\,\delta_j,\,A_j)$\\[0.8mm]
+       {\tiny élu · titre · buy/sell · 2 dates ·\\montant (milieu de fourchette)}};
+    \node[step=helec, text width=3.2cm, right=of n1] (n2)
+      {\textbf{COMPTER (FIFO)}\\[1mm]
+       $n_k^m(t)$ parts\\[0.8mm]
+       {\tiny jamais négatif — on ne\\vend que ce qu'on détient}};
+    \node[step=dataC, text width=3.8cm, right=of n2] (n3)
+      {\textbf{VALORISER}\\[1mm]
+       $V_m(t)=\sum_k n_k^m(t)\,P_k(t)$\\[0.8mm]
+       {\tiny et les poids $w_k^m(t)$}};
+    \node[step=okgreen, text width=4.7cm, right=of n3] (n4)
+      {\textbf{MESURER} (time-weighted)\\[1mm]
+       $r_m(t)=\dfrac{\sum_k n_k^m(t{-}1)\,P_k(t)}{\sum_k n_k^m(t{-}1)\,P_k(t{-}1)}-1$};
+    \draw[arr] (n1) -- (n2); \draw[arr] (n2) -- (n3); \draw[arr] (n3) -- (n4);
+  \end{tikzpicture}}\\[4mm]
+  \badge{dataC}{tout \co{membres.csv} dérive de trois objets : $n_k^m(t)$ · $V_m(t)$ · $r_m(t)$}\\[1.2mm]
+  {\scriptsize\color{black!55} le moteur de la Partie II, relu membre par membre —
+   les 6 familles qui suivent en tirent chacune leurs colonnes}
+\end{frame}
+
+% ── T3 · La fiche (1/6) : identité ──
+\begin{frame}{La fiche (1/6) — identité : chaque élu a la sienne, suivons-en une}
+  \centering
+  \bmaths{colonnes \co{comites} · \co{secteurs\_juridiction}}%
+    {\mathrm{comites}(m)=\bigcup_{j}\mathrm{codes}_j\qquad
+     \mathrm{secteurs\_juridiction}(m)=\bigcup_{c\,\in\,\mathrm{comites}(m)}\mathrm{COMITE\_GICS}[c]}
+  \includegraphics[width=0.78\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_identite.png}\\[2mm]
   {\footnotesize 94 colonnes en \textbf{6 familles} (identité, activité, portefeuille, durées,
-   risque-perf, comportement) ; pour les incarner, un fil rouge : Nancy Pelosi}\\[2mm]
+   risque-perf, comportement) ; pour les incarner, un fil rouge : Nancy Pelosi}\\[1.5mm]
   \badge{dataC}{372 fiches}\;
   \badge{dataC}{6 familles de colonnes}
 \end{frame}
 
-% ── T4 · Famille 2 : activité ──
-\begin{frame}{Toute son activité tient en une figure}
+% ── T4 · La fiche (2/6) : activité ──
+\begin{frame}{La fiche (2/6) — activité : tout tient en une figure}
   \centering
-  \includegraphics[height=0.66\textheight]{figs/fig_09_activite.png}\\[2mm]
+  \bmaths{colonnes \co{buy\_share} · \co{part\_late} (et \co{notional\_total}, \co{lag\_med})}%
+    {\mathrm{buy\_share}=\frac{\#\{d_j=\mathrm{buy}\}}{\#j}\qquad
+     \mathrm{part\_late}=\mathbb{P}(\delta_j-\tau_j>45\ \text{j})}
+  \includegraphics[height=0.52\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_activite.png}\\[2mm]
   {\footnotesize chaque point est un trade daté et monté — \textcolor{okgreen}{\textbf{achats en vert}},
-   \textcolor{alertred}{\textbf{ventes en rouge}}, montants en échelle log ; en bas, le rythme par année}
+   \textcolor{alertred}{\textbf{ventes en rouge}}, montants $A_j$ en échelle log
+   (leur somme : \co{notional\_total}) ; en bas, le rythme par année}
 \end{frame}
 
-% ── T5 · Famille 3 : portefeuille ──
-\begin{frame}{Son portefeuille, reconstruit jour après jour}
+% ── T5 · La fiche (3/6) : portefeuille ──
+\begin{frame}{La fiche (3/6) — portefeuille : reconstruit jour après jour}
   \centering
-  \includegraphics[height=0.66\textheight]{figs/fig_09_portefeuille.png}\\[2mm]
+  \bmaths{colonnes \co{hhi} (\co{n\_eff} $=1/$\co{hhi}) · \co{top1\_part} · \co{turnover}}%
+    {\mathrm{hhi}=\mathrm{moy}_t\Bigl[\textstyle\sum_k w_k^m(t)^2\Bigr]\qquad
+     \mathrm{turnover}=\frac{\sum_j A_j}{2\,\overline{V}_m}\cdot\frac{252}{T_m}}
+  \includegraphics[height=0.46\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_portefeuille.png}\\[2mm]
   {\footnotesize la reconstruction \textbf{FIFO datée} donne la valeur $V_m(t)$ et les poids de chaque
    titre à chaque instant — le rendement est \textbf{time-weighted}, jamais estimé}\\[1.5mm]
   \badge{helec}{un portefeuille en parts, valorisé jour par jour}
 \end{frame}
 
-% ── T6 · Famille 4 : durées ──
-\begin{frame}{Les élus gardent : une position sur deux vit plus de 910 jours}
+% ── T6 · La fiche (4/6) : durées ──
+\begin{frame}{La fiche (4/6) — durées : la moitié vit plus de 910 jours}
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/fig_09_km.png}\\[2.5mm]
+  \bmaths{colonnes \co{duree\_km\_med} · \co{duree\_med\_fermee}}%
+    {\hat S_m(t)=\widehat{\mathbb{P}}\bigl(\text{part encore détenue}>t\bigr)\qquad
+     \mathrm{km\_med}=\inf\{t:\hat S_m(t)\le 0{,}5\}}
+  \includegraphics[width=0.72\textwidth,height=0.46\textheight,keepaspectratio]{figs/fig_09_km.png}\\[2mm]
   {\footnotesize l'estimateur de \textbf{Kaplan-Meier} traite honnêtement les positions jamais
-   revendues : \textbf{censurées}, pas ignorées — sinon les durées seraient sous-estimées}\\[2mm]
+   revendues : \textbf{censurées}, pas ignorées — sinon les durées seraient sous-estimées}\\[1.5mm]
   \badge{warnorange}{44\,\% des parts jamais revendues (tous élus)}
 \end{frame}
 
-% ── T7 · Famille 5 : risque et performance ──
-\begin{frame}{100\,\$ investis « comme elle » : devant le SPY, mais sans certitude}
+% ── T7 · La fiche (5/6) : risque et performance ──
+\begin{frame}{La fiche (5/6) — risque \& perf : devant le SPY, sans certitude}
   \centering
-  \includegraphics[height=0.66\textheight]{figs/fig_09_nav.png}\\[2mm]
+  \bmaths{colonnes \co{sharpe} · \co{alpha\_ann} · \co{appraisal} — significatif si $|t|\ge 2$}%
+    {\mathrm{sharpe}=\frac{\overline{r_m}}{\sigma(r_m)}\sqrt{252}\qquad
+     r_m=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon\ \Rightarrow\
+     \mathrm{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252}}
+  \includegraphics[height=0.40\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_nav.png}\\[2mm]
   {\footnotesize +3,4\,\% de croissance par an au-dessus du SPY\ldots{} mais ni l'alpha
    ($t$ = 0,64) ni l'IR ($t$ = 1,06) ne passent le seuil de 2 : \textbf{indiscernable de la chance}}\\[1.5mm]
   \badge{okgreen}{+3,4\,\%/an vs SPY}\;
   \badge{warnorange}{aucun $t$ ≥ 2 — non significatif}
 \end{frame}
 
-% ── T8 · Le pivot vers le panel ──
-\begin{frame}{Le même duel, ligne par ligne : le panel annuel}
+% ── T9 · La fiche (6/6) : comportement ──
+\begin{frame}{La fiche (6/6) — comportement : trois signaux, trois colonnes}
   \centering
-  \includegraphics[width=0.84\textwidth]{figs/fig_09_annees.png}\\[2.5mm]
-  {\footnotesize chaque barre est une ligne de \co{membres\_annees.csv} —
-   2\,628 couples (élu, année) prêts pour l'économétrie}\\[2mm]
-  \badge{dataC}{2\,628 × 11}
+  \bmaths{colonnes \co{part\_ci\_achats} · \co{part\_coachat} ($\ge 3$ acheteurs le même mois) ·
+          \co{part\_trades\_repetes} (titre déjà tradé)}%
+    {\mathrm{part\_ci}=\mathbb{P}\bigl(\mathrm{GICS}(k_j)\in J(\mathrm{comites}_m)\,\big|\,\mathrm{buy}\bigr)}
+  \includegraphics[width=0.64\textwidth,height=0.40\textheight,keepaspectratio]{figs/fig_09_comportement.png}\\[2mm]
+  {\footnotesize alignement avec ses comités ($J$ = les \co{secteurs\_juridiction} de la famille 1),
+   répétition, co-achat : trois signaux mesurés pour chaque élu, comparés à la médiane des 223}\\[1.5mm]
+  \badge{warnorange}{16,4\,\% des achats alignés comité (tous élus)}
 \end{frame}
 
-% ── T9 · Famille 6 : comportement ──
-\begin{frame}{Le comportement aussi devient des colonnes}
+% ── T8 · Le pivot vers le panel ──
+\begin{frame}{Le duel vs SPY, année par année : le panel annuel}
   \centering
-  \includegraphics[width=0.72\textwidth]{figs/fig_09_comportement.png}\\[2.5mm]
-  {\footnotesize alignement avec ses comités, répétition, co-achat :
-   trois signaux mesurés pour chaque élu, comparés à la médiane des 223}\\[2mm]
-  \badge{warnorange}{16,4\,\% des achats alignés comité (tous élus)}
+  \bmaths{colonnes \co{ret\_annee} · \co{exces\_spy\_annee} (NaN si $<40$ j cotés dans l'année)}%
+    {\mathrm{ret\_annee}=\prod_{t\in Y}\bigl(1+r_m(t)\bigr)-1\qquad
+     \mathrm{exces\_spy\_annee}=\mathrm{ret\_annee}-\mathrm{ret\_annee}^{\mathrm{SPY}}\ \text{(mêmes jours)}}
+  \includegraphics[width=0.76\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_annees.png}\\[2mm]
+  {\footnotesize chaque barre est une ligne de \co{membres\_annees.csv} —
+   2\,628 couples (élu, année) prêts pour l'économétrie}\\[1.5mm]
+  \badge{dataC}{2\,628 × 11}
 \end{frame}
 
 % ── T10 · Renversement : le ticker ──
 \begin{frame}{Le même récit, vu du ticker : NVDA sous l'œil du Congrès}
   \centering
-  \includegraphics[height=0.66\textheight]{figs/fig_09_ticker_nvda.png}\\[2mm]
+  \bmaths{colonnes \co{notional\_net} · \co{exces\_21j\_moy} / \co{exces\_63j\_moy}}%
+    {\mathrm{notional\_net}=\!\!\sum_{d_j=\mathrm{buy}}\!\!A_j\ -\!\!\sum_{d_j=\mathrm{sell}}\!\!A_j\qquad
+     \mathrm{exces}_H=\mathrm{moy}\Bigl[\tfrac{P_k(\tau+H)}{P_k(\tau)}-\tfrac{\mathrm{SPY}(\tau+H)}{\mathrm{SPY}(\tau)}\Bigr],\ H\in\{21,63\}\ \text{j}}
+  \includegraphics[height=0.44\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_ticker_nvda.png}\\[2mm]
   {\footnotesize \co{tickers.csv} renverse la perspective : pour 4\,618 titres,
    \textbf{qui achète, qui vend, et quand} — triangles proportionnels aux montants}\\[1.5mm]
   \badge{dataC}{4\,618 × 40}
@@ -1731,20 +1792,30 @@
 % ── T11 · Renversement : la population ──
 \begin{frame}{D'une élue aux 223 : les distributions derrière les fiches}
   \centering
-  \includegraphics[width=0.92\textwidth]{figs/fig_09_distributions.png}\\[2.5mm]
+  \bmaths{colonnes \co{vol\_ann} · \co{beta\_spy} (les autres : déjà définies, vues en distribution)}%
+    {\mathrm{vol\_ann}=\sigma\bigl(\Delta\log P_k\bigr)\sqrt{252}\qquad
+     \beta_{\mathrm{spy}}=\mathrm{cov}(r_k,r_{\mathrm{SPY}})/\mathrm{var}(r_{\mathrm{SPY}})}
+  \includegraphics[width=0.84\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_distributions.png}\\[2mm]
   {\footnotesize volatilité, durées de détention, notionnels par titre :
-   chaque statistique individuelle se lit dans sa distribution}\\[2mm]
+   chaque statistique individuelle se lit dans sa distribution}\\[1.5mm]
   \badge{helec}{223 élus éligibles}
 \end{frame}
 
 % ── T12 · Le verdict ──
 \begin{frame}{Le verdict, trade par trade — 58\,926 achats notés face au SPY}
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/fig_09_exces.png}\\[2.5mm]
+  {\scriptsize\color{black!55} colonnes \co{exces\_med\_trade} · \co{hit\_rate} —
+   chaque achat est noté contre le SPY, sur \textbf{sa} fenêtre, \textbf{brut de frais}}\\[0.6mm]
+  {\color{helec}\scriptsize\textbf{1 · la sortie} — premier des deux : revente réelle, ou plafond d'un an}\\[0.2mm]
+  {\small $t^{s}_j=\min\bigl(\text{1\iere{} vente de }(m_j,k_j)\ \text{après }\tau_j,\ \ \tau_j+252\ \text{j}\bigr)$}\\[0.6mm]
+  {\color{dataC}\scriptsize\textbf{2 · la note} — l'excès sur le SPY entre l'achat et la sortie}\\[0.2mm]
+  {\small $x_j=\Bigl[\tfrac{P_k(t^{s}_j)}{P_k(\tau_j^{+})}-1\Bigr]
+          -\Bigl[\tfrac{\mathrm{SPY}(t^{s}_j)}{\mathrm{SPY}(\tau_j^{+})}-1\Bigr]
+          \qquad \mathrm{hit\_rate}=\mathbb{P}(x_j>0)$}\\[2mm]
+  \includegraphics[width=0.60\textwidth,height=0.30\textheight,keepaspectratio]{figs/fig_09_exces.png}\\[1.5mm]
   {\footnotesize même pour elle — 63\,\% d'achats gagnants, médiane +5,0\,\% — le $t$ reste
-   \textbf{sous 2} ; et l'élu médian, lui, sous-performe : \textbf{−1,62\,\%} sur l'ensemble
-   des 58\,926 achats évalués}\\[2mm]
-  \badge{warnorange}{elle : $t$ = 1,89 < 2}\;
+   \textbf{sous 2} ; l'élu médian, lui, sous-performe : \textbf{−1,62\,\%} (58\,926 achats)}\\[1.5mm]
+  \badge{warnorange}{elle : $t$ = 1,89 $<$ 2}\;
   \badge{alertred}{tous élus : excès médian −1,62\,\%}
 \end{frame}
 
@@ -1756,8 +1827,10 @@
   \tuile{dataC}{4 CSV}{livrés, chaque colonne\\documentée}\hfill
   \tuile{helec}{3 preuves}{recalcul à la main ·\\2\ieme{} méthode · recoupements}\hfill
   \tuile{alertred}{0 alpha}{significatif dans\\les fiches}\\[5mm]
-  \fcolorbox{dataC}{white}{\parbox{0.72\textwidth}{\centering\footnotesize
-    un seul contrôle échoue → \textbf{aucun CSV n'est écrit}}}\\[4mm]
+  \fcolorbox{dataC}{white}{\parbox{0.80\textwidth}{\centering\footnotesize
+    les 8 contrôles sont des \co{assert} \textbf{bloquants}, exécutés \textbf{avant} l'écriture
+    (\S13 puis \S14 du notebook) — les 4 CSV livrés dans \co{tables/} sont, par construction,
+    ceux d'une exécution où les \textbf{8/8} sont passés}}\\[4mm]
   {\footnotesize nous ne livrons pas un alpha, nous livrons des \textbf{données comprises} —
    la stratégie peut maintenant commencer}
 \end{frame}
