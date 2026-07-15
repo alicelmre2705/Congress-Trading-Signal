@@ -1,0 +1,219 @@
+% !TEX program = tectonic
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1.15cm]{geometry}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\definecolor{bleu}{RGB}{20,45,90}
+\definecolor{gris}{RGB}{90,90,90}
+\setlength{\columnsep}{0.55cm}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{3pt}
+\setlist[itemize]{leftmargin=1.1em,topsep=2pt,itemsep=3pt,parsep=0pt}
+
+% titre de section : nom à gauche, réf de section à droite, filet bleu
+\newcommand{\titre}[2]{\vspace{4pt}{\large\bfseries\color{bleu}#1}\hfill{\footnotesize\color{gris}#2}\par
+  \vspace{0pt}{\color{bleu}\hrule height 0.6pt}\vspace{4pt}}
+\newcommand{\fin}{\vspace{5pt}{\color{gris}\hrule}\vspace{6pt}}
+
+\begin{document}
+
+{\centering
+{\LARGE\bfseries Notebook 09 --- Tables de données\par}
+\vspace{2pt}
+{\small\color{gris}membres $\cdot$ tickers $\cdot$ panel annuel --- la donnée comprise et vérifiée avant toute stratégie\par}
+\vspace{4pt}
+{\footnotesize\itshape $m$ membre $\cdot$ $k$ ticker $\cdot$ $j$ trade $\cdot$ $t$ jour de bourse (base 252) $\cdot$
+$\tau$ date de transaction $\cdot$ $\delta$ date de divulgation $\cdot$ $A_j$ montant (milieu de fourchette) $\cdot$
+$r_m$ rendement \emph{time-weighted}\par}
+\vspace{6pt}\par}
+
+\begin{multicols}{2}
+
+% ---------------- INTRODUCTION ----------------
+À partir de \textbf{118\,029 transactions boursières} déclarées par les membres du Congrès et
+rattachées à un prix de marché, on reconstruit le portefeuille daté de chaque élu, puis on en
+mesure l'activité, le risque et la performance. Aucune stratégie n'est proposée ici : uniquement
+de la donnée propre, comprise et auditable.
+\fin
+
+% ---------------- \S{}1 ----------------
+\titre{1. Le moteur}{\S{}0--1}
+{\small
+\begin{gather*}
+r_m(t)=\frac{\sum_k n_k^m(t{-}1)\,P_k(t)}{\sum_k n_k^m(t{-}1)\,P_k(t{-}1)}-1 \\[3pt]
+\mathrm{lag}_j=\delta_j-\tau_j\quad(\text{délai légal}\le 45\,\text{jours})
+\end{gather*}}
+Les portefeuilles ne sont jamais déclarés : seules le sont les transactions. On les reconstruit
+trade par trade en comptabilité FIFO --- premier lot acheté, premier lot vendu, sans jamais de
+position négative --- puis on en déduit un rendement quotidien \emph{time-weighted} qui mesure la
+qualité des choix, indépendamment de la taille des apports d'argent.
+\vspace{2pt}
+\begin{center}\footnotesize
+\begin{tabular}{@{}lr@{}}
+\toprule
+dépôts collectés (2014-2026) & $\sim$169\,000\\
+transactions nettoyées & 134\,464\\
+fenêtre 2013-2026 & 134\,429\\
+\textbf{ticker à prix exploitable ($\mathcal{T}$)} & \textbf{118\,029}\\
+\midrule
+membres reconstruits & 266\ /\ 372\\
+\textbf{membres éligibles} ($\ge 10$ tr. \& $\ge 126$ j) & \textbf{223}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\fin
+
+% ---------------- \S{}2 ----------------
+\titre{2. Qui trade, et comment}{\S{}2--4}
+{\small
+\begin{gather*}
+\mathrm{HHI}_m=\operatorname{moy}_t\!\Big(\textstyle\sum_k (w_k^m)^2\Big)\qquad
+N_{\mathrm{eff}}=\tfrac{1}{\mathrm{HHI}} \\[3pt]
+\mathrm{turnover}_m=\frac{\sum_j A_j}{2\,\bar V_m}\cdot\frac{252}{T_m}
+\end{gather*}}
+Chaque membre est résumé par son rythme de trading, la concentration de son portefeuille
+($N_{\mathrm{eff}}$ = nombre de lignes équivalentes équipondérées) et sa rotation annuelle. À titre
+d'illustration, Nancy Pelosi déclare \textbf{52\,\% d'achats}, une taille médiane de
+\textbf{750\,000\,\$} et un délai de déclaration médian de \textbf{26 jours}, sur un compte
+majoritairement détenu par son conjoint. \textbf{103 membres} ont encore tradé au cours des douze
+derniers mois.
+\fin
+
+% ---------------- \S{}3 ----------------
+\titre{3. Durées de détention}{\S{}5}
+{\small
+\begin{gather*}
+\hat S_m(t)=\mathbb{P}(\text{part encore détenue après } t\ \text{jours}) \\[3pt]
+\text{durée médiane}=\inf\{t:\hat S_m(t)\le 0{,}5\}
+\end{gather*}}
+La durée de détention est estimée par la méthode de Kaplan-Meier, une courbe de survie : les
+positions jamais revendues ne sont pas écartées mais traitées comme \emph{censurées}, faute de quoi
+les durées seraient systématiquement sous-estimées. Sur \textbf{61\,963 épisodes clos} et
+\textbf{28\,944 encore ouverts} (44\,\% des parts), la durée de détention médiane s'établit à
+\textbf{910 jours}.
+\fin
+
+% ---------------- \S{}4 ----------------
+\titre{4. Risque et performance}{\S{}6--7}
+{\small
+\begin{gather*}
+\text{Sharpe}=\frac{\bar r_m}{\sigma(r_m)}\sqrt{252} \\[3pt]
+r_m=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon\ \Rightarrow\ \text{appraisal}=\frac{\alpha}{\sigma_\varepsilon}\sqrt{252} \\[3pt]
+|t|\ge 2\ \Longrightarrow\ \text{difficilement attribuable au hasard}
+\end{gather*}}
+Le risque et la performance sont mesurés sur la série de rendement quotidienne, à l'aide des outils
+standards --- Sharpe, alpha, information ratio --- et, surtout, de leur $t$ de Student : sans
+significativité statistique, un rendement élevé ne prouve rien. La volatilité médiane des 223
+éligibles est de \textbf{20,4\,\%}. Nancy Pelosi affiche un excès de croissance de
+\textbf{+3,4\,\%/an}, mais un information ratio de 0,31 pour un \textbf{$t=1{,}06$} : non
+significatif.
+\fin
+
+% ---------------- \S{}5 ----------------
+\titre{5. Talent par trade et conflit d'intérêts}{\S{}8--9}
+{\small
+\begin{gather*}
+x_j=\Big[\tfrac{P_{k}(t^s)}{P_{k}(\tau^+)}-1\Big]-\Big[\tfrac{\mathrm{SPY}(t^s)}{\mathrm{SPY}(\tau^+)}-1\Big]
+\qquad \text{hit}=\mathbb{P}(x_j>0) \\[3pt]
+\text{alignement}=\mathbb{P}\big(\mathrm{GICS}(k)\in\mathcal{J}(\text{comités})\ \big|\ \text{achat}\big)
+\end{gather*}}
+Pour chaque achat, on mesure l'excès net du titre contre le SPY entre l'achat et sa première
+revente (plafonnée à un an). On teste également un conflit d'intérêts potentiel : la part des
+achats réalisés dans un secteur que les comités du membre supervisent. Sur \textbf{58\,926 achats
+évalués}, l'excès médian par trade est de \textbf{$-1{,}62$\,\%}, et \textbf{16,4\,\%} des achats
+sont alignés sur un comité.
+\fin
+
+% ---------------- \S{}6 ----------------
+\titre{6. La donnée vue par titre}{\S{}10--11}
+{\small
+\begin{gather*}
+\text{flux net}_k=\sum_{\text{achats}}A_j-\sum_{\text{ventes}}A_j \\[3pt]
+\text{excès}_H=\operatorname{moy}_{\text{achats}}\big(\text{titre}-\mathrm{SPY}\big),\quad H\in\{21,63\}\ \text{jours}
+\end{gather*}}
+La même donnée est ensuite vue par action : quels titres concentrent les flux du Congrès, et comment
+leur cours se comporte 21 puis 63 jours après un achat (\emph{event-study}). Apple totalise
+\textbf{1\,260 trades de 151 membres} pour un flux net de \textbf{$-56{,}7$\,M\$} ; Nvidia présente
+une volatilité de \textbf{44\,\%}, un bêta de \textbf{1,71} et un excès de \textbf{+4,5\,\%} à 21
+jours.
+\fin
+
+% ---------------- \S{}7 ----------------
+\titre{7. Panel annuel et garanties}{\S{}12--14}
+{\small
+\begin{gather*}
+\text{excès annuel}_{m,Y}=\Big[\textstyle\prod_{t\in Y}(1+r_m(t))-1\Big]-r_{\mathrm{SPY},Y}
+\end{gather*}}
+Un panel (membre $\times$ année) restitue l'activité et la performance année par année. Les trois
+tables --- membres ($372\times94$), tickers ($4\,618\times40$), panel ($2\,628\times11$) ---
+décrivent la même donnée sous trois angles et doivent se recouper exactement : \textbf{8 contrôles
+croisés} verrouillent l'ensemble, et aucun fichier n'est écrit si un seul échoue. Contrôles de
+sanité : $\beta(\mathrm{SPY})=1$ et $\mathrm{vol}(\mathrm{SPY})=17\,\%$, conformes à la théorie.
+\fin
+
+% ---------------- CHOIX MÉTHODOLOGIQUES ----------------
+\titre{Choix méthodologiques}{justifications}
+\begin{itemize}
+\item \textbf{Reconstruction FIFO} : les dépôts ne déclarent que des transactions ; le portefeuille
+est rejoué achat après achat, sans position négative.
+\item \textbf{223 membres retenus} : sous 10 trades et 126 jours actifs, une volatilité ou un
+Sharpe annualisés perdent tout sens ; les 372 membres conservent néanmoins leur ligne d'identité et
+de flux.
+\item \textbf{Rendement time-weighted} : il évalue la qualité des décisions, et non la taille des
+apports de capital.
+\item \textbf{Excès brut de frais} : on mesure l'information du membre, non le coût d'un éventuel
+réplicateur.
+\item \textbf{Deux dates} : $\tau$ (transaction) reconstruit le portefeuille, $\delta$ (divulgation)
+mesure la transparence, via $\mathrm{lag}=\delta-\tau$.
+\item \textbf{Montants par fourchettes} : la loi n'impose que des tranches (1\,001--15\,000\,\$\ldots) ;
+on en retient le milieu.
+\end{itemize}
+\fin
+
+% ---------------- SYNTHÈSE CHIFFRÉE ----------------
+\titre{Synthèse chiffrée}{}
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Trades à prix exploitable ($\mathcal{T}$) & \textbf{118\,029}\\
+Membres éligibles & \textbf{223}\,/\,372\\
+Couverture en prix des trades & 87,8\,\%\\
+Volatilité médiane (éligibles) & 20,4\,\%\\
+Excès médian par trade & $-1{,}62$\,\%\\
+Achats alignés sur un comité & 16,4\,\%\\
+Détention médiane (Kaplan-Meier) & 910 j\\
+Épisodes clos / ouverts & 61\,963 / 28\,944\\
+Achats évalués (track record) & 58\,926\\
+Contrôles croisés réussis & \textbf{8\,/\,8}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\fin
+
+% ---------------- CONCLUSION ----------------
+\titre{Conclusion}{}
+Le résultat central est sobre et honnête : le \textbf{trade médian sous-performe le SPY de
+1,6\,\%}, et \textbf{aucun alpha n'est statistiquement significatif}. La valeur de ce travail réside
+dans la \textbf{transparence et l'auditabilité du dispositif}, non dans une promesse de rendement.
+
+\vspace{3pt}
+{\footnotesize\color{gris}Limites assumées : ni options ni produits dérivés (absents des dépôts) ;
+montants connus par fourchettes (milieu retenu) ; couverture en prix de 87,8\,\% des trades
+(74\,\% en 2014, 99\,\% en 2026). Chaque section est validée par recalcul manuel d'un cas réel,
+par une seconde méthode indépendante et par recoupement des sommes entre les tables.}
+
+\end{multicols}
+\end{document}
