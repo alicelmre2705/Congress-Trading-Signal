@@ -380,28 +380,36 @@
   {\scriptsize\color{black!60} cas à part : page de garde (lettre d'avocat) sans données, ignorée}
 \end{frame}
 
-% ── S9 ★ · Dates Sénat ── (ex-II.7c reprise + délai médian)
-\begin{frame}{Sénat papier --- le piège des dates : deux natures, deux traitements}
+\subsection{Vue d'ensemble}
+% ── Les dates (global, 4 voies) ── (refonte : dépôt = métadonnée fiable · transaction = lue et sécurisée · notification jetée)
+\begin{frame}{Les dates : ce qu'on reçoit tout fait, ce qu'on va lire}
+  \centering
+  \vspace{0.5mm}
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}\centering
-      \includegraphics[width=\linewidth]{slides/fig_senat_date_depot.png}\\[1.5mm]
-      \badge{okgreen}{date de dépôt → métadonnée eFD}\\[1.5mm]
-      {\scriptsize écrite de façons variées (tampon encre, en-tête imprimé) — mais
-       \textbf{jamais OCRisée} : on la lit sur la \textbf{fiche eFD}, donc fiable}
+    \begin{column}{0.49\textwidth}\centering
+      \colorbox{okgreen}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\textbf{Date de DÉPÔT} \scriptsize(divulgation)}\vspace{0.4mm}}}\\[1.5mm]
+      {\footnotesize \textbf{toujours une métadonnée} --- jamais OCRisée, jamais lue sur le document ; \textbf{fiable} → c'est la date \textbf{signal} (anti-look-ahead)}
     \end{column}
-    \begin{column}{0.48\textwidth}\centering
-      \includegraphics[height=40mm]{slides/fig_senat_date_txn.png}\\[1.5mm]
-      \badge{warnorange}{date de transaction → OCRisée}\\[1.5mm]
-      {\scriptsize formats variés (tapée · manuscrite · annexe) → garde-fou :
-       fenêtre \textbf{[dépôt −90 j, +10 j]}}
+    \begin{column}{0.49\textwidth}\centering
+      \colorbox{warnorange}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\textbf{Date de TRANSACTION}}\vspace{0.4mm}}}\\[1.5mm]
+      {\footnotesize \textbf{lue dans le document} (texte ou OCR) ; la \textbf{seule risquée} → garde-fous $+$ flag, jamais inventée}
     \end{column}
   \end{columns}
-  \vspace{1mm}
-  {\scriptsize\color{black!60}\centering → la date de la \textbf{divulgation}
-   (celle de l'anti-look-ahead) est la fiable — délai médian \textbf{24 j} au Sénat ; l'OCR ne touche qu'au trade}
+  \vspace{2mm}
+  {\scriptsize\color{black!55} (la troisième date --- la « notification » du PTR Chambre --- est \textbf{jetée} ; le tampon de réception du papier Sénat n'est \textbf{pas} OCRisé)}\\[2.5mm]
+  {\footnotesize
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    \textbf{Voie} & \textbf{Date de dépôt} vient de… & \textbf{Date de transaction} vient de… \\
+    \midrule
+    Chambre électronique & l'index \textbf{XML} (\co{FilingDate}) & le \textbf{texte du PDF} \\
+    Chambre scannée & l'index \textbf{XML} (même source) & l'\textbf{OCR} (Claude Vision) \\
+    Sénat électronique & la \textbf{fiche eFD} (le listing) & le \textbf{tableau HTML} \\
+    Sénat papier & la \textbf{fiche eFD} (le listing) & l'\textbf{OCR} de la grille \\
+    \bottomrule
+  \end{tabular}}\\[2.5mm]
+  {\scriptsize\color{black!60} garde-fou transaction : hors \textbf{[dépôt −90 j, +10 j]} → année recalée / ligne \textbf{flaguée}, jamais réécrite au hasard \;·\; délai médian de divulgation \textbf{27 j} Chambre · \textbf{24 j} Sénat}
 \end{frame}
-
-\subsection{Vue d'ensemble}
 % ── S10 · Le corpus en un coup d'œil ── (barre ex-Étape 2 + AJOUT concentration RQ §5)
 \begin{frame}{Le corpus en un coup d'œil : quatre voies --- et une forte concentration}
   \centering
