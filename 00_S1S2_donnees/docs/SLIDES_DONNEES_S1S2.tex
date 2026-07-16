@@ -498,7 +498,7 @@
     \node[step=helec, text width=2.9cm] (hpdf) at (-5.5,-1.35) {\textbf{PDF lisible}\\couche texte présente};
     \node[step=helec, text width=2.9cm] (hscan) at (-2.0,-1.35) {\textbf{scan tapé}\\image, souvent couchée};
     \node[step=selec, text width=2.9cm] (shtml) at (2.0,-1.35) {\textbf{page HTML}\\déclaration eFD};
-    \node[step=selec, text width=2.9cm] (sgif) at (5.5,-1.35) {\textbf{image papier}\\\co{.gif}, déjà droite};
+    \node[step=selec, text width=2.9cm] (sgif) at (5.5,-1.35) {\textbf{image papier}\\\co{.gif}, souvent couchée};
     \node[step=alertred, text width=2.9cm, font=\tiny] (hC) at (-2.0,-2.5)
       {scan \textbf{manuscrit} → écarté (politique rejouable)};
     \node[font=\tiny\bfseries, text=gray!60, rotate=90] at (-7.6,0) {Acquisition};
@@ -515,7 +515,7 @@
     \node[step=selec, text width=2.9cm] (spar) at (2.0,-2.75)
       {\textbf{lecture des tableaux}\\appariement flou\\[0.5mm]{\normalsize\textbf{\color{selec}13\,026}}};
     \node[step=selec, text width=2.9cm] (svis) at (5.5,-2.75)
-      {\textbf{OCR Claude Vision}\\image déjà droite\\[0.5mm]{\normalsize\textbf{\color{selec}3\,985}}};
+      {\textbf{OCR Claude Vision}\\sans redressement\\[0.5mm]{\normalsize\textbf{\color{selec}3\,985}}};
     \node[font=\tiny\bfseries, text=gray!60, rotate=90] at (-7.6,-3.2) {Extraction};
     \draw[arr] (hpdf) -- (hpar); \draw[arr] (hscan) -- (hvis);
     \draw[arr] (shtml) -- (spar); \draw[arr] (sgif) -- (svis);}
@@ -657,7 +657,7 @@
   \begin{columns}[c]
     \begin{column}{0.34\textwidth}\centering
       \fcolorbox{black!30}{white}{\includegraphics[height=46mm]{slides/senat_papier_droit.png}}\\[0.8mm]
-      {\scriptsize\color{black!60} l'image \co{.gif}, déjà droite}
+      {\scriptsize\color{black!60} l'image \co{.gif} --- ici droite, mais 255/373 sont couchées}
     \end{column}
     \begin{column}{0.08\textwidth}\centering
       {\Huge\color{black!40}$\rightarrow$}
@@ -675,8 +675,11 @@
         \bottomrule
       \end{tabular}}\\[2.5mm]
       \badgel{socr}{3\,985 lignes — 14 déposants}\\[1.5mm]
-      {\scriptsize · \textbf{même moteur Vision} que la Chambre, mais \textbf{plus simple} : l'image est déjà droite (aucun redressement)\\
-       · fusion + enrichissement \textbf{en une passe} (dictionnaire de tickers mutualisé)\\
+      {\scriptsize · \textbf{même moteur Vision} que la Chambre, mais \textbf{sans redressement} :
+       Vision lit l'angle tel quel (le prompt annonce « 90° ou 180° »)\\
+       · le \textbf{manuscrit est gardé} ici — non pas qu'il soit meilleur : Quiver est
+       \textbf{aveugle au papier du Sénat}, donc \textbf{aucun mètre externe} pour le gater
+       (garde-fous internes : fenêtre de dates plausibles)\\
        · Blumenthal = 38,7\,\% de la piste, massivement du \textbf{non-coté}
          → couverture ticker plus basse = \textbf{composition, pas défaut}}
     \end{column}
@@ -1588,8 +1591,8 @@
    (cadence), ni \emph{comment} (pondération) — \textbf{aucun réglage ne fait apparaître d'$\alpha$}}\\[7mm]
   \tuile{alertred}{$t$ = 1,58}{max, stratégie 1\\($K$ walk-forward ; seuil 1,81)}\hfill
   \tuile{alertred}{$t$ = 1,22}{max, stratégie 2\\(Sharpe $K{=}6$ ; seuil 1,81)}\hfill
-  \tuile{alertred}{$t_{\text{appr}}$ +0,99}{max ajusté du $\beta$,\\toutes stratégies (seuil 1,645)}\hfill
-  \tuile{warnorange}{$\beta \approx 1,20$}{l'excès brut n'était\\que du \textbf{style}}\\[7mm]
+  \tuile{alertred}{$t_{\text{appr}}$ +0,99}{max ajusté du $\beta$,\\toutes grilles testées (seuil 1,645)}\hfill
+  \tuile{warnorange}{$\beta \approx 1,20$}{du portefeuille phare —\\l'excès n'était que du \textbf{style}}\\[7mm]
   {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
 \end{frame}
 
