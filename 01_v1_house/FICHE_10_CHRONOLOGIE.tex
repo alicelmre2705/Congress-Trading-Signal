@@ -1,0 +1,139 @@
+% !TEX program = tectonic
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage[margin=0.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\definecolor{bleu}{RGB}{20,77,144}
+\definecolor{vert}{RGB}{20,110,60}
+\definecolor{orange}{RGB}{196,123,0}
+\definecolor{rouge}{RGB}{160,30,30}
+\definecolor{grisf}{RGB}{100,100,100}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+% ══════════════════════════ PAGE 1 — LE FLUX ══════════════════════════
+\begin{center}
+{\LARGE\bfseries La stratégie adaptée --- la chronologie, étape par étape}\\[0.5mm]
+{\small House uniquement (le Sénat n'a ni photos ni O/A/T : le mélanger fausserait tout) $\cdot$
+notebook \textbf{indépendant} : inspiré du 05b, mais tout est redéfini et re-validé dedans}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm,
+  b/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                   text width=#2, align=center, inner sep=6pt, font=\small},
+  bl/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                    text width=#2, align=left, inner sep=7pt, font=\small},
+  fl/.style={-{Stealth[length=3mm]}, very thick, draw=grisf},
+  lab/.style={font=\scriptsize\itshape, text=grisf, fill=white, inner sep=1pt}]
+
+% ── É1-É2 : données et population ──
+\node[b={grisf}{4.6cm}] (pop) at (4.0, 15.3)
+  {\textbf{É2 --- la population}\\ \textbf{900} membres House\\ {\scriptsize passés par la Chambre, 2014--2026}};
+\node[b={bleu}{6.2cm}] (traders) at (13.3, 15.3)
+  {\textbf{315} tradent des actions cotées\\ {\scriptsize (table backtest) --- les $\sim$585 autres ne tradent pas :\\ c'est pour ça que \og 900 \fg{} devient vite petit}};
+\node[b={grisf}{4.9cm}, draw=grisf, dashed] (senat) at (22.6, 15.3)
+  {{\scriptsize\textbf{É1 --- les 4 tables lues}\\ transactions PTR (clean) $\cdot$ photos d'entrée (15) $\cdot$ holdings (11) $\cdot$ trades O/A/T nets (16) --- sha vérifiés}};
+\draw[fl] (pop) -- (traders);
+
+% ── É3/É4 : les deux groupes ──
+\node[bl={bleu}{11.6cm}] (gzero) at (6.6, 11.4)
+  {\textbf{É3 --- G\_zéro : 193 membres SANS photo d'entrée} {\scriptsize(déjà en poste avant 2014, ou photo inexploitable)}\\[1.5mm]
+   \textbf{rien ne change} : départ portefeuille vide, $h = 0$,\\[0.5mm]
+   puis trade PTR après trade PTR :\quad
+   achat : $h \mathrel{+}= \dfrac{\tilde v}{P(\tau(t))}$ \quad$\cdot$\quad vente : $h \mathrel{-}= \min(q, h)$};
+
+\node[bl={vert}{12.6cm}] (gphoto) at (20.2, 11.4)
+  {\textbf{É4 --- G\_photo : 122 membres AVEC photo d'entrée (H/C)}\\[1.5mm]
+   \textbf{on part du portefeuille d'entrée}, au jour de son \textbf{dépôt} $f_0$ :\quad
+   $h_0(m,i) = \dfrac{\tilde v_i}{P_i(\tau(f_0))}$\\[1mm]
+   puis les trades PTR s'ajoutent \textbf{au fil de l'eau} (mêmes règles qu'à gauche)\\[0.5mm]
+   {\scriptsize la vente d'une position héritée n'est plus tronquée ($h_0$ la couvre) $\cdot$ \textbf{zoom pas à pas : page 2}}};
+
+\draw[fl] (traders.south) to[out=-90, in=90] node[lab, pos=0.45] {pas de photo} (gzero.north);
+\draw[fl] (traders.south) to[out=-90, in=90] node[lab, pos=0.45] {photo d'entrée} (gphoto.north);
+
+% ── É5 : O/A/T pour tous ──
+\node[bl={orange}{25.4cm}] (oat) at (13.4, 7.6)
+  {\textbf{É5 --- on ajoute les trades que seuls les rapports O/A/T contiennent --- pour TOUS les membres House} (chaque trade étiqueté \texttt{provenance = oat})\\[0.5mm]
+   entonnoir tracé : $26\,115 \;\to\; -221$ \og exchange \fg{} $\;\to\; -14$ dates corrompues $\;\to\; -10\,319$ sans prix coté $\;\to\; -490$ doublons PTR $\;=\; \textbf{15\,080}$ trades ajoutés
+   {\scriptsize --- divulgués $\sim$374 j après ; même convention de date que les PTR (date de transaction)}};
+\draw[fl] (gzero.south) -- (gzero.south |- oat.north);
+\draw[fl] (gphoto.south) -- (gphoto.south |- oat.north);
+
+% ── É6-É8 : moteur → stratégie → tableau ──
+\node[b={grisf}{6.8cm}] (moteur) at (4.4, 4.3)
+  {\textbf{É6 --- le moteur en parts}\\ {\scriptsize défini et validé DANS le notebook : parts $h$, valeur $\sum_i h_i P_i$, rendement time-weighted (parts de la veille) --- un apport ($h_0$) n'est jamais une performance}};
+\node[b={grisf}{7.8cm}] (strat) at (13.4, 4.3)
+  {\textbf{É7 --- la stratégie la plus simple}\\ {\scriptsize au 31/12 de chaque année : classement au \textbf{Sharpe} $\to$ copier les $K^*$ meilleurs, poids $1/K^*$, tenir un an --- $K^*$ \textbf{walk-forward} $\cdot$ \textbf{définitions : page 2}}};
+\node[b={rouge}{8.6cm}] (tab) at (22.6, 4.3)
+  {\textbf{É8 --- le tableau final : 4 runs House}\\ {\scriptsize A$_H$ témoin (PTR seuls, départ zéro) $\cdot$ B$_H$ $+$photos $\cdot$ C$_H$ $+$O/A/T $\cdot$ \textbf{D$_H$ $=$ photos ET O/A/T} --- chaque ligne isole un effet $\cdot$ \textbf{lecture : page 2}}};
+\draw[fl] (oat.south -| moteur.north) -- (moteur.north);
+\draw[fl] (moteur) -- (strat);
+\draw[fl] (strat) -- (tab);
+
+% ── garde-fous ──
+\node[b={grisf}{25.4cm}] (garde) at (13.4, 1.6)
+  {\textbf{garde-fous} : la photo est injectée à sa date de \textbf{dépôt}, jamais avant (anti-triche) $\cdot$
+   notebook indépendant : chaque brique re-validée dedans (recalcul à la main, 2\ieme{} méthode) $\cdot$
+   chaque table montre son aperçu $\cdot$ \texttt{prices\_v2} jamais modifié};
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+% ══════════════════════════ PAGE 2 — LES ZOOMS ══════════════════════════
+\begin{center}
+{\Large\bfseries Les trois zooms --- tout ce qui se passe, pas à pas}
+\end{center}
+\vspace{-1mm}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm,
+  bl/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                    text width=#2, align=left, inner sep=8pt, font=\small}]
+
+% ── ZOOM 1 : le portefeuille d'un membre G_photo ──
+\node[bl={vert}{25.8cm}] (z1) at (13.4, 13.2)
+  {\textbf{ZOOM 1 --- construire le portefeuille d'un membre à photo (exemple bout en bout, un seul titre suivi : XYZ)}\\[1.2mm]
+   \textcolor{vert}{\textbf{1 $\cdot$ 29/07/2021 --- sa photo d'entrée est déposée.}} Elle liste son patrimoine en fourchettes : \og ARAIX : \$15k--\$50k\fg{}, \og XYZ : \$50k--\$100k\fg{}\ldots\\
+   chaque ligne $\to$ milieu $\tilde v = \tfrac{\underline v + \bar v}{2}$, converti en parts \textbf{au prix du jour du dépôt} :\quad
+   $h_{\mathrm{XYZ}} = 75\,000 \div 150\,\$ = \textbf{500 parts}$\quad{\scriptsize(ARAIX : $32\,500 \div 59{,}47 = 546{,}5$ parts, etc.)}\\[1.2mm]
+   \textcolor{bleu}{\textbf{2 $\cdot$ 10/03/2022 --- il déclare un achat PTR}} \og XYZ, \$15k--\$50k\fg{} :\quad
+   $h_{\mathrm{XYZ}} \mathrel{+}= 32\,500 \div 160\,\$ = 203 \;\Rightarrow\; 703$ parts\\[1.2mm]
+   \textcolor{rouge}{\textbf{3 $\cdot$ 15/09/2022 --- il déclare une vente PTR}} \og XYZ, \$100k--\$250k\fg{}, soit $q = 175\,000 \div 140\,\$ = 1\,250$ parts demandées :\quad
+   $h_{\mathrm{XYZ}} \mathrel{-}= \min(1\,250,\,703) \;\Rightarrow\; 0$ part\quad{\scriptsize(sans la photo, le moteur n'aurait vendu que les 203 parts de l'achat --- c'est la troncature qu'on corrige)}\\[1.2mm]
+   \textcolor{grisf}{\textbf{4 $\cdot$ chaque jour --- valeur et rendement.}}\quad
+   $V(t) = \sum_i h_i(t{-}1)\,P_i(t)$,\qquad $r_m(t) = \dfrac{\sum_i h_i(t{-}1)\,P_i(t)}{\sum_i h_i(t{-}1)\,P_i(t{-}1)} - 1$,\qquad $\mathrm{NAV}_m(t) = \prod_{s \le t}\bigl(1 + r_m(s)\bigr)$\\[0.6mm]
+   {\scriptsize pourquoi les \textbf{parts de la veille} $h(t{-}1)$ : le jour où la photo (ou un achat) entre, elle ne compte pas encore $\to$ \textbf{un apport n'est jamais une performance} (propriété testée numériquement dans le notebook) $\cdot$ rendements bornés à $\pm50\,\%$/j (anti-données corrompues)}};
+
+% ── ZOOM 2 : la stratégie Sharpe, K walk-forward, 1/K ──
+\node[bl={bleu}{25.8cm}] (z2) at (13.4, 6.9)
+  {\textbf{ZOOM 2 --- la stratégie la plus simple : Sharpe $\cdot$ $K$ walk-forward $\cdot$ poids $1/K$}\\[1mm]
+   à chaque coupe (dernier jour coté de l'année $Y$, $Y = 2015 \ldots 2025$), quatre gestes :\\[0.6mm]
+   \textbf{1. noter} chaque membre sur son passé seulement : $\;\mathrm{Sharpe}_m(Y) = \dfrac{\overline{r_m}}{\sigma(r_m)}\sqrt{252}$ sur $r_m(s),\ s \le 31/12/Y$ --- éligible si $n_{\text{jours}} \ge 126$ et $n_{\text{trades}} \ge 10$ à la coupe ;\\[0.6mm]
+   \textbf{2. choisir} $K$ \textbf{en marche avant} : $K^*(Y) = \arg\max_{K \in \{4,\ldots,20\}} \sum_{y \le Y} x_y(K)$, où $x_y(K)$ = l'excès annuel que le top-$K$ a réalisé l'année $y$ déjà jouée {\scriptsize(1\iere{} coupe sans historique : $K = 10$, milieu de grille)} ;\\[0.6mm]
+   \textbf{3. copier} les $K^*$ meilleurs Sharpe en \textbf{parts}, poids égaux $1/K^*$ : $\mathrm{nbr}_k = \dfrac{W/K^*}{\mathrm{NAV}_k(t_R)}$, puis \textbf{tenir un an} sans y toucher (buy-and-hold, autofinancé : on ne fait que réallouer $W$) ;\\[0.6mm]
+   \textbf{4. évaluer} par années civiles : $x_Y = \prod_{t \in Y}(1{+}r_{\text{strat}}) - \prod_{t \in Y}(1{+}r_{\text{SPY}})$, \quad $t = \dfrac{\bar x}{\sigma(x)/\sqrt{n}}$ {\scriptsize($n = 11$ années $\Rightarrow$ seuil $t_{10} \approx 1{,}81$)}, \quad $\beta$ et $\alpha$ par régression $r_{\text{strat}} = \alpha + \beta\, r_{\text{SPY}} + \varepsilon$.};
+
+% ── ZOOM 3 : lire le tableau final ──
+\node[bl={rouge}{25.8cm}] (z3) at (13.4, 1.7)
+  {\textbf{ZOOM 3 --- lire le tableau final (chaque run = la même stratégie, seules les données changent)}\\[1.2mm]
+   \textbf{A$_H$} --- PTR seuls, départ zéro : \emph{le témoin} --- que vaut la stratégie actuelle, House pur ?\\
+   \textbf{B$_H$} --- PTR $+$ photos d'entrée : partir du patrimoine change-t-il les élus copiés et la perf ?\hfill B$_H$ $-$ A$_H$ $=$ \textbf{l'effet photo}\\
+   \textbf{C$_H$} --- PTR $+$ trades O/A/T : les trades manquants changent-ils quelque chose ?\hfill C$_H$ $-$ A$_H$ $=$ \textbf{l'effet O/A/T}\\
+   \textbf{D$_H$} --- PTR $+$ photos $+$ O/A/T : \textbf{la stratégie adaptée}, les deux corrections ensemble\hfill à comparer à A$_H$ et au seuil $t_{10} \approx 1{,}81$\\[1mm]
+   {\scriptsize verdict mécanique : si $t(\mathrm{D}_H) < 1{,}81$, l'adaptation ne démontre pas d'alpha (et B/C disent d'où vient le changement) $\cdot$ colonnes du tableau : excès/an vs SPY $\cdot$ $t$ $\cdot$ années gagnantes $\cdot$ $\beta$ $\cdot$ $\alpha$ ajusté}};
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}
