@@ -8,6 +8,28 @@
 
 ---
 
+## ✅ PASSE 1 — CLOSE (commit `58df5f09`, poussé sur `presentation`)
+
+**Tous les points 1 à 8 ci-dessous sont traités.** Détail :
+- **1, 2** (« déjà droite » ×3) → corrigés : « souvent couchée » (Tri) · « sans redressement »
+  (Extraction) · « ici droite, mais 255/373 couchées » (slide 22).
+- **3** (gabarits « 2014-2019 et 2020+ ») → corrigé par la session parallèle (`e17504f3`) :
+  « ancien sans code `[XX]`, moderne avec ».
+- **4** (12,9 % mal attribué) → corrigé par la session parallèle (`e17504f3`) : « même sans
+  exiger la date… — avec la date exacte : 4,8 % ».
+- **5** (phrase slide 2) → retirée et commitée.
+- **6** (« toutes stratégies ») → « toutes grilles testées ».
+- **7** (β ≈ 1,20) → précisé « du portefeuille phare ».
+- **8** (asymétrie manuscrit Chambre/Sénat) → **ajoutée** sur la slide 22.
+
+Deck recompilé (86 pages), slides inspectées, zéro débordement.
+**Reste ouvert** : la dette hors deck en bas de page (README golden 125/76 périmé).
+
+> 👉 **La liste ci-dessous est conservée comme archive des preuves.** Pour la passe 2,
+> ajouter les nouvelles trouvailles à la suite.
+
+---
+
 ## 🔴 1. Flux « bout en bout » — Sénat papier « déjà droite » (×2 sur la même slide)
 
 **Ce qui est écrit** — deux fois sur la slide du flux :
