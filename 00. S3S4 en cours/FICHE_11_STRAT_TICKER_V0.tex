@@ -1,0 +1,236 @@
+% !TEX program = tectonic
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1.55cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\definecolor{bleu}{RGB}{20,77,144}
+\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}
+\definecolor{grisf}{RGB}{100,100,100}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+% étape = titre coloré numéroté
+\newcommand{\etape}[2]{\vspace{1.6mm}{\color{bleu}\large\bfseries É#1 --- #2}\vspace{0.3mm}\par}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Stratégie par ticker --- V0, le premier jet}\\[1mm]
+{\normalsize on ne copie plus des élus, on \textbf{note des titres} $\cdot$ tout est daté à la \textbf{divulgation} $\cdot$
+les étapes sont dans l'ordre où le code les exécutera}\\[0.5mm]
+{\small\color{grisf} notations de mes notes (Master / Ticker / Score / Poids) --- à complexifier ensuite (É8)}
+\end{center}
+
+\vspace{1mm}
+\begin{mdframed}[linecolor=grisf, backgroundcolor=grisf!6, linewidth=0.8pt, roundcorner=4pt]
+\textbf{Toute la stratégie tient en 5 constantes} --- fixées ici, avant de lancer ; \textbf{aucune n'est calibrée sur les données} :
+\vspace{1mm}
+\begin{center}
+\begin{tabular}{@{}r@{\;\;}l@{\qquad}l@{}}
+\textbf{É2} & $W = 126$ j & la fenêtre : on regarde les trades divulgués des \textbf{6 derniers mois} \\
+\textbf{É3} & $b_{\min} = 2$ & il faut \textbf{2 élus acheteurs} au moins pour retenir un titre \\
+\textbf{É4} & $w_{\max} = 10\,\%$ & aucune ligne ne pèse \textbf{plus de 10 \%} du portefeuille \\
+\textbf{É5} & $c = 10$ bps & le \textbf{coût} payé à chaque achat et à chaque vente \\
+\textbf{É5} & 1 fois/mois & la \textbf{fréquence} à laquelle on recompose le portefeuille \\
+\end{tabular}
+\end{center}
+\vspace{0.5mm}
+{\small S'y ajoutent les seuils d'\emph{hygiène} --- fixes eux aussi, et jamais ajustés : ceux de l'univers (É1) et de l'évaluation (É6--É7).}
+\end{mdframed}
+
+\etape{0}{L'objet de base, et ce qu'on a le droit de savoir}
+Chaque trade divulgué est un tuple (le \og Master \fg{} de mes notes, à l'identique) :
+\[
+x_k = \bigl(m_k,\; i_k,\; p_k,\; c_k,\; t_k^{tr},\; t_k^{disc},\; d_k,\; A_k\bigr)
+\]
+\begin{itemize}[itemsep=0pt, topsep=1pt, leftmargin=6mm]
+\item $m_k$ : élu $\cdot$ $i_k$ : ticker $\cdot$ $p_k$ : parti $\cdot$ $c_k$ : chambre --- \emph{en V0 on n'exploite ni $p_k$ ni $c_k$} ($p = All$ de mes notes) ;
+\item $t_k^{tr}$ : date de transaction $\cdot$ $t_k^{disc}$ : date de divulgation (médiane $t^{disc}-t^{tr} = 27$ j) ;
+\item $d_k \in \{+1, -1\}$ : achat / vente $\cdot$ $A_k$ : montant = milieu de la fourchette déclarée (\emph{midpoint}).
+\end{itemize}
+L'information publique à la date $t$ est l'ensemble des trades \textbf{déjà divulgués} :
+\[
+\mathcal{F}_t = \{k : t_k^{disc} \le t\}
+\qquad\text{\color{rouge}règle d'or : jamais $t_k^{tr}$ --- utiliser la date de transaction serait tricher (look-ahead).}
+\]
+Prix : $P_i(t)$ = close ajusté (dividendes, splits). Toute entrée s'exécute au \textbf{close du premier jour de bourse qui suit} la date où l'on sait.
+Convention unique : \textbf{toutes les durées sont en jours de bourse}, comptées sur le calendrier de bourse (126 j de bourse $\approx$ 6 mois).
+
+\etape{1}{L'univers tradable à la date $t$}
+On ne note que des titres qu'on peut \textbf{réellement acheter}. Soit $n(t)$ = l'indice de $t$ dans le calendrier de bourse :
+\[
+\mathcal{U}_t = \bigl\{\, i \;:\; \text{(a)} \;\wedge\; \text{(b)} \;\wedge\; \text{(c)} \;\wedge\; \text{(d)} \,\bigr\}
+\qquad
+\begin{array}{r@{\;\;}l@{\qquad}l}
+\text{(a)} & \text{asset\_class}(i) = \text{action} & \text{\small ni ETF, ni fonds} \\[0.4mm]
+\text{(b)} & \#\{u \le t : P_i(u) \text{ observé}\} \ge 126 & \text{\small assez d'historique} \\[0.4mm]
+\text{(c)} & \exists\, u \in [\,n(t){-}4,\; n(t)\,] : P_i(u) \text{ observé} & \text{\small le titre cote encore} \\[0.4mm]
+\text{(d)} & \mathrm{ADV}^{63}_{i,t} \ge 5 \cdot 10^{6}\,\$ & \text{\small assez liquide}
+\end{array}
+\]
+\textbf{(d) la liquidité} --- les dollars échangés dans la journée, puis la \emph{médiane} des 63 derniers jours :
+\[
+\mathrm{ADV}^{63}_{i,t} = \operatorname{med}\bigl\{\, \underbrace{P_i(u) \times V_i(u)}_{\text{les \$ échangés le jour } u} \;:\; u = t{-}62,\; \ldots,\; t \,\bigr\}
+\qquad\qquad
+\text{AAPL, } 01/04/2021 : \;123{,}00\,\$ \times 75{,}1\text{ M} = 9{,}2 \text{ Md\$}
+\]
+\begin{itemize}[itemsep=0pt, topsep=1pt, leftmargin=6mm]
+\item $P_i$ et $V_i$ \textbf{viennent du marché} (nos caches Yahoo), pas des divulgations : un PTR ne contient \emph{ni} prix \emph{ni} quantité --- seulement une fourchette. $V_i(u)$ = le volume de \textbf{tout le marché} ce jour-là ; les trades du Congrès sont une goutte dedans.
+\item \textbf{med} et non moy (AAPL, 30/06/2021) : med $10\,136$ $\cdot$ moy $10\,714$ $\cdot$ max $20\,169$ M\$/j --- la médiane décrit le jour \emph{typique}, la moyenne suit les pics.
+\item \textbf{(c) le titre cote encore} : notre cache de prix est \emph{prolongé} au dernier cours connu $\Rightarrow$ sans ce test, une société morte en 2019 \og{} cote \fg{} encore en 2026 : un cadavre à rendement $0$, risque $0$.
+\item \textbf{le seuil} : $5$ M\$/j $\times\; 10\,\% \;=\; \mathbf{500}$ \textbf{k\$ plaçables/jour} sans bouger le prix.
+\end{itemize}
+{\small\color{grisf} Détails de code, pas de stratégie : $P_i$ est ici le close ajusté des \emph{seuls} splits (\texttt{volume\_v1}), sur la même échelle que $V_i$ --- le close de \texttt{prices\_v2}, lui aussi ajusté des dividendes, sous-estimerait l'ADV d'AAPL 2012 de 16 \% ; et l'ADV n'est calculé que si $\ge 32$ des 63 jours ont vraiment coté.}
+
+\etape{2}{Le flux du Congrès par ticker, sur une fenêtre $W$}
+Trades \textbf{divulgués} portant sur le titre $i$ dans la fenêtre des $W = 126$ derniers jours de bourse
+{\small($W$ majuscule pour ne pas confondre avec les poids $w$ ; $126 = 252/2$, à mi-chemin de la grille $\{100, 252\}$ de mes notes)} :
+\[
+K_{i,t}(W) = \bigl\{ k \in \mathcal{F}_t : i_k = i,\;\; t - W \le t_k^{disc} \le t \bigr\}
+\]
+\[
+Buy_{i,t} = \!\!\sum_{k \in K_{i,t}(W)}\!\! A_k \,\mathbf{1}_{d_k = +1}
+\qquad
+Sell_{i,t} = \!\!\sum_{k \in K_{i,t}(W)}\!\! A_k \,\mathbf{1}_{d_k = -1}
+\qquad
+NetBuy_{i,t} = \bigl[\,Buy_{i,t} - Sell_{i,t}\,\bigr]^{+}
+\]
+\[
+nBuyers_{i,t} = \#\bigl\{\, m_k : k \in K_{i,t}(W),\; d_k = +1 \,\bigr\}
+\qquad \text{(nombre d'élus acheteurs \emph{distincts})}
+\]
+\emph{Pourquoi $W$ long (6 mois) : c'est ce qui fait tourner le portefeuille lentement --- donc peu de coûts (É5).}
+
+\etape{3}{La sélection --- le signal V0}
+Un titre est retenu si le Congrès l'achète \textbf{net}, et si l'achat est \textbf{corroboré par au moins deux élus} :
+\[
+S_t = \bigl\{\, i \in \mathcal{U}_t \;:\; NetBuy_{i,t} > 0 \;\;\text{et}\;\; nBuyers_{i,t} \ge b_{\min} = 2 \,\bigr\}
+\]
+C'est la version minimale de mon score $NetBuy \times Quality$ : de $Quality$, on ne garde en V0 que la brique
+\emph{multi-acheteurs} ($MB$), transformée en simple seuil entier --- rien à calibrer. Les autres briques ($Rec$, $LT$, $RS$, $OO$) et le score individuel $q_k$ attendent la V1 (É8).
+
+\etape{4}{Les poids}
+On met la \textbf{même somme sur chaque titre retenu}, sans jamais dépasser $w_{\max} = 10\,\%$ sur une ligne ;
+le solde éventuel reste en cash : $\mathrm{cash}_t = 1 - |S_t|\, w_{i,t}$.
+\[
+w_{i,t} = \min\!\Bigl(\frac{1}{|S_t|},\; w_{\max}\Bigr)
+=
+\begin{cases}
+\dfrac{1}{|S_t|} & \text{si } |S_t| \ge 10 \qquad \text{\small(le cas normal : le plafond ne mord pas)} \\[2mm]
+w_{\max} = 10\,\% & \text{si } |S_t| < 10 \qquad \text{\small(le signal s'est asséché : le reste va en cash)}
+\end{cases}
+\]
+\vspace{-4mm}
+\begin{center}
+\small
+\begin{tabular}{@{}r@{\qquad}r@{\qquad}r@{\qquad}r@{\qquad}l@{}}
+\toprule
+$|S_t|$ & $1/|S_t|$ & $w_{i,t}$ & $\mathrm{cash}_t$ & \\
+\midrule
+90 & 1,11 \% & \textbf{1,11 \%} & 0 & \small le cas courant ($\sim$90 titres sélectionnés) \\
+10 & 10,0 \% & \textbf{10,0 \%} & 0 & \small pile à la limite \\
+4 & 25,0 \% & \textbf{10,0 \%} & \textbf{60 \%} & \small le plafond mord \\
+0 & --- & --- & \textbf{100 \%} & \small aucun titre : $100\,\%$ cash jusqu'au mois suivant \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{-1mm}
+\textbf{Pourquoi \emph{sans} renormaliser}, contrairement à mes notes : en équipondéré, plafonner puis renormaliser \textbf{annule le plafond}. Si $1/|S_t| > w_{\max}$, alors tous les $w^{cap}_i = w_{\max}$, donc $\sum_j w^{cap}_j = |S_t| \cdot w_{\max}$, et $w_i = w_{\max} / (|S_t| \cdot w_{\max}) = 1/|S_t|$ : on est revenu au point de départ, cap violé. Le solde va donc en cash --- c'est le seul moyen que \og{} 10 \% maximum par ligne \fg{} veuille dire quelque chose. \emph{(La renormalisation retrouvera son sens en V1, quand les poids seront inégaux ($\propto Score$) : là, écrêter le gros redistribue vraiment vers les autres.)}
+
+\etape{5}{La construction du portefeuille --- des poids aux parts}
+C'est le \textbf{\S6 de ma note} \emph{Portefeuille des élus}, à une substitution près : la brique $k$ = un \textbf{membre}, de prix
+de part $\mathrm{NAV}_k(t)$ \emph{à reconstruire}, devient la brique $i$ = un \textbf{ticker}, de prix $P_i(t)$ \emph{déjà coté}. Même moteur, en plus simple.
+
+\textbf{1 $\cdot$ à la coupe $t_R$} (dernier jour du mois) --- les poids deviennent des \textbf{parts}, achetées au close du jour suivant $t_R{+}1$
+et au prix de ce jour-là ; \textbf{autofinancé} : on ne fait que réallouer la valeur qu'on a déjà, $V(t_R{+}1)$ --- elle ne change pas dans l'opération :
+\[
+\mathrm{nbr}_i = \frac{V(t_R{+}1)\; w_{i,t_R}}{P_i(t_R{+}1)}
+\qquad\qquad
+C = V(t_R{+}1)\,\mathrm{cash}_{t_R} \quad \text{\small(la poche cash, rapporte $0$)}
+\]
+
+\textbf{2 $\cdot$ entre deux coupes --- on ne touche à rien} (buy-and-hold : $\mathrm{nbr}_i$ et $C$ constants) :
+\[
+V(t) = \sum_{i \in S_{t_R}} \mathrm{nbr}_i\, P_i(t) \;+\; C
+\qquad\qquad
+r_t = \frac{V(t)}{V(t-1)} - 1 \;=\; \sum_i w_i(t{-}1)\, r_i(t)
+\]
+
+\textbf{3 $\cdot$ les poids dérivent seuls} --- personne ne les touche, ce sont les prix qui bougent :
+\[
+w_i(t) = \frac{\mathrm{nbr}_i\, P_i(t)}{V(t)} \;=\; w_i(t{-}1)\;\frac{1 + r_i(t)}{1 + r_t}
+\qquad \text{\small un titre qui monte plus que le portefeuille voit son poids grossir}
+\]
+
+\textbf{4 $\cdot$ à la coupe suivante --- le turnover est l'écart entre où l'on est et où l'on veut être} :
+\[
+\mathrm{TO}_{t_R} = \sum_i \bigl|\; \underbrace{w^{\text{cible}}_{i,t_R}}_{\text{É4}} \;-\; \underbrace{w_i(t_R^-)}_{\text{la dérive}} \;\bigr|
+\qquad
+r^{net}_t = (1 + r_t)\,\bigl(1 - c\, \mathrm{TO}_t\bigr) - 1
+\qquad
+\mathrm{NAV}_t = \prod_{s \le t} \bigl(1 + r^{net}_s\bigr)
+\]
+$\mathrm{TO}$ compte les \textbf{deux jambes} (ce qu'on vend $+$ ce qu'on achète) $\cdot$ $\mathrm{TO}_t = 0$ hors coupe $\cdot$ à la toute première, $w(t_R^-) = 0 \Rightarrow \mathrm{TO} = 1$ $\cdot$
+un titre sorti de la cote est vendu à son dernier prix coté.
+
+\vspace{0.5mm}
+\begin{mdframed}[linecolor=rouge, backgroundcolor=rouge!5, linewidth=0.7pt, roundcorner=3pt]
+\small\textbf{L'écueil de ma note, mot pour mot} --- écrire $r_t = \sum_i w_i\, r_i(t)$ à poids \textbf{figés} revient à rebalancer
+\emph{chaque jour} : c'est faux. \emph{(A $+100\,\%$ puis $0\,\%$ ; B $0\,\%$ puis $+20\,\%$ : la moyenne figée dit $+10\,\%$ ;
+la vraie valeur est $\tfrac{160}{150} - 1 = 6{,}67\,\%$, car les poids ont dérivé à $\tfrac23 / \tfrac13$.)}
+D'où le passage \textbf{par les parts} : $\mathrm{nbr}_i$ est constant entre deux coupes, et la dérive se fait toute seule.
+\end{mdframed}
+
+\etape{6}{Le juge : l'alpha, contre deux références}
+Régression des rendements quotidiens nets (CAPM, puis Carhart-4 en contrôle), $t$ de Newey--West :
+\[
+r^{net}_t - r^f_t = \alpha + \beta\,\bigl(r^{MKT}_t - r^f_t\bigr) + \varepsilon_t
+\qquad\qquad \alpha_{\text{ann}} = 252\,\hat{\alpha}
+\]
+($r^{MKT}$ = rendement du marché, $r^f$ = taux sans risque --- les facteurs Fama-French du cache, où le
+marché est déjà en excès ; $t$ de Newey--West à 21 retards, sur la période complète.)
+Et l'excès mesuré contre \textbf{deux} références : le SPY, \emph{et} le panier sectoriel qui réplique les poids du
+portefeuille ($\omega_{s,t} = \sum_{i \in s} w_{i,t}$ investis dans l'ETF du secteur $s$) --- car un mauvais
+benchmark peut fabriquer un faux alpha. Le tout coupé en deux sous-périodes : 2014--2019 et 2020--2026.
+
+\etape{7}{Le verdict --- écrit avant de lancer}
+\[
+\textbf{GO} \iff
+t(\hat{\alpha}) \ge 2{,}0
+\;\;\wedge\;\;
+\alpha^{net}_{\text{ann}} > 0 \text{ sur \emph{chacune} des deux sous-périodes}
+\;\;\wedge\;\;
+\text{placebo mort}
+\]
+\og Placebo mort \fg{} : rejouer la stratégie avec des dates de divulgation \textbf{décalées de $+126$ j} de bourse,
+et constater que l'alpha \textbf{disparaît} --- s'il survit au décalage, ce n'était pas de l'information, c'était du
+style, et le GO est refusé. Si l'une des trois conditions manque : \textbf{no-go}, et c'est une conclusion
+(pas un échec --- on saura que le consensus simple ne suffit pas).
+
+\etape{8}{Ce que la V1 ajoutera --- plus tard, une brique à la fois}
+\begin{itemize}[itemsep=0pt, topsep=1pt, leftmargin=6mm]
+\item le reste de $Quality$ : récurrence $Rec$, taille relative $LT$, malus ventes récentes $RS$, malus one-off $OO$ ;
+\item la qualité politique $q_k$ : comité $\times$ secteur du titre, leadership, puis lobbying/PAC ;
+\item la jambe courte (ventes corroborées) $\to$ long-short ; la couverture sectorielle ($\beta$-neutre) ;
+\item le netting long 3 ans (style NANC/GOP) ; la décroissance $e^{-\lambda(t - t_k^{disc})}$ (demi-vie du signal).
+\end{itemize}
+
+\vspace{0.5mm}
+\begin{mdframed}[linecolor=grisf, backgroundcolor=grisf!6, linewidth=0.8pt, roundcorner=4pt, nobreak=true]
+\small\textbf{Pourquoi pas simplement \og copier tous les achats \fg{} ?} Déjà testé (notebook 08, pré-enregistré) :
+mort --- $\alpha$ net $-0{,}77\,\%$/an, tué par le turnover ($16{,}5\times$/an) et la dilution, alors que le drift existe
+bien à l'événement ($+49$ bps à 21 j, $t\,2{,}2$). Le V0 s'en distingue par trois choix, un par cause de décès :
+\textbf{la corroboration} $nBuyers \ge 2$ (on ne garde que la queue informative), \textbf{la fenêtre longue} $W = 126$ j
+(turnover $\sim 3\times$ au lieu de $16{,}5\times$), \textbf{l'équipondération sur la sélection} (pas de pari mégacap).
+\end{mdframed}
+
+\end{document}

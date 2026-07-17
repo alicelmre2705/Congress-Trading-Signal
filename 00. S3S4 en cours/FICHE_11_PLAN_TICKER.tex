@@ -1,0 +1,158 @@
+% !TEX program = tectonic
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage[margin=0.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\definecolor{bleu}{RGB}{20,77,144}
+\definecolor{vert}{RGB}{20,110,60}
+\definecolor{orange}{RGB}{196,123,0}
+\definecolor{rouge}{RGB}{160,30,30}
+\definecolor{grisf}{RGB}{100,100,100}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+% ══════════════════════════ PAGE 1 — LE FLUX ══════════════════════════
+\begin{center}
+{\LARGE\bfseries La stratégie par ticker --- la chronologie, étape par étape}\\[0.5mm]
+{\small on ne copie plus des élus, on note des \textbf{titres} $\cdot$ tout est daté à la \textbf{divulgation} $\delta$ (close J+1), jamais à la transaction $\tau$ $\cdot$
+notebook \textbf{11 indépendant} : briques du 08/09 recopiées et re-prouvées dedans $\cdot$ House$+$Sénat (splits en diagnostic)}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm,
+  b/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                   text width=#2, align=center, inner sep=6pt, font=\small},
+  bl/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                    text width=#2, align=left, inner sep=7pt, font=\small},
+  fl/.style={-{Stealth[length=3mm]}, very thick, draw=grisf},
+  lab/.style={font=\scriptsize\itshape, text=grisf, fill=white, inner sep=1pt}]
+
+% ── rangée 1 : socle → cadrage → panel ──
+\node[bl={grisf}{7.9cm}] (socle) at (4.6, 15.9)
+  {\textbf{É1 --- le socle, re-ancré sur $\delta$}\\[0.6mm]
+   {\scriptsize table clean \textbf{134\,464} trades ($\delta$ = date de divulgation, lag médian 27 j) $\cdot$ prix \texttt{prices\_v2} (verrouillé) $+$ volumes (ADV\,\$) $+$ facteurs Carhart\\[0.4mm]
+   $\triangle$ les excès 21/63 j de la table 09 sont ancrés sur $\tau$ $\to$ \textbf{tout est recalculé ancré sur $\delta$}\\[0.4mm]
+   \textbf{gate G0 données} : $\beta_{\mathrm{SPY}}\!\approx\!1$, $R^2\!\ge\!0{,}98$, couverture prix $\ge$85\,\% du flux --- sinon STOP}};
+
+\node[bl={bleu}{8.2cm}] (cadrage) at (13.6, 15.9)
+  {\textbf{É2 --- le cadrage : les deux pertes du 08}\\[0.6mm]
+   {\scriptsize à l'événement le drift existe : \textbf{$+$49 bps} ($t\,2{,}22$, VW 21 j)\\
+   $\to$ portefeuille \textbf{brut} $+$0{,}90\,\%/an \hfill \emph{perte 1 : dilution}\\
+   $\to$ portefeuille \textbf{net} $-$0{,}77\,\%/an \hfill \emph{perte 2 : coûts (turnover 16,5$\times$)}\\[0.4mm]
+   le 11 attaque les deux : \textbf{sélectionner la queue corroborée} (relève le brut) $\cdot$ \textbf{horizon long $+$ couverture} (écrase turnover et $\sigma$)}};
+
+\node[bl={bleu}{8.2cm}] (panel) at (22.5, 15.9)
+  {\textbf{É3 --- le panel ticker$\times$mois divulgué}\\[0.6mm]
+   {\scriptsize à chaque fin de mois $R$, par ticker, sur 63 j \textbf{divulgués} :\\
+   $b$ = \# acheteurs distincts $\cdot$ $jur$ = comité$\to$secteur (matrice du 08) $\cdot$ $rec$ = récurrence ($\ge$2 mois) $\cdot$ conjoint, leader, ADV\\[0.4mm]
+   comptages seuls (aucun rendement) : \textbf{90} tickers $b\!\ge\!2$ au 30/06/2021 $\cdot$ anti-fuite prouvée ($R\!\to\!R{+}1$ ne change pas le passé)}};
+
+\draw[fl] (socle) -- (cadrage);
+\draw[fl] (cadrage) -- (panel);
+
+% ── rangée 2 : LE GEL ──
+\node[bl={vert}{25.9cm}] (gel) at (13.5, 12.35)
+  {\textbf{É4 --- le gel : pré-enregistrement, AVANT tout rendement de stratégie} --- point d'arrêt = \textbf{validation Alice} (\texttt{CHEF\_A\_VALIDE=False} $\Rightarrow$ rien ne tourne)\\[0.4mm]
+   {\scriptsize on fige : \textbf{S0} (le test primaire unique) $\cdot$ l'échelle de runs R$_A\!\to$R$_D$ $\cdot$ la grille fermée \textbf{N\,=\,12} $\cdot$ les gates chiffrés $\cdot$ la MDE ex ante $\cdot$ les seeds des placebos $\cdot$ le compteur d'essais du projet (172 passés $+$ 12 $=$ 184, pour le Deflated Sharpe)}};
+\draw[fl] (panel.south) to[out=-90, in=45] (gel.north east);
+
+% ── rangée 3 : R0 event-study + échelle d'ablation ──
+\node[bl={orange}{10.6cm}] (r0) at (5.9, 9.35)
+  {\textbf{É5 --- R0 : le plafond (event-study à $\delta$, descriptif)}\\[0.6mm]
+   {\scriptsize CAAR à $H\!\in\!\{21,63,126,252\}$ j par strate de corroboration ($b{=}1$ / $b\!\ge\!2$ / $b\!\ge\!2\wedge(jur\vee rec)$)\\[0.4mm]
+   \textbf{3 benchmarks} : SPY $\cdot$ composite sectoriel $\cdot$ \textbf{paires taille$\times$secteur} (anti-mégacap)\\[0.4mm]
+   gate G-R0 : si $t(\mathrm{CAAR})<2$ partout $\to$ branche capture fermée, borne TOST}};
+
+\node[bl={orange}{13.9cm}] (echelle) at (19.7, 9.35)
+  {\textbf{É6 --- l'échelle d'ablation : chaque run isole UN levier} {\scriptsize(descriptif, budget de multiplicité $=0$ ; gabarit \og runs A/B/C/D \fg{} du notebook 10)}\\[0.6mm]
+   {\scriptsize \textbf{R$_A$} réplique du 08 (NetBuy$^+$ VW 63 j, sans coûts) --- \emph{le contrôle}\\
+   \textbf{R$_B$} $=$ R$_A$ $+$ \textbf{sélection corroborée} $b\!\ge\!2 \wedge (jur \vee rec)$, équipondérée cap 10\,\% \hfill \emph{levier brut}\\
+   \textbf{R$_C$} $=$ R$_B$ $+$ \textbf{horizon 126 j} \hfill \emph{levier turnover --- gate : $\le$4$\times$/an}\\
+   \textbf{R$_D$} $=$ R$_C$ $+$ \textbf{jambe courte = composite sectoriel} ($\beta$/secteur-neutre) \hfill \emph{levier $\sigma$ --- gate : $\le$1,5\,\%/mois, sinon verdict en TOST}\\[0.3mm]
+   $\to$ figure \textbf{cascade} (waterfall) : on voit quel levier tue ou sauve la conversion --- \textbf{zoom page 2}}};
+
+\draw[fl] (gel.south -| r0.north) -- (r0.north);
+\draw[fl] (gel.south -| echelle.north) -- (echelle.north);
+\draw[fl] (r0) -- (echelle);
+
+% ── rangée 4 : S0 → grille → verdict ──
+\node[bl={rouge}{9.0cm}] (szero) at (5.1, 5.5)
+  {\textbf{É7 --- S0 : le test primaire} {\scriptsize$=$ R$_D$ $+$ coûts 10 bps/jambe}\\[0.5mm]
+   {\scriptsize $S(R)=\{i : b\!\ge\!2 \wedge (jur \vee rec)\}$, $w=\tfrac{1}{|S|}$ cap 10\,\%, long $S$ / short sectoriel, hold 126 j\\[0.4mm]
+   $\alpha$ Carhart-4 (Newey-West), 2 ères, 2 benchmarks $\cdot$ $\sigma$ regardée \textbf{avant} $\alpha$\\[0.4mm]
+   \textbf{GO ssi} $t\!\ge\!2{,}0$ $\wedge$ $\alpha^{net}\!\ge\!150$ bps/an $\wedge$ signe$>$0 sur les 2 ères $\wedge$ IR sectoriel $\ge$0,3}};
+
+\node[bl={rouge}{6.7cm}] (grille) at (13.55, 5.5)
+  {\textbf{É8 --- la grille fermée N\,=\,12}\\[0.5mm]
+   {\scriptsize 12 cellules pré-déclarées, une question chacune (\textbf{liste : page 2})\\[0.4mm]
+   secondaire revendicable à $t\!\ge\!3{,}0$ seulement\\ ($\mathbb{E}[\max t \mid H_0, 12]\approx 1{,}66$)}};
+
+\node[bl={rouge}{8.5cm}] (verdict) at (22.35, 5.5)
+  {\textbf{É9 --- falsifications \& verdict mécanique}\\[0.5mm]
+   {\scriptsize placebos B$=$1000 : dates $\cdot$ tickers (intra secteur$\times$mois$\times$tercile ADV) $\cdot$ montants $\cdot$ \textbf{drop-one-member} (McClain !) et drop-one-comité\\[0.4mm]
+   coûts 0$\to$40 bps : \textbf{break-even exigé $\ge$20 bps} (le 08 mourait à 5) $\cdot$ capacité $\ge$100 M\$ $\cdot$ DSR (N$=$184)\\[0.4mm]
+   branche fermée $\Rightarrow$ \textbf{borne TOST} : un nul = une exclusion chiffrée}};
+
+\draw[fl] (echelle.south -| szero.north) -- (szero.north);
+\draw[fl] (szero) -- (grille);
+\draw[fl] (grille) -- (verdict);
+
+% ── garde-fous ──
+\node[b={grisf}{25.9cm}] (garde) at (13.5, 2.9)
+  {\textbf{garde-fous} : jamais $\tau$, toujours $\delta$ close J$+$1 $\cdot$ \texttt{prices\_v2} jamais modifié $\cdot$ chaque brique re-validée (recalcul à la main, 2\ieme{} méthode, recoupements de sommes) $\cdot$
+   aperçu de chaque table $\cdot$ grille fermée au gel, \textbf{zéro paramètre continu ajusté} (chaque $\lambda$ libre $=$ un essai de plus au DSR) $\cdot$ achats et ventes séparés $\cdot$ délistés gérés};
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+% ══════════════════════════ PAGE 2 — LES ZOOMS ══════════════════════════
+\begin{center}
+{\Large\bfseries Les trois zooms --- le signal, la cascade, le verdict}
+\end{center}
+\vspace{-1mm}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm,
+  bl/.style 2 args={rectangle, rounded corners=3pt, draw=#1, fill=#1!8, thick,
+                    text width=#2, align=left, inner sep=8pt, font=\small}]
+
+% ── ZOOM 1 : le signal bout en bout ──
+\node[bl={vert}{25.8cm}] (z1) at (13.4, 13.4)
+  {\textbf{ZOOM 1 --- le signal, bout en bout sur un exemple réel (au 30/06/2021)}\\[1.2mm]
+   \textcolor{vert}{\textbf{1 $\cdot$ compter la corroboration.}} Sur les 63 jours de bourse précédents, les achats \textbf{divulgués} de MSFT viennent de $b = \textbf{11}$ membres distincts ($b\!\ge\!2$ \checkmark) ; l'un d'eux siège à un comité dont la juridiction couvre l'Information Technology $\Rightarrow jur = 1$ $\Rightarrow$ \textbf{MSFT est sélectionné}. Ce mois-là, la queue corroborée compte \textbf{90} tickers à $b\!\ge\!2$ (45 à $b\!\ge\!3$, 6 à $b\!\ge\!5$) sur 349 tickers achetés.\\[1mm]
+   \textcolor{bleu}{\textbf{2 $\cdot$ construire la position.}} Poids $w_i = 1/|S(R)|$, cap 10\,\% itératif $\cdot$ entrée au close \textbf{J$+$1 de la divulgation} $\cdot$ \textbf{couverture} : vendre le panier sectoriel au prorata des poids ($\omega_{s} = \sum_{i \in s} w_i$ : si 30\,\% du panier est en IT, on est short 30\,\% de XLK) $\cdot$ \textbf{tenir 126 j} $\cdot$ rendement net $r^{net} = (1{+}r)(1 - c \cdot TO) - 1$, $c = 10$ bps/jambe.\\[1mm]
+   \textcolor{grisf}{\textbf{3 $\cdot$ les définitions, une ligne chacune.}}
+   $b_{i,R}$ = \# membres distincts ayant un \textbf{achat divulgué} de $i$ dans $(R{-}63\,\mathrm{j};R]$ $\cdot$
+   $jur_{i,R} = \mathbf{1}[\exists$ acheteur dont un comité a juridiction sur le secteur GICS de $i]$ $\cdot$
+   $rec_{i,R} = \mathbf{1}[\exists$ membre acheteur de $i$ sur $\ge$2 mois distincts dans 126 j$]$ $\cdot$
+   la corroboration est un \textbf{compte entier sans paramètre} ($b\!\ge\!2$, $jur\!\in\!\{0,1\}$, $rec\!\in\!\{0,1\}$) : rien à calibrer, rien à sur-ajuster --- le \og consensus \fg{} devient un fait à tester, pas un a priori.};
+
+% ── ZOOM 2 : cascade & puissance ──
+\node[bl={bleu}{25.8cm}] (z2) at (13.4, 8.5)
+  {\textbf{ZOOM 2 --- la cascade de conversion, et ce qu'on peut détecter (MDE)}\\[1.2mm]
+   \textbf{la cascade} (une barre par run, figure centrale du notebook) :\quad
+   $\underbrace{+49\ \mathrm{bps/évt}}_{\text{événement (08)}} \;\to\; \underbrace{\text{dilution}}_{\text{R}_A\ \text{réplique 08}} \;\to\; \underbrace{+\,\text{sélection corroborée ?}}_{\text{R}_B\ \emph{la question}} \;\to\; \underbrace{\text{turnover } 16{,}5\times \to \sim3\times}_{\text{R}_C\ \text{horizon 126 j}} \;\to\; \underbrace{\sigma \searrow \Rightarrow t \nearrow}_{\text{R}_D\ \text{couverture}} \;\to\; \underbrace{-\,\text{coûts}}_{\text{S0 net}}$\\[1.2mm]
+   \textbf{la puissance, chiffrée d'avance} (n $=$ 140 mois ; $\mathrm{MDE}_{80\,\%} = 2{,}8\,\sigma/\sqrt{n}$) :\quad
+   $\sigma = 1{,}5\,\%/\mathrm{mois} \Rightarrow$ MDE $= \textbf{35 bps/mois}$ \quad$\cdot$\quad $\sigma = 2{,}0\,\% \Rightarrow 47$ bps \quad$\cdot$\quad $\sigma = 2{,}5\,\% \Rightarrow 59$ bps\\[0.8mm]
+   \textbf{lecture} : un effet à la Lazzaretto ($\sim$200 bps/mois) est détectable à $\sim$100\,\% quoi qu'il arrive ; un effet à la Pyun ($\sim$30 bps/mois) n'est détectable \textbf{que si} la couverture fait tomber $\sigma$ sous $\sim$1,5\,\% $\Rightarrow$ \textbf{réduire $\sigma$ EST la variable de décision}, pas un raffinement. Si $\sigma$ reste au-dessus (gate G-$\sigma$), le verdict primaire se rend en \textbf{borne TOST} : \og tout effet $> $ MDE est exclu \fg{} --- un nul devient une exclusion chiffrée, jamais une absence de réponse.};
+
+% ── ZOOM 3 : lire le tableau final ──
+\node[bl={rouge}{25.8cm}] (z3) at (13.4, 3.9)
+  {\textbf{ZOOM 3 --- lire le tableau final (la grille N\,=\,12) : la décision se lit, elle ne se discute pas}\\[1.2mm]
+   \textbf{les 12 cellules} (une question chacune) : \textbf{S0} $\cdot$ breadth seul ($b\!\ge\!2$) $\cdot$ juridiction seule $\cdot$ récurrence seule $\cdot$ $b\!\ge\!3$ (dose-réponse) $\cdot$ $H{=}63$ j (réabsorption Lazzaretto) $\cdot$ $H{=}252$ j (plateau Pyun) $\cdot$ long-only sans couverture $\cdot$ $w \propto$ \$-comité (conviction, Abdurakhmonov) $\cdot$ netting 3 ans (style NANC) $\cdot$ short des ventes corroborées ($b_{sell}\!\ge\!2$, secteur-neutre) $\cdot$ owner $=$ conjoint (soupçon 05b, $p{=}0{,}063$).\\[1mm]
+   \textbf{les colonnes} : $\alpha$ net vs SPY ($t$) $\mid$ $\alpha$ net vs sectoriel ($t$) $\mid$ break-even (bps) $\mid$ placebos P1/P2/P4 $\mid$ drop-one $\mid$ ère 2014-19 / ère 2020-26. La ligne S0 est encadrée.\\[1mm]
+   \textbf{les seuils, rappelés} : primaire GO à $t\!\ge\!2{,}0$ \textbf{et} $\alpha^{net}\!\ge\!150$ bps/an (plancher $\approx$ frais NANC $+$ glissements non modélisés) $\cdot$ secondaire revendicable à $t\!\ge\!3{,}0$ ($\mathbb{E}[\max t\,|\,12] \approx 1{,}66$) $\cdot$ découverte à l'échelle du projet : $t > 3$ ($\mathbb{E}[\max t\,|\,184\ \text{essais}] \approx 2{,}7$) $\cdot$ chaque branche fermée expédie sa borne TOST.};
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}
