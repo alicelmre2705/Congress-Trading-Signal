@@ -2,8 +2,12 @@
 % Slides V2 « La couche données » — construit d'après PLAN_SLIDES_DONNEES.tex
 % (une idée par slide, plan annoncé, chronologie, chiffres légendés, choix explicites, public neuf).
 % RESTRUCTURATION 2026-07-17 (demande d'Alice) : « Donnée brute » et « Pipeline » FUSIONNÉES
-% en PARTIE I — vision globale d'abord (I.0), puis 9 étapes numérotées, Chambre et Sénat
+% en PARTIE I — vision globale d'abord (I.0), puis 8 étapes numérotées, Chambre et Sénat
 % traités ensemble à chaque étape (côte à côte quand ils diffèrent).
+% FUSION 2026-07-17 (demande d'Alice) : Acquisition et Tri ne font plus qu'UNE étape (I.1),
+% et l'on suit la Chambre EN ENTIER (I.1a acquisition → I.1b tri) avant le Sénat EN ENTIER
+% (I.1c → I.1d) — l'alternance précédente « coupait la réflexion ». Tout l'aval a décalé
+% d'un cran (ex-I.3 Extraction → I.2 … ex-I.9 Table → I.8) : 9 étapes → 8.
 % Vérification = PARTIE II (univers · autres types · cohérence · Quiver · autres preuves).
 % Périmètre : les DONNÉES seulement. Backtest et tables : hors périmètre.
 % L'ancien deck SLIDES_DONNEES_S1S2.tex n'est PAS modifié.
@@ -111,19 +115,26 @@
   {\color{helec}\bfseries #1}\; & \textbf{#2} & {\scriptsize\color{black!60} #3}\\[0.6mm]}
 
 % ── LE PIPELINE, dessin unique réutilisé ──
-% \pipefig{k} : k = 0 → tout allumé (vue d'ensemble) ; k = 1..9 → seule l'étape k est
+% \pipefig{k} : k = 0 → tout allumé (vue d'ensemble) ; k = 1..8 → seule l'étape k est
 % allumée, le reste est estompé (repère « vous êtes ici »). Même dessin à chaque fois :
-% seul le curseur bouge. Les 9 bandes = les 9 étapes de la Partie I.
+% seul le curseur bouge. La Partie I compte 8 étapes.
+% ⚠ Les lettres \opA..\opJ nomment les BANDES du dessin, PAS les étapes — depuis la
+% fusion Acquisition+Tri (2026-07-17), l'étape I.1 en allume deux. Correspondance :
+%   étape 1 = \opA acquisition + \opB tri        étape 5 = \opF secteur  + \opJ
+%   étape 2 = \opC extraction                    étape 6 = \opG dédup    + \opJ
+%   étape 3 = \opD identité                      étape 7 = \opH entonnoir (+ prix)
+%   étape 4 = \opE ticker                        étape 8 = \opI table de recherche
+%   \opJ = la TABLE DU CORPUS (la frontière de sortie du pipeline), allumée en 5 et 6.
 \newcommand{\pipefig}[1]{%
   \def\opA{0.16}\def\opB{0.16}\def\opC{0.16}\def\opD{0.16}\def\opE{0.16}%
   \def\opF{0.16}\def\opG{0.16}\def\opH{0.16}\def\opI{0.16}\def\opJ{0.16}%
   \ifnum#1=0 \def\opA{1}\def\opB{1}\def\opC{1}\def\opD{1}\def\opE{1}%
              \def\opF{1}\def\opG{1}\def\opH{1}\def\opI{1}\def\opJ{1}\fi
-  \ifnum#1=1 \def\opA{1}\fi  \ifnum#1=2 \def\opB{1}\fi  \ifnum#1=3 \def\opC{1}\fi
-  \ifnum#1=4 \def\opD{1}\fi  \ifnum#1=5 \def\opE{1}\fi
-  \ifnum#1=6 \def\opF{1}\def\opJ{1}\fi
-  \ifnum#1=7 \def\opG{1}\def\opJ{1}\fi
-  \ifnum#1=8 \def\opH{1}\fi  \ifnum#1=9 \def\opI{1}\fi
+  \ifnum#1=1 \def\opA{1}\def\opB{1}\fi
+  \ifnum#1=2 \def\opC{1}\fi  \ifnum#1=3 \def\opD{1}\fi  \ifnum#1=4 \def\opE{1}\fi
+  \ifnum#1=5 \def\opF{1}\def\opJ{1}\fi
+  \ifnum#1=6 \def\opG{1}\def\opJ{1}\fi
+  \ifnum#1=7 \def\opH{1}\fi  \ifnum#1=8 \def\opI{1}\fi
   \begin{tikzpicture}[node distance=3mm, every node/.style={transform shape}]
     % ---------- I.1 · Acquisition ----------
     \begin{scope}[opacity=\opA, text opacity=\opA]
@@ -131,9 +142,12 @@
         {\textbf{\color{helec}Chambre} --- \emph{House Clerk} : index annuel → PDF};
       \node[step=selec, text width=5.6cm] (acqS) at (3.6,0)
         {\textbf{\color{selec}Sénat} --- \emph{eFD} : recherche → liste des dépôts};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,0) {I.1 Acquisition};
+      % une seule étiquette pour l'étape I.1 : elle couvre l'acquisition ET le tri,
+      % d'où sa position entre les deux rangées.
+      \node[font=\tiny\bfseries, text=helec!80, align=left] at (-7.9,-0.62)
+        {I.1 Acquisition\\\& Tri};
     \end{scope}
-    % ---------- I.2 · Tri ----------
+    % ---------- I.1 · Tri (même étape que l'acquisition : \opA et \opB s'allument ensemble)
     \begin{scope}[opacity=\opB, text opacity=\opB]
       \node[step=helec, text width=2.6cm] (hpdf) at (-5.3,-1.35) {\textbf{PDF lisible}\\texte};
       \node[step=hocr, text width=2.6cm] (hscan) at (-1.9,-1.35) {\textbf{PDF scanné}\\image};
@@ -141,9 +155,8 @@
       \node[step=socr, text width=2.6cm] (sgif) at (5.3,-1.35) {\textbf{papier scanné}\\image};
       \node[step=alertred, text width=2.6cm, font=\tiny] (hC) at (-1.9,-2.4)
         {\textbf{manuscrit} → écarté};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-1.35) {I.2 Tri};
     \end{scope}
-    % ---------- I.3 · Extraction ---------- (chiffres BRUTS, avant dédup : leur somme = 170 920)
+    % ---------- I.2 · Extraction ---------- (chiffres BRUTS, avant dédup : leur somme = 170 920)
     \begin{scope}[opacity=\opC, text opacity=\opC]
       \node[step=helec, text width=2.6cm] (hpar) at (-5.3,-2.85)
         {\textbf{parsing}\\[0.3mm]{\small\textbf{\color{helec}58\,756}}};
@@ -156,26 +169,26 @@
       \node[font=\tiny, text=black!55, align=center] at (-1.9,-4.3)
         {chaque ligne extraite porte déjà ses \textbf{7 champs} et son \textbf{montant}
          (\emph{milieu de la fourchette déclarée})};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-3.1) {I.3 Extraction};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-3.1) {I.2 Extraction};
     \end{scope}
-    % ---------- I.4 à I.7 · le tronc commun ----------
+    % ---------- I.3 à I.6 · le tronc commun ----------
     \begin{scope}[opacity=\opD, text opacity=\opD]
       \node[bande=grisC, text width=12.6cm] (ident) at (0,-4.95)
         {\textbf{identité} --- nom libre → identifiant officiel de l'élu \;·\; \textbf{100\,\%}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-4.95) {I.4 Identité};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-4.95) {I.3 Identité};
     \end{scope}
     \begin{scope}[opacity=\opE, text opacity=\opE]
       \node[bande=dataC, text width=12.6cm] (tick) at (0,-5.75)
         {\textbf{ticker} --- le nom de l'actif → son symbole boursier \;·\;
          \textbf{82,4\,\%} Ch.\ · \textbf{77,9\,\%} Sén.};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-5.75) {I.5 Ticker};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-5.75) {I.4 Ticker};
     \end{scope}
     \begin{scope}[opacity=\opF, text opacity=\opF]
       \node[bande=dataC, text width=12.6cm] (sect) at (0,-6.55)
         {\textbf{secteur} --- GICS → ETF \;·\; \textbf{79,8\,\%} Ch.\ · \textbf{70,4\,\%} Sén.};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-6.55) {I.6 Secteur};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-6.55) {I.5 Secteur};
     \end{scope}
-    % ---------- la sortie du pipeline (visible en I.0, I.6 et I.7 : c'est la frontière)
+    % ---------- la sortie du pipeline (visible en I.0, I.5 et I.6 : c'est la frontière)
     \begin{scope}[opacity=\opJ, text opacity=\opJ]
       \node[bande=dataC, fill=dataC!16, text width=12.6cm] (corp) at (0,-7.35)
         {\textbf{TABLE DU CORPUS} --- \textbf{170\,920 lignes × 28 colonnes}
@@ -193,27 +206,36 @@
         {\textbf{dédup \& réparations} --- l'empreinte à 7 champs : \textbf{−1\,920}
          re-divulgations \;·\; 7\,996 montants rétablis, 2\,540 tickers récupérés
          (→ \textbf{84,1\,\%}) \;·\; \textbf{169\,000 uniques}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-8.65) {I.7 Dédup};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-8.65) {I.6 Dédup};
     \end{scope}
-    % ---------- I.8 · Entonnoir ---------- (DEUX entonnoirs, DEUX axes : lignes, puis symboles)
-    % Le 2e (les symboles) est une DÉRIVATION : il ne retire aucune ligne de la table —
-    % les lignes sans prix restent, flaguées. D'où : pas de flèche vers I.9, bord pointillé.
+    % ---------- I.7 · Entonnoir ---------- (les LIGNES : le seul entonnoir qui touche la table)
     \begin{scope}[opacity=\opH, text opacity=\opH]
       \node[bande=okgreen, text width=12.6cm] (ent) at (0,-9.45)
         {\textbf{entonnoir des LIGNES} --- on ne retire que l'avéré inutilisable :
          \textbf{−34\,536}};
-      \node[bande=dataC, dashed, text width=11.0cm, anchor=north] (sym) at (0.8,-10.35)
-        {\textbf{entonnoir des SYMBOLES} --- 4\,618 → 3\,350 (Yahoo) →
-         \textbf{3\,289} exploitables\\[0.3mm]
-         {\tiny → \textbf{118\,029} lignes valorisables (≈\,88\,\% de 134\,429) \;·\;
-          \mbox{\textbf{aucune ligne retirée}} : les autres restent, flaguées}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-9.45) {I.8 Entonnoir};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-9.45) {I.7 Entonnoir};
     \end{scope}
-    % ---------- I.9 · Table finale ----------
+    % ---------- I.8 · Table finale ---------- (LE LIVRABLE : le pipeline S1/S2 s'arrête ici)
     \begin{scope}[opacity=\opI, text opacity=\opI]
-      \node[bande=okgreen, fill=okgreen!16, text width=12.6cm] (fin) at (0,-11.7)
-        {\textbf{TABLE DE RECHERCHE} --- \textbf{134\,464 × 36}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-11.7) {I.9 Table};
+      \node[bande=okgreen, fill=okgreen!16, text width=12.6cm] (fin) at (0,-10.3)
+        {\textbf{TABLE DE RECHERCHE} --- \textbf{134\,464 × 36}
+         \;{\tiny(le livrable --- aucune colonne de prix)}};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-10.3) {I.8 Table};
+    \end{scope}
+    % ---------- côté recherche : le 2e entonnoir, APRÈS la livraison ----------
+    % Source : FICHE_NETTOYAGE_BACKTEST_V2 §« L'entonnoir des tickers » — « du symbole au prix
+    % (côté recherche, notebooks 05/06) ». Il ne retire AUCUNE ligne : les non couvertes
+    % restent dans la table, flaguées. Rattaché à \opH = la 2e moitié de l'étape Entonnoir.
+    \draw[dashed, draw=black!35, line width=0.6pt] (-8.4,-10.82) -- (7.0,-10.82);
+    \node[font=\tiny\itshape, text=black!50, anchor=west] at (-8.4,-11.04)
+      {côté recherche --- \textbf{notebooks 05/06}, une fois la table livrée};
+    \begin{scope}[opacity=\opH, text opacity=\opH]
+      \node[bande=dataC, dashed, text width=12.6cm] (sym) at (0,-11.6)
+        {\textbf{entonnoir des SYMBOLES} --- 4\,618 → 3\,350 servis par Yahoo →
+         \textbf{3\,289} exploitables\\[0.3mm]
+         {\tiny → \textbf{118\,029} trades \textbf{backtestables} (≈\,88\,\%) \;·\;
+          \mbox{\textbf{aucune ligne retirée}} : les autres restent dans la table, flaguées}};
+      \node[font=\tiny\bfseries, text=dataC!80] at (-7.9,-11.6) {prix};
     \end{scope}
     % ---------- les flèches ----------
     \begin{scope}[opacity=0.30]
@@ -228,11 +250,9 @@
       \draw[arr] (svis.south) -- (ident.north -| svis.south);
       \draw[arr] (ident) -- (tick); \draw[arr] (tick) -- (sect);
       \draw[arr] (sect) -- (corp); \draw[arr] (corp) -- (ded);
-      \draw[arr] (ded) -- (ent);
-      % le flux principal contourne la dérivation par la gauche : LIGNES → table
-      \draw[arr] ([xshift=8mm]ent.south west) -- ([xshift=8mm]fin.north west);
-      % la dérivation : même étape, autre axe, cul-de-sac (n'alimente pas la table)
-      \draw[arr, dashed] (3.5,-9.76) -- (3.5,-10.35);
+      \draw[arr] (ded) -- (ent); \draw[arr] (ent) -- (fin);
+      % le 2e entonnoir part DE la table livrée, en aval : pointillés = hors pipeline
+      \draw[arr, dashed] (fin) -- (sym);
     \end{scope}
   \end{tikzpicture}}
 
@@ -296,15 +316,14 @@
       {\scriptsize\setlength{\extrarowheight}{-0.4mm}
       \begin{tabular}{@{}p{0.55cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
         \etape{I.0}{Le pipeline}{le flux complet, en une image}
-        \etape{I.1}{Acquisition}{Chambre, puis Sénat}
-        \etape{I.2}{Tri}{Chambre, puis Sénat}
-        \etape{I.3}{Extraction}{4 voies · les 2 dates · le corpus}
-        \etape{I.4}{Identité}{le nom → l'élu officiel}
-        \etape{I.5}{Tickers}{le symbole boursier}
-        \etape{I.6}{Secteurs}{GICS → ETF}
-        \etape{I.7}{Dédup}{l'empreinte 7 champs}
-        \etape{I.8}{Entonnoir}{ce qu'on retire, et pourquoi}
-        \etape{I.9}{Table finale}{à quoi ressemble la valeur}
+        \etape{I.1}{Acquisition \& Tri}{la Chambre en entier, puis le Sénat en entier}
+        \etape{I.2}{Extraction}{4 voies · les 2 dates · le corpus}
+        \etape{I.3}{Identité}{le nom → l'élu officiel}
+        \etape{I.4}{Tickers}{le symbole boursier}
+        \etape{I.5}{Secteurs}{GICS → ETF}
+        \etape{I.6}{Dédup}{l'empreinte 7 champs}
+        \etape{I.7}{Entonnoir}{ce qu'on retire, et pourquoi}
+        \etape{I.8}{Table finale}{à quoi ressemble la valeur}
       \end{tabular}}
     \end{column}
     \begin{column}{0.48\textwidth}
@@ -342,10 +361,13 @@
   \resizebox{!}{0.78\textheight}{\pipefig{0}}
 \end{frame}
 
-% ════ I.1 · ACQUISITION ════
-\pipeslide{1}{I.1 · Acquisition --- on est ici}%
-  {Où vivent ces déclarations, et comment les récupérer sans en rater ?}%
-  {l'univers des documents à traiter --- \textbf{8\,252} PTR côté Chambre}
+% ════ I.1 · ACQUISITION & TRI ════
+\pipeslide{1}{I.1 · Acquisition \& Tri --- on est ici}%
+  {Où vivent ces déclarations, lesquelles faut-il lire --- et dans quel état
+   arrivent-elles ?}%
+  {l'univers à traiter --- \textbf{8\,252} PTR à la \chambre{}, que l'index officiel
+   \emph{déclare} \;·\; \textbf{2\,153} au \senat{}, qu'il faut \emph{recenser} ---
+   répartis en \textbf{4 sous-corpus} (chambre × format)}
 
 % ── I.1a · Acquisition Chambre ──
 \begin{frame}{I.1a · Acquisition Chambre --- un index annuel qui fait autorité}
@@ -369,52 +391,11 @@
   \vspace{1mm}
   \centering
   {\footnotesize \textbf{35\,315} dépôts de tous types · \textbf{13 années} couvertes ·
-   téléchargement \textbf{automatisé}}\\[1mm]
-  \choixbox{l'\textbf{index annuel officiel est notre autorité} : c'est lui qui définit
-   l'univers des documents à traiter --- pas ce qu'on a réussi à lire. C'est ce qui
-   rendra la couverture \textbf{prouvable} (II.1).}
+   téléchargement \textbf{automatisé}}
 \end{frame}
 
-% ── I.1b · Acquisition Sénat ──
-\begin{frame}{I.1b · Acquisition Sénat --- pas d'index : un portail à interroger}
-  \begin{columns}[T]
-    \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth,height=28mm,keepaspectratio]{slides/site_senate_efd.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} le portail \textbf{eFD} (\emph{electronic Financial
-       Disclosure}) --- l'accès exige d'\textbf{accepter un accord} : notre collecteur
-       le fait, puis interroge}
-    \end{column}
-    \begin{column}{0.51\textwidth}\centering
-      \begin{tikzpicture}[node distance=2mm]
-        \node[bande=selec, text width=6.4cm] (a) {\textbf{1.} accord accepté → session ouverte};
-        \node[bande=selec, text width=6.4cm, below=of a] (b) {\textbf{2.} \textbf{recherche paginée} : type = PTR};
-        \node[bande=selec, text width=6.4cm, below=of b] (c) {\textbf{3.} la \textbf{liste des dépôts}, un lien chacun};
-        \node[bande=okgreen, text width=6.4cm, below=of c] (d) {\textbf{4.} chaque dépôt s'ouvre \textbf{en page web} ou \textbf{en image}};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
-      \end{tikzpicture}\\[1.5mm]
-      {\footnotesize \textbf{2\,153} dépôts recensés : \textbf{1\,780} électroniques ·
-       \textbf{373} papier}
-    \end{column}
-  \end{columns}
-  \vspace{1mm}
-  \diff{la \chambre{} \textbf{publie} la liste de ce qui existe ; le \senat{} oblige à
-   la \textbf{reconstituer} par la recherche --- d'où un contrôle de couverture
-   différent (II.1).}\\[0.8mm]
-  \colorbox{alertred!10}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
-    \textbf{\textcolor{alertred}{l'angle mort, annoncé tout de suite}} --- le
-    fournisseur commercial qui nous servira de mètre externe (Quiver, Partie II) ne voit
-    \textbf{pas} le papier du Sénat : cette voie ne sera validable qu'\textbf{en
-    interne} (I.3d).}}
-\end{frame}
-
-% ════ I.2 · TRI ════
-\pipeslide{2}{I.2 · Tri --- on est ici}%
-  {Parmi tous ces dépôts, lesquels lire --- et dans quel état arrivent-ils ?}%
-  {les PTR à lire (\textbf{8\,252} Chambre · \textbf{2\,153} Sénat), répartis en
-   \textbf{4 sous-corpus} (chambre × format)}
-
-% ── I.2a · Tri Chambre ──
-\begin{frame}{I.2a · Tri Chambre --- douze types dans l'index, un seul porte le signal}
+% ── I.1b · Tri Chambre ──
+\begin{frame}{I.1b · Tri Chambre --- douze types dans l'index, un seul porte le signal}
   \begin{columns}[c]
     \begin{column}{0.58\textwidth}\centering
       \includegraphics[width=\linewidth,height=0.44\textheight,keepaspectratio]{slides/fig_filingtypes.png}\\[0.5mm]
@@ -444,8 +425,40 @@
    autres types seront tous ouverts} en \textbf{Partie II}.}
 \end{frame}
 
-% ── I.2b · Tri Sénat ──
-\begin{frame}{I.2b · Tri Sénat --- pas de lettres à lire : le type se demande au portail}
+% ── I.1c · Acquisition Sénat ──
+\begin{frame}{I.1c · Acquisition Sénat --- pas d'index : un portail à interroger}
+  \begin{columns}[T]
+    \begin{column}{0.46\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth,height=28mm,keepaspectratio]{slides/site_senate_efd.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} le portail \textbf{eFD} (\emph{electronic Financial
+       Disclosure}) --- l'accès exige d'\textbf{accepter un accord} : notre collecteur
+       le fait, puis interroge}
+    \end{column}
+    \begin{column}{0.51\textwidth}\centering
+      \begin{tikzpicture}[node distance=2mm]
+        \node[bande=selec, text width=6.4cm] (a) {\textbf{1.} accord accepté → session ouverte};
+        \node[bande=selec, text width=6.4cm, below=of a] (b) {\textbf{2.} \textbf{recherche paginée} : type = PTR};
+        \node[bande=selec, text width=6.4cm, below=of b] (c) {\textbf{3.} la \textbf{liste des dépôts}, un lien chacun};
+        \node[bande=okgreen, text width=6.4cm, below=of c] (d) {\textbf{4.} chaque dépôt s'ouvre \textbf{en page web} ou \textbf{en image}};
+        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+      \end{tikzpicture}\\[1.5mm]
+      {\footnotesize \textbf{2\,153} dépôts recensés : \textbf{1\,780} électroniques ·
+       \textbf{373} papier}
+    \end{column}
+  \end{columns}
+  \vspace{1mm}
+  \diff{la \chambre{} \textbf{publie} la liste de ce qui existe ; le \senat{} oblige à
+   la \textbf{reconstituer} par la recherche --- d'où un contrôle de couverture
+   différent (II.1).}\\[0.8mm]
+  \colorbox{alertred!10}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
+    \textbf{\textcolor{alertred}{l'angle mort, annoncé tout de suite}} --- le
+    fournisseur commercial qui nous servira de mètre externe (Quiver, Partie II) ne voit
+    \textbf{pas} le papier du Sénat : cette voie ne sera validable qu'\textbf{en
+    interne} (I.2d).}}
+\end{frame}
+
+% ── I.1d · Tri Sénat ──
+\begin{frame}{I.1d · Tri Sénat --- pas de lettres à lire : le type se demande au portail}
   \begin{columns}[c]
     \begin{column}{0.52\textwidth}\centering
       \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth,height=0.42\textheight,keepaspectratio]{slides/site_senate_form.png}}\\[0.5mm]
@@ -473,8 +486,8 @@
    (les PTR seuls), deux mécanismes.}
 \end{frame}
 
-% ── I.2c · Les quatre sous-corpus ──
-\begin{frame}{I.2c · Bilan du tri : quatre sous-corpus, quatre extracteurs}
+% ── I.1e · Les quatre sous-corpus ──
+\begin{frame}{I.1e · Bilan du tri : quatre sous-corpus, quatre extracteurs}
   \centering
   \vspace{1mm}
   {\footnotesize la même donnée réglementaire arrive donc sous \textbf{4 formats} ---
@@ -482,19 +495,19 @@
   \begin{columns}[T]
     \begin{column}{0.24\textwidth}\centering
       \colorbox{helec}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Chambre · PDF lisible}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{texte}\\→ \textbf{parsing} (I.3a)}
+      {\scriptsize \textbf{texte}\\→ \textbf{parsing} (I.2a)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{hocr}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Chambre · PDF scanné}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{image}\\→ \textbf{OCR} (I.3b)}
+      {\scriptsize \textbf{image}\\→ \textbf{OCR} (I.2b)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{selec}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Sénat · page web}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{texte}\\→ \textbf{lecture} (I.3c)}
+      {\scriptsize \textbf{texte}\\→ \textbf{lecture} (I.2c)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{socr}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Sénat · papier scanné}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{image}\\→ \textbf{OCR} (I.3d)}
+      {\scriptsize \textbf{image}\\→ \textbf{OCR} (I.2d)}
     \end{column}
   \end{columns}
   \vspace{4mm}
@@ -506,8 +519,8 @@
    moitié. C'est le plan des quatre slides d'Extraction qui suivent.}
 \end{frame}
 
-% ── I.2d · Le manuscrit ──
-\begin{frame}{I.2d · Dans l'image, le vrai point dur n'est pas le scan : c'est le manuscrit}
+% ── I.1f · Le manuscrit ──
+\begin{frame}{I.1f · Dans l'image, le vrai point dur n'est pas le scan : c'est le manuscrit}
   \centering
   {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} (à lire par
    \textbf{OCR} : lecture automatique) --- ce qui compte n'est pas l'orientation mais
@@ -533,17 +546,17 @@
   \badgel{hocr}{775 scans manuscrits sur les 2\,424 scans Chambre recensés}\\[1mm]
   \diff{le manuscrit existe des \textbf{deux} côtés --- mais il sera \textbf{écarté} à la
    Chambre et \textbf{gardé} au Sénat : la raison, et elle seule, est la
-   \textbf{vérifiabilité} (I.3b et I.3d).}
+   \textbf{vérifiabilité} (I.2b et I.2d).}
 \end{frame}
 
-% ════ I.3 · EXTRACTION ════
-\pipeslide{3}{I.3 · Extraction --- on est ici}%
+% ════ I.2 · EXTRACTION ════
+\pipeslide{2}{I.2 · Extraction --- on est ici}%
   {Comment fait-on sortir des transactions d'un PDF, d'une page web, d'une image ?}%
   {les \textbf{4 voies} lues : 58\,756 + 93\,325 + 14\,813 + 4\,026 =
    \textbf{170\,920} lignes (avant dédoublonnage)}
 
-% ── I.3a · Extraction Chambre, texte ──
-\begin{frame}{I.3a · Extraction Chambre · texte --- un PDF n'est pas un tableau}
+% ── I.2a · Extraction Chambre, texte ──
+\begin{frame}{I.2a · Extraction Chambre · texte --- un PDF n'est pas un tableau}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
       \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{slides/fig_ptr_multiligne.png}\\[0.5mm]
@@ -567,8 +580,8 @@
    document}, jamais par année fixe.}
 \end{frame}
 
-% ── I.3b · Extraction Chambre, image ──
-\begin{frame}{I.3b · Extraction Chambre · image --- Vision lit tout, le manuscrit est écarté}
+% ── I.2b · Extraction Chambre, image ──
+\begin{frame}{I.2b · Extraction Chambre · image --- Vision lit tout, le manuscrit est écarté}
   \centering
   \includegraphics[width=0.42\textwidth]{slides/fig_deskew_rotations.png}
   \vspace{1mm}
@@ -577,7 +590,7 @@
       · l'\textbf{OCR par IA} (Claude Vision) lit le tapé, même tourné à 90°\\[1mm]
       · \badgel{hocr}{93\,325 lignes extraites → 93\,261 uniques}\\[1mm]
       · {\scriptsize\color{black!60} très concentrées : les gros déposants
-        « \mbox{100\,\%} papier » (I.3f)}
+        « \mbox{100\,\%} papier » (I.2f)}
     \end{column}
     \begin{column}{0.54\textwidth}\footnotesize
       \colorbox{black!6}{\parbox{0.97\linewidth}{\scriptsize
@@ -594,8 +607,8 @@
    --- pas de lectures douteuses injectées dans la donnée.}
 \end{frame}
 
-% ── I.3c · Extraction Sénat, texte ──
-\begin{frame}{I.3c · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
+% ── I.2c · Extraction Sénat, texte ──
+\begin{frame}{I.2c · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
       \fcolorbox{selec}{white}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}\\[0.5mm]
@@ -614,18 +627,18 @@
       \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\scriptsize\vspace{0.4mm}
         \textbf{\textcolor{warnorange}{c'est ici que la dédup travaille}} ---
         \textbf{1\,787} des 14\,813 lignes (12\,\%) sont des \textbf{re-dépôts annuels} :
-        cette seule voie porte \textbf{93\,\%} du dédoublonnage (I.7)\vspace{0.4mm}}}
+        cette seule voie porte \textbf{93\,\%} du dédoublonnage (I.6)\vspace{0.4mm}}}
     \end{column}
   \end{columns}
   \vspace{1mm}
-  \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (I.3a), le \senat{}
+  \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (I.2a), le \senat{}
    électronique se lit \textbf{directement} --- \textbf{déterministe et sans IA} des deux
    côtés, mais il \textbf{re-déclare} bien plus (12\,\%, contre 0,05\,\% à la Chambre
    électronique).}
 \end{frame}
 
-% ── I.3d · Extraction Sénat, image ──
-\begin{frame}{I.3d · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
+% ── I.2d · Extraction Sénat, image ──
+\begin{frame}{I.2d · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
   \begin{columns}[c]
     \begin{column}{0.30\textwidth}\centering
       \fcolorbox{black!30}{white}{\includegraphics[height=40mm]{slides/senat_papier_droit.png}}\\[0.8mm]
@@ -641,7 +654,7 @@
         \bottomrule
       \end{tabular}}\\[2mm]
       \badgel{socr}{4\,026 lignes → 3\,985 uniques --- 14 déposants --- 2,4\,\% du corpus}\\[1.5mm]
-      {\footnotesize \textbf{même moteur} qu'à la Chambre (I.3b) --- mais
+      {\footnotesize \textbf{même moteur} qu'à la Chambre (I.2b) --- mais
        \textbf{politique inverse} : Quiver est \textbf{aveugle au papier du Sénat} →
        aucune mesure d'exclusion possible → on \textbf{garde}, sous garde-fous internes,
        et on l'écrit}\\[1mm]
@@ -656,8 +669,8 @@
    est borné (2,4\,\% du corpus).}
 \end{frame}
 
-% ── I.3e · Extraction : les deux dates ──
-\begin{frame}{I.3e · Ce qu'on extrait de chaque ligne : deux dates, une seule est fiable}
+% ── I.2e · Extraction : les deux dates ──
+\begin{frame}{I.2e · Ce qu'on extrait de chaque ligne : deux dates, une seule est fiable}
   \centering
   \begin{columns}[T]
     \begin{column}{0.49\textwidth}\centering
@@ -691,8 +704,8 @@
    \textbf{flaguée, jamais réécrite au hasard}.}
 \end{frame}
 
-% ── I.3f · Le corpus extrait ── (ferme l'étape Extraction)
-\begin{frame}{I.3f · Le corpus extrait : 169\,000 transactions --- dont $\sim$40\,\% de deux élus}
+% ── I.2f · Le corpus extrait ── (ferme l'étape Extraction)
+\begin{frame}{I.2f · Le corpus extrait : 169\,000 transactions --- dont $\sim$40\,\% de deux élus}
   \centering
   {\footnotesize les quatre voies réunies donnent \textbf{169\,000 transactions
    uniques} (2014--2026) --- et cette matière est \textbf{très déséquilibrée} :}\\[1.2mm]
@@ -717,18 +730,18 @@
         \textbf{$\sim$40\,\%} du corpus, et déclarent \textbf{exclusivement sur
         papier} (\mbox{100\,\%} OCR)\vspace{0.5mm}}}\\[1.5mm]
       {\footnotesize le papier n'est pas un détail : c'est \textbf{la majorité du
-       corpus} --- d'où l'effort d'OCR de I.3b et I.3d}
+       corpus} --- d'où l'effort d'OCR de I.2b et I.2d}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ════ I.4 · IDENTITÉ ════
-\pipeslide{4}{I.4 · Identité --- on est ici}%
+% ════ I.3 · IDENTITÉ ════
+\pipeslide{3}{I.3 · Identité --- on est ici}%
   {À qui appartient chaque ligne, quand le formulaire n'offre qu'un nom libre ?}%
   {\textbf{100\,\%} des lignes rattachées à un élu officiel}
 
-% ── I.4 · Identité ──
-\begin{frame}{I.4 · Identité --- chaque ligne est rattachée à un élu officiel : \mbox{100\,\%}}
+% ── I.3 · Identité ──
+\begin{frame}{I.3 · Identité --- chaque ligne est rattachée à un élu officiel : \mbox{100\,\%}}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       {\footnotesize un même élu signe « Hon.\ Earl L.\ Carter », « Buddy Carter »,
@@ -764,20 +777,20 @@
   \end{columns}
 \end{frame}
 
-% ════ I.5 · TICKERS ════
-\pipeslide{5}{I.5 · Tickers --- on est ici}%
+% ════ I.4 · TICKERS ════
+\pipeslide{4}{I.4 · Tickers --- on est ici}%
   {« Apple Computer Inc » : comment retrouver le symbole boursier derrière un nom écrit à la main ?}%
   {le ticker sur \textbf{84,1\,\%} des lignes Chambre · \textbf{77,9\,\%} Sénat}
 
-% ── I.5 · Tickers ──
-\begin{frame}{I.5 · Tickers --- du nom de l'actif au symbole boursier, par une cascade tracée}
+% ── I.4 · Tickers ──
+\begin{frame}{I.4a · Tickers --- du nom de l'actif au symbole boursier, par une cascade tracée}
   \begin{columns}[c]
     \begin{column}{0.56\textwidth}\footnotesize
       \begin{tikzpicture}[node distance=2.6mm]
         \node[bande=helec, text width=6.8cm] (t1) {1. \textbf{explicite} --- déjà imprimé dans la source (l'électronique)};
         \node[bande=helec, text width=6.8cm, below=of t1] (t2) {2. \textbf{dictionnaire} --- le nom vu ailleurs dans le corpus (le papier)};
         \node[bande=helec, text width=6.8cm, below=of t2] (t3) {3. \textbf{LLM} contraint « actions seulement »};
-        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve --- \textbf{2\,540} lignes retrouvent leur symbole \emph{(à la lecture, I.7)}};
+        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve --- \textbf{2\,540} lignes retrouvent leur symbole};
         \draw[arr] (t1) -- (t2); \draw[arr] (t2) -- (t3); \draw[arr] (t3) -- (t4);
       \end{tikzpicture}\\[2mm]
       \idem{\scriptsize \textbf{même cascade des deux côtés} --- ce qui change est la
@@ -787,9 +800,8 @@
     \begin{column}{0.42\textwidth}\footnotesize
       \badge{helec}{ticker renseigné}\\[1mm]
       {\footnotesize \textbf{84,1\,\%} Chambre · \textbf{77,9\,\%} Sénat}\\[0.8mm]
-      {\scriptsize\color{black!60} la cascade du pipeline (étages 1--3) en trouve
-       \textbf{82,4\,\%} ; le 4\ieme{} étage, appliqué \textbf{à la lecture}, ajoute
-       \textbf{1,7 pt}}\\[2mm]
+      {\scriptsize\color{black!60} les trois premiers étages couvrent
+       \textbf{82,4\,\%} ; le 4\ieme{} (récupération) porte à \textbf{84,1\,\%}}\\[2mm]
       \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
         \textbf{couverture = remplissage, pas exactitude} --- les vides sont le
         \textbf{non-coté légitime} (munis, obligations, fonds privés),
@@ -801,13 +813,42 @@
   \end{columns}
 \end{frame}
 
-% ════ I.6 · SECTEURS ════
-\pipeslide{6}{I.6 · Secteurs --- on est ici}%
+% ── I.4b · le code type d'actif manque avant 2019 → le symbole fait foi ──
+\begin{frame}{I.4b · Tickers --- avant 2019, pas de code d'actif à la Chambre : c'est le symbole qui décide}
+  \begin{columns}[c]
+    \begin{column}{0.57\textwidth}\centering
+      \includegraphics[width=\linewidth]{quality/bascule_code_actif.png}\\[0.5mm]
+      {\scriptsize\color{black!60} part des lignes portant un code « type d'actif »
+       (\co{[ST]}, \co{[OP]}\ldots) --- voies \textbf{électroniques}, là où le champ
+       est \emph{déclaré} à la source}
+    \end{column}
+    \begin{column}{0.41\textwidth}\footnotesize
+      {le formulaire de la \textbf{Chambre} n'a \textbf{pas de case « type d'actif »}
+       avant 2019 : \mbox{$\sim$0\,\%} jusqu'en 2016, \textbf{99\,\%} dès 2019 ---
+       le \textbf{Sénat}, lui, l'a depuis 2015.}\\[2mm]
+      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
+        trier les actions sur ce champ rendrait \textbf{aveugles les archives
+        anciennes} : \textbf{près de 13\,000} actions de la Chambre déclarées
+        \textbf{avant 2019} n'ont \emph{que} leur \textbf{symbole} pour être
+        reconnues.}}\\[2.5mm]
+      \choixbox{\textbf{« ticker-first »} --- c'est le \textbf{symbole coté} qui
+       établit qu'une ligne est une action, \textbf{jamais} le champ déclaré (le tri
+       l'applique en I.7a).}
+    \end{column}
+  \end{columns}
+  \vspace{1mm}
+  \diff{le trou est propre à la \chambre{} (formulaire tardif) ; le choix qui en
+   découle est pourtant \textbf{commun aux deux voies} --- on n'ancre jamais un actif
+   sur un champ qui peut manquer.}
+\end{frame}
+
+% ════ I.5 · SECTEURS ════
+\pipeslide{5}{I.5 · Secteurs --- on est ici}%
   {Dans quel secteur joue chaque titre --- et par quel panier coté peut-on l'approcher ?}%
   {le secteur sur \textbf{79,8\,\%} des lignes Chambre · \textbf{70,4\,\%} Sénat}
 
-% ── I.6 · Secteurs ──
-\begin{frame}{I.6 · Secteurs --- chaque titre reçoit un secteur GICS, et son ETF}
+% ── I.5 · Secteurs ──
+\begin{frame}{I.5 · Secteurs --- chaque titre reçoit un secteur GICS, et son ETF}
   \begin{columns}[c]
     \begin{column}{0.50\textwidth}\footnotesize
       \textbf{une cascade indépendante} de celle du ticker :\\[1.5mm]
@@ -835,13 +876,13 @@
   \end{columns}
 \end{frame}
 
-% ════ I.7 · DÉDUP ════
-\pipeslide{7}{I.7 · Dédup --- on est ici}%
+% ════ I.6 · DÉDUP ════
+\pipeslide{6}{I.6 · Dédup --- on est ici}%
   {Un trade re-déclaré dans un amendement : comment le compter une fois --- sans effacer les vrais lots ?}%
   {\textbf{169\,000} transactions uniques (170\,920 lignes brutes, \textbf{−1\,920})}
 
-% ── I.7 · Dédup ──
-\begin{frame}{I.7 · Dédup --- une transaction = 7 champs : l'empreinte dédoublonne sans détruire}
+% ── I.6 · Dédup ──
+\begin{frame}{I.6 · Dédup --- une transaction = 7 champs : l'empreinte dédoublonne sans détruire}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\footnotesize
       \textbf{l'empreinte d'une transaction --- 7 champs} :\\
@@ -849,7 +890,7 @@
        \textbf{quoi} (actif) · \textbf{sens} · \textbf{montant} (fourchette) ·
        \textbf{pour qui} (détenteur) · \textbf{chambre}}\\[2mm]
       {\scriptsize elle exclut \textbf{délibérément} :\\
-       · le \textbf{ticker} --- ajouté après coup (I.5), sa présence rendrait
+       · le \textbf{ticker} --- ajouté après coup (I.4), sa présence rendrait
          l'empreinte instable\\
        · la \textbf{date de divulgation} --- un dépôt et son amendement portent le
          \emph{même} trade → une seule transaction}\\[2.5mm]
@@ -869,23 +910,24 @@
       \idem{\scriptsize \textbf{une seule empreinte} pour les deux chambres --- c'est
        elle qui permet de \textbf{fusionner les 4 voies} sans compter deux fois. Seul le
        \emph{taux} diffère : \textbf{93\,\%} des 1\,920 re-divulgations viennent du
-       \senat{} électronique (I.3c).}\\[2mm]
+       \senat{} électronique (I.2c).}\\[2mm]
       {\scriptsize\color{black!60} au même moment, à la lecture : les \textbf{réparations}
        (7\,996 montants tronqués rétablis · 2\,540 tickers récupérés · 7 identités ·
-       3 dates) --- le \textbf{fichier extrait, lui, reste figé} (I.4)}
+       3 dates) --- le \textbf{fichier extrait, lui, reste figé} (I.3)}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ════ I.8 · ENTONNOIR ════
-\pipeslide{8}{I.8 · Entonnoir --- on est ici}%
+% ════ I.7 · ENTONNOIR ════
+\pipeslide{7}{I.7 · Entonnoir --- on est ici}%
   {Un backtest exige un prix de marché : que faut-il retirer, et sur quelle preuve ?}%
   {\textbf{deux entonnoirs, deux axes} --- les \textbf{lignes} : \textbf{134\,464}
-   exploitables (79,6\,\% du corpus) \;·\; les \textbf{symboles} : \textbf{3\,289}
-   avec un prix fiable, et \textbf{aucune ligne retirée} pour autant}
+   exploitables, 79,6\,\% du corpus (c'est le livrable) \;·\; puis, \textbf{en aval},
+   les \textbf{symboles} : \textbf{3\,289} avec un prix → \textbf{118\,029} trades
+   backtestables, \textbf{sans retirer une seule ligne}}
 
-% ── I.8a · Entonnoir ──
-\begin{frame}{I.8a · Entonnoir --- de 169\,000 à 134\,464 : on ne retire que l'avéré inutilisable}
+% ── I.7a · Entonnoir ──
+\begin{frame}{I.7a · Entonnoir --- de 169\,000 à 134\,464 : on ne retire que l'avéré inutilisable}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \centering
@@ -903,7 +945,7 @@
       \colorbox{okgreen!10}{\parbox{0.96\linewidth}{\scriptsize
         \textbf{\textcolor{okgreen}{sauvetage « ticker-first »}} --- \textbf{21\,878}
         lignes à case « type d'actif » vide \textbf{gardées} : le \textbf{ticker coté}
-        fait foi, pas la case déclarée}}
+        fait foi, pas la case déclarée \emph{(pourquoi : I.4b)}}}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
@@ -913,8 +955,8 @@
    --- la recherche décide.}
 \end{frame}
 
-% ── I.8b · Du symbole au prix ──
-\begin{frame}{I.8b · Entonnoir (suite) --- du symbole au prix : 118\,029 trades valorisables}
+% ── I.7b · Du symbole au prix ──
+\begin{frame}{I.7b · Entonnoir (suite) --- du symbole au prix : 118\,029 trades valorisables}
   \begin{columns}[c]
     \begin{column}{0.52\textwidth}\centering
       \begin{tikzpicture}[node distance=3.2mm]
@@ -946,13 +988,13 @@
    année aberrante, coquilles fidèlement transcrites)}
 \end{frame}
 
-% ════ I.9 · TABLE FINALE ════
-\pipeslide{9}{I.9 · Table finale --- on est ici}%
+% ════ I.8 · TABLE FINALE ════
+\pipeslide{8}{I.8 · Table finale --- on est ici}%
   {Au bout du pipeline : à quoi ressemble, concrètement, une ligne livrée ?}%
   {la table de recherche --- \textbf{134\,464 × 36}, limites écrites}
 
-% ── I.9 · La table finale ── (ferme la Partie I)
-\begin{frame}{I.9 · À quoi ressemble la valeur finale : 134\,464 lignes × 36 colonnes}
+% ── I.8 · La table finale ── (ferme la Partie I)
+\begin{frame}{I.8 · À quoi ressemble la valeur finale : 134\,464 lignes × 36 colonnes}
   \centering
   \colorbox{helec}{\parbox{0.9\textwidth}{\scriptsize\color{white}\centering\vspace{0.5mm}
     la table de recherche --- \textbf{134\,464 lignes × 36 colonnes} ·
@@ -981,7 +1023,7 @@
     \begin{column}{0.44\textwidth}
       {\footnotesize\textbf{limites écrites, dans le livrable}}\\[0.3mm]
       {\scriptsize · \textbf{582 PTR manuscrits} écartés (7,1\,\% de l'index)\\
-       · \textbf{biais de survie} prix (I.8b)\\
+       · \textbf{biais de survie} prix (I.7b)\\
        · composition : Chambre \textbf{91,3\,\%} · achats \textbf{50,8\,\%}}
     \end{column}
   \end{columns}
@@ -1058,7 +1100,7 @@
     \node[step=grisC, text width=3.2cm, minimum height=1.3cm, font=\footnotesize, right=6mm of b] (c)
       {\textbf{\large 102}\\{\scriptsize sans transaction retenue --- consignés un par un}};
     \node[step=alertred, text width=3.2cm, minimum height=1.3cm, font=\footnotesize, right=6mm of c] (d)
-      {\textbf{\large 582}\\{\scriptsize écartés --- manuscrits, règle écrite (I.3b)}};
+      {\textbf{\large 582}\\{\scriptsize écartés --- manuscrits, règle écrite (I.2b)}};
     \draw[arr] (a) -- (b);
   \end{tikzpicture}}\\[3mm]
   {\footnotesize \textbf{7\,568 + 102 + 582 = 8\,252} --- la couverture est
@@ -1107,7 +1149,7 @@
       \badgel{warnorange!40}{374 j de délai médian (vs 27 j en PTR)}\\[2mm]
       \choixbox{les transactions hors PTR alimentent le \textbf{patrimoine}
        (vérification), jamais le \textbf{signal} --- découvertes $\sim$1 an trop tard :
-       cohérent avec l'anti-look-ahead de I.3e.}\\[1mm]
+       cohérent avec l'anti-look-ahead de I.2e.}\\[1mm]
       {\scriptsize\color{black!55} les deux mesures portent sur des populations
        distinctes : \textbf{57 259} = les lignes brutes hors PTR · \textbf{374 j} = le
        délai des trades nets jamais vus en PTR}
@@ -1234,7 +1276,7 @@
       \badge{helec}{2 · dater} même date ($\leq$10 j) --- appariés un à un\\[0.8mm]
       \badge{helec}{3 · concorder} sens \textbf{96,8\,\%} · montant \textbf{94,2\,\%} (Chambre)}\\[2mm]
       \diff{\scriptsize Quiver \textbf{voit} le papier de la Chambre (d'où le gating de
-       I.3b) mais est \textbf{aveugle} au papier du Sénat (d'où I.3d).}\\[2mm]
+       I.2b) mais est \textbf{aveugle} au papier du Sénat (d'où I.2d).}\\[2mm]
       \choixbox{Quiver est une \textbf{vérité-terrain jamais réinjectée} : il
        \textbf{mesure} la table, ne la remplit jamais --- et en cas de désaccord de
        date, \textbf{le PDF officiel arbitre toujours} (annexe A6).}
@@ -1331,7 +1373,7 @@
 \begin{frame}{A2 --- Le portail du Sénat : ce que rend la recherche}
   \centering
   \fcolorbox{black!25}{white}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{slides/site_senate_results.png}}\\[1.5mm]
-  {\footnotesize la liste réelle des dépôts (I.1b) --- \textbf{un lien par dépôt} :
+  {\footnotesize la liste réelle des dépôts (I.1c) --- \textbf{un lien par dépôt} :
    chacun s'ouvre en \textbf{page web} ou en \textbf{papier scanné}, c'est là que se décide la
    voie d'extraction}\\[1mm]
   {\scriptsize\color{black!60} les PTR sont \textbf{un type parmi d'autres} au Sénat
@@ -1450,13 +1492,13 @@
        un C = \textbf{284} portefeuilles d'entrée datés}
     \end{column}
     \begin{column}{0.48\textwidth}\footnotesize
-      \textbf{pièges d'identité réels, réparés} (I.4) :\\[1mm]
+      \textbf{pièges d'identité réels, réparés} (I.3) :\\[1mm]
       {\scriptsize
       · l'homonyme \textbf{Bob Casey} (\co{C000228} → \co{C001070}) : deux vraies
         personnes --- un représentant du Texas, un sénateur de Pennsylvanie\\[1mm]
       · \textbf{42 lignes d'Angie Craig} sans identifiant, réparées à la lecture ---
         le fichier extrait, lui, reste figé}\\[3mm]
-      \textbf{cascade secteur} (I.6) :\\[1mm]
+      \textbf{cascade secteur} (I.5) :\\[1mm]
       {\scriptsize yfinance (le secteur factuel) → LLM contraint GICS → overrides
        manuels pour les cas connus}
     \end{column}
