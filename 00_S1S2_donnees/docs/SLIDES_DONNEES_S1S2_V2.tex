@@ -268,7 +268,7 @@
       \begin{tabular}{@{}p{0.55cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
         \etape{I.0}{Le pipeline}{le flux complet, en une image}
         \etape{I.1}{Acquisition}{Chambre, puis Sénat}
-        \etape{I.2}{Tri}{par type, puis par format}
+        \etape{I.2}{Tri}{Chambre, puis Sénat}
         \etape{I.3}{Extraction}{4 voies · les 2 dates · le corpus}
         \etape{I.4}{Identité}{le nom → l'élu officiel}
         \etape{I.5}{Tickers}{le symbole boursier}
@@ -293,7 +293,7 @@
       \end{tabular}}\\[2mm]
       \colorbox{black!6}{\parbox{\dimexpr\linewidth-8pt}{\tiny\vspace{0.4mm}
         \textbf{Chambre et Sénat} : une slide chacun \textbf{là où ils diffèrent}
-        (I.1, I.3), une seule slide \textbf{là où c'est identique}\vspace{0.4mm}}}\\[2mm]
+        (I.1, I.2, I.3), une seule slide \textbf{là où c'est identique}\vspace{0.4mm}}}\\[2mm]
       \colorbox{black!6}{\parbox{\dimexpr\linewidth-8pt}{\tiny\vspace{0.4mm}
         les \textbf{choix} méthodologiques sont encadrés
         \textcolor{alertred}{\textbf{CHOIX}} au fil des slides\vspace{0.4mm}}}
@@ -319,7 +319,7 @@
 \begin{frame}{I.0 · Le pipeline complet --- tout le trajet de la donnée}
   \centering
   {\scriptsize\color{black!55} ce schéma \textbf{revient avant chaque étape}, l'étape en
-   cours allumée \;·\; \textbf{OCR} = lecture automatique d'une image (I.2c)}\\[0.5mm]
+   cours allumée \;·\; \textbf{OCR} = lecture automatique d'une image (I.2d)}\\[0.5mm]
   \resizebox{!}{0.78\textheight}{\pipefig{0}}
 \end{frame}
 
@@ -394,56 +394,101 @@
   {les PTR à lire (\textbf{8\,252} Chambre · \textbf{2\,153} Sénat), répartis en
    \textbf{4 sous-corpus} (chambre × format)}
 
-% ── I.2a · Tri par type ──
-\begin{frame}{I.2a · Tri par type --- sur douze types de dépôts, un seul porte le signal : le \texttt{P}}
-  \centering
-  \includegraphics[width=0.60\textwidth,height=0.44\textheight,keepaspectratio]{slides/fig_filingtypes.png}\\[1mm]
-  {\footnotesize \textbf{P} = \emph{Periodic Transaction Report} (les « PTR ») --- les
-   seules \textbf{déclarations de transactions datées}, sous 45 jours ·
-   \textbf{8\,252} PTR parmi les 35\,315 dépôts}\\[1mm]
-  \idem{le Sénat a une typologie \textbf{analogue} (annuels, extensions,
-   \emph{blind trusts}…) --- on ne demande au portail que les \textbf{PTR}.}\\[1mm]
+% ── I.2a · Tri Chambre ──
+\begin{frame}{I.2a · Tri Chambre --- douze types dans l'index, un seul porte le signal}
+  \begin{columns}[c]
+    \begin{column}{0.58\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.44\textheight,keepaspectratio]{slides/fig_filingtypes.png}\\[0.5mm]
+      {\scriptsize\color{black!60} l'index déclare le \textbf{type} de chaque dépôt ---
+       on lit la lettre, on garde \textbf{P}}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      {\footnotesize \textbf{P} = \emph{Periodic Transaction Report} (les « PTR ») ---
+       les seules \textbf{déclarations de transactions datées}, sous 45 jours}\\[1.2mm]
+      \badge{helec}{8\,252 PTR sur 35\,315 dépôts}\\[2mm]
+      {\footnotesize et ils arrivent en \textbf{deux formats} :}\\[1.2mm]
+      \begin{columns}[T]
+        \begin{column}{0.48\linewidth}\centering
+          \fcolorbox{helec}{white}{\includegraphics[width=0.9\linewidth,height=17mm,keepaspectratio]{sources/house_digital.png}}\\[0.5mm]
+          \badge{helec}{lisible}\\[0.2mm]{\scriptsize PDF à couche texte\\\textbf{\mbox{71\,\%}}}
+        \end{column}
+        \begin{column}{0.48\linewidth}\centering
+          \fcolorbox{hocr}{white}{\includegraphics[width=0.9\linewidth,height=17mm,keepaspectratio]{sources/house_ocr.png}}\\[0.5mm]
+          \badgel{hocr}{scanné}\\[0.2mm]{\scriptsize PDF image\\\textbf{\mbox{29\,\%}}}
+        \end{column}
+      \end{columns}
+    \end{column}
+  \end{columns}
+  \vspace{1.5mm}
   \choixbox{on ne construit le signal qu'avec les dépôts de type \textbf{P}, parce
    qu'eux seuls déclarent des transactions datées sous 45 jours --- les \textbf{11
    autres types seront tous ouverts} en \textbf{Partie II}.}
 \end{frame}
 
-% ── I.2b · Tri par format ──
-\begin{frame}{I.2b · Tri par format --- texte ou image : quatre sous-corpus}
-  \centering
-  {\footnotesize chaque dépôt pointe vers son document (son numéro donne l'URL) ---
-   la même donnée réglementaire existe sous \textbf{4 formats} :}\\[1.2mm]
-  \begin{columns}[T]
-    \begin{column}{0.24\textwidth}\centering
-      \fcolorbox{helec}{white}{\includegraphics[width=0.88\linewidth,height=24mm,keepaspectratio]{sources/house_digital.png}}\\[0.8mm]
-      \badge{helec}{Chambre · lisible}\\[0.4mm]
-      {\scriptsize PDF à couche texte\\\textbf{\mbox{71\,\%}} des dépôts}
+% ── I.2b · Tri Sénat ──
+\begin{frame}{I.2b · Tri Sénat --- pas de lettres à lire : le type se demande au portail}
+  \begin{columns}[c]
+    \begin{column}{0.52\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth,height=0.42\textheight,keepaspectratio]{slides/site_senate_form.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} la recherche eFD : on coche \textbf{Senator} et le
+       type \textbf{PTR} --- c'est le filtre, il n'y a pas d'index à lire}
     \end{column}
-    \begin{column}{0.24\textwidth}\centering
-      \fcolorbox{hocr}{white}{\includegraphics[width=0.88\linewidth,height=24mm,keepaspectratio]{sources/house_ocr.png}}\\[0.8mm]
-      \badgel{hocr}{Chambre · scanné}\\[0.4mm]
-      {\scriptsize PDF image\\\textbf{\mbox{29\,\%}} des dépôts}
-    \end{column}
-    \begin{column}{0.24\textwidth}\centering
-      \fcolorbox{selec}{white}{\includegraphics[width=0.88\linewidth,height=24mm,keepaspectratio]{sources/senate_digital.png}}\\[0.8mm]
-      \badge{selec}{Sénat · HTML}\\[0.4mm]
-      {\scriptsize page web, table propre}
-    \end{column}
-    \begin{column}{0.24\textwidth}\centering
-      \fcolorbox{socr}{white}{\includegraphics[width=0.88\linewidth,height=24mm,keepaspectratio]{slides/senat_papier_droit.png}}\\[0.8mm]
-      \badgel{socr}{Sénat · papier}\\[0.4mm]
-      {\scriptsize formulaire scanné, image}
+    \begin{column}{0.46\textwidth}
+      \badge{selec}{2\,153 dépôts PTR recensés}\\[3mm]
+      {\footnotesize eux aussi arrivent en \textbf{deux formats} :}\\[1.5mm]
+      \begin{columns}[T]
+        \begin{column}{0.48\linewidth}\centering
+          \fcolorbox{selec}{white}{\includegraphics[width=0.9\linewidth,height=17mm,keepaspectratio]{sources/senate_digital.png}}\\[0.5mm]
+          \badge{selec}{page web}\\[0.2mm]{\scriptsize table propre\\\textbf{1\,780}}
+        \end{column}
+        \begin{column}{0.48\linewidth}\centering
+          \fcolorbox{socr}{white}{\includegraphics[width=0.9\linewidth,height=17mm,keepaspectratio]{slides/senat_papier_droit.png}}\\[0.5mm]
+          \badgel{socr}{papier}\\[0.2mm]{\scriptsize formulaire scanné\\\textbf{373}}
+        \end{column}
+      \end{columns}
     \end{column}
   \end{columns}
-  \vspace{1.2mm}
-  \idem{les deux chambres ont leur monde \textbf{texte} et leur monde \textbf{image} ---
-   au final, \textbf{57,5\,\%} du corpus viendra d'images.}\\[1mm]
-  \choixbox{on découpe le corpus en \textbf{4 sous-corpus} (chambre × format) et chaque
-   voie reçoit son \textbf{extracteur dédié} --- un traitement uniforme raterait la moitié.}
+  \vspace{1.5mm}
+  \diff{la \chambre{} \textbf{déclare} le type dans son index (une lettre à lire) ; au
+   \senat{}, le type est un \textbf{critère de recherche} --- même filtre au final
+   (les PTR seuls), deux mécanismes.}
 \end{frame}
 
-% ── I.2c · Le manuscrit ──
-\begin{frame}{I.2c · Dans l'image, le vrai point dur n'est pas le scan : c'est le manuscrit}
+% ── I.2c · Les quatre sous-corpus ──
+\begin{frame}{I.2c · Bilan du tri : quatre sous-corpus, quatre extracteurs}
+  \centering
+  \vspace{1mm}
+  {\footnotesize la même donnée réglementaire arrive donc sous \textbf{4 formats} ---
+   deux mondes \textbf{texte}, deux mondes \textbf{image} :}\\[2.5mm]
+  \begin{columns}[T]
+    \begin{column}{0.24\textwidth}\centering
+      \colorbox{helec}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Chambre · lisible}}\vspace{0.4mm}}}\\[1mm]
+      {\scriptsize PDF à couche texte\\→ \textbf{parsing} (I.3a)}
+    \end{column}
+    \begin{column}{0.24\textwidth}\centering
+      \colorbox{hocr}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Chambre · scanné}}\vspace{0.4mm}}}\\[1mm]
+      {\scriptsize PDF image\\→ \textbf{OCR} (I.3b)}
+    \end{column}
+    \begin{column}{0.24\textwidth}\centering
+      \colorbox{selec}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Sénat · page web}}\vspace{0.4mm}}}\\[1mm]
+      {\scriptsize table HTML\\→ \textbf{lecture} (I.3c)}
+    \end{column}
+    \begin{column}{0.24\textwidth}\centering
+      \colorbox{socr}{\parbox{0.92\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Sénat · papier}}\vspace{0.4mm}}}\\[1mm]
+      {\scriptsize image\\→ \textbf{OCR} (I.3d)}
+    \end{column}
+  \end{columns}
+  \vspace{4mm}
+  \idem{\textbf{chaque chambre a son monde texte et son monde image} --- c'est la seule
+   chose qu'elles partagent ici ; au final, \textbf{57,5\,\%} du corpus viendra
+   d'images.}\\[2mm]
+  \choixbox{on découpe le corpus en \textbf{4 sous-corpus} (chambre × format) et chaque
+   voie reçoit son \textbf{extracteur dédié} --- un traitement uniforme raterait la
+   moitié. C'est le plan des quatre slides d'Extraction qui suivent.}
+\end{frame}
+
+% ── I.2d · Le manuscrit ──
+\begin{frame}{I.2d · Dans l'image, le vrai point dur n'est pas le scan : c'est le manuscrit}
   \centering
   {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} (à lire par
    \textbf{OCR} : lecture automatique) --- ce qui compte n'est pas l'orientation mais
@@ -1248,22 +1293,13 @@
   \end{columns}
 \end{frame}
 
-% ── A2 · La recherche eFD, en détail ──
-\begin{frame}{A2 --- Le portail du Sénat : la recherche, puis la liste}
-  \begin{columns}[c]
-    \begin{column}{0.48\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.92\linewidth]{slides/site_senate_form.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} le formulaire : on coche \textbf{Senator} ×
-       \textbf{PTR} --- c'est ce qui remplace l'index de la Chambre}
-    \end{column}
-    \begin{column}{0.48\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.92\linewidth]{slides/site_senate_results.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} la liste réelle : un lien par dépôt --- chacun
-       s'ouvre en page web ou en scan}
-    \end{column}
-  \end{columns}
-  \vspace{2.5mm}
+% ── A2 · La liste eFD, en détail ──
+\begin{frame}{A2 --- Le portail du Sénat : ce que rend la recherche}
   \centering
+  \fcolorbox{black!25}{white}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{slides/site_senate_results.png}}\\[1.5mm]
+  {\footnotesize la liste réelle des dépôts (I.1b) --- \textbf{un lien par dépôt} :
+   chacun s'ouvre en \textbf{page web} ou en \textbf{scan}, c'est là que se décide la
+   voie d'extraction}\\[1mm]
   {\scriptsize\color{black!60} les PTR sont \textbf{un type parmi d'autres} au Sénat
    aussi (annuels, extensions, \emph{blind trusts}…) --- on ne demande que les PTR}
 \end{frame}
