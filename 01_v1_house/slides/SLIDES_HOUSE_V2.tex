@@ -89,6 +89,15 @@
 \newcommand{\badge}[2]{\colorbox{#1}{\textcolor{white}{\footnotesize\textbf{#2}}}}
 \newcommand{\badgel}[2]{\colorbox{#1}{\textcolor{black!80}{\footnotesize\textbf{#2}}}}
 
+% ── Spine des deux compteurs ──
+% (Un indicateur de colonne en coin a été testé mais retiré : il entrait en
+%  collision avec le contenu selon les slides. Le spine RECONSTRUIRE/VÉRIFIER est
+%  porté par la slide-pivot, les titres, les additions explicites et le registre.)
+\newcommand{\colR}{}
+\newcommand{\colV}{}
+\newcommand{\colB}{}
+\newcommand{\colS}{}
+
 \title[La Chambre, de bout en bout]{La Chambre, de bout en bout}
 \subtitle{Du site du Clerk au portefeuille de chaque élu — la récupération V1, propre et prouvée}
 \author[A.~Lemaire]{Alice Lemaire}
@@ -278,218 +287,250 @@
    est hors sujet pour un signal de trading}
 \end{frame}
 
-% ── S12 · Les 4 canaux ── (tables 04/05/07/08/09)
-\begin{frame}{Quatre canaux d'extraction — électronique d'abord, OCR pour le reste}
+% ══════════════════════════════════════════════════════════════════════════
+% FIN REFONDUE (post-diagnostic Alice) : spine 2 compteurs · grammaire visuelle
+% · fil rouge Dean Phillips (P000616, vérifiable strict). Chiffres = MANIFEST +
+% tables versionnées (voir asserts notebook). Ancien bloc S12-S25 archivé en git.
+% ══════════════════════════════════════════════════════════════════════════
+
+% ── É5 · Ce que l'extraction livre ── (MANIFEST : signal 161 076 · photos 387 585 · 28 j)
+\begin{frame}{Ce que l'extraction livre — un signal, et des photos}
+  \colS
   \centering
-  \tuile{dataC}{198\,615}{photos de patrimoine\\électroniques}\hfill
-  \tuile{helec}{56\,002}{transactions P\\électroniques}\hfill
-  \tuile{helec}{110\,147}{transactions des\\annuels (électroniques)}\hfill
-  \tuile{hocr}{449\,350}{lignes lues par OCR\\(tout le scanné)}\\[4mm]
-  {\footnotesize \badge{okgreen}{rien de lisible ne part inutilement en OCR —
-   et zéro document scanné n'a été laissé de côté}}\\[2mm]
-  {\scriptsize\color{black!60} OCR = 105\,074 transactions P +
-   188\,970 photos + 155\,306 transactions d'annuels,
-   lues par vision automatique sur les documents papier}
+  \resizebox{0.82\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=6mm]
+    \node[step=grisC, fill=grisC!8, text width=3.6cm, minimum height=2.0cm, font=\footnotesize] (src)
+      {\textbf{4 canaux}\\{\scriptsize électronique + OCR\\Schedule A (patrimoine)\\Schedule B (transactions)}};
+    \node[step=helec, text width=4.6cm, minimum height=1.5cm, font=\footnotesize, above right=1mm and 16mm of src] (sig)
+      {\textbf{161\,076} transactions datées\\{\scriptsize = LE SIGNAL · connu à 28 j (médiane)}};
+    \node[step=dataC, text width=4.6cm, minimum height=1.5cm, font=\footnotesize, below right=1mm and 16mm of src] (pho)
+      {\textbf{387\,585} photos de patrimoine\\{\scriptsize = de quoi reconstruire \& vérifier}};
+    \draw[arr] (src) -- (sig); \draw[arr] (src) -- (pho);
+  \end{tikzpicture}}\\[3mm]
+  {\footnotesize le \textbf{signal} (les P) est ce qui est publié assez vite pour être tradé ;
+   les \textbf{photos} (Schedule A) servent à \textbf{reconstruire} et \textbf{vérifier} les
+   portefeuilles — deux usages, deux questions}
 \end{frame}
 
-% ── S13 · Totaux ── (MANIFEST + tables ; 28 j = médiane vérifiée)
-\begin{frame}{Ce que l'extraction livre}
+\section{Deux compteurs — reconstruire, puis vérifier}
+% ── Pivot · deux questions, deux compteurs ── (P-1 825 · vérif 56 · quadrant 149/900)
+\begin{frame}{Deux questions, deux compteurs — et pourquoi ils n'ont pas la même taille}
+  \colS
   \centering
-  \tuile{okgreen}{161\,076}{transactions datées\\= LE SIGNAL}\hfill
-  \tuile{helec}{28 j}{délai médian\\trade → publication}\hfill
-  \tuile{dataC}{387\,585}{photos de patrimoine\\(toutes sources)}\\[4mm]
-  {\footnotesize le signal, c'est les P : les seules transactions connues assez
-   vite pour être tradées. Tout le reste — photos et transactions des annuels —
-   sert à \textbf{reconstruire et vérifier} les portefeuilles.}
+  {\footnotesize sur les \textbf{900} membres de la fenêtre (2014 → 2026) on pose \textbf{deux}
+   questions différentes — donc deux compteurs de tailles naturellement différentes}\\[2mm]
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}\centering
+      \colorbox{helec}{\parbox[c][22mm][c]{0.9\linewidth}{\centering\color{white}
+        \textbf{RECONSTRUIRE}\\[0.4mm]{\scriptsize redessiner un portefeuille daté ?}\\[1.2mm]
+        {\Large\textbf{825}}\\[0.3mm]{\scriptsize large : ≥ 2 photos + des flux}}}
+    \end{column}
+    \begin{column}{0.47\textwidth}\centering
+      \colorbox{okgreen}{\parbox[c][22mm][c]{0.9\linewidth}{\centering\color{white}
+        \textbf{VÉRIFIER}\\[0.4mm]{\scriptsize PROUVER entrée + flux ⊇ sortie ?}\\[1.2mm]
+        {\Large\textbf{56}}\\[0.3mm]{\scriptsize étroit : cycle complet, photos tickérisées}}}
+    \end{column}
+  \end{columns}
+  \vspace{2mm}
+  {\footnotesize \badge{alertred}{ces deux nombres ne s'additionnent ni ne se comparent}\;
+   {\color{black!60}seuls \textbf{149} des 900 ont un cycle complet — la vérification est \emph{plafonnée}, pas ratée}}\\[1.5mm]
+  {\scriptsize\color{black!60} pour rendre tout ceci concret, on suit un membre réel de bout en bout : \textbf{Dean Phillips}}
 \end{frame}
 
-\section{Étape 6 · Le portefeuille d'entrée}
-% ── S14 · La photo de départ ── (table 15)
-\begin{frame}{La photo de départ de chaque membre}
-  \centering
-  \tuile{okgreen}{252}{membres ancrés\\par leur H}\hfill
-  \tuile{dataC}{32}{ancrés par leur C\\(dispensés de H)}\hfill
-  \tuile{helec}{284}{= portefeuilles\\d'entrée datés}\hfill
-  \tuile{grisC}{616}{sans photo d'entrée\\(déjà en poste en 2014…)}\\[4mm]
-  {\footnotesize un C n'est accepté comme photo de départ que sous
-   \textbf{trois garde-fous} : électronique · au moins une action cotée ·
-   déposé moins d'un an avant la prise de poste (le C de campagne d'un élu
-   déjà en place ne compte pas)}\\[2mm]
-  {\scriptsize\color{black!60} sans H ni C, la reconstruction s'ancre sur le
-   premier rapport annuel — plus tardif, donc série partielle}
+\section{Reconstruire — le portefeuille daté}
+% ── R1 · La photo de départ ── (E-1 284 = 252 H + 32 C ; Phillips H 2019, 316 tickers)
+\begin{frame}{La photo de départ — le point d'ancrage de chaque reconstruction}
+  \colR
+  \begin{columns}[T]
+    \begin{column}{0.33\textwidth}\centering
+      \fcolorbox{black!25}{white}{\includegraphics[height=37mm]{slides/ftype_h.png}}\\[1mm]
+      {\scriptsize le \textbf{rapport d'entrée (H)}\\Schedule A : ce qu'il détient en arrivant}
+    \end{column}
+    \begin{column}{0.63\textwidth}\centering
+      {\large \textcolor{okgreen}{\textbf{252}} (H) \;+\; \textcolor{dataC}{\textbf{32}} (porte C) \;=\; \textbf{284} membres ancrés}\\[1.5mm]
+      {\footnotesize \textbf{284} ancrés \;+\; 616 sans ancre \;=\; \textbf{900}}\\[3mm]
+      {\footnotesize un \textbf{C} n'ouvre la porte que sous \textbf{trois garde-fous} :}\\[1.5mm]
+      {\footnotesize \badgel{grisC!18}{électronique}\; \badgel{grisC!18}{≥ 1 action cotée}\;
+       \badgel{grisC!18}{déposé < 1 an avant la prise de poste}}
+    \end{column}
+  \end{columns}
+  \vspace{3mm}
+  {\footnotesize \badge{okgreen}{Fil rouge — Dean Phillips} entre en 2019 avec un rapport H rempli
+   d'\textbf{actions cotées} ; on va suivre son portefeuille jusqu'à sa sortie}
 \end{frame}
 
-\section{Étape 7 · Les flux, dédupliqués}
-% ── S15 · Dédup à l'assemblage ── (source : §10 du notebook — 189 117 → 166 149)
-\begin{frame}{Les transactions ne vivent pas que dans les P}
+% ── R2 · Les flux dédupliqués + gain net O/A/T ── (166 149 ; N-1 26 115 = 22 216 + 3 899 ; 374 j)
+\begin{frame}{Les flux — chaque trade compté une seule fois}
+  \colR
   \centering
-  {\footnotesize les annuels, les amendements et les rapports de sortie déclarent
-   AUSSI des transactions — souvent les mêmes, re-déclarées}\\[4mm]
-  \resizebox{0.9\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=9mm]
-    \node[step=helec, text width=3.2cm, minimum height=1.5cm, font=\footnotesize] (a)
-      {\textbf{189\,117} lignes\\{\scriptsize toutes sources électroniques}};
-    \node[step=dataC, text width=3.4cm, minimum height=1.5cm, font=\footnotesize, right=of a] (b)
-      {\textbf{−\,22\,968} doublons\\{\scriptsize le même trade re-déclaré\\(annuel, amendement…)}};
-    \node[step=okgreen, text width=3.2cm, minimum height=1.5cm, font=\footnotesize, right=of b] (c)
-      {\textbf{166\,149} uniques\\{\scriptsize chaque trade compté\\UNE fois}};
-    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-  \end{tikzpicture}}\\[4mm]
-  {\footnotesize la déduplication se fait ICI, à l'assemblage — là où toutes les
-   sources se rencontrent ; on garde la première divulgation publique}
-\end{frame}
-
-% ── S16 · Le gain net des annuels ── (table 16)
-\begin{frame}{Ce que les annuels apportent en plus — et pourquoi ce n'est pas du signal}
-  \centering
-  \tuile{okgreen}{26\,115}{trades jamais vus\\dans un P}\hfill
-  \tuile{dataC}{22\,216}{via les annuels}\hfill
-  \tuile{dataC}{3\,899}{via sorties et\\amendements}\hfill
-  \tuile{grisC}{374 j}{délai médian\\trade → publication}\\[4mm]
-  {\footnotesize ces trades comblent des trous du portefeuille (des élus oublient
-   leur déclaration P mais les inscrivent à l'annuel) — mais on les découvre
-   \textbf{un an trop tard} : ils nourrissent le patrimoine, jamais le signal}
-\end{frame}
-
-\section{Étape 8 · Vérifier — entrée + achats ⊇ sortie}
-% ── S17 · Le test ──
-\begin{frame}{Le test de cohérence — la chronologie d'un mandat doit se recouper}
-  \centering
-  {\footnotesize chaque position détenue à la SORTIE doit s'expliquer :
-   soit elle était là à l'ENTRÉE, soit elle a été ACHETÉE entre les deux}\\[4mm]
-  \resizebox{0.93\textwidth}{!}{%
+  {\footnotesize toutes les sources (P, annuels, amendements, sorties) déclarent des transactions —
+   souvent les mêmes, re-déclarées : on dédoublonne \textbf{à l'assemblage}}\\[3mm]
+  \resizebox{0.8\textwidth}{!}{%
   \begin{tikzpicture}[node distance=8mm]
-    \node[step=okgreen, text width=3.0cm, minimum height=1.6cm, font=\footnotesize] (h)
-      {\textbf{photo d'ENTRÉE}\\{\scriptsize ce qu'il possède\\en arrivant}};
-    \node[step=helec, text width=3.2cm, minimum height=1.6cm, font=\footnotesize, right=of h] (p)
-      {\textbf{+ les ACHATS}\\{\scriptsize toutes les transactions\\du mandat}};
-    \node[step=dataC, text width=3.2cm, minimum height=1.6cm, font=\footnotesize, right=of p] (t)
-      {\textbf{doit couvrir la SORTIE}\\{\scriptsize chaque position,\\une par une}};
-    \draw[arr] (h) -- (p); \draw[arr] (p) -- (t);
-  \end{tikzpicture}}\\[4mm]
-  {\scriptsize\color{black!60} quatre déclarations INDÉPENDANTES du même
-   portefeuille (entrée, transactions, annuels, sortie) : si la collecte était
-   trouée, ça se verrait ici}
-\end{frame}
-
-% ── S18 · La cohorte testable ── (quadrant + photos + tickers)
-\begin{frame}{Sur qui peut-on faire ce test ?}
-  \centering
-  \resizebox{0.9\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=9mm]
-    \node[step=grisC, text width=3.2cm, minimum height=1.6cm, font=\footnotesize] (a)
-      {\textbf{149} cycles complets\\{\scriptsize entrés PUIS sortis\\dans la fenêtre}};
-    \node[step=dataC, text width=3.2cm, minimum height=1.6cm, font=\footnotesize, right=of a] (b)
-      {\textbf{106} avec les\\deux photos déposées\\{\scriptsize entrée ET sortie}};
-    \node[step=okgreen, text width=3.4cm, minimum height=1.6cm, font=\footnotesize, right=of b] (c)
-      {\textbf{56} testables\\{\scriptsize des actions cotées\\des deux côtés}};
+    \node[step=helec, text width=3.2cm, minimum height=1.4cm, font=\footnotesize] (a)
+      {\textbf{189\,117} lignes\\{\scriptsize toutes sources}};
+    \node[step=dataC, text width=3.4cm, minimum height=1.4cm, font=\footnotesize, right=of a] (b)
+      {\textbf{−\,22\,968} doublons\\{\scriptsize le même trade re-déclaré}};
+    \node[step=okgreen, text width=3.2cm, minimum height=1.4cm, font=\footnotesize, right=of b] (c)
+      {\textbf{166\,149} uniques\\{\scriptsize chaque trade compté UNE fois}};
     \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
   \end{tikzpicture}}\\[4mm]
-  {\footnotesize la moitié des membres à double photo ne détient \textbf{aucune
-   action cotée} (fonds, immobilier, comptes gérés) — on ne peut pas suivre
-   ce qui n'a pas de cours de bourse : c'est la nature du patrimoine,
-   pas un défaut de collecte}
+  {\footnotesize \badgel{dataC!18}{\textcolor{dataC}{\textbf{gain net O/A/T = 26\,115}}
+   = 22\,216 (annuels) + 3\,899 (sorties + amendements)}}\\[1.5mm]
+  {\scriptsize\color{black!60} ces 26\,115 trades n'ont aucun écho dans un P — mais divulgués à
+   \textbf{374 j} (médiane) : ils nourrissent le \textbf{patrimoine}, jamais le \textbf{signal}}
 \end{frame}
 
-% ── S19 · Le résultat ── (MANIFEST : 78,7 / 87,8 / 3,3 ; élargie 87,1)
-\begin{frame}{Le résultat — les portefeuilles se recoupent}
-  \centering
-  \tuile{helec}{78,7 \%}{expliqué par les\\transactions P seules}\hfill
-  \tuile{okgreen}{87,8 \%}{avec TOUTES les\\déclarations}\hfill
-  \tuile{alertred}{3,3 \%}{vraiment\\inexpliqué}\\[4mm]
-  {\footnotesize l'écart entre les deux premiers chiffres, c'est surtout du
-   \textbf{non-dépôt documenté} : l'élu a déclaré l'achat dans son annuel,
-   jamais dans un P — quelques habitués concentrent l'essentiel}\\[2.5mm]
-  {\scriptsize\color{black!60} deux limites assumées : les montants sont des
-   \textbf{fourchettes sans quantités} (on vérifie la présence d'un titre, pas un
-   solde comptable) · les blind trusts ne créent pas de faux trous — le
-   portefeuille y devient invisible, il ne fuit pas ·
-   la cohorte élargie au papier confirme (87,1 \%)}
+% ── R3 · Le moteur + la série réelle de Phillips ── (P-1 825 · P-2 66,7 ; fig_house_phillips)
+\begin{frame}{Le moteur — photo, flux, recalage : 825 portefeuilles datés}
+  \colR
+  \begin{columns}[T]
+    \begin{column}{0.42\textwidth}\centering
+      \resizebox{\textwidth}{!}{%
+      \begin{tikzpicture}[node distance=5mm]
+        \node[step=okgreen, text width=3.8cm, minimum height=1.0cm, font=\footnotesize] (a)
+          {\textbf{(i) ancrage}\\{\scriptsize la photo d'entrée}};
+        \node[step=helec, text width=3.8cm, minimum height=1.0cm, font=\footnotesize, below=of a] (b)
+          {\textbf{(ii) + flux datés}\\{\scriptsize achats / ventes, jour par jour}};
+        \node[step=dataC, text width=3.8cm, minimum height=1.0cm, font=\footnotesize, below=of b] (c)
+          {\textbf{(iii) recalage}\\{\scriptsize à chaque nouvelle photo,\\le document fait foi}};
+        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+        \draw[arr, bend left=60] (c.east) to (b.east);
+      \end{tikzpicture}}
+    \end{column}
+    \begin{column}{0.56\textwidth}\centering
+      \includegraphics[width=\textwidth]{fig_house_phillips.png}
+    \end{column}
+  \end{columns}
+  \vspace{2mm}
+  {\footnotesize \badge{helec}{825 portefeuilles datés}\;
+   \badge{okgreen}{66,7 \% des positions confirmées d'une photo à l'autre}}\\[1.2mm]
+  {\scriptsize\color{black!60} en présence par ticker et fourchettes de valeur — jamais en quantités (la loi ne les publie pas)}
 \end{frame}
 
-\section{Étape 9 · Reconstruire — le portefeuille daté de chaque membre}
-% ── S20 · Le moteur ── (tables 12/13)
-\begin{frame}{Le moteur — photo, flux, recalage}
+\section{Vérifier — entrée + achats couvrent la sortie}
+% ── V1 · Le test (diagramme d'ensembles) ── (détecteur de trous)
+\begin{frame}{Le test — la sortie doit tenir dans l'entrée + les achats}
+  \colV
   \centering
-  \resizebox{0.93\textwidth}{!}{%
+  {\footnotesize chaque position détenue à la \textbf{sortie} doit s'expliquer :
+   soit elle était à l'\textbf{entrée}, soit elle a été \textbf{achetée} pendant le mandat}\\[2mm]
+  \resizebox{0.8\textwidth}{!}{%
+  \begin{tikzpicture}
+    \fill[okgreen!18] (0,0) ellipse (2.1 and 1.35);
+    \fill[helec!18] (2.6,0) ellipse (2.1 and 1.35);
+    \node[okgreen] at (-0.85,1.02) {\footnotesize\textbf{ENTRÉE (H)}};
+    \node[helec] at (3.45,1.02) {\footnotesize\textbf{ACHATS (P)}};
+    \draw[dataC, line width=1pt] (1.3,-0.15) ellipse (1.55 and 0.72);
+    \node[dataC] at (1.3,-0.15) {\footnotesize\textbf{SORTIE (T)}};
+    \fill[alertred] (4.35,-1.0) circle (2.4pt);
+    \node[alertred, anchor=west, font=\scriptsize] at (4.5,-1.0) {position hors union = \textbf{trou détecté}};
+  \end{tikzpicture}}\\[2mm]
+  {\footnotesize \(\mathbf{H \cup \Sigma P \supseteq T}\) — testé position par position, ticker par ticker}\\[1mm]
+  {\scriptsize\color{black!60} quatre déclarations \textbf{indépendantes} du même portefeuille : si notre
+   collecte était trouée, l'identité casserait ici — c'est un \textbf{détecteur de trous}}
+\end{frame}
+
+% ── V2 · Le plafond (entonnoir + addition explicite) ── (149 → 106 → 56 ; 56 = 45 + 4 + 7)
+\begin{frame}{Sur qui peut-on faire ce test ? Le plafond structurel}
+  \colV
+  \centering
+  \resizebox{0.82\textwidth}{!}{%
   \begin{tikzpicture}[node distance=8mm]
-    \node[step=okgreen, text width=3.0cm, minimum height=1.6cm, font=\footnotesize] (a)
-      {\textbf{photo d'ancrage}\\{\scriptsize la photo d'entrée,\\ou la 1re disponible}};
-    \node[step=helec, text width=3.2cm, minimum height=1.6cm, font=\footnotesize, right=of a] (b)
-      {\textbf{+ flux datés}\\{\scriptsize achats et ventes,\\appliqués jour par jour}};
-    \node[step=dataC, text width=3.4cm, minimum height=1.6cm, font=\footnotesize, right=of b] (c)
-      {\textbf{recalage}\\{\scriptsize à chaque nouvelle photo,\\le document fait foi}};
+    \node[step=grisC, text width=3.1cm, minimum height=1.5cm, font=\footnotesize] (a)
+      {\textbf{149} cycles complets\\{\scriptsize entrés PUIS sortis}};
+    \node[step=dataC, text width=3.1cm, minimum height=1.5cm, font=\footnotesize, right=of a] (b)
+      {\textbf{106} à double photo\\{\scriptsize entrée ET sortie déposées}};
+    \node[step=okgreen, text width=3.3cm, minimum height=1.5cm, font=\footnotesize, right=of b] (c)
+      {\textbf{56} testables\\{\scriptsize actions cotées des deux côtés}};
     \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-    \draw[arr, bend right=25] (c.south) to (b.south);
-  \end{tikzpicture}}\\[4mm]
-  \tuile{helec}{825}{membres avec un\\portefeuille daté}\hfill
-  \tuile{dataC}{6\,049}{photos de patrimoine\\dans leurs séries}\hfill
-  \tuile{okgreen}{66,7 \%}{des positions confirmées\\d'une photo à l'autre}\\[2mm]
-  {\scriptsize\color{black!60} en positions et en fourchettes de valeur —
-   jamais en quantités : la loi ne les publie pas}
+  \end{tikzpicture}}\\[3.5mm]
+  {\footnotesize \badgel{okgreen!20}{\textbf{56} = 45 (H∧T électronique) + 4 (OCR papier) + 7 (porte C)}}\\[2mm]
+  {\scriptsize\color{black!60} la moitié des 106 à double photo ne détient \textbf{aucune action cotée}
+   (fonds, immobilier, comptes gérés) : on ne suit pas ce qui n'a pas de cours — nature du patrimoine, pas défaut de collecte}
 \end{frame}
 
-% ── S21 · Le registre ── (table 14)
+% ── V3 · Le résultat + décomposition des trous ── (78,7→84,2→87,8 ; C-f 3,3 ; fig_house_trous ; 125/122/45)
+\begin{frame}{Le résultat — ça se recoupe, et les trous s'expliquent un par un}
+  \colV
+  \centering
+  {\footnotesize en cumulant toutes les preuves d'achat :
+   \textbf{78,7 \%} (entrée + achats PTR) → \textbf{84,2 \%} (+ annuels O/A) → \textbf{87,8 \%} (+ Schedule B du T)}\\[1.5mm]
+  \includegraphics[width=0.72\textwidth]{fig_house_trous.png}\\[1mm]
+  {\footnotesize sur 292 trous : \textbf{125} sont des achats \textbf{déclarés ailleurs} (annuel O/A ou le T lui-même
+   — ex. Kathy Manning), \textbf{122} sont \textbf{structurels} (comptes gérés, ETF exemptés, sous seuil) —
+   reste \badge{okgreen}{3,3 \% vraiment inexpliqué}}
+\end{frame}
+
+% ── V4 · L'exception : le blind trust ── (23 dépôts, 5 élus ; C-d = C-e = 0 ; Malinowski 34)
+\begin{frame}{L'exception — le blind trust rend le portefeuille invisible, sans créer de trou}
+  \colV
+  \begin{columns}[T]
+    \begin{column}{0.33\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/8220736.pdf}%
+      {\fcolorbox{black!30}{white}{\includegraphics[height=37mm]{slides/ftype_b.png}}}\\[1mm]
+      {\scriptsize la fiducie aveugle (type \co{B})\\— vignette cliquable}
+    \end{column}
+    \begin{column}{0.63\textwidth}
+      {\footnotesize à sa sortie en 2025, notre fil rouge \textbf{Dean Phillips} confie tout à une
+       \textbf{fiducie aveugle} : ses \textbf{284 titres cotés} se ramassent en \textbf{1 seule ligne
+       opaque} « Qualified Blind Trust », sans ticker}\\[2mm]
+      {\footnotesize le patrimoine \textbf{disparaît} de la vue — il ne \textbf{fuit} pas : cette unique
+       ligne est \emph{traitée}, jamais comptée comme un trou. Phillips reste \textbf{l'un des 56 vérifiés}}\\[2mm]
+      {\footnotesize à l'inverse \textbf{Tom Malinowski} (34 titres → \textbf{0}) sort sans aucune
+       position cotée : lui \textbf{quitte} la cohorte stricte (reconstructible complet, non vérifiable)}\\[2mm]
+      \badge{okgreen}{C-d = 0 · C-e = 0 : aucun faux trou}\;{\scriptsize\color{black!60} 23 dépôts, 5 élus}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Le bilan}
+% ── B1 · Le registre (partition des 900) ── (56 + 109 + 715 + 20 = 900 ; Phillips ∈ 56)
 \begin{frame}{Un statut explicite pour chacun des 900 membres}
+  \colB
   \centering
-  \includegraphics[width=0.9\textwidth]{fig_house_registre.png}\\[2mm]
-  {\footnotesize « le portefeuille de chaque membre » se dit honnêtement :
-   qui est \textbf{vérifié}, qui est \textbf{reconstruit avec son point de
-   départ}, qui est \textbf{partiel}, qui est \textbf{hors d'atteinte} —
-   et pourquoi, membre par membre}
+  \resizebox{0.97\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=3mm]
+    \node[step=okgreen, text width=2.7cm, minimum height=1.8cm, font=\footnotesize] (a)
+      {{\Large\textbf{56}}\\[0.5mm]vérifiable strict\\{\scriptsize cycle complet, testé}};
+    \node[step=helec, text width=2.9cm, minimum height=1.8cm, font=\footnotesize, right=of a] (b)
+      {{\Large\textbf{109}}\\[0.5mm]reconstructible complet\\{\scriptsize série entière}};
+    \node[step=hocr, draw=helec, fill=hocr!30, text width=3.0cm, minimum height=1.8cm, font=\footnotesize, right=of b] (c)
+      {{\Large\textbf{715}}\\[0.5mm]reconstructible partiel\\{\scriptsize photos / flux incomplets}};
+    \node[step=grisC, text width=2.6cm, minimum height=1.8cm, font=\footnotesize, right=of c] (d)
+      {{\Large\textbf{20}}\\[0.5mm]hors d'atteinte\\{\scriptsize aucune donnée}};
+  \end{tikzpicture}}\\[3mm]
+  {\footnotesize \textbf{56 + 109 + 715 + 20 = 900} — chaque membre est classé par ce qu'on peut prouver pour lui}\\[2mm]
+  {\scriptsize\color{black!60} on \textbf{RECONSTRUIT} une série datée pour 825 membres (le moteur) ;
+   on n'en \textbf{VÉRIFIE} que 56 de bout en bout — \textbf{Dean Phillips est l'un des 56}.
+   Ce qui ne colle pas entre deux photos est publié et décomposé, jamais caché.}
 \end{frame}
 
-% ── S22 · Les deux compteurs ── (MANIFEST + table 18)
-\begin{frame}{Les deux compteurs — reconstruire n'est pas vérifier}
+% ── B2 · Rien d'oublié + tout re-jouable ── (G-1 35 377 ; 75 validations, 0 rouge ; 18 tables)
+\begin{frame}{Rien d'oublié — chaque dépôt a un traitement, la somme boucle}
+  \colS
   \centering
-  \tuile{helec}{825}{portefeuilles\\RECONSTRUITS}\hfill
-  \tuile{okgreen}{56}{portefeuilles VÉRIFIÉS\\de bout en bout}\\[4mm]
-  {\footnotesize ces deux nombres ne s'additionnent ni ne se comparent : pour
-   $\approx$ 9 membres sur 10, on reconstruit la série sans pouvoir la vérifier
-   entrée → sortie (pas de cycle complet, ou pas d'actions cotées)}\\[2.5mm]
-  {\scriptsize\color{black!60} et ce qui ne colle pas entre deux photos est
-   \textbf{publié et décomposé}, pas caché — l'essentiel vient des libellés
-   d'actifs qui changent d'écriture d'une année à l'autre (la suite naturelle :
-   un appariement tolérant aux variations de nom)}
-\end{frame}
-
-\section{Étape 10 · Rien d'oublié}
-% ── S23 · La comptabilité ── (table 10)
-\begin{frame}{Chaque dépôt a un traitement — la somme boucle}
-  \centering
-  \includegraphics[width=0.86\textwidth]{fig_house_compta.png}\\[2mm]
+  \includegraphics[width=0.82\textwidth]{fig_house_compta.png}\\[2mm]
   {\footnotesize \badge{okgreen}{la somme retombe exactement sur 35\,377}\;
-   \badge{okgreen}{zéro document scanné laissé de côté}\;
-   \badgel{grisC!25}{\textcolor{grisC}{\textbf{10 exclus : des PDF morts côté
-   site, tracés un par un}}}}
-\end{frame}
-
-% ── S24 · Les contrôles ── (MANIFEST : 75 validations, 0 rouge)
-\begin{frame}{Tout est contrôlé, tout est re-jouable}
-  \centering
-  \tuile{okgreen}{75}{contrôles automatiques\\dans le notebook}\hfill
-  \tuile{helec}{0}{contrôle\\en échec}\hfill
-  \tuile{dataC}{18}{tables versionnées\\(chaque chiffre traçable)}\\[4mm]
-  {\footnotesize chaque affirmation de ce deck sort d'un contrôle du notebook :
-   un chiffre faux ferait échouer l'exécution. Relancer le notebook rejoue
-   TOUT — téléchargements, extraction, vérifications — à l'identique.}
+   \badge{okgreen}{75 contrôles automatiques · 0 rouge}\;
+   \badgel{grisC!25}{\textcolor{grisC}{\textbf{10 PDF morts, exclus et tracés un par un}}}}\\[1.5mm]
+  {\scriptsize\color{black!60} un chiffre faux ferait échouer l'exécution du notebook — et le relancer
+   rejoue TOUT (téléchargements, extraction, vérifications) à l'identique : 18 tables numérotées, versionnées}
 \end{frame}
 
 \section{Verdict}
-% ── S25 · Verdict ──
+% ── Verdict ── (161 076 · 825 · 56 ; Phillips reboucle)
 \begin{frame}{Ce que ce travail prouve — et la suite}
+  \colB
   \centering
   {\footnotesize
   \badge{helec}{1. la source est exhaustive et ARCHIVÉE — c'est le site qui efface, pas nous}\\[2mm]
-  \badge{helec}{2. le tri lisible/scanné est MESURÉ — et tout le scanné a été lu}\\[2mm]
-  \badge{helec}{3. les portefeuilles SE RECOUPENT — 87,8 \% expliqué,
-   3,3 \% d'inexpliqué résiduel}}\\[5mm]
-  \tuile{okgreen}{161\,076}{transactions datées\\= le signal, complet}\hfill
-  \tuile{dataC}{825}{portefeuilles\\reconstruits et datés}\hfill
-  \tuile{helec}{56}{vérifiés\\de bout en bout}\\[4mm]
-  {\scriptsize\color{black!60} la suite : le Sénat sur le même plan ·
-   l'appariement tolérant des noms d'actifs · brancher le portefeuille d'entrée
-   dans le moteur de stratégie}
+  \badge{helec}{2. le tri lisible / scanné est MESURÉ — et tout le scanné a été lu}\\[2mm]
+  \badge{helec}{3. les portefeuilles SE RECOUPENT — 87,8 \% expliqué, 3,3 \% résiduel}}\\[3mm]
+  {\footnotesize \badgel{dataC!20}{\textcolor{dataC}{\textbf{161\,076} transactions datées = le signal, socle commun}}}\\[2.5mm]
+  \hfill\tuile{helec}{825}{portefeuilles\\RECONSTRUITS}\hfill\tuile{okgreen}{56}{VÉRIFIÉS\\de bout en bout}\hfill\\[2.5mm]
+  {\footnotesize \badge{okgreen}{Dean Phillips} entré 2019, sorti en fiducie aveugle (284 → 1) → et pourtant \textbf{vérifié} : l'un des 56}\\[1.5mm]
+  {\scriptsize\color{black!60} la suite : le Sénat sur le même plan · l'appariement tolérant des noms d'actifs · brancher le patrimoine d'entrée dans le moteur de stratégie}
 \end{frame}
 
 \end{document}
