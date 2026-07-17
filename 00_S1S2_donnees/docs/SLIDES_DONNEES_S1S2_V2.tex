@@ -116,12 +116,14 @@
 % seul le curseur bouge. Les 9 bandes = les 9 étapes de la Partie I.
 \newcommand{\pipefig}[1]{%
   \def\opA{0.16}\def\opB{0.16}\def\opC{0.16}\def\opD{0.16}\def\opE{0.16}%
-  \def\opF{0.16}\def\opG{0.16}\def\opH{0.16}\def\opI{0.16}%
+  \def\opF{0.16}\def\opG{0.16}\def\opH{0.16}\def\opI{0.16}\def\opJ{0.16}%
   \ifnum#1=0 \def\opA{1}\def\opB{1}\def\opC{1}\def\opD{1}\def\opE{1}%
-             \def\opF{1}\def\opG{1}\def\opH{1}\def\opI{1}\fi
+             \def\opF{1}\def\opG{1}\def\opH{1}\def\opI{1}\def\opJ{1}\fi
   \ifnum#1=1 \def\opA{1}\fi  \ifnum#1=2 \def\opB{1}\fi  \ifnum#1=3 \def\opC{1}\fi
-  \ifnum#1=4 \def\opD{1}\fi  \ifnum#1=5 \def\opE{1}\fi  \ifnum#1=6 \def\opF{1}\fi
-  \ifnum#1=7 \def\opG{1}\fi  \ifnum#1=8 \def\opH{1}\fi  \ifnum#1=9 \def\opI{1}\fi
+  \ifnum#1=4 \def\opD{1}\fi  \ifnum#1=5 \def\opE{1}\fi
+  \ifnum#1=6 \def\opF{1}\def\opJ{1}\fi
+  \ifnum#1=7 \def\opG{1}\def\opJ{1}\fi
+  \ifnum#1=8 \def\opH{1}\fi  \ifnum#1=9 \def\opI{1}\fi
   \begin{tikzpicture}[node distance=3mm, every node/.style={transform shape}]
     % ---------- I.1 · Acquisition ----------
     \begin{scope}[opacity=\opA, text opacity=\opA]
@@ -141,51 +143,77 @@
         {\textbf{manuscrit} → écarté};
       \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-1.35) {I.2 Tri};
     \end{scope}
-    % ---------- I.3 · Extraction ----------
+    % ---------- I.3 · Extraction ---------- (chiffres BRUTS, avant dédup : leur somme = 170 920)
     \begin{scope}[opacity=\opC, text opacity=\opC]
       \node[step=helec, text width=2.6cm] (hpar) at (-5.3,-2.85)
-        {\textbf{parsing}\\[0.3mm]{\small\textbf{\color{helec}58\,728}}};
+        {\textbf{parsing}\\[0.3mm]{\small\textbf{\color{helec}58\,756}}};
       \node[step=hocr, text width=2.6cm] (hvis) at (-1.9,-3.55)
-        {\textbf{OCR Vision}\\[0.3mm]{\small\textbf{\color{helec}93\,261}}};
+        {\textbf{OCR Vision}\\[0.3mm]{\small\textbf{\color{helec}93\,325}}};
       \node[step=selec, text width=2.6cm] (spar) at (1.9,-2.85)
-        {\textbf{tableaux}\\[0.3mm]{\small\textbf{\color{selec}13\,026}}};
+        {\textbf{tableaux}\\[0.3mm]{\small\textbf{\color{selec}14\,813}}};
       \node[step=socr, text width=2.6cm] (svis) at (5.3,-2.85)
-        {\textbf{OCR Vision}\\[0.3mm]{\small\textbf{\color{selec}3\,985}}};
+        {\textbf{OCR Vision}\\[0.3mm]{\small\textbf{\color{selec}4\,026}}};
+      \node[font=\tiny, text=black!55, align=center] at (-1.9,-4.3)
+        {chaque ligne extraite porte déjà ses \textbf{7 champs} et son \textbf{montant}
+         (\emph{milieu de la fourchette déclarée})};
       \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-3.1) {I.3 Extraction};
     \end{scope}
     % ---------- I.4 à I.7 · le tronc commun ----------
     \begin{scope}[opacity=\opD, text opacity=\opD]
-      \node[bande=grisC, text width=12.6cm] (ident) at (0,-4.7)
+      \node[bande=grisC, text width=12.6cm] (ident) at (0,-4.95)
         {\textbf{identité} --- nom libre → identifiant officiel de l'élu \;·\; \textbf{100\,\%}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-4.7) {I.4 Identité};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-4.95) {I.4 Identité};
     \end{scope}
     \begin{scope}[opacity=\opE, text opacity=\opE]
-      \node[bande=dataC, text width=12.6cm] (tick) at (0,-5.5)
-        {\textbf{ticker} --- le nom de l'actif → son symbole boursier \;·\; \textbf{84,1 / 77,9\,\%}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-5.5) {I.5 Ticker};
+      \node[bande=dataC, text width=12.6cm] (tick) at (0,-5.75)
+        {\textbf{ticker} --- le nom de l'actif → son symbole boursier \;·\;
+         \textbf{82,4\,\%} Ch.\ · \textbf{77,9\,\%} Sén.};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-5.75) {I.5 Ticker};
     \end{scope}
     \begin{scope}[opacity=\opF, text opacity=\opF]
-      \node[bande=dataC, text width=12.6cm] (sect) at (0,-6.3)
-        {\textbf{secteur} --- GICS → ETF \;·\; \textbf{79,8 / 70,4\,\%} \;·\; montant → \emph{milieu de fourchette}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-6.3) {I.6 Secteur};
+      \node[bande=dataC, text width=12.6cm] (sect) at (0,-6.55)
+        {\textbf{secteur} --- GICS → ETF \;·\; \textbf{79,8\,\%} Ch.\ · \textbf{70,4\,\%} Sén.};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-6.55) {I.6 Secteur};
+    \end{scope}
+    % ---------- la sortie du pipeline (visible en I.0, I.6 et I.7 : c'est la frontière)
+    \begin{scope}[opacity=\opJ, text opacity=\opJ]
+      \node[bande=dataC, fill=dataC!16, text width=12.6cm] (corp) at (0,-7.35)
+        {\textbf{TABLE DU CORPUS} --- \textbf{170\,920 lignes × 28 colonnes}
+         \;{\tiny(les 26 fichiers livrés par le pipeline)}};
+    \end{scope}
+    % ---------- au-delà du pipeline : à la lecture, puis le notebook ----------
+    \begin{scope}[opacity=0.30, text opacity=0.30]
+      \draw[dashed, draw=black!45, line width=0.6pt] (-8.4,-7.85) -- (7.0,-7.85);
+      \node[font=\tiny\itshape, text=black!60, anchor=west] at (-8.4,-8.1)
+        {au-delà du pipeline --- \textbf{à la lecture} de la table, puis le
+         \textbf{notebook de nettoyage}};
     \end{scope}
     \begin{scope}[opacity=\opG, text opacity=\opG]
-      \node[bande=grisC, text width=12.6cm] (ded) at (0,-7.1)
-        {\textbf{dédup} --- l'empreinte à 7 champs : 170\,920 lignes brutes →
-         \textbf{TABLE DU CORPUS : 169\,000 uniques × 28 col.}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-7.1) {I.7 Dédup};
+      \node[bande=grisC, text width=12.6cm] (ded) at (0,-8.65)
+        {\textbf{dédup \& réparations} --- l'empreinte à 7 champs : \textbf{−1\,920}
+         re-divulgations \;·\; 7\,996 montants rétablis, 2\,540 tickers récupérés
+         (→ \textbf{84,1\,\%}) \;·\; \textbf{169\,000 uniques}};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-8.65) {I.7 Dédup};
     \end{scope}
-    % ---------- I.8 · Entonnoir ----------
+    % ---------- I.8 · Entonnoir ---------- (DEUX entonnoirs, DEUX axes : lignes, puis symboles)
+    % Le 2e (les symboles) est une DÉRIVATION : il ne retire aucune ligne de la table —
+    % les lignes sans prix restent, flaguées. D'où : pas de flèche vers I.9, bord pointillé.
     \begin{scope}[opacity=\opH, text opacity=\opH]
-      \node[bande=okgreen, text width=12.6cm] (ent) at (0,-8.0)
-        {\textbf{entonnoir} --- on ne retire que l'avéré inutilisable : \textbf{−34\,536}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-8.0) {I.8 Entonnoir};
+      \node[bande=okgreen, text width=12.6cm] (ent) at (0,-9.45)
+        {\textbf{entonnoir des LIGNES} --- on ne retire que l'avéré inutilisable :
+         \textbf{−34\,536}};
+      \node[bande=dataC, dashed, text width=11.0cm, anchor=north] (sym) at (0.8,-10.35)
+        {\textbf{entonnoir des SYMBOLES} --- 4\,618 → 3\,350 (Yahoo) →
+         \textbf{3\,289} exploitables\\[0.3mm]
+         {\tiny → \textbf{118\,029} lignes valorisables (≈\,88\,\% de 134\,429) \;·\;
+          \mbox{\textbf{aucune ligne retirée}} : les autres restent, flaguées}};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-9.45) {I.8 Entonnoir};
     \end{scope}
     % ---------- I.9 · Table finale ----------
     \begin{scope}[opacity=\opI, text opacity=\opI]
-      \node[bande=okgreen, fill=okgreen!16, text width=12.6cm] (fin) at (0,-8.85)
+      \node[bande=okgreen, fill=okgreen!16, text width=12.6cm] (fin) at (0,-11.7)
         {\textbf{TABLE DE RECHERCHE} --- \textbf{134\,464 × 36}};
-      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-8.85) {I.9 Table};
+      \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-11.7) {I.9 Table};
     \end{scope}
     % ---------- les flèches ----------
     \begin{scope}[opacity=0.30]
@@ -199,7 +227,12 @@
       \draw[arr] (spar.south) -- (ident.north -| spar.south);
       \draw[arr] (svis.south) -- (ident.north -| svis.south);
       \draw[arr] (ident) -- (tick); \draw[arr] (tick) -- (sect);
-      \draw[arr] (sect) -- (ded); \draw[arr] (ded) -- (ent); \draw[arr] (ent) -- (fin);
+      \draw[arr] (sect) -- (corp); \draw[arr] (corp) -- (ded);
+      \draw[arr] (ded) -- (ent);
+      % le flux principal contourne la dérivation par la gauche : LIGNES → table
+      \draw[arr] ([xshift=8mm]ent.south west) -- ([xshift=8mm]fin.north west);
+      % la dérivation : même étape, autre axe, cul-de-sac (n'alimente pas la table)
+      \draw[arr, dashed] (3.5,-9.76) -- (3.5,-10.35);
     \end{scope}
   \end{tikzpicture}}
 
@@ -506,7 +539,8 @@
 % ════ I.3 · EXTRACTION ════
 \pipeslide{3}{I.3 · Extraction --- on est ici}%
   {Comment fait-on sortir des transactions d'un PDF, d'une page web, d'une image ?}%
-  {les \textbf{4 voies} lues : 58\,728 + 93\,261 + 13\,026 + 3\,985}
+  {les \textbf{4 voies} lues : 58\,756 + 93\,325 + 14\,813 + 4\,026 =
+   \textbf{170\,920} lignes (avant dédoublonnage)}
 
 % ── I.3a · Extraction Chambre, texte ──
 \begin{frame}{I.3a · Extraction Chambre · texte --- un PDF n'est pas un tableau}
@@ -518,7 +552,7 @@
        moitié}}
     \end{column}
     \begin{column}{0.42\textwidth}
-      \badge{helec}{58\,728 transactions}\\[2mm]
+      \badge{helec}{58\,756 lignes extraites → 58\,728 uniques}\\[2mm]
       {\footnotesize \textbf{1.} \textbf{recoller} les lignes coupées\\[1mm]
        \textbf{2.} repérer la \textbf{signature} d'une transaction : opération +
        2 dates + fourchette\\[1mm]
@@ -541,7 +575,7 @@
   \begin{columns}[T]
     \begin{column}{0.44\textwidth}\footnotesize
       · l'\textbf{OCR par IA} (Claude Vision) lit le tapé, même tourné à 90°\\[1mm]
-      · \badgel{hocr}{93\,261 transactions extraites des scans}\\[1mm]
+      · \badgel{hocr}{93\,325 lignes extraites → 93\,261 uniques}\\[1mm]
       · {\scriptsize\color{black!60} très concentrées : les gros déposants
         « \mbox{100\,\%} papier » (I.3f)}
     \end{column}
@@ -564,26 +598,30 @@
 \begin{frame}{I.3c · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
-      \fcolorbox{selec}{white}{\includegraphics[width=0.96\linewidth,height=0.36\textheight,keepaspectratio]{sources/senate_digital.png}}\\[0.5mm]
+      \fcolorbox{selec}{white}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}\\[0.5mm]
       {\scriptsize\color{black!60} la déclaration électronique : une vraie table, ticker
        cliquable --- rien à reconstruire}
     \end{column}
     \begin{column}{0.42\textwidth}
-      \badge{selec}{13\,026 transactions}\\[2mm]
-      {\footnotesize \textbf{1.} une \textbf{page par dépôt}, mise en cache\\[1mm]
-       \textbf{2.} \textbf{lecture des tableaux} : les colonnes repérées par leurs
-       intitulés\\[1mm]
-       \textbf{3.} rien d'autre --- le gabarit ne change pas}\\[2.5mm]
+      \badge{selec}{14\,813 lignes extraites → 13\,026 uniques}\\[1.2mm]
+      {\footnotesize \textbf{1.} une \textbf{page par dépôt}, mise en cache\\[0.6mm]
+       \textbf{2.} \textbf{lecture des tableaux} : colonnes repérées par leurs
+       intitulés\\[0.6mm]
+       \textbf{3.} rien d'autre --- le gabarit ne change pas}\\[1.2mm]
       {\scriptsize\color{black!60} \textbf{les 9 mêmes colonnes} sur toutes les pages
        2014→2026 (vérifié) : ce qui varie, ce sont les \emph{amendements} et le
-       non-coté, pas le format}
+       \emph{non-coté}, pas le format}\\[1.2mm]
+      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\scriptsize\vspace{0.4mm}
+        \textbf{\textcolor{warnorange}{c'est ici que la dédup travaille}} ---
+        \textbf{1\,787} des 14\,813 lignes (12\,\%) sont des \textbf{re-dépôts annuels} :
+        cette seule voie porte \textbf{93\,\%} du dédoublonnage (I.7)\vspace{0.4mm}}}
     \end{column}
   \end{columns}
-  \vspace{1.5mm}
+  \vspace{1mm}
   \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (I.3a), le \senat{}
-   électronique se lit \textbf{directement} --- même exigence pourtant :
-   \textbf{déterministe, sans IA}, zéro échec silencieux, chaque dépôt sans transaction
-   consigné.}
+   électronique se lit \textbf{directement} --- \textbf{déterministe et sans IA} des deux
+   côtés, mais il \textbf{re-déclare} bien plus (12\,\%, contre 0,05\,\% à la Chambre
+   électronique).}
 \end{frame}
 
 % ── I.3d · Extraction Sénat, image ──
@@ -602,7 +640,7 @@
         date du trade · fourchette & 2022-03-14 · code A (1\,001--15\,000 \$) \\
         \bottomrule
       \end{tabular}}\\[2mm]
-      \badgel{socr}{3\,985 transactions --- 14 déposants --- 2,4\,\% du corpus}\\[1.5mm]
+      \badgel{socr}{4\,026 lignes → 3\,985 uniques --- 14 déposants --- 2,4\,\% du corpus}\\[1.5mm]
       {\footnotesize \textbf{même moteur} qu'à la Chambre (I.3b) --- mais
        \textbf{politique inverse} : Quiver est \textbf{aveugle au papier du Sénat} →
        aucune mesure d'exclusion possible → on \textbf{garde}, sous garde-fous internes,
@@ -739,7 +777,7 @@
         \node[bande=helec, text width=6.8cm] (t1) {1. \textbf{explicite} --- déjà imprimé dans la source (l'électronique)};
         \node[bande=helec, text width=6.8cm, below=of t1] (t2) {2. \textbf{dictionnaire} --- le nom vu ailleurs dans le corpus (le papier)};
         \node[bande=helec, text width=6.8cm, below=of t2] (t3) {3. \textbf{LLM} contraint « actions seulement »};
-        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve --- \textbf{2\,540} lignes retrouvent leur symbole};
+        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve --- \textbf{2\,540} lignes retrouvent leur symbole \emph{(à la lecture, I.7)}};
         \draw[arr] (t1) -- (t2); \draw[arr] (t2) -- (t3); \draw[arr] (t3) -- (t4);
       \end{tikzpicture}\\[2mm]
       \idem{\scriptsize \textbf{même cascade des deux côtés} --- ce qui change est la
@@ -748,7 +786,10 @@
     \end{column}
     \begin{column}{0.42\textwidth}\footnotesize
       \badge{helec}{ticker renseigné}\\[1mm]
-      {\footnotesize \textbf{84,1\,\%} Chambre · \textbf{77,9\,\%} Sénat}\\[2.5mm]
+      {\footnotesize \textbf{84,1\,\%} Chambre · \textbf{77,9\,\%} Sénat}\\[0.8mm]
+      {\scriptsize\color{black!60} la cascade du pipeline (étages 1--3) en trouve
+       \textbf{82,4\,\%} ; le 4\ieme{} étage, appliqué \textbf{à la lecture}, ajoute
+       \textbf{1,7 pt}}\\[2mm]
       \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
         \textbf{couverture = remplissage, pas exactitude} --- les vides sont le
         \textbf{non-coté légitime} (munis, obligations, fonds privés),
@@ -797,7 +838,7 @@
 % ════ I.7 · DÉDUP ════
 \pipeslide{7}{I.7 · Dédup --- on est ici}%
   {Un trade re-déclaré dans un amendement : comment le compter une fois --- sans effacer les vrais lots ?}%
-  {\textbf{169\,000} transactions uniques (170\,920 lignes brutes)}
+  {\textbf{169\,000} transactions uniques (170\,920 lignes brutes, \textbf{−1\,920})}
 
 % ── I.7 · Dédup ──
 \begin{frame}{I.7 · Dédup --- une transaction = 7 champs : l'empreinte dédoublonne sans détruire}
@@ -819,14 +860,19 @@
     \begin{column}{0.43\textwidth}
       \centering
       \begin{tikzpicture}[node distance=3mm]
-        \node[bande=grisC, text width=4.9cm] (a) {\textbf{170\,920} lignes brutes};
+        \node[bande=grisC, text width=4.9cm] (a) {\textbf{170\,920} lignes brutes (× 28 col.)};
         \node[bande=grisC, text width=4.9cm, below=of a] (b) {re-divulgations dédoublonnées \textbf{−1\,920}};
         \node[bande=dataC, fill=dataC!14, text width=4.9cm, below=of b] (c)
           {\textbf{169\,000 transactions uniques}};
         \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-      \end{tikzpicture}\\[3mm]
-      \idem{\scriptsize une seule empreinte pour les deux chambres --- c'est elle qui
-       permet de \textbf{fusionner les 4 voies} sans compter deux fois.}
+      \end{tikzpicture}\\[2mm]
+      \idem{\scriptsize \textbf{une seule empreinte} pour les deux chambres --- c'est
+       elle qui permet de \textbf{fusionner les 4 voies} sans compter deux fois. Seul le
+       \emph{taux} diffère : \textbf{93\,\%} des 1\,920 re-divulgations viennent du
+       \senat{} électronique (I.3c).}\\[2mm]
+      {\scriptsize\color{black!60} au même moment, à la lecture : les \textbf{réparations}
+       (7\,996 montants tronqués rétablis · 2\,540 tickers récupérés · 7 identités ·
+       3 dates) --- le \textbf{fichier extrait, lui, reste figé} (I.4)}
     \end{column}
   \end{columns}
 \end{frame}
@@ -834,7 +880,9 @@
 % ════ I.8 · ENTONNOIR ════
 \pipeslide{8}{I.8 · Entonnoir --- on est ici}%
   {Un backtest exige un prix de marché : que faut-il retirer, et sur quelle preuve ?}%
-  {\textbf{134\,464} transactions exploitables --- 79,6\,\% du corpus conservé}
+  {\textbf{deux entonnoirs, deux axes} --- les \textbf{lignes} : \textbf{134\,464}
+   exploitables (79,6\,\% du corpus) \;·\; les \textbf{symboles} : \textbf{3\,289}
+   avec un prix fiable, et \textbf{aucune ligne retirée} pour autant}
 
 % ── I.8a · Entonnoir ──
 \begin{frame}{I.8a · Entonnoir --- de 169\,000 à 134\,464 : on ne retire que l'avéré inutilisable}
