@@ -349,7 +349,7 @@
       \begin{tabular}{@{}p{0.55cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
         \etape{0}{Le pipeline}{le flux complet, en une image}
         \etape{1}{Acquisition \& Tri}{la Chambre en entier, puis le Sénat en entier}
-        \etape{2}{Extraction}{4 voies · les 2 dates · le corpus}
+        \etape{2}{Extraction}{les dates · 4 voies · le corpus}
         \etape{3}{Identité}{le nom → l'élu officiel}
         \etape{4}{Tickers}{le symbole boursier}
         \etape{5}{Secteurs}{GICS → ETF}
@@ -506,30 +506,25 @@
   \centering
   \vspace{2mm}
   {\footnotesize la même donnée réglementaire arrive sous \textbf{4 formats}
-   (chambre × format) --- deux mondes \textbf{texte}, deux mondes \textbf{image} :}\\[3.5mm]
+   (chambre × format) :}\\[3.5mm]
   \begin{columns}[T]
     \begin{column}{0.24\textwidth}\centering
       \colorbox{helec}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Chambre · PDF lisible}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{texte}\\→ \textbf{parsing} (2a)}
+      {\scriptsize \textbf{texte}\\→ \textbf{parsing} (2b)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{hocr}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Chambre · PDF scanné}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{image}\\→ \textbf{OCR} (2b)}
+      {\scriptsize \textbf{image}\\→ \textbf{OCR} (2c)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{selec}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Sénat · page web}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{texte}\\→ \textbf{lecture} (2c)}
+      {\scriptsize \textbf{texte}\\→ \textbf{lecture} (2d)}
     \end{column}
     \begin{column}{0.24\textwidth}\centering
       \colorbox{socr}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{black!80}\scriptsize\textbf{Sénat · papier scanné}}\vspace{0.4mm}}}\\[1mm]
-      {\scriptsize \textbf{image}\\→ \textbf{OCR} (2d)}
+      {\scriptsize \textbf{image}\\→ \textbf{OCR} (2e)}
     \end{column}
   \end{columns}
-  \vspace{4mm}
-  \idem{\textbf{chaque chambre a son monde texte et son monde image} --- au final
-   \textbf{57,5\,\%} du corpus vient d'\textbf{images} (le gros des transactions), et
-   chaque voie reçoit son \textbf{extracteur dédié} : c'est le plan des \textbf{4 slides
-   d'Extraction} qui suivent.}
 \end{frame}
 
 % ════ 2 · EXTRACTION ════
@@ -539,33 +534,62 @@
    \textbf{170\,920 transactions extraites} (avant dédoublonnage) --- \textbf{tous
    types d'actifs} gardés ; le tri par type ne vient qu'à l'entonnoir (7)}
 
-% ── 2a · Extraction Chambre, texte ──
-\begin{frame}{2a · Extraction Chambre · texte --- un PDF n'est pas un tableau}
+% ── 2a · Les dates : ce qu'on récupère de chaque ligne ──
+\begin{frame}{2a · Les dates --- trois en jeu, on n'en garde que deux}
+  \centering
+  \vspace{1mm}
+  {\footnotesize une ligne de PTR affiche \textbf{plusieurs dates} --- avant d'extraire,
+   fixons laquelle compte :}\\[3.5mm]
   \begin{columns}[T]
-    \begin{column}{0.54\textwidth}\centering
-      \clickzoom{fig_ptr_multiligne}{\includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{slides/fig_ptr_multiligne.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} extrait réel --- le montant déborde sur la ligne
-       suivante, le libellé court sur 4 lignes : \textbf{un parseur naïf raterait la
-       moitié}}
+    \begin{column}{0.31\textwidth}\centering
+      \colorbox{warnorange}{\parbox{0.95\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Date de TRANSACTION}}\vspace{0.4mm}}}\\[1.5mm]
+      {\scriptsize \emph{dans le document} --- quand le trade a eu lieu\\[1mm]
+       → \textbf{on la lit} : la seule risquée (garde-fous $+$ flag, jamais inventée)}
     \end{column}
-    \begin{column}{0.42\textwidth}
+    \begin{column}{0.31\textwidth}\centering
+      \colorbox{black!45}{\parbox{0.95\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Date de NOTIFICATION}}\vspace{0.4mm}}}\\[1.5mm]
+      {\scriptsize \emph{dans le document} --- quand l'élu dit avoir été prévenu\\[1mm]
+       → \textbf{on la jette} : inutile pour le signal}
+    \end{column}
+    \begin{column}{0.31\textwidth}\centering
+      \colorbox{okgreen}{\parbox{0.95\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Date de DÉPÔT} (divulgation)}\vspace{0.4mm}}}\\[1.5mm]
+      {\scriptsize \emph{PAS dans le document} : la \textbf{métadonnée} du dépôt\\[1mm]
+       → \textbf{on la garde} = la date \textbf{signal} (anti-look-ahead)}
+    \end{column}
+  \end{columns}
+  \vspace{4mm}
+  \choixbox{la date fiable (\textbf{dépôt}) n'est \textbf{jamais lue dans le document} ---
+   elle vient de l'\textbf{index} (Chambre) ou du \textbf{listing eFD} (Sénat) ; la seule
+   qu'on lit vraiment dans le document, c'est la \textbf{transaction} (déposée en médiane
+   \textbf{27 j} après le trade à la Chambre, \textbf{24 j} au Sénat).}
+\end{frame}
+
+% ── 2b · Extraction Chambre, texte ──
+\begin{frame}{2b · Extraction Chambre · texte --- un PDF n'est pas un tableau}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}\centering
+      \clickzoom{fig_ptr_multiligne}{\includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{slides/fig_ptr_multiligne.png}}\\[0.5mm]
+      {\scriptsize\color{black!60} un \textbf{PTR réel} --- \textbf{un parseur naïf en
+       raterait la moitié}}
+    \end{column}
+    \begin{column}{0.57\textwidth}
       \badge{helec}{58\,756 lignes extraites → 58\,728 uniques}\\[2mm]
       {\footnotesize \textbf{1.} \textbf{recoller} les lignes coupées\\[1mm]
        \textbf{2.} repérer la \textbf{signature} d'une transaction : opération +
-       2 dates + fourchette\\[1mm]
-       \textbf{3.} \textbf{rattacher} l'actif et le ticker imprimés à proximité}\\[2.5mm]
-      {\scriptsize\color{black!60} \textbf{pas d'IA} ici : du code déterministe,
-       rejouable à l'identique}
+       les \textbf{2 dates imprimées} (transaction, notification) + fourchette\\[1mm]
+       \textbf{3.} \textbf{rattacher} le nom d'actif (toujours là) et le ticker
+       \textbf{s'il est imprimé} --- sinon récupéré en (4)}\\[2.5mm]
+      {\scriptsize\color{black!60} \textbf{pas d'IA} : code déterministe}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
-  \choixbox{deux gabarits de formulaire coexistent (l'ancien sans code type d'actif, le
-   moderne avec \co{[ST]}, apparu vers 2018) : ils sont \textbf{routés document par
-   document}, jamais par année fixe.}
+  \choixbox{le \co{[ST]} entre crochets = \textbf{« c'est une action »}, indiqué dans le
+   formulaire --- mais ce marquage \textbf{n'existe pas avant 2018} : on ne s'en sert donc
+   pas pour trier, c'est le \textbf{ticker} (coté = action à garder) qui décide.}
 \end{frame}
 
-% ── 2b · Extraction Chambre, image ──
-\begin{frame}{2b · Extraction Chambre · image --- l'OCR lit le tapé, le manuscrit est écarté}
+% ── 2c · Extraction Chambre, image ──
+\begin{frame}{2c · Extraction Chambre · image --- l'OCR lit le tapé, le manuscrit est écarté}
   \centering
   {\footnotesize l'\textbf{OCR par IA} (Claude Vision) lit le \textbf{tapé} --- même tourné à
    90° --- ; le \textbf{manuscrit} cursif est le seul point dur
@@ -594,8 +618,8 @@
    restants, corroborés par Quiver, sont \textbf{lus} (exceptions explicites).}
 \end{frame}
 
-% ── 2c · Extraction Sénat, texte ──
-\begin{frame}{2c · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
+% ── 2d · Extraction Sénat, texte ──
+\begin{frame}{2d · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
       \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}}\\[0.5mm]
@@ -618,14 +642,14 @@
     \end{column}
   \end{columns}
   \vspace{1mm}
-  \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (2a), le \senat{}
+  \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (2b), le \senat{}
    électronique se lit \textbf{directement} --- \textbf{déterministe et sans IA} des deux
    côtés, mais il \textbf{re-déclare} bien plus (12\,\%, contre 0,05\,\% à la Chambre
    électronique).}
 \end{frame}
 
-% ── 2d · Extraction Sénat, image ──
-\begin{frame}{2d · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
+% ── 2e · Extraction Sénat, image ──
+\begin{frame}{2e · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
   \begin{columns}[c]
     \begin{column}{0.30\textwidth}\centering
       \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[height=40mm]{slides/senat_papier_droit.png}}}\\[0.8mm]
@@ -641,7 +665,7 @@
         \bottomrule
       \end{tabular}}\\[2mm]
       \badgel{socr}{4\,026 lignes → 3\,985 uniques --- 14 déposants --- 2,4\,\% du corpus}\\[1.5mm]
-      {\footnotesize \textbf{même moteur} qu'à la Chambre (2b) --- mais
+      {\footnotesize \textbf{même moteur} qu'à la Chambre (2c) --- mais
        \textbf{politique inverse} : Quiver est \textbf{aveugle au papier du Sénat} →
        aucune mesure d'exclusion possible → on \textbf{garde}, sous garde-fous internes,
        et on l'écrit}\\[1mm]
@@ -654,41 +678,6 @@
   \choixbox{on n'écarte que ce qu'on a pu \textbf{mesurer} --- l'asymétrie
    Chambre/Sénat (écarté là, gardé ici) est \textbf{documentée, pas cachée} ; le risque
    est borné (2,4\,\% du corpus).}
-\end{frame}
-
-% ── 2e · Extraction : les deux dates ──
-\begin{frame}{2e · Ce qu'on extrait de chaque ligne : deux dates, une seule est fiable}
-  \centering
-  \begin{columns}[T]
-    \begin{column}{0.49\textwidth}\centering
-      \colorbox{okgreen}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\textbf{Date de DÉPÔT} \scriptsize(divulgation)}\vspace{0.4mm}}}\\[1.5mm]
-      {\footnotesize \textbf{toujours une métadonnée} --- jamais lue dans le document,
-       jamais OCRisée ; \textbf{fiable} → c'est la date \textbf{signal}}
-    \end{column}
-    \begin{column}{0.49\textwidth}\centering
-      \colorbox{warnorange}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\textbf{Date de TRANSACTION}}\vspace{0.4mm}}}\\[1.5mm]
-      {\footnotesize \textbf{lue dans le document} (texte ou OCR) ; la \textbf{seule
-       risquée} → garde-fous $+$ flag, \textbf{jamais inventée}}
-    \end{column}
-  \end{columns}
-  \vspace{1mm}
-  \begin{columns}[c]
-    \begin{column}{0.52\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.30\textheight,keepaspectratio]{quality/delai_divulgation.png}
-    \end{column}
-    \begin{column}{0.44\textwidth}
-      {\footnotesize l'écart entre les deux, c'est le \textbf{délai de
-       divulgation} :}\\[1.5mm]
-      \badge{okgreen}{médiane 27 j Chambre · 24 j Sénat}\\[2mm]
-      \idem{\scriptsize \textbf{sur les 4 voies}, même schéma : la date de dépôt vient
-       de l'index (Chambre) ou du listing (Sénat) ; celle du trade, du document.}
-    \end{column}
-  \end{columns}
-  \vspace{1.5mm}
-  \choixbox{le signal est daté à la \textbf{date de dépôt}, jamais à la date du trade :
-   c'est ce qu'un investisseur réel aurait su, quand il l'aurait su
-   (\textbf{anti-look-ahead}) --- et toute date de transaction douteuse est
-   \textbf{flaguée, jamais réécrite au hasard}.}
 \end{frame}
 
 % ── 2f · Le corpus extrait ── (ferme l'étape Extraction)
@@ -718,7 +707,7 @@
         \textbf{$\sim$40\,\%} du corpus, et déclarent \textbf{exclusivement sur
         papier} (\mbox{100\,\%} OCR)\vspace{0.5mm}}}\\[1.5mm]
       {\footnotesize le papier n'est pas un détail : c'est \textbf{la majorité du
-       corpus} --- d'où l'effort d'OCR de 2b et 2d}
+       corpus} --- d'où l'effort d'OCR de 2c et 2e}
     \end{column}
   \end{columns}
 \end{frame}
@@ -898,7 +887,7 @@
       \idem{\scriptsize \textbf{une seule empreinte} pour les deux chambres --- c'est
        elle qui permet de \textbf{fusionner les 4 voies} sans compter deux fois. Seul le
        \emph{taux} diffère : \textbf{93\,\%} des 1\,920 re-divulgations viennent du
-       \senat{} électronique (2c).}\\[2mm]
+       \senat{} électronique (2d).}\\[2mm]
       {\scriptsize\color{black!60} au même moment, à la lecture : les \textbf{réparations}
        (7\,996 montants tronqués rétablis · 2\,540 tickers récupérés · 7 identités ·
        3 dates) --- le \textbf{fichier extrait, lui, reste figé} (3)}
@@ -1088,7 +1077,7 @@
     \node[step=grisC, text width=3.2cm, minimum height=1.3cm, font=\footnotesize, right=6mm of b] (c)
       {\textbf{\large 102}\\{\scriptsize sans transaction retenue --- consignés un par un}};
     \node[step=alertred, text width=3.2cm, minimum height=1.3cm, font=\footnotesize, right=6mm of c] (d)
-      {\textbf{\large 582}\\{\scriptsize écartés --- manuscrits, règle écrite (2b)}};
+      {\textbf{\large 582}\\{\scriptsize écartés --- manuscrits, règle écrite (2c)}};
     \draw[arr] (a) -- (b);
   \end{tikzpicture}}\\[3mm]
   {\footnotesize \textbf{7\,568 + 102 + 582 = 8\,252} --- la couverture est
@@ -1137,7 +1126,7 @@
       \badgel{warnorange!40}{374 j de délai médian (vs 27 j en PTR)}\\[2mm]
       \choixbox{les transactions hors PTR alimentent le \textbf{patrimoine}
        (vérification), jamais le \textbf{signal} --- découvertes $\sim$1 an trop tard :
-       cohérent avec l'anti-look-ahead de 2e.}\\[1mm]
+       cohérent avec l'anti-look-ahead de 2a.}\\[1mm]
       {\scriptsize\color{black!55} les deux mesures portent sur des populations
        distinctes : \textbf{57 259} = les lignes brutes hors PTR · \textbf{374 j} = le
        délai des trades nets jamais vus en PTR}
