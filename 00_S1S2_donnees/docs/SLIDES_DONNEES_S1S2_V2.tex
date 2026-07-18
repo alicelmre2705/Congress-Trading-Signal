@@ -6,7 +6,8 @@
 % traités ensemble à chaque étape (côte à côte quand ils diffèrent).
 % FUSION 2026-07-17 (demande d'Alice) : Acquisition et Tri ne font plus qu'UNE étape (1),
 % et l'on suit la Chambre EN ENTIER (1a acquisition → 1b tri type → 1c tri format)
-% avant le Sénat EN ENTIER (1d → 1e → 1f) — l'alternance précédente « coupait la
+% avant le Sénat (1d tri type → 1e tri format ; acquisition Sénat retirée = accès CSRF
+% sans intérêt, le lien eFD suffit sur 1d) — l'alternance précédente « coupait la
 % réflexion ». Tout l'aval a décalé
 % d'un cran (ex-3 Extraction → 2 … ex-9 Table → 8) : 9 étapes → 8.
 % Vérification = PARTIE II (univers · autres types · cohérence · Quiver · autres preuves).
@@ -261,6 +262,42 @@
       \emph{#3}\\[0.8mm]{\scriptsize\color{black!65} ce qu'on en sort : #4}\vspace{0.5mm}}}
   \end{frame}}
 
+% ── Images cliquables « agrandir » : pastille loupe en coin + zoom plein écran (frames en annexe) ──
+% \clickzoom{label}{image} : rend l'image cliquable vers la frame `zoom-label`, pose l'ancre retour.
+\newcommand{\clickzoom}[2]{%
+  \hypertarget{back-#1}{}%
+  \hyperlink{zoom-#1}{%
+    \tikz[baseline=(zc.south)]{%
+      \node[inner sep=0] (zc) {#2};
+      \node[anchor=north east, fill=selec, text=white, font=\tiny\bfseries,
+            inner sep=1.4pt, rounded corners=1.5pt]
+            at ([shift={(-1.2pt,-1.2pt)}]zc.north east) {$\oplus$};}}}
+% \zoomframe{label}{chemin} : image plein écran, cliquable pour revenir à la slide (back-label).
+\newcommand{\zoomframe}[2]{%
+  \begin{frame}[plain]
+    \hypertarget{zoom-#1}{}%
+    \centering
+    \hyperlink{back-#1}{%
+      \includegraphics[width=0.92\paperwidth,height=0.9\paperheight,keepaspectratio]{#2}}%
+  \end{frame}}
+% Pied de page = réplique Madrid, mais le total = dernière page de contenu (\label{endmain}),
+% pour que les frames de zoom (agrandissements, après endmain) ne gonflent pas le compteur.
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~(\insertshortinstitute)%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshortdate{}\hspace*{2em}%
+    \insertframenumber{} / \pageref{endmain}\hspace*{2ex}%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
 \title[La couche données]{La couche données --- collecte \& validation}
 \subtitle{Transactions boursières du Congrès américain · Chambre \& Sénat · 2014--2026}
 \author[A.~Lemaire]{Alice Lemaire}
@@ -368,7 +405,7 @@
 \begin{frame}{1a · Acquisition Chambre --- récupérer les dépôts depuis l'index annuel}
   \begin{columns}[T]
     \begin{column}{0.40\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth,height=22mm,keepaspectratio]{slides/site_house_clerk.png}}\\[0.8mm]
+      \fcolorbox{black!25}{white}{\clickzoom{site_house_clerk}{\includegraphics[width=0.95\linewidth,height=22mm,keepaspectratio]{slides/site_house_clerk.png}}}\\[0.8mm]
       {\scriptsize \href{https://disclosures-clerk.house.gov/FinancialDisclosure}{\texttt{disclosures-clerk.house.gov}}}\\[1.5mm]
       \begin{tikzpicture}[node distance=1.6mm]
         \node[bande=helec, text width=4.6cm] (z) {une \textbf{archive par année}, 2014→2026};
@@ -379,7 +416,7 @@
       \end{tikzpicture}
     \end{column}
     \begin{column}{0.57\textwidth}\centering
-      \includegraphics[width=0.94\linewidth,height=37mm,keepaspectratio]{slides/fichier_index_xml.png}\\[0.5mm]
+      \clickzoom{fichier_index_xml}{\includegraphics[width=0.94\linewidth,height=37mm,keepaspectratio]{slides/fichier_index_xml.png}}\\[0.5mm]
       {\scriptsize\color{black!60} l'index réel : chaque dépôt y déclare son type, sa
        \textbf{date de dépôt (divulgation)} et son numéro de document}\\[1mm]
       {\scriptsize \textbf{exemple} --- le dépôt surligné (\textbf{n\textsuperscript{o} 20024277})
@@ -413,137 +450,59 @@
    = \textbf{scanné} :}\\[3mm]
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{helec}{white}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{sources/house_digital.png}}\\[1.2mm]
+      \fcolorbox{helec}{white}{\clickzoom{house_digital}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{sources/house_digital.png}}}\\[1.2mm]
       \badge{helec}{PDF lisible --- 71\,\%}\\[0.6mm]
       {\scriptsize couche texte, lu directement \;·\; DocID en \co{2\ldots}}
     \end{column}
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{hocr}{white}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{sources/house_ocr.png}}\\[1.2mm]
+      \fcolorbox{hocr}{white}{\clickzoom{house_ocr}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{sources/house_ocr.png}}}\\[1.2mm]
       \badgel{hocr}{PDF scanné --- 29\,\%}\\[0.6mm]
       {\scriptsize image, à lire par \textbf{OCR} \;·\; DocID en \co{8\ldots}/\co{9\ldots}}
     \end{column}
   \end{columns}
-  \vspace{2.5mm}
-  {\footnotesize\color{black!60} deux mondes, deux extracteurs : le texte se \textbf{parse}
-   (2a), l'image passe par l'\textbf{OCR} (2b)}
 \end{frame}
 
-% ── 1d · Acquisition Sénat ──
-\begin{frame}{1d · Acquisition Sénat --- accéder au portail eFD}
-  \begin{columns}[c]
-    \begin{column}{0.60\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.97\linewidth,height=0.50\textheight,keepaspectratio]{slides/site_senate_efd.png}}\\[0.5mm]
-      {\scriptsize\color{black!60} \emph{efdsearch.senate.gov} --- la page d'accès}
-    \end{column}
-    \begin{column}{0.36\textwidth}
-      \badge{alertred}{la barrière : accord + jeton (CSRF)}\\[3mm]
-      {\footnotesize
-      · une \textbf{case obligatoire} : accepter l'accord avant toute recherche\\[2mm]
-      · notre collecteur l'accepte, récupère le \textbf{jeton de session}\\[2mm]
-      · ensuite seulement : on peut \textbf{interroger} le portail}
-    \end{column}
-  \end{columns}
-  \vspace{1.5mm}
-  \colorbox{alertred!10}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
-    \textbf{\textcolor{alertred}{l'angle mort, annoncé tout de suite}} --- le
-    fournisseur commercial qui nous servira de mètre externe (Quiver, Partie II) ne voit
-    \textbf{pas} le papier du Sénat : cette voie ne sera validable qu'\textbf{en
-    interne} (2d).}}
-\end{frame}
-
-% ── 1e · Tri Sénat · type (Senator × PTR + liste + 2 graphes : type & déposant) ──
-\begin{frame}{1e · Tri Sénat --- choisir les PTR : Senator × PTR, puis la liste}
+% ── 1d · Tri Sénat · type (PTR tous membres + liste + figure type & déposant) ──
+\begin{frame}{1d · Tri Sénat --- choisir les PTR de tous les membres}
   \begin{columns}[T]
     \begin{column}{0.40\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{slides/site_senate_form.png}}\\[0.6mm]
-      {\scriptsize\color{black!60} on coche \textbf{Senator} × \textbf{PTR} → la liste des dépôts}
+      \fcolorbox{black!25}{white}{\clickzoom{site_senate_form}{\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{slides/site_senate_form.png}}}\\[0.6mm]
+      {\scriptsize \href{https://efdsearch.senate.gov/search/home/}{\texttt{efdsearch.senate.gov}}}\\[0.6mm]
+      {\scriptsize\color{black!60} on coche \textbf{PTR} pour \textbf{tous les déposants} → la liste des dépôts}
     \end{column}
-    \begin{column}{0.57\textwidth}
-      \badge{selec}{2\,160 \emph{Periodic Transactions} = \textbf{42\,\%} des \textbf{5\,096} dépôts}\\[0.8mm]
-      {\scriptsize\color{black!55} corpus \textbf{2014-2026} --- tous types}\\[2mm]
-      {\scriptsize \textbf{par \emph{Report Type}} \;{\color{black!45}(somme = 100\,\%)}}\\[1mm]
-      \begin{tikzpicture}
-        \node[font=\tiny, anchor=east] at (0,0.6) {\emph{Annual}};
-        \fill[dataC] (0.1,0.47) rectangle (1.82,0.73);
-        \node[font=\tiny, anchor=west] at (1.92,0.6) {2 165 · 42\,\%};
-        \node[font=\tiny, anchor=east] at (0,0.0) {\emph{Periodic Transactions}};
-        \fill[selec] (0.1,-0.13) rectangle (1.80,0.13);
-        \node[font=\tiny, anchor=west] at (1.90,0.0) {\textbf{2 160 · 42\,\%}};
-        \node[font=\tiny, anchor=east] at (0,-0.6) {\emph{Due Date Extension}};
-        \fill[dataC] (0.1,-0.73) rectangle (0.70,-0.47);
-        \node[font=\tiny, anchor=west] at (0.80,-0.6) {753 · 15\,\%};
-        \node[font=\tiny, anchor=east] at (0,-1.2) {\emph{Blind Trusts} · \emph{Other}};
-        \node[font=\tiny, anchor=west] at (0.12,-1.2) {$<1\,\%$};
-      \end{tikzpicture}\\[2mm]
-      {\scriptsize \textbf{par \emph{Filer Type}} \;{\color{black!45}(tous déposants · somme = 5\,096)}}\\[1mm]
-      \begin{tikzpicture}
-        \fill[selec] (0,0) rectangle (3.30,0.30);
-        \fill[selec!55] (3.30,0) rectangle (4.50,0.30);
-        \fill[socr] (4.50,0) rectangle (5.00,0.30);
-        \node[font=\tiny, color=white] at (1.65,0.15) {Senator 66\,\%};
-        \node[font=\tiny] at (3.90,0.15) {Former 24};
-        \node[font=\tiny, anchor=west] at (5.06,0.15) {Candidate 10};
-      \end{tikzpicture}
+    \begin{column}{0.57\textwidth}\centering
+      \badge{selec}{2\,160 \emph{Periodic Transactions} = \textbf{42\,\%} des \textbf{5\,096} dépôts}\\[1.2mm]
+      \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{slides/fig_senat_types.png}
     \end{column}
   \end{columns}
   \vspace{2mm}
-  {\footnotesize le PTR est \textbf{un type parmi d'autres} --- on \textbf{choisit les PTR},
-   les autres \textbf{dans une autre partie} \;·\; {\color{black!55}les candidats ne tradent
-   quasi pas (13 PTR) ; \textbf{31\,\%} des PTR = anciens sénateurs}}
+  {\footnotesize on \textbf{choisit les PTR} --- les autres types \textbf{dans une autre partie}
+   \;·\; {\color{black!55}les \textbf{13 PTR} de candidats sont tous d'un \textbf{sénateur réélu}
+   (Sessions) ; \textbf{31\,\%} des PTR = anciens sénateurs}}
 \end{frame}
 
-% ── 1f · Tri Sénat · format (page web vs papier scanné) ──
-\begin{frame}{1f · Tri Sénat --- distinguer page web et papier scanné}
+% ── 1e · Tri Sénat · format (page web vs papier scanné) ──
+\begin{frame}{1e · Tri Sénat --- distinguer page web et papier scanné}
   \centering
   \vspace{1mm}
   {\footnotesize au \senat{}, chaque dépôt s'ouvre soit en \textbf{page web} (texte),
    soit en \textbf{image scannée} (à lire par OCR) :}\\[4mm]
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{selec}{white}{\includegraphics[width=0.72\linewidth,height=0.42\textheight,keepaspectratio]{sources/senate_digital.png}}\\[1.5mm]
+      \fcolorbox{selec}{white}{\clickzoom{senate_digital_1}{\includegraphics[width=0.72\linewidth,height=0.42\textheight,keepaspectratio]{sources/senate_digital.png}}}\\[1.5mm]
       \badge{selec}{page web --- 1\,780}\\[0.8mm]
       {\scriptsize table déjà propre, lue directement}
     \end{column}
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{socr}{white}{\includegraphics[width=0.52\linewidth,height=0.42\textheight,keepaspectratio]{slides/senat_papier_droit.png}}\\[1.5mm]
+      \fcolorbox{socr}{white}{\clickzoom{senat_papier_droit_1}{\includegraphics[width=0.52\linewidth,height=0.42\textheight,keepaspectratio]{slides/senat_papier_droit.png}}}\\[1.5mm]
       \badgel{socr}{papier scanné --- 373}\\[0.8mm]
       {\scriptsize image, à lire par \textbf{OCR}}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── 1g · Le manuscrit ──
-\begin{frame}{1g · Le manuscrit --- le vrai point dur de l'image scannée}
-  \centering
-  {\footnotesize un scan n'est pas du texte, c'est une \textbf{image} (à lire par
-   \textbf{OCR} : lecture automatique) --- ce qui compte n'est pas l'orientation mais
-   \textbf{tapé vs manuscrit} :}\\[1.5mm]
-  \begin{columns}[T]
-    \begin{column}{0.37\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=23mm]{slides/scan_full_droit.png}}\\[1mm]
-      {\footnotesize\textbf{Tapé, droit}}\\[0.3mm]
-      {\scriptsize dactylographié, lisible tel quel}
-    \end{column}
-    \begin{column}{0.21\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=23mm]{slides/scan_full_couche.png}}\\[1mm]
-      {\footnotesize\textbf{Tapé, couché}}\\[0.3mm]
-      {\scriptsize tourné à 90° --- lu quand même}
-    \end{column}
-    \begin{column}{0.37\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=23mm]{slides/scan_full_manuscrit.png}}\\[1mm]
-      {\footnotesize\textbf{Manuscrit}}\\[0.3mm]
-      {\scriptsize à la main, cursif --- \textbf{le vrai point dur}}
-    \end{column}
-  \end{columns}
-  \vspace{1.2mm}
-  \badgel{hocr}{775 scans manuscrits sur les 2\,424 scans Chambre recensés}\\[1mm]
-  \diff{le manuscrit existe des \textbf{deux} côtés --- mais il sera \textbf{écarté} à la
-   Chambre et \textbf{gardé} au Sénat : la raison, et elle seule, est la
-   \textbf{vérifiabilité} (2b et 2d).}
-\end{frame}
-
-% ── 1h · Bilan du tri : 4 sous-corpus → 4 extracteurs (charnière avant l'Extraction) ──
-\begin{frame}{1h · Bilan du tri --- quatre sous-corpus, quatre extracteurs}
+% ── 1f · Bilan du tri : 4 sous-corpus → 4 extracteurs (charnière avant l'Extraction) ──
+\begin{frame}{1f · Bilan du tri --- quatre sous-corpus, quatre extracteurs}
   \centering
   \vspace{2mm}
   {\footnotesize la même donnée réglementaire arrive sous \textbf{4 formats}
@@ -584,7 +543,7 @@
 \begin{frame}{2a · Extraction Chambre · texte --- un PDF n'est pas un tableau}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{slides/fig_ptr_multiligne.png}\\[0.5mm]
+      \clickzoom{fig_ptr_multiligne}{\includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{slides/fig_ptr_multiligne.png}}\\[0.5mm]
       {\scriptsize\color{black!60} extrait réel --- le montant déborde sur la ligne
        suivante, le libellé court sur 4 lignes : \textbf{un parseur naïf raterait la
        moitié}}
@@ -606,37 +565,40 @@
 \end{frame}
 
 % ── 2b · Extraction Chambre, image ──
-\begin{frame}{2b · Extraction Chambre · image --- Vision lit tout, le manuscrit est écarté}
+\begin{frame}{2b · Extraction Chambre · image --- l'OCR lit le tapé, le manuscrit est écarté}
   \centering
-  \includegraphics[width=0.42\textwidth]{slides/fig_deskew_rotations.png}
-  \vspace{1mm}
+  {\footnotesize l'\textbf{OCR par IA} (Claude Vision) lit le \textbf{tapé} --- même tourné à
+   90° --- ; le \textbf{manuscrit} cursif est le seul point dur
+   \;{\scriptsize\color{black!45}(images cliquables)} :}\\[2mm]
   \begin{columns}[T]
-    \begin{column}{0.44\textwidth}\footnotesize
-      · l'\textbf{OCR par IA} (Claude Vision) lit le tapé, même tourné à 90°\\[1mm]
-      · \badgel{hocr}{93\,325 lignes extraites → 93\,261 uniques}\\[1mm]
-      · {\scriptsize\color{black!60} très concentrées : les gros déposants
-        « \mbox{100\,\%} papier » (2f)}
+    \begin{column}{0.27\textwidth}\centering
+      \fcolorbox{helec}{white}{\clickzoom{scan_full_droit}{\includegraphics[height=30mm]{slides/scan_full_droit.png}}}\\[1mm]
+      {\footnotesize\textbf{Tapé} → \textbf{lu}}
     \end{column}
-    \begin{column}{0.54\textwidth}\footnotesize
-      \colorbox{black!6}{\parbox{0.97\linewidth}{\scriptsize
-        \textbf{la mesure} --- \textbf{Quiver Quantitative} (fournisseur commercial des
-        mêmes données, notre mètre externe --- Partie II), \emph{même sans exiger
-        la date}, ne corrobore que \textbf{\mbox{12,9\,\%}} du manuscrit, contre
-        \textbf{\mbox{88\,\%}} du tapé droit}}\\[1.5mm]
-      \badge{alertred}{582 PTR manuscrits écartés --- 7,1\,\% de l'index}
+    \begin{column}{0.27\textwidth}\centering
+      \fcolorbox{hocr}{white}{\clickzoom{scan_full_manuscrit}{\includegraphics[height=30mm]{slides/scan_full_manuscrit.png}}}\\[1mm]
+      {\footnotesize\textbf{Manuscrit} → \textbf{écarté}}
+    \end{column}
+    \begin{column}{0.43\textwidth}\footnotesize
+      \badgel{hocr}{93\,325 → 93\,261 lignes uniques}\\[2mm]
+      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
+        \textbf{la mesure} --- \textbf{Quiver} (notre mètre externe, Partie II) ne corrobore
+        que \textbf{\mbox{12,9\,\%}} du manuscrit, contre \textbf{\mbox{88\,\%}} du tapé →
+        on ne peut pas le \textbf{vérifier}}}\\[2mm]
+      \badge{alertred}{582 manuscrits écartés --- 7,1\,\%}
     \end{column}
   \end{columns}
-  \vspace{1.5mm}
-  \choixbox{\textbf{on ne met en table que ce qu'on sait lire} : les 582 PTR manuscrits
-   sont écartés par une \textbf{règle écrite et rejouable}, avec exceptions explicites
-   --- pas de lectures douteuses injectées dans la donnée.}
+  \vspace{2mm}
+  \choixbox{\textbf{on ne met en table que ce qu'on sait lire} --- sur les \textbf{775 scans
+   manuscrits}, \textbf{582 écartés} par une règle écrite et rejouable ; les \textbf{193}
+   restants, corroborés par Quiver, sont \textbf{lus} (exceptions explicites).}
 \end{frame}
 
 % ── 2c · Extraction Sénat, texte ──
 \begin{frame}{2c · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}\centering
-      \fcolorbox{selec}{white}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}\\[0.5mm]
+      \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}}\\[0.5mm]
       {\scriptsize\color{black!60} la déclaration électronique : une vraie table, ticker
        cliquable --- rien à reconstruire}
     \end{column}
@@ -666,7 +628,7 @@
 \begin{frame}{2d · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
   \begin{columns}[c]
     \begin{column}{0.30\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[height=40mm]{slides/senat_papier_droit.png}}\\[0.8mm]
+      \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[height=40mm]{slides/senat_papier_droit.png}}}\\[0.8mm]
       {\scriptsize\color{black!60} le formulaire papier Sénat}
     \end{column}
     \begin{column}{0.66\textwidth}
@@ -1155,7 +1117,7 @@
 \begin{frame}{II.2b · Verdict --- le hors-PTR est du patrimoine découvert trop tard : 173 actions}
   \begin{columns}[c]
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.92\linewidth,height=44mm,keepaspectratio]{slides/fig_pelosi_schedb.png}}\\[0.8mm]
+      \fcolorbox{black!25}{white}{\clickzoom{fig_pelosi_schedb}{\includegraphics[width=0.92\linewidth,height=44mm,keepaspectratio]{slides/fig_pelosi_schedb.png}}}\\[0.8mm]
       {\scriptsize\color{black!60} la Schedule B d'un \textbf{annuel} (Pelosi 2015)
        récapitule les trades de l'année --- souvent déjà déclarés en PTR}
     \end{column}
@@ -1406,7 +1368,7 @@
 \begin{frame}{A1 --- Le document lisible : un PTR électronique}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
-      \fcolorbox{helec}{white}{\includegraphics[width=0.92\linewidth,height=64mm,keepaspectratio]{slides/fig_ptr_digital.png}}\\[0.5mm]
+      \fcolorbox{helec}{white}{\clickzoom{fig_ptr_digital}{\includegraphics[width=0.92\linewidth,height=64mm,keepaspectratio]{slides/fig_ptr_digital.png}}}\\[0.5mm]
       {\scriptsize\color{black!60} PTR électronique complet (Hon.\ John A.\ Yarmuth, KY03)}
     \end{column}
     \begin{column}{0.43\textwidth}
@@ -1424,7 +1386,7 @@
 % ── A2 · La liste eFD, en détail ──
 \begin{frame}{A2 --- Le portail du Sénat : ce que rend la recherche}
   \centering
-  \fcolorbox{black!25}{white}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{slides/site_senate_results.png}}\\[1.5mm]
+  \fcolorbox{black!25}{white}{\clickzoom{site_senate_results}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{slides/site_senate_results.png}}}\\[1.5mm]
   {\footnotesize la liste réelle des dépôts (1d) --- \textbf{un lien par dépôt} :
    chacun s'ouvre en \textbf{page web} ou en \textbf{papier scanné}, c'est là que se décide la
    voie d'extraction}\\[1mm]
@@ -1446,30 +1408,30 @@
   {\footnotesize cinq types \textbf{sans aucune transaction} :}\\[1.5mm]
   \begin{columns}[T]
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_x.png}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{ftype_x}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_x.png}}}\\[0.6mm]
       {\scriptsize\textbf{X --- Extension}\\demande de délai}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_d.png}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{ftype_d}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_d.png}}}\\[0.6mm]
       {\scriptsize\textbf{D --- Campaign Notice}\\« \textless{} 5\,000 \$ »}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_w.png}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{ftype_w}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_w.png}}}\\[0.6mm]
       {\scriptsize\textbf{W --- idem, papier}\\(ou retrait)}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_e.png}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{ftype_e}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_e.png}}}\\[0.6mm]
       {\scriptsize\textbf{E --- Exemption}\\départ, poste fédéral}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_g.png}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{ftype_g}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_g.png}}}\\[0.6mm]
       {\scriptsize\textbf{G --- Gift Waiver}\\dérogation cadeau}
     \end{column}
   \end{columns}
   \vspace{2.5mm}
   \begin{columns}[c]
     \begin{column}{0.14\textwidth}\centering
-      \fcolorbox{alertred}{white}{\includegraphics[width=0.86\linewidth,height=19mm,keepaspectratio]{slides/ftype_b.png}}
+      \fcolorbox{alertred}{white}{\clickzoom{ftype_b}{\includegraphics[width=0.86\linewidth,height=19mm,keepaspectratio]{slides/ftype_b.png}}}
     \end{column}
     \begin{column}{0.82\textwidth}
       \colorbox{alertred!10}{\parbox{0.97\linewidth}{\footnotesize\raggedright\vspace{0.5mm}
@@ -1555,6 +1517,30 @@
        manuels pour les cas connus}
     \end{column}
   \end{columns}
+  \label{endmain}% dernière page de contenu : fige le total au pied (les zooms ne comptent pas)
 \end{frame}
+
+% ══════════════════ FRAMES DE ZOOM (agrandissement des captures, hors comptage) ══════════════════
+\zoomframe{scan_full_droit}{slides/scan_full_droit.png}
+\zoomframe{scan_full_manuscrit}{slides/scan_full_manuscrit.png}
+\zoomframe{site_house_clerk}{slides/site_house_clerk.png}
+\zoomframe{fichier_index_xml}{slides/fichier_index_xml.png}
+\zoomframe{house_digital}{sources/house_digital.png}
+\zoomframe{house_ocr}{sources/house_ocr.png}
+\zoomframe{site_senate_form}{slides/site_senate_form.png}
+\zoomframe{senate_digital_1}{sources/senate_digital.png}
+\zoomframe{senat_papier_droit_1}{slides/senat_papier_droit.png}
+\zoomframe{fig_ptr_multiligne}{slides/fig_ptr_multiligne.png}
+\zoomframe{senate_digital_2}{sources/senate_digital.png}
+\zoomframe{senat_papier_droit_2}{slides/senat_papier_droit.png}
+\zoomframe{fig_pelosi_schedb}{slides/fig_pelosi_schedb.png}
+\zoomframe{fig_ptr_digital}{slides/fig_ptr_digital.png}
+\zoomframe{site_senate_results}{slides/site_senate_results.png}
+\zoomframe{ftype_x}{slides/ftype_x.png}
+\zoomframe{ftype_d}{slides/ftype_d.png}
+\zoomframe{ftype_w}{slides/ftype_w.png}
+\zoomframe{ftype_e}{slides/ftype_e.png}
+\zoomframe{ftype_g}{slides/ftype_g.png}
+\zoomframe{ftype_b}{slides/ftype_b.png}
 
 \end{document}

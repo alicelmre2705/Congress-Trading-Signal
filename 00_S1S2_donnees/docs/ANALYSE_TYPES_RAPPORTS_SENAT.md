@@ -4,6 +4,10 @@
 > Pendant : `docs/ANALYSE_FILING_TYPES_HOUSE.md` (Chambre, 35 315 dépôts, P = 8 252 = 23,4 %).
 > Question : notre collecteur ne récupère que les **PTR** (`report_types=[11]`) → 2 153 PTR.
 > Quelle est la part des PTR **parmi tous les types de rapports** déposés au Sénat ?
+>
+> 🔬 **Notebook reproductible** : `Analyse_Types_Rapports_Senat.ipynb` (racine du module) rejoue le
+> scrape (Report Types + Filer Types), valide les sommes et produit la figure `slides/fig_senat_types.png`
+> de la slide 1e.
 
 ## 1. Réponse en bref
 
