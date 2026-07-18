@@ -62,7 +62,7 @@ Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; l
 | 2025 | 515 | 503 | 6 | 6 | 100.0 |
 | 2026 | 274 | 268 | 2 | 4 | 100.0 |
 | TOTAL | 8252 | 7568 | 582 | 102 | 100.0 |
-*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`).*
+*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`). **Part des PTR au Sénat** (scrape eFD `report_types=[]`, 2026-07-18, fenêtre **2014-2026** tous déposants — filtre de date vérifié : all-time = 6 045 > 5 096) : **2 160 PTR sur 5 096 dépôts tous types = ≈ 42 %** (census interne 2 153 en contre-vérif. ; vs Chambre 23,4 %, même fenêtre/périmètre) — détail dans `docs/ANALYSE_TYPES_RAPPORTS_SENAT.md`.*
 
 ### Validation & reproductibilité
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""PHASE 0 — Census PTR Sénat 2020→2026 + probe du parser sur HTML eFD ancien.
+"""PHASE 0 — Census PTR Sénat 2014→2026 + probe du parser sur HTML eFD ancien.
 
 ⚠️ OUTIL HORS PIPELINE : non lancé par `common.pipeline:build_steps` (exploration ponctuelle).
 
@@ -194,7 +194,7 @@ def main():
     print("Session eFD ouverte.\n")
 
     # 1) CENSUS par an
-    print("=== CENSUS PTR 2020→2026 (année pleine) ===")
+    print("=== CENSUS PTR 2014→2026 (année pleine) ===")
     per_year = {}
     rows_census = []
     for y in CENSUS_YEARS:
@@ -219,11 +219,11 @@ def main():
               f"sénateurs={df['declarant_name'].nunique():3d}  papier_sén={paper['declarant_name'].nunique()}  "
               f"{('['+'; '.join(paper_filers)+']') if paper_filers else ''}")
     census = pd.DataFrame(rows_census)
-    census.to_csv(TAB / "_ptr_census_2020_2026.csv", index=False)
+    census.to_csv(TAB / "_ptr_census_2014_2026.csv", index=False)
     if len(census):
-        print(f"\n  TOTAL élec 2020→2026 = {census['n_ptr_electronique'].sum()}  "
+        print(f"\n  TOTAL élec 2014→2026 = {census['n_ptr_electronique'].sum()}  "
               f"| papier = {census['n_ptr_papier'].sum()}")
-    print("  → tables/_ptr_census_2020_2026.csv")
+    print("  → tables/_ptr_census_2014_2026.csv")
 
     # 2) PROBE parser sur HTML ancien
     print("\n=== PROBE parser (HTML ancien) ===")
