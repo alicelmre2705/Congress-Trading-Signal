@@ -1,0 +1,85 @@
+{
+ "doc_id": "9105956",
+ "member": "Timothy H. Bishop",
+ "filing_type": "T",
+ "model": "claude-sonnet-5",
+ "prompt_sha": "76ca0838b43c",
+ "dpi": 200,
+ "n_pages": 6,
+ "created_utc": "2026-07-13T12:44:56.967250+00:00",
+ "status": "ok",
+ "batches": 1,
+ "holdings": [
+  {
+   "asset_description": "TIAA Real Estate",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "CREF Stock Account",
+   "owner": "Self",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "TIAA Real Estate",
+   "owner": "Spouse",
+   "value_range": "$50,001-$100,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "CREF Stock Account",
+   "owner": "Spouse",
+   "value_range": "$500,001-$1,000,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "TIAA Traditional Account",
+   "owner": "Spouse",
+   "value_range": "$250,001-$500,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "CREF Bond MFS",
+   "owner": "Self",
+   "value_range": "$1-$1,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "TFCU Savings Account",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Net life insurance",
+   "owner": "Self",
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  }
+ ],
+ "transactions": [
+  {
+   "asset_description": "CREF Stock Account",
+   "transaction_type": "Partial Sale",
+   "owner": "Self",
+   "transaction_date": "Monthly",
+   "amount_range": "$1,001-$15,000"
+  },
+  {
+   "asset_description": "TIAA Traditional Account",
+   "transaction_type": "Partial Sale",
+   "owner": "Self",
+   "transaction_date": "Monthly",
+   "amount_range": "$15,001-$50,000"
+  },
+  {
+   "asset_description": "CREF Stock Account",
+   "transaction_type": "Partial Sale",
+   "owner": "Spouse",
+   "transaction_date": "2014-01-10",
+   "amount_range": "$50,001-$100,000"
+  }
+ ]
+}
