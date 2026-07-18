@@ -1,0 +1,440 @@
+% !TEX program = tectonic
+% Slides « Stratégies de trading du Congrès » — vue d'ensemble pour la réunion.
+% Format repris de 00_S1S2_donnees/docs/SLIDES_DONNEES_S1S2_V2.tex (mêmes thème/macros).
+% Périmètre (décidé avec Alice) : 6 papiers académiques + produits/benchmarks (ETF NANC/GOP,
+% Quiver, QuantConnect, Pelosi). Deck STRICTEMENT descriptif/comparatif — « ce qui existe » :
+% AUCUNE stratégie perso (pas de ticker V0/nb11, pas de résultats nb06/nb08, pas de Master/Ticker).
+% Chiffres = section « Corrections & nuances » du plan (source = PDF primaires /Users/.../Downloads/paper/
+% + 00. S3S4 en cours/ETAT_DE_L_ART_STRATEGIES.md). Règles du chef : une idée/slide (titre = message),
+% plan annoncé, chronologie, chiffres légendés, choix explicites, public neuf.
+\documentclass[11pt,aspectratio=169]{beamer}
+\definecolor{helec}{HTML}{3B6EA5}   % couleur maîtresse
+\usetheme{Madrid}
+\usecolortheme[named=helec]{structure}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamerfont{frametitle}{series=\bfseries}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{newunicodechar}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\hypersetup{colorlinks=true, urlcolor=helec, linkcolor=white}
+
+% Caractères Unicode → commandes (fontes T1)
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{✓}{\checkmark}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{œ}{\oe}
+\newunicodechar{Œ}{\OE}
+\newunicodechar{°}{\textdegree}
+\newunicodechar{§}{\S}
+\newunicodechar{«}{\og}
+\newunicodechar{»}{\fg{}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+
+% Palette
+\definecolor{okgreen}{HTML}{2E8B57}
+\definecolor{alertred}{HTML}{C0392B}
+\definecolor{warnorange}{HTML}{E67E22}
+\definecolor{grisC}{RGB}{90,90,90}
+
+\newcommand{\co}[1]{\texttt{#1}}
+\tikzset{
+  step/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+               align=center, font=\scriptsize, minimum height=0.72cm},
+  bande/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+                align=center, font=\scriptsize, minimum height=0.62cm},
+  arr/.style={-{Latex[length=2mm]}, line width=0.8pt, draw=gray!65},
+}
+
+% Tuile chiffre-clé : \tuile{couleur}{gros chiffre}{légende}
+\newcommand{\tuile}[3]{%
+  \begin{minipage}[t]{0.23\textwidth}\centering
+    \colorbox{#1}{\parbox[c][21mm][c]{\dimexpr\linewidth-8pt}{\centering
+      {\color{white}\Large\textbf{#2}}\\[0.6mm]
+      {\color{white}\footnotesize #3}}}
+  \end{minipage}}
+
+\newcommand{\badge}[2]{\colorbox{#1}{\textcolor{white}{\footnotesize\textbf{#2}}}}
+\newcommand{\badgel}[2]{\colorbox{#1}{\textcolor{black!80}{\footnotesize\textbf{#2}}}}
+
+% Carte : \carte{couleur}{titre}{contenu}
+\newcommand{\carte}[3]{%
+  \colorbox{#1!10}{\parbox[t][23mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
+    {\color{#1}\footnotesize\textbf{#2}}\\[0.8mm]{\scriptsize #3}}}}
+
+% Encadré CHOIX (un choix méthodologique, en une phrase)
+\newcommand{\choixbox}[1]{%
+  \colorbox{alertred!8}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
+    \textbf{\textcolor{alertred}{CHOIX}}\; --- #1}}}
+
+% Bandeau RÉPONSE (dernière slide d'une partie)
+\newcommand{\repband}[1]{%
+  \colorbox{okgreen!12}{\parbox{\dimexpr\textwidth-10pt}{\scriptsize
+    \textbf{\textcolor{okgreen}{Réponse}}\; --- #1}}}
+
+% Bandeau TENSION (question ouverte)
+\newcommand{\tension}[1]{%
+  \colorbox{warnorange!12}{\parbox{\dimexpr\textwidth-10pt}{\scriptsize
+    \textbf{\textcolor{warnorange}{Ouvert}}\; --- #1}}}
+
+% Ligne d'un sommaire de partie : \etape{n}{titre}{glose}
+\newcommand{\etape}[3]{%
+  {\color{helec}\bfseries #1}\; & \textbf{#2} & {\scriptsize\color{black!60} #3}\\[0.6mm]}
+
+\title[Copier le Congrès]{Stratégies de trading du Congrès américain}
+\subtitle{Ce que disent les recherches \& les produits existants · vue d'ensemble pour la réunion}
+\author[A.~Lemaire]{Alice Lemaire}
+\institute[Ramify]{Document de recherche --- livrable Ramify}
+\date{Juillet 2026}
+
+\begin{document}
+
+% ── Titre ──
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ══════════════════ OUVERTURE ══════════════════
+
+% ── Le plan ──
+\begin{frame}{Le plan --- cinq questions, dans l'ordre de vie d'un trade}
+  \centering
+  \vspace{1mm}
+  {\footnotesize la même donnée --- un trade d'élu déclaré publiquement --- lue sous cinq angles successifs}\\[4mm]
+  {\small\setlength{\extrarowheight}{2.2pt}
+  \begin{tabular}{@{}p{0.8cm}>{\raggedright\arraybackslash}p{5.0cm}>{\raggedright\arraybackslash}p{7.0cm}@{}}
+    \etape{I}{Le signal, c'est la divulgation}{Lazzaretto, Pyun --- et non la transaction}
+    \etape{II}{D'où vient l'avantage}{Wei \& Zhou (chefs de parti), Li (jalons de loi)}
+    \etape{III}{Deux angles alternatifs}{Molk \& Partnoy (paris baissiers), Roodman (ML sur graphe)}
+    \etape{IV}{Ce qui existe déjà}{ETF NANC/GOP, Quiver, QuantConnect, Pelosi}
+    \etape{V}{Synthèse \& pistes}{ce qui est robuste, ce qui reste ouvert}
+  \end{tabular}}
+\end{frame}
+
+% ── Glossaire ──
+\begin{frame}{Onze mots à connaître avant de commencer}
+  \centering
+  {\footnotesize le seul chiffre à retenir ici : \textbf{$\leq$ 45 jours} entre le trade et sa publication}\\[2.5mm]
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      {\scriptsize
+      \badge{helec}{STOCK Act (2012)} loi obligeant tout élu à déclarer ses trades\\[1.4mm]
+      \badge{helec}{PTR} le formulaire de déclaration (\emph{Periodic Transaction Report})\\[1.4mm]
+      \badge{grisC}{Date de transaction} le jour où l'élu achète/vend (privé)\\[1.4mm]
+      \badge{helec}{Date de divulgation} le jour où le PTR devient public ($\leq$ 45 j après)\\[1.4mm]
+      \badge{okgreen}{Alpha ($\alpha$)} le rendement au-delà de ce qu'explique le marché\\[1.4mm]
+      \badge{okgreen}{BHAR} sur-rendement cumulé d'un titre, acheté et conservé
+      }
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      {\scriptsize
+      \badge{okgreen}{CAAR / CAR} sur-rendement moyen cumulé autour d'un événement\\[1.4mm]
+      \badge{grisC}{Value-weighted} pondéré par la taille : les gros trades pèsent plus\\[1.4mm]
+      \badge{grisC}{Long-short} acheter les uns, vendre à découvert les autres\\[1.4mm]
+      \badge{warnorange}{Stealth trading} fractionner un gros ordre pour ne pas se faire repérer\\[1.4mm]
+      \badge{warnorange}{Enrollment} texte final voté par les 2 chambres --- un « jalon » de loi ; un \emph{enterprising trade} est un trade juste avant un tel jalon
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════ PARTIE I ══════════════════
+\section{Partie I · Le signal, c'est la divulgation}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{12mm}
+  {\color{helec!85}\large\textbf{PARTIE I}}\\[3mm]
+  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Le signal, c'est la divulgation}}\\[3mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
+  {\color{black!55}\large Pas la transaction --- et c'est ce qui le rend copiable}
+\end{frame}
+
+% ── S4 · Deux dates ──
+\begin{frame}{Le STOCK Act crée deux dates --- et l'anomalie n'est qu'à la seconde}
+  \centering
+  \vspace{0.5mm}
+  {\footnotesize\textit{Question de la Partie~I --- où est l'événement qu'on peut vraiment exploiter ?}}\\[5mm]
+  \begin{tikzpicture}[node distance=32mm]
+    \node[step=grisC, text width=3.7cm] (t)
+      {\textbf{Date de transaction}\\[0.4mm]{\scriptsize l'élu achète / vend\\ privé, invisible}};
+    \node[step=helec, text width=3.7cm, right=of t] (d)
+      {\textbf{Date de divulgation}\\[0.4mm]{\scriptsize le PTR devient public\\ copiable par tous}};
+    \draw[arr] (t) -- node[above,font=\scriptsize]{$\leq$ 45 j}
+                       node[below,font=\scriptsize]{médiane $\sim$27 j} (d);
+  \end{tikzpicture}\\[5mm]
+  {\footnotesize En agrégé, le sur-rendement exploitable après la \textbf{seule transaction} est $\approx$~0
+   (Lazzaretto) :\\ l'information ne devient actionnable qu'à la \textbf{divulgation}.}\\[3.5mm]
+  \choixbox{on date tout à la \textbf{divulgation}, jamais à la transaction --- sinon on utiliserait
+   une information pas encore publique (\emph{look-ahead}).}
+\end{frame}
+
+% ── S5 · Lazzaretto ──
+\begin{frame}{À la divulgation, le prix bouge --- puis se rétracte en 60 jours}
+  \centering
+  {\footnotesize\textbf{Lazzaretto (2024)} --- \emph{Mind the Trade}, Sénat, 2018--2022}\\[4mm]
+  \tuile{helec}{+90 bps}{achats : le mois\\qui suit la divulgation}\hfill
+  \tuile{alertred}{$-$60 bps}{ventes : même\\fenêtre, le prix baisse}\hfill
+  \tuile{warnorange}{$\sim$60 j}{puis tout se rétracte :\\réversion en $\sim$60 j de bourse}\\[5mm]
+  {\footnotesize Le portefeuille \textbf{long-short} (achats $-$ ventes), en calendar-time, dégage
+   $>$~2~\%/mois brut ---\\ mais ce rendement s'\textbf{inverse} : c'est une fenêtre courte, pas un alpha qu'on conserve.}
+\end{frame}
+
+% ── S6 · Pyun (clôture I) ──
+\begin{frame}{Après divulgation, il reste un alpha --- plus mince, côté grandes caps et Chambre}
+  \centering
+  {\footnotesize\textbf{Pyun (2026)} --- portefeuille d'achats divulgués, pondéré-valeur, 2014--2023}\\[4mm]
+  \tuile{helec}{$\approx$0,3 \%}{alpha mensuel, hors\\coûts (FF / q-factor)}\hfill
+  \tuile{okgreen}{+3 à 4 \%}{excès annuel du\\portefeuille vs S\&P}\hfill
+  \tuile{grisC}{16,5 vs 14,4}{rendement à 240 j (\%) :\\dater sur la transaction $>$ report}\\[4mm]
+  {\footnotesize Concentré là où l'information se diffuse mal : \textbf{large-caps}, \textbf{Représentants}
+   (77,7~\% des transactions), \textbf{post-COVID}.}\\[3.5mm]
+  \repband{copiable, oui --- mais \textbf{court}, \textbf{réversif} et net de peu : le Sharpe relatif
+   (achats VW $-$ S\&P) n'est que \textbf{0,66}, avant coûts de transaction.}
+\end{frame}
+
+% ══════════════════ PARTIE II ══════════════════
+\section{Partie II · D'où vient l'avantage}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{12mm}
+  {\color{helec!85}\large\textbf{PARTIE II}}\\[3mm]
+  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{D'où vient l'avantage}}\\[3mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
+  {\color{black!55}\large L'edge n'est pas partout : il se concentre chez certains élus, à certains moments}
+\end{frame}
+
+% ── S7 · Wei & Zhou ──
+\begin{frame}{L'avantage n'est pas partout --- il est chez les chefs de parti}
+  \centering
+  {\footnotesize\textit{Question de la Partie~II --- qui a un vrai edge, et pourquoi ?}\quad
+   \textbf{Wei \& Zhou (2025)}, NBER, 47 leaders, 1995--2021}\\[4mm]
+  \tuile{helec}{+47 pp}{« jusqu'à », par an vs\\pairs appariés (20 leaders)}\hfill
+  \tuile{okgreen}{+29 / +24}{pp à 6 mois :\\achats / ventes des chefs}\hfill
+  \tuile{grisC}{+7,5 bps}{par jour, sur-rendement\\après l'ascension}\\[5mm]
+  \choixbox{« leadership » = 12 postes de direction (Speaker, floor/whip, conference) ---
+   \emph{pas} la simple appartenance à une commission.}
+\end{frame}
+
+% ── S8 · Li (clôture II) ──
+\begin{frame}{L'autre source d'edge : trader juste avant un jalon législatif}
+  \centering
+  {\footnotesize\textbf{Li et al.\ (2026)} --- \emph{Inside the Beltway}, Sénat, 2014--2021 ;
+   les élus tradent 1--30 j \textbf{avant} ces jalons}\\[3.5mm]
+  \begin{tikzpicture}[node distance=4mm]
+    \node[bande=grisC, text width=2.3cm] (a) {introduction};
+    \node[bande=grisC, text width=2.3cm, right=of a] (b) {engrossment};
+    \node[bande=helec, text width=2.3cm, right=of b] (c) {\textbf{enrollment}};
+    \node[bande=grisC, text width=2.3cm, right=of c] (e) {enactment};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (e);
+  \end{tikzpicture}\\[4mm]
+  \tuile{helec}{+1,16 \%}{coefficient au stade\\« enrollment » (coef.\ +1,159)}\hfill
+  \tuile{okgreen}{+6,21 \%}{si l'élu est très efficace\\législativement (High-LES)}\hfill
+  \tuile{warnorange}{$\sim$22 \%}{des trades en séquences\\de 2 à 5 (stealth)}\\[3.5mm]
+  \repband{deux edges \textbf{réels mais conditionnels} : peu d'élus concernés, et il faut des
+   données de contexte externes (leadership, calendrier des lois).}
+\end{frame}
+
+% ══════════════════ PARTIE III ══════════════════
+\section{Partie III · Deux angles alternatifs}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{12mm}
+  {\color{helec!85}\large\textbf{PARTIE III}}\\[3mm]
+  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Deux angles alternatifs}}\\[3mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
+  {\color{black!55}\large Et si on cherchait au mauvais endroit --- ou avec le mauvais outil ?}
+\end{frame}
+
+% ── S9 · Molk & Partnoy ──
+\begin{frame}{Le vrai edge est peut-être baissier --- et c'est notre angle mort}
+  \centering
+  {\footnotesize\textit{Question de la Partie~III --- et si on cherchait au mauvais endroit ?}\quad
+   \textbf{Molk \& Partnoy (2025)}, $\sim$30 élus, 2012--2023}\\[4mm]
+  \tuile{helec}{587}{trades « négatifs »\\(puts, ventes à découvert)}\hfill
+  \tuile{alertred}{$-$0,55 \%}{CAR[$-$1,1] à la divulgation :\\le pari baissier gagne}\hfill
+  \tuile{grisC}{$\approx$0}{les positions longues,\\elles, ne battent rien}\\[5mm]
+  {\footnotesize Volume concerné : \textbf{$\sim$15,6~M\$} (options : 414 trades / $\sim$9,2~M\$ ;
+   ventes à découvert : 116 / 2,08~M\$).}\\[3mm]
+  \choixbox{ces paris passent par \textbf{options} et \textbf{ventes à découvert} : hors de notre
+   périmètre actions --- angle mort assumé.}
+\end{frame}
+
+% ── S10 · Roodman (clôture III) ──
+\begin{frame}{Un graphe temporel de ML ne prédit pas mieux que pile ou face}
+  \centering
+  {\footnotesize\textbf{Roodman et al.\ (2026)} --- GAP-TGN, graphe multimodal, 32\,401 trades, 2013--2025}\\[4mm]
+  \tuile{alertred}{0,52}{AUROC à 24 mois :\\0,50 = pur hasard}\hfill
+  \tuile{grisC}{0,44 vs 0,29}{F1 vs XGBoost --- mais les\\baselines s'effondrent}\hfill
+  \tuile{helec}{4 modalités}{trades + lobbying\\+ votes + géographie}\\[5mm]
+  {\footnotesize Le modèle \textbf{ne discrimine pas} les trades gagnants des perdants : un AUROC de 0,52
+   est indiscernable d'un tirage à pile ou face.}\\[3.5mm]
+  \repband{ni le short ni le ML ne renversent le verdict : l'essentiel des trades n'a \textbf{pas} de
+   signal exploitable --- ces deux angles \textbf{délimitent} nos angles morts, sans les combler.}
+\end{frame}
+
+% ══════════════════ PARTIE IV ══════════════════
+\section{Partie IV · Ce qui existe déjà}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{12mm}
+  {\color{helec!85}\large\textbf{PARTIE IV}}\\[3mm]
+  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Ce qui existe déjà}}\\[3mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
+  {\color{black!55}\large Les produits déjà investissables --- et ce que valent leurs chiffres}
+\end{frame}
+
+% ── S11 · ETF NANC/GOP ──
+\begin{frame}{Les ETF encadrent le S\&P --- NANC devant, GOP derrière}
+  \centering
+  {\footnotesize\textit{Question de la Partie~IV --- qu'obtient-on vraiment en copiant, net de frais ?}}\\[3.5mm]
+  \tuile{okgreen}{+18,66 \%}{NANC · 1 an\\(S\&P TR : +17,88 \%)}\hfill
+  \tuile{helec}{+23,63 \%}{NANC · création\\(S\&P : +20,96 \%)}\hfill
+  \tuile{warnorange}{+17,16 \%}{GOP · 1 an\\(S\&P TR : +17,88 \%)}\hfill
+  \tuile{alertred}{+14,75 \%}{GOP · création\\(S\&P : +20,96 \%)}\\[2.5mm]
+  {\scriptsize\color{black!60} Rendements \emph{audités} (prospectus), périodes closes au \textbf{31/12/2025} ·
+   NANC réplique surtout les Démocrates (forte tech, top-10 $\approx$ 46~\%)}\\[2.5mm]
+  {\footnotesize Mécanique commune : lookback $\sim$3 ans, prix milieu de fourchette, 100--200 lignes,
+   on \textbf{nette} achats $-$ ventes, on surpondère gros / récurrents / multi-élus.}\\[2.5mm]
+  \choixbox{benchmark = \textbf{S\&P 500 Total Return}, et on légende toujours la date d'arrêté
+   (à mi-2026, le 1 an de NANC repasse \emph{sous} le S\&P).}
+\end{frame}
+
+% ── S12 · Backtests publics (clôture IV) ──
+\begin{frame}{Les backtests publics brillent parce qu'ils ignorent les coûts (et les options)}
+  \centering
+  \vspace{0.5mm}
+  \tuile{helec}{37 \%}{Quiver : CAGR d'un backtest\\« brut » ($\beta$ 1,14, \textbf{0 coût})}\hfill
+  \tuile{warnorange}{$\sim$14 \%/an}{Pelosi, cumulé « 40 ans »\\(S\&P $\sim$9 \%) --- via options}\hfill
+  \tuile{grisC}{$\Sigma$B$-\Sigma$V}{QuantConnect : un \textbf{signal}\\(net acheteur → long)}\\[3mm]
+  {\footnotesize Le miroir \textbf{actions seul} de Pelosi (Quiver) ne donne qu'un Sharpe de \textbf{0,72} :
+   l'essentiel du rendement vient du \textbf{levier optionnel}, pas des actions.\\
+   QuantConnect ne publie \emph{aucune} performance --- c'est un modèle pédagogique.}\\[3mm]
+  \choixbox{ces chiffres sont \textbf{bruts} : à répliquer nets de coûts et de turnover, avec un test
+   de significativité, avant d'y croire.}\\[2mm]
+  \repband{en réel, net de frais, copier le Congrès rapporte $\approx$ le marché --- NANC lui-même est
+   surtout un \textbf{beta} tech (top-10 $\approx$ 46~\%).}
+\end{frame}
+
+% ══════════════════ PARTIE V ══════════════════
+\section{Partie V · Synthèse \& pistes}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{12mm}
+  {\color{helec!85}\large\textbf{PARTIE V}}\\[3mm]
+  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Synthèse \& pistes}}\\[3mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
+  {\color{black!55}\large Ce qui est robuste, ce qui reste ouvert, et par où continuer}
+\end{frame}
+
+% ── S13 · Tableau récapitulatif ──
+\begin{frame}{Six approches (plus les produits), une grille de décision}
+  \centering
+  {\scriptsize\setlength{\tabcolsep}{3.5pt}\setlength{\extrarowheight}{1pt}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{1.5cm}>{\raggedright\arraybackslash}p{1.4cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{1.9cm}@{}}
+    \toprule
+    \textbf{Approche} & \textbf{Idée} & \textbf{Daté sur} & \textbf{Horizon} & \textbf{Chiffre clé} & \textbf{Réplicable} \\
+    \midrule
+    Lazzaretto & La divulgation bouge les prix, pas la transaction & Divulgation & court ($<$60 j) & +90 bps/mo (achats), réverse & Oui, horizon court \\
+    Pyun & Portefeuille d'achats VW divulgués & Transaction \& report & 1--12 mois & $\alpha$ $\sim$0,3 \%/mo ; Sharpe 0,66\textsuperscript{$\ast$} & Oui (le plus direct) \\
+    Wei \& Zhou & Suivre les chefs de parti & Trade + ascension & 6--12 mois & jusqu'à +47 pp/an & Partiel (canaux ext.) \\
+    Li et al. & Trader avant les jalons de loi & Trade vs jalon & $\leq$ 1 an & +1,16 \% ; +6,21 \% (High-LES) & Non / partiel \\
+    Molk \& Partnoy & Copier les paris baissiers & Divulgation & 10--15 j & CAR $-$0,55 \% ; longs $\approx$0 & Non (options/short) \\
+    Roodman & ML sur graphe multimodal & Divulgation & 18--24 mois & AUROC 0,52 $\approx$ hasard & Confirme : pas d'alpha \\
+    \midrule
+    ETF NANC/GOP & Produit qui réplique & Divulgation & continu & NANC +23,63 \%/an (création) & Déjà investissable \\
+    Quiver / QC / Pelosi & Trackers \& backtests médiatiques & mixte & divers & Quiver 37 \% (0 coût) ; Pelosi options & À répliquer proprement \\
+    \bottomrule
+  \end{tabular}}\\[1mm]
+  {\scriptsize\color{black!60} \textsuperscript{$\ast$} Sharpe relatif (achats VW $-$ S\&P), avant coûts.}
+\end{frame}
+
+% ── S14 · Ce qui est robuste ──
+\begin{frame}{Ce qui ressort de robuste --- le consensus des recherches}
+  \centering
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{1 · Achats $>$ ventes}{le signal acheteur domine partout ; les ventes portent peu (sauf paris baissiers)}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{2 · Grandes caps}{l'alpha survit surtout sur les large-caps (Pyun)}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{3 · Netter A $-$ V}{achats moins ventes, sur un lookback $\sim$3 ans (Pyun, ETF)}
+    \end{column}
+  \end{columns}\par\vspace{3mm}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{4 · Pondérer-valeur}{prix milieu de fourchette ; les gros trades pèsent plus}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{5 · Signaux de qualité}{comité (Pyun/Li), leadership (Wei\,\&\,Zhou), récurrence / multi-élus (ETF)}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{6 · Dater la divulgation}{c'est là que le prix réagit, pas à la transaction}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── S15 · Ce qui reste ouvert ──
+\begin{frame}{Ce qui reste ouvert --- à traiter avec prudence}
+  {\small
+  \begin{itemize}\setlength{\itemsep}{1.3mm}
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Réversion vs drift} : Lazzaretto voit le signal se rétracter en $<$60 j ; Pyun et le graphe ML supposent un drift à 18--24 mois --- l'horizon reste à trancher.
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Coûts non nets} : presque tous les chiffres sont \emph{bruts} (0 coût de transaction, 0 turnover).
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Échantillons courts} : 2018--2022 pour les papiers ; les ETF n'existent que depuis 2023.
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Look-ahead} : dater sur la transaction utilise une information pas encore publique.
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Corroboration = signal ou herding ?} plusieurs acheteurs = plus fiable (ETF), ou au contraire moins performant (Herron) ?
+    \item[\textcolor{warnorange}{$\bullet$}] \textbf{Consensus historique mitigé} : Eggers--Hainmueller, Belmont ne trouvent pas d'alpha global.
+  \end{itemize}}
+  \vspace{1mm}
+  \tension{ces poches de rendement sont des \textbf{exceptions conditionnelles} (certains élus, certains moments), \emph{pas} une réfutation du « pas d'alpha » général.}
+\end{frame}
+
+% ── S16 · Pistes ──
+\begin{frame}{Pistes pour aller plus loin}
+  \centering
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \carte{helec}{a · Event-study double-date}{mesurer autour de la transaction \emph{et} de la divulgation --- pour trancher réversion vs drift}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{okgreen}{b · Répliquer NANC/GOP proprement}{avec coûts, puis régresser vs SPY + panier sectoriel GICS → séparer \textbf{alpha} et \textbf{beta}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \carte{grisC}{c · Fixer les benchmarks}{cibles claires : NANC ($+$23,63 \%/an depuis création) et le S\&P 500 (SPY)}
+    \end{column}
+  \end{columns}\par\vspace{5mm}
+  \repband{l'objectif n'est pas de « battre » dans un backtest brut, mais de séparer le \textbf{vrai alpha}
+   du \textbf{beta déguisé} --- net de coûts.}
+\end{frame}
+
+\end{document}
