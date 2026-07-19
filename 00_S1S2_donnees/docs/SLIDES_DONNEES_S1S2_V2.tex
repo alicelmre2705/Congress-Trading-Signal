@@ -758,35 +758,6 @@
   \end{tabular}}
 \end{frame}
 
-% ── 4b · le code type d'actif manque avant 2019 → le symbole fait foi ──
-\begin{frame}{4b · Tickers --- avant 2019, pas de code d'actif à la Chambre : c'est le symbole qui décide}
-  \begin{columns}[c]
-    \begin{column}{0.57\textwidth}\centering
-      \includegraphics[width=\linewidth]{quality/bascule_code_actif.png}\\[0.5mm]
-      {\scriptsize\color{black!60} part des lignes portant un code « type d'actif »
-       (\co{[ST]}, \co{[OP]}\ldots) --- voies \textbf{électroniques}, là où le champ
-       est \emph{déclaré} à la source}
-    \end{column}
-    \begin{column}{0.41\textwidth}\footnotesize
-      {le formulaire de la \textbf{Chambre} n'a \textbf{pas de case « type d'actif »}
-       avant 2019 : \mbox{$\sim$0\,\%} jusqu'en 2016, \textbf{99\,\%} dès 2019 ---
-       le \textbf{Sénat}, lui, l'a depuis 2015.}\\[2mm]
-      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
-        trier les actions sur ce champ rendrait \textbf{aveugles les archives
-        anciennes} : \textbf{près de 13\,000} actions de la Chambre déclarées
-        \textbf{avant 2019} n'ont \emph{que} leur \textbf{symbole} pour être
-        reconnues.}}\\[2.5mm]
-      \choixbox{\textbf{« ticker-first »} --- c'est le \textbf{symbole coté} qui
-       établit qu'une ligne est une action, \textbf{jamais} le champ déclaré (le tri
-       l'applique en 7a).}
-    \end{column}
-  \end{columns}
-  \vspace{1mm}
-  \diff{le trou est propre à la \chambre{} (formulaire tardif) ; le choix qui en
-   découle est pourtant \textbf{commun aux deux voies} --- on n'ancre jamais un actif
-   sur un champ qui peut manquer.}
-\end{frame}
-
 % ════ 5 · SECTEURS ════
 \pipeslide{5}{5 · Secteurs}%
   {Dans quel secteur joue chaque titre --- et par quel panier coté peut-on l'approcher ?}%
@@ -890,7 +861,7 @@
       \colorbox{okgreen!10}{\parbox{0.96\linewidth}{\scriptsize
         \textbf{\textcolor{okgreen}{sauvetage « ticker-first »}} --- \textbf{21\,878}
         lignes à case « type d'actif » vide \textbf{gardées} : le \textbf{ticker coté}
-        fait foi, pas la case déclarée \emph{(pourquoi : 4b)}}}
+        fait foi, pas la case déclarée}}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
@@ -1121,35 +1092,6 @@
    expliquées) · sur-ensemble dehors ($>$\,92\,\% de la base du tiers retrouvée).}
 \end{frame}
 
-% ── Conclusion ──
-\begin{frame}{La couche données, en quatre chiffres}
-  \centering
-  \vspace{2mm}
-  \begin{columns}[T]
-    \begin{column}{0.32\textwidth}
-      \colorbox{helec}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
-        {\color{white}\textbf{I --- construire \& vérifier}}\\
-        {\color{white!85}\scriptsize la donnée → la \textbf{table de recherche}, vérifiée}\vspace{0.5mm}}}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \colorbox{alertred}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
-        {\color{white}\textbf{II --- proposition : backtest}}\\
-        {\color{white!85}\scriptsize le signal des élus \textbf{bat-il le marché} ?}\vspace{0.5mm}}}
-    \end{column}
-    \begin{column}{0.32\textwidth}
-      \colorbox{dataC}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
-        {\color{white}\textbf{III --- les autres dépôts}}\\
-        {\color{white!85}\scriptsize patrimoine (O/A/T) \& cohérence}\vspace{0.5mm}}}
-    \end{column}
-  \end{columns}
-  \vspace{7mm}
-  \tuile{helec}{100\,\%}{de l'univers officiel\\(8\,252 PTR Chambre) traité}\hfill
-  \tuile{grisC}{169\,000}{transactions uniques,\\identifiées à 100\,\%}\hfill
-  \tuile{alertred}{$>$\,92\,\%}{base du tiers retrouvée · 87,8\,\%\\des positions expliquées}\hfill
-  \tuile{okgreen}{118\,029}{trades backtestables (× 36),\\limites écrites}\\[7mm]
-  {\footnotesize une couche données \textbf{vérifiée de l'intérieur et de l'extérieur} ---
-   sur laquelle bâtir en connaissant ses limites}
-\end{frame}
 \section{Partie II · Proposition : le backtest}
 \partdivider{helec}{PARTIE II}{Proposition : le backtest}{les élus battent-ils le marché ? --- une piste de recherche, rien de figé}
 
