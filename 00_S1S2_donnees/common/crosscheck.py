@@ -97,3 +97,141 @@ def summary(status_df):
         dont_ocr=("our_ocr", "sum"),
     ).reset_index()
     return by
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  Corroboration LIGNE À LIGNE (transaction par transaction) contre une collecte
+#  publique tierce. Deux collectes indépendantes re-lisant les mêmes sources
+#  officielles : senate-stock-watcher (Sénat) et house-stock-watcher (House).
+#  La concordance mesure la ROBUSTESSE de notre lecture (pas la complétude vs un
+#  univers tiers). Clé d'appariement = déposant · ticker · sens · date (montant
+#  hors clé — la loi ne donne qu'une tranche). On rapporte aussi le sous-ensemble
+#  `asset_type == "Stock"`, seul directement comparable à notre table backtest
+#  (qui filtre les fonds mutuels et ETF exotiques).
+# ─────────────────────────────────────────────────────────────────────────────
+from datetime import date as _date
+
+_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def _key_norm(s):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z]", "", s.lower())
+
+
+def _name_keys(fullname):
+    """Clés-nom robustes {dernier mot, deux derniers mots}, suffixes (Jr./III) retirés.
+    Gère les noms composés (Van Hollen) et les formats « Prénom Nom, Suffixe »."""
+    toks = [_key_norm(x) for x in str(fullname).split(",")[0].split()]
+    toks = [x for x in toks if x and x not in _SUFFIXES]
+    keys = set()
+    if toks:
+        keys.add(toks[-1])
+    if len(toks) >= 2:
+        keys.add(toks[-2] + toks[-1])
+    return frozenset(keys)
+
+
+def _tick_ok(t):
+    return bool(re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,5}", t or ""))
+
+
+def _sens(t):
+    t = (t or "").lower()
+    return "buy" if t.startswith("purchase") else "sell" if t.startswith("sale") \
+        else "exch" if t.startswith("exchange") else "?"
+
+
+def _pdate(s):
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", s or "")
+    if m:
+        return _date(int(m.group(3)), int(m.group(1)), int(m.group(2)))
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s or "")
+    if m:
+        return _date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    return None
+
+
+def _ssw_ticker(raw):
+    """SSW encapsule le symbole dans un lien HTML : <a ...q?s=AAPL>AAPL</a> → AAPL."""
+    if not raw or raw.strip() == "--":
+        return ""
+    m = re.search(r"q\?s=([A-Za-z0-9.\-]+)", raw) or re.search(r">([A-Za-z0-9.\-]+)</a>", raw)
+    return (m.group(1) if m else raw).strip().upper()
+
+
+def load_ssw_lines(path):
+    """senate-stock-watcher (`ssw_all_daily_summaries.json`) → lignes normalisées.
+    Renvoie une liste de dicts {name, ticker, sens, date, is_stock}."""
+    out = []
+    for f in json.loads(Path(path).read_text()):
+        keys = _name_keys(f.get("last_name", ""))
+        for t in f.get("transactions", []):
+            tk = _ssw_ticker(t.get("ticker", ""))
+            if not _tick_ok(tk):
+                continue
+            out.append(dict(name=keys, ticker=tk, sens=_sens(t.get("type", "")),
+                            date=_pdate(t.get("transaction_date", "")),
+                            is_stock=(t.get("asset_type", "") == "Stock")))
+    return out
+
+
+def load_hsw_lines(path):
+    """house-stock-watcher (`hsw_all_transactions.json`) → lignes normalisées (même schéma)."""
+    out = []
+    for t in json.loads(Path(path).read_text()):
+        tk = (t.get("ticker") or "").strip().upper()
+        if not _tick_ok(tk):
+            continue
+        out.append(dict(name=_name_keys(t.get("representative", "")), ticker=tk,
+                        sens=_sens(t.get("type", "")), date=_pdate(t.get("transaction_date", "")),
+                        is_stock=(t.get("asset_type", "") == "Stock")))
+    return out
+
+
+def corroboration_lignes(backtest_df, tp_lines, chamber):
+    """Appariement ligne à ligne d'une collecte tierce (`tp_lines`, cf. load_*_lines) contre
+    NOTRE table de recherche (`backtest_df`, colonnes member_name/chamber/ticker/ticker_yahoo/
+    direction/transaction_date), restreinte à `chamber`.
+
+    Clé stricte = (nom, ticker, sens, date). On indexe notre table par ticker ET ticker_yahoo
+    (renommages) et par chaque clé-nom du membre. Renvoie un dict de taux + le résidu (DataFrame)
+    des lignes « Stock » non retrouvées, pour inspection.
+    """
+    sub = backtest_df[backtest_df["chamber"] == chamber]
+    by_nts, by_nt = {}, {}                          # (nk,ticker,sens)->set(dates) ; (nk,ticker)->1
+    for m_name, tk, tky, dr, td in zip(sub["member_name"], sub["ticker"], sub["ticker_yahoo"],
+                                       sub["direction"], sub["transaction_date"]):
+        d = _pdate(str(td))
+        for nk in _name_keys(m_name):
+            for t in {str(tk).upper(), str(tky).upper()}:
+                if not t or t == "NAN":
+                    continue
+                by_nts.setdefault((nk, t, dr), set()).add(d)
+                by_nt[(nk, t)] = 1
+
+    def hit_exact(x):
+        return any(x["date"] in by_nts.get((nk, x["ticker"], x["sens"]), ()) for nk in x["name"])
+
+    def hit_loose(x):                               # titre+personne, date/sens libres
+        return any((nk, x["ticker"]) in by_nt for nk in x["name"])
+
+    ps = [x for x in tp_lines if x["sens"] in ("buy", "sell")]
+    stock = [x for x in ps if x["is_stock"]]
+
+    def rates(items):
+        n = len(items)
+        e = sum(hit_exact(x) for x in items)
+        loo = sum(hit_loose(x) for x in items)
+        return dict(n=n, exact=e, pct_exact=round(100 * e / n, 1) if n else 0.0,
+                    loose=loo, pct_loose=round(100 * loo / n, 1) if n else 0.0)
+
+    residu = [x for x in stock if not hit_loose(x)]
+    return dict(
+        chamber=chamber,
+        tout_cote=rates(ps),                        # actions + ETF + fonds (fonds filtrés chez nous)
+        actions=rates(stock),                       # asset_type == Stock : le périmètre comparable
+        n_echanges=sum(1 for x in tp_lines if x["sens"] == "exch"),
+        residu=pd.DataFrame([dict(ticker=x["ticker"], sens=x["sens"], date=x["date"]) for x in residu]),
+    )
