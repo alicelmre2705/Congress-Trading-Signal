@@ -112,6 +112,33 @@
 \newcommand{\diff}[1]{\colorbox{warnorange!10}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
   \textbf{\textcolor{warnorange}{Chambre $\neq$ Sénat}}\; --- #1}}}
 
+% ── Macros importées de la V1 (Parties Backtest & « autres ») ──
+% Bande maths : \bmaths{noms de colonnes}{formule 1 ligne}
+\newcommand{\bmaths}[2]{%
+  {\scriptsize\color{black!55}#1}\\[0.2mm]
+  {\small$\displaystyle #2$}\\[2mm]}
+% Séparateur de partie plein cadre : \partdivider{couleur}{PARTIE X}{Grand titre}{sous-titre}
+\newcommand{\partdivider}[4]{%
+  {\setbeamercolor{background canvas}{bg=#1}
+  \begin{frame}[plain]
+    \centering\vfill
+    {\color{white}\Large\textbf{#2}}\\[3.5mm]
+    {\color{white!75}\rule{0.40\textwidth}{1pt}}\\[4.5mm]
+    {\color{white}\fontsize{32}{36}\selectfont\textbf{#3}}\\[5.5mm]
+    {\color{white!88}\large #4}
+    \vfill
+  \end{frame}}}
+% Intercalaire de chapitre : \chapdivider{label}{Grand titre}{sous-titre}
+\newcommand{\chapdivider}[3]{%
+  \begin{frame}[plain]
+    \centering\vfill
+    {\color{helec!85}\large\textbf{#1}}\\[3.5mm]
+    {\color{black!88}\fontsize{29}{33}\selectfont\textbf{#2}}\\[4mm]
+    {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[4mm]
+    {\color{black!55}\large #3}
+    \vfill
+  \end{frame}}
+
 % Ligne d'étape dans un sommaire de partie : \etape{n}{titre}{glose}
 \newcommand{\etape}[3]{%
   {\color{helec}\bfseries #1}\; & \textbf{#2} & {\scriptsize\color{black!60} #3}\\[0.6mm]}
@@ -232,8 +259,8 @@
     % ---------- 8 · Table finale (LE LIVRABLE) ----------
     \begin{scope}[opacity=\opI, text opacity=\opI]
       \node[bande=okgreen, fill=okgreen!16, text width=12.6cm] (fin) at (0,-10.75)
-        {\textbf{TABLE DE RECHERCHE} --- \textbf{134\,464 × 36}
-         \;{\tiny(le livrable --- aucune colonne de prix)}};
+        {\textbf{TABLE DE RECHERCHE} --- ces \textbf{118\,029} trades, 36 colonnes
+         \;{\tiny(le livrable, après les 2 entonnoirs)}};
       \node[font=\tiny\bfseries, text=helec!80] at (-7.9,-10.75) {8 Table};
     \end{scope}
     % ---------- les flèches ----------
@@ -334,7 +361,7 @@
   \tuile{grisC}{169\,000}{transactions uniques,\\identité rattachée à 100\,\%}\hfill
   \tuile{helec}{100\,\%}{des 8\,252 déclarations\\officielles (PTR) de la\\Chambre traitées}\hfill
   \tuile{alertred}{$>$\,92\,\%}{base du tiers retrouvée · 87,8\,\%\\des positions expliquées}\hfill
-  \tuile{okgreen}{134\,464 $\times$ 36}{la table de recherche\\livrée, limites écrites}
+  \tuile{okgreen}{118\,029}{trades backtestables (× 36),\\limites écrites}
 \end{frame}
 
 % ── O3 · Le plan : deux parties ──
@@ -351,7 +378,7 @@
   {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Construire la table}}\\[3mm]
   {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
   {\color{black!55}\large De $\sim$10\,000 documents publics hétérogènes à une seule table}
-  \vfill
+  \vspace{4mm}
   {\footnotesize\color{black!50}{\color{selec}$\oplus$}~ toutes les images du deck sont
    \textbf{cliquables} pour être agrandies (re-cliquez pour revenir).}
   \vspace{8mm}
@@ -476,7 +503,7 @@
   \centering
   \vspace{2mm}
   {\footnotesize la même donnée réglementaire arrive sous \textbf{4 formats}
-   (chambre × format) :}\\[3.5mm]
+   (chambre × format) :}\\[2mm]
   \begin{columns}[T]
     \begin{column}{0.24\textwidth}\centering
       \colorbox{helec}{\parbox{0.94\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Chambre · PDF lisible}}\vspace{0.4mm}}}\\[1mm]
@@ -509,7 +536,7 @@
   \centering
   \vspace{1mm}
   {\footnotesize une ligne de PTR affiche \textbf{plusieurs dates} --- avant d'extraire,
-   fixons laquelle compte :}\\[3.5mm]
+   fixons laquelle compte :}\\[2mm]
   \begin{columns}[T]
     \begin{column}{0.31\textwidth}\centering
       \colorbox{warnorange}{\parbox{0.95\linewidth}{\centering\vspace{0.4mm}{\color{white}\scriptsize\textbf{Date de TRANSACTION}}\vspace{0.4mm}}}\\[1.5mm]
@@ -664,38 +691,35 @@
   {\textbf{100\,\%} des lignes rattachées à un élu officiel}
 
 % ── 3 · Identité ──
-\begin{frame}{3 · Identité --- chaque ligne est rattachée à un élu officiel : \mbox{100\,\%}}
+\begin{frame}{3 · Identité --- un même élu, écrit de mille façons → un seul ID officiel}
   \begin{columns}[T]
-    \begin{column}{0.58\textwidth}
-      {\footnotesize un même élu signe « Hon.\ Earl L.\ Carter », « Buddy Carter »,
-       « N.\ Pelosi »… → on relie ce \textbf{nom libre} à un \textbf{identifiant unique},
-       par une cascade d'essais :}\\[1.5mm]
-      \centering
-      \begin{tikzpicture}[node distance=2.2mm]
-        \node[step=grisC, text width=6.6cm] (n) {\textbf{nom libre du formulaire}};
-        \node[step=helec, text width=6.6cm, below=of n] (c1)
-          {1. \textbf{override manuel} --- un seul cas par chambre};
-        \node[step=helec, text width=6.6cm, below=of c1] (c2)
-          {2. \textbf{correspondance exacte} --- accents, titres (\emph{Hon., Dr.}),
-           suffixes, diminutifs (\emph{William → Bill})};
-        \node[step=helec, text width=6.6cm, below=of c2] (c3)
-          {3. \textbf{repli nom de famille} (s'il ne désigne qu'un élu)};
-        \node[step=okgreen, text width=6.6cm, below=of c3] (r)
-          {identifiant officiel (\co{bioguide}) → \textbf{parti + commissions} joints};
-        \draw[arr] (n) -- (c1); \draw[arr] (c1) -- (c2);
-        \draw[arr] (c2) -- (c3); \draw[arr] (c3) -- (r);
-      \end{tikzpicture}
+    \begin{column}{0.50\textwidth}
+      {\footnotesize dans le corpus, un même élu apparaît sous \textbf{plusieurs graphies} ---
+       ex. \textbf{Neal Dunn} (Chambre), \textbf{5 formes} du même nom :}\\[1.5mm]
+      {\scriptsize\ttfamily\color{black!75}
+       Neal P. Dunn\\
+       Neal Patrick Dunn MD, FACS\\
+       Neal Patrick Dunn, MD, FACS\\
+       Neal Patrick MD, FACS Dunn\\
+       Neal Patrick MD, Facs Dunn}\\[2mm]
+      \centering{\Large\color{okgreen}$\Downarrow$}\\[1.5mm]
+      \colorbox{okgreen}{\parbox{0.86\linewidth}{\centering\vspace{0.4mm}
+        {\color{white}\textbf{\co{D000628}} · Neal Dunn}\vspace{0.4mm}}}\\[1.5mm]
+      {\scriptsize\color{black!60} un seul \textbf{bioguide} --- l'identifiant officiel unique
+       de l'élu au Congrès}
     \end{column}
-    \begin{column}{0.40\textwidth}
-      \badge{okgreen}{100\,\% des lignes rattachées}\\[1mm]
-      {\footnotesize \textbf{367} membres Chambre · \textbf{78} Sénat}\\[1.5mm]
-      {\scriptsize\color{black!60} le \emph{bioguide} = l'identifiant officiel unique
-       d'un élu au Congrès (annuaire public \emph{congress-legislators})}\\[2mm]
-      \idem{\scriptsize \textbf{même cascade, même annuaire} des deux côtés --- d'où une
-       seule slide ; le \senat{} ajoute seulement une désambiguïsation (siège,
-       titulaire en exercice).}\\[2mm]
-      \choixbox{les fichiers extraits sont \textbf{figés} ; toute réparation est
-       appliquée \textbf{à la lecture}, jamais en réécrivant la source.}
+    \begin{column}{0.46\textwidth}
+      {\footnotesize on relie chaque nom à son bioguide via l'\textbf{annuaire public
+       \emph{congress-legislators}} (noms, surnoms, parti, commissions), en cascade :}\\[2mm]
+      {\footnotesize
+       \textbf{1.} \textbf{nettoyer} le nom --- accents, titres (\emph{Hon., Dr.}),
+       suffixes (\emph{Jr, III}), surnoms\\[0.8mm]
+       \textbf{2.} \textbf{correspondance exacte} dans l'annuaire\\[0.8mm]
+       \textbf{3.} repli \textbf{nom de famille} s'il ne désigne qu'un élu \;·\; au \senat{},
+       désambiguïsation en plus (chambre, titulaire en exercice)}\\[3mm]
+      \badge{okgreen}{100\,\% des lignes rattachées}\\[1.2mm]
+      {\footnotesize \textbf{367} élus Chambre · \textbf{78} Sénat --- avec leur \textbf{parti}
+       et leurs \textbf{commissions}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -706,34 +730,32 @@
   {le ticker sur \textbf{84,1\,\%} des lignes Chambre · \textbf{77,9\,\%} Sénat}
 
 % ── 4 · Tickers ──
-\begin{frame}{4a · Tickers --- du nom de l'actif au symbole boursier, par une cascade tracée}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}\footnotesize
-      \begin{tikzpicture}[node distance=2.6mm]
-        \node[bande=helec, text width=6.8cm] (t1) {1. \textbf{explicite} --- déjà imprimé dans la source (l'électronique)};
-        \node[bande=helec, text width=6.8cm, below=of t1] (t2) {2. \textbf{dictionnaire} --- le nom vu ailleurs dans le corpus (le papier)};
-        \node[bande=helec, text width=6.8cm, below=of t2] (t3) {3. \textbf{LLM} contraint « actions seulement »};
-        \node[bande=okgreen, text width=6.8cm, below=of t3] (t4) {4. \textbf{récupération} validée par double preuve --- \textbf{2\,540} lignes retrouvent leur symbole};
-        \draw[arr] (t1) -- (t2); \draw[arr] (t2) -- (t3); \draw[arr] (t3) -- (t4);
-      \end{tikzpicture}\\[2mm]
-      \idem{\scriptsize \textbf{même cascade des deux côtés} --- ce qui change est la
-       \textbf{source} : l'électronique imprime souvent le symbole (étage 1), le papier
-       dépend des étages 2--3.}
-    \end{column}
-    \begin{column}{0.42\textwidth}\footnotesize
-      \badge{helec}{ticker renseigné}\\[1mm]
-      {\footnotesize \textbf{84,1\,\%} Chambre · \textbf{77,9\,\%} Sénat}\\[0.8mm]
-      {\scriptsize\color{black!60} les trois premiers étages couvrent
-       \textbf{82,4\,\%} ; le 4\ieme{} (récupération) porte à \textbf{84,1\,\%}}\\[2mm]
-      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{couverture = remplissage, pas exactitude} --- les vides sont le
-        \textbf{non-coté légitime} (munis, obligations, fonds privés),
-        pas des défauts d'extraction ; l'écart Chambre/Sénat vient de la
-        \textbf{composition} des portefeuilles}}\\[2.5mm]
-      \choixbox{cascade \textbf{ordonnée et tracée}, du plus sûr au moins sûr --- chaque
-       étage est enregistré ligne à ligne : jamais une devinette silencieuse.}
-    \end{column}
-  \end{columns}
+\begin{frame}{4a · Tickers --- d'où vient le symbole boursier, et comment il évolue}
+  \centering
+  \vspace{0.5mm}
+  {\footnotesize \textbf{d'où vient le ticker de chaque ligne ?} \; (du plus sûr au moins sûr)}\\[2mm]
+  {\scriptsize\renewcommand{\arraystretch}{1.05}%
+   \begin{tabular}{@{}l >{\raggedright\arraybackslash}p{9.5cm} r@{}}
+    \toprule
+    \textbf{source} & \textbf{exemple} & \textbf{part} \\
+    \midrule
+    \textbf{explicite} & imprimé dans le document, à côté du nom : «\,Apple Inc \textbf{(AAPL)}\,» --- on le \textbf{lit} & \textbf{38\,\%} \\
+    \textbf{dictionnaire} & «\,nom = ticker\,» \textbf{appris de l'électronique}, réappliqué au papier : «\,Microsoft Corp\,» → \textbf{MSFT} & \textbf{21\,\%} \\
+    \textbf{IA (Claude)} & on interroge l'\textbf{API Claude} : «\,Palantir\,» → \textbf{PLTR} (si cotée) ; une passe \textbf{vérifiée} rattrape ses oublis & \textbf{24,5\,\%} \\
+    \emph{aucun} & actif \textbf{non coté} (obligation, LLC privée) --- pas de ticker & \textbf{16,5\,\%} \\
+    \bottomrule
+  \end{tabular}}\\[3mm]
+  {\footnotesize \textbf{et le symbole peut changer dans le temps} \; --- \textbf{84 cas} suivis}\\[2mm]
+  {\scriptsize\renewcommand{\arraystretch}{1.05}%
+   \begin{tabular}{@{}l >{\raggedright\arraybackslash}p{8.2cm} r@{}}
+    \toprule
+    \textbf{le changement} & \textbf{→ le prix} & \textbf{cas} \\
+    \midrule
+    \textbf{renommée / fusionnée} & nouveau symbole (Facebook → \textbf{META}) → \textbf{prix continu} & \textbf{32} \\
+    \textbf{rachetée / faillite} & quitte la Bourse (Twitter → X, privé) → \textbf{délisté} & \textbf{48} \\
+    \textbf{symbole recyclé} & mêmes lettres, 2 sociétés (Hertz réémis) → prix \textbf{par période} & \textbf{4} \\
+    \bottomrule
+  \end{tabular}}
 \end{frame}
 
 % ── 4b · le code type d'actif manque avant 2019 → le symbole fait foi ──
@@ -771,30 +793,38 @@
   {le secteur sur \textbf{79,8\,\%} des lignes Chambre · \textbf{70,4\,\%} Sénat}
 
 % ── 5 · Secteurs ──
-\begin{frame}{5 · Secteurs --- chaque titre reçoit un secteur GICS, et son ETF}
-  \begin{columns}[c]
-    \begin{column}{0.50\textwidth}\footnotesize
-      \textbf{une cascade indépendante} de celle du ticker :\\[1.5mm]
-      \begin{tikzpicture}[node distance=2.6mm]
-        \node[bande=dataC, text width=6.0cm] (g1) {1. \textbf{yfinance} --- le secteur factuel de l'entreprise};
-        \node[bande=dataC, text width=6.0cm, below=of g1] (g2) {2. \textbf{LLM} contraint GICS (+ garde-fou « est-ce coté ? »)};
-        \node[bande=okgreen, text width=6.0cm, below=of g2] (g3) {3. \textbf{overrides} manuels --- les cas connus};
-        \draw[arr] (g1) -- (g2); \draw[arr] (g2) -- (g3);
-      \end{tikzpicture}\\[2.5mm]
-      \badge{dataC}{secteur renseigné}\quad
-      {\footnotesize \textbf{79,8\,\%} Ch.\ · \textbf{70,4\,\%} Sén.}
+\begin{frame}{5 · Secteurs --- chaque action : un secteur, puis son ETF}
+  \centering
+  {\footnotesize Investir \textbf{par secteur} = acheter l'\textbf{ETF} du secteur. On traduit donc chaque action :}\\[1mm]
+  \begin{tikzpicture}[node distance=6mm]
+    \node[bande=helec, text width=2.8cm, align=center] (a) {« Apple Inc »\\[0.2mm]\co{AAPL}};
+    \node[bande=dataC, text width=3.4cm, align=center, right=of a] (b)
+      {\textbf{Information Technology}\\[0.2mm]{\scriptsize 1 des 11 secteurs GICS}};
+    \node[bande=okgreen, text width=2.9cm, align=center, right=of b] (c)
+      {ETF \textbf{XLK}\\[0.2mm]{\scriptsize le fonds coté du secteur}};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+  \end{tikzpicture}\\[0.5mm]
+  {\scriptsize\color{black!70} contre-exemple : « obligation municipale » → \textbf{non cotée} →
+   \textbf{aucun secteur} (par nature, pas un raté)}\\[0.5mm]
+  \begin{columns}[T]
+    \begin{column}{0.53\textwidth}\footnotesize
+      \textbf{d'où vient le secteur} de chaque ligne ? 3 méthodes, en cascade :\\[1.5mm]
+      {\renewcommand{\arraystretch}{1.1}%
+       \begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.7cm}r@{}}
+        \toprule \textbf{méthode} & \textbf{part} \\ \midrule
+        \textbf{base boursière} (Yahoo Finance) --- le secteur officiel de l'entreprise & $\approx$67\,\% \\
+        \textbf{IA} (Claude) --- si absent : choisit 1 des 11 secteurs, refuse si non coté & $\approx$12\,\% \\
+        \textbf{à la main} --- quelques cas connus (ex.\ l'ETF SPY : pas de secteur) & $<$1\,\% \\
+        \bottomrule
+      \end{tabular}}\\[1.5mm]
+      \badge{dataC}{secteur = ETF renseigné}\quad{\footnotesize \textbf{79,8\,\%} Ch.\ · \textbf{70,4\,\%} Sén.}
     \end{column}
-    \begin{column}{0.48\textwidth}\footnotesize
-      \textbf{GICS} = la classification sectorielle standard du marché ---
-      \textbf{11 secteurs}, chacun adossé à son \textbf{ETF} \emph{Select Sector SPDR}
-      (le panier coté du secteur) :\\[1.5mm]
-      {\scriptsize\ttfamily
-      Energy→XLE · Materials→XLB · Industrials→XLI · Cons.\ Discr.→XLY ·
-      Cons.\ Staples→XLP · Health Care→XLV · Financials→XLF · Info.\ Tech.→XLK ·
-      Comm.\ Services→XLC · Utilities→XLU · Real Estate→XLRE}\\[2.5mm]
-      \idem{\scriptsize même cascade, même table de correspondance des deux côtés ---
-       l'écart de couverture vient de la \textbf{composition} des portefeuilles, pas de
-       la méthode.}
+    \begin{column}{0.45\textwidth}\footnotesize
+      \textbf{GICS} = la nomenclature boursière : \textbf{11 secteurs}, chacun avec \textbf{un}
+      ETF SPDR \emph{Select Sector} :\\[1mm]
+      {\ttfamily\footnotesize Energy→XLE · Materials→XLB · Industrials→XLI · Cons.\ Discr.→XLY ·
+       Cons.\ Staples→XLP · Health Care→XLV · Financials→XLF · Info.\ Tech.→XLK ·
+       Comm.\ Services→XLC · Utilities→XLU · Real Estate→XLRE}
     \end{column}
   \end{columns}
 \end{frame}
@@ -808,7 +838,7 @@
 \begin{frame}{6 · Dédup --- une transaction = 7 champs : l'empreinte dédoublonne sans détruire}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\footnotesize
-      \textbf{l'empreinte d'une transaction --- 7 champs} :\\
+      \textbf{les 7 champs} :\\
       {\scriptsize \textbf{qui} (déclarant) · \textbf{quand} (date du trade) ·
        \textbf{quoi} (actif) · \textbf{sens} · \textbf{montant} (fourchette) ·
        \textbf{pour qui} (détenteur) · \textbf{chambre}}\\[2mm]
@@ -817,9 +847,9 @@
          l'empreinte instable\\
        · la \textbf{date de divulgation} --- un dépôt et son amendement portent le
          \emph{même} trade → une seule transaction}\\[2.5mm]
-      \choixbox{dédup \textbf{non destructrice} : deux dépôts, même empreinte = un seul
-       trade --- mais un \textbf{vrai lot répété} (même titre, plusieurs comptes) est
-       \textbf{préservé} par un compteur d'occurrence. Jamais de dédoublonnage aveugle.}
+      \choixbox{dédup \textbf{non destructrice} : deux dépôts de même empreinte = un seul
+       trade ; un \textbf{vrai lot répété} (même titre, plusieurs comptes) reste
+       \textbf{distingué par un compteur d'occurrence}.}
     \end{column}
     \begin{column}{0.43\textwidth}
       \centering
@@ -831,12 +861,7 @@
         \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
       \end{tikzpicture}\\[2mm]
       \idem{\scriptsize \textbf{une seule empreinte} pour les deux chambres --- c'est
-       elle qui permet de \textbf{fusionner les 4 voies} sans compter deux fois. Seul le
-       \emph{taux} diffère : \textbf{93\,\%} des 1\,920 re-divulgations viennent du
-       \senat{} électronique (2d).}\\[2mm]
-      {\scriptsize\color{black!60} au même moment, à la lecture : les \textbf{réparations}
-       (7\,996 montants tronqués rétablis · 2\,540 tickers récupérés · 7 identités ·
-       3 dates) --- le \textbf{fichier extrait, lui, reste figé} (3)}
+       elle qui permet de \textbf{fusionner les 4 voies} sans compter deux fois.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -844,27 +869,24 @@
 % ════ 7 · ENTONNOIR ════
 \pipeslide{7}{7 · Entonnoir}%
   {Un backtest exige un prix de marché : que faut-il retirer, et sur quelle preuve ?}%
-  {\textbf{deux entonnoirs, deux axes} --- les \textbf{lignes} : \textbf{134\,464}
-   exploitables, 79,6\,\% du corpus (c'est le livrable) \;·\; puis, \textbf{en aval},
-   les \textbf{symboles} : \textbf{3\,289} avec un prix → \textbf{118\,029} trades
-   backtestables, \textbf{sans retirer une seule ligne}}
+  {\textbf{deux entonnoirs} --- les \textbf{lignes} (169\,000 → \textbf{134\,464} exploitables),
+   puis les \textbf{symboles} (\textbf{3\,289} avec un prix) → \textbf{118\,029} trades
+   \textbf{backtestables} : le livrable}
 
 % ── 7a · Entonnoir ──
-\begin{frame}{7a · Entonnoir --- de 169\,000 à 134\,464 : on ne retire que l'avéré inutilisable}
+\begin{frame}{7a · Entonnoir des lignes --- de 169\,000 à 134\,464 : on ne retire que l'avéré inutilisable}
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \centering
       \includegraphics[width=\linewidth]{quality/entonnoir_backtest.png}
     \end{column}
     \begin{column}{0.40\textwidth}
-      {\footnotesize quatre portes objectives --- \textbf{169\,000 → 134\,464}
-       (79,6\,\% conservées) :}\\[1.5mm]
+      {\footnotesize \textbf{quatre portes} --- ce que chacune vérifie :}\\[1mm]
       {\scriptsize
-      \textbf{A --- dates cohérentes} : \textbf{−3\,252}\\[0.8mm]
-      \textbf{B --- actions + ETF cotés} (un backtest exige un prix de marché) :
-        \textbf{−29\,771}\\[0.8mm]
-      \textbf{C --- direction claire} (achat ou vente) : \textbf{−826}\\[0.8mm]
-      \textbf{D --- montant présent} : \textbf{−687}}\\[2mm]
+      \textbf{A · dates cohérentes} : divulgation \textbf{après} la transaction (sinon impossible), année plausible\\[0.6mm]
+      \textbf{B · actions/ETF cotés} : ticker \textbf{vraiment coté} (pas obligation/muni/option) --- \textbf{gros filtre} (−29\,771)\\[0.6mm]
+      \textbf{C · sens clair} : \textbf{achat ou vente} (pas un échange)\\[0.6mm]
+      \textbf{D · montant présent} : la \textbf{fourchette} est renseignée}\\[2mm]
       \colorbox{okgreen!10}{\parbox{0.96\linewidth}{\scriptsize
         \textbf{\textcolor{okgreen}{sauvetage « ticker-first »}} --- \textbf{21\,878}
         lignes à case « type d'actif » vide \textbf{gardées} : le \textbf{ticker coté}
@@ -874,53 +896,43 @@
   \vspace{1.5mm}
   \centering
   \choixbox{on ne retire que l'\textbf{avéré inutilisable} ; le doute est
-   \textbf{flagué, jamais retiré} (late filing 12,2\,\%, délistés, lots multi-comptes)
-   --- la recherche décide.}
+   \textbf{flagué, jamais retiré} (late filing 12,2\,\%, délistés, lots multi-comptes).}
 \end{frame}
 
 % ── 7b · Du symbole au prix ──
-\begin{frame}{7b · Entonnoir (suite) --- du symbole au prix : 118\,029 trades valorisables}
-  \begin{columns}[c]
-    \begin{column}{0.52\textwidth}\centering
-      \begin{tikzpicture}[node distance=3.2mm]
-        \node[bande=grisC, text width=6.4cm, minimum height=1.0cm] (a)
-          {\textbf{4\,618} symboles distincts dans la table};
-        \node[bande=helec, text width=6.4cm, minimum height=1.0cm, below=of a] (b)
-          {\textbf{3\,350} servis par Yahoo\\{\scriptsize −1\,268 \textbf{délistés sans successeur coté}}};
-        \node[bande=okgreen, text width=6.4cm, minimum height=1.0cm, below=of b] (c)
-          {\textbf{3\,289} exploitables\\{\scriptsize −61 séries corrompues (garde-fous)}};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-      \end{tikzpicture}
+\begin{frame}{7b · Entonnoir des symboles --- 118\,029 trades ont un prix fiable ($\approx$88\,\% des 134\,464)}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{quality/entonnoir_tickers.png}
     \end{column}
-    \begin{column}{0.46\textwidth}
-      \badge{okgreen}{118\,029 trades avec un prix fiable ($\approx$ 88\,\%)}\\[1.5mm]
-      {\scriptsize\color{black!60} même valeur numérique que le taux de cohérence de la
-       Partie II : \textbf{pure coïncidence}, aucun lien}\\[2.5mm]
-      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
-        \textbf{\textcolor{warnorange}{biais de survie assumé}} --- un titre mort depuis
-        (faillite, rachat sans successeur) ne peut plus être valorisé :
-        couverture \textbf{74\,\%} en 2014 → \textbf{99\,\%} en 2026\vspace{0.5mm}}}\\[2mm]
-      \choixbox{la limite est \textbf{écrite}, pas cachée --- les lignes non couvertes
-       \textbf{restent} dans la table, flaguées.}
+    \begin{column}{0.40\textwidth}
+      {\footnotesize pour valoriser un trade, il faut un \textbf{vrai cours} --- chaque symbole est
+       demandé à \textbf{Yahoo Finance} :}\\[1.5mm]
+      {\scriptsize
+      \textbf{délisté sans successeur} : société morte (faillite/rachat) → \textbf{plus aucun cours}\\[0.8mm]
+      \textbf{série corrompue} : prix aberrants, écartés par garde-fou}\\[2.5mm]
+      \badge{okgreen}{118\,029 / 134\,464 backtestables ($\approx$88\,\%)}\\[3mm]
+      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\scriptsize\vspace{0.5mm}
+        \textbf{\textcolor{warnorange}{biais de survie assumé}} --- on ne peut valoriser que les titres
+        \textbf{encore cotés} : couverture \textbf{74\,\%} en 2014 → \textbf{99\,\%} en 2026\vspace{0.5mm}}}
     \end{column}
   \end{columns}
   \vspace{1.5mm}
   \centering
-  {\scriptsize\color{black!55} note : le moteur d'analyse aval filtre l'année du trade
-   à 2013--2026 → il travaille sur \textbf{134\,429} lignes (134\,464 − 35 trades à
-   année aberrante, coquilles fidèlement transcrites)}
+  \choixbox{les lignes sans prix restent dans le \textbf{corpus livré}, flaguées.}
 \end{frame}
 
 % ════ 8 · TABLE FINALE ════
 \pipeslide{8}{8 · Table finale}%
   {Au bout du pipeline : à quoi ressemble, concrètement, une ligne livrée ?}%
-  {la table de recherche --- \textbf{134\,464 × 36}, limites écrites}
+  {la table de recherche --- \textbf{118\,029 trades backtestables}, limites écrites}
 
 % ── 8 · La table finale ── (ferme la Partie I)
-\begin{frame}{8 · À quoi ressemble la valeur finale : 134\,464 lignes × 36 colonnes}
+\begin{frame}{8 · À quoi ressemble la valeur finale : 118\,029 trades backtestables × 36 colonnes}
   \centering
   \colorbox{helec}{\parbox{0.9\textwidth}{\scriptsize\color{white}\centering\vspace{0.5mm}
-    la table de recherche --- \textbf{134\,464 lignes × 36 colonnes} ·
+    la table de recherche --- \textbf{118\,029 trades backtestables} (× 36 colonnes) ·
     372 élus · chaque ligne traçable à son document source\vspace{0.5mm}}}\\[1mm]
   {\scriptsize
   \begin{tabular}{@{}llllrl@{}}
@@ -951,64 +963,46 @@
     \end{column}
   \end{columns}
   \vspace{1mm}
-  \repband{une table \textbf{134\,464 × 36} · 79,6\,\% du corpus conservé ·
-   limites écrites --- reste à \textbf{prouver} qu'on peut lui faire confiance :
-   \textbf{Partie II}.}
+  \repband{\textbf{118\,029 trades backtestables} (× 36) · limites écrites ---
+   reste à \textbf{prouver} qu'on peut lui faire confiance : l'\textbf{étape 9 (vérifier)}.}
 \end{frame}
 
 % ══════════════════ PARTIE II ══════════════════
-\section{Partie II · Vérifier la table}
+% ════ ÉTAPE 9 · VÉRIFIER (sans les autres filing types) ════
 
-\begin{frame}[plain]
-  \centering
-  \vspace{10mm}
-  {\color{alertred!85}\large\textbf{PARTIE II}}\\[3mm]
-  {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Vérifier la table}}\\[3mm]
-  {\color{alertred!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
-  {\color{black!55}\large Comment sait-on qu'on n'a \textbf{rien raté} --- ni \textbf{rien inventé} ?}\\[6mm]
-  {\footnotesize\color{black!60}
-   \mbox{\textbf{II.0} Trois questions} \; · \; \mbox{\textbf{II.1} L'univers} \; · \;
-   \mbox{\textbf{II.2} Les autres types de dépôts} \; · \; \mbox{\textbf{II.3} La cohérence}
-   \; · \; \mbox{\textbf{II.4} Quiver} \; · \; \mbox{\textbf{II.5} Les autres preuves}}
-\end{frame}
+
 
 % ── II.0 · Les trois questions ──
-\begin{frame}{II.0 · Vérifier, c'est répondre à trois questions}
+\begin{frame}{9 · Vérifier --- répondre à deux questions}
   \centering
-  \vspace{2mm}
+  \vspace{3mm}
   \begin{columns}[T]
-    \begin{column}{0.32\textwidth}\centering
-      \colorbox{helec!10}{\parbox[t][47mm][t]{\dimexpr\linewidth-8pt}{\vspace{1.5mm}\centering
-        {\color{helec}\large\textbf{1 · Complétude}}\\[2mm]
-        {\footnotesize « A-t-on couvert \textbf{tout} le périmètre ? »}\\[3mm]
-        {\scriptsize l'univers officiel (II.1), puis les \textbf{11 autres types}
-         de dépôts (II.2)}\\[2.5mm]
-        {\color{helec}\Large\textbf{173}}\\[0.5mm]{\tiny actions résiduelles échappant au signal}}}
+    \begin{column}{0.46\textwidth}\centering
+      \colorbox{helec!10}{\parbox[t][43mm][t]{\dimexpr\linewidth-8pt}{\vspace{2mm}\centering
+        {\color{helec}\large\textbf{1 · Univers}}\\[2.5mm]
+        {\footnotesize « A-t-on traité \textbf{tout} le périmètre officiel ? »}\\[4mm]
+        {\scriptsize les \textbf{8\,252 PTR} de la Chambre listés à la source ---
+         \textbf{100\,\%} traités, aucun oublié}\\[3mm]
+        {\color{helec}\Large\textbf{100\,\%}}\\[0.5mm]{\tiny de l'univers officiel PTR}}}
     \end{column}
-    \begin{column}{0.32\textwidth}\centering
-      \colorbox{okgreen!10}{\parbox[t][47mm][t]{\dimexpr\linewidth-8pt}{\vspace{1.5mm}\centering
-        {\color{okgreen}\large\textbf{2 · Cohérence}}\\[2mm]
-        {\footnotesize « Les flux se \textbf{recollent}-ils comptablement ? »}\\[3mm]
-        {\scriptsize patrimoine d'entrée + nos transactions
-         $\overset{?}{=}$ patrimoine de sortie (II.3)}\\[2.5mm]
-        {\color{okgreen}\Large\textbf{87,8\,\%}}\\[0.5mm]{\tiny des positions de sortie expliquées (Chambre)}}}
-    \end{column}
-    \begin{column}{0.32\textwidth}\centering
-      \colorbox{dataC!10}{\parbox[t][47mm][t]{\dimexpr\linewidth-8pt}{\vspace{1.5mm}\centering
-        {\color{dataC}\large\textbf{3 · Corroboration}}\\[2mm]
-        {\footnotesize « Des \textbf{tiers indépendants} voient-ils la même chose ? »}\\[3mm]
-        {\scriptsize Quiver (II.4), collectes indépendantes (II.5) ---
-         jamais réinjectés}\\[2.5mm]
-        {\color{dataC}\Large\textbf{93,5\,\%}}\\[0.5mm]{\tiny des combinaisons du tiers retrouvées chez nous (Chambre)}}}
+    \begin{column}{0.46\textwidth}\centering
+      \colorbox{dataC!10}{\parbox[t][43mm][t]{\dimexpr\linewidth-8pt}{\vspace{2mm}\centering
+        {\color{dataC}\large\textbf{2 · Corroboration}}\\[2.5mm]
+        {\footnotesize « Des \textbf{tiers indépendants} voient-ils la même chose ? »}\\[4mm]
+        {\scriptsize \textbf{Quiver} + collectes indépendantes, \textbf{jamais réinjectés}
+         --- et on en est le \textbf{sur-ensemble}}\\[3mm]
+        {\color{dataC}\Large\textbf{93,5\,\%}}\\[0.5mm]{\tiny des combinaisons du tiers retrouvées (Chambre)}}}
     \end{column}
   \end{columns}
-  \vspace{4mm}
+  \vspace{3mm}
   {\footnotesize une seule question, en réalité --- \textbf{peut-on faire confiance à la table ?} ---
-   posée \textbf{de l'intérieur} (1, 2) puis \textbf{de l'extérieur} (3)}
+   posée \textbf{de l'intérieur} (univers complet) puis \textbf{de l'extérieur} (corroboration)}\\[2mm]
+  {\scriptsize\color{black!55} le \textbf{patrimoine des autres dépôts} (O/A/T) et la \textbf{cohérence}
+   entrée\,+\,flux\,=\,sortie sont traités en \textbf{Partie III}}
 \end{frame}
 
 % ── II.1 · L'univers ──
-\begin{frame}{II.1 · L'univers --- 100\,\% des 8\,252 PTR officiels sont traités}
+\begin{frame}{9 · L'univers --- 100\,\% des 8\,252 PTR officiels sont traités}
   \centering
   \vspace{1mm}
   {\footnotesize l'index officiel dit combien de PTR existent : \textbf{8\,252}.
@@ -1035,140 +1029,8 @@
    sont consignés de la même façon.}
 \end{frame}
 
-% ── II.2a · Les autres types ──
-\begin{frame}{II.2a · Les autres types --- où vivent les transactions, hors des PTR ?}
-  \centering
-  \includegraphics[width=0.70\textwidth,height=0.46\textheight,keepaspectratio]{slides/fig_house_loi_cycle.png}\\[0.8mm]
-  {\footnotesize la vie déclarative d'un élu : chaque étape a son dépôt --- Schedule
-   \textbf{A} = la \textbf{photo du patrimoine} · Schedule \textbf{B} = la \textbf{liste
-   des transactions} ; hors PTR, les transactions ne vivent que dans l'annuel
-   \textbf{O} (4\,625 dépôts, \textbf{31\,\%} avec transactions), la sortie \textbf{T}
-   et leurs amendements --- \textbf{57\,259} lignes brutes au total}\\[0.5mm]
-  {\scriptsize\color{black!60} les photos d'entrée (\textbf{H}) et de sortie
-   (\textbf{T}) serviront à la cohérence (II.3) --- verdict de complétude : slide suivante}
-\end{frame}
-
-% ── II.2b · Verdict complétude ──
-\begin{frame}{II.2b · Verdict --- le hors-PTR est du patrimoine découvert trop tard : 173 actions}
-  \begin{columns}[c]
-    \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{black!25}{white}{\clickzoom{fig_pelosi_schedb}{\includegraphics[width=0.92\linewidth,height=44mm,keepaspectratio]{slides/fig_pelosi_schedb.png}}}\\[0.8mm]
-      {\scriptsize\color{black!60} la Schedule B d'un \textbf{annuel} (Pelosi 2015)
-       récapitule les trades de l'année --- souvent déjà déclarés en PTR}
-    \end{column}
-    \begin{column}{0.52\textwidth}
-      \centering
-      \begin{tikzpicture}[node distance=2.4mm]
-        \node[bande=grisC, text width=7.0cm] (a)
-          {\textbf{57\,259} lignes brutes hors PTR (doublons compris)};
-        \node[bande=helec, text width=7.0cm, below=of a] (b)
-          {doublons et échos des PTR retirés → le net jamais vu en PTR :
-           surtout des \textbf{ETF/fonds} \emph{(détail : annexe A5)}};
-        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
-              align=center, font=\scriptsize, text width=7.0cm, minimum height=0.62cm, below=of b] (c)
-          {\color{white}\textbf{173 vraies actions absentes du signal --- toutes pré-2018}};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-      \end{tikzpicture}\\[2mm]
-      \badgel{warnorange!40}{374 j de délai médian (vs 27 j en PTR)}\\[2mm]
-      \choixbox{les transactions hors PTR alimentent le \textbf{patrimoine}
-       (vérification), jamais le \textbf{signal} --- découvertes $\sim$1 an trop tard :
-       cohérent avec l'anti-look-ahead de 2a.}\\[1mm]
-      {\scriptsize\color{black!55} les deux mesures portent sur des populations
-       distinctes : \textbf{57 259} = les lignes brutes hors PTR · \textbf{374 j} = le
-       délai des trades nets jamais vus en PTR}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── II.3a · Cohérence : l'équation ──
-\begin{frame}{II.3a · Cohérence --- l'équation : entrée + nos transactions $\overset{?}{=}$ sortie}
-  \hfill{\scriptsize\color{black!55} Chambre uniquement ($\sim$90\,\% du corpus)}\\[1mm]
-  \centering
-  {\footnotesize \textbf{photo} = le patrimoine déclaré (Schedule A, aux entrées/sorties) ·
-   \textbf{flux} = nos transactions --- l'équation ne se teste que si l'on a
-   \textbf{les deux photos} :}\\[3mm]
-  \resizebox{0.97\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=7mm]
-    \node[step=grisC, text width=3.1cm, minimum height=1.4cm, font=\footnotesize] (a)
-      {\textbf{\large 900}\\{\scriptsize membres passés par la Chambre 2014--2026}};
-    \node[step=dataC, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of a] (b)
-      {\textbf{\large 149}\\{\scriptsize entrés PUIS sortis\\(cycle complet)}};
-    \node[step=helec, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of b] (c)
-      {\textbf{\large 106}\\{\scriptsize les DEUX photos réellement déposées}};
-    \node[step=okgreen, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of c] (d)
-      {\textbf{\large 56}\\{\scriptsize actions cotées des deux côtés → \textbf{testables}}};
-    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
-  \end{tikzpicture}}\\[3mm]
-  {\footnotesize la loi elle-même limite l'échantillon : \textbf{439} étaient déjà en
-   poste en 2014 (pas de photo d'entrée), \textbf{437} sont encore en poste (pas de
-   photo de sortie) ; la moitié des 106 ne détient \textbf{aucune action cotée}}
-\end{frame}
-
-% ── II.3b · Cohérence : le résultat ──
-\begin{frame}{II.3b · Cohérence --- le résultat : 87,8\,\% des positions expliquées, 3,3\,\% non}
-  \hfill{\scriptsize\color{black!55} Chambre uniquement}\\[0.3mm]
-  \begin{columns}[c]
-    \begin{column}{0.44\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{slides/fig_v1_coherence.png}\\[0.5mm]
-      {\scriptsize\color{black!60} premier passage : entrée + achats PTR expliquent
-       \textbf{78,7\,\%} des \textbf{1\,371} positions de sortie → \textbf{292}
-       inexpliquées}
-    \end{column}
-    \begin{column}{0.54\textwidth}
-      \centering
-      \begin{tikzpicture}[node distance=2mm]
-        \node[bande=grisC, text width=6.6cm] (a) {\textbf{292 positions inexpliquées} \mbox{(21,3\,\%)} --- instruites \textbf{une par une} :};
-        \node[bande=helec, text width=6.6cm, below=of a] (b)
-          {\textbf{−125 déclarées AILLEURS} (annuels, sorties, PTR papier)\\
-           {\tiny le taux monte : 78,7 → \textbf{87,8\,\%}}};
-        \node[bande=dataC, text width=6.6cm, below=of b] (c)
-          {\textbf{−122 structurelles} (comptes gérés, petites lignes, ETF exemptés)};
-        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
-              align=center, font=\scriptsize, text width=6.6cm, minimum height=0.62cm, below=of c] (d)
-          {\color{white}\textbf{45 vraiment inexpliquées = 3,3\,\%} (14 membres)};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
-      \end{tikzpicture}\\[0.6mm]
-      \choixbox{chaque position inexpliquée est \textbf{classée par preuve documentaire}
-       (table nominative conservée), pas éliminée statistiquement.}\\[0.6mm]
-      {\scriptsize\color{black!55} −125 = 74 annuels + 49 sorties + 2 PTR papier ·
-       −122 = 59 gérés + 32 $\leq$ 15\,k\$ + 30 ETF + 1 renommage}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── II.3c · Reconstruire ≠ vérifier ──
-\begin{frame}{II.3c · Cohérence --- reconstruire n'est pas vérifier : 9 sur 10 sans preuve}
-  \hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
-  \centering
-  {\footnotesize chacun des \textbf{900} membres reçoit \textbf{un seul statut} --- du
-   moins au plus exigeant :}\\[1mm]
-  \begin{tikzpicture}[node distance=2mm]
-    \node[rectangle, rounded corners=2pt, draw=grisC, fill=grisC!10, line width=0.8pt,
-          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt] (r1)
-      {\makebox[0.85cm][r]{\normalsize\textbf{20}}\;\; \textbf{hors d'atteinte} --- rien d'exploitable
-       (patrimoine 100\,\% non coté, blind trust)};
-    \node[rectangle, rounded corners=2pt, draw=dataC, fill=dataC!10, line width=0.8pt,
-          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r1] (r2)
-      {\makebox[0.85cm][r]{\normalsize\textbf{715}}\;\; \textbf{reconstructible partiel} --- au moins
-       une photo \textbf{ou} des transactions → des \textbf{morceaux datés}};
-    \node[rectangle, rounded corners=2pt, draw=helec, fill=helec!10, line width=0.8pt,
-          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r2] (r3)
-      {\makebox[0.85cm][r]{\normalsize\textbf{109}}\;\; \textbf{reconstructible complet} --- série
-       datée de bout en bout\ldots{} mais pas de photo de \textbf{sortie} : \textbf{non testable}};
-    \node[rectangle, rounded corners=2pt, draw=okgreen, fill=okgreen, line width=0.8pt,
-          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r3] (r4)
-      {\color{white}\makebox[0.85cm][r]{\normalsize\textbf{56}}\;\; \textbf{vérifiable strict} ---
-       les \textbf{deux} photos + actions cotées → l'équation \textbf{réellement testée}
-       (le 87,8\,\%)};
-  \end{tikzpicture}\\[1.5mm]
-  {\scriptsize\color{black!60} 20 + 715 + 109 + 56 = \textbf{900} --- une partition, rien ne se recouvre}\\[1.5mm]
-  \choixbox{on affiche le \textbf{périmètre réel du test} (56 membres) plutôt que de
-   laisser croire à une vérification universelle --- $\sim$9 reconstruits sur 10 restent
-   \textbf{sans preuve}.}
-\end{frame}
-
 % ── II.4 · Quiver ──
-\begin{frame}{II.4 · Quiver --- nous retrouvons $>$\,92\,\% de sa base, et nous en sommes le sur-ensemble}
+\begin{frame}{9 · Quiver --- nous retrouvons $>$\,92\,\% de sa base, et nous en sommes le sur-ensemble}
   \begin{columns}[c]
     \begin{column}{0.46\textwidth}\centering
       \begin{tikzpicture}
@@ -1208,7 +1070,7 @@
 \end{frame}
 
 % ── II.4b · corroboration par année (l'autre sens : nous → Quiver) ──
-\begin{frame}{II.4b · Quiver --- la corroboration monte avec le temps : peu de vérité-terrain avant 2017}
+\begin{frame}{9 · Quiver --- la corroboration monte avec le temps : peu de vérité-terrain avant 2017}
   \begin{columns}[c]
     \begin{column}{0.58\textwidth}\centering
       \includegraphics[width=\linewidth]{quality/corroboration_par_annee.png}\\[0.5mm]
@@ -1234,7 +1096,7 @@
 \end{frame}
 
 % ── II.5 · Les autres preuves ── (ferme la Partie II)
-\begin{frame}{II.5 · Les autres preuves, et le principe : rien n'est réinjecté}
+\begin{frame}{9 · Les autres preuves, et le principe : rien n'est réinjecté}
   \centering
   \vspace{1mm}
   \begin{minipage}[t]{0.32\textwidth}
@@ -1264,35 +1126,527 @@
   \centering
   \vspace{2mm}
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \colorbox{helec}{\parbox{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
-        {\color{white}\textbf{PARTIE I --- construire}}\\
-        {\color{white!85}\scriptsize acquisition → tri → extraction → identité →
-         tickers → secteurs → dédup → entonnoir → table}\vspace{0.5mm}}}
+    \begin{column}{0.32\textwidth}
+      \colorbox{helec}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
+        {\color{white}\textbf{I --- construire \& vérifier}}\\
+        {\color{white!85}\scriptsize la donnée → la \textbf{table de recherche}, vérifiée}\vspace{0.5mm}}}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \colorbox{alertred}{\parbox{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
-        {\color{white}\textbf{PARTIE II --- prouver}}\\
-        {\color{white!85}\scriptsize univers → autres types → cohérence → Quiver →
-         autres preuves}\vspace{0.5mm}}}
+    \begin{column}{0.32\textwidth}
+      \colorbox{alertred}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
+        {\color{white}\textbf{II --- proposition : backtest}}\\
+        {\color{white!85}\scriptsize le signal des élus \textbf{bat-il le marché} ?}\vspace{0.5mm}}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \colorbox{dataC}{\parbox[t][15mm][t]{\dimexpr\linewidth-8pt}{\centering\vspace{0.5mm}
+        {\color{white}\textbf{III --- les autres dépôts}}\\
+        {\color{white!85}\scriptsize patrimoine (O/A/T) \& cohérence}\vspace{0.5mm}}}
     \end{column}
   \end{columns}
   \vspace{7mm}
   \tuile{helec}{100\,\%}{de l'univers officiel\\(8\,252 PTR Chambre) traité}\hfill
   \tuile{grisC}{169\,000}{transactions uniques,\\identifiées à 100\,\%}\hfill
   \tuile{alertred}{$>$\,92\,\%}{base du tiers retrouvée · 87,8\,\%\\des positions expliquées}\hfill
-  \tuile{okgreen}{134\,464 $\times$ 36}{lignes × colonnes,\\limites écrites}\\[7mm]
+  \tuile{okgreen}{118\,029}{trades backtestables (× 36),\\limites écrites}\\[7mm]
   {\footnotesize une couche données \textbf{vérifiée de l'intérieur et de l'extérieur} ---
    sur laquelle bâtir en connaissant ses limites}
 \end{frame}
+\section{Partie II · Proposition : le backtest}
+\partdivider{helec}{PARTIE II}{Proposition : le backtest}{les élus battent-ils le marché ? --- une piste de recherche, rien de figé}
 
-% ══════════════════ ANNEXES ══════════════════
-\appendix
+
+% ══ Carte chronologique (remplace l'ancien « pont ») : les 2 stratégies, un même verdict ══
+\begin{frame}{Le plan : deux stratégies, un même verdict}
+  \centering
+  {\footnotesize la donnée est prête — \textbf{copier les élus rapporte-t-il de l'alpha ?}}\\[5mm]
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=9mm]
+    \node[step=helec, text width=3.0cm] (a) {\textbf{A · Construire}\\[0.6mm]1 élu = 1 portefeuille en parts, valorisé jour par jour};
+    \node[step=helec, text width=3.6cm, right=of a] (b) {\textbf{B · Stratégie 1}\\[0.6mm]sélectionner par le \textbf{talent} (IR \& alpha), copier le top-$K$};
+    \node[step=selec, text width=3.6cm, right=of b] (c) {\textbf{C · Stratégie 2}\\[0.6mm]changer \textbf{la règle} : sélectionner au \textbf{Sharpe} brut};
+    \node[step=alertred, text width=2.4cm, right=of c] (d) {\textbf{D · Verdict}\\[0.6mm]$\beta$ de style,\\$\alpha \approx 0$};
+    \draw[arr] (a) -- (b);
+    \draw[arr] (b) -- (c) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
+    \draw[arr] (c) -- (d) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
+  \end{tikzpicture}}\\[5mm]
+  {\footnotesize\color{black!70} une seule chose distingue les deux stratégies : \textbf{QUI} on copie
+   {\scriptsize (talent \emph{vs} Sharpe)}. Le reste — \textbf{COMBIEN} ($K$) · \textbf{QUAND} (cadence) ·
+   \textbf{COMMENT} (pondération) — n'est qu'un \textbf{réglage}, testé à l'identique sur les deux.}\\[1.5mm]
+  {\scriptsize\color{black!55} même moteur de portefeuille, mêmes réglages — seule la règle de sélection change}
+\end{frame}
+
+% ═════════════ CHAPITRE A ═════════════
+\chapdivider{Chapitre A}{Construire le portefeuille}{un flux de trades $\rightarrow$ une NAV valorisée jour par jour}
+
+% ── A1 · Reconstruction en parts (données repliées en 1 ligne d'entrée) ──
+\begin{frame}{Le moteur — un flux de trades devient un portefeuille en parts}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      {\footnotesize entrée : \textbf{118\,029} trades exploitables (sur 134\,429 ; prix Yahoo blindés) ;
+       montant = milieu de fourchette STOCK Act ; $\tau$ = 1\iere{} séance cotée $\geq$ date du trade}\\[2mm]
+      {\color{helec}\footnotesize\textbf{acheter → recevoir des parts}}
+      $$q=\frac{\text{montant}}{P_i(\tau)}$$
+      {\color{alertred}\footnotesize\textbf{vendre → en rendre (short interdit)}}
+      $$q^{-}=\min\!\Big(\frac{\text{montant}}{P_i(\tau)},\ n_i\Big)$$
+      {\color{grisC}\footnotesize\textbf{cumuler, puis valoriser}}
+      $$n_i(t)=\!\!\sum_{\text{trades}\,\le\,t}\!\!\pm q \qquad V(t)=\sum_i n_i(t)\,P_i(t)$$
+    \end{column}
+    \begin{column}{0.51\textwidth}\centering
+      \includegraphics[width=\linewidth]{figs/fig_05b_pelosi_valeur.png}\\[1mm]
+      {\scriptsize\color{black!60} $V(t)$ mélange apports et performance
+       → il faut un rendement qui les sépare}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── A2 · Rendement time-weighted ──
+\begin{frame}{Le rendement time-weighted : un apport n'est jamais une performance}
+  \centering
+  {\footnotesize on valorise \textbf{les parts d'hier} aux prix d'aujourd'hui — l'argent frais n'entre qu'au lendemain\;
+   (winsor ±50 \%/jour)}\\[1mm]
+  $r_P(t)=\dfrac{\sum_i n_i(t{-}1)\,P_i(t)}{\sum_i n_i(t{-}1)\,P_i(t{-}1)}-1
+   \qquad\quad \mathrm{NAV}(t)=\prod_{s\le t}\bigl(1+r_P(s)\bigr)$\\[2mm]
+  \includegraphics[height=0.52\textheight]{figs/fig_05b_spaghetti_nav.png}\\[0.5mm]
+  {\scriptsize\color{black!60} 266 portefeuilles reconstruits — médianes : CAGR 12,8 \%, Sharpe 0,71}
+\end{frame}
+
+% ═════════════ CHAPITRE B — STRATÉGIE 1 ═════════════
+\chapdivider{Chapitre B · Stratégie 1}{Repérer et copier les « talents »}{qui bat le SPY ? on classe par l'IR et l'alpha, on copie le top-$K$}
+
+% ── B1 · Éligibilité ──
+\begin{frame}{La porte d'entrée : 223 membres sur 266 sont jugeables}
+  \centering
+  {\footnotesize éligible $\iff$ $n_{\text{trades}} \geq 10$ \textbf{et} $n_{\text{jours}} \geq 126$ ($\sim$ 6 mois de bourse)}\\[2mm]
+  \includegraphics[height=0.62\textheight]{figs/fig_05b_eligibilite.png}\\[1.5mm]
+  {\scriptsize\color{black!60} sous les seuils : trop court pour distinguer chance et talent —
+   \textbf{exclus du jugement}, pas des données}
+\end{frame}
+
+% ── B2 · Les deux mètres : IR & alpha ──
+\begin{frame}{Deux mètres pour « battre le SPY » : l'écart brut (IR) ou l'alpha ajusté du $\beta$}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      {\color{helec}\footnotesize\textbf{Mètre 1 · IR — suppose $\beta = 1$}\;
+       {\color{black!60}($x$ = excès quotidien / SPY)}}
+      $$x(t)=r_P(t)-r_{\mathrm{SPY}}(t)\qquad \mathrm{IR}=\frac{\overline{x}}{\sigma(x)}\sqrt{252}$$
+      \vspace{-2.5mm}
+      {\color{selec}\footnotesize\textbf{Mètre 2 · appraisal — estime $\beta$ (MCO), le retire}}
+      $$r_P=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon$$
+      \vspace{-3.5mm}
+      $$\beta=\frac{\mathrm{Cov}(r_P,r_{\mathrm{SPY}})}{\mathrm{Var}(r_{\mathrm{SPY}})}\qquad
+        \mathrm{appr}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252}$$
+      \vspace{-2.5mm}
+      {\color{black!70}\footnotesize\textbf{Le test}\; {\color{black!55}($n$ = jours de bourse du membre ; unilatéral)}}
+      $$t_{\mathrm{IR}}=\mathrm{IR}\,\sqrt{\tfrac{n}{252}}\qquad
+        t_{\mathrm{appr}}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{n}\qquad
+        \text{seuil } t>1{,}645$$
+      \centering
+      \badgel{hocr}{$\beta=1 \ \Rightarrow\ $ appraisal $=$ IR}
+    \end{column}
+    \begin{column}{0.44\textwidth}\centering
+      \includegraphics[width=0.93\linewidth]{figs/fig_05b_regression_demo.png}\\[0.5mm]
+      {\scriptsize\color{black!60} la pente absorbe le marché ;
+       l'ordonnée à l'origine, c'est le talent}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── B3 · La mesure ne trouve presque rien (20 → 12 ≈ 11) ──
+\begin{frame}{La mesure ne trouve presque rien : 20 « gagnants », 12 après le $\beta$, 11 par hasard}
+  \centering
+  {\footnotesize\color{black!60} diagnostic \textbf{rétrospectif} (\emph{in-sample}) : tout l'historique
+   jugé d'un coup (≈ 2014 → mi-2026), sur les \textbf{223 éligibles} — \emph{pas} encore de walk-forward}\\[1.5mm]
+  \includegraphics[height=0.54\textheight]{figs/fig_05b_hist_t.png}\\[2mm]
+  {\footnotesize \textbf{20} membres battent le SPY à l'IR, \textbf{12} seulement une fois le $\beta$ retiré (appraisal) —
+   pour \textbf{$\approx$11} attendus par pur hasard (5 \% de 223)}\\[0.6mm]
+  {\scriptsize\color{black!60} ajusté du $\beta$, le surnombre de « talents » retombe au niveau du bruit
+   (détail en annexe)}
+\end{frame}
+
+% ── B4 · On copie le top-K en parts — walk-forward (le principe) ──
+\begin{frame}{On copie le top-$K$ en parts — sans jamais regarder le futur}
+  \begin{columns}[T]
+    \begin{column}{0.51\textwidth}
+      {\footnotesize \textbf{walk-forward} : à chaque coupe fin $Y$, on classe les éligibles
+       ($t_{\text{crit}}>1{,}645$) et on tient le top-$K$ toute l'année $Y{+}1$ —
+       \textbf{aucune info postérieure à la coupe}}\\[3.5mm]
+      {\footnotesize \textbf{en parts} : chaque élu $k$ = un fonds de prix $\mathrm{NAV}^k$ ;
+       à la coupe on \textbf{redéploie} le capital $W$ sur la nouvelle sélection, puis
+       buy-and-hold jusqu'à la coupe suivante}\\[3.5mm]
+      {\scriptsize\color{black!60} 11 coupes, fin 2015 → fin 2025 ; autofinancé (la NAV est
+       continue) — \textbf{la mécanique en 3 temps, ci-après}}
+    \end{column}
+    \begin{column}{0.47\textwidth}\centering
+      \includegraphics[width=\linewidth]{figs/fig_05b_nsig_par_an.png}\\[1mm]
+      {\scriptsize\color{black!60} le vivier à chaque coupe :
+       de quoi alimenter un top-$K$ chaque année}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── B4bis · Le moteur en parts, en détail (remonté de l'annexe) ──
+\begin{frame}{Le moteur en parts, en détail : compter, redéployer, tenir}
+  \centering
+  {\footnotesize membre $k$ = un fonds au prix de part $\mathrm{NAV}^k(t)=\prod_{s\le t}(1+r_k(s))$ ;
+   on en détient $\mathrm{nbr}^k$ parts ; poids cibles $w_k=1/|S_Y|$ ; capital initial $W = 100$}\\[4mm]
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=7mm]
+    \node[step=grisC, text width=4.4cm] (n1)
+      {\textbf{(i) COMPTER} à la coupe $t^R_Y$\\[1.5mm]
+       $\displaystyle W=\!\!\sum_{k\in S_{Y-1}}\!\!\mathrm{nbr}^k_{Y-1}\,\mathrm{NAV}^k(t^R_Y)$};
+    \node[step=helec, text width=4.0cm, right=of n1] (n2)
+      {\textbf{(ii) REDÉPLOYER} sur la nouvelle sélection $S_Y$\\[1.5mm]
+       $\displaystyle \mathrm{nbr}^k_Y=\frac{w_k\,W}{\mathrm{NAV}^k(t^R_Y)}$};
+    \node[step=okgreen, text width=5.0cm, right=of n2] (n3)
+      {\textbf{(iii) TENIR} (buy-and-hold, parts figées)\\[1.5mm]
+       $\displaystyle \mathrm{NAV}(t)=\sum_{k\in S_Y}\mathrm{nbr}^k_Y\,\mathrm{NAV}^k(t)$\\[1mm]
+       $\displaystyle r_{\text{strat}}(t)=\frac{\mathrm{NAV}(t)}{\mathrm{NAV}(t{-}1)}-1$};
+    \draw[arr] (n1) -- (n2);
+    \draw[arr] (n2) -- (n3);
+    \draw[arr] (n3.south) .. controls +(0,-1.1) and +(0,-1.1) .. (n1.south)
+      node[midway, below, font=\scriptsize\bfseries, gray] {coupe suivante};
+  \end{tikzpicture}}\\[4mm]
+  \badge{okgreen}{autofinancé — aucun apport, aucun retrait : la NAV est continue}\;
+  \badge{warnorange}{entre deux coupes les poids DÉRIVENT (buy-and-hold, pas constant-mix)}
+\end{frame}
+
+% ── B5 · Résultat top-4 ──
+\begin{frame}{Top-4 : +3,1 \%/an d'excès… mais $t = 0{,}94$, et l'alpha dit zéro}
+  \centering
+  {\footnotesize\color{helec!85}\textbf{Stratégie 1 · réglage de base} — $K=4$ fixe, équipondéré, annuel}\\[0.8mm]
+  {\footnotesize 1 année civile = 1 observation :
+   $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\mathrm{SPY}})$ ;\;
+   $t=\overline{x}/\sigma(x)\cdot\sqrt{11}$ ; seuil $t_{10}\approx 1{,}81$}\\[1mm]
+  \includegraphics[height=0.44\textheight]{figs/fig_05b_nav_top4.png}\\[2mm]
+  \tuile{helec}{+3,1 \%/an}{excès brut\\7/11 années}\hfill
+  \tuile{alertred}{t = 0,94}{$<$ 1,81 —\\indiscernable du hasard}\hfill
+  \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du style,\\pas du talent}\hfill
+  \tuile{grisC}{$\alpha \approx 0$}{$t_{\text{appr}}$ −0,13 ;\\appraisal −2,5 \%/an}
+\end{frame}
+
+% ── B6 · On pousse : optimiser K et la cadence ──
+\begin{frame}{On pousse : optimiser le nombre $K$, accélérer la cadence}
+  \centering
+  {\footnotesize\color{helec!85}\textbf{Stratégie 1} · on fait varier \textbf{COMBIEN} ($K$) et \textbf{QUAND} (cadence)}\\[0.8mm]
+  {\footnotesize le top-4 ne passe pas → on laisse $K$ \textbf{s'ajuster chaque année}
+   ($K^{*}(Y)=\arg\max_{K\in[4,20]}$ score sur le passé, walk-forward) et on rebalance tous les 6 mois}\\[1mm]
+  \includegraphics[width=0.61\textwidth]{figs/fig_05b_k_et_cadence.png}\\[1.5mm]
+  \badge{helec}{COMBIEN — $K$ walk-forward, annuel : +4,1 \%/an, t = 1,58}\\[1mm]
+  \badge{warnorange}{QUAND — top-4 fixe, 6 mois : +0,4 \%/an, t = 0,14}\\[1.2mm]
+  {\scriptsize\color{black!60} plus de liberté sur $K$ et la cadence — le $t$ monte un peu, ne passe jamais le seuil (1,81)}
+\end{frame}
+
+% ── B7 · On pousse encore : changer la pondération ──
+\begin{frame}{On pousse encore : changer la répartition du capital}
+  {\footnotesize\color{black!80} jusqu'ici capital \textbf{à parts égales} ($1/K$). Mêmes membres (\textbf{top-4 fixe}) —
+   on change seulement le \textbf{découpage du capital}, par le \textbf{risque}}
+  {\scriptsize\color{black!55} (cadre : $w_k\ge 0$, $\textstyle\sum_k w_k=1$ ; $\Sigma_{ij}=\rho_{ij}\,\sigma_i\sigma_j$)}
+
+  \vspace{1mm}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      {\footnotesize\color{helec}\textbf{inverse-vol}}\; {\scriptsize $\sigma_k=\mathrm{std}(r_k)\sqrt{252}$}
+      $$w_k=\frac{1/\sigma_k}{\sum_j 1/\sigma_j}$$
+      \vspace{-3mm}
+      {\footnotesize\color{helec}\textbf{ERC}}\; {\scriptsize contributions au risque égales}
+      $$w_k(\Sigma w)_k=w_j(\Sigma w)_j\ \ \forall\,k,j$$
+      \vspace{-3mm}
+      {\footnotesize\color{helec}\textbf{GMV}}\; {\scriptsize variance minimale, long-only}
+      $$w^\star=\arg\!\min_{\sum w=1,\ w\ge 0}\ w^{\top}\Sigma w$$
+      \vspace{-1mm}
+      {\scriptsize\color{black!60} + $\Sigma$ stabilisée par shrinkage (Ledoit-Wolf) — annexe}
+    \end{column}
+    \begin{column}{0.51\textwidth}\centering
+      \includegraphics[width=\linewidth]{figs/fig_05b_ponderations.png}
+    \end{column}
+  \end{columns}
+  \vspace{1.5mm}
+  \centering
+  {\scriptsize\color{black!60} $t$ et $t_{\text{appr}}$ par pondération en légende de la figure ;
+   GMV × sél. appraisal \textbf{sur-ajuste} (−4,5 \%/an) — \textbf{max $t_{\text{appr}} = +0{,}48$}, aucune ne fait apparaître d'$\alpha$}
+\end{frame}
+
+% ═════════════ CHAPITRE C — STRATÉGIE 2 ═════════════
+\chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{ni $K$, ni la cadence, ni les poids n'ont passé le seuil — on change la règle de sélection}
+
+% ── C1 · Le Sharpe brut ──
+\begin{frame}{Nouvelle règle : classer au Sharpe brut, sans test de significativité}
+  \centering
+  {\footnotesize\color{selec}\textbf{Stratégie 2} · on change \textbf{QUI} (la règle de sélection) — les réglages restent les mêmes}\\[0.8mm]
+  {\footnotesize $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ ;\quad
+   éligible v2 $\iff n_{\text{jours}}\ge 126$ \textbf{et} $\mathrm{Sharpe}>0{,}4$ — \textbf{plus aucun test t}}\\[1.5mm]
+  \includegraphics[height=0.48\textheight]{figs/fig_05b_hist_sharpe.png}\\[1.5mm]
+  {\footnotesize \textbf{224} éligibles (vs 223 en stratégie 1 — presque les mêmes) ;
+   \textbf{même moteur} de copie en parts, seule la règle de classement change}\\[0.4mm]
+  {\scriptsize\color{black!60} au prix d'admettre des historiques courts en tête (Fetterman 284 j, Sewell 4 trades)}
+\end{frame}
+
+% ── C2 · Balayage K ──
+\begin{frame}{Même résultat : le $t$ plafonne à 1,22, loin du seuil}
+  \centering
+  \includegraphics[width=0.62\textwidth]{figs/fig_05b_balayage_k.png}\\[2mm]
+  {\footnotesize balayage $K$ de 2 à 20 (poids $1/K$, annuel), plus 5 pondérations × 2 cadences
+   ($K=5/10/20$) : le meilleur cas reste $K=6$, \textbf{$t=1{,}22$} ($<1{,}81$) ; l'excès se dilue quand $K$ grandit}\\[0.6mm]
+  {\scriptsize\color{black!60} Sharpe 0,93 vs SPY 0,87 (fenêtre de tenue) — le couple rendement/risque ne bouge pas ;
+   pas mieux que la stratégie 1}
+\end{frame}
+
+% ═════════════ CHAPITRE D — CONCLUSION ═════════════
+% ── D · Conclusion courte ──
+\begin{frame}{Conclusion : un $\beta$ de style $\approx$ 1,2 — et zéro alpha, sous tous les réglages}
+  \centering
+  \vspace{3mm}
+  {\footnotesize ni \emph{qui} (talent \emph{vs} Sharpe), ni \emph{combien} ($K$), ni \emph{quand}
+   (cadence), ni \emph{comment} (pondération) — \textbf{aucun réglage ne fait apparaître d'$\alpha$}}\\[7mm]
+  \tuile{alertred}{$t$ = 1,58}{max, stratégie 1\\($K$ walk-forward ; seuil 1,81)}\hfill
+  \tuile{alertred}{$t$ = 1,22}{max, stratégie 2\\(Sharpe $K{=}6$ ; seuil 1,81)}\hfill
+  \tuile{alertred}{$t_{\text{appr}}$ +0,99}{max ajusté du $\beta$,\\toutes grilles testées (seuil 1,645)}\hfill
+  \tuile{warnorange}{$\beta \approx 1,20$}{du portefeuille phare —\\l'excès n'était que du \textbf{style}}\\[7mm]
+  {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
+\end{frame}
+% ══════════════════════════════════════════════════════════════════
+% ANNEXES — PARTIE II (backtest, « Sous le capot »)  copiées depuis v1-house
+% ══════════════════════════════════════════════════════════════════
+% ═════════════ ANNEXE — PARTIE II : compléments techniques ═════════════
+\section{Partie III · Les autres filing types}
+\partdivider{dataC}{PARTIE III}{Les autres dépôts}{hors PTR : le patrimoine (O/A/T), et la cohérence entrée+flux=sortie}
+
+% ── S19 · La vie déclarative d'un élu ── (fusion ex-aparté 1+2+3/13)
+\begin{frame}{Complétude (1/5) --- la vie déclarative d'un élu, et sa loi}
+  \badgel{helec!30}{Question 1 · Complétude}\\[0.5mm]
+  \centering
+  \includegraphics[width=0.84\textwidth]{slides/fig_house_loi_cycle.png}\\[1mm]
+  {\footnotesize chaque étape a son dépôt \textbf{et son délai légal} — Schedule \textbf{A} = le patrimoine
+   (les photos), Schedule \textbf{B} = les transactions ; deux dérogations : un \co{C} dispense du \co{H},
+   partir au Sénat/exécutif dispense du \co{T}}
+\end{frame}
+
+% ── Compl. sections A→J ── (NEUVE : fig_sections_matrix, ré-montée depuis l'aparté House)
+\begin{frame}{Complétude (2/5) --- le même formulaire, des sections en commun}
+  \badgel{helec!30}{Question 1 · Complétude}\\[0.5mm]
+  \centering
+  \includegraphics[height=0.61\textheight]{slides/fig_sections_matrix.png}\\[0.5mm]
+  {\footnotesize la \textbf{section B} = les transactions (on trade ça) ; le reste (A·C·D·E·F) est un socle commun, la \textbf{A} sert à \emph{vérifier}}
+\end{frame}
+
+% ── S20 · La famille patrimoine ── (ex-aparté 4/13, chiffres des fiches 5-9/13 intégrés)
+\begin{frame}{Complétude (3/5) --- la famille « patrimoine », en une planche}
+  \centering
+  {\footnotesize cinq types, cinq rôles — les \textbf{transactions (Schedule B)
+   n'existent que dans O, T et leurs amendements} :}\\[2mm]
+  \begin{columns}[T]
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_o.png}}}\\[0.8mm]
+      {\footnotesize\textbf{O — Annual}}\\{\scriptsize bilan annuel\\\textbf{4\,625} · \textcolor{warnorange}{\textbf{31\,\% avec txns}}}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_c.png}}}\\[0.8mm]
+      {\footnotesize\textbf{C — Candidate}}\\{\scriptsize photo du candidat\\\textbf{10\,105} · 77\,\% jamais élus}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_h.png}}}\\[0.8mm]
+      {\footnotesize\textbf{H — New Filer}}\\{\scriptsize photo d'\textbf{entrée}\\\textbf{395} · 0 txn}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_t.png}}}\\[0.8mm]
+      {\footnotesize\textbf{T — Termination}}\\{\scriptsize photo de \textbf{sortie}\\\textbf{392} · \textcolor{warnorange}{\textbf{28\,\% avec txns}}}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{slides/ftype_a.png}}}\\[0.8mm]
+      {\footnotesize\textbf{A — Amendment}}\\{\scriptsize corrige un dépôt\\\textbf{2\,298} · suit le corrigé}
+    \end{column}
+  \end{columns}
+  \vspace{2.5mm}
+  \badge{helec}{chaque vignette est cliquable → ouvre le vrai document}\quad
+  {\scriptsize\color{black!60} H et T (les « photos ») serviront à la question 2 — Cohérence}
+\end{frame}
+
+% ── S21 ★ · Surprises et pièges ── (fusion ex-aparté 9+10+11/13)
+\begin{frame}{Complétude (4/5) --- ce qu'on y a trouvé : des surprises et des pièges}
+  \begin{columns}[c]
+    \begin{column}{0.58\textwidth}\centering
+      \badge{warnorange}{type O — Annual Report 2015, Nancy Pelosi}\\[1.5mm]
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.96\linewidth]{slides/fig_pelosi_schedb.png}}\\[1mm]
+      {\scriptsize la \textbf{Schedule B} d'un annuel \textbf{récapitule les trades de l'année}
+       — au total \textbf{57\,259} transactions vivent hors des PTR
+       \quad{\color{black!60}\href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2015/10010857.pdf}{(ouvrir ce rapport)}}}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \colorbox{grisC!10}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
+        \textbf{piège 1 — la répétition} : l'amendement re-déclare les trades de
+        l'annuel qu'il corrige (Pelosi 2014 : le même trade \textbf{3 fois}, O+A+A)
+        → dédoublonné par la clé naturelle\vspace{0.5mm}}}\\[3.5mm]
+      {\scriptsize\color{black!60} et les types qui ne portent \textbf{aucune}
+       transaction (les 5 administratifs X/D/W/E/G + le blind trust) → \emph{slide suivante}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Compl. administratifs + blind trust ── (NEUVE : vignettes ré-montées depuis l'aparté House)
+\begin{frame}{Complétude (5/5) --- les administratifs, et le cas à part}
+  \badgel{helec!30}{Question 1 · Complétude}\\[1mm]
+  \centering
+  {\footnotesize cinq types \textbf{sans aucune transaction} :}\quad{\scriptsize\color{black!55} chaque vignette ouvre le vrai PDF}\\[1.5mm]
+  \begin{columns}[T]
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/30019473.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{slides/ftype_x.png}}}\\[0.6mm]
+      {\scriptsize\textbf{X — Extension}\\demande de délai}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/40003491.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{slides/ftype_d.png}}}\\[0.6mm]
+      {\scriptsize\textbf{D — Campaign Notice}\\« < 5\,000 \$ »}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219940.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{slides/ftype_w.png}}}\\[0.6mm]
+      {\scriptsize\textbf{W — idem, papier}\\(ou retrait)}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219324.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{slides/ftype_e.png}}}\\[0.6mm]
+      {\scriptsize\textbf{E — Exemption}\\départ, poste fédéral}
+    \end{column}
+    \begin{column}{0.19\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219737.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{slides/ftype_g.png}}}\\[0.6mm]
+      {\scriptsize\textbf{G — Gift Waiver}\\dérogation cadeau}
+    \end{column}
+  \end{columns}
+  \vspace{2.5mm}
+  \begin{columns}[c]
+    \begin{column}{0.14\textwidth}\centering
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219364.pdf}{\fcolorbox{alertred}{white}{\includegraphics[height=20mm]{slides/ftype_b.png}}}
+    \end{column}
+    \begin{column}{0.82\textwidth}
+      \colorbox{alertred!10}{\parbox{0.97\linewidth}{\footnotesize\raggedright\vspace{0.5mm}
+        \textbf{\textcolor{alertred}{B — Blind Trust}} (23 dépôts) : la banque du \emph{trust}
+        liste de vraies ventes (eBay, Meta, Tesla…), mais \textbf{pas décidées par l'élu} :
+        la fiducie aveugle (cf.\ Phillips en Cohérence).\vspace{0.5mm}}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+
+% ── II.2b · Verdict complétude ──
+\begin{frame}{III · Verdict --- le hors-PTR est du patrimoine découvert trop tard : 173 actions}
+  \begin{columns}[c]
+    \begin{column}{0.46\textwidth}\centering
+      \fcolorbox{black!25}{white}{\clickzoom{fig_pelosi_schedb}{\includegraphics[width=0.92\linewidth,height=44mm,keepaspectratio]{slides/fig_pelosi_schedb.png}}}\\[0.8mm]
+      {\scriptsize\color{black!60} la Schedule B d'un \textbf{annuel} (Pelosi 2015)
+       récapitule les trades de l'année --- souvent déjà déclarés en PTR}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \centering
+      \begin{tikzpicture}[node distance=2.4mm]
+        \node[bande=grisC, text width=7.0cm] (a)
+          {\textbf{57\,259} lignes brutes hors PTR (doublons compris)};
+        \node[bande=helec, text width=7.0cm, below=of a] (b)
+          {doublons et échos des PTR retirés → le net jamais vu en PTR :
+           surtout des \textbf{ETF/fonds} \emph{(détail : annexe A5)}};
+        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
+              align=center, font=\scriptsize, text width=7.0cm, minimum height=0.62cm, below=of b] (c)
+          {\color{white}\textbf{173 vraies actions absentes du signal --- toutes pré-2018}};
+        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
+      \end{tikzpicture}\\[2mm]
+      \badgel{warnorange!40}{374 j de délai médian (vs 27 j en PTR)}\\[2mm]
+      \choixbox{les transactions hors PTR alimentent le \textbf{patrimoine}
+       (vérification), jamais le \textbf{signal} --- découvertes $\sim$1 an trop tard :
+       cohérent avec l'anti-look-ahead de 2a.}\\[1mm]
+      {\scriptsize\color{black!55} les deux mesures portent sur des populations
+       distinctes : \textbf{57 259} = les lignes brutes hors PTR · \textbf{374 j} = le
+       délai des trades nets jamais vus en PTR}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.3a · Cohérence : l'équation ──
+\begin{frame}{III · Cohérence --- l'équation : entrée + nos transactions $\overset{?}{=}$ sortie}
+  \hfill{\scriptsize\color{black!55} Chambre uniquement ($\sim$90\,\% du corpus)}\\[1mm]
+  \centering
+  {\footnotesize \textbf{photo} = le patrimoine déclaré (Schedule A, aux entrées/sorties) ·
+   \textbf{flux} = nos transactions --- l'équation ne se teste que si l'on a
+   \textbf{les deux photos} :}\\[3mm]
+  \resizebox{0.97\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=7mm]
+    \node[step=grisC, text width=3.1cm, minimum height=1.4cm, font=\footnotesize] (a)
+      {\textbf{\large 900}\\{\scriptsize membres passés par la Chambre 2014--2026}};
+    \node[step=dataC, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of a] (b)
+      {\textbf{\large 149}\\{\scriptsize entrés PUIS sortis\\(cycle complet)}};
+    \node[step=helec, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of b] (c)
+      {\textbf{\large 106}\\{\scriptsize les DEUX photos réellement déposées}};
+    \node[step=okgreen, text width=3.1cm, minimum height=1.4cm, font=\footnotesize, right=of c] (d)
+      {\textbf{\large 56}\\{\scriptsize actions cotées des deux côtés → \textbf{testables}}};
+    \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+  \end{tikzpicture}}\\[3mm]
+  {\footnotesize la loi elle-même limite l'échantillon : \textbf{439} étaient déjà en
+   poste en 2014 (pas de photo d'entrée), \textbf{437} sont encore en poste (pas de
+   photo de sortie) ; la moitié des 106 ne détient \textbf{aucune action cotée}}
+\end{frame}
+
+% ── II.3b · Cohérence : le résultat ──
+\begin{frame}{III · Cohérence --- le résultat : 87,8\,\% des positions expliquées, 3,3\,\% non}
+  \hfill{\scriptsize\color{black!55} Chambre uniquement}\\[0.3mm]
+  \begin{columns}[c]
+    \begin{column}{0.44\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{slides/fig_v1_coherence.png}\\[0.5mm]
+      {\scriptsize\color{black!60} premier passage : entrée + achats PTR expliquent
+       \textbf{78,7\,\%} des \textbf{1\,371} positions de sortie → \textbf{292}
+       inexpliquées}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \begin{tikzpicture}[node distance=2mm]
+        \node[bande=grisC, text width=6.6cm] (a) {\textbf{292 positions inexpliquées} \mbox{(21,3\,\%)} --- instruites \textbf{une par une} :};
+        \node[bande=helec, text width=6.6cm, below=of a] (b)
+          {\textbf{−125 déclarées AILLEURS} (annuels, sorties, PTR papier)\\
+           {\tiny le taux monte : 78,7 → \textbf{87,8\,\%}}};
+        \node[bande=dataC, text width=6.6cm, below=of b] (c)
+          {\textbf{−122 structurelles} (comptes gérés, petites lignes, ETF exemptés)};
+        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
+              align=center, font=\scriptsize, text width=6.6cm, minimum height=0.62cm, below=of c] (d)
+          {\color{white}\textbf{45 vraiment inexpliquées = 3,3\,\%} (14 membres)};
+        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c); \draw[arr] (c) -- (d);
+      \end{tikzpicture}\\[0.6mm]
+      \choixbox{chaque position inexpliquée est \textbf{classée par preuve documentaire}
+       (table nominative conservée), pas éliminée statistiquement.}\\[0.6mm]
+      {\scriptsize\color{black!55} −125 = 74 annuels + 49 sorties + 2 PTR papier ·
+       −122 = 59 gérés + 32 $\leq$ 15\,k\$ + 30 ETF + 1 renommage}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── II.3c · Reconstruire ≠ vérifier ──
+\begin{frame}{III · Cohérence --- reconstruire n'est pas vérifier : 9 sur 10 sans preuve}
+  \hfill{\scriptsize\color{black!55} Chambre uniquement}\\[1mm]
+  \centering
+  {\footnotesize chacun des \textbf{900} membres reçoit \textbf{un seul statut} --- du
+   moins au plus exigeant :}\\[1mm]
+  \begin{tikzpicture}[node distance=2mm]
+    \node[rectangle, rounded corners=2pt, draw=grisC, fill=grisC!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt] (r1)
+      {\makebox[0.85cm][r]{\normalsize\textbf{20}}\;\; \textbf{hors d'atteinte} --- rien d'exploitable
+       (patrimoine 100\,\% non coté, blind trust)};
+    \node[rectangle, rounded corners=2pt, draw=dataC, fill=dataC!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r1] (r2)
+      {\makebox[0.85cm][r]{\normalsize\textbf{715}}\;\; \textbf{reconstructible partiel} --- au moins
+       une photo \textbf{ou} des transactions → des \textbf{morceaux datés}};
+    \node[rectangle, rounded corners=2pt, draw=helec, fill=helec!10, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r2] (r3)
+      {\makebox[0.85cm][r]{\normalsize\textbf{109}}\;\; \textbf{reconstructible complet} --- série
+       datée de bout en bout\ldots{} mais pas de photo de \textbf{sortie} : \textbf{non testable}};
+    \node[rectangle, rounded corners=2pt, draw=okgreen, fill=okgreen, line width=0.8pt,
+          text width=12.4cm, align=left, font=\scriptsize, inner sep=4.5pt, below=of r3] (r4)
+      {\color{white}\makebox[0.85cm][r]{\normalsize\textbf{56}}\;\; \textbf{vérifiable strict} ---
+       les \textbf{deux} photos + actions cotées → l'équation \textbf{réellement testée}
+       (le 87,8\,\%)};
+  \end{tikzpicture}\\[1.5mm]
+  {\scriptsize\color{black!60} 20 + 715 + 109 + 56 = \textbf{900} --- une partition, rien ne se recouvre}\\[1.5mm]
+  \choixbox{on affiche le \textbf{périmètre réel du test} (56 membres) plutôt que de
+   laisser croire à une vérification universelle --- $\sim$9 reconstruits sur 10 restent
+   \textbf{sans preuve}.}
+\end{frame}
 \section{Annexes}
 
 \begin{frame}[plain]
   \centering\vfill
-  {\color{helec!85}\large\textbf{Annexes}}\\[3.5mm]
+  {\color{helec!85}\large\textbf{Annexes}}\\[2mm]
   {\color{black!88}\fontsize{29}{33}\selectfont\textbf{La réserve pour questions}}\\[4mm]
   {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[4mm]
   {\color{black!55}\large A1--A7 : documents exemples · détails des cascades · cas particuliers}
@@ -1335,70 +1689,6 @@
   \includegraphics[height=0.61\textheight]{slides/fig_sections_matrix.png}\\[0.5mm]
   {\footnotesize la \textbf{section B} = les transactions ; le reste est un socle
    commun, la \textbf{A} (patrimoine) sert à \emph{vérifier}}
-\end{frame}
-
-% ── A4 · Les administratifs + le blind trust ──
-\begin{frame}{A4 --- Les types administratifs, et le cas à part}
-  \centering
-  {\footnotesize cinq types \textbf{sans aucune transaction} :}\\[1.5mm]
-  \begin{columns}[T]
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{ftype_x}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_x.png}}}\\[0.6mm]
-      {\scriptsize\textbf{X --- Extension}\\demande de délai}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{ftype_d}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_d.png}}}\\[0.6mm]
-      {\scriptsize\textbf{D --- Campaign Notice}\\« \textless{} 5\,000 \$ »}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{ftype_w}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_w.png}}}\\[0.6mm]
-      {\scriptsize\textbf{W --- idem, papier}\\(ou retrait)}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{ftype_e}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_e.png}}}\\[0.6mm]
-      {\scriptsize\textbf{E --- Exemption}\\départ, poste fédéral}
-    \end{column}
-    \begin{column}{0.19\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{ftype_g}{\includegraphics[width=0.88\linewidth,height=20mm,keepaspectratio]{slides/ftype_g.png}}}\\[0.6mm]
-      {\scriptsize\textbf{G --- Gift Waiver}\\dérogation cadeau}
-    \end{column}
-  \end{columns}
-  \vspace{2.5mm}
-  \begin{columns}[c]
-    \begin{column}{0.14\textwidth}\centering
-      \fcolorbox{alertred}{white}{\clickzoom{ftype_b}{\includegraphics[width=0.86\linewidth,height=19mm,keepaspectratio]{slides/ftype_b.png}}}
-    \end{column}
-    \begin{column}{0.82\textwidth}
-      \colorbox{alertred!10}{\parbox{0.97\linewidth}{\footnotesize\raggedright\vspace{0.5mm}
-        \textbf{\textcolor{alertred}{B --- Blind Trust}} (23 dépôts) : la banque du
-        \emph{trust} liste de vraies ventes, mais \textbf{pas décidées par l'élu} :
-        la fiducie aveugle.\vspace{0.5mm}}}
-    \end{column}
-  \end{columns}
-  \vspace{2mm}
-  {\scriptsize\color{black!60} et les candidats \textbf{C} : 10\,105 dépôts, 77\,\%
-   jamais élus --- une photo de patrimoine qui peut servir de photo d'entrée}
-\end{frame}
-
-% ── A5 · Le gain net O/A/T ──
-\begin{frame}{A5 --- Ce que les O/A/T ajoutent : du patrimoine, pas du signal}
-  \centering
-  {\footnotesize une fois doublons \textbf{et} échos des PTR retirés, il reste dans les
-   annuels (O), sorties (T) et amendements (A) :}\\[3.5mm]
-  \tuile{okgreen}{26\,115}{trades jamais vus\\dans un PTR}\hfill
-  \tuile{dataC}{22\,216}{via les annuels O}\hfill
-  \tuile{dataC}{3\,899}{via sorties T\\+ amendements A}\hfill
-  \tuile{grisC}{374 j}{délai médian\\trade → publication}\\[3.5mm]
-  \colorbox{alertred}{\parbox{0.92\textwidth}{\footnotesize\color{white}\centering
-    ces trades \textbf{comblent des trous du portefeuille} (l'élu oublie son PTR mais
-    l'inscrit à l'annuel) --- découverts \textbf{$\sim$1 an trop tard} : ils nourrissent
-    le \textbf{patrimoine}, jamais le \textbf{signal}}}\\[2mm]
-  {\scriptsize\color{black!55} les 26\,115 sont surtout des \textbf{ETF/fonds cotés} ---
-   les vraies \textbf{actions} manquantes au signal = \textbf{173}, toutes pré-2018}\\[1.5mm]
-  {\scriptsize\color{black!55} ⚠ ne pas confondre : \textbf{26\,115} (net hors-PTR,
-   cohérence interne) $\neq$ \textbf{$\approx$\,26\,500} (combinaisons présentes chez
-   nous et absentes chez Quiver, corroboration) --- source : audit patrimoine Chambre,
-   table de flux nette (lignée v1-house)}
 \end{frame}
 
 % ── A6 · Les dates arbitrées au PDF ──
@@ -1484,8 +1774,248 @@
        corpus} --- d'où l'effort d'OCR de 2c et 2e}
     \end{column}
   \end{columns}
-  \label{endmain}% dernière page de contenu : fige le total au pied (les zooms ne comptent pas)
 \end{frame}
+
+% ════ ANNEXE BACKTEST — déplacée de la Partie II (sous le capot + tables) ════
+\chapdivider{Annexe · Backtest}{Sous le capot}{le détail technique : shrinkage de $\Sigma$, et la contre-preuve membre par membre}
+
+% ── An3 · Ledoit-Wolf (ex-S3-14) ──
+\begin{frame}{Le shrinkage répare l'estimateur de $\Sigma$ — pas la stratégie}
+  \centering
+  {\footnotesize $\Sigma_{\text{shrink}}=\delta\,F+(1-\delta)\,\Sigma_{\text{emp}}$,\;
+   $\delta=\frac{\pi-\rho}{T\gamma}$ borné à $[0,1]$ —
+   3 cibles $F$ : diagonale (LW 2004) · single-factor (LW 2001) · corrélation constante (LW 2003)}\\[1mm]
+  \includegraphics[height=0.40\textheight]{figs/fig_05b_gmv_ledoitwolf.png}\\[1.5mm]
+  \tuile{okgreen}{−4,5 → −4,3}{\%/an : l'artefact GMV\\(sél. appr) tempéré}\hfill
+  \tuile{okgreen}{−2,76 → −2,46}{le t remonte…\\sans devenir positif}\hfill
+  \tuile{helec}{50 → 25}{conditionnement\\de $\Sigma$ (LW diag)}\hfill
+  \tuile{grisC}{0,67 → 0,55}{concentration HHI\\du panier GMV}\\[1.5mm]
+  {\scriptsize\color{black!60} intensité mesurée $\delta_{\text{LW}} \approx 0{,}05$ —
+   verdict invariant à l'estimateur : \textbf{$\beta$ de style $\approx$ 1,20, zéro $\alpha$}}
+\end{frame}
+
+% ── An4 · Contre-preuve IR ↔ β (ex-S3-8) ──
+\begin{frame}{La contre-preuve point par point : la queue droite de l'IR, c'était du $\beta$}
+  \centering
+  \includegraphics[height=0.63\textheight]{figs/fig_05b_ir_vs_appraisal.png}\\[1mm]
+  {\footnotesize au-dessus de la diagonale : classé par l'IR \textbf{grâce à son $\beta$} —
+   l'ajustement dégonfle la queue droite}\\[0.8mm]
+  {\scriptsize\color{black!60} c'est la version « membre par membre » du 20 → 12 :
+   on juge chaque stratégie en excès brut \textbf{et} en $t_{\mathrm{appr}}$}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════
+% PARTIE III — TABLES DE DONNÉES  (notebook 09 : membres · tickers · panel)
+% Figures : docs/figs/fig_09_*.png (régénérées du notebook, fidèles aux inline)
+% ══════════════════════════════════════════════════════════════════
+% ── Séparateur · PARTIE III ──
+
+\chapdivider{Annexe · Backtest}{Tables membres, tickers, panel}{la donnée qui porte le backtest, membre par membre}
+
+
+% ── T1 · Les 4 livrables ──
+\begin{frame}{Quatre tables livrées — chaque colonne a une histoire}
+  \centering
+  \vspace{2mm}
+  \tuile{dataC}{372 × 94}{\co{membres.csv}\\1 ligne = 1 élu}\hfill
+  \tuile{dataC}{4\,618 × 40}{\co{tickers.csv}\\1 ligne = 1 titre}\hfill
+  \tuile{dataC}{2\,628 × 11}{\co{membres\_annees.csv}\\1 ligne = (élu, année)}\hfill
+  \tuile{grisC}{145}{colonnes documentées\\(le dictionnaire)}\\[7mm]
+  {\footnotesize aucune stratégie ici : de la donnée \textbf{propre, comprise et auditable} —
+   cette partie raconte l'histoire visuelle derrière ces colonnes, une figure par famille}
+\end{frame}
+
+% ── T2 · L'entonnoir ──
+\begin{frame}{Rien n'entre dans les tables sans passer l'entonnoir}
+  \centering
+  \bmaths{deux portes : le trade exploitable, puis l'élu jugeable}%
+    {\text{reconstruit}\iff r_m\ \text{calculable}\qquad
+     \text{éligible}\iff n_{\text{trades}}\ge 10\ \text{et}\ n_{\text{jours}}\ge 126}
+  \includegraphics[width=0.80\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_entonnoir.png}\\[2mm]
+  {\footnotesize des 169\,000 dépôts bruts, seuls les trades à \textbf{prix exploitable} alimentent
+   les quatre tables — et la chaîne des élus suit : 372 → 359 → 266 reconstruits → 223 éligibles}\\[1.5mm]
+  \badge{helec}{118\,029 trades exploitables}\;
+  \badge{helec}{223 élus éligibles}
+\end{frame}
+
+% ── T2bis · Le moteur : ce qu'on reconstruit ──
+\begin{frame}{Ce qu'on reconstruit : du trade déclaré au portefeuille quotidien}
+  \centering
+  {\footnotesize chaque trade a \textbf{deux dates} : $\tau_j$ = \textbf{transaction} (reconstruit
+   le portefeuille) ; $\delta_j$ = \textbf{divulgation} (la transparence) —
+   $\mathrm{lag}_j=\delta_j-\tau_j$, loi $\le 45$ j}\\[3mm]
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tikzpicture}[node distance=6mm]
+    \node[step=grisC, text width=4.0cm] (n1)
+      {\textbf{LE TRADE}\\[1mm]
+       $j=(m_j,\,k_j,\,d_j,\,\tau_j,\,\delta_j,\,A_j)$\\[0.8mm]
+       {\tiny élu · titre · buy/sell · 2 dates ·\\montant (milieu de fourchette)}};
+    \node[step=helec, text width=3.2cm, right=of n1] (n2)
+      {\textbf{COMPTER (FIFO)}\\[1mm]
+       $n_k^m(t)$ parts\\[0.8mm]
+       {\tiny jamais négatif — on ne\\vend que ce qu'on détient}};
+    \node[step=dataC, text width=3.8cm, right=of n2] (n3)
+      {\textbf{VALORISER}\\[1mm]
+       $V_m(t)=\sum_k n_k^m(t)\,P_k(t)$\\[0.8mm]
+       {\tiny et les poids $w_k^m(t)$}};
+    \node[step=okgreen, text width=4.7cm, right=of n3] (n4)
+      {\textbf{MESURER} (time-weighted)\\[1mm]
+       $r_m(t)=\dfrac{\sum_k n_k^m(t{-}1)\,P_k(t)}{\sum_k n_k^m(t{-}1)\,P_k(t{-}1)}-1$};
+    \draw[arr] (n1) -- (n2); \draw[arr] (n2) -- (n3); \draw[arr] (n3) -- (n4);
+  \end{tikzpicture}}\\[4mm]
+  \badge{dataC}{tout \co{membres.csv} dérive de trois objets : $n_k^m(t)$ · $V_m(t)$ · $r_m(t)$}\\[1.2mm]
+  {\scriptsize\color{black!55} le moteur de la Partie II, relu membre par membre —
+   les 6 familles qui suivent en tirent chacune leurs colonnes}
+\end{frame}
+
+% ── T3 · La fiche (1/6) : identité ──
+\begin{frame}{La fiche (1/6) — identité : chaque élu a la sienne, suivons-en une}
+  \centering
+  \bmaths{colonnes \co{comites} · \co{secteurs\_juridiction}}%
+    {\mathrm{comites}(m)=\bigcup_{j}\mathrm{codes}_j\qquad
+     \mathrm{secteurs\_juridiction}(m)=\bigcup_{c\,\in\,\mathrm{comites}(m)}\mathrm{COMITE\_GICS}[c]}
+  \includegraphics[width=0.78\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_identite.png}\\[2mm]
+  {\footnotesize 94 colonnes en \textbf{6 familles} (identité, activité, portefeuille, durées,
+   risque-perf, comportement) ; pour les incarner, un fil rouge : Nancy Pelosi}\\[1.5mm]
+  \badge{dataC}{372 fiches}\;
+  \badge{dataC}{6 familles de colonnes}
+\end{frame}
+
+% ── T4 · La fiche (2/6) : activité ──
+\begin{frame}{La fiche (2/6) — activité : tout tient en une figure}
+  \centering
+  \bmaths{colonnes \co{buy\_share} · \co{part\_late} (et \co{notional\_total}, \co{lag\_med})}%
+    {\mathrm{buy\_share}=\frac{\#\{d_j=\mathrm{buy}\}}{\#j}\qquad
+     \mathrm{part\_late}=\mathbb{P}(\delta_j-\tau_j>45\ \text{j})}
+  \includegraphics[height=0.52\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_activite.png}\\[2mm]
+  {\footnotesize chaque point est un trade daté et monté — \textcolor{okgreen}{\textbf{achats en vert}},
+   \textcolor{alertred}{\textbf{ventes en rouge}}, montants $A_j$ en échelle log
+   (leur somme : \co{notional\_total}) ; en bas, le rythme par année}
+\end{frame}
+
+% ── T5 · La fiche (3/6) : portefeuille ──
+\begin{frame}{La fiche (3/6) — portefeuille : reconstruit jour après jour}
+  \centering
+  \bmaths{colonnes \co{hhi} (\co{n\_eff} $=1/$\co{hhi}) · \co{top1\_part} · \co{turnover}}%
+    {\mathrm{hhi}=\mathrm{moy}_t\Bigl[\textstyle\sum_k w_k^m(t)^2\Bigr]\qquad
+     \mathrm{turnover}=\frac{\sum_j A_j}{2\,\overline{V}_m}\cdot\frac{252}{T_m}}
+  \includegraphics[height=0.46\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_portefeuille.png}\\[2mm]
+  {\footnotesize la reconstruction \textbf{FIFO datée} donne la valeur $V_m(t)$ et les poids de chaque
+   titre à chaque instant — le rendement est \textbf{time-weighted}, jamais estimé}\\[1.5mm]
+  \badge{helec}{un portefeuille en parts, valorisé jour par jour}
+\end{frame}
+
+% ── T6 · La fiche (4/6) : durées ──
+\begin{frame}{La fiche (4/6) — durées : la moitié vit plus de 910 jours}
+  \centering
+  \bmaths{colonnes \co{duree\_km\_med} · \co{duree\_med\_fermee}}%
+    {\hat S_m(t)=\widehat{\mathbb{P}}\bigl(\text{part encore détenue}>t\bigr)\qquad
+     \mathrm{km\_med}=\inf\{t:\hat S_m(t)\le 0{,}5\}}
+  \includegraphics[width=0.72\textwidth,height=0.46\textheight,keepaspectratio]{figs/fig_09_km.png}\\[2mm]
+  {\footnotesize l'estimateur de \textbf{Kaplan-Meier} traite honnêtement les positions jamais
+   revendues : \textbf{censurées}, pas ignorées — sinon les durées seraient sous-estimées}\\[1.5mm]
+  \badge{warnorange}{44\,\% des parts jamais revendues (tous élus)}
+\end{frame}
+
+% ── T7 · La fiche (5/6) : risque et performance ──
+\begin{frame}{La fiche (5/6) — risque \& perf : devant le SPY, sans certitude}
+  \centering
+  \bmaths{colonnes \co{sharpe} · \co{alpha\_ann} · \co{appraisal} — significatif si $|t|\ge 2$}%
+    {\mathrm{sharpe}=\frac{\overline{r_m}}{\sigma(r_m)}\sqrt{252}\qquad
+     r_m=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon\ \Rightarrow\
+     \mathrm{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252}}
+  \includegraphics[height=0.40\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_nav.png}\\[2mm]
+  {\footnotesize +3,4\,\% de croissance par an au-dessus du SPY\ldots{} mais ni l'alpha
+   ($t$ = 0,64) ni l'IR ($t$ = 1,06) ne passent le seuil de 2 : \textbf{indiscernable de la chance}}\\[1.5mm]
+  \badge{okgreen}{+3,4\,\%/an vs SPY}\;
+  \badge{warnorange}{aucun $t$ ≥ 2 — non significatif}
+\end{frame}
+
+% ── T9 · La fiche (6/6) : comportement ──
+\begin{frame}{La fiche (6/6) — comportement : trois signaux, trois colonnes}
+  \centering
+  \bmaths{colonnes \co{part\_ci\_achats} · \co{part\_coachat} ($\ge 3$ acheteurs le même mois) ·
+          \co{part\_trades\_repetes} (titre déjà tradé)}%
+    {\mathrm{part\_ci}=\mathbb{P}\bigl(\mathrm{GICS}(k_j)\in J(\mathrm{comites}_m)\,\big|\,\mathrm{buy}\bigr)}
+  \includegraphics[width=0.64\textwidth,height=0.40\textheight,keepaspectratio]{figs/fig_09_comportement.png}\\[2mm]
+  {\footnotesize alignement avec ses comités ($J$ = les \co{secteurs\_juridiction} de la famille 1),
+   répétition, co-achat : trois signaux mesurés pour chaque élu, comparés à la médiane des 223}\\[1.5mm]
+  \badge{warnorange}{16,4\,\% des achats alignés comité (tous élus)}
+\end{frame}
+
+% ── T8 · Le pivot vers le panel ──
+\begin{frame}{Le duel vs SPY, année par année : le panel annuel}
+  \centering
+  \bmaths{colonnes \co{ret\_annee} · \co{exces\_spy\_annee} (NaN si $<40$ j cotés dans l'année)}%
+    {\mathrm{ret\_annee}=\prod_{t\in Y}\bigl(1+r_m(t)\bigr)-1\qquad
+     \mathrm{exces\_spy\_annee}=\mathrm{ret\_annee}-\mathrm{ret\_annee}^{\mathrm{SPY}}\ \text{(mêmes jours)}}
+  \includegraphics[width=0.76\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_annees.png}\\[2mm]
+  {\footnotesize chaque barre est une ligne de \co{membres\_annees.csv} —
+   2\,628 couples (élu, année) prêts pour l'économétrie}\\[1.5mm]
+  \badge{dataC}{2\,628 × 11}
+\end{frame}
+
+% ── T10 · Renversement : le ticker ──
+\begin{frame}{Le même récit, vu du ticker : NVDA sous l'œil du Congrès}
+  \centering
+  \bmaths{colonnes \co{notional\_net} · \co{exces\_21j\_moy} / \co{exces\_63j\_moy}}%
+    {\mathrm{notional\_net}=\!\!\sum_{d_j=\mathrm{buy}}\!\!A_j\ -\!\!\sum_{d_j=\mathrm{sell}}\!\!A_j\qquad
+     \mathrm{exces}_H=\mathrm{moy}\Bigl[\tfrac{P_k(\tau+H)}{P_k(\tau)}-\tfrac{\mathrm{SPY}(\tau+H)}{\mathrm{SPY}(\tau)}\Bigr],\ H\in\{21,63\}\ \text{j}}
+  \includegraphics[height=0.44\textheight,width=0.9\textwidth,keepaspectratio]{figs/fig_09_ticker_nvda.png}\\[2mm]
+  {\footnotesize \co{tickers.csv} renverse la perspective : pour 4\,618 titres,
+   \textbf{qui achète, qui vend, et quand} — triangles proportionnels aux montants}\\[1.5mm]
+  \badge{dataC}{4\,618 × 40}
+\end{frame}
+
+% ── T11 · Renversement : la population ──
+\begin{frame}{D'une élue aux 223 : les distributions derrière les fiches}
+  \centering
+  \bmaths{colonnes \co{vol\_ann} · \co{beta\_spy} (les autres : déjà définies, vues en distribution)}%
+    {\mathrm{vol\_ann}=\sigma\bigl(\Delta\log P_k\bigr)\sqrt{252}\qquad
+     \beta_{\mathrm{spy}}=\mathrm{cov}(r_k,r_{\mathrm{SPY}})/\mathrm{var}(r_{\mathrm{SPY}})}
+  \includegraphics[width=0.84\textwidth,height=0.52\textheight,keepaspectratio]{figs/fig_09_distributions.png}\\[2mm]
+  {\footnotesize volatilité, durées de détention, notionnels par titre :
+   chaque statistique individuelle se lit dans sa distribution}\\[1.5mm]
+  \badge{helec}{223 élus éligibles}
+\end{frame}
+
+% ── T12 · Le verdict ──
+\begin{frame}{Le verdict, trade par trade — 58\,926 achats notés face au SPY}
+  \centering
+  {\scriptsize\color{black!55} colonnes \co{exces\_med\_trade} · \co{hit\_rate} —
+   chaque achat est noté contre le SPY, sur \textbf{sa} fenêtre, \textbf{brut de frais}}\\[0.6mm]
+  {\color{helec}\scriptsize\textbf{1 · la sortie} — premier des deux : revente réelle, ou plafond d'un an}\\[0.2mm]
+  {\small $t^{s}_j=\min\bigl(\text{1\iere{} vente de }(m_j,k_j)\ \text{après }\tau_j,\ \ \tau_j+252\ \text{j}\bigr)$}\\[0.6mm]
+  {\color{dataC}\scriptsize\textbf{2 · la note} — l'excès sur le SPY entre l'achat et la sortie}\\[0.2mm]
+  {\small $x_j=\Bigl[\tfrac{P_k(t^{s}_j)}{P_k(\tau_j^{+})}-1\Bigr]
+          -\Bigl[\tfrac{\mathrm{SPY}(t^{s}_j)}{\mathrm{SPY}(\tau_j^{+})}-1\Bigr]
+          \qquad \mathrm{hit\_rate}=\mathbb{P}(x_j>0)$}\\[2mm]
+  \includegraphics[width=0.60\textwidth,height=0.30\textheight,keepaspectratio]{figs/fig_09_exces.png}\\[1.5mm]
+  {\footnotesize même pour elle — 63\,\% d'achats gagnants, médiane +5,0\,\% — le $t$ reste
+   \textbf{sous 2} ; l'élu médian, lui, sous-performe : \textbf{−1,62\,\%} (58\,926 achats)}\\[1.5mm]
+  \badge{warnorange}{elle : $t$ = 1,89 $<$ 2}\;
+  \badge{alertred}{tous élus : excès médian −1,62\,\%}
+\end{frame}
+
+% ── T13 · Clôture : les garanties ──
+\begin{frame}{8 contrôles sur 8 — la valeur de ces tables, c'est leur transparence}
+  \centering
+  \vspace{1mm}
+  \tuile{okgreen}{8\,/\,8}{contrôles croisés\\entre les 3 tables}\hfill
+  \tuile{dataC}{4 CSV}{livrés, chaque colonne\\documentée}\hfill
+  \tuile{helec}{3 preuves}{recalcul à la main ·\\2\ieme{} méthode · recoupements}\hfill
+  \tuile{alertred}{0 alpha}{significatif dans\\les fiches}\\[5mm]
+  \fcolorbox{dataC}{white}{\parbox{0.80\textwidth}{\centering\footnotesize
+    les 8 contrôles sont des \co{assert} \textbf{bloquants}, exécutés \textbf{avant} l'écriture
+    (\S13 puis \S14 du notebook) — les 4 CSV livrés dans \co{tables/} sont, par construction,
+    ceux d'une exécution où les \textbf{8/8} sont passés}}\\[4mm]
+  {\footnotesize nous ne livrons pas un alpha, nous livrons des \textbf{données comprises} —
+   la stratégie peut maintenant commencer}
+  \label{endmain}% dernière page de contenu (les zooms ne comptent pas)
+\end{frame}
+
+
+
 
 % ══════════════════ FRAMES DE ZOOM (agrandissement des captures, hors comptage) ══════════════════
 \zoomframe{scan_full_droit}{slides/scan_full_droit.png}
