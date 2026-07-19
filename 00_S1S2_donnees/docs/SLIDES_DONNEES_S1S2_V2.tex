@@ -609,69 +609,54 @@
   \end{columns}
 \end{frame}
 
-% ── 2e · Extraction Sénat, image ──
-\begin{frame}{2e · Extraction Sénat · image --- le papier est gardé, faute de mètre externe}
-  \begin{columns}[c]
+% ── Le papier Sénat : composition (galerie des 3 écritures, avant 2e) ──
+\begin{frame}{Le papier Sénat : trois écritures}
+  \centering
+  {\footnotesize un seul formulaire depuis 2014, mais \textbf{trois écritures} du papier ---
+   classées au \textbf{Vision}, comptes recoupés avec la sortie OCR :}\\[4.5mm]
+  \begin{columns}[T]
     \begin{column}{0.30\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[height=40mm]{slides/senat_papier_droit.png}}}\\[0.8mm]
-      {\scriptsize\color{black!60} le formulaire papier Sénat}
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_tape}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{slides/senat_papier_droit.png}}}}\\[1.5mm]
+      {\scriptsize\textbf{tapé}}\\[0.4mm]{\textbf{254}~{\scriptsize\color{black!55}69\,\%}}
     \end{column}
-    \begin{column}{0.66\textwidth}
-      {\scriptsize ce que rend l'OCR, transaction par transaction (extrait réel --- John Boozman) :}\\[1mm]
-      {\footnotesize
-      \begin{tabular}{@{}ll@{}}
-        \toprule
-        actif · opération & Apple Computer Inc · \textbf{Sale} \\
-        date du trade · fourchette & 2022-03-14 · code A (1\,001--15\,000 \$) \\
-        \bottomrule
-      \end{tabular}}\\[2mm]
-      \badgel{socr}{4\,026 lignes → 3\,985 uniques --- 14 déposants --- 2,4\,\% du corpus}\\[1.5mm]
-      {\footnotesize \textbf{même moteur} qu'à la Chambre (2c) --- mais
-       \textbf{politique inverse} : Quiver est \textbf{aveugle au papier du Sénat} →
-       aucune mesure d'exclusion possible → on \textbf{garde}, sous garde-fous internes,
-       et on l'écrit}\\[1mm]
-      {\scriptsize\color{black!60} couverture ticker plus basse sur cette voie =
-       \textbf{composition, pas défaut} : Blumenthal porte 38,7\,\% de la voie,
-       massivement du non-coté}
+    \begin{column}{0.30\textwidth}\centering
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_manu}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{slides/senat_papier_manuscrit.png}}}}\\[1.5mm]
+      {\scriptsize\textbf{manuscrit}}\\[0.4mm]{\textbf{11}~{\scriptsize\color{black!55}3\,\%}}
+    \end{column}
+    \begin{column}{0.30\textwidth}\centering
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_annexe}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{slides/senat_papier_annexe_v.png}}}}\\[1.5mm]
+      {\scriptsize\textbf{annexe courtier}}\\[0.4mm]{\textbf{101}~{\scriptsize\color{black!55}28\,\%}}
     \end{column}
   \end{columns}
-  \vspace{1mm}
-  \choixbox{on n'écarte que ce qu'on a pu \textbf{mesurer} --- l'asymétrie
-   Chambre/Sénat (écarté là, gardé ici) est \textbf{documentée, pas cachée} ; le risque
-   est borné (2,4\,\% du corpus).}
+  \vspace{4.5mm}
+  {\footnotesize les \textbf{trois écritures} portent les \textbf{3\,985 transactions} du papier
+   Sénat (\textbf{2,4\,\%} du corpus).}
 \end{frame}
 
-% ── 2f · Le corpus extrait ── (ferme l'étape Extraction)
-\begin{frame}{2f · Le corpus extrait : 170\,920 transactions --- dont $\sim$40\,\% de deux élus}
-  \centering
-  {\footnotesize les quatre voies réunies donnent \textbf{170\,920 transactions
-   extraites} (2014--2026), ramenées à \textbf{169\,000 uniques} au dédoublonnage
-   (6) --- et cette matière est \textbf{très déséquilibrée} :}\\[1.2mm]
-  \begin{tikzpicture}
-    \draw[fill=helec, draw=none] (0,0) rectangle (4.125,0.5);
-    \draw[fill=hocr, draw=none] (4.125,0) rectangle (10.677,0.5);
-    \draw[fill=selec, draw=none] (10.677,0) rectangle (11.717,0.5);
-    \draw[fill=socr, draw=none] (11.717,0) rectangle (12.0,0.5);
-    \node[font=\scriptsize, color=white] at (2.06,0.25) {\textbf{Chambre élec.\ 34,4\,\%}};
-    \node[font=\scriptsize, color=black!75] at (7.40,0.25) {\textbf{Chambre OCR 54,6\,\%}};
-    \node[font=\tiny, color=white] at (11.20,0.25) {\textbf{8,7}};
-    \node[font=\tiny, color=black!75, above=1mm of {(11.86,0.5)}] {Sénat OCR 2,4\,\%};
-  \end{tikzpicture}\\[2mm]
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}\centering
-      \includegraphics[width=0.74\linewidth]{quality/top_deposants.png}
+% ── 2e · Extraction Sénat, image ──
+\begin{frame}{2e · Extraction Sénat · image --- Quiver ne peut rien vérifier, donc on garde tout}
+  \begin{columns}[c]
+    \begin{column}{0.42\textwidth}\centering
+      \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[width=0.92\linewidth,height=0.60\textheight,keepaspectratio]{slides/senat_papier_droit.png}}}\\[0.6mm]
+      {\scriptsize\color{black!60} papier Blumenthal (\textbf{38,7\,\%} de la voie) --- actifs
+       \textbf{non cotés} : LLC, parts privées}
     \end{column}
-    \begin{column}{0.43\textwidth}
-      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
-        \textbf{\textcolor{warnorange}{très concentré}} --- Khanna
-        (\textbf{41\,080} txns) et McCaul (\textbf{27\,123}) pèsent à eux deux
-        \textbf{$\sim$40\,\%} du corpus, et déclarent \textbf{exclusivement sur
-        papier} (\mbox{100\,\%} OCR)\vspace{0.5mm}}}\\[1.5mm]
-      {\footnotesize le papier n'est pas un détail : c'est \textbf{la majorité du
-       corpus} --- d'où l'effort d'OCR de 2c et 2e}
+    \begin{column}{0.54\textwidth}
+      \badgel{socr}{3\,985 lignes --- 14 déposants --- 2,4\,\% du corpus}\\[2.5mm]
+      {\footnotesize \textbf{Quiver n'a que des actions cotées}. Or le papier Sénat est
+       \textbf{surtout du non-coté} ($\sim$60\,\% : LLC, munis) --- hors de son
+       périmètre.}\\[2.5mm]
+      \colorbox{socr!35}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
+        et même le \textbf{coté} (40\,\%) n'apparaît pas chez Quiver : \textbf{0\,\% du
+        papier retrouvé} (mesuré, chaque année) → aucun mètre externe → on \textbf{garde
+        tout}. À la Chambre, à l'inverse, le papier est du coté que \textbf{Quiver possède}
+        (Khanna) → on \textbf{mesure} et on écarte le manuscrit (12,9\,\%).\vspace{0.5mm}}}
     \end{column}
   \end{columns}
 \end{frame}
+
+% (slide « Le corpus extrait » déplacée en annexe A8 : à ce stade on n'a encore ni l'identité (3)
+%  ni la dédup (6), qu'elle présuppose --- Alice 2026-07-19)
 
 % ════ 3 · IDENTITÉ ════
 \pipeslide{3}{3 · Identité}%
@@ -1467,6 +1452,38 @@
        manuels pour les cas connus}
     \end{column}
   \end{columns}
+\end{frame}
+
+% ── A8 --- Le corpus extrait (déplacé de l'Extraction : présuppose l'identité (3) et la dédup (6)) ──
+\begin{frame}{A8 --- Le corpus extrait : 170\,920 transactions --- dont $\sim$40\,\% de deux élus}
+  \centering
+  {\footnotesize les quatre voies réunies donnent \textbf{170\,920 transactions
+   extraites} (2014--2026), ramenées à \textbf{169\,000 uniques} au dédoublonnage
+   (6) --- et cette matière est \textbf{très déséquilibrée} :}\\[1.2mm]
+  \begin{tikzpicture}
+    \draw[fill=helec, draw=none] (0,0) rectangle (4.125,0.5);
+    \draw[fill=hocr, draw=none] (4.125,0) rectangle (10.677,0.5);
+    \draw[fill=selec, draw=none] (10.677,0) rectangle (11.717,0.5);
+    \draw[fill=socr, draw=none] (11.717,0) rectangle (12.0,0.5);
+    \node[font=\scriptsize, color=white] at (2.06,0.25) {\textbf{Chambre élec.\ 34,4\,\%}};
+    \node[font=\scriptsize, color=black!75] at (7.40,0.25) {\textbf{Chambre OCR 54,6\,\%}};
+    \node[font=\tiny, color=white] at (11.20,0.25) {\textbf{8,7}};
+    \node[font=\tiny, color=black!75, above=1mm of {(11.86,0.5)}] {Sénat OCR 2,4\,\%};
+  \end{tikzpicture}\\[2mm]
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}\centering
+      \includegraphics[width=0.74\linewidth]{quality/top_deposants.png}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
+        \textbf{\textcolor{warnorange}{très concentré}} --- Khanna
+        (\textbf{41\,080} txns) et McCaul (\textbf{27\,123}) pèsent à eux deux
+        \textbf{$\sim$40\,\%} du corpus, et déclarent \textbf{exclusivement sur
+        papier} (\mbox{100\,\%} OCR)\vspace{0.5mm}}}\\[1.5mm]
+      {\footnotesize le papier n'est pas un détail : c'est \textbf{la majorité du
+       corpus} --- d'où l'effort d'OCR de 2c et 2e}
+    \end{column}
+  \end{columns}
   \label{endmain}% dernière page de contenu : fige le total au pied (les zooms ne comptent pas)
 \end{frame}
 
@@ -1483,6 +1500,9 @@
 \zoomframe{fig_ptr_multiligne}{slides/fig_ptr_multiligne.png}
 \zoomframe{senate_digital_2}{sources/senate_digital.png}
 \zoomframe{senat_papier_droit_2}{slides/senat_papier_droit.png}
+\zoomframe{sp_tape}{slides/senat_papier_droit.png}
+\zoomframe{sp_manu}{slides/senat_papier_manuscrit.png}
+\zoomframe{sp_annexe}{slides/senat_papier_annexe_v.png}
 \zoomframe{fig_pelosi_schedb}{slides/fig_pelosi_schedb.png}
 \zoomframe{fig_ptr_digital}{slides/fig_ptr_digital.png}
 \zoomframe{site_senate_results}{slides/site_senate_results.png}
