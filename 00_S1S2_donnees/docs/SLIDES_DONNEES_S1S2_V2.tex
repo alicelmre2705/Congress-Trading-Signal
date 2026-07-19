@@ -338,42 +338,8 @@
 \end{frame}
 
 % ── O3 · Le plan : deux parties ──
-\begin{frame}{Le plan --- deux parties : on construit, puis on prouve}
-  \centering
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \colorbox{helec}{\parbox{\dimexpr\linewidth-8pt}{\centering\vspace{0.4mm}
-        {\color{white}\textbf{PARTIE I --- Construire la table}}\\
-        {\color{white!85}\tiny de la source publique au CSV livré}\vspace{0.4mm}}}\\[1.2mm]
-      {\scriptsize\setlength{\extrarowheight}{-0.4mm}
-      \begin{tabular}{@{}p{0.55cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
-        \etape{0}{Le pipeline}{le flux complet, en une image}
-        \etape{1}{Acquisition \& Tri}{la Chambre en entier, puis le Sénat en entier}
-        \etape{2}{Extraction}{les dates · 4 voies · le corpus}
-        \etape{3}{Identité}{le nom → l'élu officiel}
-        \etape{4}{Tickers}{le symbole boursier}
-        \etape{5}{Secteurs}{GICS → ETF}
-        \etape{6}{Dédup}{l'empreinte 7 champs}
-        \etape{7}{Entonnoir}{ce qu'on retire, et pourquoi}
-        \etape{8}{Table finale}{à quoi ressemble la valeur}
-      \end{tabular}}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \colorbox{alertred}{\parbox{\dimexpr\linewidth-8pt}{\centering\vspace{0.4mm}
-        {\color{white}\textbf{PARTIE II --- Vérifier la table}}\\
-        {\color{white!85}\tiny rien raté, rien inventé}\vspace{0.4mm}}}\\[1.2mm]
-      {\scriptsize\setlength{\extrarowheight}{-0.4mm}
-      \begin{tabular}{@{}p{0.65cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{3.2cm}@{}}
-        \etape{II.0}{Trois questions}{le cadre de la preuve}
-        \etape{II.1}{L'univers}{a-t-on tout traité ?}
-        \etape{II.2}{Les autres types}{les 11 dépôts hors PTR}
-        \etape{II.3}{La cohérence}{les flux se recollent-ils ?}
-        \etape{II.4}{Quiver}{le mètre externe}
-        \etape{II.5}{Les autres preuves}{et le principe}
-      \end{tabular}}
-    \end{column}
-  \end{columns}
-\end{frame}
+% ── Slide « Le plan --- deux parties » RETIRÉE (2026-07-19, demande Alice) : plan pas à jour,
+%    beaucoup de changements à venir ; à refaire une fois la structure stabilisée. ──
 
 % ══════════════════ PARTIE I ══════════════════
 \section{Partie I · Construire la table}
@@ -385,6 +351,10 @@
   {\color{black!88}\fontsize{30}{34}\selectfont\textbf{Construire la table}}\\[3mm]
   {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3mm]
   {\color{black!55}\large De $\sim$10\,000 documents publics hétérogènes à une seule table}
+  \vfill
+  {\footnotesize\color{black!50}{\color{selec}$\oplus$}~ toutes les images du deck sont
+   \textbf{cliquables} pour être agrandies (re-cliquez pour revenir).}
+  \vspace{8mm}
 \end{frame}
 
 % ── 0 · Le pipeline complet ──
@@ -589,63 +559,54 @@
 \end{frame}
 
 % ── 2c · Extraction Chambre, image ──
-\begin{frame}{2c · Extraction Chambre · image --- l'OCR lit le tapé, le manuscrit est écarté}
+\begin{frame}{2c · Extraction Chambre · image --- l'OCR lit, \textbf{Quiver} tranche}
   \centering
-  {\footnotesize l'\textbf{OCR par IA} (Claude Vision) lit le \textbf{tapé} --- même tourné à
-   90° --- ; le \textbf{manuscrit} cursif est le seul point dur
-   \;{\scriptsize\color{black!45}(images cliquables)} :}\\[2mm]
-  \begin{columns}[T]
-    \begin{column}{0.27\textwidth}\centering
-      \fcolorbox{helec}{white}{\clickzoom{scan_full_droit}{\includegraphics[height=30mm]{slides/scan_full_droit.png}}}\\[1mm]
-      {\footnotesize\textbf{Tapé} → \textbf{lu}}
+  {\footnotesize un PTR scanné est une \textbf{image}. Sur \textbf{2\,424 scans} :
+   \textbf{1\,649 tapés} $+$ \textbf{775 manuscrits} --- lesquels garder ?}\\[4mm]
+  \begin{columns}[c]
+    \begin{column}{0.38\textwidth}\centering
+      \begin{minipage}[t]{0.49\linewidth}\centering
+        \fcolorbox{helec}{white}{\clickzoom{scan_full_droit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{slides/scan_full_droit.png}}}\\[0.6mm]
+        {\scriptsize\textbf{tapé}}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}\centering
+        \fcolorbox{hocr}{white}{\clickzoom{scan_full_manuscrit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{slides/scan_full_manuscrit.png}}}\\[0.6mm]
+        {\scriptsize\textbf{manuscrit}}
+      \end{minipage}
     \end{column}
-    \begin{column}{0.27\textwidth}\centering
-      \fcolorbox{hocr}{white}{\clickzoom{scan_full_manuscrit}{\includegraphics[height=30mm]{slides/scan_full_manuscrit.png}}}\\[1mm]
-      {\footnotesize\textbf{Manuscrit} → \textbf{écarté}}
-    \end{column}
-    \begin{column}{0.43\textwidth}\footnotesize
-      \badgel{hocr}{93\,325 → 93\,261 lignes uniques}\\[2mm]
-      \colorbox{black!6}{\parbox{0.96\linewidth}{\scriptsize
-        \textbf{la mesure} --- \textbf{Quiver} (notre mètre externe, Partie II) ne corrobore
-        que \textbf{\mbox{12,9\,\%}} du manuscrit, contre \textbf{\mbox{88\,\%}} du tapé →
-        on ne peut pas le \textbf{vérifier}}}\\[2mm]
-      \badge{alertred}{582 manuscrits écartés --- 7,1\,\%}
+    \begin{column}{0.58\textwidth}\centering
+      {\footnotesize on compare chaque ligne à l'\textbf{ensemble Quiver} : \emph{corroborée}
+       si le triplet (\textbf{élu · ticker · sens}) y figure.}\\[3mm]
+      {\footnotesize\renewcommand{\arraystretch}{1.25}%
+       \begin{tabular}{@{}l c c@{}}
+        \toprule
+        scan & corroboré & \\
+        \midrule
+        \textbf{tapé} · 1\,649 & \textbf{67\,\%} & \textcolor{okgreen}{\textbf{gardé}} \\
+        \textbf{manuscrit} · 775 & \textbf{12,9\,\%} & \textcolor{alertred}{\textbf{écarté}} \\
+        \bottomrule
+      \end{tabular}}\\[3mm]
+      {\footnotesize\color{black!70} exception : \textbf{193 docs} manuscrits gardés ---
+       les \textbf{3 déposants} corroborés par Quiver : Schrader, Lamborn et Harshbarger.}
     \end{column}
   \end{columns}
-  \vspace{2mm}
-  \choixbox{\textbf{on ne met en table que ce qu'on sait lire} --- sur les \textbf{775 scans
-   manuscrits}, \textbf{582 écartés} par une règle écrite et rejouable ; les \textbf{193}
-   restants, corroborés par Quiver, sont \textbf{lus} (exceptions explicites).}
 \end{frame}
 
 % ── 2d · Extraction Sénat, texte ──
-\begin{frame}{2d · Extraction Sénat · texte --- une table déjà propre, stable sur 13 ans}
-  \begin{columns}[T]
-    \begin{column}{0.54\textwidth}\centering
-      \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.30\textheight,keepaspectratio]{sources/senate_digital.png}}}\\[0.5mm]
-      {\scriptsize\color{black!60} la déclaration électronique : une vraie table, ticker
-       cliquable --- rien à reconstruire}
+\begin{frame}{2d · Extraction Sénat · texte --- la donnée arrive déjà en table}
+  \begin{columns}[c]
+    \begin{column}{0.52\textwidth}\centering
+      \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.46\textheight,keepaspectratio]{sources/senate_digital.png}}}
     \end{column}
-    \begin{column}{0.42\textwidth}
-      \badge{selec}{14\,813 lignes extraites → 13\,026 uniques}\\[1.2mm]
-      {\footnotesize \textbf{1.} une \textbf{page par dépôt}, mise en cache\\[0.6mm]
-       \textbf{2.} \textbf{lecture des tableaux} : colonnes repérées par leurs
-       intitulés\\[0.6mm]
-       \textbf{3.} rien d'autre --- le gabarit ne change pas}\\[1.2mm]
-      {\scriptsize\color{black!60} \textbf{les 9 mêmes colonnes} sur toutes les pages
-       2014→2026 (vérifié) : ce qui varie, ce sont les \emph{amendements} et le
-       \emph{non-coté}, pas le format}\\[1.2mm]
-      \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\scriptsize\vspace{0.4mm}
-        \textbf{\textcolor{warnorange}{c'est ici que la dédup travaille}} ---
-        \textbf{1\,787} des 14\,813 lignes (12\,\%) sont des \textbf{re-dépôts annuels} :
-        cette seule voie porte \textbf{93\,\%} du dédoublonnage (6)\vspace{0.4mm}}}
+    \begin{column}{0.44\textwidth}
+      \badge{selec}{14\,813 lignes → 13\,026 uniques}\\[2.5mm]
+      {\footnotesize chaque dépôt est une \textbf{page HTML} : on lit les \textbf{colonnes
+       par leurs intitulés} --- gabarit \textbf{stable 2014→2026}, donc \textbf{déterministe
+       et sans IA}. Rien à reconstruire.}\\[2.5mm]
+      {\scriptsize\color{black!55} l'écart ($-12$\,\%) = re-déclarations annuelles,
+       dédoublonnées en (6)}
     \end{column}
   \end{columns}
-  \vspace{1mm}
-  \diff{là où la \chambre{} impose de \textbf{reconstruire} un PDF (2b), le \senat{}
-   électronique se lit \textbf{directement} --- \textbf{déterministe et sans IA} des deux
-   côtés, mais il \textbf{re-déclare} bien plus (12\,\%, contre 0,05\,\% à la Chambre
-   électronique).}
 \end{frame}
 
 % ── 2e · Extraction Sénat, image ──
