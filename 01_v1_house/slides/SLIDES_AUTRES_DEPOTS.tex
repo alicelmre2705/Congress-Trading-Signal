@@ -1,0 +1,498 @@
+% !TEX program = tectonic
+% Deck AUTONOME « Les autres dépôts & la construction de portefeuille » (Chambre).
+% Même format que SLIDES_DONNEES_S1S2_V2.tex (thème Madrid, couleurs, macros).
+% But : remettre les chiffres au clair (anti-confusion) + développer complètement
+% « comment ça change la construction de portefeuille » (notebook 10 / FICHE_10).
+% Chiffres : ANALYSE_FILING_TYPES_HOUSE.md · V1_House.ipynb · 10_Stock_Divulgations_MathSpec.ipynb.
+% Millésime unique = UNION (35 377 dépôts). Additif : ne modifie ni V2 ni le notebook 10.
+\documentclass[11pt,aspectratio=169]{beamer}
+\definecolor{helec}{HTML}{3B6EA5}   % couleur maîtresse (Chambre électronique)
+\usetheme{Madrid}
+\usecolortheme[named=helec]{structure}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamerfont{frametitle}{series=\bfseries}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{newunicodechar}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\hypersetup{colorlinks=true, urlcolor=helec, linkcolor=white}
+
+% Caractères Unicode → commandes (fontes T1)
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{✓}{\checkmark}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{⊇}{\ensuremath{\supseteq}}
+\newunicodechar{∑}{\ensuremath{\textstyle\sum}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{œ}{\oe}
+\newunicodechar{Œ}{\OE}
+\newunicodechar{°}{\textdegree}
+\newunicodechar{§}{\S}
+\newunicodechar{«}{\og}
+\newunicodechar{»}{\fg{}}
+
+% Code couleur (repris de V2)
+\definecolor{helec}{HTML}{3B6EA5}   % Chambre électronique / reconstruction
+\definecolor{hocr}{HTML}{A9C5E2}
+\definecolor{okgreen}{HTML}{2E8B57}
+\definecolor{alertred}{HTML}{C0392B}
+\definecolor{warnorange}{HTML}{E67E22}
+\definecolor{dataC}{RGB}{176,110,14}  % ocre — « données / autres dépôts »
+\definecolor{grisC}{RGB}{90,90,90}
+
+\newcommand{\co}[1]{\texttt{#1}}
+\tikzset{
+  step/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+               align=center, font=\scriptsize, minimum height=0.72cm},
+  bande/.style={rectangle, rounded corners=2pt, draw=#1, line width=0.8pt, fill=#1!8,
+                align=center, font=\scriptsize, minimum height=0.62cm},
+  arr/.style={-{Latex[length=2mm]}, line width=0.8pt, draw=gray!65},
+}
+
+\newcommand{\badge}[2]{\colorbox{#1}{\textcolor{white}{\footnotesize\textbf{#2}}}}
+\newcommand{\kpi}[3]{{\large\textbf{\textcolor{#1}{#2}}}~{\footnotesize #3}}
+\newcommand{\defl}[1]{{\scriptsize\color{black!55}#1}}
+
+% Encadré CHOIX (un choix méthodologique énoncé en une phrase)
+\newcommand{\choixbox}[1]{%
+  \colorbox{alertred!8}{\parbox{\dimexpr\linewidth-8pt}{\scriptsize
+    \textbf{\textcolor{alertred}{CHOIX}}\; --- #1}}}
+% Bandeau RÉPONSE (conclusion d'une partie)
+\newcommand{\repband}[1]{%
+  \colorbox{okgreen!12}{\parbox{\dimexpr\linewidth-10pt}{\scriptsize
+    \textbf{\textcolor{okgreen}{Réponse}}\; --- #1}}}
+
+% Séparateur de partie plein cadre : \partdivider{couleur}{ACTE X}{Grand titre}{sous-titre}
+\newcommand{\partdivider}[4]{%
+  {\setbeamercolor{background canvas}{bg=#1}
+  \begin{frame}[plain]
+    \centering\vfill
+    {\color{white}\Large\textbf{#2}}\\[3.5mm]
+    {\color{white!75}\rule{0.40\textwidth}{1pt}}\\[4.5mm]
+    {\color{white}\fontsize{30}{34}\selectfont\textbf{#3}}\\[5.5mm]
+    {\color{white!88}\large #4}
+    \vfill
+  \end{frame}}}
+
+% Pied de page = réplique Madrid ; total = dernière page de contenu (\label{endmain}).
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~(\insertshortinstitute)%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshortdate{}\hspace*{2em}%
+    \insertframenumber{} / \pageref{endmain}\hspace*{2ex}%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\title[Les autres dépôts]{Les autres dépôts --- le patrimoine, sa reconstruction,\\ et ce qu'il change au backtest}
+\subtitle{Déclarations boursières du Congrès américain · Chambre · 2014--2026}
+\author[A.~Lemaire]{Alice Lemaire}
+\institute[Ramify]{Document de recherche --- livrable Ramify}
+\date{Juillet 2026}
+
+\begin{document}
+
+% ══════════════════════════ TITRE ══════════════════════════
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ══════════════════════════ LE FIL ══════════════════════════
+\begin{frame}{Le fil --- on répond à trois questions, dans l'ordre}
+  \vspace{1mm}
+  \begin{columns}[T]
+  \column{0.32\textwidth}
+    \colorbox{dataC!12}{\parbox[t][3.3cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.6mm}
+      {\color{dataC}\bfseries ACTE 1}\\[1mm]
+      \textbf{Les autres dépôts : les chiffres au clair}\\[1.2mm]
+      {\scriptsize c'est quoi ces 27\,110 dépôts qu'on n'avait pas lus --- et comment ne plus se perdre dans les nombres}}}
+  \column{0.32\textwidth}
+    \colorbox{helec!12}{\parbox[t][3.3cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.6mm}
+      {\color{helec}\bfseries ACTE 2}\\[1mm]
+      \textbf{Reconstruire \& vérifier le patrimoine}\\[1.2mm]
+      {\scriptsize redessiner 822 portefeuilles, en prouver 56 de bout en bout}}}
+  \column{0.32\textwidth}
+    \colorbox{okgreen!14}{\parbox[t][3.3cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.6mm}
+      {\color{okgreen}\bfseries ACTE 3}\\[1mm]
+      \textbf{Changer la construction du portefeuille}\\[1.2mm]
+      {\scriptsize partir du patrimoine d'entrée au lieu de zéro --- ce que ça change vraiment}}}
+  \end{columns}
+  \vspace{3mm}
+  {\footnotesize\color{black!60} Périmètre : \textbf{Chambre} uniquement · un seul millésime de comptage (\textbf{union}, 35\,377 dépôts) · chaque chiffre sort d'un notebook exécuté (V1-House, notebook 10).}
+\end{frame}
+
+% ════════════════════════════════════════════════════════════
+\partdivider{dataC}{ACTE 1}{Les autres dépôts : les chiffres au clair}{un type lu sur douze --- et de quoi parlent tous ces nombres}
+
+% ── A1 · le problème ──
+\begin{frame}{Le problème --- on n'avait lu qu'un type de dépôt sur douze}
+  \begin{columns}[T]
+  \column{0.46\textwidth}
+    \colorbox{helec!10}{\parbox[t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+      {\Large\textbf{\color{helec}8\,267}}~dépôts \textbf{PTR} lus\\[0.4mm]
+      {\scriptsize le seul type exploité jusqu'ici --- « ce que l'élu \emph{fait} »}}}\\[2.2mm]
+    \colorbox{dataC!14}{\parbox[t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+      {\Large\textbf{\color{dataC}27\,110}}~autres dépôts, \textbf{11 types}\\[0.4mm]
+      {\scriptsize jamais lus --- « ce que l'élu \emph{possède} »}}}\\[2.2mm]
+    {\footnotesize sur \textbf{35\,377} dépôts recensés (Chambre, 2014--2026).}
+  \column{0.52\textwidth}
+    {\footnotesize Décomposition du \textbf{patrimoine de sortie} d'un élu :}\\[2mm]
+    \begin{tikzpicture}[node distance=1.4mm]
+      \node[bande=grisC, text width=6.3cm] (a)
+        {\textbf{33,2\%} déjà détenu \textbf{à l'entrée} --- invisible d'un départ de zéro};
+      \node[bande=helec, text width=6.3cm, below=of a] (b)
+        {\textbf{45,5\%} acheté \textbf{pendant le mandat} --- vu par les PTR};
+      \node[bande=dataC, text width=6.3cm, below=of b] (c)
+        {\textbf{21,3\%} restait \textbf{à expliquer}};
+    \end{tikzpicture}\\[2.5mm]
+    \choixbox{les « autres dépôts » sont la matière qui rend visible le \textbf{tiers déjà là} --- c'est tout l'enjeu.}
+  \end{columns}
+\end{frame}
+
+% ── A2 · le catalogue ──
+\begin{frame}{Le catalogue --- douze types de dépôt, trois familles}
+  \centering\vspace{0.5mm}
+  {\footnotesize
+  \begin{tabular}{@{}c l r l@{}}
+   \toprule
+   \multicolumn{4}{@{}l}{\textbf{\color{dataC}Le signal --- ce que l'élu \emph{fait}}}\\
+   \midrule
+   \co{P} & Periodic Transaction Report & 8\,267 & les transactions datées (notre backtest)\\
+   \midrule
+   \multicolumn{4}{@{}l}{\textbf{\color{helec}Les photos du patrimoine --- ce que l'élu \emph{possède}}}\\
+   \midrule
+   \co{C} & Candidate Report & 10\,129 & patrimoine au moment de la candidature\\
+   \co{O} & Annual Report & 4\,626 & bilan annuel\\
+   \co{H} & New Filer Report & 395 & photo d'entrée en fonction\\
+   \co{T} & Terminated Filer Report & 394 & photo de sortie\\
+   \co{A} & Amendment & 2\,305 & correction d'un \co{O}/\co{C}/\co{H}/\co{T}\\
+   \midrule
+   \multicolumn{4}{@{}l}{\textbf{\color{grisC}Administratif --- ni signal ni patrimoine}}\\
+   \midrule
+   \co{X}\,\co{D}\,\co{W}\,\co{G}\,\co{E} & extensions, avis de campagne, dérogations & \textasciitilde9\,240 & aucune transaction\\
+   \co{B} & Blind Trust & 23 & géré à l'aveugle (cas Phillips)\\
+   \bottomrule
+  \end{tabular}}\\[2.5mm]
+  {\scriptsize\color{black!55} chaque chiffre = un \textbf{nombre de dépôts} (millésime union) · total = 35\,377.}
+\end{frame}
+
+% ── A3 · les chiffres, une bonne fois (anti-confusion) ──
+\begin{frame}{Les chiffres, une bonne fois --- et les pièges}
+  \begin{columns}[T]
+  \column{0.5\textwidth}
+   {\footnotesize\textbf{\color{dataC}Les dépôts \& les transactions}}\\[1.5mm]
+   {\scriptsize
+   \begin{tabular}{@{}r l@{}}
+    \toprule
+    \textbf{35\,377} & dépôts recensés (12 types)\\
+    8\,267 & dont \textbf{PTR} (le signal)\\
+    27\,110 & dont \textbf{autres} (11 types)\\
+    \midrule
+    \textbf{161\,076} & \emph{transactions} PTR datées\\
+    57\,259 & \emph{transactions} dans les annuels\\
+    \bottomrule
+   \end{tabular}}
+  \column{0.5\textwidth}
+   {\footnotesize\textbf{\color{helec}Les gens \& leurs portefeuilles}}\\[1.5mm]
+   {\scriptsize
+   \begin{tabular}{@{}r l@{}}
+    \toprule
+    \textbf{900} & membres passés par la Chambre\\
+    470 / 463 & entrées / sorties (depuis 2014)\\
+    284 & photos d'entrée (252 \co{H} + 32 \co{C})\\
+    \midrule
+    \textbf{822} & portefeuilles \textbf{reconstruits}\\
+    56 & \textbf{vérifiés} de bout en bout\\
+    \bottomrule
+   \end{tabular}}
+  \end{columns}
+  \vspace{3.5mm}
+  \choixbox{trois pièges : \textbf{(1)} un \emph{dépôt} $\neq$ une \emph{transaction} $\neq$ un \emph{membre} --- on ne les additionne jamais ; \textbf{(2)} « 45 » désigne 45 \emph{membres} (la cohorte testée) \emph{ou} 45 \emph{positions} inexpliquées, selon le contexte ; \textbf{(3)} « 21,3\% » a deux sens (du patrimoine de sortie / des positions inexpliquées).}
+\end{frame}
+
+% ── A4 · le cycle de vie ──
+\begin{frame}{La vie déclarative d'un élu --- photos contre signal}
+  \centering
+  \includegraphics[width=0.92\textwidth,height=0.60\textheight,keepaspectratio]{figs_depots/fig_house_loi_cycle.png}\\[2mm]
+  \colorbox{dataC!10}{\parbox{0.92\textwidth}{\centering\footnotesize
+    les \textbf{photos} (\co{C}, \co{H}, \co{O}, \co{T}) disent \textbf{ce qu'il possède} (Schedule A) ---
+    le \textbf{\co{P}} dit \textbf{ce qu'il fait} (Schedule B). On tradait le \co{P} ; on va se servir des \textbf{photos}.}}
+\end{frame}
+
+% ── A5 · couverture entrées/sorties ──
+\begin{frame}{La couverture des entrées et des sorties}
+  \centering\vspace{2mm}
+  {\footnotesize
+  \begin{tabular}{@{}p{0.24\linewidth} p{0.64\linewidth}@{}}
+   \toprule
+   \textbf{470 entrées} au Congrès depuis 2014 & \textbf{82\%} ont déposé un \co{H}, \textbf{16\%} un \co{C} --- \textbf{98\% couvertes} par une photo d'entrée\\
+   \midrule
+   \textbf{463 sorties} définitives & \textbf{81\%} ont déposé un \co{T} ; les \textbf{86} sans \co{T} = partis au Sénat/exécutif (dispensés), décès\\
+   \bottomrule
+  \end{tabular}}\\[3mm]
+  {\footnotesize la \textbf{photo de départ} : \textbf{252} ancrés par un \co{H} · \textbf{32} par un \co{C} = \textbf{284} portefeuilles d'entrée datés}\\[3mm]
+  \choixbox{on distingue \textbf{dépôts} et \textbf{membres} : il y a 395 \emph{dépôts} \co{H} mais 252 \emph{membres} ancrés par un \co{H} (un membre peut en déposer plusieurs ; on ne garde qu'une photo d'entrée).}
+\end{frame}
+
+% ── A6 · ce que rate le filtre P ──
+\begin{frame}{Ce que rate le filtre PTR --- et pourquoi c'est quand même le bon choix}
+  \begin{columns}[T]
+  \column{0.5\textwidth}
+   {\footnotesize Les Schedule B des annuels (\co{O}/\co{H}/\co{T}/\co{A}) contiennent \textbf{57\,259} transactions :}
+   \begin{itemize}\footnotesize
+    \item[--] \textbf{79,5\%} \emph{sans ticker} (fonds nommés, immobilier, non coté)
+    \item[--] parmi les tickérisées, \textbf{67,1\%} déjà dans nos PTR
+    \item[--] reliquat : \textbf{173} actions « annuel-seul » en 13 ans (0,1\%), concentrées 2014--2017
+   \end{itemize}
+  \column{0.5\textwidth}
+   \colorbox{alertred!8}{\parbox[t]{\dimexpr\linewidth-8pt}{\vspace{0.6mm}\footnotesize
+     \textbf{\textcolor{alertred}{Le délai tue le signal}}\\[0.6mm]
+     divulgation médiane \textbf{406 j} (annuels) contre \textbf{27 j} (PTR) --- impossible à jouer sans regarder l'avenir.}}\\[3mm]
+   \repband{le filtre \co{P} reste le bon choix pour le \textbf{signal} ; les annuels ne sont pas un signal --- ils servent de \textbf{vue patrimoine}, ce que l'Acte 2 exploite.}
+  \end{columns}
+\end{frame}
+
+% ════════════════════════════════════════════════════════════
+\partdivider{helec}{ACTE 2}{Reconstruire \& vérifier le patrimoine}{deux compteurs à ne pas confondre : 822 reconstruits, 56 vérifiés}
+
+% ── B1 · deux compteurs ──
+\begin{frame}{Deux compteurs qu'il ne faut jamais confondre : 822 $\neq$ 56}
+  \begin{columns}[T]
+  \column{0.48\textwidth}
+   \colorbox{dataC!12}{\parbox[t][4.1cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+     {\color{dataC}\bfseries RECONSTRUIRE}\\[1.5mm]
+     {\Large\textbf{822}}~membres\\[1.5mm]
+     {\footnotesize redessiner un portefeuille \emph{daté} --- il suffit d'\textbf{au moins 2 photos} et des flux entre elles}}}
+  \column{0.48\textwidth}
+   \colorbox{helec!12}{\parbox[t][4.1cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+     {\color{helec}\bfseries VÉRIFIER}\\[1.5mm]
+     {\Large\textbf{56}}~membres\\[1.5mm]
+     {\footnotesize \emph{prouver} que le portefeuille est juste --- il faut un \textbf{cycle complet} : photo d'entrée \co{H}, photo de sortie \co{T}, actions cotées des deux côtés}}}
+  \end{columns}
+  \vspace{3mm}
+  \choixbox{822 et 56 ne s'additionnent pas et ne s'emboîtent pas : deux \emph{questions} différentes sur les mêmes 900 membres. Fil rouge de l'Acte : \textbf{Dean Phillips} (entré 2019, sorti 2025, l'un des 56).}
+\end{frame}
+
+% ── B2 · le moteur ──
+\begin{frame}{Le moteur --- ancrer, appliquer les flux, recaler}
+  \begin{columns}[c]
+  \column{0.46\textwidth}
+   \begin{tikzpicture}[node distance=3.2mm]
+     \node[step=dataC, text width=4.6cm] (a){\textbf{1 · Ancrer} sur la photo d'entrée (284 disponibles)};
+     \node[step=helec, text width=4.6cm, below=of a] (b){\textbf{2 · Appliquer} les flux datés (PTR + \co{O}/\co{A}/\co{T}), jour par jour};
+     \node[step=okgreen, text width=4.6cm, below=of b] (c){\textbf{3 · Recaler} à chaque nouvelle photo --- le document fait foi};
+     \draw[arr](a)--(b); \draw[arr](b)--(c);
+   \end{tikzpicture}\\[2mm]
+   {\scriptsize on travaille \textbf{en présence par ticker} et en \textbf{fourchettes de valeur} --- jamais en quantités (la loi ne les publie pas).}
+  \column{0.52\textwidth}
+   \includegraphics[width=\linewidth,height=0.50\textheight,keepaspectratio]{figs_depots/fig_house_phillips.png}\\[1.5mm]
+   \colorbox{helec!10}{\parbox{\linewidth}{\centering\footnotesize \textbf{66,7\%} des positions se \textbf{confirment} d'une photo à la suivante --- le patrimoine est \textbf{stable}, le « churn » n'était qu'un artefact de renommage.}}
+  \end{columns}
+\end{frame}
+
+% ── B3 · le test ──
+\begin{frame}{Le test d'intégrité --- la sortie doit tenir dans l'entrée + les achats}
+  \centering\vspace{1mm}
+  {\large $\underbrace{H}_{\text{photo d'entrée}} \;+\; \underbrace{\textstyle\sum P}_{\text{achats déclarés}} \;\supseteq\; \underbrace{T}_{\text{photo de sortie}}$}\\[4mm]
+  \begin{tikzpicture}[node distance=7mm]
+    \node[bande=grisC, text width=2.5cm] (a){\textbf{900}\\membres};
+    \node[bande=helec, text width=2.5cm, right=of a] (b){\textbf{149}\\entrés \emph{puis} sortis};
+    \node[bande=helec, text width=2.5cm, right=of b] (c){\textbf{106}\\les 2 photos déposées};
+    \node[bande=okgreen, text width=2.5cm, right=of c] (d){\textbf{56}\\actions cotées des 2 côtés};
+    \draw[arr](a)--(b); \draw[arr](b)--(c); \draw[arr](c)--(d);
+  \end{tikzpicture}\\[4mm]
+  {\footnotesize la \textbf{loi} borne l'échantillon : \textbf{439} déjà en poste en 2014 (pas de photo d'entrée), \textbf{437} encore en poste (pas de photo de sortie).}\\[2mm]
+  \choixbox{c'est une \textbf{identité comptable} : si la collecte était trouée, elle casserait ici. Un détecteur de trous, pas une statistique.}
+\end{frame}
+
+% ── B4 · le résultat ──
+\begin{frame}{Le résultat --- 78,7\% expliquées, puis 87,8\%, et 3,3\% non}
+  \begin{columns}[c]
+  \column{0.5\textwidth}
+   \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{figs_depots/fig_house_trous.png}
+  \column{0.5\textwidth}
+   {\footnotesize sur \textbf{1\,371} positions de sortie (cohorte \co{H}∧\co{T} électronique) :}\\[2mm]
+   \begin{tikzpicture}[node distance=2mm]
+     \node[bande=helec, text width=5.6cm] (a){entrée + achats PTR → \textbf{78,7\%} expliquées};
+     \node[bande=okgreen, text width=5.6cm, below=of a] (b){$-125$ déclarées ailleurs (annuels, sortie) → \textbf{87,8\%}};
+     \node[bande=grisC, text width=5.6cm, below=of b] (c){$-122$ structurelles (comptes gérés, ETF, petites lignes)};
+     \node[bande=alertred, text width=5.6cm, below=of c] (d){\textbf{45 positions / 14 membres = 3,3\%} vraiment inexpliquées};
+     \draw[arr](a)--(b); \draw[arr](b)--(c); \draw[arr](c)--(d);
+   \end{tikzpicture}\\[2mm]
+   \choixbox{chaque écart est \textbf{classé par preuve documentaire}, jamais éliminé statistiquement.}
+  \end{columns}
+\end{frame}
+
+% ── B5 · le registre ──
+\begin{frame}{Le bilan --- un statut par membre}
+  \centering
+  \includegraphics[width=0.82\textwidth,height=0.56\textheight,keepaspectratio]{figs_depots/fig_house_registre.png}\\[2mm]
+  {\footnotesize \textbf{56} vérifiable strict \;+\; \textbf{109} reconstructible complet \;+\; \textbf{715} reconstructible partiel \;+\; \textbf{20} hors d'atteinte \;=\; \textbf{900}}\\[2.5mm]
+  \repband{on assume le périmètre : environ \textbf{9 portefeuilles reconstruits sur 10} restent sans preuve de bout en bout --- on le dit, on ne le cache pas.}
+\end{frame}
+
+% ════════════════════════════════════════════════════════════
+\partdivider{okgreen}{ACTE 3}{Changer la construction du portefeuille}{partir du patrimoine d'entrée au lieu de zéro --- ce que ça change, vraiment}
+
+% ── C1 · l'idée + mécanisme ──
+\begin{frame}{L'idée --- partir du patrimoine d'entrée, pas de zéro}
+  \begin{columns}[T]
+  \column{0.55\textwidth}
+   {\footnotesize \textbf{Le mécanisme}, sur un titre suivi (XYZ) :}
+   \begin{itemize}\footnotesize
+    \item[\textcolor{okgreen}{$\blacktriangleright$}] la \textbf{photo d'entrée} donne \textbf{500 parts} (fourchette convertie au prix du jour du dépôt)
+    \item[\textcolor{helec}{$\blacktriangleright$}] un achat déclaré ajoute \textbf{203} parts → \textbf{703}
+    \item[\textcolor{alertred}{$\blacktriangleright$}] une vente de \textbf{1\,250} parts : avec la photo on solde $\min(1\,250,\,703)$ ; \textbf{sans} photo le moteur n'aurait vendu que les \textbf{203} achetées --- \textbf{la troncature qu'on corrige}
+   \end{itemize}
+   \vspace{0.5mm}
+   \choixbox{le rendement se calcule sur les parts de la \textbf{veille} : \textbf{un apport n'est jamais une performance} ($r=0$ le jour de l'injection, vérifié numériquement).}
+  \column{0.43\textwidth}
+   \includegraphics[width=\linewidth]{figs_depots/fig_10_troncature.png}\\[1mm]
+   {\scriptsize\color{black!55} ventes non couvertes, tronquées par $\min(q,h)$, en M\$ par run.}
+  \end{columns}
+\end{frame}
+
+% ── C2 · le dispositif ──
+\begin{frame}{Le dispositif --- quatre runs, même moteur, seules les données changent}
+  \begin{columns}[T]
+  \column{0.52\textwidth}
+   \begin{itemize}\footnotesize
+    \item[\co{A}] PTR seuls, départ zéro --- \textbf{le témoin}
+    \item[\co{B}] \co{A} + photos d'entrée \hfill (\co{B}$-$\co{A} = \textbf{l'effet photo})
+    \item[\co{C}] \co{A} + trades \co{O}/\co{A}/\co{T} \hfill (\co{C}$-$\co{A} = \textbf{l'effet \co{O}/\co{A}/\co{T}})
+    \item[\co{D}] \co{A} + photos + \co{O}/\co{A}/\co{T} --- \textbf{la stratégie adaptée}
+   \end{itemize}
+   \vspace{1.5mm}
+   {\footnotesize Population : \textbf{900} membres → \textbf{424 tradent} = \textbf{305} vus par les PTR + \textbf{119} \emph{uniquement} via \co{O}/\co{A}/\co{T} → \textbf{165} avec photo exploitable (G\_photo) / \textbf{259} sans (G\_zéro).}
+  \column{0.46\textwidth}
+   \includegraphics[width=\linewidth]{figs_depots/fig_10_entonnoir.png}
+  \end{columns}
+\end{frame}
+
+% ── C3 · ce que ça change concrètement ──
+\begin{frame}{Ce que ça change concrètement --- qui entre dans le jeu}
+  \begin{columns}[T]
+  \column{0.45\textwidth}
+   {\footnotesize\centering
+   \begin{tabular}{@{}l r r r@{}}
+    \toprule
+    run & membres & photos inj. & tronqué\\
+    \midrule
+    \co{A} témoin & 226 & 0 & 937 M\$\\
+    \co{B} +photo & 257 & 117 & 897 M\$\\
+    \co{C} +oat & 362 & 0 & 1\,179 M\$\\
+    \textbf{\co{D} adaptée} & \textbf{385} & \textbf{159} & 1\,121 M\$\\
+    \bottomrule
+   \end{tabular}}\\[2.5mm]
+   \begin{itemize}\scriptsize
+    \item[--] la photo \textbf{ressuscite 77 vendeurs purs} (31 rendus dès \co{B})
+    \item[--] \textbf{42} membres « \co{O}/\co{A}/\co{T}-seuls » enfin servis (\co{D} injecte 159 photos, pas 117)
+    \item[--] la \textbf{sélection change à 11/11 coupes} annuelles
+   \end{itemize}
+  \column{0.53\textwidth}
+   \includegraphics[width=\linewidth,height=0.60\textheight,keepaspectratio]{figs_depots/fig_10_composition.png}\\[1mm]
+   {\scriptsize\color{black!55} sélections par année : vert = \co{A} \emph{et} \co{D} · rouge = \co{A} seul · orange = \co{D} seul.}
+  \end{columns}
+\end{frame}
+
+% ── C4 · le tableau des résultats ──
+\begin{frame}{Le tableau --- excès vs SPY, sur 11 années civiles}
+  \begin{columns}[T]
+  \column{0.55\textwidth}
+   {\scriptsize\centering
+   \begin{tabular}{@{}l r r l r r@{}}
+    \toprule
+    run · poids & excès/an & $t$ & gagn. & $\beta$ & $t_{\text{ap}}$\\
+    \midrule
+    \co{A} · 1/K & +0,9 & 0,37 & 4/11 & 0,99 & 0,28\\
+    \co{A} · i-v & $-$0,3 & $-$0,11 & 4/11 & 1,00 & $-$0,27\\
+    \textbf{\co{B} · 1/K} & \textbf{+6,6} & \textbf{0,85} & 5/11 & 0,98 & \textbf{1,55}\\
+    \co{B} · i-v & +3,1 & 0,60 & 5/11 & 0,93 & 1,33\\
+    \co{C} · 1/K & $-$0,0 & $-$0,02 & 4/11 & 0,92 & 0,54\\
+    \co{C} · i-v & $-$1,4 & $-$0,81 & 5/11 & 0,83 & 0,48\\
+    \textbf{\co{D} · 1/K} & +0,7 & 0,31 & 4/11 & 0,89 & \textbf{0,96}\\
+    \co{D} · i-v & $-$0,6 & $-$0,31 & 4/11 & 0,82 & 0,87\\
+    \bottomrule
+   \end{tabular}}\\[2mm]
+   {\scriptsize\color{black!60} seuil de significativité : $t_{10}\approx 1{,}81$ · l'inverse-vol (i-v) perd sur toutes les lignes.}
+  \column{0.44\textwidth}
+   \includegraphics[width=\linewidth]{figs_depots/fig_10_nav.png}\\[1mm]
+   {\scriptsize\color{black!55} NAV témoin (\co{A}) vs adaptée (\co{D}) vs SPY, poids 1/K.}
+  \end{columns}
+\end{frame}
+
+% ── C5 · le mélange surveillé ──
+\begin{frame}{Le mélange des deux groupes --- surveillé, pas ignoré}
+  \begin{columns}[c]
+  \column{0.5\textwidth}
+   {\footnotesize \textbf{Le risque :} le Sharpe de G\_photo (portefeuille complet, NAV lisse) et de G\_zéro (base étroite, bruitée) ne se mesurent pas pareil --- le top-$K$ pourrait préférer un groupe pour des raisons de \emph{mesure}, pas de talent.}\\[2mm]
+   \begin{itemize}\scriptsize
+    \item[\textbf{S1}] le top-$K$ sur-représente G\_photo certaines années (2020 : \textbf{80\%} vs 30\% des éligibles) --- et 0\% d'autres années : le mélange pèse réellement
+    \item[\textbf{S2}] jouée \emph{dans chaque groupe séparément}, aucune strate ne contredit le verdict mixte
+   \end{itemize}
+   \vspace{0.5mm}
+   \choixbox{honnêteté : un $t_{\text{ap}}$ de 1,76 vu avant réparation était en partie un \textbf{artefact d'étiquetage} (40 membres à photo classés « zéro ») --- corrigé.}
+  \column{0.5\textwidth}
+   \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{figs_depots/fig_10_s1.png}
+  \end{columns}
+\end{frame}
+
+% ── C6 · le verdict ──
+\begin{frame}{Le verdict --- plus propre, mais pas d'alpha}
+  \vspace{1mm}
+  \begin{columns}[T]
+  \column{0.5\textwidth}
+   \colorbox{alertred!8}{\parbox[t][3.1cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+     {\color{alertred}\bfseries Pas d'alpha démontrable}\\[1.5mm]
+     {\footnotesize aucune configuration ne franchit le seuil : \textbf{max $t=0{,}85$}, max $t_{\text{ap}}=1{,}59$ en strate. Robuste au poids, à la strate, au mélange \emph{et} au périmètre.}}}
+  \column{0.5\textwidth}
+   \colorbox{okgreen!12}{\parbox[t][3.1cm][t]{\dimexpr\linewidth-8pt}{\vspace{0.8mm}
+     {\color{okgreen}\bfseries Mais un backtest plus propre}\\[1.5mm]
+     {\footnotesize l'adaptée resserre le $\beta$ (\textbf{0,99 → 0,89}) et remonte le $t_{\text{ap}}$ (+0,28 → +0,96) ; l'\textbf{effet photo} (\co{B}) est la meilleure ligne, \textbf{+6,6\%/an}.}}}
+  \end{columns}
+  \vspace{2.5mm}
+  {\scriptsize\color{black!60}\textbf{Caveats assumés :} \co{O}/\co{A}/\co{T} datés à la transaction mais divulgués \textasciitilde374 j après · double comptage possible avant le dépôt · non-coté hors périmètre · \co{prices\_v2} jamais modifié.}\\[2.5mm]
+  \repband{partir du patrimoine d'entrée est un gain de \textbf{propreté et de robustesse} (moins de bruit de mesure, $\beta$ vers 1) --- pas un alpha nouveau.}
+\end{frame}
+
+% ══════════════════════════ CLÔTURE ══════════════════════════
+\begin{frame}{Ce qu'on retient}
+  \vspace{2mm}
+  \begin{itemize}\small
+   \item[\textcolor{dataC}{\textbf{1}}] on n'avait lu qu'un dépôt sur douze ; les \textbf{27\,110 autres} rendent visible le \textbf{tiers} du patrimoine « déjà là, jamais tradé ».
+   \item[\textcolor{helec}{\textbf{2}}] on \textbf{reconstruit 822} portefeuilles datés et on en \textbf{vérifie 56} de bout en bout : \textbf{87,8\%} des positions de sortie s'expliquent, \textbf{3,3\%} restent, classées par preuve.
+   \item[\textcolor{okgreen}{\textbf{3}}] initialiser le backtest au \textbf{patrimoine d'entrée} corrige les ventes tronquées et change les élus copiés --- le résultat est plus \textbf{propre} ($\beta \to$ 1), \textbf{pas} un alpha nouveau.
+  \end{itemize}
+  \vspace{4mm}
+  {\footnotesize\color{black!55} Chambre uniquement · chiffres issus des notebooks V1-House \& 10 · millésime union (35\,377 dépôts).}
+  \label{endmain}
+\end{frame}
+
+\end{document}
