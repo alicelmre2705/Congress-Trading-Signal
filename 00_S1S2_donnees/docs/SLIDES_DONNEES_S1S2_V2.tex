@@ -1255,25 +1255,12 @@
    pas mieux que la stratégie 1}
 \end{frame}
 
-% ═════════════ CHAPITRE D — CONCLUSION ═════════════
-% ── D · Conclusion courte ──
-\begin{frame}{Conclusion : un $\beta$ de style $\approx$ 1,2 — et zéro alpha, sous tous les réglages}
-  \centering
-  \vspace{3mm}
-  {\footnotesize ni \emph{qui} (talent \emph{vs} Sharpe), ni \emph{combien} ($K$), ni \emph{quand}
-   (cadence), ni \emph{comment} (pondération) — \textbf{aucun réglage ne fait apparaître d'$\alpha$}}\\[7mm]
-  \tuile{alertred}{$t$ = 1,58}{max, stratégie 1\\($K$ walk-forward ; seuil 1,81)}\hfill
-  \tuile{alertred}{$t$ = 1,22}{max, stratégie 2\\(Sharpe $K{=}6$ ; seuil 1,81)}\hfill
-  \tuile{alertred}{$t_{\text{appr}}$ +0,99}{max ajusté du $\beta$,\\toutes grilles testées (seuil 1,645)}\hfill
-  \tuile{warnorange}{$\beta \approx 1,20$}{du portefeuille phare —\\l'excès n'était que du \textbf{style}}\\[7mm]
-  {\footnotesize savoir que ça ne marche pas — \textbf{et pouvoir le prouver} — est déjà un actif de recherche}
-\end{frame}
 % ══════════════════════════════════════════════════════════════════
 % ANNEXES — PARTIE II (backtest, « Sous le capot »)  copiées depuis v1-house
 % ══════════════════════════════════════════════════════════════════
 % ═════════════ ANNEXE — PARTIE II : compléments techniques ═════════════
 \section{Partie III · Les autres dépôts}
-\partdivider{dataC}{PARTIE III}{Les autres dépôts}{au-delà des PTR --- deux usages : contrôler le signal, puis reconstruire et vérifier le patrimoine (Chambre)}
+\partdivider{dataC}{PARTIE III}{Les autres dépôts}{au-delà des PTR : le patrimoine, sa reconstruction, sa vérification --- Chambre}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  Arc : le problème → le catalogue (2) → ce qu'ils apportent (2) →
@@ -1401,78 +1388,16 @@
    la \textbf{\co{A}} (patrimoine) sert à \emph{vérifier} --- le reste est un socle commun}
 \end{frame}
 
-% ── III.3c · Deux usages : la bifurcation (pivot anti-confusion) ─────────
-\begin{frame}{2 · Deux usages --- un même corpus, deux lectures}
-  \centering
-  {\footnotesize les \textbf{autres dépôts} servent à \textbf{deux} choses très différentes ---
-   deux \emph{lectures}, deux \emph{familles de chiffres} :}\\[3mm]
-  \begin{columns}[T]
-    \begin{column}{0.47\textwidth}
-      \colorbox{warnorange!12}{\parbox[t][40mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        \badge{warnorange}{Usage 1}\;{\footnotesize\textbf{Contrôle du signal}}\\[1.4mm]
-        {\scriptsize on relit les \textbf{Schedule B} des autres types}\\[1.2mm]
-        {\scriptsize\textbf{Question} : rate-t-on un \emph{trade} exploitable ?}\\[1.2mm]
-        {\scriptsize\textbf{Chiffre-clé} : \textbf{173 actions} résiduelles \mbox{(pré-2018, 406 j de retard)}}\\[1.2mm]
-        {\scriptsize\textcolor{warnorange}{\textbf{Verdict}} : non --- lire les seuls PTR suffit}\vspace{1mm}}}
-    \end{column}\hfill
-    \begin{column}{0.47\textwidth}
-      \colorbox{dataC!12}{\parbox[t][40mm][t]{\dimexpr\linewidth-8pt}{\vspace{1mm}
-        \badge{dataC}{Usage 2}\;{\footnotesize\textbf{Matière patrimoine}}\\[1.4mm]
-        {\scriptsize on lit les \textbf{Schedule A} --- les « photos » du patrimoine}\\[1.2mm]
-        {\scriptsize\textbf{Question} : de quoi dispose-t-on pour \emph{reconstruire} ?}\\[1.2mm]
-        {\scriptsize\textbf{Chiffre-clé} : \textbf{387\,585} photos + \textbf{26\,115} mouvements}\\[1.2mm]
-        {\scriptsize\textcolor{dataC}{\textbf{Verdict}} : la \textbf{matière première} qui manquait}\vspace{1mm}}}
-    \end{column}
-  \end{columns}
-  \vspace{3mm}
-  \colorbox{alertred!8}{\parbox{\dimexpr\textwidth-10pt}{\scriptsize
-    \textbf{\textcolor{alertred}{À ne pas confondre}}\; --- deux familles de chiffres,
-    \textbf{on ne les additionne jamais} : \textbf{173} = ce qu'on ne \emph{rate} pas (signal) ·
-    \textbf{26\,115} = ce qu'on \emph{gagne} (patrimoine). Elles répondent à des
-    \textbf{questions différentes}.}}
-\end{frame}
-
-% ── III.4a · Usage 1 · Signal : rien de raté ─────────────────────────────
-\begin{frame}{2a · Contrôle du signal --- aucun trade raté}
-  \hfill\badge{warnorange}{Usage 1 · signal}\\[0.5mm]
-  \begin{columns}[c]
-    \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.95\linewidth]{slides/fig_pelosi_schedb.png}}\\[0.8mm]
-      {\scriptsize\color{black!60} la Schedule B d'un \textbf{annuel} (Pelosi 2015) récapitule
-       les trades de l'année --- souvent déjà déclarés en PTR}
-    \end{column}
-    \begin{column}{0.52\textwidth}\centering
-      \begin{tikzpicture}[node distance=1.8mm]
-        \node[bande=grisC, text width=7.0cm] (a)
-          {\textbf{57\,259} lignes de transactions dans les Schedule B des autres types};
-        \node[bande=helec, text width=7.0cm, below=of a] (b)
-          {\textbf{67\,\%} déjà dans nos PTR · le reste $\approx$ \textbf{fonds \& ETF} (exemptés de PTR)};
-        \node[rectangle, rounded corners=2pt, draw=alertred, fill=alertred, line width=0.8pt,
-              align=center, font=\scriptsize, text width=7.0cm, minimum height=0.62cm, below=of b] (c)
-          {\color{white}\textbf{173 actions} qu'on aurait \textbf{manquées} comme signal --- toutes \textbf{2014--2017}};
-        \draw[arr] (a) -- (b); \draw[arr] (b) -- (c);
-      \end{tikzpicture}\\[2mm]
-      \badgel{warnorange!40}{délai médian 406 j \quad(vs 27 j en PTR)}\\[2mm]
-      \choixbox{ne lire que les PTR ne perd \textbf{aucun signal exploitable} : le reliquat
-       est résiduel, pré-2017, et divulgué $\sim$1 an trop tard (anti-look-ahead).}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ── III.4b · Usage 2 · Patrimoine : le stock ─────────────────────────────
-\begin{frame}{2b · Matière patrimoine --- le stock, matière première}
-  \hfill\badge{dataC}{Usage 2 · patrimoine}\\[0.5mm]
+% ── III.4 · Le patrimoine : le stock (Schedule A) ───────────────────────
+\begin{frame}{2 · Le patrimoine --- la matière première}
   \begin{columns}[c]
     \begin{column}{0.5\textwidth}
       \colorbox{dataC!12}{\parbox{0.95\linewidth}{\footnotesize\vspace{0.6mm}
         \textbf{Schedule A --- le patrimoine déclaré}\\[0.6mm]
-        {\Large\textbf{387\,585}} lignes de \textbf{holdings}\\
-        {\scriptsize les « photos » d'entrée, annuelles et de sortie\\
-         \textcolor{black!55}{198\,615 élec · 188\,970 papier}}\vspace{0.6mm}}}\\[3mm]
-      \colorbox{grisC!12}{\parbox{0.95\linewidth}{\footnotesize\vspace{0.6mm}
-        \textbf{Schedule B --- le flux de contexte}\\[0.6mm]
-        {\Large\textbf{26\,115}} \textbf{mouvements de patrimoine} gagnés\\
-        {\scriptsize \co{O} 22\,216 · \co{T} 2\,478 · \co{A} 1\,421 --- délai médian 374 j}\vspace{0.6mm}}}
+        {\Large\textbf{420\,916}} lignes élec \textbf{+ 188\,970} papier OCR\\
+        {\scriptsize les « photos » d'entrée, annuelles et de sortie}\vspace{0.6mm}}}\\[3mm]
+      {\footnotesize\color{black!70} les rapports \co{O}/\co{A}/\co{T} ajoutent aussi des
+       \textbf{mouvements datés} (surtout fonds \& ETF), superposés entre les photos}
     \end{column}
     \begin{column}{0.48\textwidth}
       {\footnotesize Ce n'est pas un \emph{signal} (trop tardif), mais c'est la
