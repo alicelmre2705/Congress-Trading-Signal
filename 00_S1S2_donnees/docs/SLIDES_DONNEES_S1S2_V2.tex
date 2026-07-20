@@ -340,6 +340,15 @@
 \institute[Ramify]{Document de recherche --- livrable Ramify}
 \date{Juillet 2026}
 
+
+% ── macros importées du deck backtest (pour la Partie II fusionnée) ──
+\newcommand{\kpi}[3]{{\large\textbf{\textcolor{#1}{#2}}}~{\footnotesize #3}}
+\newcommand{\defl}[1]{{\scriptsize\color{black!55}#1}}
+\newcommand{\barreau}[2]{%
+  \colorbox{helec}{\textcolor{white}{\footnotesize\textbf{~Test #1~}}}\;{\footnotesize\textbf{#2}}}
+\tikzset{rung/.style={rectangle, rounded corners=3pt, draw=helec, line width=1pt,
+  fill=helec!8, align=center, font=\footnotesize, minimum height=1.05cm, text width=2.35cm}}
+
 \begin{document}
 
 % ── Titre ──
@@ -1016,84 +1025,190 @@
 \end{frame}
 
 \section{Partie II · Proposition : le backtest}
-\partdivider{helec}{PARTIE II}{Proposition : le backtest}{les élus battent-ils le marché ? --- une piste de recherche, rien de figé}
+\partdivider{helec}{PARTIE II}{Proposition : le backtest}{les élus battent-ils le marché\,? --- ce qu'on voit, ce qu'on a essayé}
 
-
-% ══ Le plan : une échelle de tests (on teste, pas de verdict) ══
-\begin{frame}{Le plan : on construit, puis on teste — cinq réglages}
-  \centering
-  {\footnotesize la donnée est prête. On \textbf{construit} un portefeuille par élu (A), puis on \textbf{teste} s'il
-   rapporte de l'excès — \textbf{un réglage à la fois}. On ne conclut pas : on empile des tests, on monte tant que
-   l'excès \textbf{ne décroche pas} du marché.}\\[4mm]
-  \resizebox{0.95\textwidth}{!}{%
-  \begin{tikzpicture}
-    \node[step=helec, text width=2.3cm] (a) at (0,0)      {\textbf{Test 1}\\ QUI copier\\ {\scriptsize le top-$K$}};
-    \node[step=helec, text width=2.3cm] (b) at (3.3,0.7)  {\textbf{Test 2}\\ COMBIEN\\ {\scriptsize le nombre $K$}};
-    \node[step=helec, text width=2.3cm] (c) at (6.6,1.4)  {\textbf{Test 3}\\ QUAND\\ {\scriptsize la cadence}};
-    \node[step=helec, text width=2.3cm] (d) at (9.9,2.1)  {\textbf{Test 4}\\ COMMENT\\ {\scriptsize les poids}};
-    \node[step=selec, text width=2.3cm] (e) at (13.2,2.8) {\textbf{Test 5}\\ la RÈGLE\\ {\scriptsize le Sharpe}};
-    \draw[arr] (a)--(b); \draw[arr] (b)--(c); \draw[arr] (c)--(d); \draw[arr] (d)--(e);
-  \end{tikzpicture}}\\[4mm]
-  {\footnotesize à chaque barreau : \textbf{la question · ce qu'on change · ce qu'on observe} — toujours face au même repère, le SPY.}\\[1mm]
-  {\scriptsize\color{black!55} Tests 1--4 = même règle (le talent, « Stratégie 1 ») ; Test 5 = on change la règle (le Sharpe, « Stratégie 2 »). Même moteur de portefeuille partout.}
+\begin{frame}{Le point de départ : la table construite en Partie I}
+  \centering\vfill
+  {\large On dispose de \textbf{118\,029 transactions} exploitables (ticker coté + prix fiable),\\[1mm] \textbf{372 membres}, sur \textbf{2014--2026}.}\\[5mm]
+  {\footnotesize Ici on ne refait pas la donnée : on regarde \textbf{à quoi ressemblent ces portefeuilles},\\ et \textbf{ce qu'on observe} quand on essaie de les copier.}
+  \vfill
 \end{frame}
 
-% ═════════════ CHAPITRE A ═════════════
-\chapdivider{Chapitre A}{Construire le portefeuille}{un flux de trades $\rightarrow$ une NAV valorisée jour par jour}
+% ═════════════════════════ SECTION A ═════════════════════════
+\chapdivider{Étape A}{À quoi ressemble la population}{qui sont ces gens, et comment tradent-ils ?}
 
-% ── A1 · Reconstruction en parts (données repliées en 1 ligne d'entrée) ──
-\begin{frame}{Le moteur — un flux de trades devient un portefeuille en parts}
+\begin{frame}{La population de trades dans le temps}
+  \centering
+  \includegraphics[width=0.97\textwidth,height=0.60\textheight,keepaspectratio]{figs_pop/P1_population_temps.png}\\[2mm]
+  \defl{\textbf{à gauche} : le nombre de membres qui passent au moins un trade dans l'année (une centaine environ) — la population active monte jusqu'en 2020 puis reflue. \textbf{à droite} : achats (vert) vs ventes (rouge), un flux globalement équilibré.}\\[1mm]
+  \kpi{helec}{118\,029}{trades exploitables sur 2014--2026}\hspace{10mm}%
+  \kpi{dataC}{$\sim$110}{membres actifs par an (372 au total)}
+\end{frame}
+
+\begin{frame}{Une poignée de membres fait l'essentiel des trades}
+  \centering
+  \includegraphics[width=0.9\textwidth,height=0.68\textheight,keepaspectratio]{figs_pop/P2_top_membres.png}\\[2.5mm]
+  \kpi{alertred}{41\,\%}{des trades viennent des 2 plus actifs (Khanna, McCaul)}
+\end{frame}
+
+\begin{frame}{Les deux plus gros déposants ne tradent pas eux-mêmes}
+  \centering
+  {\footnotesize Le STOCK Act compte des \textbf{lignes déclarées} : chaque transaction \textgreater{}\,1\,000\,\$ du \emph{foyer} (élu, conjoint, enfants) = une ligne. Une fortune familiale en gestion déléguée en génère des milliers.}\\[1.5mm]
+  \begin{tabular}{@{}l r r r@{}}
+    \toprule
+     & Khanna & McCaul & Pelosi (contraste)\\\midrule
+    lignes déclarées & \textbf{35\,046} & \textbf{20\,296} & 141\\
+    passées par l'élu lui-même & 2,3\,\% & 0,0\,\% & 28,4\,\%\\
+    conjoint + enfants & 97,7\,\% & 100\,\% & 71,6\,\%\\
+    tickers distincts & 1\,195 & 776 & 38\\
+    taille médiane d'un trade & 8\,000\,\$ & 8\,000\,\$ & 375\,000\,\$\\
+    rythme moyen & $\sim$3\,700/an & $\sim$1\,600/an & $\sim$12/an\\
+    \bottomrule
+  \end{tabular}\\[1.5mm]
+  \kpi{alertred}{41,2\,\%}{de toutes les lignes viennent de ces 2 membres}\hspace{8mm}%
+  \kpi{dataC}{100\,\%}{de leurs dépôts sont en papier scanné (OCR)}\\[1mm]
+  \defl{fortunes familiales en trusts gérés par des professionnels (épouses héritières — Clear Channel côté McCaul) : le gérant rebalance un portefeuille très diversifié → des micro-lignes à la taille minimale. « Plus gros déposant » $\ne$ « plus gros trader ».}
+\end{frame}
+
+\begin{frame}{Et souvent, c'est le conjoint qui passe l'ordre}
+  \centering
+  \includegraphics[width=0.95\textwidth,height=0.56\textheight,keepaspectratio]{figs_bt/A3_proprietaires.png}\\[2mm]
+  \begin{tabular}{@{}l c c c c@{}}
+    \toprule
+    Propriétaire du compte & conjoint & élu & joint & enfant\\\midrule
+    Part des trades & \textbf{37,9\,\%} & 25,4\,\% & 19,7\,\% & 17,0\,\%\\
+    \bottomrule
+  \end{tabular}\\[1.5mm]
+  \defl{parts calculées sur \emph{l'ensemble des trades de tous les membres} (une moyenne de population, pas un membre en particulier) : le conjoint trade plus souvent que l'élu lui-même.}
+\end{frame}
+
+\begin{frame}{Les montants sont déclarés par fourchettes}
+  {\small $\displaystyle a_j \;=\; \tfrac{1}{2}\bigl(\underline{m}_j+\overline{m}_j\bigr)$}\hspace{6mm}
+  \defl{la loi ne déclare qu'un intervalle $[\underline{m}_j,\overline{m}_j]$ (STOCK Act) — on retient le milieu $a_j$ comme montant du trade $j$.}\\[1.5mm]
+  \centering
+  \includegraphics[width=0.95\textwidth,height=0.54\textheight,keepaspectratio]{figs_bt/A4_tailles.png}\\[2mm]
+  \kpi{helec}{75\,\%}{des trades dans la 1\up{re} tranche (milieu 8\,000\,\$)}
+\end{frame}
+
+\begin{frame}{Ils déclarent en moyenne 27 jours après le trade}
+  {\small $\displaystyle \mathrm{lag}_j \;=\; \delta_j-\tau_j \;\le\; 45\text{ j (délai légal)}$}\hspace{6mm}
+  \defl{$\tau_j$ = date de la transaction (inaccessible en direct) ; $\delta_j$ = date de divulgation (la seule qu'un copieur voit).}\\[1.5mm]
+  \centering
+  \includegraphics[width=0.95\textwidth,height=0.52\textheight,keepaspectratio]{figs_bt/A5_delai.png}\\[2mm]
+  \kpi{helec}{27 j}{délai médian trade → divulgation}\hspace{10mm}%
+  \kpi{warnorange}{11,7\,\%}{déclarations en retard ($>45$ j)}
+\end{frame}
+
+\begin{frame}{Achètent-ils dans les secteurs qu'ils régulent ?}
+  \centering
+  {\small $\displaystyle \text{align}_m \;=\; \frac{\#\{\text{achats de }m : \text{secteur}_{\text{GICS}}\in \text{juridiction de ses comités}\}}{\#\text{achats de }m}$}\\[1mm]
+  \defl{chaque comité (via sa « jurisdiction » officielle) est relié à des secteurs GICS ; on regarde si le secteur du titre acheté en fait partie.}\\[2mm]
+  \includegraphics[width=0.97\textwidth,height=0.46\textheight,keepaspectratio]{figs_pop/P4c_conflit.png}\\[1.5mm]
+  \kpi{helec}{16\,\%}{des achats tombent dans un secteur régulé par leurs comités}\hspace{5mm}%
+  \kpi{warnorange}{quelques-uns}{très alignés (Hickenlooper $\sim$90\,\%)}\\[1mm]
+  \repband{marché ultra-concentré (2 membres = 41\,\%), souvent via le conjoint (38\,\%), déclaré $\sim$27 j après ; alignement comité faible en moyenne (16\,\%).}
+\end{frame}
+
+% ═════════════════════════ SECTION B ═════════════════════════
+\chapdivider{Étape B}{À quoi ressemble un portefeuille}{on ne déclare que des transactions ; on reconstruit le reste}
+
+\begin{frame}{Un portefeuille se reconstruit trade par trade (FIFO)}
   \begin{columns}[T]
-    \begin{column}{0.47\textwidth}
-      {\footnotesize entrée : \textbf{118\,029} trades exploitables (sur 134\,429 ; prix Yahoo blindés) ;
-       montant = milieu de fourchette STOCK Act ; $\tau$ = 1\iere{} séance cotée $\geq$ date du trade}\\[2mm]
-      {\color{helec}\footnotesize\textbf{acheter → recevoir des parts}}
-      $$q=\frac{\text{montant}}{P_i(\tau)}$$
-      {\color{alertred}\footnotesize\textbf{vendre → en rendre (short interdit)}}
-      $$q^{-}=\min\!\Big(\frac{\text{montant}}{P_i(\tau)},\ n_i\Big)$$
-      {\color{grisC}\footnotesize\textbf{cumuler, puis valoriser}}
-      $$n_i(t)=\!\!\sum_{\text{trades}\,\le\,t}\!\!\pm q \qquad V(t)=\sum_i n_i(t)\,P_i(t)$$
-    \end{column}
-    \begin{column}{0.51\textwidth}\centering
-      \includegraphics[width=\linewidth]{figs/fig_05b_pelosi_valeur.png}\\[1mm]
-      {\scriptsize\color{black!60} $V(t)$ mélange apports et performance
-       → il faut un rendement qui les sépare}
+    \begin{column}{0.44\textwidth}
+      \small
+      \textbf{Achat} / \textbf{vente} du titre $i$, montant $a$ :\\[-4mm]
+      \begin{align*}
+        q &= \frac{a}{P_i(\tau)}\qquad\text{(achat)}\\
+        q^- &= \min\!\Bigl(\tfrac{a}{P_i(\tau)},\, n_i(\tau^-)\Bigr)\quad\text{(vente)}
+      \end{align*}
+      \textbf{Positions et valeur} :\\[-4mm]
+      \begin{align*}
+        n_i(t) &= \textstyle\sum_{\text{achats}} q-\sum_{\text{ventes}} q^-\\
+        V(t)   &= \textstyle\sum_i n_i(t)\,P_i(t)
+      \end{align*}
+      \defl{$\tau$ = 1\up{er} jour coté $\ge$ date du trade ; $P_i(t)$ = prix ajusté (dividendes, splits). $V(t)$ saute à chaque apport → figure.}
+\end{column}
+    \begin{column}{0.54\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figs_bt/B1_vt_membre.png}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── A2 · Rendement time-weighted ──
-\begin{frame}{Le rendement time-weighted : un apport n'est jamais une performance}
-  \centering
-  {\footnotesize on valorise \textbf{les parts d'hier} aux prix d'aujourd'hui — l'argent frais n'entre qu'au lendemain\;
-   (winsor ±50 \%/jour)}\\[1mm]
-  $r_P(t)=\dfrac{\sum_i n_i(t{-}1)\,P_i(t)}{\sum_i n_i(t{-}1)\,P_i(t{-}1)}-1
-   \qquad\quad \mathrm{NAV}(t)=\prod_{s\le t}\bigl(1+r_P(s)\bigr)$\\[2mm]
-  \includegraphics[height=0.52\textheight]{figs/fig_05b_spaghetti_nav.png}\\[0.5mm]
-  {\scriptsize\color{black!60} 266 portefeuilles reconstruits — médianes : CAGR 12,8 \%, Sharpe 0,71}
+\begin{frame}{Le rendement « en parts » : un apport n'est jamais une performance}
+  \begin{columns}[T]
+    \begin{column}{0.44\textwidth}
+      \small
+      \textbf{Rendement time-weighted} (parts de la veille), puis \textbf{NAV} :\\[-4mm]
+      \begin{align*}
+        r_P(t) &= \frac{\sum_i n_i(t{-}1)\,P_i(t)}{\sum_i n_i(t{-}1)\,P_i(t{-}1)}-1\\
+        \mathrm{NAV}(t) &= 100\textstyle\prod_{s\le t}\bigl(1+r_P(s)\bigr)
+      \end{align*}
+      \defl{\textbf{winsorisation} : on plafonne chaque rendement journalier à $\pm50\,\%$ — pour qu'un prix aberrant ou un saut ponctuel ne fausse pas la mesure.}\\[1.5mm]
+      \begin{tabular}{@{}l r@{}}
+        \toprule
+        Les 266 portefeuilles & médiane\\\midrule
+        CAGR & 12,8\,\%\\
+        Volatilité & 21,6\,\%\\
+        Sharpe & 0,71\\\bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.54\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]{figs_bt/B2_spaghetti.png}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-% ═════════════ CHAPITRE B — STRATÉGIE 1 ═════════════
-\chapdivider{Chapitre B · Stratégie 1}{Repérer et copier les « talents »}{qui bat le SPY ? on classe par l'IR et l'alpha, on copie le top-$K$}
+\begin{frame}{Ils gardent leurs positions longtemps}
+  {\small $\displaystyle \text{durée}_i \;=\; \delta^{\text{vente}}_i - \delta^{\text{achat}}_i \quad(\text{appariement FIFO})$}\hspace{6mm}
+  \defl{on apparie chaque vente au plus ancien achat non soldé (FIFO) ; la durée = l'écart entre les deux dates.}\\[1.5mm]
+  \centering
+  \includegraphics[width=0.9\textwidth,height=0.56\textheight,keepaspectratio]{figs_pop/P5b_duree.png}\\[1.5mm]
+  \kpi{helec}{$\sim$1 an}{avant de revendre (médiane 390 j)}\hspace{8mm}%
+  \kpi{dataC}{44\,\%}{des positions ne sont jamais revendues}
+\end{frame}
 
-% ── B1 · Éligibilité ──
+\begin{frame}{Chacun a ses secteurs de prédilection}
+  \begin{columns}[T]
+    \begin{column}{0.30\textwidth}
+      \small Part du notional par secteur (heatmap membre $\times$ GICS, top-30 des membres).\\[3mm]
+      \kpi{helec}{82}{membres à dominante informatique}\\[2mm]
+      \kpi{dataC}{54}{membres à dominante finance}\\[2mm]
+      \defl{la ligne = un membre ; la couleur = la part de ses achats dans le secteur.}
+    \end{column}
+    \begin{column}{0.68\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{figs_bt/B6_secteurs.png}
+    \end{column}
+  \end{columns}
+  \vspace{1mm}
+  \repband{portefeuilles tenus longtemps ($\sim$1 an, 44\,\% jamais revendues), marqués par secteur.}
+\end{frame}
+
+% ═════════════════════════ SECTION C — LES STRATÉGIES ═════════════════════════
+\chapdivider{Étape C}{Ce qu'on a essayé — une échelle de tests}{une seule question : peut-on gagner en copiant les mieux classés ?}
+
+\begin{frame}{La question naïve : le Congrès bat-il le marché ?}
+  \centering
+  \includegraphics[width=0.97\textwidth,height=0.58\textheight,keepaspectratio]{figs_pop/P7a_distributions.png}\\[2mm]
+  \kpi{helec}{34\,\%}{des éligibles battent le SPY sur leur fenêtre}\hspace{8mm}%
+  \kpi{dataC}{0,72 / 0,83}{Sharpe médian membres / SPY}
+\end{frame}
+
+% ── porte d'entrée (version V2) ──
 \begin{frame}{La porte d'entrée : 223 membres sur 266 sont jugeables}
   \centering
   {\footnotesize éligible $\iff$ $n_{\text{trades}} \geq 10$ \textbf{et} $n_{\text{jours}} \geq 126$ ($\sim$ 6 mois de bourse)}\\[2mm]
   \includegraphics[height=0.62\textheight]{figs/fig_05b_eligibilite.png}\\[1.5mm]
-  {\scriptsize\color{black!60} sous les seuils : trop court pour distinguer chance et talent —
-   \textbf{exclus du jugement}, pas des données}
+  \defl{sous les seuils : trop court pour distinguer chance et talent — \textbf{exclus du jugement}, pas des données.}
 \end{frame}
 
-% ── B2 · Les deux mètres : IR & alpha ──
+% ── les deux mètres (version V2) ──
 \begin{frame}{Deux mètres pour « battre le SPY » : l'écart brut (IR) ou l'alpha ajusté du $\beta$}
   \begin{columns}[T]
     \begin{column}{0.54\textwidth}
-      {\color{helec}\footnotesize\textbf{Mètre 1 · IR — suppose $\beta = 1$}\;
-       {\color{black!60}($x$ = excès quotidien / SPY)}}
+      {\color{helec}\footnotesize\textbf{Mètre 1 · IR — suppose $\beta = 1$}\; {\color{black!60}($x$ = excès quotidien / SPY)}}
       $$x(t)=r_P(t)-r_{\mathrm{SPY}}(t)\qquad \mathrm{IR}=\frac{\overline{x}}{\sigma(x)}\sqrt{252}$$
       \vspace{-2.5mm}
-      {\color{selec}\footnotesize\textbf{Mètre 2 · appraisal — estime $\beta$ (MCO), le retire}}
+      {\color{dataC}\footnotesize\textbf{Mètre 2 · appraisal — estime $\beta$ (MCO), le retire}}
       $$r_P=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon$$
       \vspace{-3.5mm}
       $$\beta=\frac{\mathrm{Cov}(r_P,r_{\mathrm{SPY}})}{\mathrm{Var}(r_{\mathrm{SPY}})}\qquad
@@ -1104,29 +1219,111 @@
         t_{\mathrm{appr}}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{n}\qquad
         \text{seuil } t>1{,}645$$
       \centering
-      \badgel{hocr}{$\beta=1 \ \Rightarrow\ $ appraisal $=$ IR}
+      \defl{$\beta=1 \ \Rightarrow\ $ appraisal $=$ IR}
     \end{column}
     \begin{column}{0.44\textwidth}\centering
       \includegraphics[width=0.93\linewidth]{figs/fig_05b_regression_demo.png}\\[0.5mm]
-      {\scriptsize\color{black!60} la pente absorbe le marché ;
-       l'ordonnée à l'origine, c'est le talent}
+      \defl{la pente absorbe le marché ; l'ordonnée à l'origine, c'est le talent.}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ── B3 · La mesure ne trouve presque rien (20 → 12 ≈ 11) ──
+% ── la mesure : 20 -> 12 -> 11 (version V2, 2 histogrammes) ──
 \begin{frame}{La mesure ne trouve presque rien : 20 « gagnants », 12 après le $\beta$, 11 par hasard}
   \centering
-  {\footnotesize\color{black!60} diagnostic \textbf{rétrospectif} (\emph{in-sample}) : tout l'historique
-   jugé d'un coup (≈ 2014 → mi-2026), sur les \textbf{223 éligibles} — \emph{pas} encore de walk-forward}\\[1.5mm]
+  \defl{diagnostic \textbf{rétrospectif} (\emph{in-sample}) : tout l'historique jugé d'un coup ($\approx$ 2014 → mi-2026), sur les \textbf{223 éligibles} — \emph{pas} encore de walk-forward.}\\[1.5mm]
   \includegraphics[height=0.54\textheight]{figs/fig_05b_hist_t.png}\\[2mm]
-  {\footnotesize \textbf{20} membres battent le SPY à l'IR, \textbf{12} seulement une fois le $\beta$ retiré (appraisal) —
-   pour \textbf{$\approx$11} attendus par pur hasard (5 \% de 223)}\\[0.6mm]
-  {\scriptsize\color{black!60} ajusté du $\beta$, le surnombre de « talents » retombe au niveau du bruit
-   (détail en annexe)}
+  {\footnotesize \textbf{20} membres battent le SPY à l'IR, \textbf{12} seulement une fois le $\beta$ retiré (appraisal) — pour \textbf{$\approx$11} attendus par pur hasard (5 \% de 223).}
 \end{frame}
 
-% ── B4 · On copie le top-K en parts — walk-forward (le principe) ──
+% ── le tableau de sortie : les 20 (IR) et 12 (appraisal) + métriques ──
+% ── tableau 1 : les 20 à l'IR ──
+\begin{frame}{Les 20 « gagnants » à l'écart brut (IR)}
+  \centering
+  {\scriptsize
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}\centering
+      \begin{tabular}{@{}l r r r r r r@{}}
+        \toprule
+        Membre & $n$ & $\beta$ & IR & $t_{\mathrm{IR}}$ & appr & $t_{\mathrm{appr}}$\\\midrule
+        Comstock & 85 & 1,20 & 0,90 & 2,77 & 0,66 & 2,03\\
+        McGarvey & 24 & 1,53 & 1,50 & 2,76 & 1,08 & 1,99\\
+        Suozzi & 662 & 1,22 & 0,90 & 2,68 & 0,59 & 1,75\\
+        Fetterman & 10 & 1,17 & 2,48 & 2,64 & 2,24 & 2,38\\
+        DelBene & 157 & 1,15 & 0,66 & 2,30 & 0,52 & 1,81\\
+        Lawrence & 19 & 1,50 & 0,72 & 2,24 & 0,43 & 1,34\\
+        Warner & 15 & 1,78 & 0,80 & 2,22 & 0,65 & 1,80\\
+        Babin & 20 & 1,18 & 0,69 & 2,21 & 0,62 & 1,99\\
+        Rouzer & 26 & 1,47 & 0,75 & 2,15 & 0,46 & 1,32\\
+        Whitehouse & 718 & 1,04 & 0,57 & 2,07 & 0,51 & 1,85\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.49\textwidth}\centering
+      \begin{tabular}{@{}l r r r r r r@{}}
+        \toprule
+        Membre & $n$ & $\beta$ & IR & $t_{\mathrm{IR}}$ & appr & $t_{\mathrm{appr}}$\\\midrule
+        Moody & 23 & 1,79 & 1,67 & 2,01 & 1,36 & 1,64\\
+        Kustoff & 10 & 1,44 & 0,79 & 1,99 & 0,54 & 1,37\\
+        Gutierrez & 21 & 1,16 & 0,56 & 1,98 & 0,43 & 1,52\\
+        Rooney & 597 & 1,14 & 0,56 & 1,94 & 0,48 & 1,67\\
+        Wyden & 231 & 1,40 & 0,77 & 1,92 & 0,31 & 0,77\\
+        McClain & 1\,479 & 1,76 & 1,26 & 1,92 & 0,83 & 1,27\\
+        Evans & 173 & 1,08 & 0,61 & 1,89 & 0,47 & 1,46\\
+        Sullivan & 100 & 1,57 & 1,00 & 1,89 & 0,43 & 0,82\\
+        Roberts & 446 & 1,14 & 0,53 & 1,87 & 0,42 & 1,48\\
+        Long & 49 & 1,24 & 0,57 & 1,82 & 0,29 & 0,94\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}}\par\medskip
+  \defl{les 223 éligibles → \textbf{20} passent le seuil à l'IR ($t_{\mathrm{IR}}>1{,}645$). Mais l'IR suppose $\beta=1$ ; en retirant le $\beta$, le classement change — \emph{tableau suivant}.}
+\end{frame}
+
+% ── tableau 2 : les 12 à l'appraisal (pas les mêmes membres) ──
+\begin{frame}{Les 12 « gagnants » à l'alpha ajusté (appraisal) — pas les mêmes}
+  \centering
+  {\scriptsize $\dagger$ = absent des 20 de l'IR ($\beta$ faible : l'écart brut les sous-estimait)}\\[1mm]
+  {\footnotesize
+  \begin{tabular}{@{}l r r r r r r@{}}
+    \toprule
+    Membre & $n$ & $\beta$ & IR & $t_{\mathrm{IR}}$ & appr & $t_{\mathrm{appr}}$\\\midrule
+    Ruiz\,$\dagger$ & 10 & 0,09 & $-$0,05 & $-$0,16 & 0,80 & 2,40\\
+    Fetterman & 10 & 1,17 & 2,48 & 2,64 & 2,24 & 2,38\\
+    Comstock & 85 & 1,20 & 0,90 & 2,77 & 0,66 & 2,03\\
+    Sessions\,$\dagger$ & 361 & 0,93 & 0,31 & 1,15 & 0,55 & 2,01\\
+    McGarvey & 24 & 1,53 & 1,50 & 2,76 & 1,08 & 1,99\\
+    Babin & 20 & 1,18 & 0,69 & 2,21 & 0,62 & 1,99\\
+    Hollingsworth\,$\dagger$ & 18 & 0,43 & 0,21 & 0,52 & 0,79 & 1,92\\
+    Whitehouse & 718 & 1,04 & 0,57 & 2,07 & 0,51 & 1,85\\
+    DelBene & 157 & 1,15 & 0,66 & 2,30 & 0,52 & 1,81\\
+    Warner & 15 & 1,78 & 0,80 & 2,22 & 0,65 & 1,80\\
+    Suozzi & 662 & 1,22 & 0,90 & 2,68 & 0,59 & 1,75\\
+    Rooney & 597 & 1,14 & 0,56 & 1,94 & 0,48 & 1,67\\
+    \bottomrule
+  \end{tabular}}\\[2mm]
+  \defl{\textbf{9} des 12 étaient déjà dans les 20 de l'IR ; \textbf{3} sont nouveaux ($\dagger$).}
+\end{frame}
+
+\begin{frame}{On va copier les mieux classés — cinq réglages à tester}
+  \centering
+  {\small On ne cherche pas à conclure : on \textbf{empile des tests}. Chaque test ne change \textbf{qu'un seul réglage} ; on monte d'un cran tant que l'excès \textbf{ne décroche pas} du marché (SPY).}\\[3mm]
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tikzpicture}
+    \node[rung] (a) at (0,0)     {\textbf{Test 1}\\ QUI copier\\ {\scriptsize le top-4}};
+    \node[rung] (b) at (3.3,0.7) {\textbf{Test 2}\\ COMBIEN\\ {\scriptsize le nombre $K$}};
+    \node[rung] (c) at (6.6,1.4) {\textbf{Test 3}\\ QUAND\\ {\scriptsize la cadence}};
+    \node[rung] (d) at (9.9,2.1) {\textbf{Test 4}\\ COMMENT\\ {\scriptsize les poids}};
+    \node[rung] (e) at (13.2,2.8){\textbf{Test 5}\\ la RÈGLE\\ {\scriptsize le Sharpe}};
+    \draw[-{Latex[length=2mm]},gray!70,line width=1pt] (a)--(b);
+    \draw[-{Latex[length=2mm]},gray!70,line width=1pt] (b)--(c);
+    \draw[-{Latex[length=2mm]},gray!70,line width=1pt] (c)--(d);
+    \draw[-{Latex[length=2mm]},gray!70,line width=1pt] (d)--(e);
+  \end{tikzpicture}}\\[3mm]
+  {\footnotesize à chaque barreau : \textbf{la question · ce qu'on change · ce qu'on observe} — toujours face au même repère, le SPY.}
+\end{frame}
+
+% ── Test 1 · qui copier (walk-forward) ── [porté du deck données, fig_05b_*]
 \begin{frame}{Test 1 · qui copier : le top-$K$, sans jamais regarder le futur}
   \begin{columns}[T]
     \begin{column}{0.51\textwidth}
@@ -1147,7 +1344,7 @@
   \end{columns}
 \end{frame}
 
-% ── B4bis · Le moteur en parts, en détail (remonté de l'annexe) ──
+% ── Test 1 · le moteur en parts, en détail (3 temps) ──
 \begin{frame}{Test 1 · le moteur en parts : compter, redéployer, tenir}
   \centering
   {\footnotesize membre $k$ = un fonds au prix de part $\mathrm{NAV}^k(t)=\prod_{s\le t}(1+r_k(s))$ ;
@@ -1173,33 +1370,33 @@
   \badge{warnorange}{entre deux coupes les poids DÉRIVENT (buy-and-hold, pas constant-mix)}
 \end{frame}
 
-% ── B5 · Résultat top-4 ──
+% ── Test 1 · ce qu'on observe (top-4, 4 tuiles) ──
 \begin{frame}{Test 1 · ce qu'on observe : +3,1 \%/an, mais porté par le $\beta$}
   \centering
   {\footnotesize\color{helec!85}\textbf{Test 1 · réglage de base} — $K=4$ fixe, équipondéré, annuel}\\[0.8mm]
   {\footnotesize 1 année civile = 1 observation :
    $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\mathrm{SPY}})$ ;\;
    $t=\overline{x}/\sigma(x)\cdot\sqrt{11}$ ; seuil $t_{10}\approx 1{,}81$}\\[1mm]
-  \includegraphics[height=0.44\textheight]{figs/fig_05b_nav_top4.png}\\[2mm]
+  \includegraphics[height=0.40\textheight]{figs/fig_05b_nav_top4.png}\\[2mm]
   \tuile{helec}{+3,1 \%/an}{excès brut\\7/11 années}\hfill
   \tuile{alertred}{t = 0,94}{sous le seuil\\1,81}\hfill
   \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du style,\\pas du talent}\hfill
   \tuile{grisC}{$\alpha \approx 0$}{$t_{\text{appr}}$ −0,13 ;\\appraisal −2,5 \%/an}
 \end{frame}
 
-% ── B6 · On pousse : optimiser K et la cadence ──
+% ── Tests 2 & 3 · combien copier (K), et à quelle cadence ──
 \begin{frame}{Tests 2 \& 3 · combien copier ($K$), et à quelle cadence}
   \centering
   {\footnotesize\color{helec!85}\textbf{Tests 2 \& 3} · on fait varier \textbf{COMBIEN} ($K$) et \textbf{QUAND} (cadence)}\\[0.8mm]
   {\footnotesize le top-4 ne passe pas → on laisse $K$ \textbf{s'ajuster chaque année}
    ($K^{*}(Y)=\arg\max_{K\in[4,20]}$ score sur le passé, walk-forward) et on rebalance tous les 6 mois}\\[1mm]
-  \includegraphics[width=0.61\textwidth]{figs/fig_05b_k_et_cadence.png}\\[1.5mm]
+  \includegraphics[width=0.55\textwidth]{figs/fig_05b_k_et_cadence.png}\\[1.5mm]
   \badge{helec}{COMBIEN — $K$ walk-forward, annuel : +4,1 \%/an, t = 1,58}\\[1mm]
   \badge{warnorange}{QUAND — top-4 fixe, 6 mois : +0,4 \%/an, t = 0,14}\\[1.2mm]
   {\scriptsize\color{black!60} plus de liberté sur $K$ et la cadence — le $t$ monte un peu, ne passe jamais le seuil (1,81)}
 \end{frame}
 
-% ── B7 · On pousse encore : changer la pondération ──
+% ── Test 4 · comment répartir le capital ──
 \begin{frame}{Test 4 · comment répartir le capital entre les copiés}
   {\footnotesize\color{black!80} jusqu'ici capital \textbf{à parts égales} ($1/K$). Mêmes membres (\textbf{top-4 fixe}) —
    on change seulement le \textbf{découpage du capital}, par le \textbf{risque}}
@@ -1220,19 +1417,15 @@
       {\scriptsize\color{black!60} + $\Sigma$ stabilisée par shrinkage (Ledoit-Wolf) — annexe}
     \end{column}
     \begin{column}{0.51\textwidth}\centering
-      \includegraphics[width=\linewidth]{figs/fig_05b_ponderations.png}
+      \includegraphics[width=0.92\linewidth]{figs/fig_05b_ponderations.png}
     \end{column}
   \end{columns}
-  \vspace{1.5mm}
+  \vspace{0.5mm}
   \centering
-  {\scriptsize\color{black!60} $t$ et $t_{\text{appr}}$ par pondération en légende de la figure ;
-   GMV × sél. appraisal \textbf{sur-ajuste} (−4,5 \%/an) — \textbf{max $t_{\text{appr}} = +0{,}48$}, aucune ne fait apparaître d'$\alpha$}
+  {\scriptsize\color{black!60} GMV × sél. appraisal \textbf{sur-ajuste} (−4,5 \%/an) — \textbf{max $t_{\text{appr}} = +0{,}48$}, aucune ne fait apparaître d'$\alpha$}
 \end{frame}
 
-% ═════════════ CHAPITRE C — STRATÉGIE 2 ═════════════
-\chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{ni $K$, ni la cadence, ni les poids n'ont passé le seuil — on change la règle de sélection}
-
-% ── C1 · Le Sharpe brut ──
+% ── Test 5 · changer la règle : le Sharpe brut ──
 \begin{frame}{Test 5 · changer la règle de sélection : le Sharpe brut}
   \centering
   {\footnotesize\color{selec}\textbf{Test 5} · on change \textbf{QUI} (la règle de sélection) — les réglages restent les mêmes}\\[0.8mm]
@@ -1244,7 +1437,7 @@
   {\scriptsize\color{black!60} au prix d'admettre des historiques courts en tête (Fetterman 284 j, Sewell 4 trades)}
 \end{frame}
 
-% ── C2 · Balayage K ──
+% ── Test 5 · ce qu'on observe (balayage K) ──
 \begin{frame}{Test 5 · ce qu'on observe : le $t$ plafonne à 1,22, loin du seuil}
   \centering
   \includegraphics[width=0.62\textwidth]{figs/fig_05b_balayage_k.png}\\[2mm]
@@ -1254,31 +1447,114 @@
    décrocher l'excès du marché}
 \end{frame}
 
-% ── Bilan des 5 tests (remplace le « verdict ») ──
+% ── grille récap : les 5 tests, sans verdict ──
 \begin{frame}{Le bilan : cinq réglages testés, une même mesure}
   \centering
   {\footnotesize on lit \emph{ce qu'on change} et \emph{ce qu'on observe} (excès vs SPY, en $t$) — pas une sentence, une trace.}\\[2.5mm]
   {\footnotesize
   \begin{tabular}{@{}c l l l@{}}
     \toprule
-     & On teste\ldots & Ce qu'on change & Ce qu'on observe\\\midrule
-    1 & copier le top-4      & --- (walk-forward, en parts)   & $+3{,}1\,\%$/an, $\beta$ 1,20, $t$ 0,94\\
-    2 & combien copier       & le nombre $K$                  & meilleur cas $t$ 1,58\\
-    3 & quand rebalancer     & la cadence (6 mois)            & $t$ 0,14\\
-    4 & comment répartir     & les poids (vol / corrélations) & rien ne décroche\\
-    5 & qui mettre en tête   & la règle (Sharpe brut)         & $t$ plafonne à 1,22\\
+     & On teste… & Ce qu'on change & Ce qu'on observe\\\midrule
+    1 & copier le top-4 & --- (walk-forward, en parts) & $+3{,}1\,\%$/an, $\beta$ 1,20, t 0,94\\
+    2 & combien copier & le nombre $K$ & meilleur cas t 1,58\\
+    3 & quand rebalancer & la cadence (6 mois) & t 0,14\\
+    4 & comment répartir & les poids (vol / corrélations) & rien ne décroche\\
+    5 & qui mettre en tête & la règle (Sharpe brut) & t plafonne à 1,22\\
     \bottomrule
   \end{tabular}}\\[3mm]
-  \badge{grisC}{aucun réglage ne fait décrocher l'excès du marché}\;
-  \badge{helec}{un protocole de test réutilisable}\\[2.5mm]
-  {\footnotesize\color{black!60}\textbf{Ce qui reste à tester} : l'analyse par \emph{ticker} (le titre, pas la personne)
-   $\cdot$ le \emph{drift court} juste après la divulgation.}
+  \kpi{grisC}{aucun}{réglage ne fait décrocher l'excès du marché}\hspace{7mm}%
+  \kpi{helec}{un protocole}{de test réutilisable, prêt pour la suite}\\[2.5mm]
+  {\footnotesize\color{black!60}\textbf{Ce qui reste à tester} : l'analyse par \emph{ticker} (le titre, pas la personne) · le \emph{drift court} juste après la divulgation.}
 \end{frame}
 
-% ══════════════════════════════════════════════════════════════════
-% ANNEXES — PARTIE II (backtest, « Sous le capot »)  copiées depuis v1-house
-% ══════════════════════════════════════════════════════════════════
-% ═════════════ ANNEXE — PARTIE II : compléments techniques ═════════════
+% ═════════════════════════ SECTION D — LES PORTRAITS ═════════════════════════
+\begin{frame}[plain]
+  \centering\vfill
+  {\color{helec!85}\large\textbf{Étape D}}\\[3mm]
+  {\color{black!88}\fontsize{27}{31}\selectfont\textbf{Les portraits}}\\[3.5mm]
+  {\color{helec!45}\rule{0.30\textwidth}{1.2pt}}\\[3.5mm]
+  {\color{black!55}\large le classement a un « top » — qui sont ces membres, vraiment ?}\\[6mm]
+  {\footnotesize\color{black!60} Chaque portrait suit le \textbf{même gabarit} : \textbf{(A)} NAV vs SPY (log) + drawdown · \textbf{(B)} trades (vert achat / rouge vente) · \textbf{(C)} poids des 8 positions · \textbf{(D)} excès annuel — et \textbf{toutes les stats en titre}.}
+  \vfill
+\end{frame}
+
+\begin{frame}{Nancy Pelosi — $+3{,}4\,\%$/an vs SPY, mais non significatif ($\alpha$ t 0,64)}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{figs_pop/G_P000197_portrait.png}\\[1mm]
+  \kpi{helec}{$+3{,}4\,\%$/an}{de croissance au-dessus du SPY}\hspace{8mm}%
+  \kpi{warnorange}{$\alpha$ t 0,64 · IR t 1,06}{indiscernable de la chance}
+\end{frame}
+
+\begin{frame}{Ro Khanna — 32\,700 trades, aucun avantage au niveau du trade (PF 0,88)}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_K000389_portrait.png}\\[1mm]
+  \kpi{helec}{$\sim$32\,700 trades}{Sharpe 0,87}\hspace{10mm}%
+  \kpi{alertred}{PF 0,88 · IR t 0,13}{au niveau du trade, il perd contre le marché}
+\end{frame}
+
+\begin{frame}{John Fetterman — premier du classement, mais sur 10 trades et 1 an}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_F000479_portrait.png}\\[1mm]
+  \kpi{okgreen}{Sharpe 2,90}{le plus haut du Congrès, en tête des 3 mètres}\hspace{6mm}%
+  \kpi{alertred}{10 trades · 1 an}{l'outlier de queue — rien de reproductible}
+\end{frame}
+
+\begin{frame}{Sheldon Whitehouse — significatif sur 718 trades (le plus robuste), pour $+6\,\%$/an}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_W000802_portrait.png}\\[1mm]
+  \kpi{helec}{IR t 2,07 · appr t 1,85}{significatif aux deux mètres, sur 718 trades}\hspace{6mm}%
+  \kpi{dataC}{$+6\,\%$/an}{le candidat le plus sérieux — et pourtant modeste}
+\end{frame}
+
+\begin{frame}{Lisa McClain — $+41\,\%$/an porté par le $\beta$ (1,76), pas par l'alpha}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_M001136_portrait.png}\\[1mm]
+  \kpi{helec}{1\,479 trades · IR t 1,92}{$+41\,\%$/an d'excès}\hspace{8mm}%
+  \kpi{alertred}{$\beta$ 1,76 → $t_{\text{appr}}$ 1,27}{l'excès, c'est du levier, pas du talent}
+\end{frame}
+
+\begin{frame}{Raul Ruiz — « significatif » à l'appraisal sur 10 trades : un faux positif}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_R000599_portrait.png}\\[1mm]
+  \kpi{warnorange}{appraisal t 2,40}{« significatif »\ldots}\hspace{8mm}%
+  \kpi{alertred}{10 trades · $\beta$ 0,09}{0\,\% de trades gagnants : un faux positif}
+\end{frame}
+
+\begin{frame}{David Trott — 8\,\% de trades gagnants, $-9\,\%$/an}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_T000475_portrait.png}\\[1mm]
+  \kpi{alertred}{8\,\%}{de ses achats battent le marché}\hspace{8mm}%
+  \kpi{alertred}{$-9{,}4\,\%$/an · PF 0,08}{l'autre extrême du classement}
+\end{frame}
+
+\begin{frame}{Richard Burr — les ventes de février 2020 (enquête COVID)}
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_B001135_portrait.png}\\[1mm]
+  \defl{ventes juste avant le krach (zoom juin 2019 – juin 2020) ; enquêtes DOJ/SEC classées sans charge — le cas éthique, hors performance.}
+\end{frame}
+
+\begin{frame}{La galerie en chiffres — les 8 portraits}
+  \centering
+  {\footnotesize
+  \begin{tabular}{@{}l l r r r r r r@{}}
+    \toprule
+    Membre & profil & Sharpe & $\beta$ & $\alpha$\,\%/an (t) & hit & PF & excès/an\\\midrule
+    Pelosi     & médiatisée       & 0,77 & 1,12 & $+2{,}6$ (0,64)    & 63\,\% & 2,39 & $+3{,}4\,\%$\\
+    Khanna     & médiatisé        & 0,87 & 0,98 & $+0{,}6$ (0,36)    & 40\,\% & 0,88 & $+0{,}2\,\%$\\
+    Fetterman  & 1\up{er} IR/appr & 2,90 & 1,17 & $+40{,}2$ (\textbf{2,38}) & 44\,\% & 6,42 & $+54{,}7\,\%$\\
+    Whitehouse & signif. robuste  & 1,02 & 1,04 & $+5{,}0$ (1,85)    & 45\,\% & 1,42 & $+5{,}7\,\%$\\
+    McClain    & IR gonflé $\beta$ & 1,43 & 1,76 & $+23{,}3$ (1,27)  & 30\,\% & 0,80 & $+40{,}9\,\%$\\
+    Ruiz       & faux positif     & 0,88 & 0,09 & $+14{,}1$ (\textbf{2,40}) & \phantom{0}0\,\% & 0,00 & $-1{,}0\,\%$\\
+    Trott      & extrême bas      & 0,32 & 0,49 & $-1{,}2$ ($-$0,25) & \phantom{0}8\,\% & 0,08 & $-9{,}4\,\%$\\
+    Burr       & médiatisé        & 0,53 & 0,81 & $-2{,}7$ ($-$1,00) & 46\,\% & 0,70 & $-6{,}1\,\%$\\
+    \bottomrule
+  \end{tabular}}\\[2mm]
+  \kpi{helec}{deux}{$|t|>2$ (Fetterman \& Ruiz) — tous deux sur 10 trades}\hspace{6mm}%
+  \kpi{grisC}{aucun}{signal copiable qui ressort}\\[1.5mm]
+  \defl{$x_j$ = excès d'un achat vs SPY sur sa fenêtre de détention · \textbf{hit} $=$ part des achats où $x_j>0$ · \textbf{PF} $=\bigl(\textstyle\sum x_j^{+}\bigr)\big/\bigl|\textstyle\sum x_j^{-}\bigr|$, plafonné à 10.}\\[1mm]
+  \repband{des styles radicalement différents, des chiffres parfois spectaculaires — mais aucun ne passe le seuil de façon crédible : on mesure des personnes, pas « le Congrès ».}
+\end{frame}
+
 \section{Partie III · Les autres dépôts}
 \partdivider{dataC}{PARTIE III}{Les autres dépôts}{au-delà des PTR : le patrimoine, sa reconstruction, sa vérification --- Chambre}
 
