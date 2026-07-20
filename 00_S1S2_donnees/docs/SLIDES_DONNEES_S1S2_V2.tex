@@ -1019,24 +1019,23 @@
 \partdivider{helec}{PARTIE II}{Proposition : le backtest}{les élus battent-ils le marché ? --- une piste de recherche, rien de figé}
 
 
-% ══ Carte chronologique (remplace l'ancien « pont ») : les 2 stratégies, un même verdict ══
-\begin{frame}{Le plan : deux stratégies, un même verdict}
+% ══ Le plan : une échelle de tests (on teste, pas de verdict) ══
+\begin{frame}{Le plan : on construit, puis on teste — cinq réglages}
   \centering
-  {\footnotesize la donnée est prête — \textbf{copier les élus rapporte-t-il de l'alpha ?}}\\[5mm]
-  \resizebox{\textwidth}{!}{%
-  \begin{tikzpicture}[node distance=9mm]
-    \node[step=helec, text width=3.0cm] (a) {\textbf{A · Construire}\\[0.6mm]1 élu = 1 portefeuille en parts, valorisé jour par jour};
-    \node[step=helec, text width=3.6cm, right=of a] (b) {\textbf{B · Stratégie 1}\\[0.6mm]sélectionner par le \textbf{talent} (IR \& alpha), copier le top-$K$};
-    \node[step=selec, text width=3.6cm, right=of b] (c) {\textbf{C · Stratégie 2}\\[0.6mm]changer \textbf{la règle} : sélectionner au \textbf{Sharpe} brut};
-    \node[step=alertred, text width=2.4cm, right=of c] (d) {\textbf{D · Verdict}\\[0.6mm]$\beta$ de style,\\$\alpha \approx 0$};
-    \draw[arr] (a) -- (b);
-    \draw[arr] (b) -- (c) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
-    \draw[arr] (c) -- (d) node[midway, above, font=\scriptsize\bfseries, text=alertred] {pas d'$\alpha$};
-  \end{tikzpicture}}\\[5mm]
-  {\footnotesize\color{black!70} une seule chose distingue les deux stratégies : \textbf{QUI} on copie
-   {\scriptsize (talent \emph{vs} Sharpe)}. Le reste — \textbf{COMBIEN} ($K$) · \textbf{QUAND} (cadence) ·
-   \textbf{COMMENT} (pondération) — n'est qu'un \textbf{réglage}, testé à l'identique sur les deux.}\\[1.5mm]
-  {\scriptsize\color{black!55} même moteur de portefeuille, mêmes réglages — seule la règle de sélection change}
+  {\footnotesize la donnée est prête. On \textbf{construit} un portefeuille par élu (A), puis on \textbf{teste} s'il
+   rapporte de l'excès — \textbf{un réglage à la fois}. On ne conclut pas : on empile des tests, on monte tant que
+   l'excès \textbf{ne décroche pas} du marché.}\\[4mm]
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tikzpicture}
+    \node[step=helec, text width=2.3cm] (a) at (0,0)      {\textbf{Test 1}\\ QUI copier\\ {\scriptsize le top-$K$}};
+    \node[step=helec, text width=2.3cm] (b) at (3.3,0.7)  {\textbf{Test 2}\\ COMBIEN\\ {\scriptsize le nombre $K$}};
+    \node[step=helec, text width=2.3cm] (c) at (6.6,1.4)  {\textbf{Test 3}\\ QUAND\\ {\scriptsize la cadence}};
+    \node[step=helec, text width=2.3cm] (d) at (9.9,2.1)  {\textbf{Test 4}\\ COMMENT\\ {\scriptsize les poids}};
+    \node[step=selec, text width=2.3cm] (e) at (13.2,2.8) {\textbf{Test 5}\\ la RÈGLE\\ {\scriptsize le Sharpe}};
+    \draw[arr] (a)--(b); \draw[arr] (b)--(c); \draw[arr] (c)--(d); \draw[arr] (d)--(e);
+  \end{tikzpicture}}\\[4mm]
+  {\footnotesize à chaque barreau : \textbf{la question · ce qu'on change · ce qu'on observe} — toujours face au même repère, le SPY.}\\[1mm]
+  {\scriptsize\color{black!55} Tests 1--4 = même règle (le talent, « Stratégie 1 ») ; Test 5 = on change la règle (le Sharpe, « Stratégie 2 »). Même moteur de portefeuille partout.}
 \end{frame}
 
 % ═════════════ CHAPITRE A ═════════════
@@ -1128,7 +1127,7 @@
 \end{frame}
 
 % ── B4 · On copie le top-K en parts — walk-forward (le principe) ──
-\begin{frame}{On copie le top-$K$ en parts — sans jamais regarder le futur}
+\begin{frame}{Test 1 · qui copier : le top-$K$, sans jamais regarder le futur}
   \begin{columns}[T]
     \begin{column}{0.51\textwidth}
       {\footnotesize \textbf{walk-forward} : à chaque coupe fin $Y$, on classe les éligibles
@@ -1149,7 +1148,7 @@
 \end{frame}
 
 % ── B4bis · Le moteur en parts, en détail (remonté de l'annexe) ──
-\begin{frame}{Le moteur en parts, en détail : compter, redéployer, tenir}
+\begin{frame}{Test 1 · le moteur en parts : compter, redéployer, tenir}
   \centering
   {\footnotesize membre $k$ = un fonds au prix de part $\mathrm{NAV}^k(t)=\prod_{s\le t}(1+r_k(s))$ ;
    on en détient $\mathrm{nbr}^k$ parts ; poids cibles $w_k=1/|S_Y|$ ; capital initial $W = 100$}\\[4mm]
@@ -1175,23 +1174,23 @@
 \end{frame}
 
 % ── B5 · Résultat top-4 ──
-\begin{frame}{Top-4 : +3,1 \%/an d'excès… mais $t = 0{,}94$, et l'alpha dit zéro}
+\begin{frame}{Test 1 · ce qu'on observe : +3,1 \%/an, mais porté par le $\beta$}
   \centering
-  {\footnotesize\color{helec!85}\textbf{Stratégie 1 · réglage de base} — $K=4$ fixe, équipondéré, annuel}\\[0.8mm]
+  {\footnotesize\color{helec!85}\textbf{Test 1 · réglage de base} — $K=4$ fixe, équipondéré, annuel}\\[0.8mm]
   {\footnotesize 1 année civile = 1 observation :
    $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\mathrm{SPY}})$ ;\;
    $t=\overline{x}/\sigma(x)\cdot\sqrt{11}$ ; seuil $t_{10}\approx 1{,}81$}\\[1mm]
   \includegraphics[height=0.44\textheight]{figs/fig_05b_nav_top4.png}\\[2mm]
   \tuile{helec}{+3,1 \%/an}{excès brut\\7/11 années}\hfill
-  \tuile{alertred}{t = 0,94}{$<$ 1,81 —\\indiscernable du hasard}\hfill
+  \tuile{alertred}{t = 0,94}{sous le seuil\\1,81}\hfill
   \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du style,\\pas du talent}\hfill
   \tuile{grisC}{$\alpha \approx 0$}{$t_{\text{appr}}$ −0,13 ;\\appraisal −2,5 \%/an}
 \end{frame}
 
 % ── B6 · On pousse : optimiser K et la cadence ──
-\begin{frame}{On pousse : optimiser le nombre $K$, accélérer la cadence}
+\begin{frame}{Tests 2 \& 3 · combien copier ($K$), et à quelle cadence}
   \centering
-  {\footnotesize\color{helec!85}\textbf{Stratégie 1} · on fait varier \textbf{COMBIEN} ($K$) et \textbf{QUAND} (cadence)}\\[0.8mm]
+  {\footnotesize\color{helec!85}\textbf{Tests 2 \& 3} · on fait varier \textbf{COMBIEN} ($K$) et \textbf{QUAND} (cadence)}\\[0.8mm]
   {\footnotesize le top-4 ne passe pas → on laisse $K$ \textbf{s'ajuster chaque année}
    ($K^{*}(Y)=\arg\max_{K\in[4,20]}$ score sur le passé, walk-forward) et on rebalance tous les 6 mois}\\[1mm]
   \includegraphics[width=0.61\textwidth]{figs/fig_05b_k_et_cadence.png}\\[1.5mm]
@@ -1201,7 +1200,7 @@
 \end{frame}
 
 % ── B7 · On pousse encore : changer la pondération ──
-\begin{frame}{On pousse encore : changer la répartition du capital}
+\begin{frame}{Test 4 · comment répartir le capital entre les copiés}
   {\footnotesize\color{black!80} jusqu'ici capital \textbf{à parts égales} ($1/K$). Mêmes membres (\textbf{top-4 fixe}) —
    on change seulement le \textbf{découpage du capital}, par le \textbf{risque}}
   {\scriptsize\color{black!55} (cadre : $w_k\ge 0$, $\textstyle\sum_k w_k=1$ ; $\Sigma_{ij}=\rho_{ij}\,\sigma_i\sigma_j$)}
@@ -1234,9 +1233,9 @@
 \chapdivider{Chapitre C · Stratégie 2}{Changer de règle : le Sharpe}{ni $K$, ni la cadence, ni les poids n'ont passé le seuil — on change la règle de sélection}
 
 % ── C1 · Le Sharpe brut ──
-\begin{frame}{Nouvelle règle : classer au Sharpe brut, sans test de significativité}
+\begin{frame}{Test 5 · changer la règle de sélection : le Sharpe brut}
   \centering
-  {\footnotesize\color{selec}\textbf{Stratégie 2} · on change \textbf{QUI} (la règle de sélection) — les réglages restent les mêmes}\\[0.8mm]
+  {\footnotesize\color{selec}\textbf{Test 5} · on change \textbf{QUI} (la règle de sélection) — les réglages restent les mêmes}\\[0.8mm]
   {\footnotesize $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ ;\quad
    éligible v2 $\iff n_{\text{jours}}\ge 126$ \textbf{et} $\mathrm{Sharpe}>0{,}4$ — \textbf{plus aucun test t}}\\[1.5mm]
   \includegraphics[height=0.48\textheight]{figs/fig_05b_hist_sharpe.png}\\[1.5mm]
@@ -1246,13 +1245,34 @@
 \end{frame}
 
 % ── C2 · Balayage K ──
-\begin{frame}{Même résultat : le $t$ plafonne à 1,22, loin du seuil}
+\begin{frame}{Test 5 · ce qu'on observe : le $t$ plafonne à 1,22, loin du seuil}
   \centering
   \includegraphics[width=0.62\textwidth]{figs/fig_05b_balayage_k.png}\\[2mm]
   {\footnotesize balayage $K$ de 2 à 20 (poids $1/K$, annuel), plus 5 pondérations × 2 cadences
    ($K=5/10/20$) : le meilleur cas reste $K=6$, \textbf{$t=1{,}22$} ($<1{,}81$) ; l'excès se dilue quand $K$ grandit}\\[0.6mm]
-  {\scriptsize\color{black!60} Sharpe 0,93 vs SPY 0,87 (fenêtre de tenue) — le couple rendement/risque ne bouge pas ;
-   pas mieux que la stratégie 1}
+  {\scriptsize\color{black!60} Sharpe 0,93 vs SPY 0,87 (fenêtre de tenue) — changer la règle ne fait pas non plus
+   décrocher l'excès du marché}
+\end{frame}
+
+% ── Bilan des 5 tests (remplace le « verdict ») ──
+\begin{frame}{Le bilan : cinq réglages testés, une même mesure}
+  \centering
+  {\footnotesize on lit \emph{ce qu'on change} et \emph{ce qu'on observe} (excès vs SPY, en $t$) — pas une sentence, une trace.}\\[2.5mm]
+  {\footnotesize
+  \begin{tabular}{@{}c l l l@{}}
+    \toprule
+     & On teste\ldots & Ce qu'on change & Ce qu'on observe\\\midrule
+    1 & copier le top-4      & --- (walk-forward, en parts)   & $+3{,}1\,\%$/an, $\beta$ 1,20, $t$ 0,94\\
+    2 & combien copier       & le nombre $K$                  & meilleur cas $t$ 1,58\\
+    3 & quand rebalancer     & la cadence (6 mois)            & $t$ 0,14\\
+    4 & comment répartir     & les poids (vol / corrélations) & rien ne décroche\\
+    5 & qui mettre en tête   & la règle (Sharpe brut)         & $t$ plafonne à 1,22\\
+    \bottomrule
+  \end{tabular}}\\[3mm]
+  \badge{grisC}{aucun réglage ne fait décrocher l'excès du marché}\;
+  \badge{helec}{un protocole de test réutilisable}\\[2.5mm]
+  {\footnotesize\color{black!60}\textbf{Ce qui reste à tester} : l'analyse par \emph{ticker} (le titre, pas la personne)
+   $\cdot$ le \emph{drift court} juste après la divulgation.}
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════
