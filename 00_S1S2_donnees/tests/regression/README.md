@@ -7,8 +7,8 @@ figées, sans rien re-télécharger ni re-jouer un pipeline réseau.
 Lancer toute la suite :
 
 ```bash
-.venv/bin/python tests/regression/check_golden.py         # golden House (125 fichiers, sha256)
-.venv/bin/python tests/regression/senate_check_golden.py  # golden Sénat (76 fichiers, sha256)
+.venv/bin/python tests/regression/check_golden.py         # golden House (230 fichiers, sha256)
+.venv/bin/python tests/regression/senate_check_golden.py  # golden Sénat (138 fichiers, sha256)
 for t in test_schema test_amounts_tickers test_identity test_tenure \
          test_crosscheck test_vision_sha test_incremental test_senate_repro; do
   .venv/bin/python tests/regression/$t.py || echo "ÉCHEC: $t"

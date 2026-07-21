@@ -59,4 +59,4 @@ La **structure** est symétrique ; ce sont les **fichiers présents** qui diffè
   `_paper_index_2020_2026.csv` (Sénat : index des PTR papier par UUID) — contenus différents, même rôle.
 
 Le filet **golden** (`tests/regression/{,senate_}golden_manifest.json`) gèle toutes les sorties sous
-`tables/` à l'octet (125 fichiers Chambre, 76 Sénat) — toute modif non voulue est détectée.
+`tables/` à l'octet (230 fichiers Chambre, 138 Sénat) — toute modif non voulue est détectée.
