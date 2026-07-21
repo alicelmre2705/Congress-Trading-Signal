@@ -113,19 +113,19 @@ quatre choses il compte.}\\[1.4mm]
                     inner sep=2.8pt, align=center, text width=#2, font=\scriptsize}]
 \node[bo={grisf}{1.9cm}]  (m) at (0, 0)    {un \textbf{membre}};
 \node[bo={bleu}{2.6cm}]   (d) at (3.1, 0)  {dépose des \textbf{documents}};
-\node[bo={vert}{2.6cm}]   (l) at (6.5, 0)  {qui contiennent des \textbf{lignes}};
-\node[bo={orange}{4.6cm}] (p) at (11.4, 0.62) {une \textbf{position} détenue, dans une photo};
-\node[bo={orange}{4.6cm}] (t) at (11.4, -0.62) {une \textbf{transaction} datée, dans un flux};
+\node[bo={vert}{2.4cm}]   (l) at (6.4, 0)  {faits de \textbf{sections}};
+\node[bo={orange}{5.6cm}] (p) at (11.6, 0.62) {\textbf{Schedule A} : ce que je possède $\rightarrow$ des \textbf{positions}};
+\node[bo={orange}{5.6cm}] (t) at (11.6, -0.62) {\textbf{Schedule B} : ce que j'ai acheté ou vendu $\rightarrow$ des \textbf{transactions}};
 \draw[->, grisf, semithick] (m) -- (d);
 \draw[->, grisf, semithick] (d) -- (l);
-\draw[->, grisf, semithick] (l.east) -- ++(0.5, 0) |- (p.west);
-\draw[->, grisf, semithick] (l.east) -- ++(0.5, 0) |- (t.west);
-\node[font=\scriptsize\itshape, text=grisf] at (8.9, 0.98) {chaque ligne est};
+\draw[->, grisf, semithick] (l.east) -- ++(0.45, 0) |- (p.west);
+\draw[->, grisf, semithick] (l.east) -- ++(0.45, 0) |- (t.west);
 \end{tikzpicture}
 \end{center}
 \vspace{1mm}
-{\footnotesize La \textbf{reconstruction} est le calcul qui rejoue ces lignes pour retrouver, jour après
-jour, ce que chaque membre détenait.}
+{\footnotesize Un rapport annuel porte les \textbf{deux} sections ; une photo d'entrée n'a que la
+première ; une déclaration au fil de l'eau n'a que la seconde. La \textbf{reconstruction} est le calcul
+qui rejoue ces lignes pour retrouver, jour après jour, ce que chaque membre détenait.}
 \end{tcolorbox}
 
 \vspace{1.6mm}
@@ -140,10 +140,9 @@ sa trajectoire.}
 \noindent\begin{minipage}[t]{0.485\linewidth}\vspace{0pt}\vis{fig_10_obligations.png}\end{minipage}%
 \hfill\begin{minipage}[t]{0.485\linewidth}\vspace{0pt}\vis{fig_10_quadrant.png}\end{minipage}
 \pts{
-\item Un \textbf{arrivé} doit une photo d'entrée. Un \textbf{partant} doit une photo de sortie. Les deux
-à la fois pour les 149 mandats complets, qui sont les seuls observables de bout en bout.
-\item Ceux qui étaient déjà en poste en 2014 sont entrés avant notre fenêtre : on n'attend d'eux aucune
-photo d'entrée.
+\item Un \textbf{arrivé} doit une photo d'entrée, un \textbf{partant} une photo de sortie, les deux pour
+les 149 mandats complets --- seuls observables de bout en bout. Les membres déjà en poste en 2014 sont
+entrés avant notre fenêtre : on n'attend d'eux aucune photo d'entrée.
 \item Cette répartition, construite sur nos dépôts, concorde à 98,9\,\% avec le référentiel officiel des
 mandats. Les 10 cas de frontière sont listés dans le notebook.
 }
@@ -151,17 +150,18 @@ mandats. Les 10 cas de frontière sont listés dans le notebook.
 \end{tcolorbox}
 
 \vfill
-\rangee{\begin{etapebox}{1}{bleu}{1 $\cdot$ IL ARRIVE --- la photo d'entrée}
-\reponse{En prenant ses fonctions, l'élu déclare tout son patrimoine. C'est notre point de départ : sans
-cette photo, on ne sait pas ce qu'il possédait avant de commencer à trader.}
-\phare{200 sur 312}{arrivés encore en poste ayant déposé leur photo d'entrée}{bleu}
+\rangee{\begin{etapebox}{1}{bleu}{1 $\cdot$ IL ARRIVE --- ce qu'il possède en arrivant}
+\reponse{En prenant ses fonctions, l'élu déclare tout son patrimoine --- un \textbf{Schedule A}, sans
+aucune transaction. C'est notre point de départ : sans lui, on ignore ce qu'il possédait avant de trader.}
+\phare{223 sur 312}{arrivés encore en poste dont on exploite la photo d'entrée}{bleu}
 \vis{fig_10_etape_arrivee.png}
 \pts{
-\item Chez les mandats complets (arrivés \emph{et} repartis dans la fenêtre), c'est 80 sur 149.
-\item Les 181 photos manquantes sont autant de membres dont le point de départ nous échappe. Parmi celles
-déposées, toutes ne seront pas utilisables : l'étape 8 le montre.
-\item La photo n'arrive pas le jour de l'entrée : il s'écoule 210 jours en médiane entre la prise de
-fonction et le dépôt.
+\item Chez les mandats complets (arrivés \emph{et} repartis dans la fenêtre), c'est 96 sur 149. La photo
+n'arrive pas le jour de l'entrée : 213 jours en médiane après la prise de fonction.
+\item \textbf{41 photos récupérées} pendant ce chantier : leurs documents étaient scannés et déjà relus
+automatiquement, mais cette relecture n'était pas raccordée au reste.
+\item \textbf{Ce n'est pas un manquement des élus} : il reste 142 membres sans photo exploitable, mais
+\textbf{133 d'entre eux ont bien déposé} un document que nous ne savons pas encore lire.
 }
 \src{source : cellules \og mandats officiels \fg{} et \og tableau central \fg{} du notebook.}
 \end{etapebox}}{\begin{etapebox}{2}{bleu}{2 $\cdot$ IL TRADE --- la déclaration au fil de l'eau}
@@ -171,8 +171,8 @@ rapide : 27 jours en médiane entre la transaction et sa publication, donc connu
 \vis{fig_10_trois_zones.png}
 \pts{
 \item 305 membres sont vus par leurs déclarations au fil de l'eau, dont 199 aussi par leurs rapports annuels.
-\item 86 membres ne sont vus \textbf{que} par leurs rapports annuels : ils n'ont jamais déposé de
-déclaration exploitable. Un cinquième des traders est donc invisible au document rapide.
+\item 86 membres ne sont vus \textbf{que} par leurs rapports annuels : 65 n'ont jamais rien déclaré au
+fil de l'eau, les 21 autres ont déposé sans qu'aucune ligne survive à notre traitement.
 \item Les 509 autres ne tradent pas d'actions cotées. Ils déclarent pourtant : 444 d'entre eux déposent
 leurs rapports annuels. Ne pas trader n'est pas ne pas déclarer.
 \item 315 membres ont déclaré au moins une transaction. Pour dix d'entre eux, aucun prix n'est
@@ -180,17 +180,18 @@ retrouvable : ils sortent du décompte, d'où les 305.
 }
 \src{source : cellules \og qui trade par trajectoire \fg{} et \og trois zones \fg{}.}
 \end{etapebox}}
-\vfill
+\vspace*{\fill}
 \newpage
+\vspace*{\fill}
 
 \rangee{\begin{etapebox}{3}{bleu}{3 $\cdot$ IL DÉCLARE --- le rapport annuel}
-\reponse{Chaque année de mandat donne lieu à un rapport : le patrimoine au 31 décembre, plus la liste des
-transactions de l'année. C'est la pièce qui nous permettra de vérifier notre travail.}
+\reponse{Chaque année de mandat donne lieu à un rapport. C'est le \textbf{seul document qui porte les
+deux sections} : le patrimoine au 31 décembre, et les transactions de l'année.}
 \phare{85 \%}{des années de mandat couvertes par un rapport (médiane par membre)}{bleu}
 \vis{fig_10_etape_annuel.png}
 \pts{
-\item Sur toute la fenêtre, 5\,702 rapports sont attendus : 212 membres couvrent toutes leurs années,
-79 n'en couvrent aucune.
+\item 5\,702 rapports attendus --- un par année en poste au 31 décembre. 212 membres couvrent toutes
+leurs années ; 79 aucune, dont 66 n'ont effectivement rien déposé.
 \item La photo de sortie tient lieu de dernier rapport annuel : elle est comptée comme telle ici, ainsi
 que les amendements, ces corrections déposées après coup.
 \item Les transactions listées dans ces rapports sortent tard : 373 jours en médiane après avoir eu lieu.
@@ -198,7 +199,7 @@ On les découvre donc plus d'un an après coup.
 }
 \src{source : cellule \og couverture des rapports annuels \fg{}. Années attendues calculées depuis les
 mandats officiels : un rapport est dû pour chaque année où le membre est en poste au 31 décembre.}
-\end{etapebox}}{\begin{etapebox}{4}{bleu}{4 $\cdot$ IL PART --- la photo de sortie}
+\end{etapebox}}{\begin{etapebox}{4}{bleu}{4 $\cdot$ IL PART --- ce qu'il possède en partant}
 \reponse{En quittant ses fonctions, l'élu dépose une dernière photo de son patrimoine. C'est le point
 d'arrivée qui permet de boucler une trajectoire complète.}
 \phare{253 sur 314}{partants déjà en poste en 2014 ayant déposé leur photo de sortie}{bleu}
@@ -206,52 +207,71 @@ d'arrivée qui permet de boucler une trajectoire complète.}
 \pts{
 \item Chez les mandats complets, c'est 114 sur 149.
 \item Ces 149 mandats complets sont les seuls à avoir à la fois un début et une fin dans nos données.
+\item Sur les 96 photos de sortie manquantes, 86 n'ont jamais été déposées : ici le manque est réel.
 \item Le départ est suivi vite : 34 jours en médiane entre la fin du mandat et le dépôt.
 }
 \src{source : cellules \og tableau central \fg{} et \og délais administratifs \fg{}.}
 \end{etapebox}}
-\begin{tcolorbox}[enhanced, breakable=false, colback=bleu!4, colframe=bleu!45, boxrule=0.5pt,
-                  arc=2pt, left=2.4mm, right=2.4mm, top=1.4mm, bottom=1.4mm,
-                  before skip=1.9mm, after skip=0mm]
-{\footnotesize\textbf{Fin de l'acte I.} On sait qui devait déposer quoi, et ce qu'on a reçu.
-\textbf{Une même transaction, deux horloges} : déclarée au fil de l'eau, elle est publique en 27 jours ;
-reprise dans le rapport annuel, elle ne l'est qu'après 373 jours. Reste à ouvrir ces documents.}
+\begin{tcolorbox}[enhanced, breakable=false, colback=grisc!12, colframe=grisc, boxrule=0.5pt,
+                  arc=2pt, left=2.2mm, right=2.2mm, top=1.4mm, bottom=1.4mm,
+                  toptitle=0.6mm, bottomtitle=0.6mm, boxsep=0pt, before skip=1.6mm, after skip=0mm,
+                  colbacktitle=grisf, coltitle=white, fonttitle=\footnotesize\bfseries,
+                  title={FIN DE L'ACTE I --- deux sections, deux usages, à ne jamais confondre}]
+\noindent\begin{minipage}[t]{0.40\linewidth}\vspace{0pt}
+\vis{fig_10_deux_sections.png}
+\end{minipage}\hfill\begin{minipage}[t]{0.57\linewidth}\vspace{0pt}\vspace{0.4mm}
+{\footnotesize
+On sait qui devait déposer quoi, et ce qu'on a reçu. Reste à ouvrir ces documents --- et chacun s'ouvre
+sur \textbf{deux sections qui ne servent pas à la même chose}.\\[0.9mm]
+\textbf{Ce que je possède} donne le \textbf{point de départ} du portefeuille (étape 8) et permet de le
+\textbf{vérifier} (étape 9). \textbf{Ce que j'ai acheté ou vendu} sert à \textbf{compléter} les
+déclarations au fil de l'eau (étape 7), et à rien d'autre.}
+\end{minipage}
 \end{tcolorbox}
 
+\vspace*{\fill}
+\newpage
+\vspace*{\fill}
+
 \acte{ACTE II --- ce qu'on en fait : de la ligne déclarée au portefeuille vérifié}{vert}
+
 \rangee{\begin{etapebox}{5}{vert}{5 $\cdot$ ON RASSEMBLE --- l'inventaire des documents}
 \reponse{Premier travail : réunir tous les documents déposés et compter ce qu'ils contiennent, sans encore
 rien en écarter.}
-\phare{420\,916}{lignes de patrimoine, dans 6\,135 photos}{vert}
+\phare{609\,886}{lignes de patrimoine, dans 14\,887 documents}{vert}
 \vis{fig_10_inventaire.png}
 \pts{
-\item Les photos se répartissent en 4\,447 rapports annuels, 934 photos de candidat, 378 de sortie et
-376 d'entrée --- ces dernières se ramenant à 284 photos retenues, une par membre.
-\item Deux contrôles de bouclage : 18 membres du registre n'ont laissé aucun document, et 12 déposants sont
-des candidats jamais élus, donc hors registre.
+\item 4\,447 rapports annuels, 934 photos de candidat, 378 de sortie, 376 d'entrée. On retient au final
+\textbf{325 photos d'entrée}, une par membre : la sienne, ou à défaut sa photo de candidat.
+\item \textbf{Un tiers vient de documents scannés}, relus automatiquement : 188\,970 lignes dont 81\,535
+avec un symbole boursier. Chaque ligne garde la trace de son origine.
+\item Deux contrôles de bouclage : 18 membres du registre n'ont laissé aucun document, et 12 déposants
+sont des candidats jamais élus, donc hors registre.
 }
 \src{source : cellules \og inventaire documentaire \fg{} et \og bouclage \fg{}. Les dépôts de déclarations
 rapides sont comptés en paires (membre, date de publication) : leur identifiant de document n'existe pas
 dans la table.}
 \end{etapebox}}{\begin{etapebox}{6}{vert}{6 $\cdot$ ON TRIE --- chaque ligne reçoit une classe}
 \reponse{Toutes les lignes déclarées ne sont pas des actions. Avant de chercher le moindre prix, chaque
-ligne est classée : action cotée, fonds mutuel, monétaire, ou faux ticker.}
-\phare{156\,516 sur 420\,916}{lignes qui sont vraiment des actions ou des ETF}{vert}
+ligne est classée : action cotée, fonds mutuel, monétaire, ou code de formulaire.}
+\phare{230\,215 sur 609\,886}{lignes qui sont vraiment des actions ou des ETF}{vert}
 \vis{fig_10_paysage.png}
 \pts{
 \item La majorité de ce qui est déclaré n'a pas de ticker : immobilier, sociétés non cotées, comptes.
-Cela pèse 68,3 Md\$ contre 10,6 Md\$ d'actions et d'ETF.
-\item \textbf{La règle qu'on s'impose} : le moteur ne voit que des actions et des ETF. Le reste est compté,
-jamais valorisé comme une action --- y compris les faux tickers, ces codes de formulaire (EIF, SP,
-DC) qu'une lecture automatique confond facilement avec des symboles boursiers.
+Cela pèse 87,4 Md\$ contre 12,3 Md\$ d'actions et d'ETF.
+\\item \\textbf{La règle qu'on s'impose} : le moteur ne voit que des actions et des ETF ; le reste est
+compté, jamais valorisé comme une action. Les \\textbf{codes de formulaire} (EIF pour \\emph{excepted
+investment fund}, SP, DC) n'en sont pas : c'est notre lecture qui les prenait pour des symboles, et
+l'erreur est corrigée.
 \item Le piège que cette règle ferme : côté transactions (étape 7), 8\,439 des 10\,971 lignes écartées
 par leur classe ont pourtant un prix disponible, parce qu'un fonds a une valeur liquidative. Un filtre
 \og a-t-il un prix ? \fg{} les aurait laissées entrer.
 }
 \src{source : cellules \og classification \fg{} et \og paysage déclaré \fg{}. Valeurs = milieu de fourchette déclarée.}
 \end{etapebox}}
-\vfill
+\vspace*{\fill}
 \newpage
+\vspace*{\fill}
 
 \vspace*{\fill}
 \rangee{\begin{etapebox}{7}{vert}{7 $\cdot$ ON VALORISE --- les transactions retenues}
@@ -265,8 +285,8 @@ ce qui reste, et pourquoi le reste tombe.}
 \midrule
 lignes déclarées & 122\,814 & 26\,115 \\
 $-$ sens, dates, montants & $-5$ & $-235$ \\
-$-$ classe non négociable & --- & $-10\,971$ \\
-$-$ prix introuvable & $-14\,833$ & $-1\,106$ \\
+$-$ n'est pas une action ni un ETF & --- & $-10\,971$ \\
+$-$ aucun prix de marché trouvé$^{\ddagger}$ & $-14\,833$ & $-1\,106$ \\
 $-$ déjà connue par ailleurs & --- & $-479$ \\
 \midrule
 \textbf{retenues} & \textbf{107\,976} & \textbf{13\,324} \\
@@ -276,8 +296,13 @@ membres concernés & 305 & 285 \\
 \end{center}
 \vspace{1mm}
 \pts{
-\item Chaque ligne écartée a une raison affichée, et la somme est vérifiée automatiquement dans le notebook.
-\item Les 479 transactions \og déjà connues \fg{} sont celles que le rapport annuel répète à l'identique.
+\item Deux filtres de nature différente se suivent ici. Le premier écarte ce qui n'est pas une action
+(un fonds, un compte). Le second écarte ce dont on n'a pas retrouvé le cours de bourse.
+\item $^{\ddagger}$ \textbf{Ces 12 \% ne sont pas une limite de la donnée déclarée mais de notre collecte
+de prix} : les titres concernés sont des sociétés connues (Marsh \& McLennan, Walgreens, Activision).
+L'audit du notebook montre qu'ils figurent dans une liste d'échecs de téléchargement jamais rejouée.
+\item \textbf{Le Schedule B est deux fois plus gros que les déclarations rapides} (110\,147 lignes contre
+56\,002), mais il répète l'essentiel : \textbf{76 \% de redite}, et seulement 26\,115 transactions inédites.
 \item Les deux sources ne se mélangent jamais sans le dire : on garde la trace de la provenance de chaque
 transaction.
 }
@@ -286,7 +311,7 @@ cascades, avec la vérification de chaque somme, vit dans le notebook.}
 \end{etapebox}}{\begin{etapebox}{8}{vert}{8 $\cdot$ ON RECONSTRUIT --- la photo devient un portefeuille}
 \reponse{Une photo donne des valeurs en fourchettes, pas des quantités. On la convertit en parts détenues
 au prix du jour de son dépôt, puis on applique les transactions.}
-\phare{207}{portefeuilles de départ construits}{vert}
+\phare{243}{portefeuilles de départ construits}{vert}
 \vis{fig_10_entonnoir_h0.png}
 \begin{center}\footnotesize
 $h_0 = \dfrac{\tilde v}{P(\text{jour du dépôt})}$ \qquad achat : $h \mathrel{+}= \dfrac{\tilde v}{P}$
@@ -299,7 +324,7 @@ $q$ = parts vendues}\\[0.8mm]
 \vspace{0.8mm}
 \pts{
 \item On utilise le prix du jour du \textbf{dépôt}, jamais un prix antérieur : rien de ce qui suit ne
-regarde le futur. 85,8\,\% de la valeur en actions de ces photos (543 M\$) devient ainsi des parts ; le
+regarde le futur. 85,8\,\% de la valeur en actions de ces photos (562 M\$ déclarés) devient ainsi des parts ; le
 reste bute sur un prix manquant.
 \item Injecter une photo n'ajoute ni ne retire de valeur : le jour de l'injection, le portefeuille ne
 bouge pas d'un centime. C'est testé automatiquement.
@@ -314,29 +339,27 @@ bouge pas d'un centime. C'est testé automatiquement.
 \rangee{\begin{etapebox}{9}{vert}{9 $\cdot$ ON VÉRIFIE --- les rapports annuels jugent}
 \reponse{Le rapport annuel dit ce que l'élu possédait vraiment. On confronte notre reconstruction à cette
 déclaration, position par position, à la date du dépôt.}
-\phare{8 \% $\rightarrow$ 58 \%}{des positions déclarées retrouvées, sur la photo médiane}{vert}
+\phare{9 \% $\rightarrow$ 56 \%}{des positions déclarées retrouvées, sur la photo médiane}{vert}
 \vis{fig_10_recouvrement.png}
 \begin{center}\footnotesize
 \begin{tabular}{@{}lccc@{}}
 \toprule
 sources utilisées & retrouvé & juste & valeur \\
 \midrule
-déclarations rapides seules & 8 \% & 59 \% & 54 \% \\
-dossier complet & \textbf{58 \%} & 60 \% & 54 \% \\
+déclarations rapides seules & 9 \% & 55 \% & 44 \% \\
+dossier complet & \textbf{56 \%} & 57 \% & 47 \% \\
 \bottomrule
 \end{tabular}\\[0.6mm]
-{\footnotesize médianes par photo, sur 1\,376 et 1\,625 photos confrontables}
+{\footnotesize médianes par photo, sur 1\,550 et 1\,807 photos confrontables}
 \end{center}
 \vspace{1mm}
 \pts{
 \item \textbf{Valeur} : sur les positions communes, part de celles dont la valeur reconstruite tombe
 dans la fourchette déclarée.
 \item Le dossier complet ajoute la photo d'entrée et les transactions des rapports annuels. On retrouve
-alors sept fois plus de positions sans perdre en justesse : 59 \% $\rightarrow$ 60 \%, et la valeur ne
-bouge pas.
-\item Une photo n'est confrontable que si une reconstruction existe à sa date : d'où 1\,376 et 1\,625
-photos sur les 1\,945 exploitables. Même exercice sur les photos de sortie : 108 confrontées, 64 \%
-retrouvé et 59 \% juste.
+alors six fois plus de positions sans perdre en justesse : la précision monte de 55 \% à 57 \% et la
+valeur de 44 \% à 47 \%.
+\item Une photo n'est confrontable que si une reconstruction existe à sa date : d'où 1\,550 et 1\,807 photos sur les 2\,256 exploitables. Même exercice sur les photos de sortie : 128 confrontées, 60 \% retrouvé et 54 \% juste.
 }
 \src{source : cellules \og confrontation \fg{} et \og agrégats \fg{}.}
 \end{etapebox}}{\begin{tcolorbox}[enhanced, breakable=false, colback=rouge!3, colframe=rouge!45, boxrule=0.5pt,
@@ -344,17 +367,18 @@ retrouvé et 59 \% juste.
                   toptitle=0.7mm, bottomtitle=0.7mm, boxsep=0pt, before skip=1.9mm, after skip=0mm,
                   colbacktitle=rouge, coltitle=white, fonttitle=\footnotesize\bfseries,
                   title={CE QUE CETTE DONNÉE NE DIT PAS}]
-\reponse{Six limites bornent tout ce qui précède. Elles ne sont pas des défauts de traitement : elles
-tiennent à ce que la loi demande de déclarer, et à ce qu'elle n'exige pas.}
+\reponse{Six limites bornent tout ce qui précède. Certaines tiennent à ce que la loi demande de
+déclarer ; d'autres à des documents qu'on ne sait pas encore lire. La différence est dite à chaque fois.}
 \pts{
 \item Les valeurs sont déclarées en fourchettes, jamais au dollar près. Le milieu est une convention de
 calcul, pas une mesure.
-\item 181 membres arrivés n'ont déposé aucune photo d'entrée : leur point de départ reste inconnu.
-\item Environ 42 \% des positions déclarées ne sont pas retrouvées, même avec le dossier complet. Elles
+\item 142 membres arrivés n'ont pas de photo d'entrée exploitable, donc un point de départ inconnu :
+9 n'ont rien déposé, 102 ont un document illisible en l'état, 31 un document lisible que nous perdons.
+\item Environ 44 \% des positions déclarées ne sont pas retrouvées, même avec le dossier complet. Elles
 précèdent toute photo, ou portent sur des actifs sans ticker.
 \item Les transactions issues des rapports annuels sont datées du jour de l'opération, mais publiées
 373 jours plus tard : on les connaît bien après coup.
-\item Le patrimoine sans ticker, soit 68\,266 M\$ déclarés, reste hors de portée du moteur.
+\item Le patrimoine sans ticker, soit 87\,405 M\$ déclarés, reste hors de portée du moteur.
 \item Rien ici ne dit ce que valent ces trades : cette fiche décrit la donnée, et s'arrête là.
 }
 {\footnotesize\textbf{Pourquoi croire ces chiffres.} L'empreinte des tables est conforme au manifeste.
