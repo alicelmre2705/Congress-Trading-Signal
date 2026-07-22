@@ -283,7 +283,7 @@ parce que ce sont des fonds mutuels --- or un fonds a une valeur liquidative, do
 \rangee{\begin{etapebox}{7}{vert}{7 $\cdot$ ON VALORISE --- les transactions retenues}
 \reponse{Une transaction n'entre dans le moteur que si l'on connaît le prix de son titre le jour dit. Voici
 ce qui reste, et pourquoi le reste tombe.}
-\phare{129\,504}{transactions datées et valorisées}{vert}
+\phare{129\,538}{transactions datées et valorisées}{vert}
 \begin{center}\footnotesize
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -292,10 +292,10 @@ ce qui reste, et pourquoi le reste tombe.}
 lignes déclarées & 122\,814 & 26\,115 \\
 $-$ sens, dates, montants\,{\tiny(221\,+\,14)} & $-5$ & $-235$ \\
 $-$ n'est pas une action ni un ETF & --- & $-9\,999$ \\
-$-$ aucun prix de marché trouvé$^{\ddagger}$ & $-14\,833$ & $-1\,352$ \\
+$-$ aucun prix de marché trouvé$^{\ddagger}$ & $-14\,833$ & $-1\,318$ \\
 $-$ déjà connue par ailleurs & --- & $-479$ \\
 \midrule
-\textbf{retenues} & \textbf{107\,976} & \textbf{14\,050} \\
+\textbf{retenues} & \textbf{107\,976} & \textbf{14\,084} \\
 membres concernés & 305 & 285 \\
 \bottomrule
 \end{tabular}
@@ -304,9 +304,10 @@ membres concernés & 305 & 285 \\
 \pts{
 \item Deux filtres de nature différente se suivent ici. Le premier écarte ce qui n'est pas une action
 (un fonds, un compte). Le second écarte ce dont on n'a pas retrouvé le cours de bourse.
-\item $^{\ddagger}$ \textbf{Ces 12 \% ne sont pas une limite de la donnée déclarée mais de notre collecte
-de prix} : les titres concernés sont des sociétés connues (Marsh \& McLennan, Walgreens, Activision).
-L'audit du notebook montre qu'ils figurent dans une liste d'échecs de téléchargement jamais rejouée.
+\item $^{\ddagger}$ \textbf{Ces 12 \% ne sont pas une limite de la donnée déclarée} : les membres ont bien
+déclaré ces titres. La liste des symboles sans cours a été \textbf{rejouée le 22/07/2026}, réseau vérifié
+par trois témoins vivants : \textbf{aucun} des 1\,455 n'a rendu de série. Ce n'est donc pas un raté de
+téléchargement --- il faudra une autre source de cours, ou l'accepter comme une limite.
 \item \textbf{Le Schedule B est deux fois plus gros que les déclarations rapides} (110\,147 lignes contre
 56\,002), mais il répète l'essentiel : \textbf{76 \% de redite}, et seulement 26\,115 transactions inédites.
 \item Les documents scannés apportent en plus \textbf{7\,478 transactions} que rien d'autre ne montre,
@@ -331,11 +332,11 @@ $q$ = parts vendues}\\[0.8mm]
 \vspace{0.8mm}
 \pts{
 \item On utilise le prix du jour du \textbf{dépôt}, jamais un prix antérieur : rien de ce qui suit ne
-regarde le futur. 83,9\,\% de la valeur en actions de ces photos (595 M\$ déclarés) devient ainsi des parts ; le reste
+regarde le futur. 84,5\,\% de la valeur en actions de ces photos (595 M\$ déclarés) devient ainsi des parts ; le reste
 bute sur un prix manquant.
 \item \textbf{La photo fait foi à sa date} : les achats antérieurs à son dépôt y figurent déjà, on ne
-les rejoue donc pas --- sans quoi la position serait comptée deux fois. Cela écarte 11\,274 transactions
-(696 M\$) chez 88 membres.
+les rejoue donc pas --- sans quoi la position serait comptée deux fois. Cela écarte 11\,277 transactions
+(697 M\$) chez 88 membres.
 \item Injecter une photo n'ajoute ni ne retire de valeur : le jour de l'injection, le portefeuille ne
 bouge pas d'un centime. C'est testé automatiquement.
 \item Les membres sans photo commencent à zéro. Leur point de départ n'est pas nul, il est inconnu.
