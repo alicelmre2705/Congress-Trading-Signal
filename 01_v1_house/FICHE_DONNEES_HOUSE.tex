@@ -167,7 +167,7 @@ automatiquement, mais cette relecture n'était pas raccordée au reste.
 \end{etapebox}}{\begin{etapebox}{2}{bleu}{2 $\cdot$ IL TRADE --- la déclaration au fil de l'eau}
 \reponse{Chaque achat ou vente doit être déclaré dans les jours qui suivent. C'est le document le plus
 rapide : 27 jours en médiane entre la transaction et sa publication, donc connu presque tout de suite.}
-\phare{391 sur 900}{membres qui tradent des actions cotées}{bleu}
+\phare{408 sur 900}{membres qui tradent des actions cotées}{bleu}
 \vis{fig_10_trois_zones.png}
 \pts{
 \item 305 membres sont vus par leurs déclarations au fil de l'eau, dont 199 aussi par leurs rapports annuels.
@@ -254,13 +254,16 @@ dans la table.}
 \end{etapebox}}{\begin{etapebox}{6}{vert}{6 $\cdot$ ON TRIE --- chaque ligne reçoit une classe}
 \reponse{Toutes les lignes déclarées ne sont pas des actions. Avant de chercher le moindre prix, chaque
 ligne est classée : action cotée, fonds mutuel, monétaire, ou code de formulaire.}
-\phare{230\,215 sur 609\,886}{lignes qui sont vraiment des actions ou des ETF}{vert}
+\phare{231\,426 sur 609\,886}{lignes qui sont vraiment des actions ou des ETF}{vert}
 \vis{fig_10_paysage.png}
 \pts{
 \item La majorité de ce qui est déclaré n'a pas de ticker : immobilier, sociétés non cotées, comptes.
-Cela pèse 87,4 Md\$ contre 12,3 Md\$ d'actions et d'ETF.
-\\item \\textbf{La règle qu'on s'impose} : le moteur ne voit que des actions et des ETF ; le reste est
-compté, jamais valorisé comme une action. Les \\textbf{codes de formulaire} (EIF pour \\emph{excepted
+Sur les 13 ans de dépôts cumulés, cela représente 87,4 Md\$ de lignes déclarées contre 12,8 Md\$
+d'actions et d'ETF. \textbf{Attention} : c'est une somme de déclarations, pas un patrimoine --- un actif
+est recompté à chaque rapport annuel. Le patrimoine réel, au dernier document de chaque membre, vaut
+\textbf{8,9 Md\$}.
+\item \textbf{La règle qu'on s'impose} : le moteur ne voit que des actions et des ETF ; le reste est
+compté, jamais valorisé comme une action. Les \textbf{codes de formulaire} (EIF pour \emph{excepted
 investment fund}, SP, DC) n'en sont pas : c'est notre lecture qui les prenait pour des symboles, et
 l'erreur est corrigée.
 \item Le piège que cette règle ferme : côté transactions (étape 7), 8\,439 des 10\,971 lignes écartées
@@ -277,7 +280,7 @@ par leur classe ont pourtant un prix disponible, parce qu'un fonds a une valeur 
 \rangee{\begin{etapebox}{7}{vert}{7 $\cdot$ ON VALORISE --- les transactions retenues}
 \reponse{Une transaction n'entre dans le moteur que si l'on connaît le prix de son titre le jour dit. Voici
 ce qui reste, et pourquoi le reste tombe.}
-\phare{121\,300}{transactions datées et valorisées}{vert}
+\phare{129\,504}{transactions datées et valorisées}{vert}
 \begin{center}\footnotesize
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -289,7 +292,7 @@ $-$ n'est pas une action ni un ETF & --- & $-10\,971$ \\
 $-$ aucun prix de marché trouvé$^{\ddagger}$ & $-14\,833$ & $-1\,106$ \\
 $-$ déjà connue par ailleurs & --- & $-479$ \\
 \midrule
-\textbf{retenues} & \textbf{107\,976} & \textbf{13\,324} \\
+\textbf{retenues} & \textbf{107\,976} & \textbf{14\,050} \\
 membres concernés & 305 & 285 \\
 \bottomrule
 \end{tabular}
@@ -303,8 +306,9 @@ de prix} : les titres concernés sont des sociétés connues (Marsh \& McLennan,
 L'audit du notebook montre qu'ils figurent dans une liste d'échecs de téléchargement jamais rejouée.
 \item \textbf{Le Schedule B est deux fois plus gros que les déclarations rapides} (110\,147 lignes contre
 56\,002), mais il répète l'essentiel : \textbf{76 \% de redite}, et seulement 26\,115 transactions inédites.
-\item Les deux sources ne se mélangent jamais sans le dire : on garde la trace de la provenance de chaque
-transaction.
+\item Les documents scannés apportent en plus \textbf{7\,478 transactions} que rien d'autre ne montre,
+chez 57 membres --- mais sans fourchette de montant lisible : on leur applique un forfait de 8\,000 \$.
+\item Les sources ne se mélangent jamais sans le dire : chaque transaction garde sa provenance.
 }
 \src{source : cellules \og livre de comptes O/A/T \fg{} et \og collisions \fg{}. Le détail ligne à ligne des deux
 cascades, avec la vérification de chaque somme, vit dans le notebook.}
@@ -324,8 +328,11 @@ $q$ = parts vendues}\\[0.8mm]
 \vspace{0.8mm}
 \pts{
 \item On utilise le prix du jour du \textbf{dépôt}, jamais un prix antérieur : rien de ce qui suit ne
-regarde le futur. 85,8\,\% de la valeur en actions de ces photos (562 M\$ déclarés) devient ainsi des parts ; le
-reste bute sur un prix manquant.
+regarde le futur. 83,9\,\% de la valeur en actions de ces photos (595 M\$ déclarés) devient ainsi des parts ; le reste
+bute sur un prix manquant.
+\item \textbf{La photo fait foi à sa date} : les achats antérieurs à son dépôt y figurent déjà, on ne
+les rejoue donc pas --- sans quoi la position serait comptée deux fois. Cela écarte 11\,274 transactions
+(696 M\$) chez 88 membres.
 \item Injecter une photo n'ajoute ni ne retire de valeur : le jour de l'injection, le portefeuille ne
 bouge pas d'un centime. C'est testé automatiquement.
 \item Les membres sans photo commencent à zéro. Leur point de départ n'est pas nul, il est inconnu.
@@ -339,7 +346,7 @@ bouge pas d'un centime. C'est testé automatiquement.
 \rangee{\begin{etapebox}{9}{vert}{9 $\cdot$ ON VÉRIFIE --- les rapports annuels jugent}
 \reponse{Le rapport annuel dit ce que l'élu possédait vraiment. On confronte notre reconstruction à cette
 déclaration, position par position, à la date du dépôt.}
-\phare{9 \% $\rightarrow$ 56 \%}{des positions déclarées retrouvées, sur la photo médiane}{vert}
+\phare{9 \% $\rightarrow$ 57 \%}{des positions déclarées retrouvées, sur la photo médiane}{vert}
 \vis{fig_10_recouvrement.png}
 \begin{center}\footnotesize
 \begin{tabular}{@{}lccc@{}}
@@ -347,7 +354,7 @@ déclaration, position par position, à la date du dépôt.}
 sources utilisées & retrouvé & juste & valeur \\
 \midrule
 déclarations rapides seules & 9 \% & 55 \% & 44 \% \\
-dossier complet & \textbf{56 \%} & 57 \% & 47 \% \\
+dossier complet & \textbf{57 \%} & 56 \% & 47 \% \\
 \bottomrule
 \end{tabular}\\[0.6mm]
 {\footnotesize médianes par photo, sur 1\,550 et 1\,807 photos confrontables}
@@ -359,7 +366,8 @@ dans la fourchette déclarée.
 \item Le dossier complet ajoute la photo d'entrée et les transactions des rapports annuels. On retrouve
 alors six fois plus de positions sans perdre en justesse : la précision monte de 55 \% à 57 \% et la
 valeur de 44 \% à 47 \%.
-\item Une photo n'est confrontable que si une reconstruction existe à sa date : d'où 1\,550 et 1\,807 photos sur les 2\,256 exploitables. Même exercice sur les photos de sortie : 128 confrontées, 60 \% retrouvé et 54 \% juste.
+\item Une photo n'est confrontable que si une reconstruction existe à sa date. Même exercice sur les
+photos de sortie : 136 confrontées, 60 \% retrouvé et 55 \% juste.
 }
 \src{source : cellules \og confrontation \fg{} et \og agrégats \fg{}.}
 \end{etapebox}}{\begin{tcolorbox}[enhanced, breakable=false, colback=rouge!3, colframe=rouge!45, boxrule=0.5pt,
@@ -378,7 +386,8 @@ calcul, pas une mesure.
 précèdent toute photo, ou portent sur des actifs sans ticker.
 \item Les transactions issues des rapports annuels sont datées du jour de l'opération, mais publiées
 373 jours plus tard : on les connaît bien après coup.
-\item Le patrimoine sans ticker, soit 87\,405 M\$ déclarés, reste hors de portée du moteur.
+\item Le patrimoine sans ticker reste hors de portée du moteur. Les 87\,405 M\$ souvent cités sont la
+somme de 13 ans de déclarations, pas un stock : à date fixe, tout le patrimoine déclaré pèse 8,9 Md\$.
 \item Rien ici ne dit ce que valent ces trades : cette fiche décrit la donnée, et s'arrête là.
 }
 {\footnotesize\textbf{Pourquoi croire ces chiffres.} L'empreinte des tables est conforme au manifeste.
