@@ -1,0 +1,300 @@
+% !TEX program = tectonic
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\definecolor{bleu}{RGB}{20,77,144}
+\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}
+\definecolor{grisf}{RGB}{100,100,100}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+\newcommand{\chantier}[2]{\vspace{1.8mm}{\color{bleu}\large\bfseries C#1 --- #2}\vspace{0.3mm}\par}
+\newcommand{\remarque}[1]{{\color{rouge}\textbf{\og{} #1 \fg{}}}}
+\newcommand{\decide}[1]{\vspace{0.6mm}{\small$\rightarrow$ \textbf{ce que ça décide} : #1}\par}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Les remarques du chef, transformées en mesures}\\[1mm]
+{\normalsize backtest \textbf{par membre} (Partie II du deck) $\cdot$ six remarques, six hypothèses silencieuses, six mesures}\\[0.5mm]
+{\small\color{grisf} chaque chantier : le défaut \emph{formel} $\cdot$ l'objet mathématique $\cdot$ le test $\cdot$ ce que ça décide}
+\end{center}
+
+\vspace{1mm}
+\begin{mdframed}[linecolor=grisf, backgroundcolor=grisf!6, linewidth=0.8pt, roundcorner=4pt]
+\textbf{Le fil rouge.} Les six remarques disent la même chose : \textbf{une hypothèse a été posée là où il fallait une mesure.}
+Aucune n'est défendue ici --- chacune est remplacée par une quantité qu'on estime.
+\vspace{1.5mm}
+{\scriptsize
+\begin{tabular}{@{}c@{\;\;} l @{\quad} l @{\quad} l@{}}
+\toprule
+ & remarque (page) & l'hypothèse silencieuse & ce qu'on mesure à la place \\\midrule
+\textbf{C1} & \og{} holdings stables $\to$ discounter \fg{} (48) & une position dormante informe autant & $\alpha$ par tranche d'\textbf{âge} $\to$ le noyau \\
+\textbf{C2} & \og{} long vs short ? \fg{} & vendre $=$ acheter au signe près & $\gamma^{+}$ et $\gamma^{-}$ séparés \\
+\textbf{C3} & \og{} le $\beta$ est trop naïf \fg{} (53, 60) & $\beta$ constant, \emph{ex-post}, 1 facteur & $\beta_t$ \emph{ex-ante} $+$ tests de rupture \\
+\textbf{C4} & \og{} délégation : à supprimer \fg{} (40) & tous les comptes informent pareil & 3 périmètres emboîtés \\
+\textbf{C5} & \og{} avec et sans winsor \fg{} (47) & un saut $>50\,\%$/j est du bruit & le saut \textbf{validé} par le volume \\
+\textbf{C6} & \og{} $n_{\text{trades}}\ge 10$ : à relaxer \fg{} (52) & le seuil dur est la bonne porte & balayage $+$ \textbf{shrinkage} \\
+\bottomrule
+\end{tabular}}
+\end{mdframed}
+
+% ══════════════════════════════ C1 ══════════════════════════════
+\chantier{1}{Les positions dormantes --- l'information se périme}
+
+\remarque{si les holdings sont stables pendant trop longtemps, ce ne peut être considéré comme de l'inside trading : il faut les discounter et les faire tendre vers 0}
+\;+\; p.\,48 : \remarque{retirer les trades qui sont là depuis plus de 1 an, 2 ans, 3 ans, 5 ans}
+
+\textbf{Le défaut, formellement.} Le moteur construit la position
+$n_i(t)=\sum_{\text{achats}\le t} q-\sum_{\text{ventes}\le t} q^{-}$,
+et cette position vit \textbf{indéfiniment} : elle pèse autant le jour de l'achat que douze ans après.
+Or le rendement mesuré, $r_P(t)=\sum_i w_i(t{-}1)\,r_i(t)$, y attribue son plein poids.
+\textbf{L'$\alpha$ de l'élu inclut donc le rendement de lignes qu'il n'a pas touchées depuis des années} --- du buy-and-hold, pas de l'information.
+Ce n'est pas marginal : \textbf{durée médiane de détention 390 j} et \textbf{44 \% des positions ne sont jamais revendues} (deck p.\,49).
+
+\textbf{L'objet à définir : l'âge d'une ligne.} Pour le membre $m$ et le titre $i$,
+\[
+\ell_{m,i}(t) \;=\; t \;-\; \max\{\tau_j : j \text{ trade de } m \text{ sur } i,\ \tau_j \le t\}
+\qquad\text{(âge du dernier mouvement, en jours de bourse)}
+\]
+
+\textbf{Deux traitements, emboîtés.} \emph{(a) la coupe} --- ce que le chef demande littéralement :
+$A_L(t)=\{i:\ell_{m,i}(t)\le L\}$, poids renormalisés sur $A_L$, balayage $L\in\{252,504,756,1260\}$ j ($1,2,3,5$ ans).
+\emph{(b) le discount} --- ce qu'il préfère : $\psi_H(\ell)=2^{-\ell/H}$, $\;\tilde n_i(t)=n_i(t)\,\psi_H(\ell_i(t))$, puis
+\[
+\tilde w_i(t)=\frac{\tilde n_i(t)P_i(t)}{\sum_j \tilde n_j(t)P_j(t)},
+\qquad
+r_P^{(H)}(t)=\sum_i \tilde w_i(t{-}1)\,r_i(t),
+\qquad H\in\{63,126,252,504\}\ \text{j}.
+\]
+{\small (a) est le cas particulier de (b) avec $\psi=\mathbf 1_{[0,L]}$ ; et $L,H\to\infty$ redonnent \textbf{exactement} le moteur actuel. Le backtest présenté est donc un \emph{point} de la famille --- la comparaison est honnête, ce n'est pas un autre modèle.}
+
+\textbf{Le test qui tranche : la structure par terme de l'$\alpha$.} On ne postule pas la décroissance, on la lit.
+Tranches d'âge disjointes $A_1=[0,63)$, $A_2=[63,252)$, $A_3=[252,756)$, $A_4=[756,\infty)$ ; chacune est un sous-portefeuille dont on mesure $\alpha_g$. Puis test de tendance
+\[
+\alpha_g = a + b\,\bar a_g + u_g,
+\qquad H_0:\ b=0 \quad\text{contre}\quad b<0
+\]
+($\bar a_g$ = âge médian de la tranche ; version non paramétrique : Jonckheere-Terpstra).
+Et la décomposition qui répond en un chiffre : $\;\alpha_P \simeq \sum_g \bar\kappa_g\,\alpha_g\;$ où $\kappa_g$ = part du portefeuille dans la tranche $g$ --- \textbf{quelle fraction de l'$\alpha$ vient des décisions récentes, quelle fraction du stock dormant.}
+
+\decide{si $b<0$, la forme de $(\alpha_g)$ \emph{dicte} $H$ (on lit la demi-vie au lieu de la choisir) ; si $b\approx 0$, la thèse est infirmée --- et c'est un résultat, chiffré.}
+
+% ══════════════════════════════ C2 ══════════════════════════════
+\chantier{2}{Achat contre vente --- l'asymétrie jamais testée}
+
+\remarque{j'aurais envie de savoir s'il y a une différence d'information // de valeur entre les long et les short positions}
+
+\textbf{D'abord, la réponse honnête.} Sur 134\,464 lignes, \textbf{405 (0,30 \%)} portent une sémantique short/option
+(put 172 $\cdot$ short 122 $\cdot$ call 61 $\cdot$ bear 52 $\cdot$ warrant 8 $\cdot$ inverse 4), et la direction déclarée est binaire (buy 68\,250 / sell 66\,214).
+\textbf{La comparaison \og{} position longue vs position courte \fg{} n'est pas estimable chez nous} --- c'est l'angle mort exact où Molk \& Partnoy (\emph{Indiana LJ}, 2025) trouvent l'information, sur 587 trades négatifs. À déclarer comme limite, pas à simuler.
+
+\textbf{Ce qui est estimable --- et que le moteur assume sans le tester.} Deux troncatures, l'une dans le moteur, l'autre dans le signal :
+\[
+\underbrace{q^{-}=\min\!\bigl(a/P_i(\tau),\ n_i(\tau^{-})\bigr)}_{\text{moteur : \og{} short interdit \fg{}}}
+\qquad\qquad
+\underbrace{\mathrm{NetBuy}=[\,\mathrm{Buy}-\mathrm{Sell}\,]^{+}}_{\text{signal agrégé}}
+\]
+Ce que ça coûte, \textbf{mesuré} : côté moteur, \textbf{937 M\$ de ventes tronquées} sur le seul run témoin (notebook House).
+Côté agrégat, sur les 57\,496 couples (ticker, mois de divulgation) actifs :
+achats seuls 22\,063 (38,4 \%) $\cdot$ \textbf{ventes seules 22\,374 (38,9 \%)} $\cdot$ les deux, net $>0$ : 4\,443 $\cdot$ les deux, net $\le 0$ : 8\,616.
+\textbf{La troncature annule 53,9 \% des couples actifs}, dont 38,9 points de \emph{pure vente}.
+Et la jambe vente est aussi fournie que la jambe achat : \textbf{6\,126} couples à $\ge 2$ vendeurs distincts contre \textbf{6\,077} à $\ge 2$ acheteurs.
+
+\textbf{Le trou dans les tables actuelles.} Le track-record par trade du notebook 09 --- taux de réussite,
+excès moyen, \emph{profit factor} --- est calculé \textbf{sur les achats seulement} : le dictionnaire le dit,
+\og{}\,\# achats avec $x_j$ calculable\,\fg{}. \textbf{La moitié vente n'a jamais été calculée.}
+
+\textbf{Le test.} On symétrise l'excès par trade, avec le signe qui convient :
+\[
+x_j^{\text{buy}} = R_i(\delta_j\!\to\!\delta_j{+}h) - R_{\mathrm{SPY}}(\cdot),
+\qquad
+x_j^{\text{sell}} = -\bigl[R_i(\delta_j\!\to\!\delta_j{+}h) - R_{\mathrm{SPY}}(\cdot)\bigr]
+\]
+{\small (une vente est \og{} réussie \fg{} si le titre sous-performe ensuite), $h\in\{21,63,126,252\}$ j.}
+Puis, en coupe (Fama-MacBeth), avec $b^{\pm}$ les intensités z-scorées et $x$ les contrôles (taille, $\beta$, momentum 12-1, secteur) :
+\[
+r_{i,t\to t+h} = \gamma_{0,t} + \gamma^{+}_t\,b^{+}_{i,t} + \gamma^{-}_t\,b^{-}_{i,t} + \delta_t' x_{i,t} + \varepsilon_{i,t}
+\qquad
+\bar\gamma^{\pm}\ \text{et}\ t_{\mathrm{NW}}(\bar\gamma^{\pm})
+\]
+Trois hypothèses emboîtées, chacune dit quoi faire :
+\begin{itemize}[itemsep=0.5pt, topsep=1pt, leftmargin=6mm]
+\item $H_A$ : $\bar\gamma^{+}=-\bar\gamma^{-}$ --- symétrie parfaite : netter $1{:}1$ est justifié \emph{(l'hypothèse actuelle)} ;
+\item $H_B$ : $\bar\gamma^{-}=0$ --- \textbf{il ne faut pas netter} : retrancher les ventes n'ajoute que du bruit \emph{(ce que suggèrent Pyun 2026, et notre 08 : jambe vente $+0{,}59\,\%$/an, $t\,0{,}35$)} ;
+\item $H_C$ : $\bar\gamma^{-}<0$ --- le netting est justifié, et un long-short devient légitime \emph{(Lazzaretto 2024 : $-0{,}64\,\%$ à 20 j)}.
+\end{itemize}
+Le taux de substitution se \emph{lit} au lieu d'être imposé : $\;\theta^{\star}=-\bar\gamma^{-}/\bar\gamma^{+}$, signal $\Psi_{i,t}=\mathrm{Buy}_{i,t}-\theta^{\star}\mathrm{Sell}_{i,t}$ ($\theta^{\star}=1$ redonne l'actuel, $\theta^{\star}=0$ dit \og{} ignore les ventes \fg{}).
+
+\textbf{La motivation de la vente} (le fond du sujet) : un achat est un acte de conviction, une vente peut être de l'information, un besoin de liquidité, ou un rebalancement. Deux marqueurs les séparent, tous deux calculables :
+\emph{solde total} ($n_i \to 0$, plus probablement informationnelle) et \emph{vente groupée} ($\ge 3$ titres vendus le même jour par le même membre $=$ liquidité).
+Prédiction falsifiable : $\bar\gamma^{-}(\text{info}) < \bar\gamma^{-}(\text{liq}) \approx 0$.
+
+\decide{s'il faut netter ou non, avec quel $\theta^{\star}$, et si la jambe vente mérite un portefeuille à elle.}
+
+\newpage
+% ══════════════════════════════ C3 ══════════════════════════════
+\chantier{3}{Le $\beta$ --- \emph{ex-post} et unique, donc ni implémentable ni interprétable}
+
+p.\,53 : \remarque{bon test mais s'il est seul, est trop naïf. Le beta est-il stable dans le temps ?} \;+\; p.\,60 : \remarque{stable dans le temps ?}
+
+\textbf{Les cinq défauts de $\;r_P(t)=\alpha+\beta\,r_{\mathrm{SPY}}(t)+\varepsilon(t)\;$ (MCO, échantillon complet).}
+\begin{enumerate}[itemsep=0.8pt, topsep=1pt, leftmargin=7mm]
+\item \textbf{Il est \emph{ex-post}} : le $\beta$ qui \og{} corrige \fg{} 2016 est estimé avec des données de 2025. Un gérant en 2016 ne le connaît pas $\Rightarrow$ la correction n'est pas implémentable, et si $\beta$ covarie avec le marché, $\hat\alpha$ est biaisé.
+\item \textbf{Il est unique alors que le portefeuille tourne} : la sélection change \textbf{11 années sur 11} (notebook House). Un $\beta$ unique moyenne des paniers qui n'ont aucun titre en commun.
+\item \textbf{Un seul facteur} : le panier est mégacap-tech (top-10 $=$ 86 \% du portefeuille en 2026, NVDA 22 \% --- 05b). Le SPY ne capte ni taille, ni value, ni momentum. Hanousek 2023 : \emph{le benchmark crée l'$\alpha$} ($+4{,}9\,\%$ market-adjusted $\to$ $-0{,}1\,\%$ industry-adjusted, mêmes trades).
+\item \textbf{Inférence i.i.d.} : rendements quotidiens autocorrélés (positions chevauchantes) et hétéroscédastiques $\Rightarrow$ écarts-types MCO faux.
+\item \textbf{Le $\beta$ est une conséquence de la sélection, pas une propriété} : l'univers a $\beta\approx 1{,}0$, le top-4 a $\beta=1{,}20$. \emph{C'est le classement qui va chercher des membres à fort $\beta$} --- donc $\beta$ bouge mécaniquement à chaque coupe.
+\end{enumerate}
+
+\textbf{L'estimateur : $\beta$ \emph{ex-ante}, bottom-up.} Le $\beta$ du portefeuille est \textbf{connu à l'avance} --- on connaît les poids et les $\beta$ des lignes :
+\[
+\beta^{P}_t=\sum_i w_{i,t}\,\hat\beta^{\text{shr}}_{i,t},
+\qquad
+\hat\beta^{\text{shr}}_{i,t}=\omega_i\,\hat\beta_{i,t}+(1-\omega_i)\cdot 1,
+\qquad
+\omega_i=\frac{\sigma^2_{\text{cross}}}{\sigma^2_{\text{cross}}+s^2(\hat\beta_{i,t})}
+\]
+$\hat\beta_{i,t}$ estimé sur les 252 jours \textbf{$\le t$} (point-in-time), puis shrinké vers 1 (Vasicek) : un titre peu liquide a un $s(\hat\beta)$ énorme, $\omega_i$ le pondère automatiquement par sa précision.
+Trois gains : \textbf{implémentable} (connu à $t$, donc on peut couvrir) $\cdot$ \textbf{stable par construction} $\cdot$ \textbf{décomposable} ---
+\[
+\Delta\beta^{P}=\underbrace{\textstyle\sum_i \Delta w_i\,\bar\beta_i}_{\text{effet composition}}+\underbrace{\textstyle\sum_i \bar w_i\,\Delta\beta_i}_{\text{effet marché}}
+\]
+on sait dire \emph{pourquoi} $\beta$ bouge.
+
+\textbf{Cadrage mesuré.} Le $\beta$ moyen des titres à $\ge 2$ acheteurs dérive de \textbf{0,94 (2016) à 1,05 (2026)} --- modeste ---
+pendant que la part \emph{Information Technology} \textbf{double, de 10 \% à 24 \%}.
+Donc : la dérive du $\beta$ \emph{de marché} est faible, celle de \textbf{l'exposition de style} est massive $\Rightarrow$ l'argument \og{} un facteur ne suffit pas \fg{} est plus fort encore que \og{} le $\beta$ bouge \fg{}.
+{\small (Honnêteté : ces $\beta$ sont plein-échantillon, ils \emph{sous-estiment} la variation ; et un top-4 concentré bouge bien plus qu'un univers de 300 titres.)}
+
+\textbf{Les tests de stabilité --- la question littérale du chef.}
+\begin{itemize}[itemsep=0.5pt, topsep=1pt, leftmargin=6mm]
+\item $\beta_t$ roulant 252 j avec bande de confiance --- la figure qui répond à l'\oe il ;
+\item \textbf{Chow} sur rupture datée (COVID, 02/2020) : $H_0:\beta_1=\beta_2$ ;
+\item \textbf{CUSUM / CUSUM$^2$} (Brown-Durbin-Evans) : rupture \emph{non datée a priori} --- le test propre, il ne suppose pas où chercher ;
+\item \textbf{$\beta$ asymétrique} : $r_P-r_f=\alpha+\beta^{-}(r_M-r_f)\mathbf 1_{r_M<0}+\beta^{+}(r_M-r_f)\mathbf 1_{r_M\ge 0}+\varepsilon$, $\;H_0:\beta^{+}=\beta^{-}$. Si $\beta^{-}>\beta^{+}$, le portefeuille prend \emph{plus} de marché quand ça baisse --- un $\beta$ moyen le cache.
+\end{itemize}
+
+\textbf{Le modèle d'évaluation.} Carhart-4 au minimum (les facteurs sont en cache : \texttt{ff\_factors.csv}), plus le panier sectoriel auto-répliquant $\omega_{s,t}=\sum_{i\in s}w_{i,t}$ :
+\[
+r^{\text{net}}_P(t)-r_f(t)=\alpha+\beta_M(r_M{-}r_f)+\beta_S \mathrm{SMB}+\beta_H \mathrm{HML}+\beta_U \mathrm{MOM}+\beta_\Sigma\bigl(r^{\text{sect}}(t)-r_f(t)\bigr)+\varepsilon(t)
+\]
+Inférence \textbf{Newey-West} $L=21$. Et, si les tests ci-dessus rejettent la stabilité, l'$\alpha$ \textbf{conditionnel} de Ferson-Schadt (1996) --- la réponse académique de référence à \og{} $\beta$ varie \fg{} :
+\[
+r_{P,t+1}-r_f=\alpha+b_0(r_{M,t+1}-r_f)+b_1'\bigl[z_t\otimes(r_{M,t+1}-r_f)\bigr]+\varepsilon,
+\qquad z_t=\text{états retardés (pente, VIX, \emph{dividend yield})}
+\]
+\decide{un $\alpha$ qui survit à Carhart$+$secteur$+\beta$ conditionnel est robuste ; sinon, on saura \emph{exactement} quelle exposition le produisait.}
+
+% ══════════════════════════════ C4 ══════════════════════════════
+\chantier{4}{Les comptes délégués --- partitionner avant de mesurer}
+
+p.\,40 : \remarque{quand on délègue c'est notamment pour ne pas faire de l'inside trading. À supprimer de l'analyse assez rapidement}
+
+\textbf{Le problème.} \texttt{owner} est déclaré (Spouse 40\,582 $\cdot$ SELF 34\,268 $\cdot$ Dependent Child 20\,837 $\cdot$ Joint 27\,019 $\cdot$ \ldots) mais \og{} délégué à un gérant \fg{} n'est \textbf{pas} un champ : il faut le construire.
+
+\textbf{Le score de délégation} (toutes les colonnes existent déjà dans \texttt{membres.csv}) --- un compte géré a une signature quantitative :
+rythme $n_m/$an très au-dessus de la médiane (Khanna $\sim$3\,700/an, McCaul $\sim$1\,600/an, contre Pelosi $\sim$12/an) $\cdot$
+taille médiane collée à la borne basse (\texttt{pct\_1re\_fourchette}, 8\,000\,\$ $=$ rebalancement automatique) $\cdot$
+diversification extrême (\texttt{n\_tickers} : 1\,195 et 776, contre 38) $\cdot$
+part non-élu $\approx 100\,\%$ (\texttt{part\_self} : 2,3 \% et 0,0 \%).
+\[
+\delta_m=\tfrac14\textstyle\sum_{v\in\{\text{rythme},\,\text{1\up{re} tranche},\,n_{\text{tickers}},\,1-\text{part\_self}\}} \mathrm{rang}_{\text{norm}}(v_m)\ \in[0,1]
+\]
+{\small (moyenne de rangs normalisés --- sans seuil arbitraire dans la \emph{définition} ; le seuil est balayé, pas choisi).}
+
+\textbf{Le test --- trois périmètres emboîtés}, et c'est lui qui vaut l'argument :
+$\mathcal P_0$ tous les trades (témoin) $\;\subset\;$ $\mathcal P_1$ hors délégation présumée ($\delta_m$ au-dessus du quantile $q$, balayé) $\;\subset\;$ $\mathcal P_2$ \texttt{owner}\,$=$\,SELF (34\,268 lignes).
+\[
+\textbf{Validité convergente :}\qquad
+\alpha(\mathcal P_0) \;<\; \alpha(\mathcal P_1) \;<\; \alpha(\mathcal P_2)
+\]
+Si le signal est vraiment de l'information privée, il doit \textbf{se renforcer} quand on resserre. S'il s'affaiblit, ce qu'on capture n'est pas de l'information d'initié mais un effet de style ou de flux --- et il faut le dire.
+{\small Ce n'est pas cosmétique : \textbf{41,2 \% des lignes} viennent de 2 membres dont $\sim$100 \% en délégation.}
+
+\decide{une prédiction directionnelle \emph{falsifiable}, bien plus forte qu'une exclusion décrétée.}
+
+% ══════════════════════════════ C5 ══════════════════════════════
+\chantier{5}{La winsorisation --- elle coupe peut-être le signal lui-même}
+
+p.\,47 : \remarque{avoir avec et sans winsor : s'il y a justement de l'inside trading, ça peut aussi être pour capturer ces micro-évènements qui ont un gros impact}
+
+\textbf{Le chef a raison sur le fond} : $r_P\leftarrow\mathrm{clip}(r_P,-50\,\%,+50\,\%)$ est un garde-fou anti-donnée-corrompue, mais il coupe \textbf{exactement} ce qu'un initié chercherait --- le saut sur annonce (rachat, essai clinique, contrat).
+
+\textbf{Le remède : ne pas plafonner, mais \emph{valider} le saut.} Un $|r_i(t)|>50\,\%$ est de deux natures, séparables par deux marqueurs indépendants (le volume est en cache, \texttt{volume\_v1}) :
+\[
+\text{saut \textbf{vrai}} :\;
+V_i(t)>3\,\mathrm{med}_{63\text{j}}(V_i)
+\ \ \text{et}\ \
+\Bigl|\textstyle\sum_{u=t+1}^{t+5} r_i(u)\Bigr| \ll |r_i(t)|
+\qquad\text{(volume anormal, et le prix ne revient pas)}
+\]
+Le saut \textbf{infirmé} (pas de volume, prix qui revient) est corrigé et journalisé ; le saut validé est \textbf{gardé}.
+
+\textbf{Ce qu'on publie} : $\alpha$ \textbf{avec} et \textbf{sans} winsorisation côte à côte, plus la quantité qui répond vraiment ---
+$\Delta\alpha=\alpha_{\text{sans}}-\alpha_{\text{avec}}$ et le \textbf{nombre de jours concernés}.
+Si l'$\alpha$ vit dans les jours coupés, ce n'est pas un détail de robustesse : c'est le résultat principal.
+
+% ══════════════════════════════ C6 ══════════════════════════════
+\chantier{6}{Le seuil $n_{\text{trades}}\ge 10$ --- le remplacer, pas le déplacer}
+
+p.\,52 : \remarque{assumption à relax}
+
+\textbf{Le défaut.} Un seuil dur \emph{jette} l'information des membres peu actifs, et il ne règle qu'imparfaitement le bruit qu'il vise : \textbf{les deux seuls $|t|>2$ de la galerie sont Fetterman ($t\,2{,}38$) et Ruiz ($t\,2{,}40$), tous deux sur exactement 10 trades} --- donc \emph{au-dessus} du seuil. Le seuil ne les a pas arrêtés.
+
+\textbf{Le remède : le shrinkage bayésien, qui n'exclut personne.}
+\[
+\hat\alpha^{\text{shr}}_m=\omega_m\,\hat\alpha_m+(1-\omega_m)\,\bar\alpha,
+\qquad
+\omega_m=\frac{\tau^2}{\tau^2+s^2_m}
+\]
+$s^2_m$ = variance d'estimation de $\hat\alpha_m$ (grande si peu de trades), $\tau^2$ = dispersion vraie entre membres (estimée en coupe, \emph{empirical Bayes}).
+Un membre à 3 trades n'est plus exclu : il est \textbf{tiré vers la moyenne} à proportion de son imprécision.
+\textbf{L'argument décisif} : le shrinkage aurait \emph{automatiquement} dégonflé Fetterman et Ruiz --- sans qu'on ait à les écarter à la main, et sans perdre les membres peu actifs mais réguliers.
+On publie en complément le balayage $n_{\min}\in\{1,3,5,10,20\}$ en entier (pas seulement le meilleur).
+
+% ══════════════════════════════ CHRONOLOGIE ══════════════════════════════
+\vspace{2mm}
+{\color{bleu}\large\bfseries L'ordre d'exécution --- et pourquoi il n'est pas commutatif}\par
+\vspace{0.5mm}
+{\footnotesize
+\begin{tabular}{@{}r l l@{}}
+\toprule
+ & étape & ce qu'elle fixe pour la suite \\\midrule
+É1 & \textbf{les périmètres} (C4) & construire $\delta_m$, figer $\mathcal P_0/\mathcal P_1/\mathcal P_2$ --- \emph{rien ne se mesure avant de savoir sur qui} \\
+É2 & \textbf{les prix} (C5) & valider les sauts, produire les séries avec/sans winsor --- le moteur en dépend \\
+É3 & \textbf{l'âge} (C1) & $\alpha$ par tranche $\to$ \emph{la forme du noyau} $\psi$ et la demi-vie $H^{\star}$ \\
+É4 & \textbf{l'asymétrie} (C2) & $\bar\gamma^{+},\bar\gamma^{-}\to\theta^{\star}$ : faut-il netter, et la jambe vente mérite-t-elle un portefeuille \\
+É5 & \textbf{le moteur v2} & rejouer la reconstruction avec $\psi_{H^{\star}}$ et $\theta^{\star}$ \emph{issus de É3-É4}, pas choisis \\
+É6 & \textbf{le $\beta$} (C3) & $\beta^P_t$ bottom-up \emph{ex-ante}, tests de rupture, couverture optionnelle \\
+É7 & \textbf{l'évaluation} & Carhart-4 $+$ secteur, NW, $\alpha$ conditionnel --- sur les 3 périmètres $\times$ avec/sans winsor \\
+É8 & \textbf{le verdict} & gates chiffrés, \emph{écrits avant}, avec la multiplicité recomptée \\
+\bottomrule
+\end{tabular}}
+
+\vspace{1.5mm}
+\begin{mdframed}[linecolor=rouge, backgroundcolor=rouge!5, linewidth=0.8pt, roundcorner=3pt]
+\small\textbf{Le piège à ne pas manquer.} É3 et É4 \emph{estiment} $H^{\star}$ et $\theta^{\star}$ \textbf{sur les données}. Les réinjecter tels quels en É5 serait du data-mining, et le Deflated Sharpe le punira.
+Deux sorties, à choisir \emph{avant} : soit on les estime en \textbf{walk-forward} (sur $\le t$ seulement, comme $K^{\star}$), soit on les fige sur une période d'apprentissage et on ne juge que sur le reste.
+\textbf{C'est la seule vraie difficulté du plan} --- et la grille s'agrandissant, $\mathbb E[\max t\,|\,H_0]$ monte : il faut le recompter, pas l'oublier.
+\end{mdframed}
+
+\vspace{1mm}
+\begin{mdframed}[linecolor=grisf, backgroundcolor=grisf!6, linewidth=0.7pt, roundcorner=3pt]
+\small\textbf{Ce que ce plan ne dira toujours pas.}
+Les \textbf{positions courtes et les options} (0,30 \% des lignes) restent hors d'atteinte --- or c'est là que la littérature trouve l'information (Molk \& Partnoy) et là que vit l'écart Pelosi actions/dérivés.
+Les \textbf{coûts de transaction} ne sont pas dans le backtest membre.
+Et la \textbf{puissance} borne tout : $\mathrm{MDE}\approx 4{,}6\,\%$/an (House) à 80 \% --- un $t$ faible \emph{borne} ce qu'on peut voir, il ne prouve pas qu'il n'y a rien.
+\end{mdframed}
+
+\end{document}
