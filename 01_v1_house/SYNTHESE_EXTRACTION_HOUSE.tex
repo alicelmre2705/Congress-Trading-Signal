@@ -1,5 +1,6 @@
 % !TEX program = tectonic
-% SCORECARD 2 pages — « Extraction House : propre ? complète ? backtestable ? »
+% DOC MAÎTRE — « La donnée House : tout comprendre, tout vérifier, en 4 pages »
+% Page 1 comprendre · Page 2 propre & complet · Page 3 backtestable + verdict + à-faire · Page 4 vérifié + carte.
 % Tables + feux 🟢🟡🔴, quasi zéro prose. Chiffres = notebook Portefeuilles_House_Complet (vérifiés).
 \documentclass[10pt,a4paper]{article}
 \usepackage[margin=1.05cm]{geometry}
@@ -11,6 +12,8 @@
 \usepackage{array}
 \usepackage{xcolor}
 \usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage[most]{tcolorbox}
 
 \definecolor{bleu}{RGB}{20,77,144}
@@ -23,52 +26,99 @@
 \setlength{\parindent}{0pt}\setlength{\parskip}{0pt}\pagestyle{empty}
 \renewcommand{\arraystretch}{1.15}
 
-% ── feu tricolore ──
 \newcommand{\feu}[1]{\textcolor{#1}{\Large$\bullet$}}
 \newcommand{\fv}{\feu{vert}}\newcommand{\fo}{\feu{orange}}\newcommand{\fr}{\feu{rouge}}
-% ── tuile chiffre ──
 \newcommand{\tuile}[3]{\begin{tcolorbox}[nobeforeafter,width=0.237\textwidth,colback=#1!8,colframe=#1!55,
-  boxrule=0.6pt,arc=2pt,left=1mm,right=1mm,top=1.2mm,bottom=1.2mm,halign=center,valign=center,height=15mm]
-  {\large\bfseries\color{#1}#2}\\[0.2mm]{\scriptsize #3}\end{tcolorbox}}
-% ── boîte à titre ──
+  boxrule=0.6pt,arc=2pt,left=1mm,right=1mm,top=1.2mm,bottom=1.2mm,halign=center,valign=center,height=17mm]
+  {\large\bfseries\color{#1}#2}\\[0.3mm]{\scriptsize #3}\end{tcolorbox}}
 \newtcolorbox{bloc}[2]{enhanced,breakable=false,colback=white,colframe=#1!55,boxrule=0.6pt,arc=2pt,
   left=2.2mm,right=2.2mm,top=1.2mm,bottom=1.4mm,toptitle=0.5mm,bottomtitle=0.5mm,boxsep=0pt,
   colbacktitle=#1,coltitle=white,fonttitle=\footnotesize\bfseries,title={#2},before skip=1.5mm,after skip=0mm}
 
 \begin{document}
 
-% ═══════════════ CHAPEAU ═══════════════
+% ══════════════════════════════════ PAGE 1 — COMPRENDRE ══════════════════════════════════
 \begin{center}
-{\large\bfseries L'extraction House, d'un coup d'œil : propre ? complète ? backtestable ?}\\[0.3mm]
-{\scriptsize House 2013--2026 $\cdot$ chiffres du notebook \texttt{Portefeuilles\_House\_Complet}, recoupés cellule par cellule
-$\cdot$ \fv~solide \quad \fo~limite connue \quad \fr~manque structurel}
+{\large\bfseries La donnée House --- tout comprendre, tout vérifier}\\[0.4mm]
+{\scriptsize \textbf{le doc à ouvrir en premier} $\cdot$ House 2013--2026 $\cdot$ chiffres du notebook
+\texttt{Portefeuilles\_House\_Complet}, recoupés cellule par cellule}
 \end{center}
-\vspace{1.2mm}
+\vspace{0.6mm}
 
+\begin{tcolorbox}[enhanced,colback=grisc!12,colframe=grisc,boxrule=0.5pt,arc=2pt,left=3mm,right=3mm,top=1.4mm,bottom=1.4mm]
+{\footnotesize\textbf{Ce qu'on a fait.} Extraire \emph{proprement} toutes les transactions boursières
+\emph{exploitables} des élus de la Chambre (2013--2026), et les reconstruire en portefeuilles quotidiens,
+pour pouvoir \textbf{backtester}. Le trajet, en 2 actes / 9 étapes :}\\[1.4mm]
+\begin{center}
+\begin{tikzpicture}[x=0.98cm, y=0.9cm, font=\scriptsize]
+\foreach \k/\lab/\c [count=\i from 0] in {%
+  1/il arrive/bleu, 2/il trade/bleu, 3/il déclare/bleu, 4/il part/bleu,
+  5/on rassemble/vert, 6/on trie/vert, 7/on valorise/vert, 8/on reconstruit/vert, 9/on vérifie/vert}{%
+  \ifnum\k<9 \draw[\c!45, line width=0.9pt] ({\i*2.1+0.28}, 0) -- ({\i*2.1+1.82}, 0);\fi
+  \fill[\c] ({\i*2.1}, 0) circle (0.23);
+  \node[text=white, font=\scriptsize\bfseries] at ({\i*2.1}, 0) {\k};
+  \node[text=\c, font=\scriptsize, anchor=north] at ({\i*2.1}, -0.30) {\lab};}
+\node[bleu, font=\scriptsize\bfseries] at (2.05, 0.55) {ACTE I --- ils déposent};
+\node[vert, font=\scriptsize\bfseries] at (12.6, 0.55) {ACTE II --- ce qu'on en fait};
+\end{tikzpicture}
+\end{center}
+\vspace{0.6mm}
+{\footnotesize Un dépôt de patrimoine porte \textbf{deux sections}, qui ne servent pas à la même chose :}\\[1mm]
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize,
+  bo/.style 2 args={rectangle, rounded corners=1.8pt, draw=#1, fill=#1!8, semithick,
+                    inner sep=2.8pt, align=center, text width=#2, font=\scriptsize}]
+\node[bo={grisf}{1.7cm}]  (m) at (0, 0)    {un \textbf{membre}};
+\node[bo={bleu}{2.5cm}]   (d) at (3.0, 0)  {dépose des \textbf{documents}};
+\node[bo={vert}{2.2cm}]   (l) at (6.2, 0)  {faits de \textbf{sections}};
+\node[bo={orange}{6.0cm}] (p) at (11.7, 0.62) {\textbf{Schedule A} : ce qu'il possède $\rightarrow$ \textbf{positions} (le départ + le juge)};
+\node[bo={orange}{6.0cm}] (t) at (11.7, -0.62) {\textbf{Schedule B} : ce qu'il achète/vend $\rightarrow$ \textbf{transactions} (le flux)};
+\draw[->, grisf, semithick] (m) -- (d);
+\draw[->, grisf, semithick] (d) -- (l);
+\draw[->, grisf, semithick] (l.east) -- ++(0.4, 0) |- (p.west);
+\draw[->, grisf, semithick] (l.east) -- ++(0.4, 0) |- (t.west);
+\end{tikzpicture}
+\end{center}
+\end{tcolorbox}
+\vspace{2mm}
+
+\begin{center}{\footnotesize\bfseries CE QU'ON A, EN QUATRE CHIFFRES}\end{center}
+\vspace{0.5mm}
 \noindent
-\tuile{vert}{129\,538}{transactions valorisées}\hfill
-\tuile{bleu}{408}{membres qui tradent}\hfill
-\tuile{orange}{243}{portefeuilles de départ}\hfill
-\tuile{vert}{9\,$\rightarrow$\,57\,\%}{rappel vérifié (juge indép.)}
-\vspace{1.5mm}
+\tuile{vert}{129\,538}{transactions valorisées, 3 sources}\hfill
+\tuile{bleu}{408 / 900}{membres qui tradent / au registre}\hfill
+\tuile{orange}{609\,886}{lignes de patrimoine déclaré}\hfill
+\tuile{rouge}{12$\times$}{empilé 104\,130 vs stock 8\,887 M\$}
+\vspace{2.5mm}
 
-% ═══════════════ LE FLUX PAR SOURCE ═══════════════
+\begin{center}
+{\footnotesize De \textbf{900} membres et \textbf{6} types de dépôts, on tire un flux de \textbf{129\,538}
+transactions exploitables chez \textbf{408} membres --- reconstruites jour après jour en portefeuilles,
+puis \textbf{jugées} par des documents qui n'ont pas servi à les construire.}
+\end{center}
+
+\newpage
+
+% ══════════════════════════════════ PAGE 2 — PROPRE & COMPLET ══════════════════════════════════
+\begin{center}{\large\bfseries 1. Est-ce PROPRE et COMPLET ?}\hfill
+{\scriptsize \fv~solide \quad \fo~limite connue \quad \fr~manque structurel}\end{center}
+\vspace{1mm}
+
 \begin{bloc}{bleu}{CE QU'ON A EXTRAIT --- le flux de transactions, par source}
 \footnotesize
 \begin{tabular}{@{}c l r l l@{}}
  & \textbf{source} & \textbf{trades} & \textbf{montant} & \textbf{publié après l'opération}\\
 \midrule
-\fv & déclarations rapides \emph{P} (fil de l'eau) & 107\,976 & fourchette, milieu & médiane \textbf{27 j} (q90 49 j)\\
+\fv & déclarations rapides \emph{P} (fil de l'eau) & 107\,976 & fourchette, milieu & médiane \textbf{27 j}\\
 \fo & rapports annuels \emph{O/A/T} (électronique) & 14\,084 & fourchette, milieu & médiane \textbf{374 j}\\
 \fo & Schedule B scanné (océrisé) & 7\,478 & \textbf{forfait 8\,000\,\$} & médiane \textbf{393 j}\\
 \midrule
- & \textbf{flux unifié F} & \textbf{129\,538} & \multicolumn{2}{l}{chez \textbf{408} membres $\cdot$ traçable ligne à ligne, 3 sources}\\
+ & \textbf{flux unifié F} & \textbf{129\,538} & \multicolumn{2}{l}{chez \textbf{408} membres $\cdot$ traçable ligne à ligne}\\
 \end{tabular}\\[1mm]
-{\scriptsize\color{grisf} Chaque ligne porte désormais \textbf{sa date d'opération ET sa date de divulgation}
-(export \texttt{flux\_house\_2dates.csv}). La reconstruction reste à la date d'opération.}
+{\scriptsize\color{grisf} Chaque ligne porte sa \textbf{date d'opération ET sa date de divulgation}
+(\texttt{flux\_house\_2dates.csv}).}
 \end{bloc}
 
-% ═══════════════ EXTRACTION PAR DOCUMENT ═══════════════
 \begin{bloc}{vert}{A-T-ON TOUT PRIS ? --- taux d'exploitation par type de document (le « recall »)}
 \footnotesize
 \begin{tabular}{@{}c l r r r@{}}
@@ -76,15 +126,13 @@ $\cdot$ \fv~solide \quad \fo~limite connue \quad \fr~manque structurel}
 \midrule
 \fv & \emph{P} --- déclaration rapide (transactions) & \textbf{100 \%} & --- & ---\\
 \fo & \emph{O} --- rapport annuel & 74,7 \% & 450 & 721\\
-\fo & \emph{A} --- amendement & 59,2 \% & 507 & 433\\
-\fr & \emph{T} / \emph{H} --- photos entrée/sortie & 65 \% & \multicolumn{2}{l}{$\sim$125 lues 0 ligne + papier}\\
+\fr & \emph{T} / \emph{H} --- photos entrée/sortie & $\sim$65 \% & \multicolumn{2}{l}{lues 0 ligne + papier}\\
 \fr & \emph{C} --- photo de candidat & \textbf{39,7 \%} & 4\,515 & 1\,583\\
 \end{tabular}\\[1mm]
-{\scriptsize\color{grisf} \textbf{La transaction est prise à 100 \%} ; ce qui se perd, c'est la \emph{photo} du
-patrimoine (point de départ) --- surtout du \textbf{papier jamais océrisé}, pas notre traitement.}
+{\scriptsize\color{grisf} \textbf{La transaction est prise à 100 \%.} Ce qui se perd, c'est la \emph{photo}
+du patrimoine (point de départ) --- surtout du papier jamais océrisé.}
 \end{bloc}
 
-% ═══════════════ NATURE DES MANQUES ═══════════════
 \begin{bloc}{grisf}{POURQUOI ÇA MANQUE --- réalité (jamais déposé) / source (illisible) / nous (perdu)}
 \footnotesize
 \begin{tabular}{@{}l r r r r@{}}
@@ -101,19 +149,21 @@ on n'a laissé sur la table quasiment rien d'\emph{automatiquement} extractible.
 
 \newpage
 
-% ═══════════════ BACKTESTABLE ? ═══════════════
-\begin{bloc}{bleu}{EST-CE BACKTESTABLE ? --- feu par dimension}
+% ══════════════════════════════════ PAGE 3 — BACKTESTABLE + VERDICT + À-FAIRE ══════════════════════════════════
+\begin{center}{\large\bfseries 2. Est-ce BACKTESTABLE ?}\end{center}
+\vspace{1mm}
+
+\begin{bloc}{bleu}{FEU PAR DIMENSION}
 \footnotesize
 \begin{tabular}{@{}c l p{10.6cm}@{}}
 \fv & \textbf{le flux de transactions} & complet, traçable, décomposable ligne à ligne, chez 408 membres.\\[0.6mm]
-\fo & \textbf{le point de départ} & 166 des 408 membres partent d'un portefeuille connu ; les \textbf{242} autres démarrent de zéro (patrimoine d'entrée inconnu).\\[0.6mm]
-\fv & \textbf{l'horloge (dates)} & reconstruit à la \textbf{date d'opération} = borne haute assumée. La \textbf{date de divulgation est portée} dans le flux $\Rightarrow$ le rejeu réaliste (27 j / 374 j plus tard) se lance en une ligne, quand tu veux.\\[0.6mm]
-\fo & \textbf{les prix} & 12,1 \% des lignes tombent faute de cours (1\,234 tickers) --- \textbf{confirmé réel} (re-test 22/07, ces titres n'ont pas de série).\\[0.6mm]
-\fo & \textbf{l'échantillon} & 11 années civiles $\Rightarrow$ écart minimal détectable \textbf{4,6 \%/an} (un edge plus petit reste invisible).\\
+\fo & \textbf{le point de départ} & 166 des 408 membres partent d'un portefeuille connu ; les \textbf{242} autres démarrent de zéro.\\[0.6mm]
+\fv & \textbf{l'horloge (dates)} & reconstruit à la \textbf{date d'opération} = borne haute. La \textbf{date de divulgation est portée} dans le flux $\Rightarrow$ le rejeu réaliste (27 j / 374 j plus tard) se lance en une ligne, quand tu veux.\\[0.6mm]
+\fo & \textbf{les prix} & 12,1 \% des lignes tombent faute de cours (1\,234 tickers) --- \textbf{confirmé réel} (re-test 22/07).\\[0.6mm]
+\fo & \textbf{l'échantillon} & 11 années civiles $\Rightarrow$ écart minimal détectable \textbf{4,6 \%/an}.\\
 \end{tabular}
 \end{bloc}
 
-% ═══════════════ VERDICT ═══════════════
 \begin{bloc}{vert}{VERDICT}
 \footnotesize
 \textbf{L'extraction est propre, vérifiée et essentiellement complète pour tout ce qui est automatiquement
@@ -124,7 +174,6 @@ mais pas encore joué, \emph{par choix}. Les manques restants sont soit \textbf{
 papier illisible), soit des \textbf{limites de méthode connues}, pas des erreurs.
 \end{bloc}
 
-% ═══════════════ À FAIRE ═══════════════
 \begin{bloc}{orange}{À FAIRE --- pour extraire plus / rendre le backtest plus réaliste}
 \footnotesize
 \begin{tabular}{@{}r l l@{}}
@@ -136,10 +185,39 @@ papier illisible), soit des \textbf{limites de méthode connues}, pas des erreur
 \end{tabular}
 \end{bloc}
 
+\newpage
+
+% ══════════════════════════════════ PAGE 4 — VÉRIFIÉ + CARTE DES DOCS ══════════════════════════════════
+\begin{center}{\large\bfseries 3. Pourquoi croire ces chiffres, et où trouver le reste}\end{center}
 \vspace{1mm}
-{\scriptsize\color{grisf} \textbf{Pourquoi croire ces chiffres.} Tables gelées (sha256) ; mandats re-croisés au
-référentiel officiel (98,9 \%) ; chaque cascade et tableau croisé vérifiés par \texttt{assert} ; classe d'un actif
-décidée avant tout prix ; reconstruction jugée par des positions qui n'ont jamais servi à la construire ; aucun
-chiffre écrit en dur --- tout se régénère en ré-exécutant le notebook.}
+
+\begin{bloc}{vert}{COMMENT ON SAIT QUE C'EST JUSTE}
+\footnotesize
+\begin{tabular}{@{}c p{15.6cm}@{}}
+\fv & les 5 tables de départ sont \textbf{gelées} (empreinte sha256 conforme au manifeste) --- rien n'a bougé sous nos pieds.\\
+\fv & la population est \textbf{re-croisée} avec le référentiel officiel des mandats : \textbf{98,9 \%} de concordance.\\
+\fv & \textbf{chaque cascade et chaque tableau croisé} sont vérifiés par un \texttt{assert} (la somme doit boucler, sinon le notebook s'arrête).\\
+\fv & la \textbf{classe} d'un actif (action / fonds / monétaire) est décidée \textbf{avant} tout prix --- pas de fonds déguisé en action.\\
+\fv & la reconstruction est \textbf{jugée} par des positions déclarées qui n'ont \emph{jamais} servi à la construire : rappel médian \textbf{9\,$\rightarrow$\,57~\%}, + 5 recomptes à la main (écarts $10^{-9}$ à $10^{-15}$).\\
+\fv & \textbf{aucun chiffre n'est écrit en dur} : tout se régénère en ré-exécutant le notebook.\\
+\end{tabular}
+\end{bloc}
+
+\begin{bloc}{bleu}{OÙ TROUVER QUOI --- les 4 documents de cette donnée}
+\footnotesize
+\begin{tabular}{@{}l l l@{}}
+\textbf{document} & \textbf{pages} & \textbf{à quoi ça sert}\\
+\midrule
+\textbf{ce doc} (\texttt{SYNTHESE\_EXTRACTION}) & 4 & \textbf{l'entrée unique} : comprendre + être sûre que tout est bon\\
+la fiche (\texttt{FICHE\_DONNEES\_HOUSE}) & 5 & \textbf{comprendre en détail}, étape par étape\\
+le deck (\texttt{SLIDES\_DONNEE\_HOUSE\_court}) & 39 & \textbf{présenter} à un public\\
+le notebook (\texttt{Portefeuilles\_House\_Complet}) & --- & \textbf{la preuve} : tous les chiffres, rejouable $\cdot$ produit \texttt{flux\_house\_2dates.csv}\\
+\end{tabular}\\[1.5mm]
+{\scriptsize\color{grisf} L'ancien deck long (80 p.) est \textbf{archivé} : le deck court 39 p. le remplace.}
+\end{bloc}
+
+\vfill
+\begin{center}{\scriptsize\color{grisf} Reste à faire de ton côté : lancer la cellule \texttt{add2dates2026} du notebook
+(elle écrit \texttt{flux\_house\_2dates.csv} et s'auto-vérifie).}\end{center}
 
 \end{document}
