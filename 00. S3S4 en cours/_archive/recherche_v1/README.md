@@ -12,7 +12,7 @@ données (1) → signal brut event-study **benchmark RSP** (2) → où le signal
 backtest rigoureux, familles alpha/Sharpe + GRS (4) → sélection **11 critères + score total composite**
 en walk-forward (5) → littérature & verdict (6). **V2 ETF et exploration = hors périmètre** (sur demande).
 
-> *La version précédente (V1 ETF incluse) est conservée dans [`_archive_recherche_v1/`](_archive_recherche_v1/).*
+> *La version précédente (V1 ETF incluse) est conservée dans ce dossier `recherche_v1/` (déplacé sous `_archive/` le 2026-07-23).*
 
 - **Seules dépendances** : `numpy / pandas / scipy / scikit-learn / matplotlib / pyyaml` (aucun module maison).
 - **Données** (lecture seule) : journal **et** enrichissement = [`table_congres_2014_2026.csv`](table_congres_2014_2026.csv)

@@ -12,7 +12,7 @@ de présentation) et les **références** encore utiles.
 
 | Fichier | Ce que c'est | Pourquoi archivé |
 |---|---|---|
-| `NOTE_MATHS_PORTEFEUILLE_MEMBRE.tex` / `.pdf` | Spéc maths (2 col.) du portefeuille par membre (6/07) | Adossée à l'ancien `05_Portefeuille_Membre_V1` (déjà archivé dans `_archive_recherche_v1/`) ; ses formules sont reprises, plus développées, dans `RAPPORT_PORTEFEUILLE_MEMBRE` + le notebook `05b` (gardés) |
+| `NOTE_MATHS_PORTEFEUILLE_MEMBRE.tex` / `.pdf` | Spéc maths (2 col.) du portefeuille par membre (6/07) | Adossée à l'ancien `05_Portefeuille_Membre_V1` (déjà archivé dans `recherche_v1/`) ; ses formules sont reprises, plus développées, dans `RAPPORT_PORTEFEUILLE_MEMBRE` + le notebook `05b` (gardés) |
 | `FICHE_09_PRESENTATION_v2.pdf` | 1er rendu « présentation » de la fiche du nb 09 (15/07) | Remplacé par la version finale `FICHE_09_ORATRICE.tex/.pdf` (gardée ; son PDF = `FICHE_09_PRESENTATION_v3.pdf`, octet-pour-octet) |
 | `05b_Archives.ipynb` | Cellules retirées du notebook `05b` (ancien moteur semestriel, preuve d'équivalence) | Déjà une archive : non exécutable seul, outputs figés |
 | `10_Stock_Divulgations_MathSpec.ipynb` | « Au-delà des PTR » — pré-enregistrement 2-chambres (E1/E2 gelés), §5 Résultats **verrouillée** (16/07) | Version antérieure non aboutie ; la lignée est menée à terme (House uniquement) dans `01_v1_house/10_Stock_Divulgations_MathSpec.ipynb` (vivant). Garde le seul cadrage 2-chambres si une déclinaison Sénat est un jour voulue |
@@ -59,5 +59,5 @@ actif ne garde que le **courant** : fiches ticker `FICHE_STRAT_TICKER_22JUIL` + 
 
 ---
 
-*Voir aussi `../_archive_recherche_v1/` : l'archive de la toute première version de la recherche stratégie
+*Voir aussi le sous-dossier `recherche_v1/` : l'archive de la toute première version de la recherche stratégie
 (notebooks 02/03/04/05 + notes).*
