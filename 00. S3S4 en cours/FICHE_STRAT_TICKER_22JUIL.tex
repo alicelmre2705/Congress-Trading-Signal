@@ -348,26 +348,5 @@ GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,08 & 1,00 & 612 \\
 \fig{nanc_gop.png}{}
 \obs{On retrouve leur \textbf{rendement} : le vrai NANC bat le S\&P de $\sim+2{,}7\,\%$/an depuis sa création $\approx$ notre $+2{,}98\,\%$ --- mais $\beta$ 1,08 (tilt tech), $t$ 1,5 : \textbf{modeste}. Résidu $\rho\,{<}\,1$ = données $\ne$ leur source + formule exacte non divulguée.}
 
-% ═══════════ É11 ═══════════
-\et{É11}{Les validations (le moteur calcule juste)}
-\begin{center}\scriptsize
-\begin{tabular}{@{}l l@{}}
-\toprule
-$\sum_i w_{i,t} = 1$ à chaque coupe & \textbf{1,0000000000} \\
-$V(t)$ recalculée depuis les parts & écart \textbf{0,00e$+$00} \\
-tranches FIFO recalculées hors moteur & identiques \\
-régimes limites de la pondération & $\checkmark$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-\lire{chaque ligne = un contrôle du moteur, à droite le résultat obtenu. $V(t)$ = valeur du portefeuille ; \emph{parts} = nombre d'actions détenues.}
-
-\et{}{Limites assumées}
-\begin{pts}
-\item Rendements \textbf{bruts}, sans coûts de transaction.
-\item $\tau$ (Tests 1--4) = info \emph{avant} publication : borne haute, non réplicable telle quelle --- d'où le Test 5 à $\delta$.
-\item Univers filtré sur la qualité des prix sur \textbf{toute} la période (pas strictement point-in-time) ; $W{=}42$ fixé plein-échantillon.
-\end{pts}
-
 \end{multicols}
 \end{document}
