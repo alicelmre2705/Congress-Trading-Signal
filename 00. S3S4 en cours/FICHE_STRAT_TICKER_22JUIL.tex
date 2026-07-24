@@ -269,30 +269,78 @@ comité-clé (drapeau) & $+1{,}74$ & 0,70 & $-1{,}05$ & $-0{,}56$ \\
 \fig{comites_annuel.png}{excès annuel à $\tau$ (bleu) et $\delta$ (vert) : de $-30$ à $+45\,\%$ selon l'année.}
 \fig{comites_secteurs.png}{\% des trades de chaque secteur retenus par le filtre : 63 \% Industrie, 0 \% Cons.\,Disc./Immobilier.}
 
-% ═══════════ Produits réels : NANC / GOP ═══════════
-\et{}{Les produits réels : réplique NANC / GOP}
-\textbf{Ce qu'ils font} :
+% ═══════════ Produits réels : NANC / GOP / Quiver ═══════════
+\et{}{Les produits réels --- ce qu'ils annoncent vs ce qu'on obtient}
+Trois produits commercialisent la \og{}copie du Congrès\fg{}. Pour chacun : la règle qu'ils \textbf{disent} suivre, le chiffre qu'ils \textbf{annoncent}, puis \textbf{notre} réplique fidèle de leur règle.
+
+\textbf{1. NANC / GOP} (ETF Subversive). \textbf{Ce qu'ils disent faire} :
 \begin{pts}
-\item \textbf{NANC} (élus Démocrates) et \textbf{GOP} (Républicains) sont les ETF qui copient le Congrès. Règle du prospectus : sur \textbf{3 ans glissants}, achats \textbf{nettés} des ventes, \textbf{pondérés au montant} (\$), 100--200 titres, à la \textbf{divulgation}.
-\item On réplique fidèlement leur règle et on compare à SPY.
+\item Univers = titres tradés par les élus \textbf{Démocrates} (NANC) / \textbf{Républicains} (GOP) ; sur \textbf{3 ans glissants}, achats \textbf{nettés} des ventes, \textbf{pondérés au montant} (\$), 100--200 titres, à la \textbf{divulgation} $\delta$.
 \end{pts}
-\[ w^{\text{NANC}}_{i,t} \;\propto\; \Big[\;\textstyle\sum_{k\,\in\,\text{parti},\ t-3\text{ans}<\delta_k\le t} A_k\,(\mathbf{1}_{achat}-\mathbf{1}_{vente})\;\Big]^{+} \]
+\[ \begin{gathered} w^{\text{NANC}}_{i,t} \;=\; \frac{\bigl[\,S_{i,t}\,\bigr]^{+}}{\sum_j \bigl[\,S_{j,t}\,\bigr]^{+}},\qquad \textstyle\sum_i w_i=1 \\[1pt] S_{i,t}=\!\!\sum_{k\,\in\,\text{parti},\ t-3\text{ans}<\delta_k\le t}\!\! A_k\,(\mathbf{1}_{achat}-\mathbf{1}_{vente}) \end{gathered} \]
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r@{}}
+\toprule
+total/an \emph{2023-26} & annoncé & réplique \\
+\midrule
+NANC (Démocrates) & $\sim$22 \% & \textbf{19,1 \%} \\
+GOP (Républicains) & $\sim$17 \% & \textbf{16,3 \%} \\
+SPY (même fenêtre) & $\sim$21 \% & 20,8 \% \\
+\bottomrule
+\end{tabular}
+\end{center}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r r@{}}
 \toprule
-& excès/an & $t$ & $\alpha$/an & $\beta$ & NAV \\
+notre réplique (2014-26) & excès/an & $t$ & $\alpha$/an & $\beta$ & NAV \\
 \midrule
-réplique NANC (Dém.) & $+0{,}23\,\%$ & 0,18 & $-0{,}81\,\%$ & 1,05 & 527 \\
-réplique GOP (Rép.) & $+0{,}67\,\%$ & 0,22 & $-0{,}29\,\%$ & 1,02 & 549 \\
+NANC (Dém.) & $+0{,}23\,\%$ & 0,18 & $-0{,}81\,\%$ & 1,05 & 527 \\
+GOP (Rép.) & $+0{,}67\,\%$ & 0,22 & $-0{,}29\,\%$ & 1,02 & 549 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \fig{nanc_gop.png}{}
 \textbf{Ce qu'on observe} :
 \begin{pts}
-\item Notre réplique reproduit leurs holdings : \textbf{NVDA} 25 \%, AVGO, META, GOOG, PLTR\dots{} = méga-cap tech.
-\item $\beta \approx 1$, $\alpha \approx 0$ ; NAV 527/549 colle à SPY (517).
-\item \emph{Excès} $\ne$ \emph{total} : le tableau donne l'excès sur SPY ($+0{,}2\,\%$). Le \textbf{rendement total} de la réplique $\approx$ \textbf{14 \%/an} (2014-26) $=$ SPY ; sur 2023-2026 seul (la fenêtre de NANC) $\approx$ 19 \%/an --- comme leurs $\sim$22 \% (SPY $\sim$21 \% sur la même période). Leur perf = le rally méga-cap tech, pas un edge.
+\item Notre réplique reproduit leurs holdings : \textbf{NVDA} 25,5 \%, PANW 9,5, AVGO 9,2, META, GOOG, PLTR\dots{} = méga-cap tech.
+\item $\beta \approx 1$, $\alpha \approx 0$ : leurs $\sim$22/17 \% = le \textbf{rendement du marché} sur 2023-26 (SPY $\sim$21 \%), pas un excès. Sur 2014-26 complet, réplique $\approx$ \textbf{14 \%/an} $=$ SPY.
+\end{pts}
+
+\textbf{2. Quiver Quantitative} (indices \og{}Congress Trading\fg{}). \textbf{Ce qu'ils disent faire} :
+\begin{pts}
+\item \textbf{Congress Buys} : long les titres \textbf{achetés} par le Congrès, \textbf{pondérés à la taille du trade} (\$), rotation \textbf{hebdo}. \textbf{Long-Short 130/30} : $+$130 \% des achats, $-$30 \% des ventes.
+\item On réplique à la transaction $\tau$ (borne haute) \emph{et} à la divulgation $\delta$ (réplicable) ; fenêtre 63 j, rotation mensuelle.
+\end{pts}
+\[ w^{\text{Buys}}_{i,t} \;=\; \frac{\displaystyle\sum_{k\,:\ achat,\ i_k=i,\ t-W<s_k\le t} A_k}{\displaystyle\sum_{j}\ \sum_{k\,:\ achat,\ i_k=j,\ t-W<s_k\le t} A_k},\qquad \textstyle\sum_i w^{\text{Buys}}_i=1 \]
+\[ r^{\text{LS}}_t \;=\; 1{,}3\,r^{\text{long}}_t - 0{,}3\,r^{\text{short}}_t \]
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+CAGR/an \emph{2020-26} & annoncé & rép.\,$\tau$ & rép.\,$\delta$ \\
+\midrule
+Congress Buys & 36,2 \% \, $\beta$1,14 & \textbf{22,6 \%} & 21,4 \% \\
+Long-Short 130/30 & 34,0 \% \, $\beta$1,15 & \textbf{23,5 \%} & 22,3 \% \\
+SPY (même fenêtre) & --- & 21,1 \% & 21,1 \% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+notre réplique (2014-26) & excès/an & $t$ & $\alpha$/an & $\beta$ & NAV \\
+\midrule
+Congress Buys $\cdot\ \tau$ & $+0{,}84\,\%$ & 0,74 & $-0{,}21\,\%$ & 1,06 & 565 \\
+Congress Buys $\cdot\ \delta$ & $-0{,}03\,\%$ & $-0{,}03$ & $-0{,}69\,\%$ & 1,04 & 511 \\
+Long-Short $\cdot\ \tau$ & $+1{,}57\,\%$ & 1,13 & $+0{,}32\,\%$ & 1,07 & 606 \\
+Long-Short $\cdot\ \delta$ & $+0{,}92\,\%$ & 0,60 & $+0{,}07\,\%$ & 1,04 & 555 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\fig{quiver.png}{}
+\textbf{Ce qu'on observe} --- ils affichent \textbf{CAGR 36,2 \%} ($+604\,\%$), nous $\sim$22 \%. On a cherché l'erreur chez nous :
+\begin{pts}
+\item \textbf{Ce n'est pas un sous-comptage} : ETF écartés $=2{,}5\,\%$ du \$ (VTI/SPY, du marché) ; 296 titres non cotés $=6{,}5\,\%$ (fusions --- même tous $\times2$ ne ferait que $+6{,}5\,\%$) ; \textbf{équipondérer donne \emph{moins}} (NAV 454 $<$ 565). Toute construction défendable $\Rightarrow \beta\approx1$, $\sim$22 \% $=$ SPY.
+\item \textbf{Leurs propres chiffres donnent $\sim$24 \%, pas 36 \%} : leur $\beta$ 1,14 $\Rightarrow$ CAPM $24\,\%$/an ; leur Sharpe 1,082 $\Rightarrow$ $24\,\%$/an ; leur vol affichée $4{,}63\,\%$ est \textbf{impossible} pour $\beta$ 1,14 (qui impose $\ge17\,\%$ --- c'est une vol \emph{mensuelle}). Leur $\beta$ et leur Sharpe pointent \textbf{notre} chiffre ; seul leur \textbf{titre 36 \%} est incohérent avec leur propre risque.
 \end{pts}
 
 % ═══════════ É11 ═══════════
