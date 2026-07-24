@@ -307,13 +307,14 @@ Long-Short $\cdot\ \delta$ & $+0{,}92\,\%$ & 0,60 & $+0{,}07\,\%$ & 1,04 & 555 \
 
 \textbf{2. NANC / GOP} (ETF Subversive). \textbf{Ce qu'ils disent faire} \emph{(prospectus, p.2)} :
 \begin{pts}
-\item Univers = titres \textbf{achetés} par les élus \textbf{Démocrates} (NANC) / \textbf{Républicains} (GOP), sur \textbf{3 ans}, à la \textbf{divulgation} $\delta$, 100--200 titres.
-\item Pondéré au \og{}\textbf{niveau de trading}\fg{} : gros achats \textbf{+ récurrents + de plusieurs élus} $\to$ surpondérés. \textbf{Les ventes de positions détenues avant la fenêtre ne comptent pas.}
+\item Univers = 100--200 titres tradés par les élus \textbf{Démocrates} (NANC) / \textbf{Républicains} (GOP) via les PTR, sur \textbf{3 ans}.
+\item Pondéré au \og{}\textbf{niveau de trading}\fg{} \emph{(achats nets des ventes récentes)} : gros achats \textbf{+ récurrents + de plusieurs élus} $\to$ surpondérés ; petits \textbf{+ ventes récentes + one-off} $\to$ sous-pondérés.
+\item \textbf{Les ventes de positions détenues avant la fenêtre / avant l'entrée en fonction ne comptent pas.}
 \end{pts}
 \textbf{Ce qu'on fait} --- chaque fin de mois $t$, pour le parti $P$ :
 \begin{pts}
-\item \textbf{Fenêtre} : les \textbf{achats} des élus de $P$ divulgués sur $(t-3\,\text{ans},\,t]$ (ventes ignorées).
-\item \textbf{Score} par titre : $s_i = B_i\times m_i$, avec $B_i=\sum_k A_k$ (\$ acheté, midpoint) et $m_i=\#\{$élus acheteurs$\}$.
+\item \textbf{Fenêtre} : les \textbf{achats} des élus de $P$ divulgués sur $(t-3\,\text{ans},\,t]$. \emph{Simplification} : on ignore \textbf{toutes} les ventes (on ne nette pas les ventes récentes --- cf. annexe).
+\item \textbf{Score} : $s_i = B_i\times m_i$, avec $B_i=\sum_k A_k$ (\$ acheté, midpoint --- capte \emph{gros}\,$+$\,\emph{récurrents}) et $m_i=\#\{$élus acheteurs$\}$ (capte \emph{plusieurs élus}).
 \item Garder les \textbf{150} plus gros $s_i$ ; $w_i \propto s_i$ ; \textbf{plafonner à 8,5 \%} (excédent redistribué).
 \item \textbf{Tenir} le panier (buy-and-hold), exécuté à la \textbf{divulgation} $\delta$ (close J+1), \textbf{recomposé chaque mois}.
 \end{pts}
@@ -350,4 +351,31 @@ GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,08 & 1,00 & 612 \\
 \obs{On retrouve leur \textbf{rendement} : le vrai NANC bat le S\&P de $\sim+2{,}7\,\%$/an depuis sa création $\approx$ notre $+2{,}98\,\%$ --- mais $\beta$ 1,08 (tilt tech), $t$ 1,5 : \textbf{modeste}. Résidu $\rho\,{<}\,1$ = données $\ne$ leur source + formule exacte non divulguée.}
 
 \end{multicols}
+
+% ═══════════ ANNEXE : extraits verbatim ═══════════
+\vspace{2mm}\hrule\vspace{1.5mm}
+{\color{bleu}\bfseries\large Annexe --- extraits sources (verbatim)}\par\vspace{1mm}
+{\footnotesize\color{grisf} Extraits reproduits tels quels ; source sous chaque bloc. L'interprétation et le mapping vers notre code sont dans les sections \textbf{1} (Quiver) et \textbf{2} (NANC/GOP) ci-dessus.}\par\vspace{2mm}
+
+\textbf{NANC} --- \emph{prospectus \og{}Unusual Whales Subversive Democratic Trading ETF\fg{}, \og{}Principal Investment Strategies\fg{}, p.\,2} :
+{\footnotesize\itshape
+``To manage the Fund's portfolio, the Adviser will obtain and use information derived by the Data Provider from PTRs filed by Democratic U.S. Congresspeople for the past 3 years. Purchases made during that time will be netted against any sales of the same security when managing the Fund's portfolio of equity securities. As the investment thesis of the Fund is to track the trading activity of Democratic U.S. Congresspeople while in office, equity securities acquired by Democratic U.S. Congresspeople prior to his or her swearing in (or the 3-year lookback period) are not considered when managing the Fund's portfolio. To the extent a Democratic U.S. Congressperson sells equity securities that were acquired prior to his or her swearing in, the Adviser will not adjust the Fund's portfolio.
+
+Under normal circumstances, the Fund will invest in a portfolio of between 100 to 200 holdings. However, the number and size of positions held by the Fund will vary based on the number of positions traded by Democratic U.S. Congresspeople. Individual holdings will be weighted based on the level of reported trading in a security by Democratic U.S. Congresspeople. Securities with large purchases, recurring purchases and purchases from multiple Democratic U.S. Congresspeople will be overweighted. Securities with small purchases, recent sales and one-off trades by Democratic U.S. Congresspeople will be excluded or underweighted. The Adviser may exclude positions that are traded by Democratic U.S. Congresspeople at its discretion. Considerations for excluding a security include, but are not limited to, limited liquidity of such security and pending corporate actions that may impact such security.''\par}
+\vspace{2mm}
+
+\textbf{GOP} --- \emph{prospectus \og{}Unusual Whales Subversive Republican Trading ETF\fg{}, \og{}Principal Investment Strategies\fg{}, p.\,2} :
+{\footnotesize\itshape
+``To manage the Fund's portfolio, the Adviser will obtain and use information derived by the Data Provider from PTRs filed by Republican U.S. Congresspeople for the past 3 years. Purchases made during that time will be netted against any sales of the same security when managing the Fund's portfolio of equity securities. As the investment thesis of the Fund is to track the trading activity of Republican U.S. Congresspeople while in office, equity securities acquired by Republican U.S. Congresspeople prior to his or her swearing in (or the 3-year lookback period) are not considered when managing the Fund's portfolio. To the extent a Republican U.S. Congressperson sells equity securities that were acquired prior to his or her swearing in, the Adviser will not adjust the Fund's portfolio.
+
+Under normal circumstances, the Fund will invest in a portfolio of between 100 to 200 holdings. However, the number and size of positions held by the Fund will vary based on the number of positions traded by Republican U.S. Congresspeople. Individual holdings will be weighted based on the level of reported trading in a security by Republican U.S. Congresspeople. Securities with large purchases, recurring purchases and purchases from multiple Republican U.S. Congresspeople will be overweighted. Securities with small purchases, recent sales and one-off trades by Republican U.S. Congresspeople will be excluded or underweighted. The Adviser may exclude positions that are traded by Republican U.S. Congresspeople at its discretion. Considerations for excluding a security include, but are not limited to, limited liquidity of such security and pending corporate actions that may impact such security.''\par}
+\vspace{2mm}
+
+\textbf{Quiver --- Congress Buys} \emph{(quiverquant.com)} :
+{\footnotesize\itshape ``The Congress Buys Strategy tracks the performance of stocks that have been purchased by members of U.S. Congress (or their family). This strategy is weighted based on the reported size of the purchases, with weekly rebalancing.''\par}
+\vspace{1.5mm}
+
+\textbf{Quiver --- Congress Long-Short} \emph{(quiverquant.com)} :
+{\footnotesize\itshape ``The Congress Long-Short Strategy tracks the performance of stocks that have been purchased or sold by members of U.S. Congress (or their family). It takes a long position in stocks that have been purchased, and a short position in stocks which have been sold. This strategy is weighted based on the reported size of the transactions and employs leverage with 130\% long exposure and 30\% short exposure, with weekly rebalancing.''\par}
+
 \end{document}
