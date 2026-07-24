@@ -273,41 +273,7 @@ comité-clé (drapeau) & $+1{,}74$ & 0,70 & $-1{,}05$ & $-0{,}56$ \\
 \et{}{Les produits réels --- ce qu'ils annoncent vs ce qu'on obtient}
 Trois produits commercialisent la \og{}copie du Congrès\fg{}. Pour chacun : la règle qu'ils \textbf{disent} suivre, le chiffre qu'ils \textbf{annoncent}, puis \textbf{notre} réplique fidèle de leur règle.
 
-\textbf{1. NANC / GOP} (ETF Subversive). \textbf{Ce qu'ils disent faire} \emph{(prospectus, p.2)} :
-\begin{pts}
-\item Univers = titres \textbf{achetés} par les élus \textbf{Démocrates} (NANC) / \textbf{Républicains} (GOP), sur \textbf{3 ans}, à la \textbf{divulgation} $\delta$, 100--200 titres.
-\item Pondéré au « \textbf{niveau de trading} » : gros achats \textbf{+ récurrents + de plusieurs élus} $\to$ surpondérés. \textbf{Les ventes de positions détenues avant la fenêtre ne comptent pas.}
-\end{pts}
-\[ \begin{gathered} w^{\text{NANC}}_{i,t} \;\propto\; B_{i,t}\times m_{i,t}\,,\qquad \text{puis plafonné à } 8{,}5\,\% \\[1pt] B_{i,t}=\!\!\sum_{k\,:\,\text{achat},\ t-3\text{ans}<\delta_k\le t}\!\! A_k\ ,\qquad m_{i,t}=\#\{\text{élus acheteurs de }i\} \end{gathered} \]
-\begin{center}\scriptsize
-\begin{tabular}{@{}l r r@{}}
-\toprule
-total/an \emph{2023-26} & annoncé & réplique \\
-\midrule
-NANC (Démocrates) & $\sim$22 \% & \textbf{24,2 \%} \\
-GOP (Républicains) & $\sim$17 \% & \textbf{22,5 \%} \\
-SPY (même fenêtre) & $\sim$21 \% & 20,8 \% \\
-\bottomrule
-\end{tabular}
-\end{center}
-\begin{center}\scriptsize
-\begin{tabular}{@{}l r r r r r@{}}
-\toprule
-notre réplique (2014-26) & excès/an & $t$ & $\alpha$/an & $\beta$ & NAV \\
-\midrule
-NANC (Dém.) & $+2{,}98\,\%$ & 1,47 & $+1{,}26\,\%$ & 1,08 & 672 \\
-GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,00 & 612 \\
-\bottomrule
-\end{tabular}
-\end{center}
-\fig{nanc_gop.png}{}
-\textbf{Ce qu'on observe} :
-\begin{pts}
-\item \textbf{Correction} (liste réelle NANC, 24/07) : notre 1re version pondérait au \textbf{net brut} (achats$-$\emph{toutes} ventes) $\to$ elle \textbf{excluait} MSFT/AAPL/AMZN (élus vendant de vieilles positions) $\Rightarrow$ recouvrement \textbf{2/10}. Corrigée (achats $\times$ nb d'élus, cap 8,5 \%) : \textbf{5/10}, \textbf{NVDA 8,5 \% = exact}, GOOG/MSFT/AMZN/AAPL présents.
-\item On retrouve aussi leur \textbf{rendement} : excès $+2{,}98\,\%$/an (le vrai NANC bat le S\&P de $\sim+2{,}7\,\%$/an depuis sa création) --- mais $\beta$ 1,08 (tilt tech) et $t$ 1,5 : \textbf{modeste, pas franchement significatif}. \emph{Résidu :} AMAT/CRWD\dots{} quasi absents de \emph{notre} donnée (source $\ne$ la leur) ; formule exacte non divulguée.
-\end{pts}
-
-\textbf{2. Quiver Quantitative} (indices \og{}Congress Trading\fg{}). \textbf{Ce qu'ils disent faire} :
+\textbf{1. Quiver Quantitative} (indices \og{}Congress Trading\fg{}). \textbf{Ce qu'ils disent faire} :
 \begin{pts}
 \item \textbf{Congress Buys} : long les titres \textbf{achetés} par le Congrès, \textbf{pondérés à la taille du trade} (\$), rotation \textbf{hebdo}. \textbf{Long-Short 130/30} : $+$130 \% des achats, $-$30 \% des ventes.
 \item On réplique à la transaction $\tau$ (borne haute) \emph{et} à la divulgation $\delta$ (réplicable) ; fenêtre 63 j, rotation mensuelle.
@@ -338,12 +304,49 @@ Long-Short $\cdot\ \delta$ & $+0{,}92\,\%$ & 0,60 & $+0{,}07\,\%$ & 1,04 & 555 \
 \end{tabular}
 \end{center}
 \fig{quiver.png}{}
-\textbf{Ce qu'on observe} --- ils affichent \textbf{CAGR 36,2 \%} ($+604\,\%$), nous $\sim$22 \%. On a cherché l'erreur chez nous :
+
+\textbf{2. NANC / GOP} (ETF Subversive). \textbf{Ce qu'ils disent faire} \emph{(prospectus, p.2)} :
 \begin{pts}
-\item \textbf{On matche tout ce qu'ils divulguent} et rien ne bouge : long, pondéré au \$, \textbf{rebalancement hebdo} (comme eux) $=22{,}3\,\%$ ; le vrai équipondéré 1/N fait \emph{moins} (NAV 412 $<$ 565) ; ETF écartés $=2{,}5\,\%$ (VTI/SPY) ; 296 titres non cotés $=6{,}5\,\%$ (fusions, même $\times2\Rightarrow+6{,}5\,\%$). Toute construction défendable $\Rightarrow \beta\approx1$, $\sim$22 \% $=$ SPY. L'écart au 36 \% est dans ce qu'ils \textbf{ne publient pas} (règle de sortie).
-\item \textbf{Leur 36 \% exigerait $+12\,\%$ d'alpha/an} qu'on ne trouve pas : leur $\beta$ 1,14 sans alpha $\Rightarrow$ CAPM $\sim$24 \%/an ; et leur vol affichée $4{,}63\,\%$ est \textbf{incohérente} avec $\beta$ 1,14 (qui impose $\ge19\,\%$). \emph{(Leur Sharpe, lui, n'exclut pas 36 \% : on ne l'invoque pas.)}
-\item \textbf{Le Long-Short $\approx$ marché levé} : les deux jambes ($\sim$400 titres chacune) collent au marché ($\beta$ 1,04). Le $+0{,}92\,\%$/an (t 0,60) n'est pas significatif et \textbf{dépend du panier short que Quiver ne divulgue pas} ($+1{,}37\,\%$ avec un short plus strict).
+\item Univers = titres \textbf{achetés} par les élus \textbf{Démocrates} (NANC) / \textbf{Républicains} (GOP), sur \textbf{3 ans}, à la \textbf{divulgation} $\delta$, 100--200 titres.
+\item Pondéré au \og{}\textbf{niveau de trading}\fg{} : gros achats \textbf{+ récurrents + de plusieurs élus} $\to$ surpondérés. \textbf{Les ventes de positions détenues avant la fenêtre ne comptent pas.}
 \end{pts}
+\textbf{Ce qu'on fait} --- chaque fin de mois $t$, pour le parti $P$ :
+\begin{pts}
+\item \textbf{Fenêtre} : les \textbf{achats} des élus de $P$ divulgués sur $(t-3\,\text{ans},\,t]$ (ventes ignorées).
+\item \textbf{Score} par titre : $s_i = B_i\times m_i$, avec $B_i=\sum_k A_k$ (\$ acheté, midpoint) et $m_i=\#\{$élus acheteurs$\}$.
+\item Garder les \textbf{150} plus gros $s_i$ ; $w_i \propto s_i$ ; \textbf{plafonner à 8,5 \%} (excédent redistribué).
+\item \textbf{Tenir} le panier (buy-and-hold), exécuté à la \textbf{divulgation} $\delta$ (close J+1), \textbf{recomposé chaque mois}.
+\end{pts}
+\[ w^{\text{NANC}}_{i,t} \;\propto\; s_{i,t}=B_{i,t}\times m_{i,t}\qquad(\text{plafonné à } 8{,}5\,\%) \]
+
+\textbf{Ce que eux ont vs nous} (top-15 holdings) :
+\fig{nanc_compare.png}{barres : vrai NANC (gris) vs réplique (bleu). Les 5 premiers coïncident (NVDA 8,5 \% \emph{exact}) ; AMAT, CRWD, PM, AXP sont quasi \textbf{absents de notre donnée}.}
+\textbf{Fidélité} : recouvrement \textbf{5/10} (top-20 : 10/20) $\cdot$ corrélation des poids $\rho = \mathbf{0{,}73}$ $\cdot$ \textbf{exposition commune 51 \%} $\bigl(\sum_i \min(w^{\text{réel}}_i, w^{\text{rép}}_i)\bigr)$.
+
+\textbf{Performance} :
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r@{}}
+\toprule
+total/an \emph{2023-26} & annoncé & réplique \\
+\midrule
+NANC (Démocrates) & $\sim$22 \% & \textbf{24,2 \%} \\
+GOP (Républicains) & $\sim$17 \% & \textbf{22,5 \%} \\
+SPY (même fenêtre) & $\sim$21 \% & 20,8 \% \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{tabular}{@{}l r r r r r r@{}}
+\toprule
+réplique \emph{2014-26} & exc./an & $t$ & $\alpha$/an & $t_\alpha$ & $\beta$ & NAV \\
+\midrule
+NANC (Dém.) & $+2{,}98\,\%$ & 1,47 & $+1{,}26\,\%$ & 1,06 & 1,08 & 672 \\
+GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,08 & 1,00 & 612 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\fig{nanc_gop.png}{}
+\obs{On retrouve leur \textbf{rendement} : le vrai NANC bat le S\&P de $\sim+2{,}7\,\%$/an depuis sa création $\approx$ notre $+2{,}98\,\%$ --- mais $\beta$ 1,08 (tilt tech), $t$ 1,5 : \textbf{modeste}. Résidu $\rho\,{<}\,1$ = données $\ne$ leur source + formule exacte non divulguée.}
 
 % ═══════════ É11 ═══════════
 \et{É11}{Les validations (le moteur calcule juste)}
