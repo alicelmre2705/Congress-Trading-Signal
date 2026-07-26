@@ -350,6 +350,27 @@ GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,08 & 1,00 & 612 \\
 \fig{nanc_rolling.png}{$\beta$ et $\alpha$ glissants (OLS 252 j, validé $=$ \texttt{polyfit}) : $\beta$ colle à $\sim$1 (tilt marché) ; l'$\alpha$ oscille autour de 0 et traverse zéro sans cesse --- pas d'edge persistant.}
 \obs{On retrouve leur \textbf{rendement} : le vrai NANC bat le S\&P de $\sim+2{,}7\,\%$/an depuis sa création $\approx$ notre $+2{,}98\,\%$.}
 
+\smallskip
+\textbf{Variante 2 --- une autre lecture du \og{}netting\fg{}.} Le prospectus nette les achats contre les
+\emph{ventes récentes}. On peut le prendre au pied de la lettre : par (élu, titre), file \textbf{FIFO} des achats
+sur la fenêtre, chaque vente consomme les plus anciens ; l'excédent (vente d'un \emph{vieux} lot pré-fenêtre) est
+\textbf{ignoré} --- le prospectus dit de ne pas l'ajuster --- d'où $\mathrm{net}_i\ge 0$ ; score $s_i=\mathrm{net}_i\times m_i$,
+\textbf{de-minimis} 1 \%, \textbf{100--200} titres.
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+V2 \emph{2014-26} & exc./an & $t$ & $\alpha$/an & $\beta$ & NAV \\
+\midrule
+NANC (Dém.) & $+2{,}49\,\%$ & 1,12 & $+0{,}38\,\%$ & 1,08 & 621 \\
+GOP (Rép.)  & $+1{,}84\,\%$ & 1,77 & $+1{,}78\,\%$ & 1,00 & 663 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\obs{Le netting \textbf{ne change pas les têtes} (les ventes de vieux lots sont ignorées, comme le veut le texte) :
+recouvrement \textbf{5/10} identique, $\rho$ 0,67 (vs 0,73), exposition commune 48 \% (vs 51 \%). C'est \textbf{une
+autre manière d'interpréter} la même règle, ni meilleure ni pire. \emph{Sans} le cap, le score exploserait
+(NVDA 32 \%, $N_{\mathrm{eff}}$ 7 vs 33 réel) : le vrai fonds pondère bien plus doucement que le nôtre.}
+
 \end{multicols}
 
 % ═══════════ ANNEXE : extraits sources ═══════════
