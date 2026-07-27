@@ -352,9 +352,10 @@ GOP (Rép.) & $+1{,}24\,\%$ & 1,62 & $+1{,}12\,\%$ & 1,08 & 1,00 & 612 \\
 
 \smallskip
 \textbf{Variante 2 --- une autre lecture du \og{}netting\fg{}.} Le prospectus nette les achats contre les
-\emph{ventes récentes}. On peut le prendre au pied de la lettre : par (élu, titre), file \textbf{FIFO} des achats
-sur la fenêtre, chaque vente consomme les plus anciens ; l'excédent (vente d'un \emph{vieux} lot pré-fenêtre) est
-\textbf{ignoré} --- le prospectus dit de ne pas l'ajuster --- d'où $\mathrm{net}_i\ge 0$ ; score $s_i=\mathrm{net}_i\times m_i$,
+\emph{ventes récentes}, mais \textbf{pas} les ventes de vieilles positions. On le fait proprement avec la \textbf{purge
+$\gamma$} (même FIFO plein historique que É2 : une vente consomme les \emph{plus vieux} lots d'abord) au seuil
+\textbf{3 ans} : $\gamma_k$ $=$ part de la vente $k$ portant sur du récent ($\le$3 ans) ; une vente de lot dormant a
+$\gamma_k\!\to\!0$ (ignorée). Net par (élu, titre) $\mathrm{net}=[\sum A - \sum A\gamma]^{+}$ ; score $s_i=\mathrm{net}_i\times m_i$,
 \textbf{de-minimis} 1 \%, \textbf{100--200} titres.
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
@@ -362,16 +363,17 @@ sur la fenêtre, chaque vente consomme les plus anciens ; l'excédent (vente d'u
 V1 vs V2 \emph{(2014-26)} & exc./an & $\alpha$/an & NAV & recouv. \\
 \midrule
 NANC $\cdot$ V1 (achats)   & $+2{,}98\,\%$ & $+1{,}26\,\%$ & \textbf{672} & 5/10 \\
-NANC $\cdot$ V2 (net FIFO) & $+2{,}49\,\%$ & $+0{,}38\,\%$ & \textbf{621} & 5/10 \\
+NANC $\cdot$ V2 (net $\gamma$) & $+1{,}40\,\%$ & $-0{,}50\,\%$ & \textbf{558} & 5/10 \\
 GOP $\cdot$ V1 (achats)    & $+1{,}24\,\%$ & $+1{,}12\,\%$ & \textbf{612} & --- \\
-GOP $\cdot$ V2 (net FIFO)  & $+1{,}84\,\%$ & $+1{,}78\,\%$ & \textbf{663} & --- \\
+GOP $\cdot$ V2 (net $\gamma$)  & $+1{,}34\,\%$ & $+1{,}15\,\%$ & \textbf{617} & --- \\
 \bottomrule
 \end{tabular}
 \end{center}
-\obs{Le netting \textbf{ne change pas les têtes} (ventes de vieux lots ignorées, comme le veut le texte) :
-recouvrement \textbf{5/10} identique, $\rho$ 0,67 vs 0,73. V2 un peu \emph{moins} bien pour NANC, un peu
-\emph{mieux} pour GOP --- \textbf{autre manière d'interpréter} la même règle. Sans le cap, le score exploserait
-(NVDA 32 \%, $N_{\mathrm{eff}}$ 7 vs 33 réel). \emph{Recouv./}$\rho$\emph{ sur NANC seul : holdings réels GOP non fournis.}}
+\obs{Le netting \textbf{ne change pas les têtes} (ventes de vieux lots ignorées, top-15 même \textbf{9/15}) mais
+\textbf{ronge la perf de NANC} : son $+2{,}98\,\%$ (V1) était en partie l'artefact du \og{}on ignore les ventes\fg{}
+--- une fois nettées, NANC tombe à $+1{,}40\,\%$ ($\alpha$ négatif), GOP ne bouge quasi pas. C'est la lecture
+\textbf{la plus fidèle} du prospectus. Sans le cap, le score exploserait (NVDA 37 \%, $N_{\mathrm{eff}}$ 6 vs 33 réel).
+\emph{Recouv.\ sur NANC seul : holdings réels GOP non fournis.}}
 
 \end{multicols}
 
