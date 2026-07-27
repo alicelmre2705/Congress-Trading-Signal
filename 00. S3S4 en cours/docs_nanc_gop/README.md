@@ -22,7 +22,7 @@ Les renvois `[n p.X]` de **FICHE_NANC_GOP** pointent directement vers ces fichie
 | 7 | Prospectus d'origine (497K) | 03/02/2023 | « to create the Fund's **initial** portfolio » — la fenêtre 3 ans ne servait alors qu'au départ | 3 |
 | 8 | Premier prospectus Tidal (485BPOS) | 27/11/2024 | c'est ici qu'apparaît « **to manage** the Fund's portfolio » | 6 |
 | **C. Les chiffres publiés** ||||
-| 9 | Rapport annuel FY2025 (N-CSR) | 30/09/2025 | « croisé avec les **committee roles** » ; rotation **10 %** / 16 % ; encours FY23/24/25 ; NVIDIA 142 778 parts | 2 · 27 · 28 · 17 |
+| 9 | Rapport annuel FY2025 (N-CSR) | 30/09/2025 | « *cross referenced against the ... **committee roles*** » ; rotation **10 %** / 16 % ; encours FY23/24/25 ; NVIDIA 142 778 parts | 2 · 27 · 28 · 17 |
 | 10 | Rapport annuel FY2023 (N-CSR) | 30/09/2023 | rotation 44 % / 46 % ; définition SEC de la rotation ; note « **not annualized** » (exercice de 7,8 mois) | 74 · 76 |
 | 11 | Rapport semestriel (N-CSRS) | 31/03/2026 | rotation **5 %** (NANC, 99 lignes) et 2 % (GOP) : le livre est quasi figé | 2 |
 | 12 | Fiches produit (NANC **et** GOP) | 30/06/2026 | encours, nombre de lignes, performance affichée | 1 |
@@ -30,7 +30,7 @@ Les renvois `[n p.X]` de **FICHE_NANC_GOP** pointent directement vers ces fichie
 | 13 | **Papier académique — Baulkaran & Jain**, *Economics Letters* 250 (2025) 112263 | 03/2025 | régression 5 facteurs sur les rendements **des ETF eux-mêmes** (01/02/2023–31/01/2024) : α non significatif dans les 8 spécifications ; **β 1,07–1,09 (NANC) et 0,88–0,91 (KRUZ)** — à comparer aux 1,06 et 0,93 de nos répliques | 1 · 2 · 4 |
 | 14 | Cadence annoncée au lancement | 09/02/2023 | portefeuilles « **updated weekly** » ; 750–800 titres visés (ère Subversive) | 1 |
 | 15 | N-CEN FY2025 (extrait) | 30/09/2025 | **aucun indice** de référence ; créations en nature ; unité de création | 1 |
-| 16 | Rapport semestriel (N-CSRS) | 31/03/2023 | lettre du gérant : « what matters is the **relative allocation** » | 3 |
+| 16 | Rapport semestriel (N-CSRS) | 31/03/2023 | lettre du gérant : « *what will matter is the **relative allocation*** » | 3 |
 | 17 | Changement de code (497) | 18/03/2025 | KRUZ devient GOP — nécessaire pour retrouver les dépôts antérieurs | 1 |
 
 ## Adresses d'origine

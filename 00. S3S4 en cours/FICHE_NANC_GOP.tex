@@ -101,8 +101,8 @@ taille & \textbf{100 à 200} lignes ; aucun plafond de position n'est annoncé\s
 \midrule
 \multicolumn{2}{@{}l@{}}{\textbf{La part sans paramètre} --- décrite en mots, ni seuil ni formule} \\
 \midrule
-sélection & \textbf{discrétionnaire} : motifs cherchés à la main --- auditions en commission, achats simultanés\sAcinq{2}\sVen{1} \\
-filtrage & le \textbf{bruit} des comptes gérés automatiquement est écarté\sVen{1} \\
+sélection & \textbf{discrétionnaire} : motifs cherchés à la main --- auditions en commission, achats simultanés\sAcinq{2}\sVen{2} \\
+filtrage & le \textbf{bruit} des comptes gérés automatiquement est écarté\sVen{2} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -111,7 +111,7 @@ filtrage & le \textbf{bruit} des comptes gérés automatiquement est écarté\sV
 \et{b}{Le changement de mécanique}
 Il a changé en cours de route, et c'est écrit :
 \begin{pts}
-\item \textbf{02/08/2024} --- Tidal reprend la gestion\sChg{3} ; le texte passe de \og{}\emph{créer le portefeuille \textbf{initial}}\fg{}\sOri{3} à \og{}\emph{\textbf{gérer} le portefeuille}\fg{}\sPro{7}.
+\item \textbf{02/08/2024} --- Tidal reprend la gestion\sChg{3} ; le texte passe de \og{}\emph{\textbf{To create} the Fund's \textbf{initial} portfolio}\fg{}\sOri{3} à \og{}\emph{\textbf{To manage} the Fund's portfolio}\fg{}\sPro{7} --- de \emph{constituer} le portefeuille de départ à le \emph{gérer}.
 \item Le gérant \og{}\emph{eliminated 582 very small positions}\fg{}\sAquatre{2} : les états N-PORT passent de \textbf{752} lignes au 30/06/2024 à \textbf{166} au 30/09/2024.
 \item Il \textbf{écrête} aussi sans l'écrire : aucun plafond n'est publié\sPro{7}, mais le fonds a vendu \textbf{15~\% de son NVDA} en un an\sAcinq{17}.
 \end{pts}
@@ -132,7 +132,7 @@ encours NANC, FY23/24/25 (M\$)\sAcinq{27} & \multicolumn{2}{r}{9,4 $\to$ 175,7 $
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques. La rotation rapporte les transactions à l'\emph{actif moyen} : l'encours est donné en regard, et la rotation la plus haute coïncide avec la croissance la plus forte ($\times$18). \emph{Limite} : le chiffre \og{}exclut les transactions en nature\fg{}\sAcinq{27} --- 10~\% est un \textbf{plancher}. La rotation FY2023 couvre 7,8 mois et n'est pas annualisée par le rapport\sAtrois{74}.}
+\lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques. La rotation rapporte les transactions à l'\emph{actif moyen} : l'encours est donné en regard, et la rotation la plus haute coïncide avec la croissance la plus forte ($\times$18). \emph{Limite} : le rapport précise que la rotation \og{}\emph{excludes in-kind transactions}\fg{}\sAcinq{27} --- 10~\% est donc un \textbf{plancher}. La rotation FY2023 couvre 7,8 mois et n'est pas annualisée par le rapport\sAtrois{74}.}
 
 \mouv{III}{Ce qu'on trouve}
 
@@ -263,8 +263,8 @@ sélection discrétionnaire & aucun paramètre publié & \textbf{le résidu} \\
 \end{tabular}
 \end{center}
 \lire{trois causes sur quatre sont \textbf{bornées à quelques points}. Le filtrage documenté en restitue \textbf{13}. Le résidu correspond à la couche que le gérant décrit sans en publier les paramètres.}
-\obs{\textbf{La donnée d'entrée est publique, et c'est le gérant qui le dit}\sVen{1} : \og{}\emph{the data is \textbf{public disclosure}. \textbf{Anybody can go get it}}\fg{}. Ce qui produit l'écart est en aval : \og{}\emph{poking through the data \textbf{to try and find the patterns}}\fg{} --- auditions en commission, achats simultanés. \textbf{Un jugement humain, pas une formule.}}
-\obs{\textbf{Le filtre, dans ses mots}\sVen{1} : \og{}\emph{\textbf{300 trades and they were all, like, this big, 5 shares of something, we know that's just a rebalance}}\fg{}. Au seuil retenu ($\ge$50 opérations le même jour, celui que sa description désigne), ces dépôts en masse pèsent \textbf{54~\% du \$ démocrate} et \textbf{58~\% du républicain} dans nos données. \emph{Filtrer plus fin dégrade}, et calibrer le seuil sur la cible relèverait de l'ajustement, non de la réplication.}
+\obs{\textbf{La donnée d'entrée est publique, et c'est le gérant qui le dit}\sVen{1} : \og{}\emph{the data is \textbf{public disclosure}. \textbf{Anybody can go get it}}\fg{}. Ce qui produit l'écart est en aval\sVen{2} : \og{}\emph{poking through the data \textbf{to try and find the patterns}}\fg{} --- auditions en commission, achats simultanés. \textbf{Un jugement humain, pas une formule.}}
+\obs{\textbf{Le filtre, dans ses mots}\sVen{2} : \og{}\emph{\textbf{300 trades and they were all, like, this big, 5 shares of something, we know that's just a rebalance}}\fg{}. Au seuil retenu ($\ge$50 opérations le même jour, celui que sa description désigne), ces dépôts en masse pèsent \textbf{54~\% du \$ démocrate} et \textbf{58~\% du républicain} dans nos données. \emph{Filtrer plus fin dégrade}, et calibrer le seuil sur la cible relèverait de l'ajustement, non de la réplication.}
 
 \mouv{IV}{Conclusion et portée}
 
@@ -287,7 +287,7 @@ sélection discrétionnaire & aucun paramètre publié & \textbf{le résidu} \\
 \[ \mathrm{expo}=\sum_i\min\!\bigl(w_i,\,w^{\star}_i\bigr),\qquad
    \mathrm{recouv}_{10}=\frac{\sum_{i\in T_{10}}\min\!\bigl(w_i,w^{\star}_i\bigr)}{\sum_{i\in T_{10}}w^{\star}_i} \]
 \obs{\textbf{Pourquoi le $\min$} : il est \textbf{non compensatoire}. Une somme laisserait 8,5 sur GOOG (réel 5,8) \og{}racheter\fg{} les 0,2 sur AMAT (réel 5,2) ; avec $\min$, surpondérer ne rapporte rien et sous-pondérer coûte plein tarif. $\mathrm{expo}\in[0,1]$ = \emph{la fraction des deux portefeuilles qui est littéralement la même chose}.}
-Fidélité de \emph{comportement} --- la rotation, telle que le rapport annuel la définit\sAtrois{74} (\og{}\emph{le numérateur inclut le plus petit des achats ou des ventes ; le dénominateur, la valeur moyenne des positions}\fg{}), puis sa transposition à des portefeuilles exprimés en poids :
+Fidélité de \emph{comportement} --- la rotation, telle que le rapport annuel la définit\sAtrois{74} --- \og{}\emph{the portfolio turnover rate includes the \textbf{lesser of purchases or sales} \ldots{} The denominator includes the \textbf{average fair value of long positions} throughout the period}\fg{} --- puis sa transposition à des portefeuilles exprimés en poids :
 \[ \tau \;=\; \frac{\min\bigl(\textstyle\sum\text{achats},\ \sum\text{ventes}\bigr)}{\text{actif moyen}} \]
 \[ \begin{gathered}
 w^{\mathrm{d}}_i(t)=\frac{w_i(t^-)\,P_i(t)/P_i(t^-)}{\sum_j w_j(t^-)\,P_j(t)/P_j(t^-)} \\[0.6mm]
