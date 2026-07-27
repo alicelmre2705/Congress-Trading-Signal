@@ -355,6 +355,33 @@ $w^{\star}_i$ & poids \textbf{publié} par le vrai fonds \\
 \end{tabular}
 \end{center}
 
+\textbf{B1bis $\cdot$ Ce qu'ils publient vraiment} \emph{(prospectus statutaire $+$ SAI, rapports annuels N-CSR)}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r@{}}
+\toprule
+ & NANC & GOP \\
+\midrule
+création & \multicolumn{2}{c}{06/02/2023} \\
+frais $\cdot$ AUM & 0,72 \% $\cdot$ 282 M\$ & 0,73 \% $\cdot$ 88 M\$ \\
+lignes & 104 & 138 \\
+\addlinespace[1pt]
+\emph{depuis création}, /an & $+23{,}63\,\%$ & $+14{,}75\,\%$ \\
+S\&P 500 TR (réf.) & \multicolumn{2}{c}{$+20{,}96\,\%$} \\
+\addlinespace[1pt]
+\textbf{turnover} FY23 & 44 \% & 46 \% \\
+\quad FY24 & 62 \% & 54 \% \\
+\quad FY25 & \textbf{10 \%} & \textbf{16 \%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{pts}
+\item \textbf{Trois régimes, pas un} : \emph{Subversive Capital} (02/2023 $\to$ 07/2024, \textbf{500--600 lignes}), puis \textbf{Tidal} (dès le 02/08/2024, \textbf{100--200 lignes}), réorganisation 12/2024.
+\item Le texte a changé : 2023 \og{}\emph{to create the Fund's \textbf{initial} portfolio}\fg{} $\to$ 2026 \og{}\emph{to \textbf{manage} the portfolio}\fg{}. Et la lettre du gérant FY2024 dit : \og{}\emph{\textbf{eliminated 582 very small positions}}\fg{} $\Rightarrow$ un \textbf{reset daté} au 02/08/2024.
+\item \textbf{Data Provider $=$ Unusual Whales}, mais le prospectus précise qu'il \og{}\emph{plays no role in the construction}\fg{} : c'est \textbf{Tidal} qui construit --- et le rapport FY2025 avoue une surcouche \textbf{discrétionnaire} : \og{}\emph{cross referenced against the \ldots{} committee roles}\fg{}.
+\item Preuves de \textbf{dérive} (N-CSR FY2025) : plus-value latente $+22{,}4\,\%$, gains/pertes latents \textbf{7,6:1}, AXP $+21{,}2\,\%$ de parts $=$ exactement l'effet des créations (\emph{zéro} arbitrage sur 12 mois). Mais NVDA $-15\,\%$ de parts $\Rightarrow$ un \textbf{plafonnement de fait}, nulle part écrit.
+\item Ce qu'ils \textbf{n'utilisent pas} : les déclarations \emph{annuelles} de patrimoine (\og{}\emph{acquired prior to swearing in \ldots{} are not considered}\fg{}) --- vérifié chez nous : AMAT pèse \textbf{0,009 \%} des patrimoines démocrates contre 5,19 \% du fonds.
+\end{pts}
+
 \textbf{B2 $\cdot$ Ce qui change entre V1, V2 et V3}
 \begin{center}\scriptsize
 \begin{tabular}{@{}R{18mm} R{16mm} R{19mm} R{20mm}@{}}
@@ -396,9 +423,10 @@ expo.\ NANC & 51 \% & 48 \% & 46 \% \\
 \textbf{B5 $\cdot$ V3 --- le livre du fonds} \emph{(leur mécanique réelle)}
 \begin{pts}
 \item \textbf{Lecture} : \og{}\emph{the Fund will buy or sell a security \textbf{when} a position is reported}\fg{} --- pas un score recalculé, un \textbf{livre} alimenté par les divulgations.
-\item \textbf{Livre initial} à la création $t_0=$ 07/02/2023 : le net $\gamma$ des 3 ans précédents, converti en \textbf{parts} au prix de $t_0$.
+\item \textbf{Livre initial} à la création $t_0=$ 06/02/2023 : le net $\gamma$ des 3 ans précédents, converti en \textbf{parts} au prix de $t_0$.
 \item \textbf{Ensuite} : un achat ajoute $A_k/P_i(e_k)$ parts, une vente en retire $\gamma_kA_k/P_i(e_k)$.
 \item \textbf{Ni recomposition, ni plafond, ni sélection} : entre deux divulgations les poids \textbf{dérivent avec les prix}.
+\item \textbf{V4 $=$ V3 $+$ les resets documentés} : livre construit à $t_0$ (600 lignes, régime Subversive), puis au \textbf{reset} $t_1=$ 02/08/2024 on \textbf{élague aux 170 plus grosses} lignes (\og{}\emph{eliminated 582 very small positions}\fg{}) et la dérive reprend.
 \end{pts}
 \[ q_i(t)=\frac{\mathrm{net}_i(t_0)}{P_i(t_0)}+\!\!\sum_{k\,:\,t_0<e_k\le t}\!\!\varepsilon_k\,\gamma_k\,\frac{A_k}{P_i(e_k)} \]
 \[ w_i(t)=q_i(t)P_i(t)\,\big/\,\textstyle\sum_j q_j(t)P_j(t) \]
@@ -420,6 +448,24 @@ GOP V3 & 0/10 & 0/15 & 0,16 & 0,36 & 26 \% \\
 \end{center}
 \lire{$\rho_{\text{P}}$ Pearson sur les poids, $\rho_{\text{S}}$ \textbf{sur les rangs} ; expo. $=\sum_i\min(w_i,w^{\star}_i)$.}
 \obs{$\rho_{\text{P}}\approx0{,}7$ est \textbf{porté par NVDA seul} : sur les \textbf{rangs}, la corrélation tombe à $\mathbf{0{,}06}$ (V1) et $\mathbf{-0{,}01}$ (V2). On retrouve leurs \emph{gros noms}, pas leur \emph{classement}.}
+\obs{\textbf{V4} (resets documentés) est la meilleure de la famille V3 : recouvrement du top-10 \textbf{51 $\to$ 57 \%}, exposition 46 $\to$ 48 \%, cardinal 1\,239 $\to$ 723. Reconstruire entièrement au reset (au lieu d'élaguer) \emph{dégrade} (recouv.\ 40 \%) --- l'élagage est bien la bonne lecture de \og{}\emph{eliminated 582 very small positions}\fg{}.}
+
+(a\,bis) \textbf{le turnover} --- test de la \emph{mécanique}, pas de la composition :
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+turnover/an & 2023 & 2024 & 2025 & médiane \\
+\midrule
+V1 (mensuel) & 59 \% & 67 \% & 82 \% & 66 \% \\
+V2 (mensuel) & 80 \% & 101 \% & 136 \% & 102 \% \\
+V3/V4 (livre) & 13 \% & 11 \% & 16 \% & \textbf{13 \%} \\
+\addlinespace[1pt]
+\textbf{fonds NANC} & \textbf{44 \%} & \textbf{62 \%} & \textbf{10 \%} & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{turnover $=\min(\text{achats},\text{ventes})/\text{actif}$ (définition SEC) $=\frac12\sum_i|w^{\text{cible}}_i-w^{\text{dérivé}}_i|$ cumulé sur l'année. Le chiffre du fonds exclut les échanges \emph{in kind} : c'est un plancher.}
+\obs{\textbf{C'est la découverte du dossier.} Le fonds tournait à \textbf{44--62 \%} en 2023-24 (régime \emph{Subversive}) $\approx$ notre \textbf{V1} (59--67 \%) ; il est tombé à \textbf{10 \%} en 2025 (régime \emph{Tidal}) $\approx$ notre \textbf{V3/V4} (11--16 \%). \emph{Aucune version unique ne peut coller aux deux} : le fonds a \textbf{changé de mécanique} en août 2024, et nos V1 et V3 décrivent chacune \textbf{une moitié} de son histoire.}
 
 (b) \textbf{composition} --- ancrée sur le top-10 du vrai NANC ($w^{\star}$), en \% :
 \begin{center}\scriptsize
