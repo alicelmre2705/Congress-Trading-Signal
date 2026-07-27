@@ -6,6 +6,8 @@
 \usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}\usepackage{url}
+\urlstyle{sf}
 \graphicspath{{figs_nb11/}}
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
@@ -224,5 +226,53 @@ Under normal circumstances, the Fund will invest in a portfolio of between 100 t
 \vspace{1mm}
 \textbf{Prospectus, section \og{}Data Provider\fg{}} --- qui construit réellement le portefeuille :
 {\footnotesize\itshape ``UW plays no role in the construction or implementation''\par}
+
+% ═══════════ SOURCES ═══════════
+\vspace{2mm}\hrule\vspace{1.5mm}
+{\color{bleu}\bfseries\large Sources --- où vérifier chaque affirmation}\par\vspace{1mm}
+{\scriptsize\color{grisf} Tous les documents réglementaires sont publics sur EDGAR (SEC). Liens vérifiés le 27/07/2026.
+Les fonds relèvent de \emph{Tidal Trust I} (CIK 1742912) depuis fin 2024, et de \emph{Series Portfolios Trust} (CIK 1650149) auparavant : les dépôts sont donc répartis sur deux identifiants.\par}
+\vspace{1mm}
+
+{\footnotesize
+\textbf{1. Prospectus statutaire $+$ SAI} (485BPOS, 27/01/2026) --- \emph{la règle complète, l'identité du Data Provider, l'absence de toute fréquence de rebalancement.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937126001797/nanckruz-485bpos_012726.htm}
+
+\vspace{1mm}
+\textbf{2. Prospectus d'origine} (497K, 03/02/2023) --- \emph{la version qui dit \og{}to create the Fund's \textbf{initial} portfolio\fg{} : la fenêtre 3 ans ne servait alors qu'au portefeuille de départ.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1650149/000089418923000948/unusualwhalessubversivedem.htm}
+
+\vspace{1mm}
+\textbf{3. Changement de méthode} (497, 02/08/2024) --- \emph{Tidal devient gérant ; le portefeuille passe de 500--600 à 100--200 lignes.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1650149/000089418924004591/subversivecapitalkruznanc-a.htm}
+
+\vspace{1mm}
+\textbf{4. Rapport annuel FY2023} (N-CSR, exercice clos le 30/09/2023) --- \emph{rotation 44 \% (NANC) et 46 \% (GOP).}\\
+\url{https://www.sec.gov/Archives/edgar/data/1650149/000089853123000485/uwsctetf-ncsra.htm}
+
+\vspace{1mm}
+\textbf{5. Rapport annuel FY2024} (N-CSR, exercice clos le 30/09/2024) --- \emph{rotation 62 \%/54 \% ; et la phrase du gérant : \og{}eliminated 582 very small positions\fg{}.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1650149/000183988224044132/whales-ncsr_93024.htm}
+
+\vspace{1mm}
+\textbf{6. Rapport annuel FY2025} (N-CSR, exercice clos le 30/09/2025) --- \emph{rotation \textbf{10 \%}/16 \% ; le portefeuille détaillé (nombre de parts et prix payé) ; la plus-value latente $+22{,}4$ \% ; et \og{}cross referenced against the \ldots{} committee roles\fg{}.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125019807/suw-ncsr_093025.htm}
+
+\vspace{1mm}
+\textbf{7. Changement de code} (497, 18/03/2025) --- \emph{le fonds républicain passe de KRUZ à GOP : utile pour retrouver les dépôts antérieurs.}\\
+\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125002790/kruz-497_031825.htm}
+
+\vspace{1mm}
+\textbf{8. Pages de l'émetteur} --- \emph{encours, performance depuis création, fiches produit.}\\
+\url{https://subversiveetfs.com/nanc/} \quad et \quad \url{https://subversiveetfs.com/gop/}
+\par}
+
+\vspace{1.5mm}
+{\footnotesize\textbf{Données utilisées de notre côté} --- \emph{pour la réplique et la comparaison} :
+\begin{pts}
+\item \textbf{Portefeuilles réels des deux ETF} au 24/07/2026, tels que publiés quotidiennement par l'administrateur (Tidal Financial Group) : \path{cache/NANC_holdings_20260724.csv} (104 lignes) et \path{cache/GOP_holdings_20260724.csv} (139 lignes).
+\item \textbf{Déclarations des élus} (PTR), table nettoyée du projet : \path{00_S1S2_donnees/data/clean/transactions_backtest_2014_2026.csv} --- 134\,464 transactions, 372 élus, 2014--2026.
+\item \textbf{Tous les calculs} de cette fiche sont produits par le notebook \path{11_Strategie_Ticker.ipynb} (sections §13.4 à §13.12) : chaque nombre affiché ici est une sortie de cellule, aucun n'est recopié à la main.
+\end{pts}\par}
 
 \end{document}
