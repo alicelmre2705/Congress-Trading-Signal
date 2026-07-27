@@ -22,16 +22,16 @@
 \newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
 \newcommand{\lire}[1]{{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça dit :} #1}\par}
 \newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
-% ── renvois cliquables vers le document qui établit chaque affirmation (détail en fin de fiche) ──
-\newcommand{\rf}[2]{\href{#2}{\color{bleu}\textsuperscript{\,[#1]}}}
-\newcommand{\sPro}{\rf{1}{https://www.sec.gov/Archives/edgar/data/1742912/000199937126001797/nanckruz-485bpos_012726.htm}}
-\newcommand{\sOri}{\rf{2}{https://www.sec.gov/Archives/edgar/data/1650149/000089418923000948/unusualwhalessubversivedem.htm}}
-\newcommand{\sChg}{\rf{3}{https://www.sec.gov/Archives/edgar/data/1650149/000089418924004591/subversivecapitalkruznanc-a.htm}}
-\newcommand{\sAtrois}{\rf{4}{https://www.sec.gov/Archives/edgar/data/1650149/000089853123000485/uwsctetf-ncsra.htm}}
-\newcommand{\sAquatre}{\rf{5}{https://www.sec.gov/Archives/edgar/data/1650149/000183988224044132/whales-ncsr_93024.htm}}
-\newcommand{\sAcinq}{\rf{6}{https://www.sec.gov/Archives/edgar/data/1742912/000199937125019807/suw-ncsr_093025.htm}}
-\newcommand{\sTick}{\rf{7}{https://www.sec.gov/Archives/edgar/data/1742912/000199937125002790/kruz-497_031825.htm}}
-\newcommand{\sSite}{\rf{8}{https://subversiveetfs.com/nanc/}}
+% ── renvois cliquables : ils ouvrent le PDF archivé (dossier docs_nanc_gop/) À LA PAGE exacte ──
+\newcommand{\rf}[3]{\href{docs_nanc_gop/#2\#page=#3}{\color{bleu}\textsuperscript{\,[#1\,p.#3]}}}
+\newcommand{\sPro}[1]{\rf{1}{1-prospectus-statutaire-SAI-20260127.pdf}{#1}}
+\newcommand{\sOri}[1]{\rf{2}{2-prospectus-origine-20230203.pdf}{#1}}
+\newcommand{\sChg}[1]{\rf{3}{3-changement-methode-20240802.pdf}{#1}}
+\newcommand{\sAtrois}[1]{\rf{4}{4-rapport-annuel-FY2023.pdf}{#1}}
+\newcommand{\sAquatre}[1]{\rf{5}{5-rapport-annuel-FY2024.pdf}{#1}}
+\newcommand{\sAcinq}[1]{\rf{6}{6-rapport-annuel-FY2025.pdf}{#1}}
+\newcommand{\sTick}[1]{\rf{7}{7-changement-code-KRUZ-GOP-20250318.pdf}{#1}}
+\newcommand{\sSite}[1]{\rf{8}{8-fact-sheet-NANC-juin-2026.pdf}{#1}}
 \begin{document}
 
 \begin{center}
@@ -47,9 +47,9 @@
 \et{1}{La question}
 \begin{pts}
 \item Les élus du Congrès américain sont \textbf{obligés de déclarer} leurs transactions boursières (loi STOCK, 2012). Deux ETF vendent cette information au public : \textbf{NANC} copie les élus \textbf{démocrates}, \textbf{GOP} les \textbf{républicains}.
-\item Ils sont nés le même jour (\textbf{06/02/2023})\sPro{}, coûtent 0,72--0,73 \%/an\sPro{}, et pèsent \textbf{282 M\$} (NANC, 104 lignes) et \textbf{88 M\$} (GOP, 138 lignes)\sSite{}.
+\item Ils sont nés le même jour (\textbf{06/02/2023})\sPro{13}, coûtent 0,72--0,73 \%/an\sPro{5}, et pèsent \textbf{282 M\$} (NANC, 104 lignes) et \textbf{88 M\$} (GOP, 138 lignes)\sSite{1}.
 \item \textbf{Ce qu'on cherche} : (i) peut-on \textbf{reconstruire} leur portefeuille à partir des seules déclarations publiques ? (ii) cette stratégie a-t-elle un \textbf{avantage} sur le marché ?
-\item \textbf{Pourquoi ce terrain est bon} : un ETF doit \textbf{publier son portefeuille chaque jour}\sSite{}. On peut donc comparer notre réplique à la vérité, ligne par ligne --- c'est rare.
+\item \textbf{Pourquoi ce terrain est bon} : un ETF doit \textbf{publier son portefeuille chaque jour}\sSite{2}. On peut donc comparer notre réplique à la vérité, ligne par ligne --- c'est rare.
 \end{pts}
 
 % ═══════════ 2 ═══════════
@@ -71,28 +71,28 @@ documents SEC & prospectus, SAI, rapports annuels, lettres du gérant & 2023 à 
 \et{3}{Ce que le fonds dit faire --- et ce qu'il fait vraiment}
 \textbf{Ce qu'annonce le prospectus} :
 \begin{pts}
-\item Univers : les titres achetés par les élus du parti, sur les \textbf{3 dernières années}, via les déclarations.\sPro{}
-\item Pondération au \og{}\textbf{niveau de trading}\fg{} : gros achats, achats \emph{répétés}, achats \emph{par plusieurs élus} $\to$ surpondérés ; petits, ventes récentes, coups isolés $\to$ sous-pondérés.\sPro{}
-\item Entre \textbf{100 et 200 lignes}. Aucun plafond de position n'est annoncé.\sPro{}
+\item Univers : les titres achetés par les élus du parti, sur les \textbf{3 dernières années}, via les déclarations.\sPro{7}
+\item Pondération au \og{}\textbf{niveau de trading}\fg{} : gros achats, achats \emph{répétés}, achats \emph{par plusieurs élus} $\to$ surpondérés ; petits, ventes récentes, coups isolés $\to$ sous-pondérés.\sPro{7}
+\item Entre \textbf{100 et 200 lignes}. Aucun plafond de position n'est annoncé.\sPro{7}
 \end{pts}
 \textbf{Ce que révèlent les rapports annuels} --- et qu'on avait manqué en ne lisant que le résumé :
 \begin{pts}
-\item \textbf{Le fonds a changé de méthode.} Son taux de rotation passe de \textbf{62 \% en 2024}\sAquatre{} \textbf{à 10 \% en 2025}\sAcinq{} : il gérait activement, il ne touche presque plus à rien.
-\item \textbf{Un événement daté} : le \textbf{02/08/2024} un nouveau gérant (Tidal) reprend\sChg{} et \og{}\emph{eliminated 582 very small positions}\fg{}\sAquatre{} --- de $\sim$600 lignes à $\sim$170.
-\item \textbf{Il y a du jugement humain} : les titres sont \og{}\emph{croisés avec les rôles en commission}\fg{} des élus\sAcinq{}. Cela n'apparaît dans aucune règle publiée\sPro{}.
-\item \textbf{Le prospectus est incomplet} : aucun plafond n'y figure\sPro{}, mais le fonds a \textbf{vendu 15 \% de son NVDA} en un an\sAcinq{} --- il écrête en pratique.
+\item \textbf{Le fonds a changé de méthode.} Son taux de rotation passe de \textbf{62 \% en 2024}\sAquatre{39} \textbf{à 10 \% en 2025}\sAcinq{27} : il gérait activement, il ne touche presque plus à rien.
+\item \textbf{Un événement daté} : le \textbf{02/08/2024} un nouveau gérant (Tidal) reprend\sChg{3} et \og{}\emph{eliminated 582 very small positions}\fg{}\sAquatre{2} --- de $\sim$600 lignes à $\sim$170.
+\item \textbf{Il y a du jugement humain} : les titres sont \og{}\emph{croisés avec les rôles en commission}\fg{} des élus\sAcinq{2}. Cela n'apparaît dans aucune règle publiée\sPro{7}.
+\item \textbf{Le prospectus est incomplet} : aucun plafond n'y figure\sPro{7}, mais le fonds a \textbf{vendu 15 \% de son NVDA} en un an\sAcinq{17} --- il écrête en pratique.
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r@{}}
 \toprule
 ce qu'ils publient & NANC & GOP \\
 \midrule
-performance depuis création, /an\sPro{} & $+23{,}63\,\%$ & $+14{,}75\,\%$ \\
+performance depuis création, /an\sPro{13} & $+23{,}63\,\%$ & $+14{,}75\,\%$ \\
 S\&P 500 (référence) & \multicolumn{2}{c}{$+20{,}96\,\%$} \\
 \midrule
-rotation FY2023\sAtrois{} & 44 \% & 46 \% \\
-\quad FY2024\sAquatre{} & 62 \% & 54 \% \\
-\quad FY2025\sAcinq{} & \textbf{10 \%} & \textbf{16 \%} \\
+rotation FY2023\sAtrois{74} & 44 \% & 46 \% \\
+\quad FY2024\sAquatre{39} & 62 \% & 54 \% \\
+\quad FY2025\sAcinq{27} & \textbf{10 \%} & \textbf{16 \%} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -100,7 +100,7 @@ rotation FY2023\sAtrois{} & 44 \% & 46 \% \\
 
 % ═══════════ 4 ═══════════
 \et{4}{Ce qu'on fait --- trois lectures de leur règle}
-Leur règle étant qualitative (\og{}niveau de trading\fg{})\sPro{}, on l'a traduite de trois façons. Notation : $A_k$ le montant déclaré, $\delta_k$ la date de divulgation, $P_i$ le cours, $w_i$ un poids, $q_i$ un nombre de parts.
+Leur règle étant qualitative (\og{}niveau de trading\fg{})\sPro{7}, on l'a traduite de trois façons. Notation : $A_k$ le montant déclaré, $\delta_k$ la date de divulgation, $P_i$ le cours, $w_i$ un poids, $q_i$ un nombre de parts.
 \begin{center}\scriptsize
 \begin{tabular}{@{}R{16mm} R{26mm} R{26mm}@{}}
 \toprule
@@ -113,7 +113,7 @@ plafond & 8,5 \% & aucun \\
 poids & ramenés à la cible & \textbf{dérivent} avec les cours \\
 \midrule
 sa rotation & 66 \%/an & 13 \%/an \\
-\textbf{quel régime} & \textbf{le fonds en 2023-24}\sAtrois{}\sAquatre{} (44--62 \%) & \textbf{le fonds en 2025}\sAcinq{} (10 \%) \\
+\textbf{quel régime} & \textbf{le fonds en 2023-24}\sAtrois{74}\sAquatre{39} (44--62 \%) & \textbf{le fonds en 2025}\sAcinq{27} (10 \%) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -214,8 +214,8 @@ MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
 \et{7}{Conclusion}
 \begin{pts}
 \item \textbf{Ces produits ne sont pas reproductibles à partir des données publiques.} On retrouve leurs grands noms et l'ordre de grandeur de leur performance, mais pas leur portefeuille : la moitié pour NANC, moins d'un tiers pour GOP.
-\item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant --- leur fournisseur de données n'est pas les fourchettes publiques ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même\sAcinq{} ; (iii) le fonds a \textbf{changé de mécanique} en août 2024\sChg{}\sAquatre{}.
-\item \textbf{Et surtout : il n'y a pas d'avantage.} $\beta\approx1$, aucun $t$ au-dessus de 2. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{} : c'est une \textbf{exposition au marché} avec un biais sectoriel, pas une compétence.
+\item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant --- leur fournisseur de données n'est pas les fourchettes publiques ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même\sAcinq{2} ; (iii) le fonds a \textbf{changé de mécanique} en août 2024\sChg{3}\sAquatre{2}.
+\item \textbf{Et surtout : il n'y a pas d'avantage.} $\beta\approx1$, aucun $t$ au-dessus de 2. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{13} : c'est une \textbf{exposition au marché} avec un biais sectoriel, pas une compétence.
 \end{pts}
 
 \end{multicols}
@@ -223,59 +223,59 @@ MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
 % ═══════════ ANNEXE ═══════════
 \vspace{1.5mm}\hrule\vspace{1.5mm}
 {\color{bleu}\bfseries\large Annexe --- la règle, dans leurs mots}\par\vspace{1.5mm}
-\textbf{Prospectus}\sPro{} \emph{(\og{}Unusual Whales Subversive Democratic Trading ETF\fg{}, \og{}Principal Investment Strategies\fg{}, p.\,2 ; la version républicaine est identique, \og{}Republican\fg{} au lieu de \og{}Democratic\fg{})} :
+\textbf{Prospectus}\sPro{7} \emph{(\og{}Unusual Whales Subversive Democratic Trading ETF\fg{}, \og{}Principal Investment Strategies\fg{}, p.\,2 ; la version républicaine est identique, \og{}Republican\fg{} au lieu de \og{}Democratic\fg{})} :
 {\footnotesize\itshape
 ``To manage the Fund's portfolio, the Adviser will obtain and use information derived by the Data Provider from PTRs filed by Democratic U.S. Congresspeople for the past 3 years. Purchases made during that time will be netted against any sales of the same security when managing the Fund's portfolio of equity securities. As the investment thesis of the Fund is to track the trading activity of Democratic U.S. Congresspeople while in office, equity securities acquired by Democratic U.S. Congresspeople prior to his or her swearing in (or the 3-year lookback period) are not considered when managing the Fund's portfolio. To the extent a Democratic U.S. Congressperson sells equity securities that were acquired prior to his or her swearing in, the Adviser will not adjust the Fund's portfolio.
 
 Under normal circumstances, the Fund will invest in a portfolio of between 100 to 200 holdings. However, the number and size of positions held by the Fund will vary based on the number of positions traded by Democratic U.S. Congresspeople. Individual holdings will be weighted based on the level of reported trading in a security by Democratic U.S. Congresspeople. Securities with large purchases, recurring purchases and purchases from multiple Democratic U.S. Congresspeople will be overweighted. Securities with small purchases, recent sales and one-off trades by Democratic U.S. Congresspeople will be excluded or underweighted. The Adviser may exclude positions that are traded by Democratic U.S. Congresspeople at its discretion. Considerations for excluding a security include, but are not limited to, limited liquidity of such security and pending corporate actions that may impact such security.''\par}
 \vspace{1.5mm}
-\textbf{Lettre du gérant}\sAquatre{} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2024)} --- le reset :
+\textbf{Lettre du gérant}\sAquatre{2} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2024)} --- le reset :
 {\footnotesize\itshape ``eliminated 582 very small positions''\par}
 \vspace{1mm}
-\textbf{Lettre du gérant}\sAcinq{} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2025)} --- la part discrétionnaire :
+\textbf{Lettre du gérant}\sAcinq{2} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2025)} --- la part discrétionnaire :
 {\footnotesize\itshape ``cross referenced against the Democratic members' committee roles''\par}
 \vspace{1mm}
-\textbf{Prospectus, section \og{}Data Provider\fg{}}\sPro{} --- qui construit réellement le portefeuille :
+\textbf{Prospectus, section \og{}Data Provider\fg{}}\sPro{34} --- qui construit réellement le portefeuille :
 {\footnotesize\itshape ``UW plays no role in the construction or implementation''\par}
 
 % ═══════════ SOURCES ═══════════
 \vspace{2mm}\hrule\vspace{1.5mm}
-{\color{bleu}\bfseries\large Sources --- où vérifier chaque affirmation}\par\vspace{1mm}
-{\scriptsize\color{grisf} Tous les documents réglementaires sont publics sur EDGAR (SEC). Liens vérifiés le 27/07/2026.
-Les fonds relèvent de \emph{Tidal Trust I} (CIK 1742912) depuis fin 2024, et de \emph{Series Portfolios Trust} (CIK 1650149) auparavant : les dépôts sont donc répartis sur deux identifiants.\par}
+{\color{bleu}\bfseries\large Sources --- les documents eux-mêmes, à la page exacte}\par\vspace{1mm}
+{\scriptsize\color{grisf} Les renvois {\color{bleu}[n\,p.X]} du texte \textbf{ouvrent directement le PDF} archivé dans \path{docs_nanc_gop/}, à la page indiquée. Ces PDF sont les documents officiels tels que déposés, convertis sans retouche ; l'adresse d'origine est donnée pour chacun. Les fonds relèvent de \emph{Tidal Trust I} (CIK 1742912) depuis fin 2024 et de \emph{Series Portfolios Trust} (CIK 1650149) auparavant : c'est pourquoi les dépôts sont répartis sur deux identifiants. Liens vérifiés le 27/07/2026.\par}
 \vspace{1mm}
 
 {\footnotesize
-\textbf{1. Prospectus statutaire $+$ SAI} (485BPOS, 27/01/2026) --- \emph{la règle complète, l'identité du Data Provider, l'absence de toute fréquence de rebalancement.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937126001797/nanckruz-485bpos_012726.htm}
+\textbf{[1] Prospectus statutaire $+$ SAI} --- 485BPOS, 27/01/2026, 146 p. \emph{Ce qu'on y vérifie} : la règle complète (\textbf{p.\,7} pour NANC, p.\,17 pour GOP), les frais (p.\,5), la performance depuis création (\textbf{p.\,13}), et le rôle du fournisseur de données (\textbf{p.\,34}).\\
+\path{docs_nanc_gop/1-prospectus-statutaire-SAI-20260127.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1742912/000199937126001797/nanckruz-485bpos_012726.htm}
 
 \vspace{1mm}
-\textbf{2. Prospectus d'origine} (497K, 03/02/2023) --- \emph{la version qui dit \og{}to create the Fund's \textbf{initial} portfolio\fg{} : la fenêtre 3 ans ne servait alors qu'au portefeuille de départ.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1650149/000089418923000948/unusualwhalessubversivedem.htm}
+\textbf{[2] Prospectus d'origine} --- 497K, 03/02/2023, 9 p. \emph{Ce qu'on y vérifie} : la version qui dit \og{}\emph{to create the Fund's \textbf{initial} portfolio}\fg{} (\textbf{p.\,3}) --- la fenêtre 3 ans ne servait alors qu'au portefeuille de départ.\\
+\path{docs_nanc_gop/2-prospectus-origine-20230203.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1650149/000089418923000948/unusualwhalessubversivedem.htm}
 
 \vspace{1mm}
-\textbf{3. Changement de méthode} (497, 02/08/2024) --- \emph{Tidal devient gérant ; le portefeuille passe de 500--600 à 100--200 lignes.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1650149/000089418924004591/subversivecapitalkruznanc-a.htm}
+\textbf{[3] Changement de méthode} --- 497, 02/08/2024, 10 p. \emph{Ce qu'on y vérifie} : Tidal devient gérant et le portefeuille passe à 100--200 lignes (\textbf{p.\,3}).\\
+\path{docs_nanc_gop/3-changement-methode-20240802.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1650149/000089418924004591/subversivecapitalkruznanc-a.htm}
 
 \vspace{1mm}
-\textbf{4. Rapport annuel FY2023} (N-CSR, exercice clos le 30/09/2023) --- \emph{rotation 44 \% (NANC) et 46 \% (GOP).}\\
-\url{https://www.sec.gov/Archives/edgar/data/1650149/000089853123000485/uwsctetf-ncsra.htm}
+\textbf{[4] Rapport annuel FY2023} --- N-CSR, exercice clos le 30/09/2023, 97 p. \emph{Ce qu'on y vérifie} : rotation \textbf{44 \%} pour NANC (\textbf{p.\,74}) et \textbf{46 \%} pour GOP (p.\,76), dans les \emph{Financial Highlights}.\\
+\path{docs_nanc_gop/4-rapport-annuel-FY2023.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1650149/000089853123000485/uwsctetf-ncsra.htm}
 
 \vspace{1mm}
-\textbf{5. Rapport annuel FY2024} (N-CSR, exercice clos le 30/09/2024) --- \emph{rotation 62 \%/54 \% ; et la phrase du gérant : \og{}eliminated 582 very small positions\fg{}.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1650149/000183988224044132/whales-ncsr_93024.htm}
+\textbf{[5] Rapport annuel FY2024} --- N-CSR, exercice clos le 30/09/2024, 59 p. \emph{Ce qu'on y vérifie} : la phrase du gérant \og{}\emph{eliminated 582 very small positions}\fg{} (\textbf{p.\,2}) ; rotation \textbf{62 \%} NANC (\textbf{p.\,39}) et 54 \% GOP (p.\,40).\\
+\path{docs_nanc_gop/5-rapport-annuel-FY2024.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1650149/000183988224044132/whales-ncsr_93024.htm}
 
 \vspace{1mm}
-\textbf{6. Rapport annuel FY2025} (N-CSR, exercice clos le 30/09/2025) --- \emph{rotation \textbf{10 \%}/16 \% ; le portefeuille détaillé (nombre de parts et prix payé) ; la plus-value latente $+22{,}4$ \% ; et \og{}cross referenced against the \ldots{} committee roles\fg{}.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125019807/suw-ncsr_093025.htm}
+\textbf{[6] Rapport annuel FY2025} --- N-CSR, exercice clos le 30/09/2025, 46 p. \emph{Ce qu'on y vérifie} : \og{}\emph{cross referenced against the \ldots{} committee roles}\fg{} (\textbf{p.\,2}) ; rotation \textbf{10 \%} NANC (\textbf{p.\,27}) et 16 \% GOP (p.\,28) ; et le portefeuille détaillé où l'on lit \textbf{142\,778 parts de NVIDIA} (\textbf{p.\,17}), contre 167\,829 l'année précédente.\\
+\path{docs_nanc_gop/6-rapport-annuel-FY2025.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125019807/suw-ncsr_093025.htm}
 
 \vspace{1mm}
-\textbf{7. Changement de code} (497, 18/03/2025) --- \emph{le fonds républicain passe de KRUZ à GOP : utile pour retrouver les dépôts antérieurs.}\\
-\url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125002790/kruz-497_031825.htm}
+\textbf{[7] Changement de code} --- 497, 18/03/2025, 1 p. \emph{Ce qu'on y vérifie} : le fonds républicain passe de \textbf{KRUZ à GOP} --- indispensable pour retrouver ses dépôts antérieurs.\\
+\path{docs_nanc_gop/7-changement-code-KRUZ-GOP-20250318.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125002790/kruz-497_031825.htm}
 
 \vspace{1mm}
-\textbf{8. Pages de l'émetteur} --- \emph{encours, performance depuis création, fiches produit.}\\
-\url{https://subversiveetfs.com/nanc/} \quad et \quad \url{https://subversiveetfs.com/gop/}
+\textbf{[8] Fiches produit de l'émetteur} --- au 30/06/2026, 2 p. chacune. \emph{Ce qu'on y vérifie} : l'encours, le nombre de lignes et la performance affichée.\\
+\path{docs_nanc_gop/8-fact-sheet-NANC-juin-2026.pdf} \ et \ \path{docs_nanc_gop/8-fact-sheet-GOP-juin-2026.pdf}\\
+{\color{grisf}origine :} \url{https://subversiveetfs.com/nanc/} \ et \ \url{https://subversiveetfs.com/gop/}
 \par}
 
 \vspace{1.5mm}
