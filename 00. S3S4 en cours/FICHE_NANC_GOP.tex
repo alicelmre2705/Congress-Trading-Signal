@@ -33,6 +33,7 @@
 \newcommand{\sTick}[1]{\rf{7}{7-changement-code-KRUZ-GOP-20250318.pdf}{#1}}
 \newcommand{\sSite}[1]{\rf{8}{8-fact-sheet-NANC-juin-2026.pdf}{#1}}
 \newcommand{\sCoop}[1]{\rf{9}{9-cooper-la-regle-du-gerant-20231119.pdf}{#1}}
+\newcommand{\sVen}[1]{\rf{10}{10-podcast-Venuto-mecanique-20241206.pdf}{#1}}
 \begin{document}
 
 \begin{center}
@@ -243,13 +244,15 @@ MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
 \end{tabular}
 \end{center}
 \lire{$\lambda$ va de \textbf{0,2 à 25} au lieu d'être constant --- et les seuls titres où $\lambda\approx1$ sont \emph{exactement} ceux qu'on reproduit bien. Le fonds détient \textbf{25 fois} plus de FIX que tout le flux jamais déclaré dessus : aucune règle fondée sur les déclarations publiques ne peut produire ça.}
+\obs{\textbf{Correction importante : leur donnée est la nôtre.} On a d'abord cru à une source privilégiée. C'est faux, et le gérant le dit\sVen{1} : \og{}\emph{the data is \textbf{public disclosure}. \textbf{Anybody can go get it}}\fg{} --- Unusual Whales ne fait que la rendre exploitable. L'écart ne vient donc \textbf{pas} des données d'entrée, mais de ce qu'ils en font : \og{}\emph{\textbf{Dan Weiskopf spends a lot of time poking through the data to try and find the patterns}}\fg{} (auditions en commission, achats simultanés). \textbf{C'est un jugement humain, pas une formule} --- et c'est ce qui produit la dispersion $\times$25 ci-dessus.}
+\obs{\textbf{Et ils écartent un bruit que nous comptions.}\sVen{1} \og{}\emph{Some of them have a broker who's just doing \textbf{direct indexing}\ldots{} when we see \textbf{300 trades and they were all, like, 5 shares of something, we know that's just a rebalance}}\fg{}. Or ces dépôts en masse pèsent \textbf{66 \% du \$ démocrate} et \textbf{85 \% du républicain} chez nous. En les retirant (seuil de l'ordre de 50--100 opérations le même jour, cohérent avec leurs \og{}300 trades\fg{}), la reproduction du \textbf{top-10} progresse nettement : \textbf{43,5 $\to$ 56,6 \%} pour NANC et \textbf{25,9 $\to$ 33,9 \%} pour GOP (exposition GOP $+5{,}7$ pt). \emph{Filtrer plus fin dégrade} --- et calibrer le seuil sur la cible serait de l'ajustement, pas une réplication.}
 \obs{\textbf{Contre-épreuve --- ce n'est pas notre faute.} On a audité et réparé notre propre chaîne : \textbf{7\,287 transactions} écartées par un filtre ont été réintégrées, \textbf{10 séries de prix} manquantes récupérées, les montants \og{}$>$1 M\$\fg{} revalorisés. \textbf{La fidélité ne bouge pas.} On a aussi testé l'hypothèse \og{}ils utilisent les déclarations de \emph{patrimoine} et non de transactions\fg{} : \textbf{réfutée} --- AMAT y pèse 0,009 \% contre 5,19 \% du fonds.}
 
 % ═══════════ 7 ═══════════
 \et{7}{Conclusion}
 \begin{pts}
 \item \textbf{Ces produits ne sont pas reproductibles à partir des données publiques.} On retrouve leurs grands noms et l'ordre de grandeur de leur performance, mais pas leur portefeuille : la moitié pour NANC, moins d'un tiers pour GOP.
-\item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant --- leur fournisseur de données n'est pas les fourchettes publiques ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même\sAcinq{2} ; (iii) le fonds a \textbf{changé de mécanique} en août 2024\sChg{3}\sAquatre{2}.
+\item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant, alors même que \textbf{la donnée de départ est la même que la nôtre}\sVen{1} : l'écart est produit par leur \textbf{sélection}, pas par leurs entrées ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même\sAcinq{2} ; (iii) le fonds a \textbf{changé de mécanique} en août 2024\sChg{3}\sAquatre{2}.
 \item \emph{Appui extérieur} : Baulkaran \& Jain, \emph{Economics Letters} 250 (2025), concluent indépendamment que \og{}\emph{neither significantly outperforms market returns}\fg{}.
 \item \textbf{Et surtout : il n'y a pas d'avantage.} $\beta\approx1$, aucun $t$ au-dessus de 2. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{13} : c'est une \textbf{exposition au marché} avec un biais sectoriel, pas une compétence.
 \end{pts}
@@ -311,6 +314,10 @@ Under normal circumstances, the Fund will invest in a portfolio of between 100 t
 \vspace{1mm}
 \textbf{[9] La règle, écrite par le gérant} --- Christian H. Cooper (co-gérant), Unusual Whales 19/11/2023 ; version longue dans \emph{Barron's} 18/12/2023. \emph{Ce qu'on y vérifie} (\textbf{p.\,1}) : \og{}\emph{more dollars equals more votes}\fg{}, le \textbf{midpoint} des fourchettes, et \og{}\emph{this choice is what drives all the relative allocations}\fg{}.\\
 \path{docs_nanc_gop/9-cooper-la-regle-du-gerant-20231119.pdf} \quad{\color{grisf}origine :}\\ \url{https://unusual-whales.ghost.io/unusual_blog/post/nanc-is-beating-the-s-p500-per-subversive/}
+
+\vspace{1mm}
+\textbf{[10] La mécanique sous Tidal, par le gérant actuel} --- Michael Venuto, \emph{The Meb Faber Show} \#560, 06/12/2024 (chapitre à 42:01). \emph{Ce qu'on y vérifie} (\textbf{p.\,1}) : la donnée est publique ; la sélection est \textbf{discrétionnaire} ; et le fonds \textbf{écarte le bruit} des comptes gérés en \emph{direct indexing}.\\
+\path{docs_nanc_gop/10-podcast-Venuto-mecanique-20241206.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.themebfabershow.com/episodes/3395kHHKQ3v}
 
 \vspace{1mm}
 \textbf{[8] Fiches produit de l'émetteur} --- au 30/06/2026, 2 p. chacune. \emph{Ce qu'on y vérifie} : l'encours, le nombre de lignes et la performance affichée.\\
