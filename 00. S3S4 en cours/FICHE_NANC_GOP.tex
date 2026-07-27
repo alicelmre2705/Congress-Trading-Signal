@@ -1,0 +1,228 @@
+% !TEX program = tectonic
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[top=0.8cm,bottom=0.8cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\graphicspath{{figs_nb11/}}
+\definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.3mm}}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{1.1pt}
+\setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
+\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{grisf!40}}
+\newcommand{\et}[2]{\vspace{1.6mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
+\newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
+\newcommand{\lire}[1]{{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça dit :} #1}\par}
+\newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries Répliquer NANC et GOP --- les ETF qui copient le Congrès}\\[0.4mm]
+{\footnotesize\color{grisf} peut-on reconstruire ces portefeuilles à partir des données publiques ? y a-t-il un avantage à les suivre ?}
+\end{center}
+\vspace{-0.5mm}
+
+\begin{multicols}{2}
+
+% ═══════════ 1 ═══════════
+\et{1}{La question}
+\begin{pts}
+\item Les élus du Congrès américain sont \textbf{obligés de déclarer} leurs transactions boursières (loi STOCK, 2012). Deux ETF vendent cette information au public : \textbf{NANC} copie les élus \textbf{démocrates}, \textbf{GOP} les \textbf{républicains}.
+\item Ils sont nés le même jour (\textbf{06/02/2023}), coûtent 0,72--0,73 \%/an, et pèsent \textbf{282 M\$} (NANC, 104 lignes) et \textbf{88 M\$} (GOP, 138 lignes).
+\item \textbf{Ce qu'on cherche} : (i) peut-on \textbf{reconstruire} leur portefeuille à partir des seules déclarations publiques ? (ii) cette stratégie a-t-elle un \textbf{avantage} sur le marché ?
+\item \textbf{Pourquoi ce terrain est bon} : un ETF doit \textbf{publier son portefeuille chaque jour}. On peut donc comparer notre réplique à la vérité, ligne par ligne --- c'est rare.
+\end{pts}
+
+% ═══════════ 2 ═══════════
+\et{2}{Ce à quoi on a accès}
+\begin{center}\scriptsize
+\begin{tabular}{@{}R{20mm} R{28mm} R{25mm}@{}}
+\toprule
+source & contenu & volume \\
+\midrule
+déclarations (PTR) & chaque transaction : titre, sens, date, \textbf{fourchette} de montant & \textbf{134\,464} transactions, 372 élus, 2014--2026 \\
+holdings des ETF & leur portefeuille réel, publié chaque jour & 104 (NANC) et 139 (GOP) lignes \\
+documents SEC & prospectus, SAI, rapports annuels, lettres du gérant & 2023 à 2026 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\obs{\textbf{La limite décisive de nos données} : un élu ne déclare pas un montant, mais une \emph{fourchette}. Et \textbf{77 \% des achats tombent dans la même} (\og{}1\,001 -- 15\,000 \$\fg{}) : on leur attribue à tous 8\,000 \$. Pour les trois quarts du flux, \textbf{on ne connaît donc pas les montants réels}, seulement leur ordre de grandeur.}
+
+% ═══════════ 3 ═══════════
+\et{3}{Ce que le fonds dit faire --- et ce qu'il fait vraiment}
+\textbf{Ce qu'annonce le prospectus} :
+\begin{pts}
+\item Univers : les titres achetés par les élus du parti, sur les \textbf{3 dernières années}, via les déclarations.
+\item Pondération au \og{}\textbf{niveau de trading}\fg{} : gros achats, achats \emph{répétés}, achats \emph{par plusieurs élus} $\to$ surpondérés ; petits, ventes récentes, coups isolés $\to$ sous-pondérés.
+\item Entre \textbf{100 et 200 lignes}. Aucun plafond de position n'est annoncé.
+\end{pts}
+\textbf{Ce que révèlent les rapports annuels} --- et qu'on avait manqué en ne lisant que le résumé :
+\begin{pts}
+\item \textbf{Le fonds a changé de méthode.} Son taux de rotation passe de \textbf{62 \% en 2024 à 10 \% en 2025} : il gérait activement, il ne touche presque plus à rien.
+\item \textbf{Un événement daté} : le \textbf{02/08/2024} un nouveau gérant (Tidal) reprend et \og{}\emph{eliminated 582 very small positions}\fg{} --- de $\sim$600 lignes à $\sim$170.
+\item \textbf{Il y a du jugement humain} : les titres sont \og{}\emph{croisés avec les rôles en commission}\fg{} des élus. Cela n'apparaît dans aucune règle publiée.
+\item \textbf{Le prospectus est incomplet} : aucun plafond n'y figure, mais le fonds a \textbf{vendu 15 \% de son NVDA} en un an --- il écrête en pratique.
+\end{pts}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r@{}}
+\toprule
+ce qu'ils publient & NANC & GOP \\
+\midrule
+performance depuis création, /an & $+23{,}63\,\%$ & $+14{,}75\,\%$ \\
+S\&P 500 (référence) & \multicolumn{2}{c}{$+20{,}96\,\%$} \\
+\midrule
+rotation FY2023 & 44 \% & 46 \% \\
+\quad FY2024 & 62 \% & 54 \% \\
+\quad FY2025 & \textbf{10 \%} & \textbf{16 \%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques.}
+
+% ═══════════ 4 ═══════════
+\et{4}{Ce qu'on fait --- trois lectures de leur règle}
+Leur règle étant qualitative (\og{}niveau de trading\fg{}), on l'a traduite de trois façons. Notation : $A_k$ le montant déclaré, $\delta_k$ la date de divulgation, $P_i$ le cours, $w_i$ un poids, $q_i$ un nombre de parts.
+\begin{center}\scriptsize
+\begin{tabular}{@{}R{16mm} R{26mm} R{26mm}@{}}
+\toprule
+ & \textbf{A --- le score} & \textbf{B --- le livre} \\
+\midrule
+principe & on \textbf{reclasse} tout chaque mois & on \textbf{achète à chaque déclaration}, puis on ne touche plus \\
+ventes & ignorées & retirent des parts \\
+sélection & les 150 plus gros scores & tout titre déclaré \\
+plafond & 8,5 \% & aucun \\
+poids & ramenés à la cible & \textbf{dérivent} avec les cours \\
+\midrule
+sa rotation & 66 \%/an & 13 \%/an \\
+\textbf{quel régime} & \textbf{le fonds en 2023-24} (44--62 \%) & \textbf{le fonds en 2025} (10 \%) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\[ \text{A}:\quad s_i=\underbrace{B_i}_{\$\ \text{acheté}}\times\underbrace{m_i}_{\text{nb d'élus}},\qquad w_i\propto s_i\ \ (\text{plafonné}) \]
+\[ \text{B}:\quad q_i(t)=q_i(t_0)+\!\!\sum_{\text{déclarations}}\!\!\pm\frac{A_k}{P_i(\delta_k)},\qquad w_i=\frac{q_iP_i}{\sum_j q_jP_j} \]
+\obs{\textbf{C --- la bascule} : \textbf{A jusqu'au 02/08/2024, puis B}. Ce n'est pas un compromis arbitraire : c'est exactement ce que le fonds a fait, et la rotation le prouve (ligne \og{}quel régime\fg{} ci-dessus). \textbf{C est notre version de référence.}}
+
+% ═══════════ 5 ═══════════
+\et{5}{Les résultats}
+\textbf{(a) Reproduit-on leur portefeuille ?} On mesure l'\textbf{exposition commune} : si l'on superpose les deux portefeuilles, quelle fraction est identique ? $\ \mathrm{expo}=\sum_i\min(w_i,\,w^{\star}_i)$, où $w^{\star}$ est leur poids publié.
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
+ & expo. & top-10 & expo. & top-10 \\
+\midrule
+A --- le score & \textbf{51 \%} & \textbf{65 \%} & \textbf{31 \%} & \textbf{25 \%} \\
+B --- le livre & 46 \% & 51 \% & 26 \% & 14 \% \\
+C --- la bascule & 48 \% & 57 \% & 29 \% & 20 \% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{on reproduit \textbf{la moitié} du portefeuille NANC, \textbf{moins d'un tiers} du GOP. \emph{(top-10 $=$ la même mesure restreinte à leurs 10 plus grosses lignes ; une corrélation des poids donne le même verdict, $\rho\approx0{,}75$ pour NANC, $0{,}26$ pour GOP.)}}
+
+\textbf{(b) Où est-ce que ça passe, où est-ce que ça casse ?} Leurs 10 plus grosses lignes, en \% :
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+NANC & eux & A & B & C \\
+\midrule
+NVDA & 8,53 & 8,50 & 8,93 & 11,73 \\
+GOOG & 5,81 & 8,50 & 4,96 & 8,94 \\
+MSFT & 5,29 & 8,22 & 3,81 & 5,55 \\
+\textbf{AMAT} & 5,19 & \textbf{0,21} & 0,31 & 0,42 \\
+AMZN & 4,70 & 8,24 & 3,05 & 2,88 \\
+AAPL & 4,58 & 6,57 & 0,61 & 2,38 \\
+\textbf{CRWD} & 3,41 & \textbf{0,13} & 1,38 & 0,07 \\
+\textbf{PM} & 3,20 & \textbf{0,11} & 0,05 & 0,04 \\
+AXP & 2,84 & 0,15 & 0,65 & 0,79 \\
+LLY & 2,71 & 0,75 & 0,43 & 0,36 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{on retrouve \textbf{leurs grands noms} (NVDA, GOOG, MSFT, AMZN, AAPL) mais on se trompe sur \textbf{les tailles} ; et on \textbf{rate complètement} AMAT, CRWD, PM. Côté GOP c'est pire : leur \textbf{première position, FIX (8,4 \%), on la met à 0}.}
+\fig{nanc_gop_v3.png}{leur portefeuille (gris) contre le nôtre : les grands noms coïncident à gauche (NANC), presque rien ne coïncide à droite (GOP).}
+
+\textbf{(c) La rotation --- le test qui a tout expliqué.}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+rotation/an & 2023 & 2024 & 2025 \\
+\midrule
+A --- le score & 59 \% & 67 \% & 82 \% \\
+B --- le livre & 13 \% & 11 \% & 16 \% \\
+\textbf{le fonds} & \textbf{44 \%} & \textbf{62 \%} & \textbf{10 \%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{le fonds ressemble à \textbf{A} en 2023-24, puis à \textbf{B} en 2025. \textbf{Aucune version unique ne pouvait coller aux deux} : on cherchait une règle là où il y en a eu \emph{deux}. C'est ce constat qui a produit C.}
+
+\textbf{(d) Y a-t-il un avantage ?} Excès $=$ rendement $-$ S\&P.
+\begin{center}\scriptsize
+\begin{tabular}{@{}l l r r r@{}}
+\toprule
+ & période & excès/an & $t$ & $\beta$ \\
+\midrule
+A NANC & 2014-26 & $+2{,}98\,\%$ & 1,47 & 1,08 \\
+A GOP & 2014-26 & $+1{,}24\,\%$ & 1,62 & 1,00 \\
+C NANC & 2023-26 & $+2{,}46\,\%$ & 0,98 & 1,06 \\
+C GOP & 2023-26 & $-0{,}27\,\%$ & $-0{,}15$ & 0,93 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{$\beta\approx1$ partout : ces portefeuilles \textbf{sont} le marché, avec un biais technologique. Aucun $t$ n'atteint 2 : \textbf{aucun excès n'est statistiquement distinguable du hasard}. Le vrai fonds dit la même chose --- NANC devant le S\&P, GOP derrière.}
+
+% ═══════════ 6 ═══════════
+\et{6}{Pourquoi ça ne colle pas}
+On compare enfin des \textbf{dollars} et non des pourcentages : leur position ($w^{\star}\times$AUM) face au \textbf{\$ total d'achats jamais déclaré} par le parti sur ce titre.
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+ & leur position & flux déclaré & rapport \\
+\midrule
+NVDA & 24,1 M\$ & 23,0 M\$ & \textbf{1,0} \\
+GOOG & 16,4 M\$ & 16,4 M\$ & \textbf{1,0} \\
+AMZN & 13,3 M\$ & 13,8 M\$ & \textbf{1,0} \\
+MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
+\textbf{AMAT} & 14,6 M\$ & 2,2 M\$ & \textbf{6,7} \\
+\textbf{PM} & 9,0 M\$ & 1,0 M\$ & \textbf{9,0} \\
+\textbf{FIX} \emph{(GOP)} & 7,5 M\$ & 0,3 M\$ & \textbf{25,0} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{si le fonds suivait les déclarations, ce rapport serait \textbf{le même partout}. Il va de \textbf{0,2 à 25}. Et les seuls titres où il vaut 1 sont \emph{exactement} ceux qu'on reproduit bien. \textbf{Le fonds détient 25 fois plus de FIX que tout ce que les républicains ont jamais déclaré sur ce titre} : aucune règle fondée sur les déclarations publiques ne peut produire ça.}
+\obs{\textbf{Contre-épreuve --- ce n'est pas notre faute.} On a audité et réparé notre propre chaîne : \textbf{7\,287 transactions} écartées par un filtre ont été réintégrées, \textbf{10 séries de prix} manquantes récupérées, les montants \og{}$>$1 M\$\fg{} revalorisés. \textbf{La fidélité ne bouge pas.} On a aussi testé l'hypothèse \og{}ils utilisent les déclarations de \emph{patrimoine} et non de transactions\fg{} : \textbf{réfutée} --- AMAT y pèse 0,009 \% contre 5,19 \% du fonds.}
+
+% ═══════════ 7 ═══════════
+\et{7}{Conclusion}
+\begin{pts}
+\item \textbf{Ces produits ne sont pas reproductibles à partir des données publiques.} On retrouve leurs grands noms et l'ordre de grandeur de leur performance, mais pas leur portefeuille : la moitié pour NANC, moins d'un tiers pour GOP.
+\item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant --- leur fournisseur de données n'est pas les fourchettes publiques ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même ; (iii) le fonds a \textbf{changé de mécanique} en août 2024.
+\item \textbf{Et surtout : il n'y a pas d'avantage.} $\beta\approx1$, aucun $t$ au-dessus de 2. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2 : c'est une \textbf{exposition au marché} avec un biais sectoriel, pas une compétence.
+\end{pts}
+
+\end{multicols}
+
+% ═══════════ ANNEXE ═══════════
+\vspace{1.5mm}\hrule\vspace{1.5mm}
+{\color{bleu}\bfseries\large Annexe --- la règle, dans leurs mots}\par\vspace{1.5mm}
+\textbf{Prospectus} \emph{(\og{}Unusual Whales Subversive Democratic Trading ETF\fg{}, \og{}Principal Investment Strategies\fg{}, p.\,2 ; la version républicaine est identique, \og{}Republican\fg{} au lieu de \og{}Democratic\fg{})} :
+{\footnotesize\itshape
+``To manage the Fund's portfolio, the Adviser will obtain and use information derived by the Data Provider from PTRs filed by Democratic U.S. Congresspeople for the past 3 years. Purchases made during that time will be netted against any sales of the same security when managing the Fund's portfolio of equity securities. As the investment thesis of the Fund is to track the trading activity of Democratic U.S. Congresspeople while in office, equity securities acquired by Democratic U.S. Congresspeople prior to his or her swearing in (or the 3-year lookback period) are not considered when managing the Fund's portfolio. To the extent a Democratic U.S. Congressperson sells equity securities that were acquired prior to his or her swearing in, the Adviser will not adjust the Fund's portfolio.
+
+Under normal circumstances, the Fund will invest in a portfolio of between 100 to 200 holdings. However, the number and size of positions held by the Fund will vary based on the number of positions traded by Democratic U.S. Congresspeople. Individual holdings will be weighted based on the level of reported trading in a security by Democratic U.S. Congresspeople. Securities with large purchases, recurring purchases and purchases from multiple Democratic U.S. Congresspeople will be overweighted. Securities with small purchases, recent sales and one-off trades by Democratic U.S. Congresspeople will be excluded or underweighted. The Adviser may exclude positions that are traded by Democratic U.S. Congresspeople at its discretion. Considerations for excluding a security include, but are not limited to, limited liquidity of such security and pending corporate actions that may impact such security.''\par}
+\vspace{1.5mm}
+\textbf{Lettre du gérant} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2024)} --- le reset :
+{\footnotesize\itshape ``eliminated 582 very small positions''\par}
+\vspace{1mm}
+\textbf{Lettre du gérant} \emph{(rapport annuel N-CSR, exercice clos le 30/09/2025)} --- la part discrétionnaire :
+{\footnotesize\itshape ``cross referenced against the Democratic members' committee roles''\par}
+\vspace{1mm}
+\textbf{Prospectus, section \og{}Data Provider\fg{}} --- qui construit réellement le portefeuille :
+{\footnotesize\itshape ``UW plays no role in the construction or implementation''\par}
+
+\end{document}
