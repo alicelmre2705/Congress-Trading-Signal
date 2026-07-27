@@ -77,8 +77,8 @@ documents SEC & prospectus, SAI, rapports annuels, lettres du gérant & 2023 à 
 \end{pts}
 \textbf{Ce que révèlent les rapports annuels} --- et qu'on avait manqué en ne lisant que le résumé :
 \begin{pts}
-\item \textbf{Le fonds a changé de méthode.} Son taux de rotation passe de \textbf{62 \% en 2024}\sAquatre{39} \textbf{à 10 \% en 2025}\sAcinq{27} : il gérait activement, il ne touche presque plus à rien.
-\item \textbf{Un événement daté} : le \textbf{02/08/2024} un nouveau gérant (Tidal) reprend\sChg{3} et \og{}\emph{eliminated 582 very small positions}\fg{}\sAquatre{2} --- de $\sim$600 lignes à $\sim$170.
+\item \textbf{Le fonds a changé de gérant et de méthode}, et c'est \emph{écrit} : le \textbf{02/08/2024} Tidal reprend la gestion\sChg{3}, le texte passe de \og{}\emph{créer le portefeuille \textbf{initial}}\fg{}\sOri{3} à \og{}\emph{\textbf{gérer} le portefeuille}\fg{}\sPro{7}, et le gérant écrit \og{}\emph{eliminated 582 very small positions}\fg{}\sAquatre{2} --- de $\sim$600 lignes à $\sim$170.
+\item \textbf{Sa rotation le confirme} : elle s'effondre de \textbf{62 \% en 2024}\sAquatre{39} \textbf{à 10 \% en 2025}\sAcinq{27}. Il gérait activement, il ne touche presque plus à rien.
 \item \textbf{Il y a du jugement humain} : les titres sont \og{}\emph{croisés avec les rôles en commission}\fg{} des élus\sAcinq{2}. Cela n'apparaît dans aucune règle publiée\sPro{7}.
 \item \textbf{Le prospectus est incomplet} : aucun plafond n'y figure\sPro{7}, mais le fonds a \textbf{vendu 15 \% de son NVDA} en un an\sAcinq{17} --- il écrête en pratique.
 \end{pts}
@@ -90,13 +90,15 @@ ce qu'ils publient & NANC & GOP \\
 performance depuis création, /an\sPro{13} & $+23{,}63\,\%$ & $+14{,}75\,\%$ \\
 S\&P 500 (référence) & \multicolumn{2}{c}{$+20{,}96\,\%$} \\
 \midrule
-rotation FY2023\sAtrois{74} & 44 \% & 46 \% \\
+rotation FY2023\sAtrois{74} \emph{(7,8 mois)} & 44 \% & 46 \% \\
+\quad \emph{soit, annualisée} & \emph{$\sim$68 \%} & \emph{$\sim$71 \%} \\
 \quad FY2024\sAquatre{39} & 62 \% & 54 \% \\
 \quad FY2025\sAcinq{27} & \textbf{10 \%} & \textbf{16 \%} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques.}
+\lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques. La rotation FY2023 couvre 7,8 mois et n'est \textbf{pas annualisée} par le rapport\sAtrois{74} : la vraie séquence est $\sim$68 $\to$ 62 $\to$ 10 \%.}
+\obs{\emph{L'objection à écarter} : le ratio a l'actif moyen au dénominateur, et l'argent qui entre dans un ETF arrive \og{}en nature\fg{} sans compter comme achat --- la croissance pourrait donc écraser le ratio. Mais l'encours a été multiplié par \textbf{18} en 2024 (9,4 $\to$ 175,7 M\$) pour une rotation \textbf{maximale}, et n'a crû que de 45 \% en 2025 (175,7 $\to$ 255,2)\sAcinq{27} pour une rotation \textbf{minimale} : c'est l'inverse de l'artefact. \emph{Limite subsistante} : le chiffre \og{}exclut les transactions en nature\fg{}\sAcinq{27}, donc 10 \% est un \textbf{plancher}.}
 
 % ═══════════ 4 ═══════════
 \et{4}{Ce qu'on fait --- trois lectures de leur règle}
@@ -160,7 +162,7 @@ LLY & 2,71 & 0,75 & 0,43 & 0,36 \\
 \lire{on retrouve \textbf{leurs grands noms} (NVDA, GOOG, MSFT, AMZN, AAPL) mais on se trompe sur \textbf{les tailles} ; et on \textbf{rate complètement} AMAT, CRWD, PM. Côté GOP c'est pire : leur \textbf{première position, FIX (8,4 \%), on la met à 0}.}
 \fig{nanc_gop_v3.png}{leur portefeuille (gris) contre le nôtre : les grands noms coïncident à gauche (NANC), presque rien ne coïncide à droite (GOP).}
 
-\textbf{(c) La rotation --- le test qui a tout expliqué.}
+\textbf{(c) La rotation --- ce qui rattache chaque mécanique à sa période.} Même définition des deux côtés : \og{}\emph{le plus petit des achats ou des ventes}\fg{}, rapporté à l'actif\sAtrois{74}.
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r@{}}
 \toprule
@@ -168,11 +170,14 @@ rotation/an & 2023 & 2024 & 2025 \\
 \midrule
 A --- le score & 59 \% & 67 \% & 82 \% \\
 B --- le livre & 13 \% & 11 \% & 16 \% \\
-\textbf{le fonds} & \textbf{44 \%} & \textbf{62 \%} & \textbf{10 \%} \\
+C --- la bascule & 48 \% & 37 \% & 26 \% \\
+\textbf{le fonds} & \textbf{$\sim$68 \%} & \textbf{62 \%} & \textbf{10 \%} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{le fonds ressemble à \textbf{A} en 2023-24, puis à \textbf{B} en 2025. \textbf{Aucune version unique ne pouvait coller aux deux} : on cherchait une règle là où il y en a eu \emph{deux}. C'est ce constat qui a produit C.}
+\lire{\textbf{A} est compatible avec 2023-24 et incompatible avec 2025 ; \textbf{B}, l'inverse. \emph{Aucune version unique ne peut coller aux deux} --- d'où \textbf{C}.}
+\obs{\textbf{Ce que ce test prouve, et ce qu'il ne prouve pas.} La rotation est \emph{un} nombre par an : beaucoup de mécaniques différentes produisent 60 \%. Elle ne permet donc pas d'\textbf{identifier} leur règle, seulement d'\textbf{exclure} : elle dit laquelle de nos deux mécaniques est compatible avec quelle période. Le changement de régime, lui, n'est pas déduit d'ici --- il est \textbf{écrit} dans les dépôts (\S3). La rotation le \emph{corrobore} quantitativement.}
+\obs{\emph{Et une limite de C} : elle capture le \textbf{sens} de la chute, pas son \textbf{ampleur} --- 26 \% en 2025 contre 10 \% pour le fonds. Après la bascule, les divulgations continuent d'agiter notre livre plus que le sien.}
 
 \textbf{(d) Y a-t-il un avantage ?} Excès $=$ rendement $-$ S\&P.
 \begin{center}\scriptsize
