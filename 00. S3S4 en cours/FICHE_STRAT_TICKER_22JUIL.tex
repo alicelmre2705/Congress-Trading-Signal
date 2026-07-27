@@ -375,6 +375,35 @@ GOP $\cdot$ V2 (net $\gamma$)  & $+1{,}34\,\%$ & $+1{,}15\,\%$ & \textbf{617} & 
 \textbf{la plus fidèle} du prospectus. Sans le cap, le score exploserait (NVDA 37 \%, $N_{\mathrm{eff}}$ 6 vs 33 réel).
 \emph{Recouv.\ sur NANC seul : holdings réels GOP non fournis.}}
 
+\smallskip
+\textbf{Variante 3 --- le livre du fonds (leur vraie mécanique).} Le prospectus ne décrit pas un score recalculé
+chaque mois mais un \textbf{livre événementiel} : \og{}\emph{the Fund will buy or sell a security \textbf{when} a
+position is reported}\fg{}. Livre initial à la création ($t_0 = $ 07/02/2023) $=$ net $\gamma'$ des 3 ans précédents
+(en parts au prix de $t_0$) ; puis chaque achat divulgué \textbf{ajoute} $A_k/P(\delta_k)$ parts, chaque vente
+\textbf{retire} $\gamma'_k A_k/P(\delta_k)$ ($\gamma'$ : non-apparié $=$ vieux, ignoré) ; entre les événements les
+poids \textbf{dérivent avec les prix} --- ni rebalancement, ni cap.
+\begin{center}\scriptsize
+\begin{tabular}{@{}l c c r r@{}}
+\toprule
+fidélité aux holdings réels & top-10 & top-15 & $\rho$ & expo comm. \\
+\midrule
+NANC $\cdot$ V1 (score achats)   & 5/10 & 7/15 & 0,73 & 51 \% \\
+NANC $\cdot$ V2 (score net $\gamma$) & 5/10 & 9/15 & 0,67 & 48 \% \\
+NANC $\cdot$ V3 (livre du fonds) & 5/10 & 8/15 & \textbf{0,74} & 46 \% \\
+GOP $\cdot$ V2 (score net $\gamma$)  & 3/10 & 4/15 & 0,11 & 27 \% \\
+GOP $\cdot$ V3 (livre du fonds)  & 0/10 & 0/15 & 0,16 & 26 \% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\fig{nanc_gop_v3.png}{réel (gris) vs V3 : \textbf{NVDA émerge à 8,9 \% tout seul} (réel 8,5, sans aucun cap --- la
+mécanique s'auto-régule) ; mais AMAT reste à 0,3 \% (réel 5,2) et FIX à 0,5 \% (réel 8,4) : leurs flux ne sont pas
+dans notre donnée à cette taille.}
+\obs{\textbf{Les trois lectures de la règle plafonnent au même endroit} ($\rho\!\sim\!0{,}7$, expo $\sim$50 \% pour
+NANC ; GOP irrécupérable). Le résidu n'est \textbf{plus la règle} : (1) leur \emph{Data Provider} $\ne$ nos montants
+midpoint de fourchettes PTR (AMAT : 0,98 M\$ de flux chez nous, intenable à 5,2 \% du fonds) ; (2) la
+\textbf{discrétion} explicite de l'adviser (exclusions, sous-pondérations) ; (3) trous nommés (FIX $=$ 1 élu chez
+nous ; SpaceX/IBIT hors univers). \emph{Même stratégie, données différentes $\Rightarrow$ portefeuilles différents.}}
+
 \end{multicols}
 
 % ═══════════ ANNEXE : extraits sources ═══════════
