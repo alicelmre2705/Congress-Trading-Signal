@@ -32,6 +32,7 @@
 \newcommand{\sAcinq}[1]{\rf{6}{6-rapport-annuel-FY2025.pdf}{#1}}
 \newcommand{\sTick}[1]{\rf{7}{7-changement-code-KRUZ-GOP-20250318.pdf}{#1}}
 \newcommand{\sSite}[1]{\rf{8}{8-fact-sheet-NANC-juin-2026.pdf}{#1}}
+\newcommand{\sCoop}[1]{\rf{9}{9-cooper-la-regle-du-gerant-20231119.pdf}{#1}}
 \begin{document}
 
 \begin{center}
@@ -114,7 +115,8 @@ rotation & $\sim$68 \% & \textbf{62 \%} & \textbf{10 \%} \\
 
 % ═══════════ 4 ═══════════
 \et{4}{Ce qu'on fait --- trois lectures de leur règle}
-Leur règle étant qualitative (\og{}niveau de trading\fg{})\sPro{7}, on l'a traduite de trois façons. Notation : $A_k$ le montant déclaré, $\delta_k$ la date de divulgation, $P_i$ le cours, $w_i$ un poids, $q_i$ un nombre de parts.
+\obs{\textbf{La règle, dite par le gérant lui-même.} Le prospectus reste vague (\og{}niveau de trading\fg{})\sPro{7}, mais \textbf{Christian Cooper}, co-gérant, l'a écrite en clair\sCoop{1} : \og{}\emph{build the holdings around the \textbf{relative dollars disclosed} by each member and their families. In other words, \textbf{more dollars equals more \og{}votes\fg{}}}\fg{} ; \og{}\emph{we explicitly choose the \textbf{midpoint} of that disclosure range}\fg{} ; \og{}\emph{this choice is what drives \textbf{all the relative allocations}}\fg{}. Soit : \textbf{poids $\propto$ dollars déclarés}, milieu de fourchette, familles incluses.}
+On en tire trois lectures. Notation : $A_k$ le montant déclaré, $\delta_k$ la date de divulgation, $P_i$ le cours, $w_i$ un poids, $q_i$ un nombre de parts.
 \begin{center}\scriptsize
 \begin{tabular}{@{}R{16mm} R{26mm} R{26mm}@{}}
 \toprule
@@ -154,6 +156,8 @@ C --- la bascule & 48 \% & 57 \% & 29 \% & 20 \% \\
 \end{tabular}
 \end{center}
 \lire{on reproduit \textbf{la moitié} du portefeuille NANC, \textbf{moins d'un tiers} du GOP. \emph{Contrôle} : la corrélation des poids donne le même classement ($\rho=0{,}75$ NANC, $0{,}26$ GOP) --- mais sur les \textbf{rangs} elle tombe à $0{,}06$, on a leurs gros noms sans leur ordre.}
+\obs{\textbf{Ce n'est pas un coup de chance sur une date.} Les états \emph{N-PORT} déposés à la SEC donnent leur portefeuille réel à \textbf{13 dates} (03/2023 $\to$ 03/2026). Sur ces 13 photos, l'exposition commune reste \textbf{40--53 \%} pour NANC et \textbf{31--39 \%} pour GOP --- stable avant comme après le reset d'août 2024.}
+\obs{\textbf{Et la règle de Cooper ne fait pas mieux que la nôtre.} Sur ces mêmes 13 dates : \emph{dollars purs} (sa formulation) contre \emph{dollars $\times$ nombre d'élus} (notre score) $\to$ \textbf{44,5 \% vs 46,8 \%} (NANC) et \textbf{35,2 \% vs 34,0 \%} (GOP). \textbf{1 à 2 points d'écart} : le choix de pondération n'est \emph{pas} ce qui nous sépare d'eux --- ce qui renforce le \S6.}
 
 \textbf{(b) Où est-ce que ça passe, où est-ce que ça casse ?} Leurs 10 plus grosses lignes, en \% :
 \begin{center}\scriptsize
@@ -246,6 +250,7 @@ MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
 \begin{pts}
 \item \textbf{Ces produits ne sont pas reproductibles à partir des données publiques.} On retrouve leurs grands noms et l'ordre de grandeur de leur performance, mais pas leur portefeuille : la moitié pour NANC, moins d'un tiers pour GOP.
 \item \textbf{On sait pourquoi, et c'est chiffré} : (i) leurs positions valent jusqu'à \textbf{25 fois} le flux déclaré correspondant --- leur fournisseur de données n'est pas les fourchettes publiques ; (ii) le gérant ajoute un \textbf{jugement discrétionnaire} qu'il admet lui-même\sAcinq{2} ; (iii) le fonds a \textbf{changé de mécanique} en août 2024\sChg{3}\sAquatre{2}.
+\item \emph{Appui extérieur} : Baulkaran \& Jain, \emph{Economics Letters} 250 (2025), concluent indépendamment que \og{}\emph{neither significantly outperforms market returns}\fg{}.
 \item \textbf{Et surtout : il n'y a pas d'avantage.} $\beta\approx1$, aucun $t$ au-dessus de 2. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{13} : c'est une \textbf{exposition au marché} avec un biais sectoriel, pas une compétence.
 \end{pts}
 
@@ -302,6 +307,10 @@ Under normal circumstances, the Fund will invest in a portfolio of between 100 t
 \vspace{1mm}
 \textbf{[7] Changement de code} --- 497, 18/03/2025, 1 p. \emph{Ce qu'on y vérifie} : le fonds républicain passe de \textbf{KRUZ à GOP} --- indispensable pour retrouver ses dépôts antérieurs.\\
 \path{docs_nanc_gop/7-changement-code-KRUZ-GOP-20250318.pdf} \quad{\color{grisf}origine :}\\ \url{https://www.sec.gov/Archives/edgar/data/1742912/000199937125002790/kruz-497_031825.htm}
+
+\vspace{1mm}
+\textbf{[9] La règle, écrite par le gérant} --- Christian H. Cooper (co-gérant), Unusual Whales 19/11/2023 ; version longue dans \emph{Barron's} 18/12/2023. \emph{Ce qu'on y vérifie} (\textbf{p.\,1}) : \og{}\emph{more dollars equals more votes}\fg{}, le \textbf{midpoint} des fourchettes, et \og{}\emph{this choice is what drives all the relative allocations}\fg{}.\\
+\path{docs_nanc_gop/9-cooper-la-regle-du-gerant-20231119.pdf} \quad{\color{grisf}origine :}\\ \url{https://unusual-whales.ghost.io/unusual_blog/post/nanc-is-beating-the-s-p500-per-subversive/}
 
 \vspace{1mm}
 \textbf{[8] Fiches produit de l'émetteur} --- au 30/06/2026, 2 p. chacune. \emph{Ce qu'on y vérifie} : l'encours, le nombre de lignes et la performance affichée.\\
