@@ -428,6 +428,7 @@ expo.\ NANC & 51 \% & 48 \% & 46 \% \\
 \item \textbf{Ni recomposition, ni plafond, ni sélection} : entre deux divulgations les poids \textbf{dérivent avec les prix}.
 \item \textbf{V4 $=$ V3 $+$ les resets documentés} : livre construit à $t_0$ (600 lignes, régime Subversive), puis au \textbf{reset} $t_1=$ 02/08/2024 on \textbf{élague aux 170 plus grosses} lignes (\og{}\emph{eliminated 582 very small positions}\fg{}) et la dérive reprend.
 \item \textbf{V5 $=$ une mécanique par régime} --- puisque le fonds en a changé (B1bis) : \textbf{V1} (score recomposé chaque mois) \textbf{jusqu'au 02/08/2024}, puis le portefeuille est converti en \textbf{parts} et bascule en \textbf{V3} (livre qui dérive). $\Rightarrow$ $q_i(t_1)=w^{\text{V1}}_i\,S/P_i$, avec $S$ la taille du livre en \$ ; puis dérive.
+\item \textbf{V6 $=$ V5 $+$ élagage en continu} --- le fonds tient 104--139 lignes, V5 en accumule 719. Chaque mois, après les divulgations, on ne garde que les $n=150$ plus grosses lignes \textbf{en valeur} ($n=$ milieu de la fourchette publiée $[100,200]$, pas un chiffre calé sur la cible) : $q^{(6)}(c)=\mathrm{top}_n\bigl(\mathcal{E}(q^{(6)},\,c^-\!\to c)\bigr)$.
 \end{pts}
 \obs{\emph{Piège rencontré} : convertir les poids ($\sum w=1$) en parts \textbf{sans les mettre à l'échelle en dollars} fait qu'un seul achat de quelques milliers de \$ écrase tout le livre. Il faut calibrer $S$ sur la taille du régime.}
 \[ q_i(t)=\frac{\mathrm{net}_i(t_0)}{P_i(t_0)}+\!\!\sum_{k\,:\,t_0<e_k\le t}\!\!\varepsilon_k\,\gamma_k\,\frac{A_k}{P_i(e_k)} \]
@@ -444,12 +445,14 @@ NANC V2 & 5/10 & 9/15 & 0,67 & $-0{,}01$ & 48 \% \\
 NANC V3 & 5/10 & 8/15 & 0,74 & 0,33 & 46 \% \\
 NANC V4 & 5/10 & 8/15 & 0,73 & 0,30 & 48 \% \\
 NANC \textbf{V5} & 5/10 & 7/15 & \textbf{0,75} & 0,32 & 48 \% \\
+NANC V6 & 5/10 & 7/15 & 0,71 & $-0{,}02$ & 47 \% \\
 \addlinespace[1pt]
 GOP V1 & 2/10 & 5/15 & 0,15 & $-0{,}15$ & \textbf{31 \%} \\
 GOP V2 & 3/10 & 4/15 & 0,11 & $-0{,}25$ & 27 \% \\
 GOP V3 & 0/10 & 0/15 & 0,16 & 0,36 & 26 \% \\
 GOP V4 & 0/10 & 1/15 & 0,14 & 0,33 & 27 \% \\
 GOP \textbf{V5} & 1/10 & 2/15 & \textbf{0,26} & 0,28 & 29 \% \\
+GOP V6 & 1/10 & 2/15 & 0,14 & $-0{,}22$ & 28 \% \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -457,6 +460,7 @@ GOP \textbf{V5} & 1/10 & 2/15 & \textbf{0,26} & 0,28 & 29 \% \\
 \obs{$\rho_{\text{P}}\approx0{,}7$ est \textbf{porté par NVDA seul} : sur les \textbf{rangs}, la corrélation tombe à $\mathbf{0{,}06}$ (V1) et $\mathbf{-0{,}01}$ (V2). On retrouve leurs \emph{gros noms}, pas leur \emph{classement}.}
 \obs{\textbf{V4} (resets documentés) bat V3 : recouvrement du top-10 \textbf{51 $\to$ 57 \%}, exposition 46 $\to$ 48 \%, cardinal 1\,239 $\to$ 723. Reconstruire entièrement au reset (au lieu d'élaguer) \emph{dégrade} (recouv.\ 40 \%) --- l'élagage est bien la bonne lecture de \og{}\emph{eliminated 582 very small positions}\fg{}.}
 \obs{\textbf{V5 est la meilleure version --- et la seule qui rende le GOP non dégénéré.} NANC : $\rho$ \textbf{0,75} (record) ; GOP : $\rho$ passe de 0,11--0,16 à \textbf{0,26}, top-10 de 0/10 à 1/10, recouvrement 14 $\to$ 20 \%. \emph{Mais} V1 garde le meilleur recouvrement du top-10 NANC (65 \% contre 57 \%) : \textbf{aucune version ne domine sur tous les critères}.}
+\obs{\textbf{V6 (élagage continu) : le cardinal est réglé, la fidélité \emph{recule}.} On passe de 719 à \textbf{150 lignes} (réel 104/139) et la rotation baisse (26 $\to$ 21 \%), mais le $\rho$ \emph{de rang} s'effondre ($+0{,}32\to-0{,}02$ pour NANC, $+0{,}28\to-0{,}22$ pour GOP). \textbf{Pourquoi c'est instructif} : tronquer notre classement supprime des titres que le fonds détient vraiment --- nos 150 plus grosses lignes ne sont \emph{pas} ses 104. C'est une nouvelle preuve que \textbf{c'est notre ordre de grandeur relatif qui est faux}, pas la longueur de la liste.}
 
 (a\,bis) \textbf{le turnover} --- test de la \emph{mécanique}, pas de la composition :
 \begin{center}\scriptsize
@@ -468,6 +472,7 @@ V1 (mensuel) & 59 \% & 67 \% & 82 \% & 66 \% \\
 V2 (mensuel) & 80 \% & 101 \% & 136 \% & 102 \% \\
 V3/V4 (livre) & 13 \% & 11 \% & 16 \% & \textbf{13 \%} \\
 \textbf{V5} (bascule) & 48 \% & 37 \% & 26 \% & --- \\
+\textbf{V6} ($+$ élagage) & 48 \% & 34 \% & 21 \% & --- \\
 \addlinespace[1pt]
 \textbf{fonds NANC} & \textbf{44 \%} & \textbf{62 \%} & \textbf{10 \%} & --- \\
 \bottomrule
