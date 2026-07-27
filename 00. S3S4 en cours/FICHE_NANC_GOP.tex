@@ -49,7 +49,7 @@
 \item Les élus du Congrès américain sont \textbf{obligés de déclarer} leurs transactions boursières (loi STOCK, 2012). Deux ETF vendent cette information au public : \textbf{NANC} copie les élus \textbf{démocrates}, \textbf{GOP} les \textbf{républicains}.
 \item Ils sont nés le même jour (\textbf{06/02/2023})\sPro{13}, coûtent 0,72--0,73 \%/an\sPro{5}, et pèsent \textbf{282 M\$} (NANC, 104 lignes) et \textbf{88 M\$} (GOP, 138 lignes)\sSite{1}.
 \item \textbf{Ce qu'on cherche} : (i) peut-on \textbf{reconstruire} leur portefeuille à partir des seules déclarations publiques ? (ii) cette stratégie a-t-elle un \textbf{avantage} sur le marché ?
-\item \textbf{Pourquoi ce terrain est bon} : un ETF doit \textbf{publier son portefeuille chaque jour}\sSite{2}. On peut donc comparer notre réplique à la vérité, ligne par ligne --- c'est rare.
+\item \textbf{Pourquoi ce terrain est bon} : un ETF doit \textbf{publier son portefeuille chaque jour}\sSite{2}. On peut donc comparer notre réplique à la vérité, ligne par ligne.
 \end{pts}
 
 % ═══════════ 2 ═══════════
@@ -98,7 +98,19 @@ rotation FY2023\sAtrois{74} \emph{(7,8 mois)} & 44 \% & 46 \% \\
 \end{tabular}
 \end{center}
 \lire{NANC bat le S\&P de \textbf{2,7 points} par an ; \textbf{GOP le sous-performe de 6,2 points}. Ce ne sont pas deux réussites symétriques. La rotation FY2023 couvre 7,8 mois et n'est \textbf{pas annualisée} par le rapport\sAtrois{74} : la vraie séquence est $\sim$68 $\to$ 62 $\to$ 10 \%.}
-\obs{\emph{L'objection à écarter} : le ratio a l'actif moyen au dénominateur, et l'argent qui entre dans un ETF arrive \og{}en nature\fg{} sans compter comme achat --- la croissance pourrait donc écraser le ratio. Mais l'encours a été multiplié par \textbf{18} en 2024 (9,4 $\to$ 175,7 M\$) pour une rotation \textbf{maximale}, et n'a crû que de 45 \% en 2025 (175,7 $\to$ 255,2)\sAcinq{27} pour une rotation \textbf{minimale} : c'est l'inverse de l'artefact. \emph{Limite subsistante} : le chiffre \og{}exclut les transactions en nature\fg{}\sAcinq{27}, donc 10 \% est un \textbf{plancher}.}
+\obs{\emph{L'objection} : l'actif moyen est au dénominateur, donc la croissance de l'encours pourrait à elle seule écraser le ratio. Les chiffres disent l'inverse\sAcinq{27} :}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+NANC & FY2023 & FY2024 & FY2025 \\
+\midrule
+encours (M\$) & 9,4 & 175,7 & 255,2 \\
+croissance & --- & $\times$\textbf{18} & $+45\,\%$ \\
+rotation & $\sim$68 \% & \textbf{62 \%} & \textbf{10 \%} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{la plus forte croissance ($\times$18) coïncide avec la rotation \textbf{la plus haute}, la plus faible avec la \textbf{plus basse} : l'artefact produirait exactement le contraire. \emph{Limite subsistante} : le chiffre \og{}exclut les transactions en nature\fg{}\sAcinq{27} --- 10 \% est un \textbf{plancher}.}
 
 % ═══════════ 4 ═══════════
 \et{4}{Ce qu'on fait --- trois lectures de leur règle}
@@ -121,11 +133,14 @@ sa rotation & 66 \%/an & 13 \%/an \\
 \end{center}
 \[ \text{A}:\quad s_i=\underbrace{B_i}_{\$\ \text{acheté}}\times\underbrace{m_i}_{\text{nb d'élus}},\qquad w_i\propto s_i\ \ (\text{plafonné}) \]
 \[ \text{B}:\quad q_i(t)=q_i(t_0)+\!\!\sum_{\text{déclarations}}\!\!\pm\frac{A_k}{P_i(\delta_k)},\qquad w_i=\frac{q_iP_i}{\sum_j q_jP_j} \]
-\obs{\textbf{C --- la bascule} : \textbf{A jusqu'au 02/08/2024, puis B}. Ce n'est pas un compromis arbitraire : c'est exactement ce que le fonds a fait, et la rotation le prouve (ligne \og{}quel régime\fg{} ci-dessus). \textbf{C est notre version de référence.}}
+\obs{\textbf{C --- la bascule} : \textbf{A jusqu'à $t_1=$ 02/08/2024, puis B}, le portefeuille étant converti en parts à l'échelle du régime : $q_i(t_1)=w^{A}_i\,S/P_i(t_1)$, $S$ la taille du livre en \$. La date n'est pas choisie : c'est celle du changement de gérant (\S3). \textbf{C est notre version de référence.}}
 
 % ═══════════ 5 ═══════════
 \et{5}{Les résultats}
-\textbf{(a) Reproduit-on leur portefeuille ?} On mesure l'\textbf{exposition commune} : si l'on superpose les deux portefeuilles, quelle fraction est identique ? $\ \mathrm{expo}=\sum_i\min(w_i,\,w^{\star}_i)$, où $w^{\star}$ est leur poids publié.
+\textbf{(a) Reproduit-on leur portefeuille ?} Deux mesures, avec $w^{\star}_i$ leur poids \textbf{publié} et $T_{10}$ leurs 10 plus grosses lignes :
+\[ \mathrm{expo}=\sum_i\min\!\bigl(w_i,\,w^{\star}_i\bigr),\qquad
+   \mathrm{recouv}_{10}=\frac{\sum_{i\in T_{10}}\min\!\bigl(w_i,w^{\star}_i\bigr)}{\sum_{i\in T_{10}}w^{\star}_i} \]
+\obs{\textbf{Pourquoi le $\min$} : il est \textbf{non compensatoire}. Une somme laisserait une surpondération racheter une sous-pondération --- mettre 8,5 sur GOOG (réel 5,8) \og{}compenserait\fg{} les 0,2 sur AMAT (réel 5,2). Avec $\min$, surpondérer ne rapporte rien et sous-pondérer coûte plein tarif. \emph{$\mathrm{expo}\in[0,1]$ : la fraction des deux portefeuilles qui est littéralement la même chose.}}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -138,7 +153,7 @@ C --- la bascule & 48 \% & 57 \% & 29 \% & 20 \% \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{on reproduit \textbf{la moitié} du portefeuille NANC, \textbf{moins d'un tiers} du GOP. \emph{(top-10 $=$ la même mesure restreinte à leurs 10 plus grosses lignes ; une corrélation des poids donne le même verdict, $\rho\approx0{,}75$ pour NANC, $0{,}26$ pour GOP.)}}
+\lire{on reproduit \textbf{la moitié} du portefeuille NANC, \textbf{moins d'un tiers} du GOP. \emph{Contrôle} : la corrélation des poids donne le même classement ($\rho=0{,}75$ NANC, $0{,}26$ GOP) --- mais sur les \textbf{rangs} elle tombe à $0{,}06$, on a leurs gros noms sans leur ordre.}
 
 \textbf{(b) Où est-ce que ça passe, où est-ce que ça casse ?} Leurs 10 plus grosses lignes, en \% :
 \begin{center}\scriptsize
@@ -162,7 +177,14 @@ LLY & 2,71 & 0,75 & 0,43 & 0,36 \\
 \lire{on retrouve \textbf{leurs grands noms} (NVDA, GOOG, MSFT, AMZN, AAPL) mais on se trompe sur \textbf{les tailles} ; et on \textbf{rate complètement} AMAT, CRWD, PM. Côté GOP c'est pire : leur \textbf{première position, FIX (8,4 \%), on la met à 0}.}
 \fig{nanc_gop_v3.png}{leur portefeuille (gris) contre le nôtre : les grands noms coïncident à gauche (NANC), presque rien ne coïncide à droite (GOP).}
 
-\textbf{(c) La rotation --- ce qui rattache chaque mécanique à sa période.} Même définition des deux côtés : \og{}\emph{le plus petit des achats ou des ventes}\fg{}, rapporté à l'actif\sAtrois{74}.
+\textbf{(c) La rotation --- ce qui rattache chaque mécanique à sa période.} Le rapport annuel la définit ainsi\sAtrois{74} : \og{}\emph{le numérateur inclut le plus petit des achats ou des ventes ; le dénominateur, la valeur moyenne des positions}\fg{} --- soit
+\[ \tau \;=\; \frac{\min\bigl(\textstyle\sum\text{achats},\ \sum\text{ventes}\bigr)}{\text{actif moyen}} \]
+Chez nous les portefeuilles sont en \textbf{poids}. Entre deux coupes, les poids bougent pour deux raisons : les cours \emph{dérivent} (sans aucune transaction), puis on \emph{rebalance} (là il y a transaction). On isole donc la seconde :
+\[ \begin{gathered}
+w^{\mathrm{d}}_i(t)=\frac{w_i(t^-)\,P_i(t)/P_i(t^-)}{\sum_j w_j(t^-)\,P_j(t)/P_j(t^-)} \\[0.6mm]
+\tau_Y=\sum_{m\in Y}\tfrac12\sum_i\bigl|w^{\text{cible}}_i(m)-w^{\mathrm{d}}_i(m)\bigr|
+\end{gathered} \]
+\obs{\textbf{Pourquoi le $\tfrac12$} : $\sum_i w_i=1$ avant comme après, donc ce qu'on achète égale ce qu'on vend et $\sum_i|\Delta w_i|$ compte le mouvement \textbf{deux fois} --- la moitié restitue $\min(\text{achats},\text{ventes})$. \textbf{Pourquoi pas de dénominateur} : un poids \emph{est} déjà une fraction de l'actif. Les deux définitions coïncident donc.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r@{}}
 \toprule
@@ -175,11 +197,13 @@ C --- la bascule & 48 \% & 37 \% & 26 \% \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{\textbf{A} est compatible avec 2023-24 et incompatible avec 2025 ; \textbf{B}, l'inverse. \emph{Aucune version unique ne peut coller aux deux} --- d'où \textbf{C}.}
-\obs{\textbf{Ce que ce test prouve, et ce qu'il ne prouve pas.} La rotation est \emph{un} nombre par an : beaucoup de mécaniques différentes produisent 60 \%. Elle ne permet donc pas d'\textbf{identifier} leur règle, seulement d'\textbf{exclure} : elle dit laquelle de nos deux mécaniques est compatible avec quelle période. Le changement de régime, lui, n'est pas déduit d'ici --- il est \textbf{écrit} dans les dépôts (\S3). La rotation le \emph{corrobore} quantitativement.}
-\obs{\emph{Et une limite de C} : elle capture le \textbf{sens} de la chute, pas son \textbf{ampleur} --- 26 \% en 2025 contre 10 \% pour le fonds. Après la bascule, les divulgations continuent d'agiter notre livre plus que le sien.}
+\lire{\textbf{A} est compatible avec 2023-24 et incompatible avec 2025 ; \textbf{B}, l'inverse --- d'où \textbf{C}. Un scalaire par an \textbf{exclut} des mécaniques, il n'en \textbf{identifie} aucune : le changement de régime est établi au \S3, la rotation le date. \textbf{Limite de C} : elle a le \emph{sens} de la chute, pas l'\emph{ampleur} (26 \% contre 10 \%).}
 
-\textbf{(d) Y a-t-il un avantage ?} Excès $=$ rendement $-$ S\&P.
+\textbf{(d) Y a-t-il un avantage ?} Pour l'année $Y$, puis moyenne sur les années ; $\beta$ par régression sur le marché en excès :
+\[ \begin{gathered}
+x_Y=\prod_{t\in Y}(1{+}r_t)-\prod_{t\in Y}(1{+}r^{\mathrm{SPY}}_t),\qquad t=\frac{\bar x}{\sigma_x/\sqrt{n}} \\[0.6mm]
+r-r_f=\alpha+\beta\bigl(r^{\mathrm{SPY}}-r_f\bigr)+\varepsilon
+\end{gathered} \]
 \begin{center}\scriptsize
 \begin{tabular}{@{}l l r r r@{}}
 \toprule
@@ -192,11 +216,13 @@ C GOP & 2023-26 & $-0{,}27\,\%$ & $-0{,}15$ & 0,93 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{$\beta\approx1$ partout : ces portefeuilles \textbf{sont} le marché, avec un biais technologique. Aucun $t$ n'atteint 2 : \textbf{aucun excès n'est statistiquement distinguable du hasard}. Le vrai fonds dit la même chose --- NANC devant le S\&P, GOP derrière.}
+\lire{$\beta\approx1$ partout et $|t|<2$ partout : ces portefeuilles \textbf{sont} le marché, et \textbf{aucun excès n'est distinguable du hasard}.}
 
 % ═══════════ 6 ═══════════
 \et{6}{Pourquoi ça ne colle pas}
-On compare enfin des \textbf{dollars} et non des pourcentages : leur position ($w^{\star}\times$AUM) face au \textbf{\$ total d'achats jamais déclaré} par le parti sur ce titre.
+On compare enfin des \textbf{dollars} et non des pourcentages. Soit $F_i$ le \textbf{\$ total d'achats jamais déclaré} par le parti sur le titre $i$ :
+\[ \lambda_i \;=\; \frac{w^{\star}_i\times\mathrm{AUM}}{F_i}
+   \qquad\text{poids}\propto\text{flux}\iff \lambda_i\ \text{constant} \]
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r@{}}
 \toprule
@@ -212,7 +238,7 @@ MSFT & 14,9 M\$ & 83,0 M\$ & 0,2 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{si le fonds suivait les déclarations, ce rapport serait \textbf{le même partout}. Il va de \textbf{0,2 à 25}. Et les seuls titres où il vaut 1 sont \emph{exactement} ceux qu'on reproduit bien. \textbf{Le fonds détient 25 fois plus de FIX que tout ce que les républicains ont jamais déclaré sur ce titre} : aucune règle fondée sur les déclarations publiques ne peut produire ça.}
+\lire{$\lambda$ va de \textbf{0,2 à 25} au lieu d'être constant --- et les seuls titres où $\lambda\approx1$ sont \emph{exactement} ceux qu'on reproduit bien. Le fonds détient \textbf{25 fois} plus de FIX que tout le flux jamais déclaré dessus : aucune règle fondée sur les déclarations publiques ne peut produire ça.}
 \obs{\textbf{Contre-épreuve --- ce n'est pas notre faute.} On a audité et réparé notre propre chaîne : \textbf{7\,287 transactions} écartées par un filtre ont été réintégrées, \textbf{10 séries de prix} manquantes récupérées, les montants \og{}$>$1 M\$\fg{} revalorisés. \textbf{La fidélité ne bouge pas.} On a aussi testé l'hypothèse \og{}ils utilisent les déclarations de \emph{patrimoine} et non de transactions\fg{} : \textbf{réfutée} --- AMAT y pèse 0,009 \% contre 5,19 \% du fonds.}
 
 % ═══════════ 7 ═══════════
