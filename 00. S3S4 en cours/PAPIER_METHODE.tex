@@ -212,10 +212,8 @@ GOP & $+1{,}52$~\% & 1,04 & $[-1{,}7;+4{,}7]$ & \textbf{$+2{,}28$} \\
 $\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
 
 % ═══════════ LE TEST ═══════════
-\meth{$\star$}{Le test qui tranche}{tout l'excès n'est-il qu'une exposition déguisée ? On régresse sur les
-quatre facteurs du \S0. \emph{Le papier publié en applique cinq aux ETF eux-mêmes} --- les quatre mêmes plus le
-facteur d'investissement CMA, et sur le rendement brut plutôt que sur l'excès : les deux résultats se lisent en
-parallèle, pas terme à terme.}
+\meth{$\star$}{Le test qui tranche}{l'excès n'est-il qu'une exposition déguisée ? On régresse sur les quatre
+facteurs du \S0.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -228,14 +226,12 @@ M4 --- GOP & $+2{,}28$ & \textbf{1,99} & $-0{,}03$ & $+0{,}11$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY ($-0{,}12$) :
-\textbf{tous} les chargements de taille tiennent dans $|\mathrm{SMB}|\le0{,}12$, et M3 côté NANC est exactement
-au niveau du SPY.}
-\lecon{\textbf{l'$\alpha$ ne disparaît pas : il augmente}, et pour deux raisons dont aucune n'était celle
-attendue. \textbf{(i)} Pas de biais de taille --- il faudrait un SMB fortement négatif pour expliquer l'excès par
-un pari sur les géantes ; le nôtre ne dépasse jamais celui du \emph{SPY lui-même}. \textbf{(ii)}
-Le tilt est un tilt \textbf{croissance} ; la valeur ayant sous-performé, la contrôler \emph{relève} l'$\alpha$.
-\textbf{Les facteurs n'expliquent donc pas tout.}}
+\fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY ($-0{,}12$) : tous les
+chargements de taille tiennent dans $|\mathrm{SMB}|\le0{,}12$.}
+\lecon{\textbf{l'$\alpha$ survit au contrôle} --- il passe de $+1{,}26$ à $+1{,}75$ (NANC) au lieu de s'effondrer.
+Le pari de taille qu'on redoutait \textbf{n'existe pas} : notre SMB \emph{est} celui du SPY. Et le SPY, passé dans
+la même machine, rend $+0{,}04$ ($t$ 0,12) --- elle ne fabrique pas d'$\alpha$ à partir de rien. \textbf{Reste
+que $t\approx1{,}8$} : positif, pas démontré.}
 
 % ═══════════ LA STABILITÉ ═══════════
 \meth{$\circlearrowright$}{La même mesure, année après année}{un $\alpha$ moyen sur douze ans peut n'être que deux
@@ -360,12 +356,15 @@ $\approx$70~\% des fenêtres. \emph{En coupe} --- par secteur, par taille de dé
 Qu'il se concentre ou qu'il reste diffus, les deux réponses valent d'être sues.
 \end{pts}
 \vspace{1mm}\hrule\vspace{1mm}
-{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb},
-\S16 à \S16.5 : les quatre méthodes (runs déclarés avant exécution), les quatre facteurs (validés sur le SPY :
-$\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an, \path{cache/ff_factors.csv}), les $\alpha/\beta$ glissants,
-la rotation et les frais, puis l'\textbf{audit de méthode} : M3 y est réimplémentée de zéro d'après le seul texte
-ci-dessus, et l'on y écarte le regard vers le futur, le fractionnement non retraité et la position gelée. L'étude
-de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de \path{FICHE_NANC_GOP.pdf}.\par}
+{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb} :
+\S16 (les quatre méthodes, runs déclarés avant exécution), \S16.1 (les quatre facteurs, validés sur le SPY :
+$\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an), \S16.3 ($\alpha$ et $\beta$ glissants), \S16.4 (rotation,
+frais, frein), \S16.5 (audit de méthode). Facteurs Fama-French-Carhart, \path{cache/ff_factors.csv}.
+\textbf{Mesure indépendante} : Baulkaran \& Jain, \emph{Economics Letters} 250 (2025), régressent les
+\emph{ETF réels} NANC et KRUZ sur \textbf{cinq} facteurs (les quatre mêmes plus CMA), en rendement brut et sur
+2023--24 seulement, et ne trouvent aucun $\alpha$ significatif. Objet différent du nôtre --- le fonds
+commercialisé, non une stratégie reconstruite --- les deux résultats se lisent en parallèle. L'étude de fidélité
+à ce fonds, dont M4 reprend le filtre, fait l'objet d'un document distinct, \path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
 
 
