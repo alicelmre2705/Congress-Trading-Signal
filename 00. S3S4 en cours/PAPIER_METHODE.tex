@@ -1,6 +1,6 @@
 % !TEX program = tectonic
 \documentclass[9pt,a4paper]{extarticle}
-\usepackage[top=0.7cm,bottom=0.7cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[top=0.65cm,bottom=0.6cm,left=0.9cm,right=0.9cm]{geometry}
 \usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
@@ -48,10 +48,6 @@ $1{,}8$ à $2{,}0$. \textbf{Un $\alpha$ positif, qui résiste aux quatre facteur
 \item \textbf{Données} : 134\,464 déclarations brutes $\to$ \textbf{113\,369 exploitées} (350 élus,
 2\,755 titres, 2014--2026). Chaque déclaration donne un titre, un sens, une date, et une \emph{fourchette} de
 montant --- on retient le \textbf{milieu} $A_k$.
-\item \textbf{L'entonnoir}, parce que l'écart compte : $-5\,490$ non-actions (2\,190 ETF, 3\,300 de classe
-inconnue), $-705$ antérieures à 2014, et $\mathbf{-14\,900}$ \textbf{faute de série de prix} (992 titres absents,
-51 corrompus). Ce dernier poste vaut \textbf{11,6~\%} du flux : c'est \textbf{la principale limite de la donnée},
-et elle joue contre nous, pas pour nous.
 \item \textbf{On se place à la divulgation} $\delta_k$, jamais à la transaction : c'est la seule date où
 l'information est publique, donc la seule où la stratégie est réalisable. \emph{À la date de transaction tous les
 chiffres seraient meilleurs --- et faux.}
@@ -64,23 +60,49 @@ chiffres seraient meilleurs --- et faux.}
 \[ \underbrace{r-r_f=\alpha_1+\beta(r^{m}\!-\!r_f)+\varepsilon}_{\text{on retire le marché}} \]
 \[ \underbrace{r-r_f=\alpha_4+\beta_{\mathrm M}(r^{m}\!-\!r_f)+\beta_{\mathrm S}\mathrm{SMB}
    +\beta_{\mathrm H}\mathrm{HML}+\beta_{\mathrm U}\mathrm{MOM}+\varepsilon}_{\text{on retire aussi taille, valeur, momentum}} \]
+\concret
+{\small Les quatre facteurs ne sont pas de nous : ce sont ceux de Fama-French et Carhart, repris tels quels de la
+bibliothèque de Kenneth French (\path{cache/ff_factors.csv}). Ils se construisent en classant chaque mois toutes
+les actions américaines cotées selon \textbf{deux axes} --- la \textbf{taille} (capitalisation, coupée à la médiane
+NYSE : \emph{S}mall / \emph{B}ig) et le \textbf{ratio valeur comptable sur capitalisation} (coupé aux 30\textsuperscript{e}
+et 70\textsuperscript{e} centiles : \emph{V}alue / \emph{N}eutral / \emph{G}rowth). Cela donne six portefeuilles,
+tous pondérés par capitalisation, et :\par}
+\begin{pts}
+\item $r^{m}\!-\!r_f$ : \textbf{toutes} les actions, pondérées par capitalisation, moins le taux sans risque.
+\item $\mathrm{SMB}=\tfrac13(SV{+}SN{+}SG)-\tfrac13(BV{+}BN{+}BG)$ --- \textbf{petites moins grandes}.
+\item $\mathrm{HML}=\tfrac12(SV{+}BV)-\tfrac12(SG{+}BG)$ --- \textbf{décotées moins chères}.
+\item $\mathrm{MOM}=\tfrac12(SH{+}BH)-\tfrac12(SL{+}BL)$, où $H$ et $L$ sont les 30~\% qui ont le plus et le moins
+monté sur les 12 derniers mois \emph{en sautant le dernier} --- \textbf{gagnants moins perdants}.
+\end{pts}
+\obs{\textbf{Comment lire un chargement.} $\beta_{\mathrm S}<0$ signifie que le portefeuille se comporte comme les
+\textbf{grandes} capitalisations ; $\beta_{\mathrm H}<0$, comme les valeurs de \textbf{croissance}. Le $\alpha_4$
+est ce qui reste \textbf{une fois ces quatre expositions payées} --- c'est pour cela qu'il est le test le plus
+sévère du papier.}
 
 % ═══════════ M1 ═══════════
 \meth{M1}{Une voix par membre}{chaque élu qui achète a le même poids, quel que soit le montant --- l'hypothèse la
 plus neutre possible.}
-Soit $\mathcal S_t$ les titres achetés par au moins 2 élus sur la fenêtre, et $\mathcal B_m$ ceux achetés par l'élu $m$ :
-\[ w_i=\frac1{K_t}\sum_{m}\frac{\mathbf 1\{i\in\mathcal B_m\}}{|\mathcal B_m|},\qquad K_t=\#\{\text{élus acheteurs}\} \]
 \concret
 \begin{pts}
-\item \textbf{Chaque fin de mois}, on regarde les opérations \textbf{divulguées} dans les 42 derniers jours de bourse
-(environ deux mois).
-\item Pour chaque titre, on fait \textbf{les achats moins les ventes} --- \textbf{mais} une vente de titres détenus
-depuis \textbf{plus de 2 ans} \textbf{ne compte pas} : elle solde une vieille position, elle ne dit rien sur le titre
-aujourd'hui. C'est une reconstitution lot par lot, en \emph{premier entré, premier sorti}.
-\item On ne garde que les titres au \textbf{solde positif} et achetés par \textbf{au moins 2 élus} différents.
-\item Chaque élu retenu dispose d'\textbf{une voix}, qu'il partage également entre ses titres : s'il en a acheté
-quatre, chacun reçoit un quart. \textbf{Le montant engagé n'entre pas} --- 5\,000~\$ pèsent autant que 500\,000~\$.
-\item On achète au \textbf{close du lendemain} et on ne touche plus à rien jusqu'à la fin du mois suivant.
+\item \textbf{Chaque fin de mois} $t$, on prend les opérations \textbf{divulguées} dans les 42 derniers jours de
+bourse : $\ \mathcal K(t)=\{k:\ t-42<\delta_k\le t\}$.
+\item Pour chaque titre, \textbf{les achats moins les ventes}, sans descendre sous zéro :
+\[ B_i=\!\!\sum_{k\in\mathcal K,\ \text{achat}}\!\! A_k,\quad
+   S_i=\!\!\sum_{k\in\mathcal K,\ \text{vente}}\!\!\gamma_k A_k,\quad
+   \mathrm{Net}_i=\bigl[B_i-S_i\bigr]^{+} \]
+\item \textbf{Mais une vente de titres détenus depuis plus de 2 ans ne compte pas.} On reconstitue les lots en
+\emph{premier entré, premier sorti}, et $\gamma_k$ est la part de la vente portant sur des lots \textbf{récents} :
+\[ \gamma_k=\frac{\sum_{h\le\bar a}q_h+r_k}{\sum_h q_h+r_k}\in[0,1],\quad \bar a=504\ \text{j}\approx2\ \text{ans} \]
+$q_h$ = quantité vendue provenant d'un lot détenu depuis $h$ jours, $r_k$ = part \textbf{non appariée} (aucun achat
+antérieur connu), comptée comme récente. Une vente qui solde une vieille position a $\gamma_k=0$ : elle ne dit rien
+sur le titre aujourd'hui. \emph{En pratique} : $\gamma=1$ pour 80~\% des ventes, $\gamma=0$ pour 17~\%.
+\item On ne garde que le solde positif, acheté par \textbf{au moins 2 élus} :
+$\ \mathcal S_t=\{i:\ \mathrm{Net}_i>0,\ m_i\ge2\}$.
+\item Chaque élu retenu a \textbf{une voix}, partagée également entre ses titres $\mathcal B_m$ --- s'il en a acheté
+quatre, chacun reçoit un quart. \textbf{Le montant n'entre pas} : 5\,000~\$ pèsent autant que 500\,000~\$.
+\[ w_i=\frac1{K_t}\sum_{m}\frac{\mathbf 1\{i\in\mathcal B_m\}}{|\mathcal B_m|},\qquad K_t=\#\{\text{élus acheteurs}\} \]
+\item On achète au \textbf{close du lendemain} : $\ q_i=w_i\,V(t)/P_i(t{+}1)$, et on ne touche plus à rien
+jusqu'à la coupe suivante --- les poids \textbf{dérivent} avec les cours.
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
@@ -99,13 +121,15 @@ l'extrait. \textbf{Il faut un poids} --- lequel ?}
 \meth{M2}{Pondérer aux dollars déclarés}{celui qui engage 500\,000~\$ y croit plus que celui qui en engage 5\,000.}
 \concret
 \begin{pts}
-\item Même rendez-vous mensuel, mais la fenêtre passe à \textbf{3 ans} et \textbf{on ne regarde plus que les
-achats} : \textbf{les ventes sortent complètement du signal}. Un élu qui vend ne fait plus rien bouger.
-\item Pour chaque titre on additionne les \textbf{dollars achetés} (milieu de fourchette). Un achat de 500\,000~\$
-pèse cent fois un achat de 5\,000~\$.
-\item Le poids est proportionnel à cette somme, rien d'autre. Pas de sélection, pas de plafond.
+\item Même rendez-vous mensuel, mais la fenêtre passe à \textbf{3 ans} et \textbf{on ne garde que les achats} ---
+\textbf{les ventes sortent complètement du signal}, il n'y a plus de $\gamma$ ni de solde :
+\[ \mathcal K^P(t)=\{k:\ P(k)=P,\ \text{achat},\ t-756<\delta_k\le t\} \]
+\item Pour chaque titre, la somme des \textbf{dollars achetés} --- un achat de 500\,000~\$ pèse cent fois un achat
+de 5\,000~\$ :
+$\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
+\item Le poids est \textbf{proportionnel} à cette somme, rien d'autre : ni sélection, ni plafond.
+\[ w_i=\frac{B_i}{\sum_j B_j} \]
 \end{pts}
-\[ B_i=\!\!\sum_{k\,:\,i(k)=i}\!\! A_k,\qquad w_i\propto B_i \]
 \obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé : l'excès NANC \textbf{tombe} de
 $+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
 marche le mieux.}
@@ -128,19 +152,19 @@ faible} (0,99) : le portefeuille est trop concentré, donc trop volatil.}
 % ═══════════ M3 ═══════════
 \meth{M3}{Ajouter le consensus, et borner la concentration}{un titre acheté par dix élus est un signal plus sûr
 qu'un titre acheté par un seul --- et aucune ligne ne doit pouvoir emporter le portefeuille.}
-Avec $m_i$ le nombre d'élus distincts acheteurs, et $\mathcal U$ les 150 plus gros scores :
-\[ s_i=B_i\,m_i,\qquad v_i=\frac{s_i}{\sum_{j\in\mathcal U}s_j},\qquad
-   \boxed{\,w_i=\min(c,\ \lambda v_i)\,} \]
-$\lambda$ est l'unique réel tel que $\sum_i w_i=1$, avec $c=8{,}5$~\% : un \textbf{remplissage par niveau}, qui
-existe et est unique dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$.
 \concret
 \begin{pts}
-\item On \textbf{multiplie} la somme des dollars par le \textbf{nombre d'élus distincts} qui ont acheté le titre :
+\item On \textbf{multiplie} les dollars par le \textbf{nombre d'élus distincts} $m_i$ ayant acheté le titre :
 deux élus à 100\,000~\$ l'emportent sur un seul à 150\,000~\$.
-\item On ne garde que les \textbf{150 plus gros scores} ; le reste est la queue de distribution.
-\item On \textbf{plafonne chaque ligne à 8,5~\%} : ce qui dépasse est redistribué sur les autres au prorata, et on
-recommence jusqu'à ce que plus rien ne dépasse.
-\item Le reste est identique à M2 : achats seuls, 3 ans, achat au close du lendemain, on ne touche plus à rien.
+\[ s_i=B_i\,m_i,\qquad m_i=\#\{m(k):k\in\mathcal K^P,\ i(k)=i\} \]
+\item On ne garde que les \textbf{150 plus gros scores} --- $\mathcal U(t)$ --- et on normalise :
+$\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$.
+\item On \textbf{plafonne chaque ligne à $c=8{,}5$~\%} : ce qui dépasse est redistribué au prorata sur les autres,
+et on recommence jusqu'à ce que plus rien ne dépasse. Le point d'arrivée s'écrit d'un coup :
+\[ \boxed{\,w_i=\min(c,\ \lambda v_i)\,}\qquad \lambda\ \text{tel que}\ \sum_i w_i=1 \]
+$\lambda\mapsto\sum_i\min(c,\lambda v_i)$ croît de 1 à $|\mathcal U|c$ : $\lambda$ existe et est \textbf{unique}
+dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
+\item Le reste est identique à M2 : achats seuls, 3 ans, close du lendemain, aucun geste entre deux coupes.
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r c r@{}}
@@ -164,8 +188,10 @@ parce que c'est le $t$ qu'on cherche, pas le rendement.}
 trades \ldots{} 5 shares of something \ldots{} that's just a rebalance}\fg{}. On teste sa règle.}
 \concret
 \begin{pts}
-\item \textbf{Avant tout calcul}, on écarte les opérations qui appartiennent à un dépôt de \textbf{50 opérations ou
-plus} du même élu \textbf{le même jour} : c'est la signature d'un compte piloté par un courtier, pas d'une décision.
+\item \textbf{Avant tout calcul}, on compte combien d'opérations chaque élu a déclarées \textbf{le même jour} :
+$\ n_k=\#\{k':\ m(k')=m(k),\ \delta_{k'}=\delta_k\}$.
+\item On écarte celles qui appartiennent à un dépôt de \textbf{50 opérations ou plus} --- signature d'un compte
+piloté par un courtier, pas d'une décision : $\ \mathcal K^P(t)$ est restreint à $\ n_k<\theta=50$.
 \item Cela retire \textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain.
 \item Tout le reste est identique à M3.
 \end{pts}
@@ -187,7 +213,9 @@ la variance. \textbf{Le filtre n'est pas retenu} --- et il introduirait un param
 $\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
 
 % ═══════════ LE TEST ═══════════
-\meth{$\star$}{Le test qui tranche}{tout l'excès n'est-il qu'une exposition déguisée ?}
+\meth{$\star$}{Le test qui tranche}{tout l'excès n'est-il qu'une exposition déguisée ? On régresse sur les
+quatre facteurs du \S0 --- \emph{le modèle que le papier publié applique aux ETF eux-mêmes}, ce qui rend les deux
+résultats comparables.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -227,14 +255,10 @@ w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
-\begin{pts}
-\item \textbf{Vendre à découvert.} Testé, et catastrophique : le panier des titres vendus \emph{est} le marché
-($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur une base 100.
-\item \textbf{Suivre les options}, les ETF, ou les obligations : seules les actions entrent.
-\item \textbf{Payer des frais.} Aucun coût de transaction n'est facturé nulle part.
-\item \textbf{Sortir d'une position parce qu'un élu vend} --- sauf M1, et encore, seulement si la vente porte sur
-des titres achetés depuis moins de deux ans.
-\end{pts}
+{\small \textbf{Vendre à découvert} --- testé, catastrophique : le panier des titres vendus \emph{est} le marché
+($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur base 100. \textbf{Suivre les options, les ETF ou les
+obligations} --- seules les actions entrent. \textbf{Payer des frais} --- aucun coût n'est facturé nulle part.
+\textbf{Sortir parce qu'un élu vend} --- sauf M1, et seulement sous deux ans.\par}
 
 {\color{bleu}\bfseries $\neq$ $\cdot$ Ce qui empêche de conclure, et comment le lever}\par\vspace{0.3mm}
 \begin{pts}
