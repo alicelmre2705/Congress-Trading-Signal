@@ -113,9 +113,8 @@ toutes chambres & $+0{,}35$~\% & 0,18 & $-0{,}03$ & $+1{,}00$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{l'égalité ne produit rien.} $t=0{,}18$ : le portefeuille est indiscernable du marché
-($\beta=1{,}01$). Si l'information vaut quelque chose, ce n'est pas en traitant tous les élus à égalité qu'on
-l'extrait. \textbf{Il faut un poids} --- lequel ?}
+\lecon{\textbf{l'égalité ne produit rien} : le portefeuille est indiscernable du marché. Si l'information vaut
+quelque chose, ce n'est pas à égalité qu'on l'extrait. \textbf{Il faut un poids} --- lequel ?}
 
 % ═══════════ M2 ═══════════
 \meth{M2}{Pondérer aux dollars déclarés}{celui qui engage 500\,000~\$ y croit plus que celui qui en engage 5\,000.}
@@ -144,10 +143,9 @@ GOP & $+1{,}51$~\% & 0,58 & $+1{,}19$ & $+2{,}27$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{c'est le geste qui compte.} L'excès passe de $+0{,}35$ à $+3{,}58$~\%/an, et l'équipondéré ---
-même univers, poids égaux --- est \textbf{négatif}. Tout l'écart vient donc de la \emph{taille des mises}.
-Mais le $\beta$ monte à \textbf{1,13} : une partie est de l'exposition, pas du talent. \textbf{Et le $t$ reste
-faible} (0,99) : le portefeuille est trop concentré, donc trop volatil.}
+\lecon{\textbf{c'est le geste qui compte} --- l'équipondéré, à univers identique, est négatif : tout vient de
+la \emph{taille des mises}. Mais on a acheté du $\beta$ en même temps, et le portefeuille est trop concentré pour
+que le $t$ suive. \textbf{Il faut le stabiliser.}}
 
 % ═══════════ M3 ═══════════
 \meth{M3}{Ajouter le consensus, et borner la concentration}{un titre acheté par dix élus est un signal plus sûr
@@ -178,10 +176,9 @@ dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{le consensus n'apporte rien tout seul} ($+0{,}33$~\%) --- mais \textbf{il stabilise}. L'excès baisse
-($3{,}58\to2{,}98$) et pourtant le $t$ \textbf{monte} ($0{,}99\to1{,}47$), l'IC se resserre de moitié, et le
-$\beta$ redescend à 1,08. On échange du rendement contre de la \textbf{fiabilité} --- et c'est le bon échange,
-parce que c'est le $t$ qu'on cherche, pas le rendement.}
+\lecon{\textbf{le consensus n'apporte rien tout seul, mais il stabilise} : moins de rendement, plus de $t$ et un
+IC deux fois plus serré. \textbf{C'est le bon échange} --- ce qu'on cherche est un résultat fiable, pas un résultat
+élevé.}
 
 % ═══════════ M4 ═══════════
 \meth{M4}{Écarter le bruit des comptes gérés}{le gérant du fonds dit ignorer les dépôts en masse : \og{}\emph{300
@@ -205,9 +202,8 @@ GOP & $+1{,}52$~\% & 1,04 & $[-1{,}7;+4{,}7]$ & \textbf{$+2{,}28$} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{le meilleur rendement, la pire fiabilité.} L'excès grimpe à $+4{,}55$~\% mais le $t$ \emph{baisse}
-($1{,}47\to1{,}17$), l'IC \textbf{double} de largeur et le $\beta$ monte à 1,15. On a acheté du rendement avec de
-la variance. \textbf{Le filtre n'est pas retenu} --- et il introduirait un paramètre ($\theta$) de plus.}
+\lecon{\textbf{le meilleur rendement, la pire fiabilité} : l'IC double de largeur. On a payé le rendement en
+variance. \textbf{Le filtre n'est pas retenu} --- il coûterait en plus un paramètre.}
 
 \fig{meth_cascade.png}{la cascade, méthode par méthode : excès brut (gris), $\alpha$ marché seul (bleu),
 $\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
@@ -230,11 +226,10 @@ M4 --- GOP & $+2{,}28$ & \textbf{1,99} & $-0{,}03$ & $+0{,}11$ \\
 \end{center}
 \fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY : nos portefeuilles
 sont \emph{à son niveau} --- ils n'ont pas de biais de taille supplémentaire.}
-\lecon{\textbf{l'$\alpha$ ne disparaît pas : il augmente} ($+1{,}26\to+1{,}75$). Deux raisons, et aucune n'est
-celle qu'on attendait. \textbf{(i)} Il n'y a \emph{pas} de biais de taille : le chargement SMB de nos répliques
-($-0{,}12$) est exactement celui du \textbf{SPY} ($-0{,}12$). \textbf{(ii)} Le tilt réel est un tilt
-\textbf{croissance} ($\beta_{\mathrm{HML}}<0$ côté NANC) ; la valeur ayant sous-performé, la contrôler
-\emph{relève} l'$\alpha$. \textbf{Il reste donc $+1{,}7$ à $+2{,}3$~\%/an que les facteurs n'expliquent pas.}}
+\lecon{\textbf{l'$\alpha$ ne disparaît pas : il augmente}, et pour deux raisons dont aucune n'était celle
+attendue. \textbf{(i)} Pas de biais de taille --- le SMB de nos répliques est \emph{celui du SPY}. \textbf{(ii)}
+Le tilt est un tilt \textbf{croissance} ; la valeur ayant sous-performé, la contrôler \emph{relève} l'$\alpha$.
+\textbf{Les facteurs n'expliquent donc pas tout.}}
 
 % ═══════════ VERDICT ═══════════
 \meth{$=$}{La méthode retenue, et pourquoi c'est M3}{on choisit \emph{avant} de regarder les rendements : la plus
