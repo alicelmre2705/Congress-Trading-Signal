@@ -12,10 +12,10 @@
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
 \newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
-\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{1.1pt}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
 \setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
 \setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
-\renewcommand{\arraystretch}{0.95}
+\renewcommand{\arraystretch}{0.90}
 \setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
 \renewcommand{\columnseprulecolor}{\color{grisf!40}}
 % une méthode = un bloc : numéro, titre, et l'idée en une ligne
@@ -35,9 +35,9 @@
 {\footnotesize
 \textbf{En bref.} On part de la méthode la plus naïve et on l'améliore pas à pas, en mesurant à chaque étape.
 Le gain vient d'un seul geste --- \textbf{pondérer aux dollars déclarés}. Il subsiste, après contrôle du marché,
-de la taille, de la valeur et du momentum, un $\alpha$ de \textbf{$+1{,}7$ à $+2{,}3$~\%/an}, avec des $t$ de
-$1{,}8$ à $2{,}0$. \textbf{Un $\alpha$ positif, qui résiste aux quatre facteurs, et qui reste à confirmer hors
-échantillon.}}
+de la taille, de la valeur et du momentum, un $\alpha$ de \textbf{$+1{,}7$ à $+2{,}3$~\%/an} --- \textbf{$+1{,}5$
+à $+2{,}1$ net de frais} --- avec des $t$ de $1{,}8$ à $2{,}0$. \textbf{Un $\alpha$ positif, qui résiste aux quatre
+facteurs et au passage d'ordre, et qui reste à confirmer hors échantillon.}}
 \vspace{0.8mm}\hrule\vspace{1.2mm}
 
 \begin{multicols}{2}
@@ -126,8 +126,11 @@ quelque chose, ce n'est pas à égalité qu'on l'extrait. \textbf{Il faut un poi
 \item Pour chaque titre, la somme des \textbf{dollars achetés} --- un achat de 500\,000~\$ pèse cent fois un achat
 de 5\,000~\$ :
 $\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
-\item Le poids est \textbf{proportionnel} à cette somme, rien d'autre : ni sélection, ni plafond.
-\[ w_i=\frac{B_i}{\sum_j B_j} \]
+\item Le poids est \textbf{proportionnel} à cette somme. \emph{Seule la pondération change} : l'univers
+$\mathcal U$ --- les 150 plus gros, défini au bloc suivant --- et le plafond $\Pi_c$ sont \textbf{déjà ceux de
+M3}, pour que la comparaison M2 \emph{vs} M3 isole le seul facteur ajouté et non la sélection. Ce qui n'est pas
+encore là, c'est le filtre de M4.
+\[ w_i=\Pi_c\!\left(\frac{B_i}{\sum_{j\in\mathcal U}B_j}\right) \]
 \end{pts}
 \obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé : l'excès NANC \textbf{tombe} de
 $+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
@@ -137,15 +140,15 @@ marche le mieux.}
 \toprule
  & excès/an & $t$ & $\alpha_1$ & $\alpha_4$ \\
 \midrule
-NANC & $+3{,}58$~\% & 0,99 & $+0{,}40$ & $+1{,}37$ \\
-GOP & $+1{,}51$~\% & 0,58 & $+1{,}19$ & $+2{,}27$ \\
+NANC & $+1{,}35$~\% & 1,00 & $+0{,}31$ & $+0{,}96$ \\
+GOP & $+0{,}52$~\% & 0,27 & $+0{,}21$ & $+1{,}28$ \\
 \emph{repère : équipondéré} & \emph{$-0{,}67$~\%} & \emph{$-0{,}58$} & \emph{$-0{,}91$} & \emph{$+0{,}38$} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{c'est le geste qui compte} --- l'équipondéré, à univers identique, est négatif : tout vient de
-la \emph{taille des mises}. Mais on a acheté du $\beta$ en même temps, et le portefeuille est trop concentré pour
-que le $t$ suive. \textbf{Il faut le stabiliser.}}
+\lecon{\textbf{c'est le geste qui compte} --- l'équipondéré, sur le même univers, est \emph{négatif} : ce qui
+produit quelque chose, c'est la \emph{taille des mises}, pas le fait d'être dans la liste. Mais $t=1{,}00$ et
+$0{,}27$ : le signal existe et ne se démontre pas. \textbf{Il faut le renforcer.}}
 
 % ═══════════ M3 ═══════════
 \meth{M3}{Ajouter le consensus, et borner la concentration}{un titre acheté par dix élus est un signal plus sûr
@@ -172,10 +175,12 @@ dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
 \textbf{NANC} & $+2{,}98$~\% & \textbf{1,47} & $[-1{,}4;+7{,}4]$ & $+1{,}75$ \\
 \textbf{GOP} & $+1{,}24$~\% & \textbf{1,62} & $[-0{,}4;+2{,}9]$ & $+1{,}68$ \\
 \midrule
-\emph{$m_i$ seuls, sans les \$} & \emph{$+0{,}33$~\%} & \emph{0,33} & --- & \emph{---} \\
+\emph{$m_i$ seuls, sans les \$}$^\dagger$ & \emph{$+0{,}33$~\%} & \emph{0,33} & --- & \emph{---} \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\scriptsize\color{grisf}$^\dagger$ Ce repère et l'équipondéré de M2 sont des \textbf{décompositions}, pas des
+étapes : on part de la méthode complète et on ne remplace que la pondération, univers et plafond figés.\par}
 \lecon{\textbf{le consensus n'apporte rien tout seul, mais il stabilise} : moins de rendement, plus de $t$ et un
 IC deux fois plus serré. \textbf{C'est le bon échange} --- ce qu'on cherche est un résultat fiable, pas un résultat
 élevé.}
@@ -224,10 +229,12 @@ M4 --- GOP & $+2{,}28$ & \textbf{1,99} & $-0{,}03$ & $+0{,}11$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY : nos portefeuilles
-sont \emph{à son niveau} --- ils n'ont pas de biais de taille supplémentaire.}
+\fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY ($-0{,}12$) :
+\textbf{tous} les chargements de taille tiennent dans $|\mathrm{SMB}|\le0{,}12$, et M3 côté NANC est exactement
+au niveau du SPY.}
 \lecon{\textbf{l'$\alpha$ ne disparaît pas : il augmente}, et pour deux raisons dont aucune n'était celle
-attendue. \textbf{(i)} Pas de biais de taille --- le SMB de nos répliques est \emph{celui du SPY}. \textbf{(ii)}
+attendue. \textbf{(i)} Pas de biais de taille --- il faudrait un SMB fortement négatif pour expliquer l'excès par
+un pari sur les géantes ; le nôtre ne dépasse jamais celui du \emph{SPY lui-même}. \textbf{(ii)}
 Le tilt est un tilt \textbf{croissance} ; la valeur ayant sous-performé, la contrôler \emph{relève} l'$\alpha$.
 \textbf{Les facteurs n'expliquent donc pas tout.}}
 
@@ -240,11 +247,10 @@ des courbes qui renseigne, c'est leur \emph{comportement}.}
 \item Sur chaque fenêtre de \textbf{252 jours} qui glisse jour après jour, on réestime la droite du marché :
 $\ \hat\beta_t=\operatorname{cov}_W(y,x)/\operatorname{var}_W(x)$ et $\ \hat\alpha_t=(\bar y_W-\hat\beta_t\bar
 x_W)\times252$, avec $y=r-r_f$ et $x=r^{m}-r_f$ --- exactement la régression du bloc M1, mais refaite 2\,800 fois.
-\item M1 n'a pas de version par parti (une voix par membre, toutes chambres) : c'est la \textbf{même courbe} des
-deux côtés, tracée en pointillé.
-\item \textbf{Les fenêtres se chevauchent} --- deux jours voisins partagent 251 observations sur 252. Les
-$\approx$2\,800 points d'une courbe ne valent donc pas 2\,800 mesures mais $\approx$\textbf{11}, une par année.
-\textbf{Ces courbes décrivent, elles ne testent pas} : le test reste le $t$ du bloc précédent.
+\item \textbf{Les fenêtres se chevauchent} --- deux jours voisins partagent 251 observations sur 252 : les
+$\approx$2\,800 points d'une courbe valent $\approx$\textbf{11} mesures indépendantes, une par année.
+\textbf{Ces courbes décrivent, elles ne testent pas} --- le test reste le $t$ du bloc précédent. \emph{(M1 n'ayant
+pas de version par parti, la même courbe apparaît des deux côtés, en pointillé.)}
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r c r r@{}}
@@ -252,23 +258,66 @@ $\approx$2\,800 points d'une courbe ne valent donc pas 2\,800 mesures mais $\app
  & $\beta$ méd. & $\beta$ min--max & $\alpha$ étendue & $\alpha>0$ \\
 \midrule
 M1 \emph{(commune)} & 1,00 & 0,90--1,08 & 29 pts & 57~\% \\
-M2 --- NANC & 1,10 & 0,98--1,46 & 44 pts & 58~\% \\
-M2 --- GOP & 0,96 & 0,78--1,16 & 32 pts & 64~\% \\
-\textbf{M3 --- NANC} & 1,05 & 0,96--1,26 & \textbf{23 pts} & \textbf{70~\%} \\
+M2 --- NANC & 1,04 & 0,97--1,18 & 17 pts & 61~\% \\
+M2 --- GOP & 0,97 & 0,83--1,22 & 24 pts & \textbf{51~\%} \\
+\textbf{M3 --- NANC} & 1,05 & 0,96--1,26 & 23 pts & \textbf{70~\%} \\
 \textbf{M3 --- GOP} & 0,99 & 0,89--1,13 & \textbf{14 pts} & \textbf{71~\%} \\
-M4 --- NANC & 1,12 & 0,97--1,49 & 48 pts & 69~\% \\
+M4 --- NANC & 1,12 & 0,97--\textbf{1,49} & \textbf{48 pts} & 69~\% \\
 M4 --- GOP & 0,97 & 0,84--1,12 & 17 pts & 69~\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 \fig{meth_rolling.png}{$\beta$ (en haut) et $\alpha$ (en bas) réestimés sur chaque fenêtre d'un an. \textbf{Le
-$\beta$ de M2 et M4 dérive} --- il monte à 1,45 côté démocrate en 2022--24 et tombe à 0,80 côté républicain,
-donc dans des directions \emph{opposées} selon le parti ; M3 (bleu) reste la plus proche de 1 des deux côtés.
-\textbf{Tous les $\alpha$ traversent zéro}, mais celui de M3 oscille dans une bande deux fois plus étroite.}
-\lecon{\textbf{le glissant confirme M3 par un canal qui n'a pas servi à la choisir} --- l'$\alpha$ le plus souvent
-positif \emph{et} le plus resserré, le $\beta$ le plus stable, sur les deux partis. Le dollar seul achète une
-exposition de marché qui varie ; le facteur \og nombre d'élus\fg{} la tient. \textbf{Et aucune méthode n'échappe
-aux traversées de zéro} : même la meilleure passe près d'un tiers du temps en dessous du marché.}
+$\beta$ de M4 dérive} --- il monte à 1,49 côté démocrate en 2022--24 et retombe à 0,84 côté républicain, donc dans
+des directions \emph{opposées} selon le parti ; M3 (bleu) tient dans $0{,}89$--$1{,}26$ des deux côtés.
+\textbf{Tous les $\alpha$ traversent zéro} --- ce qui les sépare est la \emph{fréquence} des passages.}
+\lecon{\textbf{le glissant confirme M3 par un canal qui n'a pas servi à la choisir} : c'est la seule dont
+l'$\alpha$ passe 70~\% du temps au-dessus de zéro \emph{des deux côtés}. M2 y tombe à \textbf{51~\%} côté
+républicain --- pile ou face --- et M4 paie sa performance par le $\beta$ le plus instable et l'$\alpha$ le plus
+large (48 points). \textbf{Aucune méthode n'échappe aux traversées} : même la meilleure passe près d'un tiers du
+temps sous le marché.}
+
+% ═══════════ LE FROTTEMENT ═══════════
+\meth{\textdollar}{Ce que ça coûte à exécuter, et faut-il ralentir}{tous les chiffres précédents sont bruts. On
+facture maintenant le passage d'ordre --- et on demande s'il vaut mieux \emph{freiner} pour en payer moins.}
+\concret
+\begin{pts}
+\item \textbf{La vitesse} d'une méthode se mesure à chaque coupe :
+$\ \mathrm{TO}_t=\tfrac12\sum_i\bigl|w^{\text{réalisé}}_i-w^{\text{dérivé}}_i\bigr|$, la fraction du portefeuille
+qui change de mains. \textbf{Ce n'est pas un réglage, c'est une conséquence de la fenêtre} : sur 3 ans le score
+bouge à peine d'un mois à l'autre, sur 42 jours il se reconstruit.
+\item \textbf{Les frais} : on ampute la valeur à chaque coupe, $\ V_t\leftarrow V_t(1-2\,\mathrm{TO}_t\,c)$ avec
+$c=10$~pb. Le \textbf{facteur 2} parce que $\mathrm{TO}_t$ est le montant acheté, égal au montant vendu : on paie
+des deux côtés. Sur un an cela retire $\approx2\times$(rotation)$\times c$.
+\item \textbf{Le frein} de l'étape 6 : au lieu de rejoindre la cible, on n'en parcourt qu'une fraction,
+$\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis
+$w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R(w^{\text{cible}}-w^{\text{dérivé}})$.
+\end{pts}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & rotation/an & coût/an & excès net & $\alpha_4$ net \\
+\midrule
+M1 \emph{(commune)} & \textbf{715~\%} & $1{,}59$~pt & $\mathbf{-1{,}24}$~\% & $-0{,}46$ \\
+M2 --- NANC & 63~\% & $0{,}18$ & $+1{,}17$ & $+0{,}80$ \\
+\textbf{M3 --- NANC} & 65~\% & $0{,}18$ & $+2{,}80$ & $+1{,}59$ \\
+M4 --- NANC & 64~\% & $0{,}19$ & $+4{,}37$ & $+1{,}58$ \\
+M2 --- GOP & 79~\% & $0{,}19$ & $+0{,}32$ & $+1{,}11$ \\
+\textbf{M3 --- GOP} & 68~\% & $0{,}19$ & $+1{,}04$ & $+1{,}51$ \\
+M4 --- GOP & 71~\% & $0{,}20$ & $+1{,}32$ & $+2{,}10$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\obs{\emph{Le frein de l'étape 6 mord-il seulement ?} Sur M1, \textbf{à chaque coupe} (rotation 59~\%/mois contre
+un plafond de 25). Sur M3, \textbf{sur 3~\% des coupes} seulement --- les rares mois de forte recomposition. La
+comparaison n'a donc de sens qu'en descendant le plafond bien plus bas.}
+\fig{meth_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
+tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
+inertie qui laisse courir les positions.}
+\lecon{\textbf{le frottement tue la méthode naïve et épargne les autres} : M1 perd $1{,}59$~pt/an et \emph{passe
+sous zéro} --- son excès n'aurait jamais survécu au passage d'ordre --- quand M3 perd $0{,}18$. \textbf{Le frein
+n'est pas retenu} : il gagne $+0{,}71$~pt sur NANC et perd $-0{,}85$~pt sur GOP. Un réglage qui aide un camp et
+détruit l'autre est exactement ce que la règle de décision écarte.}
 
 % ═══════════ VERDICT ═══════════
 \meth{$=$}{La méthode retenue, et pourquoi c'est M3}{on choisit \emph{avant} de regarder les rendements : la plus
@@ -285,14 +334,15 @@ qu'un chiffre isolé.
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
 w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 \end{gathered}} \]
-\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{650}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
+\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{584}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
 {\small \textbf{Vendre à découvert} --- testé, catastrophique : le panier des titres vendus \emph{est} le marché
 ($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur base 100. \textbf{Suivre les options, les ETF ou les
-obligations} --- seules les actions entrent. \textbf{Payer des frais} --- aucun coût n'est facturé nulle part.
-\textbf{Sortir parce qu'un élu vend} --- sauf M1, et seulement sous deux ans.\par}
+obligations} --- seules les actions entrent. \textbf{Payer l'impact de marché} --- le passage d'ordre est facturé
+(bloc \textdollar), l'effet d'un ordre \emph{sur le prix} non. \textbf{Sortir parce qu'un élu vend} --- sauf M1,
+et seulement sous deux ans.\par}
 
 {\color{bleu}\bfseries $\neq$ $\cdot$ Ce qui empêche de conclure, et comment le lever}\par\vspace{0.3mm}
 \begin{pts}
@@ -300,21 +350,22 @@ obligations} --- seules les actions entrent. \textbf{Payer des frais} --- aucun 
 ($t=1{,}81$ et $1{,}82$ contre $1{,}96$) ; celui de M4 côté GOP l'est \textbf{marginalement} ($1{,}99$).
 \textbf{Ce qui manque est une validation hors échantillon} : M3 n'a jamais été testée sur une période réservée,
 et c'est l'étape qui transformerait un résultat encourageant en résultat établi.
-\item \textbf{Les coûts.} Rien n'est facturé. M3 tourne à $\sim$66~\%/an ; à 10~pb l'aller-retour, cela retire de
-l'ordre de $0{,}1$~pt/an --- petit devant $+1{,}75$, mais à chiffrer.
+\item \textbf{La capacité.} Le passage d'ordre est désormais facturé (bloc \textdollar) et ne retire que
+$0{,}18$~pt/an à M3. Ce qui reste non mesuré est l'\emph{impact} : un fonds assez gros déplacerait le prix des
+lignes qu'il achète, et tous les titres déclarés par le Congrès ne sont pas liquides.
 \item \textbf{La période.} 2014--2026 est un marché haussier dominé par la croissance, précisément le tilt de M3.
 \item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (bloc $\circlearrowright$) : il est diffus,
 positif $\approx$70~\% des fenêtres. \emph{En coupe}, ça ne l'est pas --- par secteur, par taille de dépôt, par
 élu. S'il se concentre sur un sous-ensemble identifiable, c'est un résultat ; s'il est diffus là aussi, c'en est
 un autre --- et les deux valent d'être sus.
 \end{pts}
+\vspace{1mm}\hrule\vspace{1mm}
+{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb} :
+\S16 (les quatre méthodes, runs déclarés avant exécution), \S16.1 (les quatre facteurs, validés sur le SPY :
+$\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an), \S16.3 ($\alpha$ et $\beta$ glissants), \S16.4 (rotation,
+frais, frein). Facteurs Fama-French-Carhart, \path{cache/ff_factors.csv}. L'étude de fidélité au fonds NANC ---
+dont M4 reprend le filtre --- fait l'objet d'un document distinct, \path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
 
-\vspace{1mm}\hrule\vspace{1mm}
-{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb},
-\S16 (les quatre méthodes, 16 runs déclarés avant exécution) et \S16.1 (le modèle à quatre facteurs, validé sur
-le SPY : $\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an). Facteurs Fama-French-Carhart,
-\path{cache/ff_factors.csv}. La méthode M4 reprend le filtre décrit par le gérant du fonds NANC ; l'étude de
-fidélité à ce fonds fait l'objet d'un document distinct, \path{FICHE_NANC_GOP.pdf}.\par}
 
 \end{document}
