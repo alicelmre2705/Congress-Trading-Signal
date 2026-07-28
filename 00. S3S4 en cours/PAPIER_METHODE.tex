@@ -11,6 +11,7 @@
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
+\newcommand{\figfull}[2]{\begin{center}\includegraphics[width=0.84\linewidth]{#1}\end{center}\vspace{-2.5mm}\begin{center}\begin{minipage}{0.86\linewidth}{\scriptsize\color{grisf} #2}\end{minipage}\end{center}\vspace{1mm}}
 \newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
 \pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
 \setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
@@ -134,9 +135,8 @@ $\mathcal U$ --- les 150 plus gros \emph{scores}, définis au bloc suivant --- e
 encore là, c'est le filtre de M4.
 \[ w_i=\Pi_c\!\left(\frac{B_i}{\sum_{j\in\mathcal U}B_j}\right) \]
 \end{pts}
-\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé \textbf{sur M3} : l'excès NANC
-\textbf{tombe} de $+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
-marche le mieux.}
+\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} Testé \textbf{sur M3} : l'excès NANC
+\textbf{tombe} de $+2{,}98$ à $+1{,}40$~\%/an. Les écarter n'est pas une paresse, c'est ce qui marche.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -150,13 +150,17 @@ GOP & $+0{,}52$~\% & 0,27 & $+0{,}21$ & $+1{,}28$ \\
 \end{center}
 
 % ═══════════ M3 ═══════════
-\meth{M3}{Ajouter le consensus, et borner la concentration}{un titre acheté par dix élus est un signal plus sûr
-qu'un titre acheté par un seul --- et aucune ligne ne doit pouvoir emporter le portefeuille.}
+\meth{M3}{Ajouter le consensus, et borner la concentration}{dix acheteurs valent mieux qu'un --- et aucune ligne
+ne doit pouvoir emporter le portefeuille.}
 \concret
 \begin{pts}
-\item On \textbf{multiplie} les dollars par le \textbf{nombre d'élus distincts} $m_i$ ayant acheté le titre :
-deux élus à 100\,000~\$ l'emportent sur un seul à 150\,000~\$.
+\item On \textbf{multiplie} les dollars par le \textbf{nombre d'élus distincts} $m_i$ ayant acheté le titre.
+\emph{Le geste se lit à somme égale} : 200\,000~\$ déclarés par \textbf{deux} élus donnent un score
+\textbf{double} de 200\,000~\$ déclarés par un \textbf{seul}. On préfère l'argent dispersé à l'argent concentré.
 \[ s_i=B_i\,m_i,\qquad m_i=\#\{m(k):k\in\mathcal K^P,\ i(k)=i\} \]
+\item \emph{Conséquence, qu'il faut voir} : si $K$ élus déclarent chacun le même montant $a$, alors $B_i=Ka$
+et $s_i=K^2a$ --- le score croît comme le \textbf{carré} du nombre d'élus, car $m_i$ est déjà dans $B_i$
+(plus d'acheteurs, plus de dollars) et on le remultiplie.
 \item On ne garde que les \textbf{150 plus gros scores} --- $\mathcal U(t)$ --- et on normalise :
 $\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$.
 \item On \textbf{plafonne chaque ligne à $c=8{,}5$~\%} : ce qui dépasse est redistribué au prorata sur les autres,
@@ -343,7 +347,6 @@ même période.
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
 w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 \end{gathered}} \]
-\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{584}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
@@ -360,9 +363,8 @@ et seulement sous deux ans.\par}
 ($t=1{,}81$ et $1{,}82$ contre $1{,}96$) ; celui de M4 côté GOP l'est \textbf{marginalement} ($1{,}99$).
 \textbf{Ce qui manque est une validation hors échantillon} : M3 n'a jamais été testée sur une période réservée,
 et c'est l'étape qui transformerait un résultat encourageant en résultat établi.
-\item \textbf{La capacité.} Le passage d'ordre est désormais facturé (bloc \textdollar) et ne retire que
-$0{,}18$~pt/an à M3. Ce qui reste non mesuré est l'\emph{impact} : un fonds assez gros déplacerait le prix des
-lignes qu'il achète, et tous les titres déclarés par le Congrès ne sont pas liquides.
+\item \textbf{La capacité.} Le passage d'ordre est facturé (bloc \textdollar) et ne coûte que $0{,}18$~pt/an
+à M3. Reste l'\emph{impact} : un fonds assez gros déplacerait le prix des lignes qu'il achète.
 \item \textbf{La période.} 2014--2026 est un marché haussier dominé par la croissance, précisément le tilt de M3.
 \item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (bloc $\circlearrowright$) : diffus, positif
 $\approx$70~\% des fenêtres. \emph{En coupe} --- par secteur, par taille de dépôt, par élu --- ce ne l'est pas.
@@ -376,6 +378,8 @@ la rotation et les frais, puis l'\textbf{audit de méthode} : M3 y est réimplé
 ci-dessus, et l'on y écarte le regard vers le futur, le fractionnement non retraité et la position gelée. L'étude
 de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de \path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
+
+\figfull{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{584}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 
 \end{document}
