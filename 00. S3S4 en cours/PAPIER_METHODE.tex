@@ -237,16 +237,6 @@ que $t\approx1{,}8$} : positif, pas démontré.}
 \meth{$\circlearrowright$}{La même mesure, année après année}{un $\alpha$ moyen sur douze ans peut n'être que deux
 bonnes années. On rejoue la régression sur une fenêtre glissante d'un an --- et cette fois ce n'est pas le niveau
 des courbes qui renseigne, c'est leur \emph{comportement}.}
-\concret
-\begin{pts}
-\item Sur chaque fenêtre de \textbf{252 jours} qui glisse jour après jour, on réestime la droite du marché :
-$\ \hat\beta_t=\operatorname{cov}_W(y,x)/\operatorname{var}_W(x)$ et $\ \hat\alpha_t=(\bar y_W-\hat\beta_t\bar
-x_W)\times252$, avec $y=r-r_f$ et $x=r^{m}-r_f$ --- exactement la régression du bloc M1, mais refaite 2\,800 fois.
-\item \textbf{Les fenêtres se chevauchent} --- deux jours voisins partagent 251 observations sur 252 : les
-$\approx$2\,800 points d'une courbe valent $\approx$\textbf{11} mesures indépendantes, une par année.
-\textbf{Ces courbes décrivent, elles ne testent pas} --- le test reste le $t$ du bloc précédent. \emph{(M1 n'ayant
-pas de version par parti, la même courbe apparaît des deux côtés, en pointillé.)}
-\end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r c r r@{}}
 \toprule
@@ -262,7 +252,7 @@ M4 --- GOP & 0,97 & 0,84--1,12 & 17 pts & 69~\% \\
 \bottomrule
 \end{tabular}
 \end{center}
-\fig{meth_rolling.png}{$\beta$ (en haut) et $\alpha$ (en bas) réestimés sur chaque fenêtre d'un an. \textbf{Le
+\fig{meth_rolling.png}{$\beta$ (en haut) et $\alpha$ (en bas) réestimés sur chaque fenêtre d'un an --- fenêtres chevauchantes : ces courbes décrivent, elles ne testent pas. \textbf{Le
 $\beta$ de M4 dérive} --- il monte à 1,49 côté démocrate en 2022--24 et retombe à 0,84 côté républicain, donc dans
 des directions \emph{opposées} selon le parti ; M3 (bleu) tient dans $0{,}89$--$1{,}26$ des deux côtés.
 \textbf{Tous les $\alpha$ traversent zéro} --- ce qui les sépare est la \emph{fréquence} des passages.}
