@@ -231,6 +231,45 @@ attendue. \textbf{(i)} Pas de biais de taille --- le SMB de nos répliques est \
 Le tilt est un tilt \textbf{croissance} ; la valeur ayant sous-performé, la contrôler \emph{relève} l'$\alpha$.
 \textbf{Les facteurs n'expliquent donc pas tout.}}
 
+% ═══════════ LA STABILITÉ ═══════════
+\meth{$\circlearrowright$}{La même mesure, année après année}{un $\alpha$ moyen sur douze ans peut n'être que deux
+bonnes années. On rejoue la régression sur une fenêtre glissante d'un an --- et cette fois ce n'est pas le niveau
+des courbes qui renseigne, c'est leur \emph{comportement}.}
+\concret
+\begin{pts}
+\item Sur chaque fenêtre de \textbf{252 jours} qui glisse jour après jour, on réestime la droite du marché :
+$\ \hat\beta_t=\operatorname{cov}_W(y,x)/\operatorname{var}_W(x)$ et $\ \hat\alpha_t=(\bar y_W-\hat\beta_t\bar
+x_W)\times252$, avec $y=r-r_f$ et $x=r^{m}-r_f$ --- exactement la régression du bloc M1, mais refaite 2\,800 fois.
+\item M1 n'a pas de version par parti (une voix par membre, toutes chambres) : c'est la \textbf{même courbe} des
+deux côtés, tracée en pointillé.
+\item \textbf{Les fenêtres se chevauchent} --- deux jours voisins partagent 251 observations sur 252. Les
+$\approx$2\,800 points d'une courbe ne valent donc pas 2\,800 mesures mais $\approx$\textbf{11}, une par année.
+\textbf{Ces courbes décrivent, elles ne testent pas} : le test reste le $t$ du bloc précédent.
+\end{pts}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r c r r@{}}
+\toprule
+ & $\beta$ méd. & $\beta$ min--max & $\alpha$ étendue & $\alpha>0$ \\
+\midrule
+M1 \emph{(commune)} & 1,00 & 0,90--1,08 & 29 pts & 57~\% \\
+M2 --- NANC & 1,10 & 0,98--1,46 & 44 pts & 58~\% \\
+M2 --- GOP & 0,96 & 0,78--1,16 & 32 pts & 64~\% \\
+\textbf{M3 --- NANC} & 1,05 & 0,96--1,26 & \textbf{23 pts} & \textbf{70~\%} \\
+\textbf{M3 --- GOP} & 0,99 & 0,89--1,13 & \textbf{14 pts} & \textbf{71~\%} \\
+M4 --- NANC & 1,12 & 0,97--1,49 & 48 pts & 69~\% \\
+M4 --- GOP & 0,97 & 0,84--1,12 & 17 pts & 69~\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\fig{meth_rolling.png}{$\beta$ (en haut) et $\alpha$ (en bas) réestimés sur chaque fenêtre d'un an. \textbf{Le
+$\beta$ de M2 et M4 dérive} --- il monte à 1,45 côté démocrate en 2022--24 et tombe à 0,80 côté républicain,
+donc dans des directions \emph{opposées} selon le parti ; M3 (bleu) reste la plus proche de 1 des deux côtés.
+\textbf{Tous les $\alpha$ traversent zéro}, mais celui de M3 oscille dans une bande deux fois plus étroite.}
+\lecon{\textbf{le glissant confirme M3 par un canal qui n'a pas servi à la choisir} --- l'$\alpha$ le plus souvent
+positif \emph{et} le plus resserré, le $\beta$ le plus stable, sur les deux partis. Le dollar seul achète une
+exposition de marché qui varie ; le facteur \og nombre d'élus\fg{} la tient. \textbf{Et aucune méthode n'échappe
+aux traversées de zéro} : même la meilleure passe près d'un tiers du temps en dessous du marché.}
+
 % ═══════════ VERDICT ═══════════
 \meth{$=$}{La méthode retenue, et pourquoi c'est M3}{on choisit \emph{avant} de regarder les rendements : la plus
 parcimonieuse dont le résultat tient sur les \textbf{deux} partis.}
@@ -246,7 +285,7 @@ qu'un chiffre isolé.
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
 w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 \end{gathered}} \]
-\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer à l'œil (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{650}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
+\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{650}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
@@ -264,9 +303,10 @@ et c'est l'étape qui transformerait un résultat encourageant en résultat éta
 \item \textbf{Les coûts.} Rien n'est facturé. M3 tourne à $\sim$66~\%/an ; à 10~pb l'aller-retour, cela retire de
 l'ordre de $0{,}1$~pt/an --- petit devant $+1{,}75$, mais à chiffrer.
 \item \textbf{La période.} 2014--2026 est un marché haussier dominé par la croissance, précisément le tilt de M3.
-\item \textbf{Où loge l'$\alpha$ ?} Non testé : par secteur, par taille de dépôt, par élu. Si l'$\alpha_4$ se
-concentre sur un sous-ensemble identifiable, c'est un résultat ; s'il est diffus, c'en est un autre --- et les
-deux valent d'être sus.
+\item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (bloc $\circlearrowright$) : il est diffus,
+positif $\approx$70~\% des fenêtres. \emph{En coupe}, ça ne l'est pas --- par secteur, par taille de dépôt, par
+élu. S'il se concentre sur un sous-ensemble identifiable, c'est un résultat ; s'il est diffus là aussi, c'en est
+un autre --- et les deux valent d'être sus.
 \end{pts}
 \end{multicols}
 
