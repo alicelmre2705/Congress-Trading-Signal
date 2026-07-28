@@ -1,0 +1,361 @@
+% !TEX program = tectonic
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[top=0.55cm,bottom=0.5cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
+\graphicspath{{figs_nb13/}}
+\definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
+\definecolor{or}{RGB}{150,105,0}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.93\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
+\setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
+\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{grisf!40}}
+% un mouvement = le niveau de titre fort (double filet)
+\newcommand{\mouv}[2]{\vspace{2.4mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}%
+  {\color{bleu}\bfseries #1~---~#2}\par\vspace{0.5mm}{\color{bleu!35}\hrule height 0.5pt}\vspace{1.1mm}}
+% un sous-titre à l'intérieur d'un mouvement
+\newcommand{\et}[2]{\vspace{1.6mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
+\newcommand{\concret}{\par\vspace{0.9mm}{\color{rouge}\bfseries\footnotesize CONCRÈTEMENT}\par\vspace{0.2mm}}
+\newcommand{\lecon}[1]{\vspace{0.4mm}{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça apprend :} #1}\par\vspace{0.2mm}}
+\newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
+\newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries M3 --- pondérer au dollar \emph{et} au nombre d'élus}
+\end{center}
+\vspace{0.4mm}\hrule\vspace{0.8mm}
+\vspace{1.4mm}
+
+% ═══════════ LA CARTE (1) : la règle, et ce qui fixe chaque constante ═══════════
+{\color{bleu}\bfseries La spécification --- et ce qui fixe chaque constante, hors de toute performance}\par\vspace{0.6mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l l l@{}}
+\toprule
+\textbf{ce que fait la règle} & \textbf{valeur} & \textbf{ce qui la fixe --- jamais notre rendement} \\
+\midrule
+fenêtre du signal & 756 j ($\simeq$ 3 ans) & la règle publiée du fonds \\
+montant retenu & milieu de la fourchette déclarée & la règle publiée du fonds \\
+date prise en compte & la \textbf{divulgation} $\delta$ & la date de transaction n'est pas investissable \\
+univers & les $N=150$ plus gros scores & le prospectus annonce 100 à 200 lignes \\
+plafond de position & $c = 8{,}5$~\% & la concentration observée du fonds réel \\
+recomposition & mensuelle & un signal à 3 ans ne renouvelle qu'un trente-sixième par mois \\
+filtre anti-bruit \emph{(M4 seul)} & $\theta = 50$ opérations & la description d'un gérant, pas un réglage \\
+\bottomrule
+\end{tabular}\par}
+\vspace{1.6mm}
+
+% ═══════════ LA CARTE (2) : ce que ça donne ═══════════
+{\color{bleu}\bfseries Ce que M3 donne --- 2014--2026, à la divulgation, brut de frais}\par\vspace{0.6mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l r r c r r r r r r@{}}
+\toprule
+ & excès/an & $t$ & IC 95~\% & $\alpha_1$ & $\alpha_4$ & $t(\alpha_4)$
+ & $\beta$ & NAV & ann.\ gagn. \\
+\midrule
+\textbf{M3 --- NANC} \emph{(Démocrates)} & $\mathbf{+2{,}98}$~\% & \textbf{1,47} & $[-1{,}4;+7{,}4]$
+  & $+1{,}26$ & $\mathbf{+1{,}75}$ & \textbf{1,81} & 1,077 & \textbf{672} & 9/13 \\
+\textbf{M3 --- GOP} \emph{(Républicains)} & $\mathbf{+1{,}24}$~\% & \textbf{1,62} & $[-0{,}4;+2{,}9]$
+  & $+1{,}12$ & $\mathbf{+1{,}68}$ & \textbf{1,82} & 1,004 & \textbf{612} & 10/13 \\
+\midrule
+\emph{repère : le SPY lui-même} & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{517} & --- \\
+\emph{repère : équipondéré, même univers} & \emph{$-1{,}32$~\%} & \emph{$-1{,}41$} & \emph{$[-3{,}4;+0{,}7]$}
+  & \emph{$-0{,}86$} & --- & --- & \emph{0,98} & \emph{461} & --- \\
+\emph{repère : $m_i$ seuls, sans les \$} & \emph{$-0{,}58$~\%} & \emph{$-0{,}82$} & \emph{$[-2{,}1;+1{,}0]$}
+  & \emph{$-0{,}32$} & --- & --- & \emph{0,99} & \emph{497} & --- \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\scriptsize\color{grisf} Rendement \emph{total} : NANC 16,6~\%/an $\cdot$ GOP 15,8 $\cdot$ SPY 14,4.
+Base : 113\,369 opérations, 350 élus, 2\,755 titres, 149 recompositions. Les repères sont calculés sur
+\emph{le même univers} que M3 --- seule la pondération change.}\par
+\vspace{0.8mm}\hrule\vspace{1.2mm}
+
+\begin{multicols}{2}
+
+% ═══════════════════════ I ═══════════════════════
+\mouv{I}{La méthode}
+
+\concret
+À chaque fin de mois $t$, pour le parti $P$ :
+\begin{pts}
+\item on retient les \textbf{achats divulgués} sur les 756 derniers jours de bourse. Une vente de vieille
+      ligne n'est pas un signal négatif : elle est ignorée ;
+\item chaque titre reçoit un score --- le montant acheté, multiplié par le nombre d'élus qui l'ont acheté :
+\end{pts}
+\[ s_{i} \;=\; \underbrace{\textstyle\sum_{k} A_k}_{B_i \ \text{: les dollars}}
+   \;\times\; \underbrace{\#\{\text{élus de }P\text{ acheteurs de } i\}}_{m_i \ \text{: le consensus}} \]
+\begin{pts}
+\item on garde les 150 plus gros, on normalise, on plafonne, et on tient le panier un mois --- acheté au
+      \textbf{close du lendemain} de la coupe, puis plus aucune intervention.
+\end{pts}
+
+\et{a}{Pourquoi un produit, et pas une somme}
+
+Si $K$ élus achètent le même titre pour le même montant $a$, alors $B_i = Ka$ et $m_i = K$, donc
+\[ s_i \;=\; K^2 a \]
+\textbf{le consensus compte au carré.} C'est le seul endroit où la méthode s'écarte d'une pondération au
+dollar --- et le mouvement III montre que c'est de là que vient tout le résultat.
+
+\et{b}{Le plafond est un remplissage par niveau, pas un écrêtage}
+
+$\Pi_c$ ne coupe pas les grosses lignes pour jeter l'excédent : il cherche l'unique $\lambda$ tel que la
+somme fasse 1, les lignes saturées restant au plafond et les autres montant proportionnellement.
+\[ \boxed{\;w_i \;=\; \min\bigl(c,\; \lambda\, v_i\bigr), \qquad v_i = s_i \Big/ \textstyle\sum_j s_j\;} \]
+Comme $\lambda \mapsto \sum_i \min(c,\lambda v_i)$ croît continûment de 0 à $\lvert\mathcal S\rvert\,c$, ce
+$\lambda$ existe et est unique \textbf{dès que} $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 12$ titres.
+
+\obs{\textbf{En dessous de douze lignes, le plafond n'existe pas} --- aucun vecteur de somme 1 ne le
+respecte, la normalisation finale rend l'\textbf{équipondéré}. Le cas se produit une fois : à la première
+coupe, en janvier 2014, NANC n'a que 9 titres. Ce mois-là M3 n'est pas pondérée par son score. Une coupe sur
+149 : la NAV finale vaut 672,35 au lieu de 675,74. \emph{Le fait est rapporté, pas corrigé --- le corriger
+changerait le résultat publié.} On le retrouvera au mouvement IV\,c, où il décide de tout.}
+
+% ═══════════════════════ II ═══════════════════════
+\mouv{II}{Ce qu'elle vaut}
+
+\fig{m3_nav.png}{à gauche la valeur du portefeuille, base 100 en février 2014, échelle logarithmique ;
+à droite l'écart au SPY, année par année. Les deux partis battent l'indice sur la période --- et perdent
+franchement certaines années (NANC $-11{,}6$ pt en 2022, $+18{,}9$ en 2023).}
+
+\begin{pts}
+\item \textbf{L'excès n'est pas significatif, et il faut le dire d'entrée.} Avec 13 années d'observation il
+      faudrait $\lvert t\rvert > 2{,}18$ ; on mesure 1,47 et 1,62. \textbf{Les deux intervalles de confiance
+      contiennent zéro} --- celui de NANC va de $-1{,}4$ à $+7{,}4$~\%/an ;
+\item ce qu'on livre est donc la méthode la \textbf{mieux fondée}, pas une méthode dont on démontre qu'elle
+      gagne. Toute la fiche est construite pour que cette phrase reste vraie ;
+\item ce qui \emph{est} solide : la méthode bat l'indice \textbf{9 années sur 13} d'un côté, \textbf{10 sur
+      13} de l'autre, avec un $\beta$ de 1,08 et 1,00 --- elle ne gagne pas en prenant plus de risque de marché.
+\end{pts}
+
+\et{a}{À quoi ressemble le portefeuille}
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r@{\hspace{5mm}} l r@{}}
+\toprule
+\multicolumn{2}{c}{\textbf{NANC}} & \multicolumn{2}{c}{\textbf{GOP}} \\
+\cmidrule(lr){1-2}\cmidrule(lr){3-4}
+GOOG & 8,5~\% & MSFT & 8,5~\% \\
+NVDA & 8,5 & AAPL & 8,3 \\
+AMZN & 8,2 & NVDA & 6,4 \\
+MSFT & 8,2 & UNH & 4,9 \\
+AAPL & 6,6 & GOOG & 4,2 \\
+AVGO & 6,3 & META & 3,7 \\
+PANW & 5,4 & AMZN & 3,2 \\
+META & 3,4 & V & 2,3 \\
+\midrule
+plus gros poids & 8,5~\% & & 8,5~\% \\
+somme des 5 premiers & 40,0~\% & & 32,3~\% \\
+$N_{\text{eff}} = 1/\sum w_i^2$ & 23,4 & & 33,3 \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\scriptsize\color{grisf} les dix plus grosses lignes à la dernière recomposition (mai 2026), sur 150.}\par
+
+\obs{\textbf{Les deux partis convergent sur les mêmes méga-capitalisations technologiques} --- six noms sur
+huit sont communs. Ce qui les sépare ne tient pas dans la tête du portefeuille mais dans les poids : côté
+démocrate \textbf{deux} lignes touchent le plafond et les cinq premières pèsent 40~\%, côté républicain
+\textbf{une} seule et 32~\%. Le portefeuille républicain est donc \emph{moins} concentré
+($N_{\text{eff}}$ 33 contre 23) tout en étant \emph{moins} performant : ici la concentration ne se paie pas,
+elle se gagne.}
+
+% ═══════════════════════ III ═══════════════════════
+\mouv{III}{D'où vient le résultat}
+
+\et{a}{La décomposition, à univers identique}
+
+Les 150 titres restent \emph{ceux que le score complet désigne} ; seule la pondération change. C'est une
+décomposition, pas une compétition.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+poids $\propto$ & excès/an & NAV & excès/an & NAV \\
+\midrule
+1 \emph{(équipondéré)} & $-1{,}32$~\% & 461 & $-1{,}09$~\% & 477 \\
+$m_i$ \emph{(élus seuls)} & $-0{,}58$~\% & 497 & $-0{,}76$~\% & 497 \\
+$B_i$ \emph{(dollars purs)} & $+1{,}35$~\% & 584 & $+0{,}52$~\% & 559 \\
+$\mathbf{B_i\,m_i}$ \emph{(M3)} & $\mathbf{+2{,}98}$~\% & \textbf{672} & $\mathbf{+1{,}24}$~\% & \textbf{612} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.8mm}
+
+\fig{m3_decomposition.png}{la même chose en image. Ni les dollars, ni les élus ne portent le résultat.}
+
+\lecon{\textbf{le produit dépasse ses deux composantes.} Les dollars seuls rendent $+1{,}35$, les élus seuls
+$-0{,}58$, et leur produit $+2{,}98$. Ce n'est pas une somme d'effets : c'est la \emph{coïncidence} entre un
+gros montant et un large accord qui porte l'information. Sélectionner les mêmes titres et les équipondérer
+fait \textbf{perdre} 1,32~\%/an --- la sélection seule ne vaut rien.}
+
+\et{b}{Le filtre anti-bruit}
+
+Un élu qui déclare 300 opérations le même jour ne prend pas 300 décisions : son courtier rééquilibre un
+mandat. Le filtre écarte les opérations issues d'un dépôt de $\theta$ opérations ou plus. Il est massif :
+il retire \textbf{54~\%} du \$ démocrate (388 M\$ sur 716) et \textbf{58~\%} du \$ républicain.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+excès/an & $\theta=10$ & 20 & \textbf{50} \emph{(M4)} & 100 & $\infty$ \emph{(M3)} \\
+\midrule
+NANC & $+4{,}11$ & $+3{,}97$ & $\mathbf{+4{,}55}$ & $+4{,}09$ & $+2{,}98$ \\
+GOP & $+2{,}94$ & $+2{,}00$ & $\mathbf{+1{,}52}$ & $+1{,}67$ & $+1{,}24$ \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.6mm}
+
+\obs{Le balayage est \textbf{publié en entier} pour montrer la pente, et le verdict se lit à la valeur
+\emph{déclarée d'avance} : $\theta = 50$. Choisir $\theta = 10$ parce que GOP y est meilleur serait un
+réglage rétrospectif --- et la ligne NANC, qui préfère 50, montre bien qu'aucune valeur ne domine.}
+
+% ═══════════════════════ IV ═══════════════════════
+\mouv{IV}{Les trois épreuves}
+
+\et{a}{Le risque --- l'excès n'est-il qu'un pari de style ?}
+
+On régresse sur les quatre facteurs de Fama-French-Carhart : marché, taille (SMB), style (HML), momentum.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r r r@{}}
+\toprule
+ & $\alpha_4$/an & $t$ & Mkt & SMB & HML & Mom \\
+\midrule
+M3 --- NANC & $+1{,}75$~\% & 1,81 & 1,043 & $-0{,}121$ & $-0{,}132$ & $-0{,}082$ \\
+M3 --- GOP & $+1{,}68$~\% & 1,82 & 0,979 & $-0{,}077$ & $+0{,}058$ & $-0{,}071$ \\
+\emph{SPY (repère)} & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{$-0{,}123$} & \emph{$+0{,}012$} & \emph{$-0{,}009$} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.6mm}
+
+\begin{pts}
+\item $\alpha_4$ \emph{monte} par rapport à $\alpha_1$ ($+1{,}26 \to +1{,}75$) : les facteurs de style
+      n'expliquent pas l'excès, ils en \textbf{masquaient} une partie ;
+\item tous les chargements SMB tiennent dans $\lvert\beta_S\rvert \le 0{,}12$, y compris celui du SPY --- le
+      portefeuille n'est pas plus incliné vers les grandes capitalisations que l'indice lui-même.
+\end{pts}
+
+\fig{m3_rolling.png}{$\beta$ et $\alpha$ réestimés sur chaque fenêtre d'un an. Le $\beta$ colle à 1
+(médiane 1,05 et 0,99) ; l'$\alpha$ est positif 70~\% du temps mais traverse zéro sans cesse. Fenêtres
+chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
+
+\et{b}{Le coût --- que faut-il payer pour exécuter, et faut-il ralentir ?}
+
+\begin{pts}
+\item la rotation vaut $\tfrac12\sum_i \lvert w^{\text{réalisé}}_i - w^{\text{dérivé}}_i\rvert$ par coupe,
+      soit \textbf{65 et 68~\%/an} en médiane --- mais \textbf{77 et 83~\% en moyenne}, et c'est la moyenne
+      qui fixe la facture. \emph{(Le fonds réel publie 44, 62 puis 10~\%.)} ;
+\item on facture $V_t \leftarrow V_t\,(1 - 2\,\mathrm{TO}_t\,c)$ avec $c = 10$ points de base, le facteur 2
+      parce qu'on paie à l'achat \textbf{et} à la vente.
+\end{pts}
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & excès brut & excès net & coût & NAV nette \\
+\midrule
+NANC & $+2{,}98$~\% & $+2{,}80$~\% & 0,18 pt/an & 658 \\
+GOP & $+1{,}24$~\% & $+1{,}04$~\% & 0,19 pt/an & 599 \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.8mm}
+
+\obs{\emph{Faut-il brider la rotation ?} On peut la plafonner à $\tau_{\max}$ par mois, avec
+$\lambda_R = \min(1, \tau_{\max}/\mathrm{TO}_t)$. La règle a été écrite avant de regarder : \textbf{on ne
+retient le frein que s'il améliore les deux partis}. À 2~\%/mois, NANC gagne $+0{,}71$ pt et GOP perd
+$-0{,}86$ ; à 5~\%, $+0{,}27$ et $-0{,}07$. \textbf{Aucun plafond ne les améliore tous les deux : le frein
+n'est pas retenu.}}
+
+\lecon{\textbf{M3 survit largement au passage d'ordre} --- 0,18 point par an sur un excès de 2,98. Sa
+fenêtre de trois ans en fait une méthode lente : d'un mois sur l'autre, un trente-sixième du signal se
+renouvelle seulement.}
+
+\et{c}{Les secteurs --- et si on achetait l'ETF plutôt que le titre ?}
+
+Même règle, même fenêtre, même score, même exécution : \textbf{seul l'instrument change}. Chaque titre est
+remplacé par son ETF sectoriel, et les onze secteurs remplacent les cent cinquante titres.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & \multicolumn{2}{c}{2014--2026} & \multicolumn{2}{c}{2019--2026} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+excès/an & NANC & GOP & NANC & GOP \\
+\midrule
+titres $\cdot$ \textbf{M3} \emph{(plafond 8,5~\%)} & $\mathbf{+2{,}98}$ & $\mathbf{+1{,}24}$ & $+3{,}51$ & $+2{,}27$ \\
+titres $\cdot$ score \emph{(sans plafond)} & $+6{,}13$ & $+1{,}76$ & $+7{,}96$ & $+2{,}17$ \\
+\textbf{secteurs $\cdot$ score} & $+1{,}89$ & $\mathbf{0{,}00}$ & $+2{,}24$ & $+0{,}27$ \\
+secteurs $\cdot$ équipondéré & $-2{,}38$ & $-2{,}34$ & $-2{,}98$ & $-2{,}98$ \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.6mm}
+
+\fig{m3_etf_nav.png}{titres contre secteurs, base 100. Le trait plein vert (secteurs, pondérés au score)
+passe sous le trait plein bleu (M3) des deux côtés, et l'écart s'ouvre avec le temps.}
+
+\lecon{\textbf{l'information est dans le titre, pas dans son secteur.} Côté républicain l'excès disparaît
+\emph{exactement} : $0{,}00$~\%/an, $t = 0{,}00$, $\beta = 1{,}01$. Côté démocrate il reste $+1{,}89$, soit
+un tiers de moins. Le portefeuille sectoriel se comporte comme ce qu'il est --- un indice à peine incliné :
+volatilité 18,5~\% contre 16,6 pour le SPY, $N_{\text{eff}}$ de 4 contre 23, et rotation divisée par deux
+(38 contre 77~\%/an).}
+
+\obs{\textbf{Les deux difficultés ont été tranchées en publiant les deux côtés, pas en choisissant.} (i) Le
+plafond de 8,5~\% est \emph{inapplicable} à onze lignes --- c'est le fait du mouvement I\,b :
+$\lceil 1/c\rceil = 12 > 11$, donc le plafonner rendrait l'équipondéré exact et l'on ne mesurerait plus rien.
+D'où les deux bornes, sans plafond et équipondéré, qui encadrent tout résultat possible. (ii) Deux secteurs
+n'existent pas au début (l'immobilier avant octobre 2015, la communication avant juin 2018, où il vaut
+7~\% du flux) : d'où la seconde fenêtre. \textbf{Le classement est le même des deux côtés} --- le choix
+n'a pas décidé du résultat.}
+
+% ═══════════════════════ V ═══════════════════════
+\mouv{V}{Ce que cette fiche n'établit pas}
+
+\et{a}{Combien de choses a-t-on essayées ?}
+
+Un $t$ ne se lit jamais seul : plus on lance de tests, plus le meilleur paraît bon par pur hasard. Sous
+l'hypothèse que rien ne marche, le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne
+$\sqrt{2\ln N}$. Le notebook compte les siens : \textbf{38 essais}, donc un seuil de bruit à
+\[ \sqrt{2\ln 38} \;=\; 2{,}70 \]
+\textbf{Aucun run de cette fiche ne le dépasse}, y compris ceux qui franchissent le seuil de Student.
+
+\et{b}{Les trois réserves sur le run sans plafond}
+
+Le tableau IV\,c montre M3 sans plafond à $+6{,}13$~\%/an ($t = 2{,}41$, NAV 910 contre 672). Ce chiffre est
+publié parce qu'il ne faut rien cacher --- mais \textbf{ce n'est pas une méthode} :
+
+\begin{pts}
+\item \textbf{il n'a jamais été déclaré comme tel.} Il est né d'une contrainte technique : le plafond étant
+      inapplicable aux secteurs, il fallait un run \emph{sans} plafond côté titres pour comparer ce qui est
+      comparable. Le retenir \emph{parce qu'il gagne} est exactement le geste que tout ce protocole écarte ;
+\item \textbf{son $t$ ne survit pas à la multiplicité} : 2,41 contre un seuil de bruit à 2,70 ;
+\item \textbf{il achète ce que le plafond existait pour interdire.} Sa plus grosse ligne pèse 32,5~\% du
+      portefeuille et son $N_{\text{eff}}$ tombe à 7,9 contre 23,4 --- huit lignes efficaces, quand le fonds
+      réel en tient une centaine. Le 8,5~\% n'a jamais été un réglage de rendement : c'est une contrainte de
+      diversification, lue sur le portefeuille réel.
+\end{pts}
+
+\lecon{ce run établit honnêtement \textbf{le prix de la diversification} sur cet échantillon. C'est une
+information sur le produit, pas une stratégie à livrer.}
+
+\et{c}{Les limites assumées}
+
+{\small
+\textbf{Les frais.} Seuls 10 points de base par aller-retour sont facturés, et au mouvement IV\,b seulement.
+Aucun impact de marché, aucune contrainte de liquidité, aucune capacité chiffrée.
+\textbf{Le portefeuille.} Long seul, sans levier, sans vente à découvert.
+\textbf{L'échantillon.} Treize années, dont deux partielles ; la puissance statistique est faible et la
+fiche s'y tient.
+\textbf{La fidélité.} Reproduire le portefeuille réel du fonds est une \emph{autre} question, traitée
+ailleurs : cette fiche mesure une stratégie, pas une réplique.\par}
+
+\end{multicols}
+\end{document}
