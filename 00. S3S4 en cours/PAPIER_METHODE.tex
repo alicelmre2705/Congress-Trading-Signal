@@ -126,11 +126,13 @@ toutes chambres & $+0{,}35$~\% & 0,18 & $-0{,}03$ & $+1{,}00$ \\
 \item Pour chaque titre, la somme des \textbf{dollars achetés} --- un achat de 500\,000~\$ pèse cent fois un achat
 de 5\,000~\$ :
 $\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
-\item Le poids est \textbf{proportionnel} à cette somme. \emph{Seule la pondération change} : l'univers
-$\mathcal U$ --- les 150 plus gros \emph{scores}, définis au bloc suivant --- et le plafond $\Pi_c$ sont
-\textbf{déjà ceux de M3}, pour que la comparaison M2 \emph{vs} M3 isole le seul facteur ajouté et non la sélection. Ce qui n'est pas
-encore là, c'est le filtre de M4.
-\[ w_i=\Pi_c\!\left(\frac{B_i}{\sum_{j\in\mathcal U}B_j}\right) \]
+\item Le poids est \textbf{proportionnel} à cette somme, sous \textbf{deux garde-fous} qui valent pour M2, M3
+et M4 et ne changeront plus : on ne retient que \textbf{150 titres} et \textbf{aucune ligne ne dépasse 8,5~\%}.
+Leur mécanique est détaillée au bloc suivant, où elle sert l'argument.
+\[ w_i\ \propto\ B_i,\qquad\text{plafonné à }c=8{,}5\,\% \]
+\item \emph{Pourquoi les poser dès maintenant} : la sélection des 150 se fait sur le score complet de M3. En la
+gardant \textbf{identique} d'un bloc à l'autre, la comparaison M2 \emph{vs} M3 isole le seul facteur ajouté, et
+jamais un effet de sélection. Ce qui n'est pas encore là, c'est le filtre de M4.
 \end{pts}
 \obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} Testé \textbf{sur M3} : l'excès NANC
 \textbf{tombe} de $+2{,}98$ à $+1{,}40$~\%/an. Les écarter n'est pas une paresse, c'est ce qui marche.}
@@ -158,8 +160,8 @@ ne doit pouvoir emporter le portefeuille.}
 \item \emph{Conséquence, qu'il faut voir} : si $K$ élus déclarent chacun le même montant $a$, alors $B_i=Ka$
 et $s_i=K^2a$ --- le score croît comme le \textbf{carré} du nombre d'élus, car $m_i$ est déjà dans $B_i$
 (plus d'acheteurs, plus de dollars) et on le remultiplie.
-\item On ne garde que les \textbf{150 plus gros scores} --- $\mathcal U(t)$ --- et on normalise :
-$\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$.
+\item Les \textbf{150 titres} annoncés en M2, ce sont les 150 plus gros \emph{scores} --- $\mathcal U(t)$ ---
+et on normalise : $\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$.
 \item On \textbf{plafonne chaque ligne à $c=8{,}5$~\%} : ce qui dépasse est redistribué au prorata sur les autres,
 et on recommence jusqu'à ce que plus rien ne dépasse. Le point d'arrivée s'écrit d'un coup :
 \[ \boxed{\,w_i=\min(c,\ \lambda v_i)\,}\qquad \lambda\ \text{tel que}\ \sum_i w_i=1 \]
