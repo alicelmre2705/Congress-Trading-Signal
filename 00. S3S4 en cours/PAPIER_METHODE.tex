@@ -262,8 +262,8 @@ performance en instabilité : $\beta$ de $0{,}97$ à $1{,}49$ d'un côté, $0{,}
 tout cela n'a servi à choisir M3} --- c'est une confirmation, pas l'argument.}
 
 % ═══════════ LE FROTTEMENT ═══════════
-\meth{\textdollar}{Ce que ça coûte à exécuter, et faut-il ralentir}{tous les chiffres précédents sont bruts. On
-facture maintenant le passage d'ordre --- et on demande s'il vaut mieux \emph{freiner} pour en payer moins.}
+\meth{\textdollar}{Ce que ça coûte à exécuter, et faut-il ralentir}{tous les chiffres précédents sont bruts.
+Deux questions : combien coûte le passage d'ordre --- et vaut-il mieux freiner pour en payer moins ?}
 \concret
 \begin{pts}
 \item \textbf{La vitesse} d'une méthode se mesure à chaque coupe :
@@ -272,10 +272,7 @@ qui change de mains. \textbf{Ce n'est pas un réglage, c'est une conséquence de
 bouge à peine d'un mois à l'autre, sur 42 jours il se reconstruit.
 \item \textbf{Les frais} : on ampute la valeur à chaque coupe, $\ V_t\leftarrow V_t(1-2\,\mathrm{TO}_t\,c)$ avec
 $c=10$~pb. Le \textbf{facteur 2} parce que $\mathrm{TO}_t$ est le montant acheté, égal au montant vendu : on paie
-des deux côtés. Sur un an cela retire $\approx2\times$(rotation)$\times c$.
-\item \textbf{Le frein} de l'étape 6 : au lieu de rejoindre la cible, on n'en parcourt qu'une fraction,
-$\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis
-$w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R(w^{\text{cible}}-w^{\text{dérivé}})$.
+des deux côtés.
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
@@ -292,17 +289,18 @@ M4 --- GOP & 71~\% & $0{,}20$ & $+1{,}32$ & $+2{,}10$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\obs{\emph{Le frein de l'étape 6 mord-il seulement ?} Sur M1, \textbf{à chaque coupe} (rotation 59~\%/mois contre
-un plafond de 25). Sur M3, sur \textbf{3~\% des coupes} côté NANC et \textbf{1~\%} côté GOP --- les rares mois de
-forte recomposition. La
-comparaison n'a donc de sens qu'en descendant le plafond bien plus bas.}
+\obs{\textbf{Première réponse : le frottement décide du sort de M1.} Onze fois plus rapide que les autres, elle
+perd $1{,}59$~pt/an et \emph{passe sous zéro} --- son excès n'aurait pas survécu au passage d'ordre. Les
+pondérations au dollar, elles, ne laissent qu'un cinquième de point.}
+\obs{\textbf{Reste le frein} de l'étape 6 : au lieu de rejoindre la cible, on n'en parcourt qu'une fraction,
+$\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis $w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R
+(w^{\text{cible}}-w^{\text{dérivé}})$. À $\tau_{\max}=25\,\%$ il mord \textbf{à chaque coupe} sur M1 --- mais sur
+\textbf{3~\% des coupes} seulement sur M3. Pour que la question ait un sens, il faut descendre bien plus bas.}
 \fig{meth_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
 tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
 inertie qui laisse courir les positions.}
-\lecon{\textbf{le frottement tue la méthode naïve et épargne les autres} : M1 perd $1{,}59$~pt/an et \emph{passe
-sous zéro} --- son excès n'aurait jamais survécu au passage d'ordre --- quand M3 perd $0{,}18$. \textbf{Le frein
-n'est pas retenu} : il gagne $+0{,}71$~pt sur NANC et perd $-0{,}85$~pt sur GOP. Un réglage qui aide un camp et
-détruit l'autre est exactement ce que la règle de décision écarte.}
+\lecon{\textbf{Seconde réponse : le frein n'est pas retenu.} Il gagne $+0{,}71$~pt sur NANC et perd $-0{,}85$~pt
+sur GOP. Un réglage qui aide un camp et détruit l'autre est exactement ce que la règle de décision écarte.}
 
 % ═══════════ VERDICT ═══════════
 \meth{$=$}{La méthode retenue, et pourquoi c'est M3}{on choisit \emph{avant} de regarder les rendements : la plus
