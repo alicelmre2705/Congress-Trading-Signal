@@ -11,7 +11,7 @@
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
-\newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.93\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
 \pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
 \setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
 \setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
@@ -246,18 +246,6 @@ inertie qui laisse courir les positions.}
 \lecon{\textbf{le frein n'est pas retenu}. Il gagne $+0{,}71$~pt sur NANC et perd $-0{,}85$~pt
 sur GOP. Un réglage qui aide un camp et détruit l'autre est exactement ce que la règle de décision écarte.}
 
-% ═══════════ VERDICT ═══════════
-\meth{$=$}{La méthode retenue, et pourquoi c'est M3}{on choisit \emph{avant} de regarder les rendements : la plus
-parcimonieuse dont le résultat tient sur les \textbf{deux} partis.}
-\begin{pts}
-\item \textbf{M3, pas M4} : M4 gagne plus mais son $t$ est plus faible sur les deux camps, son IC double, et il
-coûte un paramètre de plus. \textbf{On ne retient pas la méthode qui a le mieux marché, on retient la plus sobre
-qui marche des deux côtés.}
-\item M3 est la seule dont le $t$ dépasse 1,4 \textbf{et} pour NANC \textbf{et} pour GOP --- $1{,}47$ et $1{,}62$
-en excès annuel, $1{,}81$ et $1{,}82$ en $\alpha_4$. La cohérence entre deux échantillons \emph{distincts} vaut
-plus qu'un chiffre isolé --- sans être deux preuves indépendantes : les deux paniers partagent des titres et la
-même période.
-\end{pts}
 \[ \boxed{\begin{gathered}
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
 w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
