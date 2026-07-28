@@ -69,6 +69,14 @@ suffit pas — ce n'est pas lui le coupable.
 dans **un seul fichier**, avec les 52 renvois convertis en liens **internes**. Un seul fichier à autoriser,
 et un clic tombe sur la page exacte, où le passage utilisé est **surligné en jaune**.
 
+## Deux documents s'appuient sur ce dossier
+
+- **`../AUDIT_FONDS_NANC_GOP.pdf`** (2 p.) — **ce que disent les documents**, et rien d'autre : la règle écrite,
+  la règle dite ailleurs par les gérants, le changement de régime d'août 2024, les chiffres publiés, et ce que les
+  documents **ne** disent **pas**. Aucun calcul de notre part. Chaque affirmation porte sa citation en langue
+  originale. La version **`_COMPLET`** (798 p.) contient les 18 pièces à la suite, renvois cliquables internes.
+- **`../FICHE_NANC_GOP.pdf`** (3 p.) — **notre travail** : les trois répliques, la fidélité mesurée, le diagnostic λ.
+
 ## Deux dossiers, deux usages
 
 - **`docs_nanc_gop/`** (ici) — les documents officiels **sans aucune retouche**. C'est la version auditable.

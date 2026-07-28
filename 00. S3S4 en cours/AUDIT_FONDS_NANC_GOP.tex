@@ -1,0 +1,294 @@
+% !TEX program = tectonic
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[top=0.6cm,bottom=0.55cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
+\definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{1pt}
+\setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{grisf!40}}
+\newcommand{\et}[2]{\vspace{1.6mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
+\newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
+\newcommand{\mouv}[2]{\vspace{2.2mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}{\color{bleu}\bfseries #1~---~#2}\par\vspace{0.5mm}{\color{bleu!35}\hrule height 0.5pt}\vspace{1mm}}
+\newcommand{\lire}[1]{{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça veut dire :} #1}\par}
+\newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
+% ── renvois cliquables : ils ouvrent le document archivé À LA PAGE exacte, passage surligné ──
+\newcommand{\rf}[3]{\href{docs_nanc_gop/#2\#page=#3}{\color{bleu}\textsuperscript{\,[#1\,p.#3]}}}
+\newcommand{\sPro}[1]{\rf{1}{1-prospectus-statutaire-SAI-20260127.pdf}{#1}}
+\newcommand{\sCoop}[1]{\rf{2}{2-cooper-la-regle-du-gerant-20231119.pdf}{#1}}
+\newcommand{\sVen}[1]{\rf{3}{3-podcast-Venuto-mecanique-20241206.pdf}{#1}}
+\newcommand{\sChg}[1]{\rf{4}{4-changement-methode-20240802.pdf}{#1}}
+\newcommand{\sAquatre}[1]{\rf{5}{5-rapport-annuel-FY2024.pdf}{#1}}
+\newcommand{\sProxy}[1]{\rf{6}{6-proxy-comparaison-strategies-20240927.pdf}{#1}}
+\newcommand{\sOri}[1]{\rf{7}{7-prospectus-origine-20230203.pdf}{#1}}
+\newcommand{\sTidal}[1]{\rf{8}{8-premier-prospectus-Tidal-20241127.pdf}{#1}}
+\newcommand{\sAcinq}[1]{\rf{9}{9-rapport-annuel-FY2025.pdf}{#1}}
+\newcommand{\sAtrois}[1]{\rf{10}{10-rapport-annuel-FY2023.pdf}{#1}}
+\newcommand{\sSem}[1]{\rf{11}{11-rapport-semestriel-20260331.pdf}{#1}}
+\newcommand{\sSite}[1]{\rf{12}{12-fact-sheet-NANC-juin-2026.pdf}{#1}}
+\newcommand{\sSiteG}[1]{\rf{12}{12-fact-sheet-GOP-juin-2026.pdf}{#1}}
+\newcommand{\sPap}[1]{\rf{13}{13-papier-Baulkaran-Jain-2025.pdf}{#1}}
+\newcommand{\sHebdo}[1]{\rf{14}{14-cadence-hebdomadaire-20230209.pdf}{#1}}
+\newcommand{\sCen}[1]{\rf{15}{15-n-cen-FY2025-extrait.pdf}{#1}}
+\newcommand{\sSemUn}[1]{\rf{16}{16-rapport-semestriel-20230331.pdf}{#1}}
+\newcommand{\sTick}[1]{\rf{17}{17-changement-code-KRUZ-GOP-20250318.pdf}{#1}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries NANC et GOP --- ce que les documents disent du fonds}\\[0.5mm]
+{\small Audit documentaire de deux ETF qui répliquent les déclarations boursières du Congrès américain}
+\end{center}
+\vspace{0.4mm}\hrule\vspace{0.8mm}
+{\footnotesize
+\textbf{Objet.} Ce document ne contient aucun calcul de notre part. Il rassemble ce que \textbf{le fonds lui-même}
+et ses documents officiels déclarent : la règle telle qu'elle est écrite, la règle telle que ses gérants la
+décrivent ailleurs, ce qui a changé en août 2024, les chiffres publiés --- et ce que les documents \emph{ne}
+disent \emph{pas}. Chaque affirmation porte sa \textbf{citation en langue originale} et un renvoi cliquable vers
+la page exacte du document archivé, où le passage est surligné.}
+\vspace{0.8mm}\hrule\vspace{1.2mm}
+
+\begin{multicols}{2}
+
+\mouv{I}{Ce que sont ces deux fonds}
+\begin{pts}
+\item \textbf{Deux ETF jumeaux, une seule règle, deux partis.} \textbf{NANC} suit les déclarations des élus
+\textbf{démocrates}, \textbf{GOP} (anciennement \textbf{KRUZ}\sTick{1}) celles des \textbf{républicains}. Ils sont
+nés le \textbf{6 février 2023}\sSemUn{3} et sont gérés activement --- ce ne sont pas des fonds indiciels.
+\item \textbf{L'univers, ce sont les élus \emph{et leur famille}} : \emph{\og{}equity securities of publicly-traded
+companies that sitting Democratic members of the U.S. Congress \textbf{and/or their family members} (i.e., a
+spouse and/or any dependent children) also have reported to have invested in\fg{}}\sTidal{6}.
+\item \textbf{Un critère d'appartenance strict} : \emph{\og{}The Fund will \textbf{not} consider investments by any
+U.S. Congressperson who is not registered as a member of the Democratic Party (e.g., \dots\ an Independent but who
+may caucus as a member of the Democratic Party)\fg{}}\sTidal{6}.
+\item \textbf{Trois gérants successifs} : Subversive Capital (2023 $\to$ 01/08/2024), puis \textbf{Tidal
+Investments} à partir du \textbf{2 août 2024}\sChg{3}, enfin réorganisation sous Tidal Trust I (12/2024).
+\item \textbf{Le portefeuille est public tous les jours} : \emph{\og{}daily portfolio holdings\fg{}}\sPro{33}. C'est
+rare, et c'est ce qui rend le fonds vérifiable de l'extérieur.
+\item \textbf{Aucun indice de référence.} Le bloc \texttt{indexFundInfo}, présent pour les fonds indiciels du même
+dépôt, est \textbf{absent} pour NANC et GOP\sCen{1} : il n'y a rien à \og{}suivre\fg{}, seulement une règle.
+\end{pts}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r@{}}
+\toprule
+au 30/06/2026 & \textbf{NANC} & \textbf{GOP} \\
+\midrule
+encours & 282,2 M\$\sSite{1} & 88,5 M\$\sSiteG{1} \\
+nombre de lignes & 104\sSite{1} & 138\sSiteG{1} \\
+frais annuels & 0,73~\%\sSite{1} & 0,73~\%\sSiteG{1} \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{performance annualisée depuis création, au 31/12/2025}}\\
+le fonds & $+23{,}63$~\%\sPro{13} & $+14{,}75$~\%\sPro{24} \\
+\emph{S\&P 500 (total return)} & \emph{$+20{,}96$~\%}\sPro{13} & \emph{$+20{,}96$~\%}\sPro{24} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{le fonds démocrate bat son indice de référence de $2{,}7$ points par an depuis la création ; \textbf{le fonds
+républicain le manque de $6{,}2$ points}. Ces deux chiffres sont publiés par le fonds lui-même, dans le même
+document. La règle est identique des deux côtés --- seul le parti change.}
+
+\mouv{II}{La règle, telle qu'elle est écrite}
+Tout ce qui suit vient d'une seule page du prospectus statutaire\sPro{7}, la seule qui décrive la mécanique.
+
+\begin{center}\scriptsize
+\begin{tabular}{@{}R{2.9cm} R{4.5cm}@{}}
+\toprule
+\textbf{ce qui est écrit} & \textbf{ce que ça veut dire} \\
+\midrule
+\emph{\og{}for the past 3 years\fg{}} & seules les déclarations des \textbf{3 dernières années} entrent \\
+\emph{\og{}the \textbf{midpoint} of these ranges\fg{}} & les montants déclarés sont des \emph{fourchettes} ; on retient
+le \textbf{milieu} \\
+\emph{\og{}netted against any sales of the same security\fg{}} & les achats sont \textbf{diminués des ventes} du même
+titre \\
+\emph{\og{}acquired \dots\ prior to his or her swearing in \dots\ are not considered\fg{}} & ce qu'un élu détenait
+\textbf{avant son entrée en fonction} est ignoré \\
+\emph{\og{}the Adviser will \textbf{not} adjust the Fund\fg{}} (vente d'un vieux lot) & vendre une position ancienne
+\textbf{ne déclenche rien} \\
+\emph{\og{}typically buy or sell a security \textbf{when} a position is reported\fg{}} & on agit \textbf{à la
+divulgation}, pas à la transaction \\
+\emph{\og{}between \textbf{100 to 200} holdings\fg{}} & la taille du portefeuille est bornée \\
+\emph{\og{}weighted based on the \textbf{level of reported trading}\fg{}} & le poids suit \textbf{l'intensité déclarée},
+sans formule chiffrée \\
+\emph{\og{}\textbf{large} purchases, \textbf{recurring} purchases and purchases from \textbf{multiple}\fg{}} & trois
+critères de surpondération : le montant, la répétition, le nombre d'élus \\
+\emph{\og{}will be excluded or underweighted \dots\ \textbf{at its discretion}\fg{}} & le gérant peut écarter une ligne
+\textbf{sans avoir à s'en justifier} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{les sept premières clauses sont \textbf{opératoires} --- on peut les programmer telles quelles. Les trois
+dernières ne le sont pas : \og{}level of reported trading\fg{}, \og{}large / recurring / multiple\fg{} et
+\og{}at its discretion\fg{} décrivent une \textbf{intention}, pas un calcul. \textbf{Le prospectus ne suffit donc
+pas à reconstruire le portefeuille}, et c'est le point de départ de tout le reste.}
+
+\mouv{III}{La règle, telle qu'elle est dite}
+Les deux pièces qui décrivent réellement la mécanique \textbf{ne sont pas des documents réglementaires}. C'est un
+fait remarquable en soi : ce qui manque au prospectus a été dit publiquement, ailleurs.
+
+\et{(a)}{Christian Cooper, co-gérant --- 19/11/2023}
+\begin{pts}
+\item \emph{\og{}build the holdings around the \textbf{relative dollars disclosed} by each member and their families.
+In other words, \textbf{more dollars equals more \og{}votes\fg{}}\fg{}}\sCoop{1}
+\item \emph{\og{}we explicitly choose the \textbf{midpoint} of that disclosure range\fg{}}\sCoop{1}
+\item \emph{\og{}this choice drives \textbf{all the relative allocations}\fg{}}\sCoop{1}
+\end{pts}
+\lire{voilà la formule de pondération, en clair : \textbf{le poids est proportionnel aux dollars déclarés}. Ce
+n'est écrit dans aucun dépôt SEC. Le gérant l'a publié sur un blog.}
+\obs{Le \textbf{premier rapport du fonds} dit déjà la même chose, en mars 2023 : \emph{\og{}What will matter is the
+\textbf{relative allocation} to different names as more members of congress accumulate more or divest more\fg{}}%
+\sSemUn{3}.}
+
+\et{(b)}{Michael Venuto, gérant Tidal --- podcast, 06/12/2024}
+\begin{pts}
+\item \emph{\og{}the data is \textbf{public} disclosure, \textbf{anybody} can go get it\fg{}}\sVen{1} --- il n'y a
+\textbf{aucune donnée privée} dans ce fonds.
+\item \emph{\og{}poking through the data to try and find the \textbf{patterns}\fg{}}\sVen{2} --- un humain cherche des
+motifs : achats groupés, proximité d'une \emph{\og{}committee hearing\fg{}}, achats par \emph{\og{}multiple\fg{}} élus.
+\item \textbf{Le filtre du bruit}, décrit sans paramètre : \emph{\og{}\textbf{300 trades} of \textbf{5 shares} of
+something \dots\ that's \textbf{just a rebalance}\fg{}}\sVen{2} --- les dépôts en masse d'un compte piloté par un
+courtier sont écartés.
+\item \emph{\og{}the fine is, like, \textbf{\$250}\fg{}}\sVen{2} --- l'amende pour déclaration tardive, que le gérant
+cite pour expliquer que la contrainte de déclaration est faible.
+\end{pts}
+\lire{la sélection comporte une \textbf{part de jugement humain}, assumée. \og{}Écarter le bruit\fg{} et
+\og{}chercher des motifs\fg{} ne sont pas des règles : ce sont des décisions. \textbf{Deux personnes appliquant
+ces documents n'obtiendraient pas le même portefeuille.}}
+
+\mouv{IV}{Ce que le fonds a changé --- août 2024}
+La mécanique n'est pas restée la même. Quatre documents datent le basculement.
+
+\begin{center}\scriptsize
+\begin{tabular}{@{}l R{5.1cm}@{}}
+\toprule
+\textbf{date} & \textbf{ce qui est déclaré} \\
+\midrule
+03/02/2023 & \emph{\og{}To create the Fund's \textbf{initial} portfolio\fg{}}\sOri{3} --- la fenêtre de 3 ans ne servait
+alors qu'à \textbf{constituer} le livre de départ \\
+09/02/2023 & \emph{\og{}portfolios are expected to be updated \textbf{weekly}\fg{}}\sHebdo{1} ; cible annoncée
+\textbf{750--800} titres (NANC) \\
+02/08/2024 & Tidal devient gérant ; le portefeuille passe à \emph{\og{}between \textbf{100 to 200}
+holdings\fg{}}\sChg{3} \\
+27/09/2024 & \emph{\og{}100 to 200 holdings \textbf{instead of the previous range of between 500 and 600}\fg{}}%
+\sProxy{57} --- et surtout : \emph{\og{}the methods for analyzing and modeling data \dots\ would \textbf{remain the
+same}\fg{}}\sProxy{57} \\
+30/09/2024 & \emph{\og{}\textbf{eliminated 582 very small positions}\fg{}}\sAquatre{2} \\
+27/11/2024 & \emph{\og{}\textbf{To manage} the Fund's portfolio\fg{}}\sTidal{6} --- le verbe a changé : de
+\emph{créer} à \emph{gérer} \\
+30/09/2025 & la sélection est \emph{\og{}cross referenced against the \dots\ members' \textbf{committee
+roles}\fg{}}\sAcinq{2} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\lire{le fonds a \textbf{divisé son portefeuille par quatre} en une opération, tout en déclarant que sa méthode
+d'analyse \emph{ne changeait pas}. Les deux affirmations ne sont pas contradictoires --- on peut garder le même
+modèle et n'en retenir que les plus grosses lignes --- mais elles signifient qu'\textbf{aucune règle unique ne
+décrit les deux périodes}. Et le glissement de \og{}créer\fg{} à \og{}gérer\fg{} n'est pas un détail de style :
+il déplace la fenêtre de 3 ans du \emph{démarrage} vers le \emph{fonctionnement courant}.}
+
+\mouv{V}{Les chiffres publiés}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+exercice clos le 30/09 & \textbf{rotation NANC} & \textbf{GOP} & \textbf{encours NANC} \\
+\midrule
+2023\sAtrois{74} & 44~\%$^\dagger$ & 46~\% & 9,4 M\$ \\
+2024\sAquatre{39} & \textbf{62~\%} & 54~\% & 175,7 M\$ \\
+2025\sAcinq{27} & \textbf{10~\%} & 16~\% & 255,2 M\$ \\
+\midrule
+semestre au 31/03/2026\sSem{2} & \textbf{5~\%} & 2~\% & 238,9 M\$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\scriptsize\color{grisf}$^\dagger$ \emph{\og{}not annualized for period less than one year\fg{}}\sAtrois{76} : le
+premier exercice ne dure que 7,8 mois. La définition retenue est celle de la SEC --- \emph{\og{}includes the lesser of
+purchases or sales\fg{}} rapporté à l'\emph{\og{}average fair value of long positions\fg{}}\sAtrois{76} --- et elle
+\emph{\og{}excludes in-kind transactions\fg{}}\sAcinq{27}, ce qui en fait un \textbf{plancher}.\par}
+\lire{la rotation \textbf{s'effondre de 62~\% à 10~\%} entre 2024 et 2025, puis à 5~\% sur le dernier semestre.
+Ce n'est pas un effet de taille : l'encours \emph{monte} sur la même période, et un fonds qui grossit par
+souscriptions achète \emph{davantage}. \textbf{Le livre est devenu quasi immobile.}}
+\obs{Le même mouvement se lit ligne à ligne : le fonds détenait \textbf{167\,829} parts de NVIDIA au
+30/09/2024\sAquatre{21} et \textbf{142\,778} un an plus tard\sAcinq{17} --- \textbf{$-15$~\%}, alors que l'encours
+augmentait de 45~\%. Une position qu'on laisse courir sans la renforcer.}
+
+\mouv{VI}{Ce que les documents ne disent pas}
+C'est la partie utile d'un audit : la liste de ce qu'on ne peut pas savoir en lisant tout.
+\begin{pts}
+\item \textbf{Aucune formule de pondération chiffrée.} \og{}Level of reported trading\fg{} n'est jamais traduit
+en équation. La seule formulation exploitable --- \og{}more dollars equals more votes\fg{} --- vient d'un
+\textbf{blog}\sCoop{1}, pas d'un dépôt.
+\item \textbf{Aucun seuil pour le filtre du bruit.} \og{}300 trades of 5 shares\fg{}\sVen{2} est une illustration,
+pas un paramètre.
+\item \textbf{Aucun critère de sélection discrétionnaire.} Le prospectus dit \emph{\og{}at its discretion\fg{}}\sPro{7} ;
+le rapport FY2025 mentionne les \emph{\og{}committee roles\fg{}}\sAcinq{2} sans dire comment ils entrent.
+\item \textbf{Aucune fréquence de recomposition depuis 2024.} Le seul chiffre public --- \emph{\og{}updated
+weekly\fg{}}\sHebdo{1} --- date du lancement et vaut pour l'ère Subversive.
+\item \textbf{Aucun indice}\sCen{1}, donc aucune référence externe imposée.
+\item \textbf{Le fournisseur de données ne construit pas le portefeuille} : \emph{\og{}plays no role in the
+construction or implementation\fg{}}\sPro{34}. Il fournit la matière ; les décisions sont celles du gérant.
+\end{pts}
+\lire{les six trous ne sont pas de même nature. Les deux premiers sont des \textbf{paramètres manquants} --- on
+peut les estimer. Le troisième est une \textbf{décision humaine} --- on ne peut pas la reconstituer. C'est la
+distinction qui commande tout travail de réplication.}
+
+\mouv{VII}{Ce que la littérature publiée en dit}
+Un article à comité de lecture a mesuré les deux ETF eux-mêmes --- Baulkaran \& Jain, \emph{Economics Letters}
+250 (2025).
+\begin{pts}
+\item \textbf{Le modèle} : \emph{\og{}a modified Fama-French-Carhart \textbf{five-factor} model\fg{}}\sPap{2}, soit le
+marché, la taille, la valeur, le momentum \textbf{et l'investissement} (CMA), estimé sur les rendements
+\textbf{bruts} des ETF.
+\item \textbf{La fenêtre} : \emph{\og{}February 1, 2023 -- January 31, 2024\fg{}}\sPap{2} --- une seule année, et
+entièrement \textbf{avant} le changement de régime d'août 2024.
+\item \textbf{Le résultat} : \emph{\og{}neither significantly outperforms market returns\fg{}}\sPap{1} ;
+\emph{\og{}Alpha is not significantly different from zero\fg{}}\sPap{4}, dans les \textbf{huit} spécifications.
+\item \textbf{Les expositions} : $\beta$ de marché entre \textbf{1,02 et 1,09} pour NANC, \textbf{0,88 et 0,91}
+pour KRUZ\sPap{4}.
+\end{pts}
+\lire{une source indépendante conclut que \textbf{ces fonds sont du marché}, avec un $\beta$ légèrement supérieur
+à 1 côté démocrate et inférieur côté républicain. À nuancer sur un point : \textbf{une seule année de données},
+donc une puissance statistique faible --- ne pas rejeter n'est pas démontrer l'absence.}
+
+\end{multicols}
+
+\vspace{1mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Les 17 pièces --- ce que chacune établit \emph{seule}}\par\vspace{1mm}
+{\scriptsize
+\begin{tabular}{@{}c R{3.4cm} c R{9.1cm}@{}}
+\toprule
+\textbf{n\textsuperscript{o}} & \textbf{pièce} & \textbf{date} & \textbf{ce qu'elle établit, et qu'aucune autre n'établit} \\
+\midrule
+\textbf{1} & Prospectus statutaire $+$ SAI & 27/01/2026 & \textbf{la règle écrite complète} : univers, fenêtre 3 ans, midpoint, netting, exécution à la divulgation, 100--200 lignes, discrétion $+$ frais, performance officielle, publication quotidienne \\
+\textbf{2} & Cooper, blog du gérant & 19/11/2023 & \textbf{la formule de pondération} : \og{}more dollars equals more votes\fg{}, midpoint, \og{}drives all the relative allocations\fg{} \\
+\textbf{3} & Podcast Venuto (Tidal) & 06/12/2024 & \textbf{la part humaine} : donnée publique, recherche de motifs, filtre du bruit, amende de 250~\$ \\
+4 & Changement de méthode (497) & 02/08/2024 & Tidal devient gérant ; passage à 100--200 lignes \\
+5 & Rapport annuel FY2024 & 30/09/2024 & \og{}eliminated 582 very small positions\fg{} ; rotation 62/54~\% ; parts de NVIDIA \\
+6 & Proxy, comparaison des stratégies & 27/09/2024 & \og{}instead of the previous range of between 500 and 600\fg{} ; la méthode d'analyse \og{}would remain the same\fg{} \\
+7 & Prospectus d'origine (497K) & 03/02/2023 & \og{}to create the Fund's \textbf{initial} portfolio\fg{} \\
+8 & Premier prospectus Tidal & 27/11/2024 & \og{}to \textbf{manage} the Fund's portfolio\fg{} ; exclusion explicite des indépendants \\
+9 & Rapport annuel FY2025 & 30/09/2025 & \og{}cross referenced against the committee roles\fg{} ; rotation 10/16~\% \\
+10 & Rapport annuel FY2023 & 30/09/2023 & rotation 44/46~\% ; définition SEC de la rotation ; \og{}not annualized\fg{} \\
+11 & Rapport semestriel & 31/03/2026 & rotation 5~\% ; 99 lignes ; encours 238,9~M\$ \\
+12 & Fiches produit NANC \emph{et} GOP & 30/06/2026 & encours, nombre de lignes, frais, performance affichée \\
+13 & Baulkaran \& Jain, \emph{Economics Letters} & 03/2025 & mesure indépendante : 5 facteurs, $\alpha$ non significatif, $\beta$ 1,02--1,09 / 0,88--0,91 \\
+14 & ETF Strategy, lancement & 09/02/2023 & \og{}updated \textbf{weekly}\fg{} ; cible 750--800 titres \\
+15 & N-CEN FY2025 (extrait) & 30/09/2025 & \textbf{aucun indice} de référence \\
+16 & Rapport semestriel & 31/03/2023 & première lettre du gérant : \og{}what will matter is the \textbf{relative allocation}\fg{} \\
+17 & Changement de code (497) & 18/03/2025 & KRUZ devient GOP --- nécessaire pour retrouver les dépôts antérieurs \\
+\bottomrule
+\end{tabular}\par}
+
+\vspace{1.5mm}\hrule\vspace{1mm}
+{\scriptsize\color{grisf} Les documents sont archivés dans \path{docs_nanc_gop/}, tels que déposés ou publiés,
+sans retouche. Chaque renvoi \textbf{[n~p.X]} de ce document ouvre la pièce à la page indiquée, où le passage cité
+est \textbf{surligné en jaune}. Les fonds relèvent de \textbf{Tidal Trust I} (CIK 1742912) depuis fin 2024 et de
+\textbf{Series Portfolios Trust} (CIK 1650149) avant : les dépôts SEC sont répartis sur deux identifiants.
+\textbf{Ce document ne contient aucun résultat de notre part} --- la réplication du fonds et sa mesure font
+l'objet d'un document distinct, \path{FICHE_NANC_GOP.pdf}.\par}
+
+\end{document}
