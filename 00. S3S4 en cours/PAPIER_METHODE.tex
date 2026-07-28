@@ -266,10 +266,12 @@ tout cela n'a servi à choisir M3} --- c'est une confirmation, pas l'argument.}
 Deux questions : combien coûte le passage d'ordre --- et vaut-il mieux freiner pour en payer moins ?}
 \concret
 \begin{pts}
-\item \textbf{La vitesse} d'une méthode se mesure à chaque coupe :
-$\ \mathrm{TO}_t=\tfrac12\sum_i\bigl|w^{\text{réalisé}}_i-w^{\text{dérivé}}_i\bigr|$, la fraction du portefeuille
-qui change de mains. \textbf{Ce n'est pas un réglage, c'est une conséquence de la fenêtre} : sur 3 ans le score
-bouge à peine d'un mois à l'autre, sur 42 jours il se reconstruit.
+\item \textbf{La vitesse} se mesure à chaque coupe :
+$\ \mathrm{TO}_t=\tfrac12\sum_i\bigl|w^{\text{réalisé}}_i-w^{\text{dérivé}}_i\bigr|$, la fraction du
+portefeuille qui change de mains. \textbf{Elle ne se règle pas, elle découle de la fenêtre} : à chaque coupe
+celle-ci avance d'un mois, or 42 jours n'en contiennent que \textbf{deux} --- la moitié du signal est renouvelée
+et le classement se refait --- quand 3 ans en contiennent \textbf{trente-six}, dont un seul change. D'où
+l'écart mesuré : \textbf{59~\%} de rotation par mois pour M1, \textbf{5~\%} pour M2--M4.
 \item \textbf{Les frais} : on ampute la valeur à chaque coupe, $\ V_t\leftarrow V_t(1-2\,\mathrm{TO}_t\,c)$ avec
 $c=10$~pb. Le \textbf{facteur 2} parce que $\mathrm{TO}_t$ est le montant acheté, égal au montant vendu : on paie
 des deux côtés.
