@@ -43,7 +43,7 @@ facteurs et au passage d'ordre, et qui reste à confirmer hors échantillon.}}
 \begin{multicols}{2}
 
 % ═══════════ PROTOCOLE ═══════════
-{\color{bleu}\bfseries 0 $\cdot$ Le protocole, identique pour les quatre}\par\vspace{0.3mm}
+{\color{bleu}\bfseries 0 $\cdot$ Le protocole commun --- et ce qui ne l'est pas}\par\vspace{0.3mm}
 \begin{pts}
 \item \textbf{Données} : 134\,464 déclarations brutes $\to$ \textbf{113\,369 exploitées} (350 élus,
 2\,755 titres, 2014--2026). Chaque déclaration donne un titre, un sens, une date, et une \emph{fourchette} de
@@ -51,8 +51,10 @@ montant --- on retient le \textbf{milieu} $A_k$.
 \item \textbf{On se place à la divulgation} $\delta_k$, jamais à la transaction : c'est la seule date où
 l'information est publique, donc la seule où la stratégie est réalisable. \emph{À la date de transaction tous les
 chiffres seraient meilleurs --- et faux.}
-\item \textbf{Fenêtre} de 3 ans glissants, \textbf{recomposition mensuelle}, exécution au close J+1,
-\textbf{buy-and-hold} entre deux coupes. Les deux partis sont traités \textbf{séparément et identiquement}.
+\item \textbf{Recomposition mensuelle}, exécution au \textbf{close J+1}, \textbf{buy-and-hold} entre deux coupes :
+voilà le socle commun. \emph{Ce qui n'est pas commun}, et qu'il faut avoir en tête : la \textbf{fenêtre} (42 jours
+pour M1, 3 ans pour M2--M4) et le \textbf{périmètre} (M1 prend les deux chambres ensemble, sans distinguer les
+partis ; M2--M4 traitent chaque parti \textbf{séparément et identiquement}).
 \item \textbf{Trois mesures}, de la plus indulgente à la plus sévère :
 \end{pts}
 \[ \underbrace{x_Y=\!\prod_{t\in Y}\!(1{+}r_t)-\!\prod_{t\in Y}\!(1{+}r^{m}_t)}_{\text{excès brut}}
@@ -127,13 +129,13 @@ quelque chose, ce n'est pas à égalité qu'on l'extrait. \textbf{Il faut un poi
 de 5\,000~\$ :
 $\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
 \item Le poids est \textbf{proportionnel} à cette somme. \emph{Seule la pondération change} : l'univers
-$\mathcal U$ --- les 150 plus gros, défini au bloc suivant --- et le plafond $\Pi_c$ sont \textbf{déjà ceux de
-M3}, pour que la comparaison M2 \emph{vs} M3 isole le seul facteur ajouté et non la sélection. Ce qui n'est pas
+$\mathcal U$ --- les 150 plus gros \emph{scores}, définis au bloc suivant --- et le plafond $\Pi_c$ sont
+\textbf{déjà ceux de M3}, pour que la comparaison M2 \emph{vs} M3 isole le seul facteur ajouté et non la sélection. Ce qui n'est pas
 encore là, c'est le filtre de M4.
 \[ w_i=\Pi_c\!\left(\frac{B_i}{\sum_{j\in\mathcal U}B_j}\right) \]
 \end{pts}
-\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé : l'excès NANC \textbf{tombe} de
-$+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
+\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé \textbf{sur M3} : l'excès NANC
+\textbf{tombe} de $+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
 marche le mieux.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
@@ -165,7 +167,8 @@ et on recommence jusqu'à ce que plus rien ne dépasse. Le point d'arrivée s'é
 \[ \boxed{\,w_i=\min(c,\ \lambda v_i)\,}\qquad \lambda\ \text{tel que}\ \sum_i w_i=1 \]
 $\lambda\mapsto\sum_i\min(c,\lambda v_i)$ croît de 1 à $|\mathcal U|c$ : $\lambda$ existe et est \textbf{unique}
 dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
-\item Le reste est identique à M2 : achats seuls, 3 ans, close du lendemain, aucun geste entre deux coupes.
+\item \textbf{Le seul changement par rapport à M2 est le facteur $m_i$} --- univers, plafond, fenêtre de 3 ans,
+achats seuls, close du lendemain : tout le reste est identique. C'est ce qui rend la comparaison lisible.
 \end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r c r@{}}
@@ -181,9 +184,10 @@ dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
 \end{center}
 {\scriptsize\color{grisf}$^\dagger$ Ce repère et l'équipondéré de M2 sont des \textbf{décompositions}, pas des
 étapes : on part de la méthode complète et on ne remplace que la pondération, univers et plafond figés.\par}
-\lecon{\textbf{le consensus n'apporte rien tout seul, mais il stabilise} : moins de rendement, plus de $t$ et un
-IC deux fois plus serré. \textbf{C'est le bon échange} --- ce qu'on cherche est un résultat fiable, pas un résultat
-élevé.}
+\lecon{\textbf{le consensus ne stabilise pas, il \emph{augmente}} : le rendement double côté NANC
+($+1{,}35\to+2{,}98$), plus que double côté GOP ($+0{,}52\to+1{,}24$), et le $t$ monte des deux côtés
+($1{,}00\to1{,}47$ et $0{,}27\to1{,}62$). \textbf{Or $m_i$ seul ne produit rien} ($+0{,}33$) : ce n'est ni le
+nombre d'élus ni les dollars, c'est leur \textbf{produit}.}
 
 % ═══════════ M4 ═══════════
 \meth{M4}{Écarter le bruit des comptes gérés}{le gérant du fonds dit ignorer les dépôts en masse : \og{}\emph{300
@@ -207,16 +211,18 @@ GOP & $+1{,}52$~\% & 1,04 & $[-1{,}7;+4{,}7]$ & \textbf{$+2{,}28$} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{le meilleur rendement, la pire fiabilité} : l'IC double de largeur. On a payé le rendement en
-variance. \textbf{Le filtre n'est pas retenu} --- il coûterait en plus un paramètre.}
+\lecon{\textbf{le meilleur rendement, mais la fiabilité recule} : par rapport à M3 l'IC \emph{double} de largeur
+et le $t$ baisse des deux côtés ($1{,}47\to1{,}17$, $1{,}62\to1{,}04$). On a payé le rendement en variance.
+\textbf{Le filtre n'est pas retenu} --- il coûterait en plus un paramètre.}
 
 \fig{meth_cascade.png}{la cascade, méthode par méthode : excès brut (gris), $\alpha$ marché seul (bleu),
 $\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
 
 % ═══════════ LE TEST ═══════════
 \meth{$\star$}{Le test qui tranche}{tout l'excès n'est-il qu'une exposition déguisée ? On régresse sur les
-quatre facteurs du \S0 --- \emph{le modèle que le papier publié applique aux ETF eux-mêmes}, ce qui rend les deux
-résultats comparables.}
+quatre facteurs du \S0. \emph{Le papier publié en applique cinq aux ETF eux-mêmes} --- les quatre mêmes plus le
+facteur d'investissement CMA, et sur le rendement brut plutôt que sur l'excès : les deux résultats se lisent en
+parallèle, pas terme à terme.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -309,7 +315,8 @@ M4 --- GOP & 71~\% & $0{,}20$ & $+1{,}32$ & $+2{,}10$ \\
 \end{tabular}
 \end{center}
 \obs{\emph{Le frein de l'étape 6 mord-il seulement ?} Sur M1, \textbf{à chaque coupe} (rotation 59~\%/mois contre
-un plafond de 25). Sur M3, \textbf{sur 3~\% des coupes} seulement --- les rares mois de forte recomposition. La
+un plafond de 25). Sur M3, sur \textbf{3~\% des coupes} côté NANC et \textbf{1~\%} côté GOP --- les rares mois de
+forte recomposition. La
 comparaison n'a donc de sens qu'en descendant le plafond bien plus bas.}
 \fig{meth_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
 tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
@@ -327,8 +334,9 @@ parcimonieuse dont le résultat tient sur les \textbf{deux} partis.}
 coûte un paramètre de plus. \textbf{On ne retient pas la méthode qui a le mieux marché, on retient la plus sobre
 qui marche des deux côtés.}
 \item M3 est la seule dont le $t$ dépasse 1,4 \textbf{et} pour NANC \textbf{et} pour GOP --- $1{,}47$ et $1{,}62$
-en excès annuel, $1{,}81$ et $1{,}82$ en $\alpha_4$. La cohérence entre deux échantillons indépendants vaut plus
-qu'un chiffre isolé.
+en excès annuel, $1{,}81$ et $1{,}82$ en $\alpha_4$. La cohérence entre deux échantillons \emph{distincts} vaut
+plus qu'un chiffre isolé --- sans être deux preuves indépendantes : les deux paniers partagent des titres et la
+même période.
 \end{pts}
 \[ \boxed{\begin{gathered}
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
@@ -339,7 +347,8 @@ w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
 {\small \textbf{Vendre à découvert} --- testé, catastrophique : le panier des titres vendus \emph{est} le marché
-($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur base 100. \textbf{Suivre les options, les ETF ou les
+($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur base 100 --- et cela \emph{à $\tau$}, la date la
+plus favorable. \textbf{Suivre les options, les ETF ou les
 obligations} --- seules les actions entrent. \textbf{Payer l'impact de marché} --- le passage d'ordre est facturé
 (bloc \textdollar), l'effet d'un ordre \emph{sur le prix} non. \textbf{Sortir parce qu'un élu vend} --- sauf M1,
 et seulement sous deux ans.\par}
@@ -354,17 +363,16 @@ et c'est l'étape qui transformerait un résultat encourageant en résultat éta
 $0{,}18$~pt/an à M3. Ce qui reste non mesuré est l'\emph{impact} : un fonds assez gros déplacerait le prix des
 lignes qu'il achète, et tous les titres déclarés par le Congrès ne sont pas liquides.
 \item \textbf{La période.} 2014--2026 est un marché haussier dominé par la croissance, précisément le tilt de M3.
-\item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (bloc $\circlearrowright$) : il est diffus,
-positif $\approx$70~\% des fenêtres. \emph{En coupe}, ça ne l'est pas --- par secteur, par taille de dépôt, par
-élu. S'il se concentre sur un sous-ensemble identifiable, c'est un résultat ; s'il est diffus là aussi, c'en est
-un autre --- et les deux valent d'être sus.
+\item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (bloc $\circlearrowright$) : diffus, positif
+$\approx$70~\% des fenêtres. \emph{En coupe} --- par secteur, par taille de dépôt, par élu --- ce ne l'est pas.
+Qu'il se concentre ou qu'il reste diffus, les deux réponses valent d'être sues.
 \end{pts}
 \vspace{1mm}\hrule\vspace{1mm}
-{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb} :
-\S16 (les quatre méthodes, runs déclarés avant exécution), \S16.1 (les quatre facteurs, validés sur le SPY :
-$\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an), \S16.3 ($\alpha$ et $\beta$ glissants), \S16.4 (rotation,
-frais, frein). Facteurs Fama-French-Carhart, \path{cache/ff_factors.csv}. L'étude de fidélité au fonds NANC ---
-dont M4 reprend le filtre --- fait l'objet d'un document distinct, \path{FICHE_NANC_GOP.pdf}.\par}
+{\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb},
+\S16 à \S16.4 : les quatre méthodes (runs déclarés avant exécution), les quatre facteurs (validés sur le SPY :
+$\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an, \path{cache/ff_factors.csv}), les $\alpha/\beta$ glissants,
+la rotation et les frais. L'étude de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de
+\path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
 
 
