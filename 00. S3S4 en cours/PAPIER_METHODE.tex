@@ -11,7 +11,6 @@
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
-\newcommand{\figfull}[2]{\begin{center}\includegraphics[width=0.84\linewidth]{#1}\end{center}\vspace{-2.5mm}\begin{center}\begin{minipage}{0.86\linewidth}{\scriptsize\color{grisf} #2}\end{minipage}\end{center}\vspace{1mm}}
 \newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
 \pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
 \setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
@@ -183,16 +182,10 @@ titres sont au score minimal, donc à poids quasi nul.}
 \textbf{NANC} & $+2{,}98$~\% & \textbf{1,47} & $[-1{,}4;+7{,}4]$ & $+1{,}75$ \\
 \textbf{GOP} & $+1{,}24$~\% & \textbf{1,62} & $[-0{,}4;+2{,}9]$ & $+1{,}68$ \\
 \midrule
-\emph{$m_i$ seuls, sans les \$}$^\dagger$ & \emph{$+0{,}33$~\%} & \emph{0,33} & --- & \emph{---} \\
+\emph{$m_i$ seuls, sans les \$} & \emph{$+0{,}33$~\%} & \emph{0,33} & --- & \emph{---} \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\scriptsize\color{grisf}$^\dagger$ Ce repère et l'équipondéré de M2 sont des \textbf{décompositions}, pas des
-étapes : on part de la méthode complète et on ne remplace que la pondération, univers et plafond figés.\par}
-\lecon{\textbf{le consensus ne stabilise pas, il \emph{augmente}} : le rendement double côté NANC
-($+1{,}35\to+2{,}98$), plus que double côté GOP ($+0{,}52\to+1{,}24$), et le $t$ monte des deux côtés
-($1{,}00\to1{,}47$ et $0{,}27\to1{,}62$). \textbf{Or $m_i$ seul ne produit rien} ($+0{,}33$) : ce n'est ni le
-nombre d'élus ni les dollars, c'est leur \textbf{produit}.}
 
 % ═══════════ M4 ═══════════
 \meth{M4}{Écarter le bruit des comptes gérés}{le gérant du fonds dit ignorer les dépôts en masse : \og{}\emph{300
@@ -347,6 +340,7 @@ même période.
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
 w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 \end{gathered}} \]
+\fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{584}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
@@ -379,7 +373,6 @@ ci-dessus, et l'on y écarte le regard vers le futur, le fractionnement non retr
 de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de \path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
 
-\figfull{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer d'un seul regard (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{584}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 
 \end{document}
