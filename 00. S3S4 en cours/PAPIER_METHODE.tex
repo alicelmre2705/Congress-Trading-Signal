@@ -45,8 +45,13 @@ pourrait le devenir.}
 % ═══════════ PROTOCOLE ═══════════
 {\color{bleu}\bfseries 0 $\cdot$ Le protocole, identique pour les quatre}\par\vspace{0.3mm}
 \begin{pts}
-\item \textbf{Données} : 134\,464 transactions déclarées, 372 élus, 2014--2026. Chaque déclaration donne un titre,
-un sens, une date, et une \emph{fourchette} de montant --- on retient le \textbf{milieu} $A_k$.
+\item \textbf{Données} : 134\,464 déclarations brutes $\to$ \textbf{113\,369 exploitées} (350 élus,
+2\,755 titres, 2014--2026). Chaque déclaration donne un titre, un sens, une date, et une \emph{fourchette} de
+montant --- on retient le \textbf{milieu} $A_k$.
+\item \textbf{L'entonnoir}, parce que l'écart compte : $-5\,490$ non-actions (2\,190 ETF, 3\,300 de classe
+inconnue), $-705$ antérieures à 2014, et $\mathbf{-14\,900}$ \textbf{faute de série de prix} (992 titres absents,
+51 corrompus). Ce dernier poste vaut \textbf{11,6~\%} du flux : c'est \textbf{la principale limite de la donnée},
+et elle joue contre nous, pas pour nous.
 \item \textbf{On se place à la divulgation} $\delta_k$, jamais à la transaction : c'est la seule date où
 l'information est publique, donc la seule où la stratégie est réalisable. \emph{À la date de transaction tous les
 chiffres seraient meilleurs --- et faux.}
@@ -59,9 +64,6 @@ chiffres seraient meilleurs --- et faux.}
 \[ \underbrace{r-r_f=\alpha_1+\beta(r^{m}\!-\!r_f)+\varepsilon}_{\text{on retire le marché}} \]
 \[ \underbrace{r-r_f=\alpha_4+\beta_{\mathrm M}(r^{m}\!-\!r_f)+\beta_{\mathrm S}\mathrm{SMB}
    +\beta_{\mathrm H}\mathrm{HML}+\beta_{\mathrm U}\mathrm{MOM}+\varepsilon}_{\text{on retire aussi taille, valeur, momentum}} \]
-\obs{\textbf{Le seuil qui commande toutes les conclusions.} Ce dossier a produit \textbf{94} bilans distincts. Sous
-$H_0$, le maximum de $|t|$ sur $N$ essais vaut en espérance $\sqrt{2\ln N}$, soit $\mathbf{3{,}01}$. \textbf{Un $t$
-de 2 ne prouve rien ici} : c'est contre 3,01 qu'il faut le lire, et c'est ce qui évite de se raconter une histoire.}
 
 % ═══════════ M1 ═══════════
 \meth{M1}{Une voix par membre}{chaque élu qui achète a le même poids, quel que soit le montant --- l'hypothèse la

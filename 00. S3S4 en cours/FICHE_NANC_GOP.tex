@@ -74,7 +74,7 @@ $\beta\approx1$ et aucun $t$ au-dessus de 2.
 \toprule
 source & contenu & volume \\
 \midrule
-déclarations (PTR) & chaque transaction : titre, sens, date, \textbf{fourchette} de montant & \textbf{134\,464} transactions, 372 élus, 2014--2026 \\
+déclarations (PTR) & chaque transaction : titre, sens, date, \textbf{fourchette} de montant & \textbf{134\,464} déclarées $\to$ \textbf{113\,369} exploitées, 350 élus, 2\,755 titres \\
 portefeuilles réels & la photo quotidienne publiée, et les \textbf{13 états N-PORT} déposés à la SEC & 1 date détaillée $+$ 13 dates, 03/2023 $\to$ 03/2026 \\
 documents officiels & prospectus, SAI, rapports annuels, lettres du gérant & 18 pièces, 2023 à 2026 \\
 \bottomrule
@@ -412,7 +412,7 @@ Under normal circumstances, the Fund will invest in a portfolio of between 100 t
 {\scriptsize\color{grisf} \textbf{Chaque affirmation sur le fonds porte un renvoi} {\color{bleu}[n\,p.X]} \textbf{cliquable} vers le document officiel qui l'établit. \textbf{Dans cette version} il ouvre le document \emph{en ligne} (adresses ci-dessous) ; \textbf{dans \texttt{FICHE\_NANC\_GOP\_COMPLET.pdf}} il ouvre la \textbf{page exacte}, où le passage utilisé est \textbf{surligné en jaune} --- les documents y sont joints et les renvois y sont internes. Les PDF d'origine, sans retouche, sont dans \path{docs_nanc_gop/}. Les fonds relèvent de \emph{Tidal Trust I} (CIK 1742912) depuis fin 2024 et de \emph{Series Portfolios Trust} (CIK 1650149) auparavant : c'est pourquoi les dépôts sont répartis sur deux identifiants. Noms de fichiers et adresses complètes dans \path{docs_nanc_gop/README.md} (vérifiées le 27/07/2026). Le dossier contient \textbf{18 pièces} ; les autres ont été consultées sans être citées.\par}
 \vspace{1mm}
 
-{\scriptsize\textbf{Données de notre côté} (dans \path{cache/}) : la photo quotidienne du 24/07/2026, \path{NANC_holdings_20260724.csv} et \path{GOP_holdings_20260724.csv} ; les 13 états N-PORT, \path{nport_holdings.csv} ; les déclarations, \path{transactions_backtest_2014_2026.csv} (134\,464 opérations, 372 élus, 2014--2026). Tout est calculé dans \path{11_Strategie_Ticker.ipynb}, \S13.4 à \S13.15 : chaque nombre calculé est une sortie de cellule, les chiffres documentaires portent leur renvoi.\par}
+{\scriptsize\textbf{Données de notre côté} (dans \path{cache/}) : la photo quotidienne du 24/07/2026, \path{NANC_holdings_20260724.csv} et \path{GOP_holdings_20260724.csv} ; les 13 états N-PORT, \path{nport_holdings.csv} ; les déclarations, \path{transactions_backtest_2014_2026.csv} (134\,464 opérations brutes, 113\,369 exploitées après retrait des non-actions et des titres sans série de prix). Tout est calculé dans \path{11_Strategie_Ticker.ipynb}, \S13.4 à \S13.15 : chaque nombre calculé est une sortie de cellule, les chiffres documentaires portent leur renvoi.\par}
 \begin{multicols}{3}\raggedright\sloppy\setlength{\parskip}{0.4pt}
 {\scriptsize
 \textbf{[1] Prospectus statutaire $+$ SAI} --- 485BPOS, 27/01/2026, 146 p. \emph{On y vérifie} : la règle (\textbf{p.\,7} NANC, p.\,17 GOP), les frais (p.\,5 et 15), la performance depuis création (\textbf{p.\,13} et \textbf{p.\,24}), la publication quotidienne (\textbf{p.\,33}), le fournisseur de données (\textbf{p.\,34}).\\
