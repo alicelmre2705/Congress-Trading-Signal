@@ -182,17 +182,9 @@ ou plus} --- signature d'un compte piloté par un courtier, pas d'une décision 
 $\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
 
 % ═══════════ ÉPREUVE 1 ═══════════
-\meth{$\star$}{Épreuve 1 --- l'excès n'est-il qu'une exposition déguisée ?}{on régresse sur les quatre facteurs
-du \S0 ; les chargements sont dans le tableau de tête.}
-\fig{meth_facteurs.png}{les chargements factoriels. La ligne pointillée est le SMB du SPY ($-0{,}12$) : tous les
-chargements de taille tiennent dans $|\mathrm{SMB}|\le0{,}12$.}
-\lecon{\textbf{l'$\alpha$ survit au contrôle} --- il passe de $+1{,}26$ à $+1{,}75$ (NANC) au lieu de s'effondrer.
-Le pari de taille qu'on redoutait \textbf{n'existe pas} : notre SMB \emph{est} celui du SPY. Et le SPY, passé dans
-la même machine, rend $+0{,}04$ ($t$ 0,12) --- elle ne fabrique pas d'$\alpha$ à partir de rien. \textbf{Reste
-que $t\approx1{,}8$} : positif, pas démontré.}
 
 % ═══════════ ÉPREUVE 2 ═══════════
-\meth{$\circlearrowright$}{Épreuve 2 --- le résultat tient-il année après année ?}{un $\alpha$ moyen sur douze ans
+\meth{$\circlearrowright$}{Épreuve 1 --- le résultat tient-il année après année ?}{un $\alpha$ moyen sur douze ans
 peut n'être que deux bonnes années. On rejoue la régression sur une fenêtre glissante d'un an.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r c r r@{}}
@@ -217,7 +209,7 @@ performance en instabilité : $\beta$ de $0{,}97$ à $1{,}49$ d'un côté, $0{,}
 tout cela n'a servi à choisir M3} --- c'est une confirmation, pas l'argument.}
 
 % ═══════════ ÉPREUVE 3 ═══════════
-\meth{\textdollar}{Épreuve 3 --- que coûte l'exécution, et faut-il ralentir ?}{tous les chiffres précédents sont
+\meth{\textdollar}{Épreuve 2 --- que coûte l'exécution, et faut-il ralentir ?}{tous les chiffres précédents sont
 bruts. On facture le passage d'ordre, puis on demande s'il vaut mieux freiner pour en payer moins.}
 \concret
 \begin{pts}
@@ -278,7 +270,7 @@ w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
 {\small \textbf{Suivre les options, les ETF ou les obligations} --- seules les actions entrent.
-\textbf{Payer l'impact de marché} --- le passage d'ordre est facturé (épreuve 3), l'effet d'un ordre \emph{sur le
+\textbf{Payer l'impact de marché} --- le passage d'ordre est facturé (épreuve 2), l'effet d'un ordre \emph{sur le
 prix} non. \textbf{Sortir parce qu'un élu vend} --- sauf M1, et seulement sous deux ans.\par}
 
 {\color{bleu}\bfseries $\neq$ $\cdot$ Ce qui empêche de conclure, et comment le lever}\par\vspace{0.3mm}
@@ -290,7 +282,7 @@ et c'est l'étape qui transformerait un résultat encourageant en résultat éta
 \item \textbf{La capacité.} Le passage d'ordre ne coûte que $0{,}18$~pt/an à M3. Reste l'\emph{impact} : un fonds
 assez gros déplacerait le prix des lignes qu'il achète.
 \item \textbf{La période.} 2014--2026 est un marché haussier dominé par la croissance, précisément le tilt de M3.
-\item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (épreuve 2) : diffus, positif $\approx$70~\%
+\item \textbf{Où loge l'$\alpha$ ?} \emph{Dans le temps}, c'est fait (épreuve 1) : diffus, positif $\approx$70~\%
 des fenêtres. \emph{En coupe} --- par secteur, par taille de dépôt, par élu --- ce ne l'est pas. Qu'il se
 concentre ou qu'il reste diffus, les deux réponses valent d'être sues.
 \end{pts}
