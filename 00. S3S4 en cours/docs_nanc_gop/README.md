@@ -66,7 +66,7 @@ sur la fiche, que vous avez ouverte vous-même, mais **aucune sur le fichier cib
 suffit pas — ce n'est pas lui le coupable.
 
 **La solution retenue : `../FICHE_NANC_GOP_avec_sources.pdf`** — la fiche (3 p.) suivie des documents cités,
-dans **un seul fichier**, avec les 52 renvois convertis en liens **internes**. Un seul fichier à autoriser,
+dans **un seul fichier**, avec les renvois convertis en liens **internes**. Un seul fichier à autoriser,
 et un clic tombe sur la page exacte, où le passage utilisé est **surligné en jaune**.
 
 ## Deux documents s'appuient sur ce dossier
@@ -80,7 +80,7 @@ et un clic tombe sur la page exacte, où le passage utilisé est **surligné en 
 ## Deux dossiers, deux usages
 
 - **`docs_nanc_gop/`** (ici) — les documents officiels **sans aucune retouche**. C'est la version auditable.
-- **`docs_nanc_gop_surlignes/`** — les mêmes, avec **113 passages surlignés en jaune** : exactement ce sur quoi
+- **`docs_nanc_gop_surlignes/`** — les mêmes, avec **162 passages surlignés en jaune** : exactement ce sur quoi
   la fiche s'appuie, page par page. C'est cette version qui est fusionnée dans le PDF auto-portant.
 
 Les deux sont régénérables : `scratchpad/surligner.py` (surlignage, avec rapport d'échec par fragment) puis
@@ -88,5 +88,5 @@ Les deux sont régénérables : `scratchpad/surligner.py` (surlignage, avec rapp
 
 ## Ce que le surlignage a vérifié au passage
 
-Les 113 fragments ont **tous** été trouvés à la page que la fiche annonce : chaque renvoi `[n p.X]` pointe donc
+Les 162 fragments ont **tous** été trouvés à la page que la fiche annonce : chaque renvoi `[n p.X]` pointe donc
 bien sur une page qui contient réellement l'affirmation qu'il soutient.
