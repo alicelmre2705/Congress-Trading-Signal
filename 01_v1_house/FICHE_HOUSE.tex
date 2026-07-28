@@ -98,45 +98,60 @@ stratégie qui les copie $\cdot$ House 2014-2026 $\cdot$ notebook \texttt{Portef
   \node[text=\c, font=\tiny, anchor=north, align=center] at ({\i*1.34}, -0.22) {\lab};}
 \end{tikzpicture}
 \end{center}
-\vspace{0.3mm}
-{\footnotesize\textbf{Les mots, une fois pour toutes.} Un \textbf{membre} dépose des \textbf{documents},
-faits de \textbf{lignes} : une \textbf{position} détenue (\emph{ce que je possède}) ou une
-\textbf{transaction} datée (\emph{ce que j'ai échangé}). On \textbf{reconstruit} le portefeuille de chacun,
-puis une stratégie le \textbf{copie}.}
+\vspace{0.6mm}
+{\footnotesize\textbf{Les documents, une fois pour toutes.} Un membre dépose \textbf{cinq types} de
+documents ; deux \textbf{sections} comptent --- \textcolor{bleu}{\textbf{Schedule A}} = ce qu'il
+\textbf{possède} (positions), \textcolor{orange}{\textbf{Schedule B}} = ce qu'il a \textbf{échangé}
+(transactions).}
+\begin{center}\includegraphics[width=0.62\linewidth]{figures_house/fig_10_catalogue.png}\end{center}
+\vspace{-0.5mm}
+{\footnotesize Le \textbf{B (transactions) n'existe que dans P, O, T} ; H et C ne portent que le A.
+L'amendement (\textbf{A}) reprend les sections du document qu'il corrige. On \textbf{reconstruit} le
+portefeuille de chacun avec les transactions, on l'\textbf{ancre et le vérifie} avec les positions, puis
+une stratégie le \textbf{copie}.}
 \end{tcolorbox}
 
 \vspace{1mm}
 % ═══════════════ ACTE I — LA DONNÉE ═══════════════
 \acte{ACTE I --- la donnée : qui dépose quoi, et ce qu'on en garde}{bleu}
 \rangee{\begin{etapebox}{1}{bleu}{1 $\cdot$ LA POPULATION --- qui est là, qui trade}
-\reponse{900 membres, 4 trajectoires de mandat (haut) --- 408 tradent des actions cotées, vus par des
-canaux différents (bas).}
+\reponse{Les \textbf{900 membres} et leurs 4 trajectoires viennent du \textbf{registre officiel des élus}
+(projet \emph{congress-legislators}), pas de nos dépôts (haut). \textbf{408} tradent des actions cotées,
+vus selon le \textbf{type de document} qui les révèle (bas).}
 \phare{408 sur 900}{membres qui tradent des actions cotées}{bleu}
 \vis{fig_10_quadrant.png}
 \vis{fig_10_trois_zones.png}
-\src{86 membres ne sont vus \emph{que} par leurs rapports annuels ; 17 de plus par des documents scannés
-($391 + 17 = 408$). Source : cellules \og qui trade \fg{} et \og validation croisée \fg{}.}
+\src{305 vus par les PTR (dont 199 aussi par un rapport annuel), 103 vus \emph{seulement} par un rapport
+annuel.\\
+source : registre officiel \texttt{congress-legislators} (les 900 $+$ leurs trajectoires) ; les 408 qui
+tradent $=$ PTR $\cup$ Schedule B, en actions cotées valorisables.}
 \end{etapebox}}{\begin{etapebox}{2}{bleu}{2 $\cdot$ A-T-ON CE QUI EST DÛ ? --- attendu vs observé}
-\reponse{Un \textbf{arrivé} doit une photo d'entrée, un \textbf{partant} une photo de sortie (barres pleines
-$=$ observé, pointillés $=$ attendu). Et chacun, un rapport chaque année.}
+\reponse{Un \textbf{arrivé} doit une photo d'entrée, un \textbf{partant} une photo de sortie (plein $=$ observé,
+pointillés $=$ attendu). Et chacun, un rapport chaque année.}
 \phare{85 \%}{des années de mandat couvertes par un rapport (médiane)}{bleu}
-\vis{fig_10_etape_arrivee.png}
+\vis{fig_recup_photos.png}
 \vis{fig_10_etape_sortie.png}
-\src{une partie des manques est réelle (rien déposé), une partie vient de documents pas encore exploités ---
-séparé membre par membre dans le notebook. Source : cellule \og tableau central \fg{}.}
+\src{Les scans sont bien océrisés (l'étiquette \og{} hors périmètre \fg{} du registre est périmée) :
+\textbf{aucun manque ne vient d'un document \og{} pas exploité \fg{}}. Les membres sans photo ne détiennent
+\emph{aucune action cotée} (immobilier, fonds, banque, assurance-vie) ou n'ont rien déposé --- \textbf{aucune
+photo d'entrée d'un membre détenant une action cotée lisible} n'échappe au pipeline. Source : notebook
+\emph{Récupération photos d'entrée}.}
 \end{etapebox}}
 \vspace{2mm}
-\rangee{\begin{etapebox}{3}{bleu}{3 $\cdot$ L'INVENTAIRE --- tout ce qui est déposé}
-\reponse{Premier travail : réunir tous les documents et compter ce qu'ils contiennent, sans rien écarter.}
-\phare{609\,886}{lignes de patrimoine, dans 14\,887 documents}{bleu}
-\vis{fig_10_inventaire.png}
+\rangee{\begin{etapebox}{3}{bleu}{3 $\cdot$ L'INVENTAIRE --- deux schedules, deux métiers}
+\reponse{Deux sections, deux métiers qui n'ont \textbf{rien à voir}. Le \textbf{Schedule A} (positions) sert à
+\textbf{reconstruire le portefeuille} ; le \textbf{Schedule B} (transactions) se \textbf{compare aux PTR} pour
+ne garder que les ordres inédits.}
+\phare{3 sur 4}{lignes du Schedule B redisent déjà un PTR --- 26\,115 inédites}{bleu}
+\vis{fig_inventaire_ab.png}
 \pts{
-\item 4\,447 rapports annuels, 934 photos de candidat, 378 de sortie, 376 d'entrée --- ramenées à
-325 photos d'entrée retenues, une par membre.
-\item \textbf{Un tiers vient de documents scannés}, relus automatiquement : 188\,970 lignes, dont 81\,535
-avec un symbole boursier. Chaque ligne garde la trace de son origine.
+\item \textbf{Schedule A} : \textbf{609\,886} positions dans 14\,887 documents (C, H, O, T) --- la matière
+première du portefeuille (boîtes 4 et suivantes).
+\item \textbf{Schedule B} : \textbf{110\,147} transactions (O, T), \textbf{comparées aux PTR} --- 84\,032
+(76 \%) redisent un ordre déjà déclaré, seules \textbf{26\,115} sont inédites et complètent les 161\,076
+déclarations rapides.
 }
-\src{source : cellules \og inventaire documentaire \fg{} et \og bouclage \fg{} (18 membres sans aucun document).}
+\src{source : cellules \og inventaire documentaire \fg{} et \og flux O/A/T net \fg{} (colonne \texttt{echo\_ptr}).}
 \end{etapebox}}{\begin{etapebox}{4}{bleu}{4 $\cdot$ LE TRI --- action ou pas action}
 \reponse{Avant tout prix, chaque ligne reçoit une classe : action cotée, fonds, monétaire, ou code de
 formulaire. Le moteur ne verra que les actions et ETF.}
@@ -159,8 +174,8 @@ sources s'additionnent, chacune datée.}
 \phare{129\,538}{transactions datées et valorisées}{vert}
 \vis{fig_10_delais.png}
 \pts{
-\item \textbf{107\,976} déclarations rapides (publiques en 27 jours) $+$ \textbf{14\,084} des rapports
-annuels (publiées 373 jours après) $+$ \textbf{7\,478} des documents scannés.
+\item \textbf{107\,976} déclarations rapides (PTR, publiques en 27 jours) $+$ les \textbf{inédites} du
+Schedule B qu'on a pu valoriser : \textbf{14\,084} d'annuels (sur les 26\,115) $+$ \textbf{7\,478} de scans.
 \item Deux horloges pour une même transaction : la rapide est un \emph{signal}, l'annuelle un
 \emph{enregistrement}. Chaque transaction garde sa provenance.
 }
