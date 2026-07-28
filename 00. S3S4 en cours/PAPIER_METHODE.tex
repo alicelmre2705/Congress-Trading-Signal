@@ -21,6 +21,7 @@
 % une méthode = un bloc : numéro, titre, et l'idée en une ligne
 \newcommand{\meth}[3]{\vspace{2.2mm}{\color{bleu}\hrule height 0.9pt}\vspace{0.7mm}%
   {\color{bleu}\bfseries #1~---~#2}\par{\footnotesize\color{grisf}\emph{l'idée :} #3}\par\vspace{0.9mm}}
+\newcommand{\concret}{\par\vspace{0.9mm}{\color{rouge}\bfseries\footnotesize CONCRÈTEMENT}\par\vspace{0.2mm}}
 \newcommand{\lecon}[1]{\vspace{0.4mm}{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça apprend :} #1}\par\vspace{0.2mm}}
 \newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
 \newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
@@ -69,7 +70,18 @@ chiffres seraient meilleurs --- et faux.}
 plus neutre possible.}
 Soit $\mathcal S_t$ les titres achetés par au moins 2 élus sur la fenêtre, et $\mathcal B_m$ ceux achetés par l'élu $m$ :
 \[ w_i=\frac1{K_t}\sum_{m}\frac{\mathbf 1\{i\in\mathcal B_m\}}{|\mathcal B_m|},\qquad K_t=\#\{\text{élus acheteurs}\} \]
-Chaque élu dispose d'une voix, qu'il répartit entre ses titres.
+\concret
+\begin{pts}
+\item \textbf{Chaque fin de mois}, on regarde les opérations \textbf{divulguées} dans les 42 derniers jours de bourse
+(environ deux mois).
+\item Pour chaque titre, on fait \textbf{les achats moins les ventes} --- \textbf{mais} une vente de titres détenus
+depuis \textbf{plus de 2 ans} \textbf{ne compte pas} : elle solde une vieille position, elle ne dit rien sur le titre
+aujourd'hui. C'est une reconstitution lot par lot, en \emph{premier entré, premier sorti}.
+\item On ne garde que les titres au \textbf{solde positif} et achetés par \textbf{au moins 2 élus} différents.
+\item Chaque élu retenu dispose d'\textbf{une voix}, qu'il partage également entre ses titres : s'il en a acheté
+quatre, chacun reçoit un quart. \textbf{Le montant engagé n'entre pas} --- 5\,000~\$ pèsent autant que 500\,000~\$.
+\item On achète au \textbf{close du lendemain} et on ne touche plus à rien jusqu'à la fin du mois suivant.
+\end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -85,7 +97,18 @@ l'extrait. \textbf{Il faut un poids} --- lequel ?}
 
 % ═══════════ M2 ═══════════
 \meth{M2}{Pondérer aux dollars déclarés}{celui qui engage 500\,000~\$ y croit plus que celui qui en engage 5\,000.}
+\concret
+\begin{pts}
+\item Même rendez-vous mensuel, mais la fenêtre passe à \textbf{3 ans} et \textbf{on ne regarde plus que les
+achats} : \textbf{les ventes sortent complètement du signal}. Un élu qui vend ne fait plus rien bouger.
+\item Pour chaque titre on additionne les \textbf{dollars achetés} (milieu de fourchette). Un achat de 500\,000~\$
+pèse cent fois un achat de 5\,000~\$.
+\item Le poids est proportionnel à cette somme, rien d'autre. Pas de sélection, pas de plafond.
+\end{pts}
 \[ B_i=\!\!\sum_{k\,:\,i(k)=i}\!\! A_k,\qquad w_i\propto B_i \]
+\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} On l'a testé : l'excès NANC \textbf{tombe} de
+$+2{,}98$ à $+1{,}40$~\%/an. Retirer les ventes du signal n'est pas une simplification paresseuse --- c'est ce qui
+marche le mieux.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -110,6 +133,15 @@ Avec $m_i$ le nombre d'élus distincts acheteurs, et $\mathcal U$ les 150 plus g
    \boxed{\,w_i=\min(c,\ \lambda v_i)\,} \]
 $\lambda$ est l'unique réel tel que $\sum_i w_i=1$, avec $c=8{,}5$~\% : un \textbf{remplissage par niveau}, qui
 existe et est unique dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$.
+\concret
+\begin{pts}
+\item On \textbf{multiplie} la somme des dollars par le \textbf{nombre d'élus distincts} qui ont acheté le titre :
+deux élus à 100\,000~\$ l'emportent sur un seul à 150\,000~\$.
+\item On ne garde que les \textbf{150 plus gros scores} ; le reste est la queue de distribution.
+\item On \textbf{plafonne chaque ligne à 8,5~\%} : ce qui dépasse est redistribué sur les autres au prorata, et on
+recommence jusqu'à ce que plus rien ne dépasse.
+\item Le reste est identique à M2 : achats seuls, 3 ans, achat au close du lendemain, on ne touche plus à rien.
+\end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r c r@{}}
 \toprule
@@ -130,8 +162,13 @@ parce que c'est le $t$ qu'on cherche, pas le rendement.}
 % ═══════════ M4 ═══════════
 \meth{M4}{Écarter le bruit des comptes gérés}{le gérant du fonds dit ignorer les dépôts en masse : \og{}\emph{300
 trades \ldots{} 5 shares of something \ldots{} that's just a rebalance}\fg{}. On teste sa règle.}
-On écarte toute opération d'un dépôt de $n_k\ge\theta=50$ opérations du même élu le même jour --- soit
-\textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain.
+\concret
+\begin{pts}
+\item \textbf{Avant tout calcul}, on écarte les opérations qui appartiennent à un dépôt de \textbf{50 opérations ou
+plus} du même élu \textbf{le même jour} : c'est la signature d'un compte piloté par un courtier, pas d'une décision.
+\item Cela retire \textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain.
+\item Tout le reste est identique à M3.
+\end{pts}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r c r@{}}
 \toprule
@@ -189,6 +226,16 @@ w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
 \fig{meth_nav.png}{les NAV, \textbf{toutes rebasées à 100 au 03/02/2014} --- la seule façon de les comparer à l'œil (échelle log). Sur cette fenêtre commune : M1 \textbf{530}, M2 \textbf{650}, \textbf{M3 672}, M4 \textbf{698}, \textbf{SPY 528}.}
 
 % ═══════════ CE QUI MANQUE ═══════════
+{\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
+\begin{pts}
+\item \textbf{Vendre à découvert.} Testé, et catastrophique : le panier des titres vendus \emph{est} le marché
+($\beta=-1{,}03$), et une jambe courte seule termine à 16 sur une base 100.
+\item \textbf{Suivre les options}, les ETF, ou les obligations : seules les actions entrent.
+\item \textbf{Payer des frais.} Aucun coût de transaction n'est facturé nulle part.
+\item \textbf{Sortir d'une position parce qu'un élu vend} --- sauf M1, et encore, seulement si la vente porte sur
+des titres achetés depuis moins de deux ans.
+\end{pts}
+
 {\color{bleu}\bfseries $\neq$ $\cdot$ Ce qui empêche de conclure, et comment le lever}\par\vspace{0.3mm}
 \begin{pts}
 \item \textbf{La significativité.} Aux seuils usuels, l'$\alpha_4$ de M3 n'est \textbf{pas} significatif
