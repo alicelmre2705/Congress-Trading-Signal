@@ -1,6 +1,6 @@
 % !TEX program = tectonic
 \documentclass[9pt,a4paper]{extarticle}
-\usepackage[top=0.65cm,bottom=0.6cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[top=0.55cm,bottom=0.5cm,left=0.9cm,right=0.9cm]{geometry}
 \usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
@@ -64,22 +64,22 @@ partis ; M2--M4 traitent chaque parti \textbf{séparément et identiquement}).
    +\beta_{\mathrm H}\mathrm{HML}+\beta_{\mathrm U}\mathrm{MOM}+\varepsilon}_{\text{on retire aussi taille, valeur, momentum}} \]
 \concret
 {\small Les quatre facteurs ne sont pas de nous : ce sont ceux de Fama-French et Carhart, repris tels quels de la
-bibliothèque de Kenneth French (\path{cache/ff_factors.csv}). Ils se construisent en classant chaque mois toutes
-les actions américaines cotées selon \textbf{deux axes} --- la \textbf{taille} (capitalisation, coupée à la médiane
-NYSE : \emph{S}mall / \emph{B}ig) et le \textbf{ratio valeur comptable sur capitalisation} (coupé aux 30\textsuperscript{e}
-et 70\textsuperscript{e} centiles : \emph{V}alue / \emph{N}eutral / \emph{G}rowth). Cela donne six portefeuilles,
-tous pondérés par capitalisation, et :\par}
+bibliothèque de Kenneth French (\path{cache/ff_factors.csv}). Les trois derniers sont des \textbf{écarts entre
+deux paniers} d'actions américaines --- on achète l'un, on vend l'autre :\par}
 \begin{pts}
-\item $r^{m}\!-\!r_f$ : \textbf{toutes} les actions, pondérées par capitalisation, moins le taux sans risque.
-\item $\mathrm{SMB}=\tfrac13(SV{+}SN{+}SG)-\tfrac13(BV{+}BN{+}BG)$ --- \textbf{petites moins grandes}.
-\item $\mathrm{HML}=\tfrac12(SV{+}BV)-\tfrac12(SG{+}BG)$ --- \textbf{décotées moins chères}.
-\item $\mathrm{MOM}=\tfrac12(SH{+}BH)-\tfrac12(SL{+}BL)$, où $H$ et $L$ sont les 30~\% qui ont le plus et le moins
-monté sur les 12 derniers mois \emph{en sautant le dernier} --- \textbf{gagnants moins perdants}.
+\item $r^{m}\!-\!r_f$ --- \textbf{le marché} : toutes les actions cotées, pondérées par capitalisation, moins le
+taux sans risque.
+\item \textbf{SMB} \emph{(Small Minus Big)} --- le pari sur la \textbf{taille} : acheter les petites entreprises,
+vendre les grandes. Son rendement dit de combien les petites ont battu les grandes.
+\item \textbf{HML} \emph{(High Minus Low)} --- le pari sur la \textbf{valeur} : acheter les actions bon marché
+rapportées à leur valeur comptable, vendre les chères. Il dit de combien la valeur a battu la croissance.
+\item \textbf{MOM} \emph{(Momentum)} --- le pari sur la \textbf{tendance} : acheter ce qui est monté sur l'année
+écoulée, vendre ce qui a baissé. Il dit de combien les gagnants récents ont battu les perdants.
 \end{pts}
-\obs{\textbf{Comment lire un chargement.} $\beta_{\mathrm S}<0$ signifie que le portefeuille se comporte comme les
-\textbf{grandes} capitalisations ; $\beta_{\mathrm H}<0$, comme les valeurs de \textbf{croissance}. Le $\alpha_4$
-est ce qui reste \textbf{une fois ces quatre expositions payées} --- c'est pour cela qu'il est le test le plus
-sévère du papier.}
+\obs{\textbf{Comment lire un chargement.} Ces trois facteurs étant des \emph{écarts}, un chargement négatif se lit
+à l'envers : $\beta_{\mathrm S}<0$ signifie que le portefeuille se comporte comme les \textbf{grandes}
+capitalisations ; $\beta_{\mathrm H}<0$, comme les valeurs de \textbf{croissance}. Le $\alpha_4$ est ce qui reste
+\textbf{une fois ces quatre expositions payées} --- c'est pour cela qu'il est le test le plus sévère du papier.}
 
 % ═══════════ M1 ═══════════
 \meth{M1}{Une voix par membre}{chaque élu qui achète a le même poids, quel que soit le montant --- l'hypothèse la
@@ -148,9 +148,6 @@ GOP & $+0{,}52$~\% & 0,27 & $+0{,}21$ & $+1{,}28$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lecon{\textbf{c'est le geste qui compte} --- l'équipondéré, sur le même univers, est \emph{négatif} : ce qui
-produit quelque chose, c'est la \emph{taille des mises}, pas le fait d'être dans la liste. Mais $t=1{,}00$ et
-$0{,}27$ : le signal existe et ne se démontre pas. \textbf{Il faut le renforcer.}}
 
 % ═══════════ M3 ═══════════
 \meth{M3}{Ajouter le consensus, et borner la concentration}{un titre acheté par dix élus est un signal plus sûr
@@ -170,6 +167,10 @@ dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
 \item \textbf{Le seul changement par rapport à M2 est le facteur $m_i$} --- univers, plafond, fenêtre de 3 ans,
 achats seuls, close du lendemain : tout le reste est identique. C'est ce qui rend la comparaison lisible.
 \end{pts}
+\obs{\textbf{La frontière du top-150 n'est pas nette} : les montants étant des \emph{fourchettes},
+\textbf{104 titres} partagent le score du 150\textsuperscript{e} à une coupe de 2014 et 36 s'échangent selon
+l'ordre de tri. \emph{Mesuré} : les trier de A à Z ou de Z à A déplace l'excès de \textbf{0,03 pt/an} --- ces
+titres sont au score minimal, donc à poids quasi nul.}
 \begin{center}\scriptsize
 \begin{tabular}{@{}l r r c r@{}}
 \toprule
@@ -369,10 +370,11 @@ Qu'il se concentre ou qu'il reste diffus, les deux réponses valent d'être sues
 \end{pts}
 \vspace{1mm}\hrule\vspace{1mm}
 {\scriptsize\color{grisf} Tous les chiffres sont des sorties du notebook \path{11_Strategie_Ticker.ipynb},
-\S16 à \S16.4 : les quatre méthodes (runs déclarés avant exécution), les quatre facteurs (validés sur le SPY :
+\S16 à \S16.5 : les quatre méthodes (runs déclarés avant exécution), les quatre facteurs (validés sur le SPY :
 $\beta_{\mathrm M}=0{,}980$, $\alpha=+0{,}04$~\%/an, \path{cache/ff_factors.csv}), les $\alpha/\beta$ glissants,
-la rotation et les frais. L'étude de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de
-\path{FICHE_NANC_GOP.pdf}.\par}
+la rotation et les frais, puis l'\textbf{audit de méthode} : M3 y est réimplémentée de zéro d'après le seul texte
+ci-dessus, et l'on y écarte le regard vers le futur, le fractionnement non retraité et la position gelée. L'étude
+de fidélité au fonds NANC, dont M4 reprend le filtre, fait l'objet de \path{FICHE_NANC_GOP.pdf}.\par}
 \end{multicols}
 
 
