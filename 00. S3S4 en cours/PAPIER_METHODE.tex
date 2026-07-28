@@ -257,8 +257,10 @@ perd $1{,}59$~pt/an et \emph{passe sous zéro} --- son excès n'aurait pas surv�
 pondérations au dollar, elles, ne laissent qu'un cinquième de point.}
 \obs{\textbf{Reste le frein} : au lieu de rejoindre la cible, on n'en parcourt qu'une fraction,
 $\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis $w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R
-(w^{\text{cible}}-w^{\text{dérivé}})$. À $\tau_{\max}=25\,\%$ il mord \textbf{à chaque coupe} sur M1 --- mais sur
-\textbf{3~\% des coupes} seulement sur M3. Pour que la question ait un sens, il faut descendre bien plus bas.}
+(w^{\text{cible}}-w^{\text{dérivé}})$. Le frein n'agit que si la rotation voulue \emph{dépasse} $\tau_{\max}$ --- sinon $\lambda_R=1$ et rien ne
+change. À $\tau_{\max}=25\,\%$ il se déclenche donc \textbf{à chaque coupe} sur M1 (59~\%/mois, on ne parcourt
+que 42~\% du chemin) mais sur \textbf{3~\% des coupes} sur M3. Pour que la question ait un sens, il faut
+descendre bien plus bas.}
 \fig{meth_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
 tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
 inertie qui laisse courir les positions.}
