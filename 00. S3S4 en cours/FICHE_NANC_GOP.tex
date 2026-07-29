@@ -47,10 +47,10 @@ la \textbf{pondération}, non --- et aucune des deux stratégies ne bat signific
 \vspace{0.6mm}
 \hrule\vspace{0.9mm}
 {\footnotesize
-\textbf{En bref.} Exposition commune à leur portefeuille : \textbf{44--51~\%} (NANC), \textbf{26--35~\%} (GOP), sans dérive sur trois ans.
+\textbf{En bref.} Exposition commune à leur portefeuille : \textbf{46--51~\%} (NANC), \textbf{26--31~\%} (GOP) --- stable sur trois ans côté démocrate, en recul côté républicain au changement de gérant.
 Rotation reproduite \textbf{66~\%} puis \textbf{13~\%} par an, contre \textbf{62~\%} puis \textbf{10~\%} observés --- sans qu'aucun paramètre n'ait été calibré dessus.
 Leurs positions atteignent \textbf{25 fois} le flux déclaré correspondant, alors que la donnée d'entrée est la même que la nôtre.
-$\beta\approx1$ et aucun $t$ au-dessus de 2.
+$\beta\approx1$ partout, et aucune des trois répliques n'a d'excès significatif.
 \par\vspace{0.5mm}
 }
 \vspace{0.9mm}\hrule\vspace{1.2mm}
@@ -64,7 +64,7 @@ $\beta\approx1$ et aucun $t$ au-dessus de 2.
 \item Les élus du Congrès américain sont \textbf{obligés de déclarer} leurs transactions boursières (loi STOCK, 2012). Deux ETF vendent cette information au public : \textbf{NANC} copie les élus \textbf{démocrates}, \textbf{GOP} les \textbf{républicains}.
 \item Ils sont nés le même jour (\textbf{06/02/2023})\sPro{13}\sPro{24}, coûtent 0,72--0,73~\%/an\sPro{5}\sPro{15}, et pèsent \textbf{282~M\$} (NANC, 104 lignes)\sSite{1} et \textbf{88~M\$} (GOP, 138 lignes)\sSiteG{1} --- \emph{GOP cotait sous KRUZ jusqu'en 03/2025}\sTick{1}.
 \item \textbf{Ce qui rend ce terrain rare} : le prospectus impose la publication \textbf{quotidienne} du portefeuille sur le site du fonds\sPro{33}. La cible d'une réplication est donc \emph{observable}, ligne par ligne --- on peut mesurer l'erreur, pas seulement l'estimer.
-\item \textbf{Deux questions.} \textbf{(Q1)} Peut-on \textbf{reconstruire} leur portefeuille à partir des seules déclarations publiques ? \textbf{(Q2)} Cette stratégie a-t-elle un \textbf{avantage} sur le marché ?
+\item \textbf{Trois questions.} \textbf{(Q1)} Peut-on \textbf{reconstruire} leur portefeuille à partir des seules déclarations publiques ? \textbf{(Q2)} Cette stratégie a-t-elle un \textbf{avantage} sur le marché ? Puis, une fois les deux premières tranchées, \textbf{(Q3)} que faut-il \textbf{faire} de cette donnée --- c'est l'objet du mouvement IV.
 \item \emph{Hors périmètre} : coûts, capacité et impact de marché ne sont modélisés d'aucun côté.
 \end{pts}
 
@@ -170,7 +170,7 @@ C --- la bascule & 48~\% & 57~\% & 29~\% & 20~\% \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{la moitié du portefeuille NANC est reproduite, moins d'un tiers du GOP. \emph{Contrôle}, sur la mécanique A : la corrélation des poids vaut $\rho=0{,}73$ (NANC) et $0{,}15$ (GOP) ; sur les \textbf{rangs}, elle tombe à $0{,}06$ --- leurs gros noms sont là, \textbf{pas leur ordre}.}
+\lire{la moitié du portefeuille NANC est reproduite, moins d'un tiers du GOP. \emph{Contrôle}, sur la mécanique A : la corrélation des poids vaut $\rho=0{,}73$ (NANC) et $0{,}15$ (GOP) ; sur les \textbf{rangs} (NANC), elle tombe à $0{,}06$ --- leurs gros noms sont là, \textbf{pas leur ordre}.}
 \obs{\textbf{Recontrôle sur les 13 états N-PORT} (03/2023 $\to$ 03/2026). \textbf{NANC} : l'exposition tient une bande de \textbf{42 à 53~\%} sur les treize dates, sans décrochage --- le plafond est \textbf{structurel}, pas conjoncturel. \textbf{GOP} : elle \textbf{chute au changement de gérant}, \textbf{37,5~\%} en moyenne sous Subversive contre \textbf{31,0~\%} sous Tidal. Le fonds républicain devient \emph{moins} reproductible là où la sélection discrétionnaire prend la main.}
 Leurs 10 plus grosses lignes, en \% :
 \begin{center}\scriptsize
@@ -191,7 +191,7 @@ LLY & 2,71 & 0,75 & 0,43 & 0,36 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{\textbf{leurs grands noms sont dans l'univers reconstruit} (NVDA, GOOG, MSFT, AMZN, AAPL) mais \textbf{pas leurs tailles} ; et trois lignes sont \textbf{quasi absentes} : AMAT, CRWD et PM pèsent au plus 1,4~\% chez nous contre 3 à 5~\% chez eux. Côté GOP l'écart est plus large : leur \textbf{première position, FIX (8,4~\%), est à 0} chez nous.}
+\lire{\textbf{leurs grands noms sont dans l'univers reconstruit} (NVDA, GOOG, MSFT, AMZN, AAPL) mais \textbf{pas leurs tailles} ; et trois lignes sont \textbf{quasi absentes} : AMAT, CRWD et PM pèsent au plus 1,4~\% chez nous contre 3,2 à 5,2~\% chez eux. Côté GOP l'écart est plus large : leur \textbf{première position, FIX (8,4~\%), pèse au plus 0,5~\%} chez nous.}
 \fig{nanc_gop_v3.png}{leur portefeuille (gris) contre la mécanique \textbf{B} : les grands noms coïncident à gauche (NANC), presque rien ne coïncide à droite (GOP).}
 
 \et{c}{Reproduit-on leur rythme ?}
@@ -254,15 +254,15 @@ MSFT & 14,9~M\$ & 83,0~M\$ & 0,2 \\
 cause candidate & variante testée $\to$ effet & statut \\
 \midrule
 mesure du flux & \textbf{5\,236} transactions OCR réintégrées (sur 7\,287 résolues), 10 séries de prix récupérées, montants \og{}$>$1~M\$\fg{} revalorisés $\to$ \textbf{fidélité inchangée} & non contributive \\
-pondération & dollars purs\sCoop{1} contre dollars $\times$ nb d'élus $\to$ 44,5 \emph{vs} 46,8 (NANC), 35,2 \emph{vs} 34,0 (GOP) & \textbf{1 à 2 pts} : marginale \\
+pondération & dollars purs\sCoop{1} contre dollars $\times$ nb d'élus $\to$ 44,5 \emph{vs} 46,8 (NANC), 35,2 \emph{vs} 34,0 (GOP) & \textbf{au plus 2,4 pt} : marginale \\
 source & déclarations de \emph{patrimoine} (420\,916 lignes, Chambre) $\to$ AMAT y pèse \textbf{0,009~\%} contre 5,19~\% du fonds & incompatible \\
-filtrage du bruit & dépôts en masse écartés $\to$ top-10 \textbf{43,5 $\to$ 56,6~\%} (NANC), 25,9 $\to$ 33,9~\% (GOP) & \textbf{contributive} \\
+filtrage du bruit & dépôts en masse écartés, au seuil retenu $\theta=50$ $\to$ top-10 \textbf{43,5 $\to$ 55,5~\%} (NANC), 25,9 $\to$ 33,9~\% (GOP) & \textbf{contributive} \\
 \midrule
 sélection discrétionnaire & aucun paramètre publié & \textbf{le résidu} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{trois causes sur quatre sont \textbf{bornées à quelques points}. Le filtrage documenté en restitue \textbf{13}. Le résidu correspond à la couche que le gérant décrit sans en publier les paramètres.}
+\lire{sur les quatre causes candidates, \textbf{deux sont bornées à quelques points} (la mesure du flux, la forme de la pondération), \textbf{une est incompatible} avec la donnée (le patrimoine), et \textbf{une contribue} : le filtrage documenté restitue \textbf{12 points} de recouvrement. Le résidu correspond à la couche que le gérant décrit sans en publier les paramètres.}
 \obs{\textbf{La donnée d'entrée est publique, et c'est le gérant qui le dit}\sVen{1} : \og{}\emph{the data is \textbf{public disclosure}. \textbf{Anybody can go get it}}\fg{}. Ce qui produit l'écart est en aval\sVen{2} : \og{}\emph{poking through the data \textbf{to try and find the patterns}}\fg{} --- auditions en commission, achats simultanés. \textbf{Un jugement humain, pas une formule.}}
 \obs{\textbf{Le filtre, dans ses mots}\sVen{2} : \og{}\emph{\textbf{300 trades and they were all, like, this big, 5 shares of something, we know that's just a rebalance}}\fg{}. Au seuil retenu ($\ge$50 opérations le même jour, celui que sa description désigne), ces dépôts en masse pèsent \textbf{54~\% du \$ démocrate} et \textbf{58~\% du républicain} dans nos données. \emph{Filtrer plus fin dégrade}, et calibrer le seuil sur la cible relèverait de l'ajustement, non de la réplication.}
 
@@ -275,12 +275,18 @@ dans $(t-756\text{ j},\,t]$ : on écarte les opérations d'un dépôt de $\ge\th
 jour (le bruit des comptes gérés\sVen{2}, \textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain), puis
 \[ s_i=B_i\,m_i,\qquad v_i=\frac{s_i}{\sum_{j\in\mathcal U}s_j},\qquad
    \boxed{w_i=\min(c,\ \lambda v_i)} \]
-avec $\mathcal U$ = les 150 plus gros scores, et $\lambda$ l'unique réel tel que $\sum_i w_i=1$ ($c=8{,}5$~\%).
-Exécution au close J+1, parts figées jusqu'à la coupe suivante.
+avec $\mathcal U$ = les 150 plus gros scores, et $\lambda$ l'unique réel tel que $\sum_i w_i=1$ ($c=10$~\%).
+Exécution au close J+1, parts figées jusqu'à la coupe suivante. Le backtest démarre au \textbf{28/02/2014} :
+c'est la première fin de mois où le plafond admet une solution des deux côtés, puisqu'il y faut au moins
+$\lceil 1/c\rceil=10$ titres.
 \obs{\textbf{Les sept constantes sont fixées hors performance} --- c'est ce qui protège du surajustement :
 fenêtre 3 ans et milieu de fourchette = la règle publiée\sPro{7}\sCoop{1} ; $\delta$ parce que $\tau$ n'est pas
-investissable ; $N$ et $c$ = contrôle de concentration ; $\theta$ = la description du gérant\sVen{2} ; mensuel
-parce que l'hebdomadaire ne change rien.}
+investissable ; $N$ = contrôle de concentration ; \textbf{$c$ = ce que fait le fonds réel} --- sa plus grosse
+ligne vaut $10{,}3$~\% en médiane sur les treize états N-PORT --- \emph{et} la limite réglementaire UCITS ;
+$\theta$ = la description du gérant\sVen{2} ; mensuel parce que l'hebdomadaire ne change rien.
+\emph{Le mouvement III retient $8{,}5$~\%} : c'est la plus grosse ligne lue sur la \emph{seule} photo du
+24/07/2026, et les treize états N-PORT montrent que cette mesure était basse. La réplication garde sa valeur
+d'origine, la méthode prend la mesure complète.}
 
 \textbf{(b) Ce qu'elle vaut.}
 \begin{center}\scriptsize
@@ -288,16 +294,19 @@ parce que l'hebdomadaire ne change rien.}
 \toprule
 2014-26 & excès/an & $t$ & IC 95~\% & $\beta$ \\
 \midrule
-NANC --- la méthode & $+4{,}55$~\% & 1,17 & $[-3{,}9\,;+13{,}0]$ & \textbf{1,15} \\
-\quad \emph{sans le filtre} & \emph{$+2{,}98$~\%} & \emph{1,47} & \emph{$[-1{,}4\,;+7{,}4]$} & \emph{1,08} \\
-GOP --- la méthode & $+1{,}52$~\% & 1,04 & $[-1{,}7\,;+4{,}7]$ & 0,98 \\
-\quad \emph{sans le filtre} & \emph{$+1{,}24$~\%} & \emph{1,62} & \emph{$[-0{,}4\,;+2{,}9]$} & \emph{1,00} \\
+NANC --- la méthode & $+5{,}14$~\% & 1,30 & $[-3{,}5\,;+13{,}8]$ & \textbf{1,15} \\
+\quad \emph{sans le filtre} & \emph{$+3{,}40$~\%} & \emph{1,61} & \emph{$[-1{,}2\,;+8{,}0]$} & \emph{1,08} \\
+GOP --- la méthode & $+1{,}44$~\% & 0,98 & $[-1{,}8\,;+4{,}6]$ & 0,98 \\
+\quad \emph{sans le filtre} & \emph{$+1{,}24$~\%} & \emph{1,61} & \emph{$[-0{,}4\,;+2{,}9]$} & \emph{1,00} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{le filtre \textbf{augmente l'excès brut} mais \textbf{dégrade tout le reste} : le $t$ baisse (1,47 $\to$ 1,17),
-l'$\alpha$ baisse ($+1{,}26\to+0{,}90$) et le $\beta$ monte ($1{,}08\to1{,}15$). Il ajoute de l'exposition et de la
-variance, pas de la compétence --- \textbf{il n'est donc pas retenu}, alors que c'était l'hypothèse de départ.}
+\lire{le filtre \textbf{augmente l'excès brut des deux côtés} ($+3{,}40\to+5{,}14$ et $+1{,}24\to+1{,}44$) et
+\textbf{fait baisser le $t$ des deux côtés} ($1{,}61\to1{,}30$ et $1{,}61\to0{,}98$) : il ajoute donc \emph{plus
+de variance que d'excès}, et l'intervalle de confiance s'ouvre au lieu de se resserrer. C'est le seul effet
+commun aux deux fonds --- côté NANC il monte aussi le $\beta$ ($1{,}08\to1{,}15$) et baisse l'$\alpha$ marché
+($+1{,}66\to+1{,}42$), côté GOP il fait l'inverse. \textbf{Il n'est donc pas retenu}, alors que c'était
+l'hypothèse de départ.}
 
 \textbf{(c) D'où vient l'excès --- le résultat qui tranche.} Même univers, seule la pondération change :
 \begin{center}\scriptsize
@@ -305,55 +314,61 @@ variance, pas de la compétence --- \textbf{il n'est donc pas retenu}, alors que
 \toprule
 pondération & NANC & GOP & $\beta$ \\
 \midrule
-$s_i=B_i\,m_i$ & $+4{,}55$~\% & $+1{,}52$~\% & 1,15 / 0,98 \\
-$B_i$ seuls \emph{(les dollars)} & $+3{,}58$~\% & $+1{,}51$~\% & 1,13 / 0,99 \\
-$m_i$ seuls \emph{(les élus)} & $+0{,}33$~\% & $-0{,}86$~\% & 1,02 / 0,96 \\
-équipondéré & $-0{,}67$~\% & $-2{,}08$~\% & 1,01 / 0,97 \\
+$s_i=B_i\,m_i$ & $\mathbf{+3{,}40}$~\% & $\mathbf{+1{,}24}$~\% & 1,08 / 1,00 \\
+$B_i$ seuls \emph{(les dollars)} & $+1{,}43$~\% & $+0{,}49$~\% & 1,05 / 1,00 \\
+$m_i$ seuls \emph{(les élus)} & $-0{,}65$~\% & $-0{,}78$~\% & 0,99 / 0,96 \\
+équipondéré & $-1{,}38$~\% & $-1{,}08$~\% & 0,98 / 0,97 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{\textbf{ce sont les dollars qui portent tout} ; le nombre d'élus seul ne fait rien. Le $\beta$ de marché
-suit ($1{,}13$--$1{,}15$ au dollar contre $1{,}01$--$1{,}02$ en équipondéré) --- une partie de l'excès est donc
-bien de l'exposition. \textbf{Reste à savoir s'il n'y a que ça} : c'est l'objet du (d).}
+\lire{\textbf{aucune des deux composantes ne suffit, et leur produit dépasse les deux.} Les dollars seuls
+rendent $+1{,}43$ et $+0{,}49$ ; le nombre d'élus seul \emph{fait perdre} ($-0{,}65$, $-0{,}78$) --- à peine
+mieux que l'équipondéré, ce qui est logique puisque compter les élus sans les dollars revient presque à ne rien
+pondérer. C'est le \textbf{produit} qui rend $+3{,}40$ et $+1{,}24$. Le $\beta$ accompagne le mouvement
+($0{,}98$ en équipondéré $\to 1{,}08$ au score) : une partie de l'excès est donc de l'exposition.
+\textbf{Reste à savoir s'il n'y a que ça} : c'est l'objet du (d).}
 
 \textbf{(d) Le test qui tranche : $\alpha$ contre quatre facteurs.} On régresse sur marché, taille, valeur et
-momentum --- \emph{le modèle que le papier publié applique aux ETF eux-mêmes}\sPap{2}, ce qui rend les deux
-résultats comparables :
+momentum --- \emph{les quatre facteurs de Fama-French-Carhart ; le papier publié en applique cinq sur les ETF
+eux-mêmes, il y ajoute l'investissement (CMA)}\sPap{2} :
 \[ r-r_f=\alpha+\beta_{\mathrm{M}}(r^{m}\!-\!r_f)+\beta_{\mathrm{S}}\mathrm{SMB}
    +\beta_{\mathrm{H}}\mathrm{HML}+\beta_{\mathrm{U}}\mathrm{MOM}+\varepsilon \]
 \begin{center}\scriptsize
-\begin{tabular}{@{}l r r r r@{}}
+\begin{tabular}{@{}l r r r r r@{}}
 \toprule
- & $\alpha_1$ \emph{(marché)} & $\alpha_4$ & $t\,\alpha_4$ & $\beta_{\mathrm{SMB}}$ \\
+ & $\alpha_1$ \emph{(marché)} & $\alpha_4$ & $t\,\alpha_4$ & $\beta_{\mathrm{SMB}}$ & $\beta_{\mathrm{HML}}$ \\
 \midrule
-dollars $\times$ élus --- NANC & $+1{,}26$ & $\mathbf{+1{,}75}$ & 1,81 & $-0{,}12$ \\
-dollars $\times$ élus --- GOP & $+1{,}12$ & $\mathbf{+1{,}68}$ & 1,82 & $-0{,}08$ \\
-\quad $+$ filtre --- GOP & $+1{,}62$ & $\mathbf{+2{,}28}$ & \textbf{1,99} & $-0{,}03$ \\
-équipondéré --- NANC & $-0{,}91$ & $+0{,}38$ & 0,42 & $+0{,}08$ \\
-\emph{contrôle : le SPY lui-même} & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{$-0{,}12$} \\
+dollars $\times$ élus --- NANC & $+1{,}66$ & $\mathbf{+2{,}09}$ & \textbf{2,08} & $-0{,}13$ & $-0{,}15$ \\
+dollars $\times$ élus --- GOP & $+1{,}09$ & $\mathbf{+1{,}65}$ & 1,79 & $-0{,}08$ & $+0{,}05$ \\
+\quad $+$ filtre --- GOP & $+1{,}54$ & $\mathbf{+2{,}18}$ & 1,92 & $-0{,}04$ & $+0{,}11$ \\
+équipondéré --- NANC & $-0{,}95$ & $+0{,}05$ & 0,06 & $+0{,}02$ & $+0{,}14$ \\
+\emph{contrôle : le SPY lui-même} & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{$-0{,}12$} & \emph{$+0{,}01$} \\
 \bottomrule
 \end{tabular}
 \end{center}
-\lire{\textbf{l'$\alpha$ ne disparaît pas --- il augmente.} Le tilt n'est pas un biais de \emph{taille} : le
-chargement SMB de nos répliques ($-0{,}12$) est celui du \textbf{SPY lui-même} ($-0{,}12$). C'est un tilt
-\textbf{croissance} ($\beta_{\mathrm{HML}}$ de $-0{,}13$ à $-0{,}31$), et comme la valeur a sous-performé,
-le contrôler \emph{relève} l'$\alpha$ au lieu de l'annuler. Il reste \textbf{$+1{,}4$ à $+2{,}3$~\%/an}.}
-\obs{\textbf{Ce qu'on peut en dire.} Aux seuils usuels, l'$\alpha_4$ de la méthode $\$\times$élus n'est
-\textbf{pas} significatif ($t=1{,}81$ et $1{,}82$ contre $1{,}96$). \textbf{Un $\alpha$ positif, qui résiste aux
-quatre facteurs, et qu'une validation hors échantillon reste seule à pouvoir établir.}}
+\lire{\textbf{l'$\alpha$ ne disparaît pas --- il augmente} ($+1{,}66\to+2{,}09$ côté NANC). Le tilt n'est pas un
+biais de \emph{taille} : le chargement SMB de M3-NANC ($-0{,}13$) est \emph{du même ordre} que celui du
+\textbf{SPY lui-même} ($-0{,}12$). Côté NANC c'est un tilt \textbf{croissance} ($\beta_{\mathrm{HML}}=-0{,}15$),
+et comme la valeur a sous-performé, le contrôler \emph{relève} l'$\alpha$ au lieu de l'annuler ; \textbf{côté GOP
+le chargement HML est légèrement positif} ($+0{,}05$) --- le tilt n'est donc pas le même des deux côtés. Il reste
+\textbf{$+1{,}7$ à $+2{,}2$~\%/an}.}
+\obs{\textbf{Ce qu'on peut en dire.} Aux seuils usuels, l'$\alpha_4$ de la méthode $\$\times$élus \textbf{passe}
+le seuil côté démocrate ($t=2{,}08>1{,}96$) et \textbf{ne le passe pas} côté républicain ($1{,}79$).
+\textbf{Un $\alpha$ positif, qui résiste aux quatre facteurs, mais qu'un seul des deux fonds rend significatif ---
+et qu'une validation hors échantillon reste seule à pouvoir établir.}}
 
 \mouv{V}{Conclusion et portée}
 
 \begin{pts}
 \item \textbf{(Q1) La reconstruction est partielle, et la frontière est nette.} L'\textbf{univers} et le \textbf{rythme de rotation} se retrouvent à partir des seules données publiques --- 66~\% puis 13~\% contre 62~\% puis 10~\%, sans calibration. La \textbf{fonction de pondération}, non : la moitié du portefeuille NANC, moins d'un tiers du GOP.
-\item \textbf{L'écart est attribué, pas constaté.} Leurs positions atteignent \textbf{25 fois} le flux déclaré correspondant, alors que \textbf{la donnée de départ est la même que la nôtre}\sVen{1}. Trois causes candidates sont bornées à quelques points, le filtrage documenté en restitue 13, et le résidu est une \textbf{sélection discrétionnaire}\sAcinq{2} --- à quoi s'ajoute un \textbf{changement de mécanique} daté d'août 2024\sChg{3}\sAquatre{2}.
-\item \textbf{(Q2) Aucun avantage mesurable.} $\beta\approx1$, aucun $t$ au-dessus de 2, zéro dans chaque intervalle de confiance. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{13}\sPro{24} : c'est une \textbf{exposition au marché} assortie d'un biais sectoriel.
-\item \textbf{(Q3) Et la meilleure méthode qu'on puisse construire ?} Son excès vient de la
-\textbf{pondération au dollar}. Une partie est de l'exposition ($\beta$ 1,13--1,15 contre 1,01 en équipondéré) ---
-mais \textbf{pas tout} : contre quatre facteurs il subsiste un $\alpha$ de \textbf{$+1{,}4$ à $+2{,}3$~\%/an}
-($|t|\le1{,}99$), et le tilt n'est pas un biais de taille (SMB $-0{,}12$, comme le SPY) mais un tilt
-\textbf{croissance}. \textbf{Cet $\alpha$ n'atteint pas les seuils usuels} ($t$ 1,81 et 1,82) :
-il est positif et résistant, pas démontré.
+\item \textbf{L'écart est attribué, pas constaté.} Leurs positions atteignent \textbf{25 fois} le flux déclaré correspondant, alors que \textbf{la donnée de départ est la même que la nôtre}\sVen{1}. Deux causes candidates sont bornées à quelques points, une troisième est incompatible avec la donnée, le filtrage documenté restitue 12 points, et le résidu est une \textbf{sélection discrétionnaire}\sAcinq{2} --- à quoi s'ajoute un \textbf{changement de mécanique} daté d'août 2024\sChg{3}\sAquatre{2}.
+\item \textbf{(Q2) Aucun avantage mesurable.} $\beta\approx1$, aucun $t$ des trois répliques au-dessus de 2, zéro dans chaque intervalle de confiance. Le fonds démocrate bat le S\&P de 2,7 points par an, le républicain le sous-performe de 6,2\sPro{13}\sPro{24} : c'est une \textbf{exposition au marché} assortie d'un biais sectoriel.
+\item \textbf{(Q3) Et la meilleure méthode qu'on puisse construire ?} Son excès vient du \textbf{produit}
+$\$\times$élus, qui dépasse chacune de ses deux composantes prise seule. Une partie est de l'exposition
+($\beta$ $1{,}08$ contre $0{,}98$ en équipondéré) --- mais \textbf{pas tout} : contre quatre facteurs il subsiste
+un $\alpha$ de \textbf{$+1{,}7$ à $+2{,}2$~\%/an}, et ce n'est pas un biais de taille (SMB $-0{,}13$, comme le
+SPY $-0{,}12$). \textbf{Cet $\alpha$ ne passe le seuil usuel que d'un seul côté} ($t$ 2,08 côté démocrate,
+1,79 côté républicain) : il est positif et résistant, pas démontré.
 \item \textbf{Ce que l'étude n'établit pas.} Sur $\sim$3 ans la puissance est faible : ne pas rejeter $\alpha=0$ ne démontre pas $\alpha=0$. Résultats \emph{bruts de coûts} des deux côtés, et nos déclarations de patrimoine ne couvrent que la Chambre quand les fonds suivent aussi le Sénat.
 \item \textbf{Extension naturelle.} La composition étant publiée \emph{quotidiennement}\sPro{33}, une capture prospective porterait la référence de 13 observations à $\sim$250 par fonds et par an, et permettrait d'étudier la structure de $\lambda$ (taille, secteur, commission, simultanéité).
 \end{pts}
@@ -375,7 +390,7 @@ Fidélité de \emph{comportement} --- la rotation, telle que le rapport annuel l
 w^{\mathrm{d}}_i(t)=\frac{w_i(t^-)\,P_i(t)/P_i(t^-)}{\sum_j w_j(t^-)\,P_j(t)/P_j(t^-)} \\[0.6mm]
 \tau_Y=\sum_{m\in Y}\tfrac12\sum_i\bigl|w^{\text{cible}}_i(m)-w^{\mathrm{d}}_i(m)\bigr|
 \end{gathered} \]
-\obs{Entre deux coupes les poids bougent pour deux raisons : les cours \emph{dérivent} (sans transaction), puis on \emph{rebalance} (là il y a transaction) --- $w^{\mathrm{d}}$ isole la seconde. \textbf{Pourquoi le $\tfrac12$} : $\sum_i w_i=1$ avant comme après, donc ce qu'on achète égale ce qu'on vend et $\sum_i|\Delta w_i|$ compte le mouvement \textbf{deux fois}. \textbf{Pourquoi pas de dénominateur} : un poids \emph{est} déjà une fraction de l'actif. Les deux définitions coïncident.}
+\obs{Entre deux coupes les poids bougent pour deux raisons : les cours \emph{dérivent} (sans transaction), puis on \emph{rebalance} (là il y a transaction) --- $w^{\mathrm{d}}$ isole la seconde. \textbf{Pourquoi le $\tfrac12$} : $\sum_i w_i=1$ avant comme après, donc ce qu'on achète égale ce qu'on vend et $\sum_i|\Delta w_i|$ compte le mouvement \textbf{deux fois}. \textbf{Pourquoi pas de dénominateur} : un poids \emph{est} déjà une fraction de l'actif. Les deux définitions coïncident \textbf{à un point près} : sur la méthode du mouvement IV côté NANC, le moteur mesure 65~\%/an et la formule ci-dessus 66~\%.}
 Enfin l'\emph{avantage} : $x_Y$ l'excès de l'année $Y$, moyenné sur $n$ années, et $\beta$ par régression sur le marché en excès :
 \[ \begin{gathered}
 x_Y=\prod_{t\in Y}(1{+}r_t)-\prod_{t\in Y}(1{+}r^{\mathrm{SPY}}_t),\qquad t=\frac{\bar x}{\sigma_x/\sqrt{n}} \\[0.6mm]
@@ -407,7 +422,7 @@ Under normal circumstances, the Fund will invest in a portfolio of between 100 t
 {\scriptsize\color{grisf} \textbf{Chaque affirmation sur le fonds porte un renvoi} {\color{bleu}[n\,p.X]} \textbf{cliquable} vers le document officiel qui l'établit. \textbf{Dans cette version} il ouvre le document \emph{en ligne} (adresses ci-dessous) ; \textbf{dans \texttt{FICHE\_NANC\_GOP\_COMPLET.pdf}} il ouvre la \textbf{page exacte}, où le passage utilisé est \textbf{surligné en jaune} --- les documents y sont joints et les renvois y sont internes. Les PDF d'origine, sans retouche, sont dans \path{docs_nanc_gop/}. Les fonds relèvent de \emph{Tidal Trust I} (CIK 1742912) depuis fin 2024 et de \emph{Series Portfolios Trust} (CIK 1650149) auparavant : c'est pourquoi les dépôts sont répartis sur deux identifiants. Noms de fichiers et adresses complètes dans \path{docs_nanc_gop/README.md} (vérifiées le 27/07/2026). Le dossier contient \textbf{18 pièces} ; les autres ont été consultées sans être citées.\par}
 \vspace{1mm}
 
-{\scriptsize\textbf{Données de notre côté} (dans \path{cache/}) : la photo quotidienne du 24/07/2026, \path{NANC_holdings_20260724.csv} et \path{GOP_holdings_20260724.csv} ; les 13 états N-PORT, \path{nport_holdings.csv} ; les déclarations, \path{transactions_backtest_2014_2026.csv} (134\,464 opérations brutes, 113\,369 exploitées après retrait des non-actions et des titres sans série de prix). Tout est calculé dans \path{11_Strategie_Ticker.ipynb}, \S13.4 à \S13.15 : chaque nombre calculé est une sortie de cellule, les chiffres documentaires portent leur renvoi.\par}
+{\scriptsize\textbf{Données de notre côté} (dans \path{cache/}) : la photo quotidienne du 24/07/2026, \path{NANC_holdings_20260724.csv} et \path{GOP_holdings_20260724.csv} ; les 13 états N-PORT, \path{nport_holdings.csv} ; les déclarations, \path{transactions_backtest_2014_2026.csv} (134\,464 opérations brutes, 113\,369 exploitées après retrait des non-actions et des titres sans série de prix). Les mouvements I à III sont calculés dans \path{11_Strategie_Ticker.ipynb}, \S13.4 à \S13.15, et le mouvement IV dans son \S17 (la méthode au plafond retenu) ; les décompositions du IV(c) et du IV(d) sont reprises de \path{13_Methode_M3.ipynb}. Les deux chiffres de patrimoine du \og{}budget de l'écart\fg{} (420\,916 lignes, AMAT à 0,009~\%) viennent des tables \path{11_holdings_complets.csv}. Chaque nombre calculé est une sortie de cellule, les chiffres documentaires portent leur renvoi.\par}
 \begin{multicols}{3}\raggedright\sloppy\setlength{\parskip}{0.4pt}
 {\scriptsize
 \textbf{[1] Prospectus statutaire $+$ SAI} --- 485BPOS, 27/01/2026, 146 p. \emph{On y vérifie} : la règle (\textbf{p.\,7} NANC, p.\,17 GOP), les frais (p.\,5 et 15), la performance depuis création (\textbf{p.\,13} et \textbf{p.\,24}), la publication quotidienne (\textbf{p.\,33}), le fournisseur de données (\textbf{p.\,34}).\\
