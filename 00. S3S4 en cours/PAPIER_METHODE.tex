@@ -197,21 +197,22 @@ peut n'être que deux bonnes années. On rejoue la régression sur une fenêtre 
  & $\beta$ méd. & $\beta$ min--max & $\alpha$ étendue & $\alpha>0$ \\
 \midrule
 M1 \emph{(commune)} & 1,00 & 0,90--1,08 & 29 pts & 57~\% \\
-M2 --- NANC & 1,04 & 0,97--1,18 & 17 pts & 61~\% \\
-M2 --- GOP & 0,97 & 0,83--1,22 & 24 pts & \textbf{51~\%} \\
-\textbf{M3 --- NANC} & 1,05 & 0,96--1,26 & 23 pts & \textbf{70~\%} \\
-\textbf{M3 --- GOP} & 0,99 & 0,89--1,13 & \textbf{14 pts} & \textbf{71~\%} \\
-M4 --- NANC & 1,12 & 0,97--\textbf{1,49} & \textbf{48 pts} & 69~\% \\
-M4 --- GOP & 0,97 & 0,84--1,12 & 17 pts & 69~\% \\
+M2 --- NANC & 1,04 & 0,98--1,18 & 17 pts & 62~\% \\
+M2 --- GOP & 0,97 & 0,83--1,22 & 25 pts & \textbf{52~\%} \\
+\textbf{M3 --- NANC} & 1,06 & 0,95--1,27 & 24 pts & \textbf{71~\%} \\
+\textbf{M3 --- GOP} & 1,00 & 0,90--1,13 & \textbf{14 pts} & \textbf{71~\%} \\
+M4 --- NANC & 1,13 & 0,96--\textbf{1,51} & \textbf{50 pts} & 69~\% \\
+M4 --- GOP & 0,97 & 0,84--1,10 & 16 pts & 69~\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 \fig{meth17_rolling.png}{un panneau par méthode : $\beta$ (trait plein) et $\alpha$ divisé par dix
 (pointillé), réestimés sur chaque fenêtre d'un an --- fenêtres chevauchantes : ces courbes \emph{décrivent},
 elles ne testent pas.}
-\lecon{\textbf{M3 est la seule régulière des deux côtés} : son $\alpha$ tient au-dessus de zéro 70~\% du temps
-côté démocrate \emph{et} républicain, quand M2 y tombe à \textbf{52~\%} --- pile ou face. M4, lui, paie sa
-performance en instabilité : $\beta$ de $0{,}97$ à $1{,}49$ d'un côté, $0{,}84$ de l'autre. \textbf{Et rien de
+\lecon{\textbf{M3 est la seule régulière des deux côtés} : son $\alpha$ tient au-dessus de zéro \textbf{71~\%}
+du temps côté démocrate \emph{et} républicain --- le même chiffre des deux côtés --- quand M2 y tombe à
+\textbf{52~\%}, pile ou face. M4, lui, paie sa performance en instabilité : $\beta$ de $0{,}96$ à $1{,}51$
+d'un côté, $0{,}84$ de l'autre. \textbf{Et rien de
 tout cela n'a servi à choisir M3} --- c'est une confirmation, pas l'argument.}
 
 % ═══════════ ÉPREUVE 3 ═══════════
@@ -247,7 +248,7 @@ M4 --- GOP & 72~\% & $0{,}19$ & $+1{,}26$ & $+2{,}00$ \\
 $\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis $w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R
 (w^{\text{cible}}-w^{\text{dérivé}})$. Le frein n'agit que si la rotation voulue \emph{dépasse} $\tau_{\max}$ --- sinon $\lambda_R=1$ et rien ne
 change. À $\tau_{\max}=25\,\%$ il se déclenche donc \textbf{à chaque coupe} sur M1 (59~\%/mois, on ne parcourt
-que 42~\% du chemin) mais sur \textbf{2~\% des coupes} sur M3. Pour que la question ait un sens, il faut
+que 42~\% du chemin) mais sur \textbf{1~\% des coupes} sur M3. Pour que la question ait un sens, il faut
 descendre bien plus bas.}
 \fig{meth17_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
 tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une

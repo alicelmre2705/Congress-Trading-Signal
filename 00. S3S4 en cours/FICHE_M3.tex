@@ -125,7 +125,7 @@ aucune n'est notre rendement, donnent la même valeur : c'est la \textbf{médian
 fonds réel} sur ses treize états déposés à la SEC ($10{,}3\,\%$), et c'est la \textbf{limite UCITS} par
 émetteur, au-delà de laquelle un fonds européen n'est plus distribuable.
 
-\obs{Il en faut un : \textbf{sans plafond, la plus grosse ligne monte à 35~\% en médiane et jusqu'à
+\obs{Il en faut un : \textbf{sans plafond, la plus grosse ligne monte à 36~\% en médiane et jusqu'à
 87~\%}.}
 
 % ═══════════════════════ II ═══════════════════════
@@ -143,7 +143,7 @@ franchement certaines années (NANC $-11{,}6$ pt en 2022, $+19{,}7$ en 2023).}
 \multicolumn{2}{c}{\textbf{NANC}} & \multicolumn{2}{c}{\textbf{GOP}} \\
 \cmidrule(lr){1-2}\cmidrule(lr){3-4}
 NVDA & 10,0~\% & MSFT & 9,0~\% \\
-GOOG & 10,0 & AAPL & 8,3 \\
+GOOG & 9,9 & AAPL & 8,3 \\
 AMZN & 7,9 & NVDA & 6,4 \\
 MSFT & 7,9 & UNH & 4,8 \\
 AAPL & 6,3 & GOOG & 4,2 \\
@@ -157,12 +157,12 @@ $N_{\text{eff}} = 1/\sum w_i^2$ & 21,6 & & 32,7 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.4mm}
-{\scriptsize\color{grisf} les dix plus grosses lignes à la dernière recomposition (mai 2026), sur 150.}\par
+{\scriptsize\color{grisf} les huit plus grosses lignes à la dernière recomposition (mai 2026), sur 150.}\par
 
 \obs{\textbf{Les deux partis convergent sur les mêmes méga-capitalisations technologiques} --- six noms sur
 huit sont communs. Ce qui les sépare ne tient pas dans la tête du portefeuille mais dans les poids : côté
-démocrate \textbf{deux} lignes touchent le plafond et les cinq premières pèsent 42~\%, côté républicain
-\textbf{une} seule et 33~\%.}
+démocrate les cinq premières pèsent 42~\% contre 33~\% côté républicain, et \textbf{deux} lignes touchent le
+plafond en médiane sur les 148 coupes, contre \textbf{une} seule côté républicain.}
 
 % ═══════════════════════ III ═══════════════════════
 \mouv{III}{D'où vient le résultat}
@@ -188,7 +188,8 @@ $\mathbf{B_i m_i}$ & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}66}$ \emph{(1,4)} & \tex
 \end{tabular}\par}
 \vspace{0.2mm}
 {\scriptsize\color{grisf} $w\propto 1$ équipondéré, $m_i$ élus seuls, $B_i$ dollars purs, $B_im_i$ = M3.
-$\beta$ entre 0,96 et 1,08 partout : aucune ne gagne en prenant plus de risque de marché.}\par
+Le $\beta$ monte avec l'excès (0,98 $\to$ 1,08 côté NANC) : une part du gain vient d'un marché un peu plus
+pris. C'est l'$\alpha_1$, qui le retire, qui montre que l'essentiel ne vient pas de là.}\par
 \vspace{0.8mm}
 
 \et{b}{Le filtre anti-bruit}
@@ -238,8 +239,9 @@ M3 --- GOP & $+1{,}65$~\% & 1,79 & 0,979 & $-0{,}081$ & $+0{,}049$ & $-0{,}073$ 
 \begin{pts}
 \item $\alpha_4$ \emph{monte} par rapport à $\alpha_1$ ($+1{,}66 \to +2{,}09$) : les facteurs de style
       n'expliquent pas l'excès, ils en \textbf{masquaient} une partie ;
-\item tous les chargements SMB tiennent dans $\lvert\beta_S\rvert \le 0{,}12$, y compris celui du SPY --- le
-      portefeuille n'est pas plus incliné vers les grandes capitalisations que l'indice lui-même.
+\item tous les chargements SMB tiennent dans $\lvert\beta_S\rvert \le 0{,}14$, et celui de M3-NANC
+      ($-0{,}131$) est \emph{du même ordre} que celui du SPY lui-même ($-0{,}123$) : l'inclinaison vers les
+      grandes capitalisations est celle de l'indice, à peu de chose près.
 \end{pts}
 
 \fig{m3_rolling.png}{$\beta$ et $\alpha$ réestimés sur chaque fenêtre d'un an. Le $\beta$ colle à 1
