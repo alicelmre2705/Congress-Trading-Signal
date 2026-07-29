@@ -57,10 +57,11 @@ $\lvert t\rvert > 2{,}18$. Base : 113\,369 opérations, 350 élus, 2\,755 titres
 \etape{1}{Les données}
 Une source : la table des déclarations. Trois filtres, dans cet ordre --- la classe d'actif est une
 \textbf{action} (134\,464 $\to$ 128\,974), la transaction tombe entre 2014 et 2026 ($\to$ 128\,269), le titre
-a une série de prix exploitable ($\to$ \textbf{113\,369}). Restent \textbf{350} élus et \textbf{2\,755}
-titres. Chaque opération $k$ porte l'élu $m(k)$, son parti $P(k)$, le titre $i(k)$, le sens (achat ou vente),
-la date de transaction $\tau_k$, la date de \textbf{divulgation} $\delta_k$, et le montant $A_k$ = milieu de
-la fourchette déclarée.
+a une série de prix \emph{exploitable} ($\to$ \textbf{113\,369}), c'est-à-dire au moins deux cotations, un
+cours jamais inférieur à $0{,}10$~\$ et aucune variation journalière au-delà de 300~\%. Restent \textbf{350}
+élus et \textbf{2\,755} titres. Chaque opération $k$ porte l'élu $m(k)$, son parti $P(k)$, le titre $i(k)$,
+le sens (achat ou vente), la date de transaction $\tau_k$, la date de \textbf{divulgation} $\delta_k$, et le
+montant $A_k$ = milieu de la fourchette déclarée.
 
 \etape{2}{Le calendrier et les prix}
 $\mathcal C$ = les 3\,645 jours cotés du SPY, du 03/01/2012 au 02/07/2026 ; toute date est un indice dans
@@ -79,18 +80,21 @@ suivantes.
    \quad W_3 = 756 \text{ j} \]
 Les ventes n'entrent pas dans le score, ni récentes ni anciennes.
 
-\etape{5}{Le score}
-Sur $\mathcal K^P(t)$, chaque titre $i$ reçoit le montant acheté multiplié par le nombre d'élus qui l'ont
-acheté :
+\etape{5}{La clé d'agrégation, puis le score}
+\textbf{Avant d'agréger, on choisit la clé.} C'est ici, et nulle part ailleurs, que se décide ce que le
+portefeuille achètera : le \textbf{titre}, classes d'actions d'une même société fusionnées --- GOOGL avec
+GOOG, BRK-A avec BRK-B, FOXA avec FOX, NWSA avec NWS. \emph{L'étape 11 ne fera que remplacer cette clé.}
+
+Sur $\mathcal K^P(t)$, chaque clé $i$ reçoit alors le montant acheté multiplié par le nombre d'élus qui
+l'ont achetée :
 \[ s_{i} \;=\; \underbrace{\textstyle\sum_{k} A_k}_{B_i \ \text{: les dollars}}
    \;\times\; \underbrace{\#\{\,m(k)\,\}}_{m_i \ \text{: les élus distincts}} \]
 Si $K$ élus déclarent chacun le même montant $a$, alors $B_i = Ka$, $m_i = K$, donc $s_i = K^2 a$ : le
-consensus compte \textbf{au carré}.
+consensus compte \textbf{au carré}. Les deux comptes se font \emph{après} la fusion : un élu qui a déclaré
+GOOGL et GOOG compte pour un.
 
 \etape{6}{L'univers}
-Les classes d'actions d'une même société sont d'abord fusionnées : GOOGL avec GOOG, BRK-A avec BRK-B, FOXA
-avec FOX, NWSA avec NWS. Sont ensuite candidats les titres vivants en $t$ et cotés au close $t+1$, et l'on
-retient parmi eux
+Sont candidates les clés vivantes en $t$ et cotées au close $t+1$, et l'on retient parmi elles
 \[ \mathcal S(t) \;=\; \text{les } N = 150 \text{ plus gros scores } s_i . \]
 
 \etape{7}{Les poids}
@@ -98,7 +102,8 @@ On normalise, puis on plafonne à $c = 10$~\% par \textbf{remplissage de niveau}
 au plafond, les autres montent proportionnellement jusqu'à ce que la somme fasse 1.
 \[ \boxed{\;w_i \;=\; \min\bigl(c,\; \lambda\, v_i\bigr), \qquad v_i = s_i \Big/ \textstyle\sum_{j\in\mathcal S} s_j\;} \]
 $\lambda \mapsto \sum_i \min(c,\lambda v_i)$ croît continûment de 0 à $\lvert\mathcal S\rvert\,c$ : ce
-$\lambda$ existe et est unique dès que $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 10$.
+$\lambda$ existe et est unique dès que $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 10$. En dessous, il
+n'existe pas, et le code renormalise en sortie --- ce qui rend alors l'équipondéré.
 
 \etape{8}{L'exécution}
 Achat au close du lendemain de la coupe, $e = t+1$ :
@@ -111,9 +116,10 @@ $V = 100$ au premier déploiement.
 La rotation réalisée à la coupe est la moitié de la somme des écarts entre le portefeuille qu'on a laissé
 dériver et celui qu'on installe :
 \[ \mathrm{TO}_t \;=\; \tfrac12\textstyle\sum_i \bigl\lvert w^{\text{réal}}_i - w^{\text{dér}}_i \bigr\rvert,
-   \qquad V_e \leftarrow V_e\,\bigl(1 - 2\,\mathrm{TO}_t\,c\bigr) \]
-avec $c = 10$ points de base, le facteur 2 parce qu'on paie à l'achat \textbf{et} à la vente. Un frein
-optionnel plafonne la rotation à $\tau_{\max}$ par mois :
+   \qquad V_e \leftarrow V_e\,\bigl(1 - 2\,\mathrm{TO}_t\,\kappa\bigr) \]
+avec $\kappa = 10$ points de base, le facteur 2 parce qu'on paie à l'achat \textbf{et} à la vente.
+\emph{($\kappa$, et non $c$ : le plafond de l'étape 7 est cent fois plus grand.)} Un frein optionnel
+plafonne la rotation à $\tau_{\max}$ par mois :
 $w^{\text{réal}} = w^{\text{dér}} + \lambda_R\,(w^{\text{cible}} - w^{\text{dér}})$,
 $\lambda_R = \min(1,\ \tau_{\max}/\mathrm{TO}_t)$.
 
@@ -123,25 +129,33 @@ Trois, de la plus indulgente à la plus sévère :
    \qquad t = \frac{\bar x}{\sigma_x/\sqrt n} \]
 \[ r - r_f = \alpha_1 + \beta\,(r^{m} - r_f) + \varepsilon \]
 \[ r - r_f = \alpha_4 + \beta_M (r^{m}-r_f) + \beta_S \mathrm{SMB} + \beta_H \mathrm{HML} + \beta_U \mathrm{MOM} + \varepsilon \]
-$x_Y$ est l'excès brut d'une année civile ; l'$\alpha$ est annualisé ($\times 252$) ; l'intervalle de
+$x_Y$ est l'excès brut d'une \textbf{année civile} --- $n$ est donc un nombre d'années, treize ; les deux
+$\alpha$ se lisent sur les rendements \emph{journaliers} et sont annualisés ($\times 252$) ; l'intervalle de
 confiance est celui de Student à 95~\%. Facteurs Fama-French-Carhart, repris tels quels de la bibliothèque de
-Kenneth French.
+Kenneth French --- ils s'arrêtent au 30/04/2026, si bien que les régressions portent sur 3\,059 jours,
+quelques semaines de moins que l'excès brut.
 
 \etape{11}{Les variantes}
 Une seule fonction produit tout ce qui suit --- trois paramètres, et \textbf{les étapes 6 à 10 ne changent
 pas d'une ligne} :
 \begin{pts}
-\item \textbf{l'instrument} --- le titre lui-même (M3), ou l'\textbf{ETF sectoriel} SPDR auquel il appartient.
-      Le rattachement vient du secteur GICS du titre, renseigné sur 100~\% des lignes, et couvre les 11 SPDR.
-      Le score s'agrège alors par secteur : $B_i$ et $m_i$ se somment sur tous les titres du secteur, et onze
-      lignes remplacent cent cinquante. \emph{Sur onze instruments le plafond n'a de solution qu'à partir de
-      $c = 10$~\% : à $8{,}5$~\% il rendrait l'équipondéré exact} ;
+\item \textbf{l'instrument} --- la clé de l'étape 5 devient l'\textbf{ETF sectoriel} SPDR du titre, par son
+      secteur GICS (renseigné sur 100~\% des lignes, à valeurs dans les 11 SPDR). $B_i$ se somme alors sur le
+      secteur, mais \textbf{$m_i$ ne se somme pas} : il compte les élus \emph{distincts} du secteur, donc un
+      élu présent sur trois titres d'un même secteur n'y compte qu'une fois. Onze lignes remplacent cent
+      cinquante, et \textbf{la sélection de l'étape 6 devient inopérante} ($11 < 150$) ;
 \item \textbf{la pondération} --- $w \propto s_i$ (M3), $\propto B_i$, $\propto m_i$, ou $1/N$.
       \textbf{$\mathcal S$ reste défini par le score} dans les quatre cas : c'est une décomposition de la
       pondération, pas une autre sélection ;
 \item \textbf{le filtre anti-bruit $\theta$} --- écarter toute opération issue d'un dépôt de $\theta$
-      opérations ou plus, du même élu le même jour. M3 : $\theta = \infty$, aucun filtre.
+      opérations ou plus, du même élu le même jour. La taille du dépôt est comptée \emph{après} les filtres
+      de l'étape 1, donc sur les opérations retenues et non sur le dépôt tel qu'il fut déposé. M3 :
+      $\theta = \infty$, aucun filtre.
 \end{pts}
+\vspace{0.4mm}
+{\footnotesize\color{grisf} Attention au plafond quand l'instrument change : sur onze lignes il n'a de
+solution qu'à partir de $c = 1/11$, et à $c = 10$~\% il n'en reste que dix points de mou pour toute
+la distribution --- l'étape 11 c montre ce que cela fait au score.}\par
 
 % ══════════════════════════════════════════════════════════════════════
 %                    SECONDE PARTIE — CHAQUE ÉTAPE, ET SA SORTIE
@@ -168,8 +182,10 @@ $\to$ prix exploitable & \textbf{113\,369} & 350 élus $\cdot$ 2\,755 titres \\
 inchangé --- et le rattachement au secteur est renseigné sur 100~\% des lignes.}
 
 \obs{\textbf{80 titres sur 2\,755 (3~\%) cessent de coter} avant la fin du calendrier. La règle \emph{vivant}
-de l'étape 2 les sort de l'univers au moment où leur cotation s'arrête ; leurs poids se redistribuent, et
-rien n'est valorisé après le dernier cours connu.}
+de l'étape 2 est testée \textbf{à la sélection}, pas en cours de détention : elle les écarte de l'univers à
+la coupe suivante. Une ligne qui cesse de coter \emph{entre} deux coupes reste donc au portefeuille,
+valorisée à plat à son dernier cours, jusqu'à la recomposition --- les parts étant figées (étape 8) et les
+prix reportés (étape 2).}
 
 \mouv{Étape 3}{Les coupes --- et où le backtest commence}
 
@@ -292,7 +308,9 @@ GOP & 5,3 & 69,2 & \textbf{76,9} & 35,8 & 164,4 \\
 \end{tabular}\par}
 \vspace{0.4mm}
 {\scriptsize\color{grisf} \textbf{c'est la moyenne qui fixe la facture}, pas la médiane : quelques années de
-forte recomposition la tirent. Le fonds réel publie 44, 62 puis 10~\% pour NANC.}\par
+forte recomposition la tirent. Le fonds réel publie 44, 62 puis 10~\% pour NANC. L'année est celle de la
+\emph{date d'exécution}, et seules les années comptant au moins six coupes sont retenues --- 2014 et 2026,
+incomplètes, n'entrent pas dans ces statistiques.}\par
 \vspace{0.6mm}
 
 {\centering\scriptsize
@@ -311,7 +329,8 @@ $\mathrm{NAV}_{\text{nette}}/\mathrm{NAV}_{\text{brute}} = \prod_t (1 - 2\,\math
 $2{,}7\cdot10^{-15}$ près (661,57 $\to$ 648,69).}
 
 \fig{m3_frein.png}{l'excès net en fonction du plafond de rotation, du plus lâche au plus serré. Les deux
-courbes ne descendent pas ensemble : ce qui aide un parti dessert l'autre.}
+courbes ne descendent pas ensemble, et surtout elles ne changent pas de signe au même endroit : le seul
+plafond qui améliore les deux partis est encadré de plafonds qui en dégradent au moins un.}
 
 \obs{\emph{Faut-il brider la rotation ?} La règle a été écrite avant de regarder : \textbf{on ne retient le
 frein que s'il améliore les deux partis}. Gains, du plafond le plus lâche au plus serré : $-0{,}04$ à 25~\%,
@@ -388,10 +407,10 @@ chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
 
 \et{d}{Ce que la multiplicité impose}
 
-\sortie{\textbf{44 essais distincts} ont été passés au bilan dans ce notebook. Sous l'hypothèse nulle, le
-plus grand $\lvert t\rvert$ de 44 essais vaut déjà $\sqrt{2\ln 44} = 2{,}75$ --- bien au-delà du seuil de
-Student à 13 années (2,18), qui ignore la multiplicité. \textbf{Aucun des dix runs publiés ne dépasse
-2,75.}}
+\sortie{\textbf{60 essais distincts} ont été passés au bilan dans ce notebook. Sous l'hypothèse nulle, le
+plus grand $\lvert t\rvert$ de 60 essais vaut déjà $\sqrt{2\ln 60} = 2{,}86$ --- bien au-delà du seuil de
+Student à 13 années (2,18), qui ignore la multiplicité. \textbf{Aucun des seize runs publiés ne dépasse
+2,86}, le plus grand valant 2,71.}
 
 \mouv{Étape 11}{Les variantes --- la pondération, le filtre, l'instrument}
 
@@ -449,47 +468,72 @@ domine : GOP préfère 10, NANC préfère 50.}
 
 \et{c}{L'instrument --- et si on achetait l'ETF plutôt que le titre ?}
 
-Même règle, même fenêtre, même score, même exécution : \textbf{seul l'instrument change}. Chaque titre est
-remplacé par son ETF sectoriel, et les onze secteurs remplacent les cent cinquante titres.
+Remplacer le titre par son ETF sectoriel change \textbf{trois choses à la fois} : l'instrument acheté, la
+sélection (elle disparaît, $11 < 150$) et le niveau où le consensus $m$ est mesuré. Un test qui change trois
+choses n'en isole aucune --- et c'est exactement le piège dans lequel tombe la version naïve.
 
-{\centering\tiny
+\obs{\textbf{Le run le plus simple ne teste pas ce qu'il prétend.} Onze secteurs plafonnés à 10~\% :
+$11\times10\,\% = 110\,\%$, il ne reste que \emph{dix points de mou} pour toute la distribution. Mesuré :
+\textbf{9 lignes sur 11 siègent au plafond} en médiane, $N_{\text{eff}}$ vaut 10,5 sur 11 possibles, et la
+corrélation des rendements avec l'équipondéré atteint \textbf{0,9986}. Le run \og{}secteurs $\cdot$ score\fg{}
+\emph{est} l'équipondéré : le plafond a effacé le score aussi sûrement que le top-150 avait effacé la
+sélection.}
+
+\obs{\textbf{Et son $-2{,}4$~\%/an ne mesure pas une perte d'information.} Les poids du marché se
+reconstruisent depuis les prix seuls --- les onze SPDR partitionnent le S\&P 500, donc on résout
+$\min_{\beta\ge0,\,\sum\beta=1}\lVert r^{\text{SPY}} - \sum_S \beta_S r^S\rVert^2$ année par année
+($R^2$ de 0,98 à 0,999). La technologie y passe de \textbf{20,9~\% en 2019 à 38,7~\% en 2025}. Tenir les onze
+secteurs à ces poids rend \textbf{15,32~\%/an} --- soit le SPY (15,59) --- quand les équipondérer rend
+\textbf{13,01}. \textbf{$-2{,}31$ point par an, sans qu'aucun élu n'intervienne} : c'est le prix d'un pari
+contre la concentration de l'indice, pas le coût de l'agrégation.}
+
+\et{}{Le test qui isole vraiment l'instrument}
+
+On prend le portefeuille \emph{tel que M3 le construit} --- même score, même top-150, même plafond par
+titre --- et l'on remplace chaque ligne par l'ETF de son secteur. Rien d'autre ne bouge.
+
+{\centering\tiny\setlength{\tabcolsep}{3.4pt}
 \begin{tabular}{@{}l r r@{\hspace{3mm}} r r@{}}
 \toprule
  & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-2014--2026 & excès/an & $\alpha_1$ \emph{(t)} & excès/an & $\alpha_1$ \emph{(t)} \\
+2014--2026 & excès/an \emph{(t)} & $\alpha_1$ & excès/an \emph{(t)} & $\alpha_1$ \\
 \midrule
-titres $\cdot$ \textbf{M3} & $\mathbf{+3{,}40}$ & $+1{,}66$ \emph{(1,4)} & $\mathbf{+1{,}24}$ & $+1{,}09$ \emph{(1,1)} \\
-titres $\cdot$ sans plafond & $+5{,}95$ & $+3{,}57$ \emph{(1,8)} & $+1{,}54$ & $+1{,}34$ \emph{(1,2)} \\
-\textbf{secteurs $\cdot$ score} & $\mathbf{-2{,}37}$ & $-1{,}13$ \emph{(--1,0)} & $\mathbf{-2{,}14}$ & $-0{,}80$ \emph{(--0,7)} \\
-secteurs $\cdot$ sans plafond & $+1{,}93$ & $+0{,}67$ \emph{(0,7)} & $-0{,}10$ & $-0{,}25$ \emph{(--0,2)} \\
-secteurs $\cdot$ équipondéré & $-2{,}40$ & $-0{,}85$ \emph{(--0,7)} & $-2{,}40$ & $-0{,}85$ \emph{(--0,7)} \\
+\textbf{M3, sur les titres} & $\mathbf{+3{,}40}$ \emph{(1,61)} & $+1{,}66$ & $\mathbf{+1{,}24}$ \emph{(1,61)} & $+1{,}09$ \\
+\textbf{son exposition sectorielle, en ETF} & $\mathbf{+1{,}50}$ \emph{(1,38)} & $+0{,}30$ & $\mathbf{+0{,}45}$ \emph{(0,57)} & $+0{,}09$ \\
+\midrule
+\og{}secteurs $\cdot$ score\fg{}, plafonné & $-2{,}37$ \emph{(2,22)} & $-1{,}13$ & $-2{,}14$ \emph{(1,80)} & $-0{,}80$ \\
+l'équipondéré sectoriel & $-2{,}40$ \emph{(1,89)} & $-0{,}85$ & $-2{,}40$ \emph{(1,89)} & $-0{,}85$ \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.2mm}
-{\scriptsize\color{grisf} $\beta$ entre 0,91 et 1,12 sur les dix lignes. Sur 2019--2026, où les onze
-secteurs cotent tous, le classement est le même : M3 $+4{,}16$ et $+2{,}28$ $\cdot$ secteurs plafonnés $-2{,}92$
-et $-2{,}53$ $\cdot$ équipondéré $-2{,}98$.}\par
+{\scriptsize\color{grisf} Contrôle : la même construction avec une carte identité (chaque titre $\to$
+lui-même) redonne M3 à $4{,}2\cdot10^{-17}$ --- seule l'agrégation change. Sur 2019--2026, où les onze
+secteurs cotent tous : $+4{,}16$ et $+2{,}28$ pour M3, $+1{,}92$ et $+1{,}12$ pour l'exposition sectorielle,
+$-2{,}92$ et $-2{,}53$ pour le run plafonné.}\par
 \vspace{0.6mm}
 
-\fig{m3_etf_nav.png}{titres contre secteurs, base 100. Le trait plein vert (secteurs, pondérés au score)
-passe sous le trait plein bleu (M3) des deux côtés, et l'écart s'ouvre avec le temps.}
+\fig{m3_etf_ou_agreger.png}{base 100 en janvier 2019, échelle logarithmique. En haut M3 sur les titres, juste
+en dessous son exposition sectorielle tenue en ETF, et tout en bas --- confondues --- les deux versions
+plafonnées : le plafond les ramène au même portefeuille.}
 
-\lecon{l'information est dans le titre, \textbf{pas dans son secteur}. Savoir que des élus achètent de la
-technologie ne vaut rien ; savoir \emph{lesquels} vaut quelque chose.}
+\lecon{les deux moitiés s'additionnent. L'exposition sectorielle de M3 vaut à elle seule $+1{,}50$ (NANC) et
+$+0{,}45$ (GOP) ; \textbf{le reste, $+1{,}90$ et $+0{,}78$, est ce que vaut le choix du titre à l'intérieur
+du secteur} --- la moitié la plus grosse des deux côtés. \textbf{Mais aucune des deux n'est significative} :
+le $t$ le plus élevé du tableau vaut 1,61.}
 
-\sortie{quatre contrôles tiennent la variante : l'univers reste inclus dans les 11 SPDR (9 secteurs jusqu'en
-09/2015, 10 jusqu'en 05/2018, 11 ensuite) ; $\sum w = 1$ à chaque coupe des dix jeux ; le plafond $1/11$ rend
-l'équipondéré exact ; et \textbf{M3 sur les titres est inchangée} (NAV 661,57 et 573,57) --- la variante n'a
-touché à rien.}
+\sortie{cinq contrôles tiennent la variante : l'univers reste inclus dans les 11 SPDR (9 secteurs jusqu'en
+09/2015, 10 jusqu'en 05/2018, 11 ensuite) ; $\sum w = 1$ à chaque coupe, renormalisation comprise ; le
+plafond $1/11$ rend l'équipondéré exact ; la carte identité redonne M3 ; et \textbf{M3 sur les titres est
+inchangée} (NAV 661,57 et 573,57) --- la variante n'a touché à rien.}
 
 \fig{m3_etf_manquant.png}{la part du score qui tombe dans un secteur pas encore coté, dans le temps. Les deux
 traits verticaux marquent l'arrivée de XLRE (10/2015) et de XLC (06/2018).}
 
 \obs{\textbf{La difficulté est datée, pas cachée} : 52 coupes sur 148 tombent avant que les onze SPDR
 existent tous. La part du score alors réaffectée vaut 4,5~\% en médiane côté NANC et 5,5~\% côté GOP, avec
-des pointes à 8,3 et 11,2~\%. Elle disparaît après mai 2018 --- et la colonne 2019--2026 du tableau, où le
-problème n'existe plus, donne le même classement.}
+des pointes à 8,3 et 11,2~\%. Elle disparaît après mai 2018 --- d'où la fenêtre 2019--2026 donnée en regard,
+où le problème n'existe plus et où le classement ne bouge pas.}
 
 \end{multicols}
 
@@ -515,17 +559,81 @@ problème n'existe plus, donne le même classement.}
 \end{tabular}\par}
 \vspace{0.8mm}
 
+{\scriptsize\textbf{La plus grosse ligne du portefeuille réel, aux treize états déposés à la SEC (\%)}}\par
+\vspace{0.4mm}
+{\centering\scriptsize\setlength{\tabcolsep}{5pt}
+\begin{tabular}[t]{@{}l r r@{}}
+\toprule
+état & NANC & GOP \\
+\midrule
+2023-03-31 & 7,99 & 3,65 \\
+2023-06-30 & 9,17 & 2,00 \\
+2023-09-30 & 10,42 & 2,66 \\
+2023-12-31 & 9,15 & 2,42 \\
+2024-03-31 & 10,30 & 2,42 \\
+2024-06-30 & 12,67 & 3,22 \\
+2024-09-30 & 11,60 & 3,79 \\
+\bottomrule
+\end{tabular}\hspace{14mm}
+\begin{tabular}[t]{@{}l r r@{}}
+\toprule
+état & NANC & GOP \\
+\midrule
+2024-12-31 & 11,41 & 4,31 \\
+2025-03-31 & 8,99 & 4,49 \\
+2025-06-30 & 10,62 & 4,85 \\
+2025-09-30 & 10,44 & 5,27 \\
+2025-12-31 & 10,24 & 5,96 \\
+2026-03-31 & 10,33 & 7,41 \\
+ & & \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\centering\scriptsize\color{grisf} médiane : NANC \textbf{10,33}~\% (de 7,99 à 12,67) $\cdot$ GOP 3,79~\%
+(de 2,00 à 7,41). C'est la médiane NANC qui fixe le plafond.\par}
+\vspace{1.2mm}
+
 {\small
 \textbf{Le plafond mérite un mot de plus} --- c'est le seul paramètre qui ne se lise pas dans le prospectus.
 Deux sources indépendantes, dont aucune n'est notre rendement, donnent la même valeur : la plus grosse ligne
 du fonds réel vaut \textbf{10,3~\% en médiane} sur ses treize états déposés à la SEC (entre 8,0 et 12,7~\%),
 et \textbf{10~\% est la limite UCITS} par émetteur, au-delà de laquelle un fonds européen n'est plus
 distribuable. Il en faut un : \textbf{sans plafond, la plus grosse ligne monte à 36~\% en médiane et jusqu'à
-87~\%}. Et il ne peut pas descendre en dessous de $1/11$ si l'on veut que la variante sectorielle de l'étape
-11 garde un sens.\par}
+87~\%}. Sur les onze secteurs de l'étape 11, en revanche, il devient \emph{trop} serré : $c = 1/11$
+est le plus petit plafond faisable, et à 10~\% il ne laisse que dix points de mou --- assez pour effacer le
+score, comme l'étape 11 c le mesure.\par}
 
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
-{\color{bleu}\bfseries Annexe B --- ce que cette fiche n'établit pas}\par
+{\color{bleu}\bfseries Annexe B --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
+\vspace{0.6mm}
+{\small
+La technologie pèse près de la moitié de notre score sectoriel --- mais elle pèse déjà près d'un tiers du
+S\&P 500. Achèterait-on la technologie \emph{parce qu'elle est grosse} ? La capitalisation n'est nulle part
+dans nos données, mais elle se reconstruit depuis les prix : les onze SPDR partitionnent l'indice, donc les
+$\beta$ de la régression sous contrainte ($\beta\ge0$, $\sum\beta=1$) \emph{sont} les poids du marché.\par}
+\vspace{0.6mm}
+{\centering\scriptsize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & $\rho$ de rang, score contre marché & écart absolu moyen & \multicolumn{2}{c}{la technologie (XLK)} \\
+\cmidrule(lr){4-5}
+médiane sur 2019--2025 & & & marché & score \\
+\midrule
+NANC & 0,85 & 3,00 pt & 29,36~\% & 31,71~\% \\
+GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\small
+\textbf{Le classement, oui ; les poids, non.} Le score range les onze secteurs à peu près comme le marché les
+pèse ($\rho\simeq0{,}86$), mais il s'en écarte de deux à trois points par secteur --- et surtout dans des
+directions opposées sur le secteur qui décide de tout : les démocrates surpondèrent la technologie
+($31{,}7$ contre $29{,}4$~\%), les républicains la sous-pondèrent de dix points ($19{,}8$~\%). Le score n'est
+donc pas un simple proxy de la taille, mais ce qu'il ajoute reste modeste --- ce qui est cohérent avec
+l'étape 11 c : l'essentiel de l'excès vient du \emph{titre}, pas du secteur.\par}
+
+\vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Annexe C --- ce que cette fiche n'établit pas}\par
 \vspace{0.6mm}
 {\small
 \textbf{Les frais.} Seuls 10 points de base par aller-retour sont facturés, et à l'étape 9 seulement.
