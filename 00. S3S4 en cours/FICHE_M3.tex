@@ -46,7 +46,7 @@ fenêtre du signal & 756 j ($\simeq$ 3 ans) & la règle publiée du fonds \\
 montant retenu & milieu de la fourchette déclarée & la règle publiée du fonds \\
 date prise en compte & la \textbf{divulgation} $\delta$ & la date de transaction n'est pas investissable \\
 univers & les $N=150$ plus gros scores & le prospectus annonce 100 à 200 lignes \\
-plafond de position & $c = 8{,}5$~\% & la concentration observée du fonds réel \\
+plafond de position & $c = 10$~\% & la médiane du fonds réel sur 13 dates, \emph{et} la limite UCITS \\
 recomposition & mensuelle & un signal à 3 ans ne renouvelle qu'un trente-sixième par mois \\
 départ du backtest & 28/02/2014 & la 1\textsuperscript{re} coupe où le plafond a une solution ($\ge12$ titres) \\
 filtre anti-bruit \emph{(M4 seul)} & $\theta = 50$ opérations & la description d'un gérant, pas un réglage \\
@@ -62,10 +62,10 @@ filtre anti-bruit \emph{(M4 seul)} & $\theta = 50$ opérations & la description 
  & excès/an & $t$ & IC 95~\% & $\alpha_1$ & $\alpha_4$ & $t(\alpha_4)$
  & $\beta$ & NAV & ann.\ gagn. \\
 \midrule
-\textbf{M3 --- NANC} \emph{(Démocrates)} & $\mathbf{+2{,}88}$~\% & \textbf{1,42} & $[-1{,}5;+7{,}3]$
-  & $+1{,}22$ & $\mathbf{+1{,}71}$ & \textbf{1,76} & 1,077 & \textbf{627} & 9/13 \\
-\textbf{M3 --- GOP} \emph{(Républicains)} & $\mathbf{+1{,}21}$~\% & \textbf{1,56} & $[-0{,}5;+2{,}9]$
-  & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,81} & 1,003 & \textbf{574} & 10/13 \\
+\textbf{M3 --- NANC} \emph{(Démocrates)} & $\mathbf{+3{,}40}$~\% & \textbf{1,61} & $[-1{,}2;+8{,}0]$
+  & $+1{,}66$ & $\mathbf{+2{,}09}$ & \textbf{2,08} & 1,080 & \textbf{662} & 9/13 \\
+\textbf{M3 --- GOP} \emph{(Républicains)} & $\mathbf{+1{,}24}$~\% & \textbf{1,61} & $[-0{,}4;+2{,}9]$
+  & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,79} & 1,004 & \textbf{574} & 9/13 \\
 \midrule
 \emph{repère : le SPY lui-même} & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{494} & --- \\
 \emph{repère : équipondéré, même univers} & \emph{$-1{,}38$~\%} & \emph{$-1{,}45$} & \emph{$[-3{,}5;+0{,}7]$}
@@ -75,7 +75,7 @@ filtre anti-bruit \emph{(M4 seul)} & $\theta = 50$ opérations & la description 
 \bottomrule
 \end{tabular}\par}
 \vspace{0.4mm}
-{\scriptsize\color{grisf} Rendement \emph{total} : NANC 16,1~\%/an $\cdot$ GOP 15,2 $\cdot$ SPY 13,9.
+{\scriptsize\color{grisf} Rendement \emph{total} : NANC 16,6~\%/an $\cdot$ GOP 15,2 $\cdot$ SPY 13,9.
 Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions. Les repères sont calculés sur
 \emph{le même univers} que M3 --- seule la pondération change.}\par
 \vspace{0.8mm}\hrule\vspace{1.2mm}
@@ -112,23 +112,44 @@ $\Pi_c$ ne coupe pas les grosses lignes pour jeter l'excédent : il cherche l'un
 somme fasse 1, les lignes saturées restant au plafond et les autres montant proportionnellement.
 \[ \boxed{\;w_i \;=\; \min\bigl(c,\; \lambda\, v_i\bigr), \qquad v_i = s_i \Big/ \textstyle\sum_j s_j\;} \]
 Comme $\lambda \mapsto \sum_i \min(c,\lambda v_i)$ croît continûment de 0 à $\lvert\mathcal S\rvert\,c$, ce
-$\lambda$ existe et est unique \textbf{dès que} $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 12$ titres.
+$\lambda$ existe et est unique \textbf{dès que} $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 10$ titres.
 
-\obs{\textbf{En dessous de douze lignes le plafond n'existe pas} : la normalisation finale rend
+\obs{\textbf{En dessous de dix lignes le plafond n'existe pas} : la normalisation finale rend
 l'\textbf{équipondéré}. Le cas se produirait à la première fin de mois --- NANC n'a que \textbf{9} titres ---
 d'où la règle de démarrage. Au mouvement IV\,c, ce même seuil décide de tout.}
+
+\et{c}{D'où vient le 10~\%, et pourquoi pas 8,5~\%}
+
+Le plafond est le seul paramètre de la méthode qui ne se lise pas dans le prospectus : il faut l'estimer.
+\textbf{Deux sources indépendantes, et aucune n'est notre rendement, convergent sur 10~\%.}
+
+\begin{pts}
+\item \textbf{le fonds lui-même.} Les treize états de portefeuille déposés à la SEC donnent, pour la plus
+      grosse ligne de NANC, une médiane de $\mathbf{10{,}3\,\%}$ (minimum 7,99, maximum 12,67). Le rapport
+      annuel le confirme en toutes lettres : \emph{« Nvidia consistently throughout the period representing
+      about 10\% of the portfolio »}. \textbf{Le 8,5~\% précédent était lu sur une seule photo} (24/07/2026)
+      --- il tombait \emph{sous le minimum jamais observé} ;
+\item \textbf{la réglementation.} 10~\% par émetteur est la limite UCITS. Au-delà, un fonds européen n'est
+      plus distribuable. Un plafond au-dessus rendrait la méthode inapplicable en pratique.
+\end{pts}
+
+\obs{Ce que ce choix \emph{n'est pas} : le plafond a été balayé de 4 à 12~\% et le profil est
+\textbf{monotone} --- plus il est lâche, meilleur est le rendement, sans jamais se retourner. Il n'existe
+donc \textbf{aucun optimum} à trouver : le retenir sur la performance mènerait à ne pas plafonner du tout,
+et la plus grosse ligne monterait alors à \textbf{35~\% en médiane, jusqu'à 87~\%}. Le plafond arbitre entre
+rendement et concentration ; les deux ancrages ci-dessus disent où placer le curseur.}
 
 % ═══════════════════════ II ═══════════════════════
 \mouv{II}{Ce qu'elle vaut}
 
 \fig{m3_nav.png}{à gauche la valeur du portefeuille, base 100 en février 2014, échelle logarithmique ;
 à droite l'écart au SPY, année par année. Les deux partis battent l'indice sur la période --- et perdent
-franchement certaines années (NANC $-11{,}6$ pt en 2022, $+18{,}9$ en 2023).}
+franchement certaines années (NANC $-11{,}6$ pt en 2022, $+19{,}7$ en 2023).}
 
 \begin{pts}
 \item \textbf{L'excès n'est pas significatif, et il faut le dire d'entrée.} Avec 13 années d'observation il
-      faudrait $\lvert t\rvert > 2{,}18$ ; on mesure 1,42 et 1,56. \textbf{Les deux intervalles de confiance
-      contiennent zéro} --- celui de NANC va de $-1{,}5$ à $+7{,}3$~\%/an. On livre donc la méthode la
+      faudrait $\lvert t\rvert > 2{,}18$ ; on mesure 1,61 des deux côtés. \textbf{Les deux intervalles de confiance
+      contiennent zéro} --- celui de NANC va de $-1{,}2$ à $+8{,}0$~\%/an. On livre donc la méthode la
       \textbf{mieux fondée}, pas une méthode dont on démontre qu'elle gagne ;
 \item ce qui \emph{est} solide : la méthode bat l'indice \textbf{9 années sur 13} d'un côté, \textbf{10 sur
       13} de l'autre, avec un $\beta$ de 1,08 et 1,00 --- elle ne gagne pas en prenant plus de risque de marché.
@@ -141,18 +162,18 @@ franchement certaines années (NANC $-11{,}6$ pt en 2022, $+18{,}9$ en 2023).}
 \toprule
 \multicolumn{2}{c}{\textbf{NANC}} & \multicolumn{2}{c}{\textbf{GOP}} \\
 \cmidrule(lr){1-2}\cmidrule(lr){3-4}
-GOOG & 8,5~\% & MSFT & 8,5~\% \\
-NVDA & 8,5 & AAPL & 8,3 \\
-AMZN & 8,2 & NVDA & 6,4 \\
-MSFT & 8,2 & UNH & 4,9 \\
-AAPL & 6,6 & GOOG & 4,2 \\
-AVGO & 6,3 & META & 3,7 \\
-PANW & 5,4 & AMZN & 3,2 \\
-META & 3,4 & V & 2,3 \\
+NVDA & 10,0~\% & MSFT & 9,0~\% \\
+GOOG & 10,0 & AAPL & 8,3 \\
+AMZN & 7,9 & NVDA & 6,4 \\
+MSFT & 7,9 & UNH & 4,8 \\
+AAPL & 6,3 & GOOG & 4,2 \\
+AVGO & 6,1 & META & 3,7 \\
+PANW & 5,2 & AMZN & 3,2 \\
+META & 3,3 & V & 2,3 \\
 \midrule
-plus gros poids & 8,5~\% & & 8,5~\% \\
-somme des 5 premiers & 40,0~\% & & 32,3~\% \\
-$N_{\text{eff}} = 1/\sum w_i^2$ & 23,4 & & 33,3 \\
+plus gros poids & 10,0~\% & & 9,0~\% \\
+somme des 5 premiers & 42,2~\% & & 32,6~\% \\
+$N_{\text{eff}} = 1/\sum w_i^2$ & 21,6 & & 32,7 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.4mm}
@@ -160,8 +181,8 @@ $N_{\text{eff}} = 1/\sum w_i^2$ & 23,4 & & 33,3 \\
 
 \obs{\textbf{Les deux partis convergent sur les mêmes méga-capitalisations technologiques} --- six noms sur
 huit sont communs. Ce qui les sépare ne tient pas dans la tête du portefeuille mais dans les poids : côté
-démocrate \textbf{deux} lignes touchent le plafond et les cinq premières pèsent 40~\%, côté républicain
-\textbf{une} seule et 32~\%.}
+démocrate \textbf{deux} lignes touchent le plafond et les cinq premières pèsent 42~\%, côté républicain
+\textbf{une} seule et 33~\%.}
 
 % ═══════════════════════ III ═══════════════════════
 \mouv{III}{D'où vient le résultat}
@@ -178,10 +199,10 @@ décomposition, pas une compétition.
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 poids $\propto$ & excès/an & NAV & excès/an & NAV \\
 \midrule
-1 \emph{(équipondéré)} & $-1{,}38$~\% & 430 & $-1{,}09$~\% & 448 \\
+1 \emph{(équipondéré)} & $-1{,}38$~\% & 430 & $-1{,}08$~\% & 448 \\
 $m_i$ \emph{(élus seuls)} & $-0{,}65$~\% & 464 & $-0{,}78$~\% & 466 \\
 $B_i$ \emph{(dollars purs)} & $+1{,}27$~\% & 545 & $+0{,}50$~\% & 523 \\
-$\mathbf{B_i\,m_i}$ \emph{(M3)} & $\mathbf{+2{,}88}$~\% & \textbf{627} & $\mathbf{+1{,}21}$~\% & \textbf{574} \\
+$\mathbf{B_i\,m_i}$ \emph{(M3)} & $\mathbf{+3{,}40}$~\% & \textbf{662} & $\mathbf{+1{,}24}$~\% & \textbf{574} \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.8mm}
@@ -202,8 +223,8 @@ il retire \textbf{54~\%} du \$ démocrate (388 M\$ sur 716) et \textbf{58~\%} du
 \toprule
 excès/an & $\theta=10$ & 20 & \textbf{50} \emph{(M4)} & 100 & $\infty$ \emph{(M3)} \\
 \midrule
-NANC & $+4{,}03$ & $+3{,}88$ & $\mathbf{+4{,}47}$ & $+3{,}99$ & $+2{,}88$ \\
-GOP & $+2{,}94$ & $+2{,}03$ & $\mathbf{+1{,}51}$ & $+1{,}65$ & $+1{,}21$ \\
+NANC & $+4{,}71$ & $+4{,}62$ & $\mathbf{+5{,}14}$ & $+4{,}75$ & $+3{,}40$ \\
+GOP & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}24$ \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.6mm}
@@ -223,29 +244,29 @@ On régresse sur les quatre facteurs de Fama-French-Carhart : marché, taille (S
 \toprule
  & $\alpha_4$/an & $t$ & Mkt & SMB & HML & Mom \\
 \midrule
-M3 --- NANC & $+1{,}71$~\% & 1,76 & 1,043 & $-0{,}122$ & $-0{,}132$ & $-0{,}082$ \\
-M3 --- GOP & $+1{,}65$~\% & 1,81 & 0,979 & $-0{,}079$ & $+0{,}058$ & $-0{,}072$ \\
+M3 --- NANC & $\mathbf{+2{,}09}$~\% & \textbf{2,08} & 1,047 & $-0{,}131$ & $-0{,}146$ & $-0{,}076$ \\
+M3 --- GOP & $+1{,}65$~\% & 1,79 & 0,979 & $-0{,}081$ & $+0{,}049$ & $-0{,}073$ \\
 \emph{SPY (repère)} & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{$-0{,}123$} & \emph{$+0{,}012$} & \emph{$-0{,}009$} \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.6mm}
 
 \begin{pts}
-\item $\alpha_4$ \emph{monte} par rapport à $\alpha_1$ ($+1{,}22 \to +1{,}71$) : les facteurs de style
+\item $\alpha_4$ \emph{monte} par rapport à $\alpha_1$ ($+1{,}66 \to +2{,}09$) : les facteurs de style
       n'expliquent pas l'excès, ils en \textbf{masquaient} une partie ;
 \item tous les chargements SMB tiennent dans $\lvert\beta_S\rvert \le 0{,}12$, y compris celui du SPY --- le
       portefeuille n'est pas plus incliné vers les grandes capitalisations que l'indice lui-même.
 \end{pts}
 
 \fig{m3_rolling.png}{$\beta$ et $\alpha$ réestimés sur chaque fenêtre d'un an. Le $\beta$ colle à 1
-(médiane 1,05 et 0,99) ; l'$\alpha$ est positif 70~\% du temps mais traverse zéro sans cesse. Fenêtres
+(médiane 1,06 et 1,00) ; l'$\alpha$ est positif 71~\% du temps mais traverse zéro sans cesse. Fenêtres
 chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
 
 \et{b}{Le coût --- que faut-il payer pour exécuter, et faut-il ralentir ?}
 
 \begin{pts}
 \item la rotation vaut $\tfrac12\sum_i \lvert w^{\text{réalisé}}_i - w^{\text{dérivé}}_i\rvert$ par coupe,
-      soit \textbf{65 et 68~\%/an} en médiane --- mais \textbf{72 et 77~\% en moyenne}, et c'est la moyenne
+      soit \textbf{66 et 69~\%/an} en médiane --- mais \textbf{72 et 77~\% en moyenne}, et c'est la moyenne
       qui fixe la facture. \emph{(Le fonds réel publie 44, 62 puis 10~\%.)} ;
 \item on facture $V_t \leftarrow V_t\,(1 - 2\,\mathrm{TO}_t\,c)$ avec $c = 10$ points de base, le facteur 2
       parce qu'on paie à l'achat \textbf{et} à la vente.
@@ -256,8 +277,8 @@ chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
 \toprule
  & excès brut & excès net & coût & NAV nette \\
 \midrule
-NANC & $+2{,}88$~\% & $+2{,}71$~\% & 0,17 pt/an & 615 \\
-GOP & $+1{,}21$~\% & $+1{,}04$~\% & 0,18 pt/an & 562 \\
+NANC & $+3{,}40$~\% & $+3{,}23$~\% & 0,17 pt/an & 649 \\
+GOP & $+1{,}24$~\% & $+1{,}06$~\% & 0,18 pt/an & 562 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.8mm}
@@ -281,9 +302,10 @@ remplacé par son ETF sectoriel, et les onze secteurs remplacent les cent cinqua
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 excès/an & NANC & GOP & NANC & GOP \\
 \midrule
-titres $\cdot$ \textbf{M3} \emph{(plafond 8,5~\%)} & $\mathbf{+2{,}88}$ & $\mathbf{+1{,}21}$ & $+3{,}51$ & $+2{,}27$ \\
+titres $\cdot$ \textbf{M3} \emph{(plafond 10~\%)} & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}24}$ & $+4{,}16$ & $+2{,}28$ \\
 titres $\cdot$ score \emph{(sans plafond)} & $+5{,}95$ & $+1{,}54$ & $+7{,}96$ & $+2{,}17$ \\
-\textbf{secteurs $\cdot$ score} & $+1{,}93$ & $\mathbf{-0{,}10}$ & $+2{,}24$ & $+0{,}27$ \\
+\textbf{secteurs $\cdot$ score} \emph{(plafond 10~\%)} & $\mathbf{-2{,}37}$ & $\mathbf{-2{,}14}$ & $-2{,}92$ & $-2{,}53$ \\
+secteurs $\cdot$ score \emph{(sans plafond)} & $+1{,}93$ & $-0{,}10$ & $+2{,}24$ & $+0{,}27$ \\
 secteurs $\cdot$ équipondéré & $-2{,}40$ & $-2{,}40$ & $-2{,}98$ & $-2{,}98$ \\
 \bottomrule
 \end{tabular}\par}
@@ -292,14 +314,19 @@ secteurs $\cdot$ équipondéré & $-2{,}40$ & $-2{,}40$ & $-2{,}98$ & $-2{,}98$ 
 \fig{m3_etf_nav.png}{titres contre secteurs, base 100. Le trait plein vert (secteurs, pondérés au score)
 passe sous le trait plein bleu (M3) des deux côtés, et l'écart s'ouvre avec le temps.}
 
-\lecon{\textbf{l'information est dans le titre, pas dans son secteur.} Côté républicain l'excès disparaît
-\emph{exactement}, et le portefeuille sectoriel n'est plus qu'un indice à peine incliné
-($N_{\text{eff}}$ 4 contre 23).}
+\lecon{\textbf{l'information est dans le titre, pas dans son secteur.} Sans plafond, l'excès républicain
+disparaît \emph{exactement} ($-0{,}10$) et le portefeuille sectoriel n'est plus qu'un indice à peine incliné
+($N_{\text{eff}}$ 4 contre 22). \emph{Avec} le plafond de 10~\%, c'est pire des deux côtés
+($-2{,}37$ et $-2{,}14$) : sur onze lignes seulement, plafonner écrase le score vers l'équipondéré, qui perd
+$2{,}40$. La substitution sectorielle ne dilue pas le signal, elle le supprime.}
 
-\obs{Deux difficultés, tranchées en publiant les deux côtés plutôt qu'en choisissant. (i) Le plafond est
-\emph{inapplicable} à onze lignes ($\lceil 1/c\rceil = 12 > 11$, le fait du mouvement I\,b) : d'où les deux
-bornes, sans plafond et équipondéré. (ii) La communication n'existe qu'à partir de juin 2018, où elle vaut
-7~\% du flux : d'où la seconde fenêtre. \textbf{Le classement ne change pas} d'un côté à l'autre.}
+\obs{Deux difficultés, tranchées en publiant les deux côtés plutôt qu'en choisissant. (i) Le plafond tient
+\emph{à une ligne près} : il exige $\lceil 1/c\rceil = 10$ instruments et il y en a onze --- à l'ancien
+plafond de 8,5~\% il en aurait fallu douze, et il aurait effacé le score. On publie donc les trois versions,
+avec plafond, sans plafond, et équipondérée, qui encadrent tout résultat possible. (ii) Deux secteurs
+n'existent pas au début (l'immobilier avant octobre 2015, la communication avant juin 2018, où elle vaut
+7~\% du flux) : d'où la seconde fenêtre. \textbf{Le classement est le même des deux côtés} --- le choix n'a
+pas décidé du résultat.}
 
 % ═══════════════════════ V ═══════════════════════
 \mouv{V}{Ce que cette fiche n'établit pas}
@@ -307,24 +334,24 @@ bornes, sans plafond et équipondéré. (ii) La communication n'existe qu'à par
 \et{a}{Combien de choses a-t-on essayées ?}
 
 Un $t$ ne se lit jamais seul : plus on lance de tests, plus le meilleur paraît bon par hasard. Sous $H_0$,
-le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne $\sqrt{2\ln N}$ --- ici $N = 40$, soit
-\[ \sqrt{2\ln 40} \;=\; 2{,}72 \]
+le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne $\sqrt{2\ln N}$ --- ici $N = 44$, soit
+\[ \sqrt{2\ln 44} \;=\; 2{,}75 \]
 \textbf{Aucun run de cette fiche ne le dépasse}, y compris ceux qui franchissent le seuil de Student.
 
 \et{b}{Les trois réserves sur le run sans plafond}
 
-Le tableau IV\,c montre M3 sans plafond à $+5{,}95$~\%/an ($t = 2{,}35$, NAV 845 contre 627). Ce chiffre est
+Le tableau IV\,c montre M3 sans plafond à $+5{,}95$~\%/an ($t = 2{,}35$, NAV 845 contre 662). Ce chiffre est
 publié parce qu'il ne faut rien cacher --- mais \textbf{ce n'est pas une méthode} :
 
 \begin{pts}
-\item \textbf{il n'a jamais été déclaré comme tel.} Il est né d'une contrainte technique : le plafond étant
-      inapplicable aux secteurs, il fallait un run \emph{sans} plafond côté titres pour comparer ce qui est
-      comparable. Le retenir \emph{parce qu'il gagne} est exactement le geste que tout ce protocole écarte ;
-\item \textbf{son $t$ ne survit pas à la multiplicité} : 2,35 contre un seuil de bruit à 2,72 ;
-\item \textbf{il achète ce que le plafond existait pour interdire.} Sa plus grosse ligne pèse 32,5~\% du
-      portefeuille et son $N_{\text{eff}}$ tombe à 7,9 contre 23,4 --- huit lignes efficaces, quand le fonds
-      réel en tient une centaine. Le 8,5~\% n'a jamais été un réglage de rendement : c'est une contrainte de
-      diversification, lue sur le portefeuille réel.
+\item \textbf{il n'a jamais été déclaré comme tel.} Il sert de \textbf{borne} : il dit ce que le plafond
+      coûte, et encadre par le haut tout ce que la méthode peut rendre. Le retenir \emph{parce qu'il gagne}
+      est exactement le geste que tout ce protocole écarte ;
+\item \textbf{son $t$ ne survit pas à la multiplicité} : 2,35 contre un seuil de bruit à 2,75 ;
+\item \textbf{il achète ce que le plafond existe pour interdire.} Mesuré sur les 148 coupes, sa plus grosse
+      ligne pèse \textbf{35,7~\% en médiane et jusqu'à 87~\%} --- quatre mois d'affilée sur une seule société
+      en 2015 --- et son $N_{\text{eff}}$ tombe à 7,9 contre 21,6. Le plafond n'a jamais été un réglage de
+      rendement : c'est une contrainte de diversification, et sans elle le produit change de nature.
 \end{pts}
 
 \et{c}{Les limites assumées}
