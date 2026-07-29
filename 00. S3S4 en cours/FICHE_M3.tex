@@ -57,21 +57,21 @@ filtre anti-bruit \emph{(M4 seul)} & $\theta = 50$ opérations & la description 
 % ═══════════ LA CARTE (2) : ce que ça donne ═══════════
 {\color{bleu}\bfseries Ce que M3 donne --- 2014--2026, à la divulgation, brut de frais}\par\vspace{0.6mm}
 {\centering\scriptsize
-\begin{tabular}{@{}l r r c r r r r r r@{}}
+\begin{tabular}{@{}l r r c r r r r r r r@{}}
 \toprule
- & excès/an & $t$ & IC 95~\% & $\alpha_1$ & $\alpha_4$ & $t(\alpha_4)$
+ & excès/an & $t$ & IC 95~\% & $\alpha_1$ & $t(\alpha_1)$ & $\alpha_4$ & $t(\alpha_4)$
  & $\beta$ & NAV & ann.\ gagn. \\
 \midrule
 \textbf{M3 --- NANC} \emph{(Démocrates)} & $\mathbf{+3{,}40}$~\% & \textbf{1,61} & $[-1{,}2;+8{,}0]$
-  & $+1{,}66$ & $\mathbf{+2{,}09}$ & \textbf{2,08} & 1,080 & \textbf{662} & 9/13 \\
+  & $+1{,}66$ & 1,36 & $\mathbf{+2{,}09}$ & \textbf{2,08} & 1,080 & \textbf{662} & 9/13 \\
 \textbf{M3 --- GOP} \emph{(Républicains)} & $\mathbf{+1{,}24}$~\% & \textbf{1,61} & $[-0{,}4;+2{,}9]$
-  & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,79} & 1,004 & \textbf{574} & 9/13 \\
+  & $+1{,}09$ & 1,07 & $\mathbf{+1{,}65}$ & \textbf{1,79} & 1,004 & \textbf{574} & 9/13 \\
 \midrule
-\emph{repère : le SPY lui-même} & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{494} & --- \\
+\emph{repère : le SPY lui-même} & --- & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{494} & --- \\
 \emph{repère : équipondéré, même univers} & \emph{$-1{,}38$~\%} & \emph{$-1{,}45$} & \emph{$[-3{,}5;+0{,}7]$}
-  & \emph{$-0{,}95$} & --- & --- & \emph{0,98} & \emph{430} & --- \\
+  & \emph{$-0{,}95$} & \emph{$-0{,}72$} & \emph{$+0{,}05$} & \emph{0,06} & \emph{0,98} & \emph{430} & --- \\
 \emph{repère : $m_i$ seuls, sans les \$} & \emph{$-0{,}65$~\%} & \emph{$-0{,}91$} & \emph{$[-2{,}2;+0{,}9]$}
-  & \emph{$-0{,}41$} & --- & --- & \emph{0,99} & \emph{464} & --- \\
+  & \emph{$-0{,}41$} & \emph{$-0{,}38$} & \emph{$+0{,}38$} & \emph{0,50} & \emph{0,99} & \emph{464} & --- \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.4mm}
@@ -305,30 +305,7 @@ passe sous le trait plein bleu (M3) des deux côtés, et l'écart s'ouvre avec l
 % ═══════════════════════ V ═══════════════════════
 \mouv{V}{Ce que cette fiche n'établit pas}
 
-\et{a}{Combien de choses a-t-on essayées ?}
-
-Un $t$ ne se lit jamais seul : plus on lance de tests, plus le meilleur paraît bon par hasard. Sous $H_0$,
-le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne $\sqrt{2\ln N}$ --- ici $N = 44$, soit
-\[ \sqrt{2\ln 44} \;=\; 2{,}75 \]
-\textbf{Aucun run de cette fiche ne le dépasse}, y compris ceux qui franchissent le seuil de Student.
-
-\et{b}{Les trois réserves sur le run sans plafond}
-
-Le tableau IV\,c montre M3 sans plafond à $+5{,}95$~\%/an ($t = 2{,}35$, NAV 845 contre 662). Ce chiffre est
-publié parce qu'il ne faut rien cacher --- mais \textbf{ce n'est pas une méthode} :
-
-\begin{pts}
-\item \textbf{il n'a jamais été déclaré comme tel.} Il sert de \textbf{borne} : il dit ce que le plafond
-      coûte, et encadre par le haut tout ce que la méthode peut rendre. Le retenir \emph{parce qu'il gagne}
-      est exactement le geste que tout ce protocole écarte ;
-\item \textbf{son $t$ ne survit pas à la multiplicité} : 2,35 contre un seuil de bruit à 2,75 ;
-\item \textbf{il achète ce que le plafond existe pour interdire.} Mesuré sur les 148 coupes, sa plus grosse
-      ligne pèse \textbf{35,7~\% en médiane et jusqu'à 87~\%} --- quatre mois d'affilée sur une seule société
-      en 2015 --- et son $N_{\text{eff}}$ tombe à 7,9 contre 21,6. Le plafond n'a jamais été un réglage de
-      rendement : c'est une contrainte de diversification, et sans elle le produit change de nature.
-\end{pts}
-
-\et{c}{Les limites assumées}
+\et{}{Les limites assumées}
 
 {\small
 \textbf{Les frais.} Seuls 10 points de base par aller-retour sont facturés, et au mouvement IV\,b seulement.
