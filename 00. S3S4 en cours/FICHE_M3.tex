@@ -7,7 +7,7 @@
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
-\graphicspath{{figs_nb13/}}
+\graphicspath{{figs_nb13/}{figs_nb15/}}
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
@@ -85,7 +85,8 @@ $\theta = \infty$.
 \etape{5}{La clé d'agrégation, puis le score}
 \textbf{Avant d'agréger, on choisit la clé.} C'est ici, et nulle part ailleurs, que se décide ce que le
 portefeuille achètera : le \textbf{titre}, classes d'actions d'une même société fusionnées --- GOOGL avec
-GOOG, BRK-A avec BRK-B, FOXA avec FOX, NWSA avec NWS. \emph{L'étape 11 ne fera que remplacer cette clé.}
+GOOG, BRK-A avec BRK-B, FOXA avec FOX, NWSA avec NWS. \emph{C'est cette clé, et elle seule, que la Version 2
+remplacera par un ETF.}
 
 Sur $\mathcal K^P(t)$, chaque clé $i$ reçoit alors le montant acheté multiplié par le nombre d'élus qui
 l'ont achetée :
@@ -138,14 +139,8 @@ Kenneth French --- ils s'arrêtent au 30/04/2026, si bien que les régressions p
 quelques semaines de moins que l'excès brut.
 
 \etape{11}{Les variantes}
-Une seule fonction produit tout ce qui suit --- trois paramètres, et \textbf{les étapes 6 à 10 ne changent
-pas d'une ligne} :
+Deux paramètres d'une même fonction, et \textbf{les étapes 1 à 10 ne changent pas d'une ligne} :
 \begin{pts}
-\item \textbf{l'instrument} --- la clé de l'étape 5 devient l'\textbf{ETF sectoriel} SPDR du titre, par son
-      secteur GICS (renseigné sur 100~\% des lignes, à valeurs dans les 11 SPDR). $B_i$ se somme alors sur le
-      secteur, mais \textbf{$m_i$ ne se somme pas} : il compte les élus \emph{distincts} du secteur, donc un
-      élu présent sur trois titres d'un même secteur n'y compte qu'une fois. Onze lignes remplacent cent
-      cinquante, et \textbf{la sélection de l'étape 6 devient inopérante} ($11 < 150$) ;
 \item \textbf{la pondération} --- $w \propto s_i$ (M3), $\propto B_i$, $\propto m_i$, ou $1/N$.
       \textbf{$\mathcal S$ reste défini par le score} dans les quatre cas : c'est une décomposition de la
       pondération, pas une autre sélection ;
@@ -155,11 +150,9 @@ pas d'une ligne} :
       $\theta = \infty$, aucun filtre.
 \end{pts}
 \vspace{0.4mm}
-{\footnotesize\color{grisf} Attention au plafond quand l'instrument change : sur onze lignes il n'a de
-solution qu'à partir de $c = 1/11$. Le plafond du document précédent, $8{,}5$~\%, en exigerait douze
-($\lceil 1/0{,}085\rceil = 12 > 11$) et rendrait l'équipondéré exact ; celui retenu, $10$~\%, passe --- mais
-il ne laisse que dix points de mou pour toute la distribution, et l'étape 11 c mesure ce que cela fait
-réellement au score.}\par
+{\footnotesize\color{grisf} \textbf{Un portefeuille qui n'achèterait que des ETF} ne se règle pas par un
+paramètre : c'est une construction qui vient \emph{après} les onze étapes, et elle a sa partie à la fin de
+ce document.}\par
 
 % ══════════════════════════════════════════════════════════════════════
 %                    SECONDE PARTIE — CHAQUE ÉTAPE, ET SA SORTIE
@@ -427,7 +420,7 @@ une \emph{espérance}, pas un quantile ; et le seuil masque l'obstacle réel, qu
 La seule correction correcte serait empirique --- rejouer les mêmes runs sur des dates permutées et lire la
 distribution observée du $\max\lvert t\rvert$. Elle n'est pas faite, et on ne prétend pas le contraire.}
 
-\mouv{Étape 11}{Les variantes --- la pondération, le filtre, l'instrument}
+\mouv{Étape 11}{Les variantes --- la pondération et le filtre}
 
 \et{a}{La pondération, à univers identique}
 
@@ -481,105 +474,130 @@ GOP --- excès & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}
 \obs{Balayage publié en entier, verdict lu à la valeur \emph{déclarée d'avance} --- et aucune valeur ne
 domine : GOP préfère 10, NANC préfère 50.}
 
-\et{c}{L'instrument --- et si on achetait l'ETF plutôt que le titre ?}
+\mouv{Version 2}{un portefeuille qui n'achète que des ETF}
 
-Remplacer le titre par son ETF sectoriel change \textbf{trois choses à la fois} : l'instrument acheté, la
-sélection (elle disparaît, $11 < 150$) et le niveau où le consensus $m$ est mesuré. Un test qui change trois
-choses n'en isole aucune --- et c'est exactement le piège dans lequel tombe la version naïve.
+Le portefeuille à livrer n'achète pas de titres : il n'achète que des \textbf{ETF}. Cette partie décrit
+comment on y passe, ce que ça donne, et sous quelle forme cela se tient. \textbf{La méthode ne change pas} :
+M3 est calculée en entier, à l'identique. Ce qui change vient \emph{après}.
 
-\obs{\textbf{Ce que vaut la sélection, une fois isolée.} Sélectionner avant d'agréger rapporte
-\textbf{1,70 point par an} côté NANC. Mais deux runs intermédiaires montrent que cet écart ne lui revient pas
-entièrement : la sélection seule en vaut \textbf{0,96}, et mesurer le consensus au titre plutôt qu'au secteur
-en vaut \textbf{1,35} \emph{(côté GOP : 0,57 et 0,55, à parts égales, pour un total de 0,76)}.
-\textbf{Ces deux apports ne s'additionnent pas} --- $0{,}96 + 1{,}35 = 2{,}31$ pour un total observé de
-$1{,}70$ : les deux gestes captent en partie la même chose, à savoir écarter la queue du classement. Chacun
-se lit \emph{seul}, jamais en somme. Cette queue, justement : le top-150 écarte \textbf{20,9~\%} du dollar
-déclaré (26,0 côté GOP) mais seulement \textbf{6 à 8~\%} du score --- beaucoup de dollars portés par très
-peu d'élus.}
+\et{a}{Comment on passe des 150 titres aux 11 ETF}
 
-\obs{\textbf{Le run le plus simple ne teste pas ce qu'il prétend.} Onze secteurs plafonnés à 10~\% :
-$11\times10\,\% = 110\,\%$, il ne reste que \emph{dix points de mou} pour toute la distribution. Mesuré :
-\textbf{9 lignes sur 11 siègent au plafond} en médiane, $N_{\text{eff}}$ vaut 10,5 sur 11 possibles, et la
-corrélation des rendements avec l'équipondéré atteint \textbf{0,9986}. Le run \og{}secteurs $\cdot$ score\fg{}
-\emph{est} l'équipondéré : le plafond a effacé le score aussi sûrement que le top-150 avait effacé la
-sélection.}
+Trois gestes, dans cet ordre, et rien d'autre :
 
-\obs{\textbf{Et son $-2{,}4$~\%/an ne mesure pas une perte d'information.} L'exposition sectorielle du marché
-se reconstruit depuis les prix seuls --- les onze SPDR couvrent le S\&P 500, donc on résout
-$\min_{\beta\ge0,\,\sum\beta=1}\lVert r^{\text{SPY}} - \sum_S \beta_S r^S\rVert^2$ année par année. La
-technologie y passe de \textbf{20,9~\% en 2019 à près de 35~\% en 2025}. Tenir les onze secteurs à ces poids
-rend \textbf{15,32~\%/an} --- soit le SPY (15,59) --- quand les équipondérer rend \textbf{13,01}. Soit
-\textbf{2 à 2,6 points par an, sans qu'aucun élu n'intervienne} : l'ordre de grandeur de la perte du run
-plafonné est celui d'un \textbf{pari contre la concentration de l'indice}, pas d'un coût de l'agrégation.}
+\begin{pts}
+\item \textbf{on calcule M3 en entier} --- score $B_im_i$, top-150, plafond de 10~\% \emph{par titre}.
+      Aucune des onze étapes n'est modifiée ;
+\item \textbf{chaque ligne devient l'ETF de son secteur.} Le rattachement titre $\to$ secteur GICS $\to$
+      SPDR est un \textbf{intrant} du dépôt, pas une règle qu'on établit ici : il est renseigné sur
+      \textbf{100~\%} des lignes, à valeurs dans les 11 SPDR. La clé est le ticker \emph{après} fusion des
+      classes d'actions (étape 5) ; \textbf{cinq tickers portent deux secteurs selon la ligne} (BALL, CPAY,
+      SONY, TFC, XYZ), tranchés par le \textbf{secteur majoritaire} ;
+\item \textbf{les poids se somment}, puis sont \textbf{renormalisés} sur les seuls secteurs qui cotent à la
+      date --- le moteur exige $\sum w = 1$.
+\end{pts}
 
-\obs{\textbf{Ce que ce contrôle ne dit pas.} L'estimation n'est \textbf{pas significative}
-($t = -1{,}14$, intervalle de confiance large d'une dizaine de points) et ne porte que sur
-\textbf{2020--2026} : avant 2019 les onze secteurs ne cotent pas tous, donc ni les poids du marché ni ce
-contrôle n'existent sur les six premières années. On retient l'ordre de grandeur, pas l'égalité --- et
-$\hat\beta$ est une \emph{exposition} implicite, un proxy des poids de l'indice : son classement est bon
-($\rho$ de rang 0,93--0,98 avec les poids réels), ses niveaux le sont moins, parce que les SPDR plafonnent
-leurs lignes là où l'indice ne le fait pas.}
+\obs{\textbf{Deux conséquences à annoncer.} \emph{(i)} Le plafond de 10~\% \textbf{ne survit pas} à
+l'agrégation : il porte sur les titres, et plusieurs titres d'un secteur s'additionnent --- la plus grosse
+ligne pèse alors \textbf{46,6~\%} (démocrates) et \textbf{42,2~\%} (républicains), jusqu'à 48,7 et 44,2~\%
+sur la période. \emph{(ii)} Avant juin 2018, XLRE et XLC ne cotent pas encore et leur poids est réparti au
+prorata : la fenêtre \textbf{2019--2026} fait foi, l'autre est donnée en regard.}
 
-\et{}{Le test qui isole vraiment l'instrument}
+\sortie{quatre contrôles : la carte identité (chaque titre $\to$ lui-même) redonne M3 à $2{,}8\cdot10^{-17}$ ;
+le poids d'un secteur est bien la \textbf{somme} de ses titres (296 couples) ; le repli est \textbf{au prorata
+exact} (104 couples) ; \textbf{M3 sur les titres est inchangée} (NAV 661,57 et 573,57).}
 
-On prend le portefeuille \emph{tel que M3 le construit} --- même score, même top-150, même plafond par
-titre --- et l'on remplace chaque ligne par l'ETF de son secteur. Rien d'autre ne bouge.
+\et{b}{Le portefeuille unique --- et l'objection qu'il fait tomber}
 
-{\centering\tiny\setlength{\tabcolsep}{3.4pt}
-\begin{tabular}{@{}l r r@{\hspace{3mm}} r r@{}}
+Retenir le portefeuille démocrate \emph{ou} le républicain serait un choix fait \textbf{après} avoir vu les
+résultats. On calcule donc le score sur \textbf{tous les élus}, sans distinction de parti : $B_i$ somme les
+dollars des deux camps, $m_i$ compte les élus distincts quel qu'il soit. Ce n'est pas la moyenne des deux
+portefeuilles --- un titre acheté par trois démocrates \emph{et} trois républicains obtient $m_i = 6$ là où
+chaque camp ne lui en accordait que 3 : \textbf{le consensus bipartisan est récompensé}. À la dernière coupe :
+39 acheteurs démocrates, 60 républicains, \textbf{100 fusionnés}.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r@{\hspace{3mm}} r r@{}}
 \toprule
- & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-2014--2026 & excès/an \emph{(t)} & $\alpha_1$ & excès/an \emph{(t)} & $\alpha_1$ \\
+2014--2026 & excès/an & \emph{(t)} & IC 95~\% & 2019--2026 & NAV \\
 \midrule
-\textbf{M3, sur les titres} & $\mathbf{+3{,}40}$ \emph{(1,61)} & $+1{,}66$ & $\mathbf{+1{,}24}$ \emph{(1,61)} & $+1{,}09$ \\
-\textbf{son exposition sectorielle, en ETF} & $\mathbf{+1{,}50}$ \emph{(1,38)} & $+0{,}30$ & $\mathbf{+0{,}45}$ \emph{(0,57)} & $+0{,}09$ \\
+\multicolumn{6}{@{}l}{\emph{sur les 150 titres}}\\
+démocrates & $+3{,}40$ & \emph{(1,61)} & $[-1{,}19\,;7{,}99]$ & $+4{,}16$ & 662 \\
+républicains & $+1{,}24$ & \emph{(1,61)} & $[-0{,}44\,;2{,}91]$ & $+2{,}28$ & 574 \\
+\textbf{unique} & $\mathbf{+2{,}51}$ & \emph{\textbf{(1,93)}} & $[-0{,}32\,;5{,}35]$ & $+3{,}29$ & \textbf{629} \\
 \midrule
-\og{}secteurs $\cdot$ score\fg{}, plafonné & $-2{,}37$ \emph{(2,22)} & $-1{,}13$ & $-2{,}14$ \emph{(1,80)} & $-0{,}80$ \\
-l'équipondéré sectoriel & $-2{,}40$ \emph{(1,89)} & $-0{,}85$ & $-2{,}40$ \emph{(1,89)} & $-0{,}85$ \\
+\multicolumn{6}{@{}l}{\emph{sur les 11 ETF sectoriels}}\\
+démocrates & $+1{,}50$ & \emph{(1,38)} & $[-0{,}87\,;3{,}88]$ & $+1{,}92$ & 565 \\
+républicains & $+0{,}45$ & \emph{(0,57)} & $[-1{,}29\,;2{,}20]$ & $+1{,}12$ & 530 \\
+\textbf{unique} & $\mathbf{+1{,}15}$ & \emph{\textbf{(1,54)}} & $[-0{,}48\,;2{,}78]$ & $+1{,}70$ & \textbf{555} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.6mm}
+
+\lecon{le portefeuille unique a \textbf{le $t$ le plus élevé de tout ce document} (1,93) alors que son excès
+est \emph{intermédiaire} : fusionner les deux populations ne moyenne pas les rendements, cela \textbf{réduit
+la variance} des excès annuels. Il n'aurait pas eu besoin d'être le meilleur pour être le bon choix --- il
+est le seul qui n'exige aucune décision prise après coup.}
+
+\et{c}{La forme livrable : le marché, plus un tilt}
+
+Tenir onze secteurs aux poids du signal, c'est prendre un pari énorme contre l'indice sans le mesurer. La
+forme qu'un allocataire tient réellement sépare les deux :
+\[ w \;=\; \underbrace{w^{\text{marché}}}_{\text{gratuit}} \;+\; \lambda\,\underbrace{(w^{\text{signal}} - w^{\text{marché}})}_{\text{le pari}} \]
+$\lambda = 0$ donne le marché, $\lambda = 1$ la version sectorielle simple. Les poids du marché sont
+reconstruits depuis les prix seuls (les onze SPDR couvrent le S\&P~500), avec ceux de \textbf{l'année
+précédente} --- aucun regard vers l'avenir.
+
+{\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+$\lambda$ & excès net/an & \emph{(t)} & \textbf{écart marché} & rdt/écart & rotation \\
+\midrule
+0 \emph{(le marché)} & $-0{,}33$ & \emph{(--0,3)} & 2,1~\% & --- & 21~\% \\
+1 & $+1{,}73$ & \emph{(1,36)} & 2,6~\% & 0,68 & 25~\% \\
+2 & $\mathbf{+3{,}41}$ & \emph{\textbf{(1,82)}} & \textbf{4,2~\%} & \textbf{0,83} & 41~\% \\
+3 & $+4{,}31$ & \emph{(1,84)} & 5,2~\% & 0,85 & 51~\% \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.2mm}
-{\scriptsize\color{grisf} \textbf{Sur 2019--2026}, la fenêtre où les onze secteurs cotent tous et la seule où
-cette décomposition soit valide : $+4{,}16$ et $+2{,}28$ pour M3, $+1{,}92$ et $+1{,}12$ pour l'exposition
-sectorielle, $-2{,}92$ et $-2{,}53$ pour le run plafonné.}\par
+{\scriptsize\color{grisf} L'\textbf{écart au marché} (\emph{tracking error}) est l'écart-type annualisé de
+la différence avec l'indice : à 4,2~\%, deux années sur trois l'écart au SPY tient entre $-4{,}2$ et
+$+4{,}2$~\%. Net de 10 points de base par aller-retour. Fenêtre 2020--2026, sept années.}\par
 \vspace{0.6mm}
 
-\fig{m3_etf_ou_agreger.png}{base 100 en janvier 2019, échelle logarithmique. En haut M3 sur les titres, juste
-en dessous son exposition sectorielle tenue en ETF, et tout en bas les versions plafonnées --- que le plafond
-rapproche au point de rendre deux d'entre elles indiscernables.}
+\fig{etf_livrable.png}{à gauche le portefeuille depuis 2020 (base 100, log) ; à droite ce que chaque niveau
+d'écart au marché rapporte --- la courbe est concave, le gain par unité de risque décroît.}
 
-\lecon{sur 2019--2026, l'excès de M3 se partage \textbf{à peu près par moitié} entre son exposition
-sectorielle ($+1{,}92$ et $+1{,}12$) et le \textbf{choix du titre à l'intérieur du secteur} ($+2{,}25$ et
-$+1{,}15$, soit 54~\% et 51~\%) --- et de la même façon des deux côtés. \textbf{Mais rien n'est
-significatif} : le $t$ du choix du titre vaut 1,00 et 0,86.}
+\obs{\textbf{À $\lambda = 2$ le portefeuille unique domine les deux camps sur les quatre colonnes à la
+fois} : $+3{,}41$~\%/an net contre $+3{,}17$ (démocrates) et $+3{,}21$ (républicains), pour un écart au
+marché \emph{plus faible} (4,2 contre 4,6 et 5,6~\%), un meilleur rendement par unité d'écart (0,83 contre
+0,70 et 0,59) et \emph{moins} de rotation (41 contre 43 et 54~\%). Ce n'est pas un arbitrage : il gagne
+partout.}
 
-\obs{\textbf{Deux réserves de méthode, et elles comptent.} \emph{(i)} Que les deux parts s'additionnent est
-une \textbf{identité}, vraie pour n'importe quel terme retranché : ce qui a du contenu, c'est que le terme
-retranché soit le bon --- c'est-à-dire que l'exposition sectorielle soit vraiment celle de M3, ce qui n'est
-vrai qu'\textbf{à partir de 2019}. Sur 2014--2026 la part du titre ressort à 56 et 63~\%, mais elle absorbe
-alors aussi le repli sur les secteurs non cotés. \emph{(ii)} Le contrôle par carte identité (chaque titre
-$\to$ lui-même) redonne bien M3 à $4{,}2\cdot10^{-17}$, mais il ne teste \emph{ni} l'agrégation \emph{ni} le
-repli --- sous cette carte aucun groupe ne fusionne et le diviseur vaut 1. Deux contrôles distincts s'en
-chargent : la \textbf{conservation} (le poids d'un secteur est la somme de ses titres) sur 296 couples, et le
-\textbf{repli au pro rata} sur les 104 couples à secteur manquant.}
+\lecon{\textbf{on ne choisit pas $\lambda$, on choisit l'écart au marché qu'on accepte} --- $\lambda$ s'en
+déduit. C'est le seul réglage de tout le document qui ait un point d'arrêt non arbitraire : le rendement par
+unité d'écart \emph{plafonne} à 0,83--0,85 vers $\lambda = 2$--3, puis cesse de progresser. Au-delà, on prend
+plus de risque sans être mieux payé.}
 
-\sortie{la variante tient sur huit contrôles : univers inclus dans les 11 SPDR (9 secteurs jusqu'en 09/2015,
-10 jusqu'en 05/2018, 11 ensuite) ; $\sum w = 1$ à chaque coupe, renormalisation comprise ; plafond $1/11$
-$\equiv$ équipondéré exact ; carte identité $\equiv$ M3 ; conservation ; repli pro rata ; et \textbf{M3 sur
-les titres inchangée} (NAV 661,57 et 573,57) --- la variante n'a touché à rien.}
+\et{d}{Ce qui a été essayé et écarté}
 
-\fig{m3_etf_manquant.png}{la part du score qui tombe dans un secteur pas encore coté, dans le temps. Les deux
-traits verticaux marquent l'arrivée de XLRE (10/2015) et de XLC (06/2018).}
+\begin{pts}
+\item \textbf{Découper les secteurs en 32 instruments plus fins} (semi-conducteurs, biotechnologie, défense,
+      banques régionales\ldots) : \textbf{dégrade} --- $+0{,}31$ et $-0{,}60$~\%/an contre $+1{,}50$ et
+      $+0{,}45$. La cause n'est pas le signal mais l'instrument : hors de toute stratégie, \textbf{les ETF
+      fins ne battent le secteur qu'ils découpent que 6 fois sur 21}, avec un écart moyen de
+      $-1{,}6$~pt/an. Découper un secteur remplace sa moyenne, portée par ses plus grosses capitalisations,
+      par un segment plus étroit ;
+\item \textbf{recomposer plus souvent} : sans objet. Le signal sectoriel est une \textbf{inclinaison}, pas
+      une rotation --- 85~\% des écarts de poids sont permanents côté démocrate, 76~\% côté républicain, et
+      2,2~\% seulement du portefeuille change de main d'une coupe à l'autre.
+\end{pts}
 
-\obs{\textbf{La difficulté est datée, pas cachée --- et elle frappe le bon test trois fois plus fort.}
-52 coupes sur 148 tombent avant que les onze SPDR existent tous. Sur le \emph{score} sectoriel (la figure),
-la part alors réaffectée vaut 4,5~\% en médiane côté NANC et 5,5~\% côté GOP, avec des pointes à 8,3 et
-11,2~\%. Mais sur le portefeuille de M3 agrégé --- celui du test qui isole l'instrument --- elle atteint
-\textbf{15,4~\% en médiane} (max 20,8) et \textbf{11,9~\%} côté GOP (max 16,1) : le top-150 concentre
-justement sur la technologie et l'immobilier, les deux secteurs arrivés en retard. C'est \emph{pour cela}
-que la fenêtre 2019--2026 est celle qui fait foi --- et non pas seulement parce qu'elle est plus propre.
-Le classement des lectures, lui, ne bouge pas d'une fenêtre à l'autre.}
+\obs{\textbf{Ce que le signal sectoriel vaut, hors de tout portefeuille.} Sur 3\,112 observations
+(148 coupes $\times$ 11 secteurs $\times$ 2 camps), poids et rendements pris en écart à leur moyenne du mois :
+un secteur surpondéré de 10 points sur-performe les autres de \textbf{0,3 à 0,4~\% le mois suivant}
+($t$ 1,90 et 2,06). Et ce n'est pas un pari sur un seul secteur : le plus gros contributeur ne pèse que
+\textbf{36~\%} de l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicain (l'énergie)
+--- deux moteurs \emph{opposés}, argument de plus pour le portefeuille unique.}
 
 \end{multicols}
 
@@ -645,23 +663,22 @@ Deux sources indépendantes, dont aucune n'est notre rendement, donnent la même
 du fonds réel vaut \textbf{10,3~\% en médiane} sur ses treize états déposés à la SEC (entre 8,0 et 12,7~\%),
 et \textbf{10~\% est la limite UCITS} par émetteur, au-delà de laquelle un fonds européen n'est plus
 distribuable. Il en faut un : \textbf{sans plafond, la plus grosse ligne monte à 36~\% en médiane et jusqu'à
-87~\%}. Sur les onze secteurs de l'étape 11, en revanche, il devient \emph{trop} serré : $c = 1/11$
-est le plus petit plafond faisable, et à 10~\% il ne laisse que dix points de mou --- assez pour effacer le
-score, comme l'étape 11 c le mesure.\par}
+87~\%}. \emph{Ce plafond porte sur les titres, et la Version 2 ne lui en substitue aucun au niveau du
+secteur : sur onze lignes, un plafond de 10~\% ne laisserait que dix points de mou pour toute la
+distribution et effacerait le score.}\par}
 
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
 {\color{bleu}\bfseries Annexe B --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
 \vspace{0.6mm}
 {\small
-La technologie pèse \textbf{un tiers} du portefeuille sectoriel côté démocrate --- mais elle pèse déjà
-environ un tiers du S\&P 500. Achèterait-on la technologie \emph{parce qu'elle est grosse} ?
-La capitalisation n'est nulle part dans nos données, mais une \emph{exposition} se reconstruit depuis les
-prix : les onze SPDR couvrent l'indice, et les $\beta$ de la régression sous contrainte ($\beta\ge0$,
-$\sum\beta=1$) en donnent l'exposition sectorielle implicite. \emph{Ce sont un proxy des poids du marché,
-pas les poids eux-mêmes} --- bons sur le classement ($\rho$ de rang 0,93--0,98 avec les poids réels),
-approximatifs sur les niveaux, parce que les SPDR plafonnent leurs lignes là où l'indice ne le fait pas.
-\emph{(Côté républicain la part de la technologie dans le score n'est que de 13,9~\% : la question ne se pose
-d'emblée que pour un des deux fonds.)}\par}
+La technologie pèse \textbf{un tiers} du portefeuille sectoriel côté démocrate --- mais elle pèse déjà environ
+un tiers du S\&P 500. Achèterait-on la technologie \emph{parce qu'elle est grosse} ? La capitalisation n'est
+nulle part dans nos données, mais une \emph{exposition} se reconstruit depuis les prix : les onze SPDR
+couvrent l'indice, et les $\beta$ de la régression sous contrainte ($\beta\ge0$, $\sum\beta=1$) en donnent
+l'exposition sectorielle implicite --- \emph{un proxy des poids du marché, pas les poids eux-mêmes} : le
+$R^2$ atteste que les onze SPDR \emph{engendrent} l'indice, jamais que chaque coefficient soit identifié.
+\emph{(Côté républicain la technologie ne pèse que 13,9~\% du score : la question ne se pose d'emblée que
+pour un des deux camps.)}\par}
 \vspace{0.6mm}
 {\centering\scriptsize\setlength{\tabcolsep}{5pt}
 \begin{tabular}{@{}l r r r r@{}}
@@ -680,24 +697,21 @@ GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
 marché les pèse ($\rho$ 0,85 et 0,88), mais il s'en écarte de deux à trois points par secteur --- et surtout
 dans des directions opposées sur le secteur qui décide de tout : les démocrates surpondèrent la technologie
 ($31{,}7$ contre $29{,}4$~\%), les républicains la sous-pondèrent de dix points ($19{,}8$~\%). Ce n'est donc
-pas un simple reflet de la taille, mais ce qui s'y ajoute reste modeste --- cohérent avec l'étape 11 c :
-l'essentiel de l'excès vient du \emph{titre}, pas du secteur.\par
+pas un simple reflet de la taille --- et c'est précisément ce que la \textbf{Version 2} exploite : le tilt
+n'achète \emph{que} cet écart au marché, en laissant le reste à un indice.\par
 \vspace{0.4mm}
-\emph{Deux grandeurs à ne pas confondre} : le \textbf{score} sectoriel brut donne à la technologie 33,8~\%
-(NANC) et 13,9~\% (GOP) en médiane ; le \textbf{portefeuille} mesuré ici est celui de M3 agrégé par secteur,
-après sélection et plafond par titre --- d'où 31,7 et 19,8~\%. C'est bien lui qu'il faut comparer au marché,
-puisque c'est lui qu'on détiendrait.\par}
+\emph{À ne pas confondre} : le \textbf{score} brut donne à la technologie 33,8~\% (NANC) et 13,9~\% (GOP) ;
+le \textbf{portefeuille} mesuré ici est M3 agrégé, après sélection et plafond --- d'où 31,7 et 19,8~\%.
+C'est lui qu'il faut comparer au marché, puisque c'est lui qu'on détiendrait.\par}
 
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
 {\color{bleu}\bfseries Annexe C --- ce que cette fiche n'établit pas}\par
 \vspace{0.6mm}
 {\small
-\textbf{Les frais.} Seuls 10 points de base par aller-retour sont facturés, et à l'étape 9 seulement.
-Aucun impact de marché, aucune contrainte de liquidité, aucune capacité chiffrée.
-\textbf{Le portefeuille.} Long seul, sans levier, sans vente à découvert.
-\textbf{L'échantillon.} Treize années, dont deux partielles ; la puissance statistique est faible et la
-fiche s'y tient --- aucun excès mesuré ici n'est significatif.
-\textbf{La fidélité.} Reproduire le portefeuille réel du fonds est une \emph{autre} question, traitée
-ailleurs : cette fiche mesure une stratégie, pas une réplique.\par}
+\textbf{Les frais.} Seuls 10 points de base par aller-retour, et à l'étape 9 seulement --- aucun impact de
+marché, aucune contrainte de liquidité, aucune capacité chiffrée. \textbf{Le portefeuille.} Long seul, sans
+levier, sans vente à découvert. \textbf{L'échantillon.} Treize années, sept pour la Version 2 ; la puissance
+est faible et la fiche s'y tient : \textbf{aucun excès mesuré ici n'est significatif}. \textbf{La fidélité.}
+Reproduire le fonds réel est une \emph{autre} question --- cette fiche mesure une stratégie.\par}
 
 \end{document}
