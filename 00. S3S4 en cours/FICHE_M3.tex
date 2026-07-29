@@ -114,12 +114,9 @@ somme fasse 1, les lignes saturées restant au plafond et les autres montant pro
 Comme $\lambda \mapsto \sum_i \min(c,\lambda v_i)$ croît continûment de 0 à $\lvert\mathcal S\rvert\,c$, ce
 $\lambda$ existe et est unique \textbf{dès que} $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 12$ titres.
 
-\obs{\textbf{En dessous de douze lignes, le plafond n'existe pas} --- aucun vecteur de somme 1 ne le
-respecte, la normalisation finale rend l'\textbf{équipondéré}. Le cas se produit à la toute première fin de
-mois : la fenêtre de trois ans ne contient qu'un mois de déclarations et NANC n'a que \textbf{9} titres
-éligibles. D'où la règle de démarrage : \emph{on ne commence qu'où la spécification est applicable aux deux
-partis}, soit le 28/02/2014. Le critère est structurel --- aucun rendement n'y intervient --- et il fait
-\emph{baisser} l'excès de $0{,}10$~pt. On retrouvera ce seuil de douze au mouvement IV\,c, où il décide de tout.}
+\obs{\textbf{En dessous de douze lignes le plafond n'existe pas} : la normalisation finale rend
+l'\textbf{équipondéré}. Le cas se produit à la première fin de mois --- NANC n'a que \textbf{9} titres ---
+d'où la règle de démarrage. Au mouvement IV\,c, ce même seuil décide de tout.}
 
 % ═══════════════════════ II ═══════════════════════
 \mouv{II}{Ce qu'elle vaut}
@@ -131,9 +128,8 @@ franchement certaines années (NANC $-11{,}6$ pt en 2022, $+18{,}9$ en 2023).}
 \begin{pts}
 \item \textbf{L'excès n'est pas significatif, et il faut le dire d'entrée.} Avec 13 années d'observation il
       faudrait $\lvert t\rvert > 2{,}18$ ; on mesure 1,42 et 1,56. \textbf{Les deux intervalles de confiance
-      contiennent zéro} --- celui de NANC va de $-1{,}5$ à $+7{,}3$~\%/an ;
-\item ce qu'on livre est donc la méthode la \textbf{mieux fondée}, pas une méthode dont on démontre qu'elle
-      gagne. Toute la fiche est construite pour que cette phrase reste vraie ;
+      contiennent zéro} --- celui de NANC va de $-1{,}5$ à $+7{,}3$~\%/an. On livre donc la méthode la
+      \textbf{mieux fondée}, pas une méthode dont on démontre qu'elle gagne ;
 \item ce qui \emph{est} solide : la méthode bat l'indice \textbf{9 années sur 13} d'un côté, \textbf{10 sur
       13} de l'autre, avec un $\beta$ de 1,08 et 1,00 --- elle ne gagne pas en prenant plus de risque de marché.
 \end{pts}
@@ -165,9 +161,7 @@ $N_{\text{eff}} = 1/\sum w_i^2$ & 23,4 & & 33,3 \\
 \obs{\textbf{Les deux partis convergent sur les mêmes méga-capitalisations technologiques} --- six noms sur
 huit sont communs. Ce qui les sépare ne tient pas dans la tête du portefeuille mais dans les poids : côté
 démocrate \textbf{deux} lignes touchent le plafond et les cinq premières pèsent 40~\%, côté républicain
-\textbf{une} seule et 32~\%. Le portefeuille républicain est donc \emph{moins} concentré
-($N_{\text{eff}}$ 33 contre 23) tout en étant \emph{moins} performant : ici la concentration ne se paie pas,
-elle se gagne.}
+\textbf{une} seule et 32~\%.}
 
 % ═══════════════════════ III ═══════════════════════
 \mouv{III}{D'où vient le résultat}
@@ -194,10 +188,8 @@ $\mathbf{B_i\,m_i}$ \emph{(M3)} & $\mathbf{+2{,}88}$~\% & \textbf{627} & $\mathb
 
 \fig{m3_decomposition.png}{la même chose en image. Ni les dollars, ni les élus ne portent le résultat.}
 
-\lecon{\textbf{le produit dépasse ses deux composantes.} Les dollars seuls rendent $+1{,}27$, les élus seuls
-$-0{,}65$, et leur produit $+2{,}88$. Ce n'est pas une somme d'effets : c'est la \emph{coïncidence} entre un
-gros montant et un large accord qui porte l'information. Sélectionner les mêmes titres et les équipondérer
-fait \textbf{perdre} 1,38~\%/an --- la sélection seule ne vaut rien.}
+\lecon{\textbf{le produit dépasse ses deux composantes} : ce n'est pas une somme d'effets, c'est la
+\emph{coïncidence} entre un gros montant et un large accord qui porte l'information.}
 
 \et{b}{Le filtre anti-bruit}
 
@@ -216,9 +208,8 @@ GOP & $+2{,}94$ & $+2{,}03$ & $\mathbf{+1{,}51}$ & $+1{,}65$ & $+1{,}21$ \\
 \end{tabular}\par}
 \vspace{0.6mm}
 
-\obs{Le balayage est \textbf{publié en entier} pour montrer la pente, et le verdict se lit à la valeur
-\emph{déclarée d'avance} : $\theta = 50$. Choisir $\theta = 10$ parce que GOP y est meilleur serait un
-réglage rétrospectif --- et la ligne NANC, qui préfère 50, montre bien qu'aucune valeur ne domine.}
+\obs{Balayage publié en entier, verdict lu à la valeur \emph{déclarée d'avance} --- et aucune valeur ne
+domine : GOP préfère 10, NANC préfère 50.}
 
 % ═══════════════════════ IV ═══════════════════════
 \mouv{IV}{Les trois épreuves}
@@ -278,10 +269,6 @@ $+0{,}06$) --- mais il est \emph{encadré} de plafonds qui échouent ($-0{,}06$ 
 $2\,\%$). Serrer une contrainte devrait agir dans un sens, pas alterner : ce profil est celui du bruit.
 \textbf{Le frein n'est pas retenu} --- la règle est nécessaire, elle n'est pas suffisante.}
 
-\lecon{\textbf{M3 survit largement au passage d'ordre} --- 0,17 point par an sur un excès de 2,88. Sa
-fenêtre de trois ans en fait une méthode lente : d'un mois sur l'autre, un trente-sixième du signal se
-renouvelle seulement.}
-
 \et{c}{Les secteurs --- et si on achetait l'ETF plutôt que le titre ?}
 
 Même règle, même fenêtre, même score, même exécution : \textbf{seul l'instrument change}. Chaque titre est
@@ -306,27 +293,21 @@ secteurs $\cdot$ équipondéré & $-2{,}40$ & $-2{,}40$ & $-2{,}98$ & $-2{,}98$ 
 passe sous le trait plein bleu (M3) des deux côtés, et l'écart s'ouvre avec le temps.}
 
 \lecon{\textbf{l'information est dans le titre, pas dans son secteur.} Côté républicain l'excès disparaît
-\emph{exactement} : $-0{,}10$~\%/an, $t = -0{,}09$, $\beta = 1{,}01$. Côté démocrate il reste $+1{,}93$,
-soit un tiers de moins. Le portefeuille sectoriel se comporte comme ce qu'il est --- un indice à peine
-incliné : volatilité 18,6~\% contre 16,6 pour le SPY, $N_{\text{eff}}$ de 4 contre 23, et rotation divisée
-par deux (34 contre 72~\%/an).}
+\emph{exactement}, et le portefeuille sectoriel n'est plus qu'un indice à peine incliné
+($N_{\text{eff}}$ 4 contre 23).}
 
-\obs{\textbf{Les deux difficultés ont été tranchées en publiant les deux côtés, pas en choisissant.} (i) Le
-plafond de 8,5~\% est \emph{inapplicable} à onze lignes --- c'est le fait du mouvement I\,b :
-$\lceil 1/c\rceil = 12 > 11$, donc le plafonner rendrait l'équipondéré exact et l'on ne mesurerait plus rien.
-D'où les deux bornes, sans plafond et équipondéré, qui encadrent tout résultat possible. (ii) Deux secteurs
-n'existent pas au début (l'immobilier avant octobre 2015, la communication avant juin 2018, où il vaut
-7~\% du flux) : d'où la seconde fenêtre. \textbf{Le classement est le même des deux côtés} --- le choix
-n'a pas décidé du résultat.}
+\obs{Deux difficultés, tranchées en publiant les deux côtés plutôt qu'en choisissant. (i) Le plafond est
+\emph{inapplicable} à onze lignes ($\lceil 1/c\rceil = 12 > 11$, le fait du mouvement I\,b) : d'où les deux
+bornes, sans plafond et équipondéré. (ii) La communication n'existe qu'à partir de juin 2018, où elle vaut
+7~\% du flux : d'où la seconde fenêtre. \textbf{Le classement ne change pas} d'un côté à l'autre.}
 
 % ═══════════════════════ V ═══════════════════════
 \mouv{V}{Ce que cette fiche n'établit pas}
 
 \et{a}{Combien de choses a-t-on essayées ?}
 
-Un $t$ ne se lit jamais seul : plus on lance de tests, plus le meilleur paraît bon par pur hasard. Sous
-l'hypothèse que rien ne marche, le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne
-$\sqrt{2\ln N}$. Le notebook compte les siens : \textbf{40 essais}, donc un seuil de bruit à
+Un $t$ ne se lit jamais seul : plus on lance de tests, plus le meilleur paraît bon par hasard. Sous $H_0$,
+le plus grand $\lvert t\rvert$ parmi $N$ essais vaut en moyenne $\sqrt{2\ln N}$ --- ici $N = 40$, soit
 \[ \sqrt{2\ln 40} \;=\; 2{,}72 \]
 \textbf{Aucun run de cette fiche ne le dépasse}, y compris ceux qui franchissent le seuil de Student.
 
@@ -345,9 +326,6 @@ publié parce qu'il ne faut rien cacher --- mais \textbf{ce n'est pas une métho
       réel en tient une centaine. Le 8,5~\% n'a jamais été un réglage de rendement : c'est une contrainte de
       diversification, lue sur le portefeuille réel.
 \end{pts}
-
-\lecon{ce run établit honnêtement \textbf{le prix de la diversification} sur cet échantillon. C'est une
-information sur le produit, pas une stratégie à livrer.}
 
 \et{c}{Les limites assumées}
 
