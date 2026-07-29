@@ -490,9 +490,12 @@ choses n'en isole aucune --- et c'est exactement le piège dans lequel tombe la 
 \obs{\textbf{Ce que vaut la sélection, une fois isolée.} Sélectionner avant d'agréger rapporte
 \textbf{1,70 point par an} côté NANC. Mais deux runs intermédiaires montrent que cet écart ne lui revient pas
 entièrement : la sélection seule en vaut \textbf{0,96}, et mesurer le consensus au titre plutôt qu'au secteur
-en vaut \textbf{1,35} \emph{(côté GOP : 0,57 et 0,55, à parts égales)}. Le top-150 écarte
-\textbf{20,9~\%} du dollar déclaré (26,0 côté GOP) mais seulement \textbf{6 à 8~\%} du score : la queue du
-classement, ce sont beaucoup de dollars portés par très peu d'élus.}
+en vaut \textbf{1,35} \emph{(côté GOP : 0,57 et 0,55, à parts égales, pour un total de 0,76)}.
+\textbf{Ces deux apports ne s'additionnent pas} --- $0{,}96 + 1{,}35 = 2{,}31$ pour un total observé de
+$1{,}70$ : les deux gestes captent en partie la même chose, à savoir écarter la queue du classement. Chacun
+se lit \emph{seul}, jamais en somme. Cette queue, justement : le top-150 écarte \textbf{20,9~\%} du dollar
+déclaré (26,0 côté GOP) mais seulement \textbf{6 à 8~\%} du score --- beaucoup de dollars portés par très
+peu d'élus.}
 
 \obs{\textbf{Le run le plus simple ne teste pas ce qu'il prétend.} Onze secteurs plafonnés à 10~\% :
 $11\times10\,\% = 110\,\%$, il ne reste que \emph{dix points de mou} pour toute la distribution. Mesuré :
@@ -569,10 +572,14 @@ les titres inchangée} (NAV 661,57 et 573,57) --- la variante n'a touché à rie
 \fig{m3_etf_manquant.png}{la part du score qui tombe dans un secteur pas encore coté, dans le temps. Les deux
 traits verticaux marquent l'arrivée de XLRE (10/2015) et de XLC (06/2018).}
 
-\obs{\textbf{La difficulté est datée, pas cachée} : 52 coupes sur 148 tombent avant que les onze SPDR
-existent tous. La part du score alors réaffectée vaut 4,5~\% en médiane côté NANC et 5,5~\% côté GOP, avec
-des pointes à 8,3 et 11,2~\%. Elle disparaît après mai 2018 --- d'où la fenêtre 2019--2026 donnée en regard,
-où le problème n'existe plus et où le classement ne bouge pas.}
+\obs{\textbf{La difficulté est datée, pas cachée --- et elle frappe le bon test trois fois plus fort.}
+52 coupes sur 148 tombent avant que les onze SPDR existent tous. Sur le \emph{score} sectoriel (la figure),
+la part alors réaffectée vaut 4,5~\% en médiane côté NANC et 5,5~\% côté GOP, avec des pointes à 8,3 et
+11,2~\%. Mais sur le portefeuille de M3 agrégé --- celui du test qui isole l'instrument --- elle atteint
+\textbf{15,4~\% en médiane} (max 20,8) et \textbf{11,9~\%} côté GOP (max 16,1) : le top-150 concentre
+justement sur la technologie et l'immobilier, les deux secteurs arrivés en retard. C'est \emph{pour cela}
+que la fenêtre 2019--2026 est celle qui fait foi --- et non pas seulement parce qu'elle est plus propre.
+Le classement des lectures, lui, ne bouge pas d'une fenêtre à l'autre.}
 
 \end{multicols}
 
@@ -646,8 +653,8 @@ score, comme l'étape 11 c le mesure.\par}
 {\color{bleu}\bfseries Annexe B --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
 \vspace{0.6mm}
 {\small
-La technologie pèse \textbf{un tiers} de notre score sectoriel côté démocrate (33,8~\% en médiane) --- mais
-elle pèse déjà environ un tiers du S\&P 500. Achèterait-on la technologie \emph{parce qu'elle est grosse} ?
+La technologie pèse \textbf{un tiers} du portefeuille sectoriel côté démocrate --- mais elle pèse déjà
+environ un tiers du S\&P 500. Achèterait-on la technologie \emph{parce qu'elle est grosse} ?
 La capitalisation n'est nulle part dans nos données, mais une \emph{exposition} se reconstruit depuis les
 prix : les onze SPDR couvrent l'indice, et les $\beta$ de la régression sous contrainte ($\beta\ge0$,
 $\sum\beta=1$) en donnent l'exposition sectorielle implicite. \emph{Ce sont un proxy des poids du marché,
@@ -659,9 +666,9 @@ d'emblée que pour un des deux fonds.)}\par}
 {\centering\scriptsize\setlength{\tabcolsep}{5pt}
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
- & $\rho$ de rang, score contre marché & écart absolu moyen & \multicolumn{2}{c}{la technologie (XLK)} \\
+ & $\rho$ de rang, \emph{portefeuille} contre marché & écart absolu moyen & \multicolumn{2}{c}{la technologie (XLK)} \\
 \cmidrule(lr){4-5}
-médiane sur 2019--2025 & & & marché & score \\
+médiane sur 2019--2025 & & & marché & \emph{portefeuille} \\
 \midrule
 NANC & 0,85 & 3,00 pt & 29,36~\% & 31,71~\% \\
 GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
@@ -669,12 +676,17 @@ GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
 \end{tabular}\par}
 \vspace{0.4mm}
 {\small
-\textbf{Le classement, oui ; les poids, non.} Le score range les onze secteurs à peu près comme le marché les
-pèse ($\rho\simeq0{,}86$), mais il s'en écarte de deux à trois points par secteur --- et surtout dans des
-directions opposées sur le secteur qui décide de tout : les démocrates surpondèrent la technologie
-($31{,}7$ contre $29{,}4$~\%), les républicains la sous-pondèrent de dix points ($19{,}8$~\%). Le score n'est
-donc pas un simple proxy de la taille, mais ce qu'il ajoute reste modeste --- ce qui est cohérent avec
-l'étape 11 c : l'essentiel de l'excès vient du \emph{titre}, pas du secteur.\par}
+\textbf{Le classement, oui ; les poids, non.} Le portefeuille range les onze secteurs à peu près comme le
+marché les pèse ($\rho$ 0,85 et 0,88), mais il s'en écarte de deux à trois points par secteur --- et surtout
+dans des directions opposées sur le secteur qui décide de tout : les démocrates surpondèrent la technologie
+($31{,}7$ contre $29{,}4$~\%), les républicains la sous-pondèrent de dix points ($19{,}8$~\%). Ce n'est donc
+pas un simple reflet de la taille, mais ce qui s'y ajoute reste modeste --- cohérent avec l'étape 11 c :
+l'essentiel de l'excès vient du \emph{titre}, pas du secteur.\par
+\vspace{0.4mm}
+\emph{Deux grandeurs à ne pas confondre} : le \textbf{score} sectoriel brut donne à la technologie 33,8~\%
+(NANC) et 13,9~\% (GOP) en médiane ; le \textbf{portefeuille} mesuré ici est celui de M3 agrégé par secteur,
+après sélection et plafond par titre --- d'où 31,7 et 19,8~\%. C'est bien lui qu'il faut comparer au marché,
+puisque c'est lui qu'on détiendrait.\par}
 
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
 {\color{bleu}\bfseries Annexe C --- ce que cette fiche n'établit pas}\par
