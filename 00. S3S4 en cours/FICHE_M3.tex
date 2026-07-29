@@ -78,7 +78,9 @@ suivantes.
 \textbf{divulgation} :
 \[ \mathcal K^P(t) = \bigl\{\,k \;:\; P(k)=P,\ \text{achat},\ t - W_3 < \delta_k \le t \,\bigr\},
    \quad W_3 = 756 \text{ j} \]
-Les ventes n'entrent pas dans le score, ni récentes ni anciennes.
+Les ventes n'entrent pas dans le score, ni récentes ni anciennes. C'est dans cette même sélection de lignes,
+et pas ailleurs, qu'agit le filtre anti-bruit $\theta$ décrit à l'étape 11 --- inopérant dans M3, où
+$\theta = \infty$.
 
 \etape{5}{La clé d'agrégation, puis le score}
 \textbf{Avant d'agréger, on choisit la clé.} C'est ici, et nulle part ailleurs, que se décide ce que le
@@ -154,8 +156,10 @@ pas d'une ligne} :
 \end{pts}
 \vspace{0.4mm}
 {\footnotesize\color{grisf} Attention au plafond quand l'instrument change : sur onze lignes il n'a de
-solution qu'à partir de $c = 1/11$, et à $c = 10$~\% il n'en reste que dix points de mou pour toute
-la distribution --- l'étape 11 c montre ce que cela fait au score.}\par
+solution qu'à partir de $c = 1/11$. Le plafond du document précédent, $8{,}5$~\%, en exigerait douze
+($\lceil 1/0{,}085\rceil = 12 > 11$) et rendrait l'équipondéré exact ; celui retenu, $10$~\%, passe --- mais
+il ne laisse que dix points de mou pour toute la distribution, et l'étape 11 c mesure ce que cela fait
+réellement au score.}\par
 
 % ══════════════════════════════════════════════════════════════════════
 %                    SECONDE PARTIE — CHAQUE ÉTAPE, ET SA SORTIE
@@ -309,8 +313,9 @@ GOP & 5,3 & 69,2 & \textbf{76,9} & 35,8 & 164,4 \\
 \vspace{0.4mm}
 {\scriptsize\color{grisf} \textbf{c'est la moyenne qui fixe la facture}, pas la médiane : quelques années de
 forte recomposition la tirent. Le fonds réel publie 44, 62 puis 10~\% pour NANC. L'année est celle de la
-\emph{date d'exécution}, et seules les années comptant au moins six coupes sont retenues --- 2014 et 2026,
-incomplètes, n'entrent pas dans ces statistiques.}\par
+\emph{date d'exécution}, et seules les années comptant au moins six coupes sont retenues --- ce qui, ici, les
+retient \emph{toutes} : 2014 et 2026 sont partielles, et leurs totaux portent donc sur moins de douze
+recompositions.}\par
 \vspace{0.6mm}
 
 {\centering\scriptsize
