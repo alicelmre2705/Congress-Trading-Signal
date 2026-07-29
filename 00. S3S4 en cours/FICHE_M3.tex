@@ -3,7 +3,7 @@
 \usepackage[top=0.55cm,bottom=0.5cm,left=0.9cm,right=0.9cm]{geometry}
 \usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
 \usepackage[french]{babel}
-\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}\usepackage{multirow}
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
@@ -182,18 +182,22 @@ Les 150 titres restent \emph{ceux que le score complet désigne} ; seule la pond
 décomposition, pas une compétition.
 
 {\centering\scriptsize
-\begin{tabular}{@{}l r r r r@{}}
+\begin{tabular}{@{}l r r r@{\hspace{2.5mm}} r r r@{}}
 \toprule
- & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-poids $\propto$ & excès/an & NAV & excès/an & NAV \\
+ & \multicolumn{3}{c}{NANC} & \multicolumn{3}{c}{GOP} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+$w\propto$ & excès & $\alpha_1$ \emph{(t)} & NAV & excès & $\alpha_1$ \emph{(t)} & NAV \\
 \midrule
-1 \emph{(équipondéré)} & $-1{,}38$~\% & 430 & $-1{,}08$~\% & 448 \\
-$m_i$ \emph{(élus seuls)} & $-0{,}65$~\% & 464 & $-0{,}78$~\% & 466 \\
-$B_i$ \emph{(dollars purs)} & $+1{,}27$~\% & 545 & $+0{,}50$~\% & 523 \\
-$\mathbf{B_i\,m_i}$ \emph{(M3)} & $\mathbf{+3{,}40}$~\% & \textbf{662} & $\mathbf{+1{,}24}$~\% & \textbf{574} \\
+$1$ & $-1{,}38$ & $-0{,}95$ \emph{(--0,7)} & 430 & $-1{,}08$ & $-0{,}67$ \emph{(--0,4)} & 448 \\
+$m_i$ & $-0{,}65$ & $-0{,}41$ \emph{(--0,4)} & 464 & $-0{,}78$ & $-0{,}17$ \emph{(--0,1)} & 466 \\
+$B_i$ & $+1{,}43$ & $+0{,}37$ \emph{(0,4)} & 554 & $+0{,}49$ & $+0{,}17$ \emph{(0,1)} & 523 \\
+$\mathbf{B_i m_i}$ & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}66}$ \emph{(1,4)} & \textbf{662}
+  & $\mathbf{+1{,}24}$ & $\mathbf{+1{,}09}$ \emph{(1,1)} & \textbf{574} \\
 \bottomrule
 \end{tabular}\par}
+\vspace{0.2mm}
+{\scriptsize\color{grisf} $w\propto 1$ équipondéré, $m_i$ élus seuls, $B_i$ dollars purs, $B_im_i$ = M3.
+$\beta$ entre 0,96 et 1,08 partout : aucune ne gagne en prenant plus de risque de marché.}\par
 \vspace{0.8mm}
 
 \fig{m3_decomposition.png}{la même chose en image. Ni les dollars, ni les élus ne portent le résultat.}
@@ -210,12 +214,17 @@ il retire \textbf{54~\%} du \$ démocrate (388 M\$ sur 716) et \textbf{58~\%} du
 {\centering\scriptsize
 \begin{tabular}{@{}l r r r r r@{}}
 \toprule
-excès/an & $\theta=10$ & 20 & \textbf{50} \emph{(M4)} & 100 & $\infty$ \emph{(M3)} \\
+ & $\theta=10$ & 20 & \textbf{50} \emph{(M4)} & 100 & $\infty$ \emph{(M3)} \\
 \midrule
-NANC & $+4{,}71$ & $+4{,}62$ & $\mathbf{+5{,}14}$ & $+4{,}75$ & $+3{,}40$ \\
-GOP & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}24$ \\
+NANC --- excès & $+4{,}71$ & $+4{,}62$ & $\mathbf{+5{,}14}$ & $+4{,}75$ & $+3{,}40$ \\
+\emph{\quad$\alpha_1$} & \emph{$+0{,}60$} & \emph{$+0{,}78$} & \emph{$+1{,}42$} & \emph{$+1{,}36$} & \emph{$\mathbf{+1{,}66}$} \\
+GOP --- excès & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}24$ \\
+\emph{\quad$\alpha_1$} & \emph{$+2{,}77$} & \emph{$+1{,}88$} & \emph{$+1{,}54$} & \emph{$+1{,}60$} & \emph{$+1{,}09$} \\
 \bottomrule
 \end{tabular}\par}
+\vspace{0.2mm}
+{\scriptsize\color{grisf} le $t$ de l'$\alpha_1$ ne dépasse jamais 1,8 sur ce balayage --- il vaut 1,4
+(NANC) et 1,1 (GOP) à la valeur retenue.}\par
 \vspace{0.6mm}
 
 \obs{Balayage publié en entier, verdict lu à la valeur \emph{déclarée d'avance} --- et aucune valeur ne
@@ -262,12 +271,12 @@ chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
 \end{pts}
 
 {\centering\scriptsize
-\begin{tabular}{@{}l r r r r@{}}
+\begin{tabular}{@{}l r r r r r r@{}}
 \toprule
- & excès brut & excès net & coût & NAV nette \\
+ & brut & net & coût & $\alpha_1$ \emph{(t)} & $\alpha_4$ & NAV \\
 \midrule
-NANC & $+3{,}40$~\% & $+3{,}23$~\% & 0,17 pt/an & 649 \\
-GOP & $+1{,}24$~\% & $+1{,}06$~\% & 0,18 pt/an & 562 \\
+NANC & $+3{,}40$ & $+3{,}23$ & 0,17 & $+1{,}51$ \emph{(1,2)} & $+1{,}94$ & 649 \\
+GOP & $+1{,}24$ & $+1{,}06$ & 0,18 & $+0{,}93$ \emph{(0,9)} & $+1{,}49$ & 562 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.8mm}
@@ -284,20 +293,24 @@ $2\,\%$). Serrer une contrainte devrait agir dans un sens, pas alterner : ce pro
 Même règle, même fenêtre, même score, même exécution : \textbf{seul l'instrument change}. Chaque titre est
 remplacé par son ETF sectoriel, et les onze secteurs remplacent les cent cinquante titres.
 
-{\centering\scriptsize
-\begin{tabular}{@{}l r r r r@{}}
+{\centering\tiny
+\begin{tabular}{@{}l r r@{\hspace{3mm}} r r@{}}
 \toprule
- & \multicolumn{2}{c}{2014--2026} & \multicolumn{2}{c}{2019--2026} \\
+ & \multicolumn{2}{c}{NANC} & \multicolumn{2}{c}{GOP} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-excès/an & NANC & GOP & NANC & GOP \\
+2014--2026 & excès/an & $\alpha_1$ \emph{(t)} & excès/an & $\alpha_1$ \emph{(t)} \\
 \midrule
-titres $\cdot$ \textbf{M3} \emph{(plafond 10~\%)} & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}24}$ & $+4{,}16$ & $+2{,}28$ \\
-titres $\cdot$ score \emph{(sans plafond)} & $+5{,}95$ & $+1{,}54$ & $+7{,}96$ & $+2{,}17$ \\
-\textbf{secteurs $\cdot$ score} \emph{(plafond 10~\%)} & $\mathbf{-2{,}37}$ & $\mathbf{-2{,}14}$ & $-2{,}92$ & $-2{,}53$ \\
-secteurs $\cdot$ score \emph{(sans plafond)} & $+1{,}93$ & $-0{,}10$ & $+2{,}24$ & $+0{,}27$ \\
-secteurs $\cdot$ équipondéré & $-2{,}40$ & $-2{,}40$ & $-2{,}98$ & $-2{,}98$ \\
+titres $\cdot$ \textbf{M3} & $\mathbf{+3{,}40}$ & $+1{,}66$ \emph{(1,4)} & $\mathbf{+1{,}24}$ & $+1{,}09$ \emph{(1,1)} \\
+titres $\cdot$ sans plafond & $+5{,}95$ & $+3{,}57$ \emph{(1,8)} & $+1{,}54$ & $+1{,}34$ \emph{(1,2)} \\
+\textbf{secteurs $\cdot$ score} & $\mathbf{-2{,}37}$ & $-1{,}13$ \emph{(--1,0)} & $\mathbf{-2{,}14}$ & $-0{,}80$ \emph{(--0,7)} \\
+secteurs $\cdot$ sans plafond & $+1{,}93$ & $+0{,}67$ \emph{(0,7)} & $-0{,}10$ & $-0{,}25$ \emph{(--0,2)} \\
+secteurs $\cdot$ équipondéré & $-2{,}40$ & $-0{,}85$ \emph{(--0,7)} & $-2{,}40$ & $-0{,}85$ \emph{(--0,7)} \\
 \bottomrule
 \end{tabular}\par}
+\vspace{0.2mm}
+{\scriptsize\color{grisf} $\beta$ entre 0,91 et 1,12 sur les dix lignes. Sur 2019--2026, où les onze
+secteurs cotent tous, le classement est le même : M3 $+4{,}16$ et $+2{,}28$ $\cdot$ secteurs plafonnés $-2{,}92$
+et $-2{,}53$ $\cdot$ équipondéré $-2{,}98$.}\par
 \vspace{0.6mm}
 
 \fig{m3_etf_nav.png}{titres contre secteurs, base 100. Le trait plein vert (secteurs, pondérés au score)
