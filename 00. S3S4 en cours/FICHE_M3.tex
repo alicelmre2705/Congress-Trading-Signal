@@ -95,18 +95,14 @@ Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions. Les r
 \[ s_{i} \;=\; \underbrace{\textstyle\sum_{k} A_k}_{B_i \ \text{: les dollars}}
    \;\times\; \underbrace{\#\{\text{élus de }P\text{ acheteurs de } i\}}_{m_i \ \text{: le consensus}} \]
 \begin{pts}
+\item \textbf{le consensus compte donc au carré} : si $K$ élus achètent le même titre pour le même montant
+      $a$, alors $B_i = Ka$ et $m_i = K$, donc $s_i = K^2 a$. C'est le seul endroit où la méthode s'écarte
+      d'une pondération au dollar --- et le mouvement III montre que tout le résultat vient de là ;
 \item on garde les 150 plus gros, on normalise, on plafonne, et on tient le panier un mois --- acheté au
       \textbf{close du lendemain} de la coupe, puis plus aucune intervention.
 \end{pts}
 
-\et{a}{Pourquoi un produit, et pas une somme}
-
-Si $K$ élus achètent le même titre pour le même montant $a$, alors $B_i = Ka$ et $m_i = K$, donc
-\[ s_i \;=\; K^2 a \]
-\textbf{le consensus compte au carré.} C'est le seul endroit où la méthode s'écarte d'une pondération au
-dollar --- et le mouvement III montre que c'est de là que vient tout le résultat.
-
-\et{b}{Le plafond est un remplissage par niveau, pas un écrêtage}
+\et{a}{Le plafond est un remplissage par niveau, pas un écrêtage}
 
 $\Pi_c$ ne coupe pas les grosses lignes pour jeter l'excédent : il cherche l'unique $\lambda$ tel que la
 somme fasse 1, les lignes saturées restant au plafond et les autres montant proportionnellement.
@@ -118,7 +114,7 @@ $\lambda$ existe et est unique \textbf{dès que} $\lvert\mathcal S\rvert \ge \lc
 l'\textbf{équipondéré}. Le cas se produirait à la première fin de mois --- NANC n'a que \textbf{9} titres ---
 d'où la règle de démarrage. Au mouvement IV\,c, ce même seuil décide de tout.}
 
-\et{c}{D'où vient le 10~\%, et pourquoi pas 8,5~\%}
+\et{b}{D'où vient le 10~\%, et pourquoi pas 8,5~\%}
 
 Le plafond est le seul paramètre de la méthode qui ne se lise pas dans le prospectus : il faut l'estimer.
 \textbf{Deux sources indépendantes, et aucune n'est notre rendement, convergent sur 10~\%.}
