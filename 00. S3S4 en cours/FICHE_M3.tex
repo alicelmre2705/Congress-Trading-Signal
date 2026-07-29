@@ -410,12 +410,22 @@ repère : le portefeuille n'a pas de style propre --- il a un $\alpha$.}
 (médiane 1,06 et 1,00) ; l'$\alpha$ est positif 71~\% du temps mais traverse zéro sans cesse. Fenêtres
 chevauchantes : ces courbes \emph{décrivent}, elles ne testent pas.}
 
-\et{d}{Ce que la multiplicité impose}
+\et{d}{Ce que treize années permettent de trancher}
 
-\sortie{\textbf{60 essais distincts} ont été passés au bilan dans ce notebook. Sous l'hypothèse nulle, le
-plus grand $\lvert t\rvert$ de 60 essais vaut déjà $\sqrt{2\ln 60} = 2{,}86$ --- bien au-delà du seuil de
-Student à 13 années (2,18), qui ignore la multiplicité. \textbf{Aucun des seize runs publiés ne dépasse
-2,86}, le plus grand valant 2,71.}
+\sortie{\textbf{88 runs distincts} ont été passés au bilan dans ce notebook, et \textbf{tous sont publiés},
+y compris les nuls : c'est le garde-fou contre le choix a posteriori. Mais le vrai obstacle n'est pas leur
+nombre, c'est la \textbf{puissance}. Pour qu'un $t$ dépasse le seuil de Student, il faut un excès d'au moins
+$t_{0{,}975}\,\sigma_x/\sqrt{n}$, où $\sigma_x$ est la dispersion propre des excès annuels du run :
+\textbf{4,59~\%/an pour M3-NANC} (on mesure $+3{,}40$) et \textbf{1,67~\%/an pour M3-GOP} (on mesure
+$+1{,}24$). \emph{Même un avantage réel de cette taille resterait indétectable sur treize ans.}}
+
+\obs{\textbf{Pourquoi aucun \og{}seuil de bruit\fg{} n'est publié ici.} Confronter chaque $t$ à
+$\sqrt{2\ln N}$ suppose $N$ essais \textbf{indépendants} : c'est faux ici, puisque plusieurs runs sont
+\emph{le même portefeuille} et que la moitié du compte est un run mesuré sur deux fenêtres. S'y ajoutent trois
+défauts : le compteur inclut des contrôles et des bornes qui ne sont pas des candidats ; $\sqrt{2\ln N}$ est
+une \emph{espérance}, pas un quantile ; et le seuil masque l'obstacle réel, qui est la puissance ci-dessus.
+La seule correction correcte serait empirique --- rejouer les mêmes runs sur des dates permutées et lire la
+distribution observée du $\max\lvert t\rvert$. Elle n'est pas faite, et on ne prétend pas le contraire.}
 
 \mouv{Étape 11}{Les variantes --- la pondération, le filtre, l'instrument}
 
@@ -477,6 +487,13 @@ Remplacer le titre par son ETF sectoriel change \textbf{trois choses à la fois}
 sélection (elle disparaît, $11 < 150$) et le niveau où le consensus $m$ est mesuré. Un test qui change trois
 choses n'en isole aucune --- et c'est exactement le piège dans lequel tombe la version naïve.
 
+\obs{\textbf{Ce que vaut la sélection, une fois isolée.} Sélectionner avant d'agréger rapporte
+\textbf{1,70 point par an} côté NANC. Mais deux runs intermédiaires montrent que cet écart ne lui revient pas
+entièrement : la sélection seule en vaut \textbf{0,96}, et mesurer le consensus au titre plutôt qu'au secteur
+en vaut \textbf{1,35} \emph{(côté GOP : 0,57 et 0,55, à parts égales)}. Le top-150 écarte
+\textbf{20,9~\%} du dollar déclaré (26,0 côté GOP) mais seulement \textbf{6 à 8~\%} du score : la queue du
+classement, ce sont beaucoup de dollars portés par très peu d'élus.}
+
 \obs{\textbf{Le run le plus simple ne teste pas ce qu'il prétend.} Onze secteurs plafonnés à 10~\% :
 $11\times10\,\% = 110\,\%$, il ne reste que \emph{dix points de mou} pour toute la distribution. Mesuré :
 \textbf{9 lignes sur 11 siègent au plafond} en médiane, $N_{\text{eff}}$ vaut 10,5 sur 11 possibles, et la
@@ -484,13 +501,21 @@ corrélation des rendements avec l'équipondéré atteint \textbf{0,9986}. Le ru
 \emph{est} l'équipondéré : le plafond a effacé le score aussi sûrement que le top-150 avait effacé la
 sélection.}
 
-\obs{\textbf{Et son $-2{,}4$~\%/an ne mesure pas une perte d'information.} Les poids du marché se
-reconstruisent depuis les prix seuls --- les onze SPDR partitionnent le S\&P 500, donc on résout
-$\min_{\beta\ge0,\,\sum\beta=1}\lVert r^{\text{SPY}} - \sum_S \beta_S r^S\rVert^2$ année par année
-($R^2$ de 0,98 à 0,999). La technologie y passe de \textbf{20,9~\% en 2019 à 38,7~\% en 2025}. Tenir les onze
-secteurs à ces poids rend \textbf{15,32~\%/an} --- soit le SPY (15,59) --- quand les équipondérer rend
-\textbf{13,01}. \textbf{$-2{,}31$ point par an, sans qu'aucun élu n'intervienne} : c'est le prix d'un pari
-contre la concentration de l'indice, pas le coût de l'agrégation.}
+\obs{\textbf{Et son $-2{,}4$~\%/an ne mesure pas une perte d'information.} L'exposition sectorielle du marché
+se reconstruit depuis les prix seuls --- les onze SPDR couvrent le S\&P 500, donc on résout
+$\min_{\beta\ge0,\,\sum\beta=1}\lVert r^{\text{SPY}} - \sum_S \beta_S r^S\rVert^2$ année par année. La
+technologie y passe de \textbf{20,9~\% en 2019 à près de 35~\% en 2025}. Tenir les onze secteurs à ces poids
+rend \textbf{15,32~\%/an} --- soit le SPY (15,59) --- quand les équipondérer rend \textbf{13,01}. Soit
+\textbf{2 à 2,6 points par an, sans qu'aucun élu n'intervienne} : l'ordre de grandeur de la perte du run
+plafonné est celui d'un \textbf{pari contre la concentration de l'indice}, pas d'un coût de l'agrégation.}
+
+\obs{\textbf{Ce que ce contrôle ne dit pas.} L'estimation n'est \textbf{pas significative}
+($t = -1{,}14$, intervalle de confiance large d'une dizaine de points) et ne porte que sur
+\textbf{2020--2026} : avant 2019 les onze secteurs ne cotent pas tous, donc ni les poids du marché ni ce
+contrôle n'existent sur les six premières années. On retient l'ordre de grandeur, pas l'égalité --- et
+$\hat\beta$ est une \emph{exposition} implicite, un proxy des poids de l'indice : son classement est bon
+($\rho$ de rang 0,93--0,98 avec les poids réels), ses niveaux le sont moins, parce que les SPDR plafonnent
+leurs lignes là où l'indice ne le fait pas.}
 
 \et{}{Le test qui isole vraiment l'instrument}
 
@@ -512,25 +537,34 @@ l'équipondéré sectoriel & $-2{,}40$ \emph{(1,89)} & $-0{,}85$ & $-2{,}40$ \em
 \bottomrule
 \end{tabular}\par}
 \vspace{0.2mm}
-{\scriptsize\color{grisf} Contrôle : la même construction avec une carte identité (chaque titre $\to$
-lui-même) redonne M3 à $4{,}2\cdot10^{-17}$ --- seule l'agrégation change. Sur 2019--2026, où les onze
-secteurs cotent tous : $+4{,}16$ et $+2{,}28$ pour M3, $+1{,}92$ et $+1{,}12$ pour l'exposition sectorielle,
-$-2{,}92$ et $-2{,}53$ pour le run plafonné.}\par
+{\scriptsize\color{grisf} \textbf{Sur 2019--2026}, la fenêtre où les onze secteurs cotent tous et la seule où
+cette décomposition soit valide : $+4{,}16$ et $+2{,}28$ pour M3, $+1{,}92$ et $+1{,}12$ pour l'exposition
+sectorielle, $-2{,}92$ et $-2{,}53$ pour le run plafonné.}\par
 \vspace{0.6mm}
 
 \fig{m3_etf_ou_agreger.png}{base 100 en janvier 2019, échelle logarithmique. En haut M3 sur les titres, juste
-en dessous son exposition sectorielle tenue en ETF, et tout en bas --- confondues --- les deux versions
-plafonnées : le plafond les ramène au même portefeuille.}
+en dessous son exposition sectorielle tenue en ETF, et tout en bas les versions plafonnées --- que le plafond
+rapproche au point de rendre deux d'entre elles indiscernables.}
 
-\lecon{les deux moitiés s'additionnent. L'exposition sectorielle de M3 vaut à elle seule $+1{,}50$ (NANC) et
-$+0{,}45$ (GOP) ; \textbf{le reste, $+1{,}90$ et $+0{,}78$, est ce que vaut le choix du titre à l'intérieur
-du secteur} --- la moitié la plus grosse des deux côtés. \textbf{Mais aucune des deux n'est significative} :
-le $t$ le plus élevé du tableau vaut 1,61.}
+\lecon{sur 2019--2026, l'excès de M3 se partage \textbf{à peu près par moitié} entre son exposition
+sectorielle ($+1{,}92$ et $+1{,}12$) et le \textbf{choix du titre à l'intérieur du secteur} ($+2{,}25$ et
+$+1{,}15$, soit 54~\% et 51~\%) --- et de la même façon des deux côtés. \textbf{Mais rien n'est
+significatif} : le $t$ du choix du titre vaut 1,00 et 0,86.}
 
-\sortie{cinq contrôles tiennent la variante : l'univers reste inclus dans les 11 SPDR (9 secteurs jusqu'en
-09/2015, 10 jusqu'en 05/2018, 11 ensuite) ; $\sum w = 1$ à chaque coupe, renormalisation comprise ; le
-plafond $1/11$ rend l'équipondéré exact ; la carte identité redonne M3 ; et \textbf{M3 sur les titres est
-inchangée} (NAV 661,57 et 573,57) --- la variante n'a touché à rien.}
+\obs{\textbf{Deux réserves de méthode, et elles comptent.} \emph{(i)} Que les deux parts s'additionnent est
+une \textbf{identité}, vraie pour n'importe quel terme retranché : ce qui a du contenu, c'est que le terme
+retranché soit le bon --- c'est-à-dire que l'exposition sectorielle soit vraiment celle de M3, ce qui n'est
+vrai qu'\textbf{à partir de 2019}. Sur 2014--2026 la part du titre ressort à 56 et 63~\%, mais elle absorbe
+alors aussi le repli sur les secteurs non cotés. \emph{(ii)} Le contrôle par carte identité (chaque titre
+$\to$ lui-même) redonne bien M3 à $4{,}2\cdot10^{-17}$, mais il ne teste \emph{ni} l'agrégation \emph{ni} le
+repli --- sous cette carte aucun groupe ne fusionne et le diviseur vaut 1. Deux contrôles distincts s'en
+chargent : la \textbf{conservation} (le poids d'un secteur est la somme de ses titres) sur 296 couples, et le
+\textbf{repli au pro rata} sur les 104 couples à secteur manquant.}
+
+\sortie{la variante tient sur huit contrôles : univers inclus dans les 11 SPDR (9 secteurs jusqu'en 09/2015,
+10 jusqu'en 05/2018, 11 ensuite) ; $\sum w = 1$ à chaque coupe, renormalisation comprise ; plafond $1/11$
+$\equiv$ équipondéré exact ; carte identité $\equiv$ M3 ; conservation ; repli pro rata ; et \textbf{M3 sur
+les titres inchangée} (NAV 661,57 et 573,57) --- la variante n'a touché à rien.}
 
 \fig{m3_etf_manquant.png}{la part du score qui tombe dans un secteur pas encore coté, dans le temps. Les deux
 traits verticaux marquent l'arrivée de XLRE (10/2015) et de XLC (06/2018).}
