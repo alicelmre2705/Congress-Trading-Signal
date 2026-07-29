@@ -42,7 +42,7 @@
 \midrule
 \textbf{M1} & 42 j & achats $-$ ventes récentes ($\gamma$), titres à $\ge2$ élus
             & une voix par élu, partagée & tous les titres retenus \\
-\textbf{M2} & 3 ans & achats seuls, par parti & $\propto B_i$ \emph{(dollars)} & 150 plus gros scores, cap 8,5~\% \\
+\textbf{M2} & 3 ans & achats seuls, par parti & $\propto B_i$ \emph{(dollars)} & 150 plus gros scores, cap 10~\% \\
 \textbf{M3} & 3 ans & \emph{idem} & $\propto B_i\,m_i$ \emph{(dollars $\times$ élus)} & \emph{idem} \\
 \textbf{M4} & 3 ans & \emph{idem}, hors dépôts de $\ge50$ opérations le même jour & $\propto B_i\,m_i$ & \emph{idem} \\
 \bottomrule
@@ -59,14 +59,14 @@
 \midrule
 M1 \emph{(deux chambres)} & $+0{,}12$~\% & 0,06 & $[-4{,}0;+4{,}3]$ & $-0{,}23$ & $+0{,}79$ & 0,54 & $+0{,}01$ & $+0{,}07$ \\
 \midrule
-M2 --- NANC & $+1{,}27$~\% & 0,93 & $[-1{,}7;+4{,}2]$ & $+0{,}25$ & $+0{,}90$ & 1,21 & $-0{,}06$ & $-0{,}05$ \\
-M2 --- GOP & $+0{,}50$~\% & 0,27 & $[-3{,}6;+4{,}6]$ & $+0{,}18$ & $+1{,}25$ & 1,04 & $+0{,}06$ & $+0{,}17$ \\
+M2 --- NANC & $+1{,}43$~\% & 1,04 & $[-1{,}6;+4{,}4]$ & $+0{,}37$ & $+0{,}99$ & 1,30 & $-0{,}07$ & $-0{,}06$ \\
+M2 --- GOP & $+0{,}49$~\% & 0,26 & $[-3{,}6;+4{,}6]$ & $+0{,}17$ & $+1{,}23$ & 1,02 & $+0{,}06$ & $+0{,}17$ \\
 \midrule
-\textbf{M3 --- NANC} & $\mathbf{+2{,}88}$~\% & \textbf{1,42} & $[-1{,}5;+7{,}3]$ & $+1{,}22$ & $\mathbf{+1{,}71}$ & \textbf{1,76} & $-0{,}12$ & $-0{,}13$ \\
-\textbf{M3 --- GOP} & $\mathbf{+1{,}21}$~\% & \textbf{1,56} & $[-0{,}5;+2{,}9]$ & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,81} & $-0{,}08$ & $+0{,}06$ \\
+\textbf{M3 --- NANC} & $\mathbf{+3{,}40}$~\% & \textbf{1,61} & $[-1{,}2;+8{,}0]$ & $+1{,}66$ & $\mathbf{+2{,}09}$ & \textbf{2,08} & $-0{,}13$ & $-0{,}15$ \\
+\textbf{M3 --- GOP} & $\mathbf{+1{,}24}$~\% & \textbf{1,61} & $[-0{,}4;+2{,}9]$ & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,79} & $-0{,}08$ & $+0{,}05$ \\
 \midrule
-M4 --- NANC & $+4{,}47$~\% & 1,15 & $[-4{,}0;+12{,}9]$ & $+0{,}90$ & $+1{,}73$ & 1,06 & $-0{,}07$ & $-0{,}31$ \\
-M4 --- GOP & $+1{,}51$~\% & 1,03 & $[-1{,}7;+4{,}7]$ & $+1{,}59$ & $+2{,}24$ & \textbf{1,98} & $-0{,}03$ & $+0{,}11$ \\
+M4 --- NANC & $+5{,}14$~\% & 1,30 & $[-3{,}5;+13{,}8]$ & $+1{,}42$ & $+2{,}14$ & 1,27 & $-0{,}09$ & $-0{,}32$ \\
+M4 --- GOP & $+1{,}44$~\% & 0,98 & $[-1{,}8;+4{,}6]$ & $+1{,}54$ & $+2{,}18$ & \textbf{1,92} & $-0{,}04$ & $+0{,}11$ \\
 \midrule
 \emph{repère : le SPY lui-même} & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{$-0{,}12$} & \emph{$+0{,}01$} \\
 \emph{repère : \textbf{M3, mais} équipondéré} & \emph{$-1{,}38$~\%} & \emph{$-1{,}45$} & \emph{$[-3{,}5;+0{,}7]$} & \emph{$-0{,}95$} & \emph{$+0{,}05$} & \emph{0,06} & \emph{$+0{,}02$} & \emph{$+0{,}14$} \\
@@ -86,10 +86,13 @@ montant --- on retient le \textbf{milieu} $A_k$.
 \item \textbf{On se place à la divulgation} $\delta_k$, jamais à la transaction : c'est la seule date où
 l'information est publique, donc la seule où la stratégie est réalisable. \emph{À la date de transaction tous les
 chiffres seraient meilleurs --- et faux.}
-\item \textbf{Le backtest démarre où la spécification est applicable} --- le 28/02/2014. Le plafond de
-8,5~\% n'a de solution que si l'univers compte au moins $\lceil 1/c\rceil=12$ titres ; à la première fin de
+\item \textbf{Le backtest démarre où la spécification est applicable} --- le 28/02/2014. Le plafond
+n'a de solution que si l'univers compte au moins $\lceil 1/c\rceil=10$ titres ; à la première fin de
 mois la fenêtre de trois ans ne contient qu'un mois de déclarations et les démocrates n'ont que \textbf{9}
 titres. Critère \emph{structurel}, sans aucun rendement --- et il fait \emph{baisser} le résultat.
+\item \textbf{Le plafond $c=10\,\%$} est le seul paramètre absent du prospectus. Deux sources indépendantes
+du rendement le fixent : les \textbf{treize} états de portefeuille déposés par le fonds donnent une médiane de
+\textbf{10,3~\%} pour sa plus grosse ligne, et \textbf{10~\% est la limite UCITS} par émetteur.
 \item \textbf{Recomposition mensuelle}, exécution au \textbf{close J+1}, \textbf{buy-and-hold} entre deux coupes.
 Ce qui n'est pas commun est dans le tableau ci-dessus, plus le \textbf{périmètre} : M1 prend les deux chambres
 ensemble sans distinguer les partis, M2--M4 traitent chaque parti \textbf{séparément et identiquement}.
@@ -137,12 +140,13 @@ partagée entre ses titres $\mathcal B_m$ --- \textbf{le montant n'entre pas}, 5
 $\gamma$, plus de solde :
 $\ \mathcal K^P(t)=\{k:\ P(k)=P,\ \text{achat},\ t-756<\delta_k\le t\}$, et
 $\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
-\item Le poids est \textbf{proportionnel} à cette somme : $\ w_i\propto B_i$, plafonné à $c=8{,}5$~\%.
+\item Le poids est \textbf{proportionnel} à cette somme : $\ w_i\propto B_i$, plafonné à $c=10$~\%.
 \item \textbf{L'univers et le plafond sont figés ici pour M2, M3 et M4.} En les gardant identiques, la
 comparaison M2 \emph{vs} M3 isole le seul facteur ajouté, et jamais un effet de sélection.
 \end{pts}
 \obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} Testé \textbf{sur M3} : l'excès NANC
-\textbf{tombe} de $+2{,}88$ à $+1{,}31$~\%/an. Les écarter n'est pas une paresse, c'est ce qui marche.}
+\textbf{tombe} de $+3{,}40$ à $+1{,}31$~\%/an. \emph{(Côté GOP il améliore un peu : la conclusion ne vaut
+que d'un côté.)}}
 
 % ═══════════ M3 ═══════════
 \meth{M3}{Ajouter le consensus, et borner la concentration}{dix acheteurs valent mieux qu'un --- et aucune ligne
@@ -157,11 +161,11 @@ déclarés par un \textbf{seul}. On préfère l'argent dispersé à l'argent con
 $s_i=K^2a$ --- le score croît comme le \textbf{carré} du nombre d'élus, car $m_i$ est déjà dans $B_i$ (plus
 d'acheteurs, plus de dollars) et on le remultiplie.
 \item Univers $\mathcal U(t)$ = les \textbf{150 plus gros scores} ;
-$\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$. On \textbf{plafonne chaque ligne à $c=8{,}5$~\%}, l'excédent
+$\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$. On \textbf{plafonne chaque ligne à $c=10$~\%}, l'excédent
 redistribué au prorata jusqu'à ce que plus rien ne dépasse. Le point d'arrivée s'écrit d'un coup :
 \[ \boxed{\,w_i=\min(c,\ \lambda v_i)\,}\qquad \lambda\ \text{tel que}\ \sum_i w_i=1 \]
 $\lambda\mapsto\sum_i\min(c,\lambda v_i)$ croît de 1 à $|\mathcal U|c$ : $\lambda$ existe et est \textbf{unique}
-dès que $|\mathcal U|\ge\lceil 1/c\rceil=12$ titres.
+dès que $|\mathcal U|\ge\lceil 1/c\rceil=10$ titres.
 \end{pts}
 \obs{\emph{La frontière du top-150 n'est pas nette} --- les montants étant des fourchettes, \textbf{104 titres}
 partagent le score du 150\textsuperscript{e} à une coupe de 2014, et \textbf{36} s'échangent selon l'ordre de tri. Mesuré : les trier de A à Z ou de Z à A déplace
@@ -230,12 +234,12 @@ parce que $\mathrm{TO}_t$ est le montant acheté, égal au montant vendu : on pa
  & rotation/an & coût/an & excès net & $\alpha_4$ net \\
 \midrule
 M1 \emph{(commune)} & \textbf{715~\%} & $1{,}57$~pt & $\mathbf{-1{,}45}$~\% & $-0{,}66$ \\
-M2 --- NANC & 63~\% & $0{,}16$ & $+1{,}11$ & $+0{,}76$ \\
-\textbf{M3 --- NANC} & 65~\% & $0{,}17$ & $+2{,}71$ & $+1{,}56$ \\
-M4 --- NANC & 64~\% & $0{,}17$ & $+4{,}29$ & $+1{,}58$ \\
-M2 --- GOP & 79~\% & $0{,}18$ & $+0{,}32$ & $+1{,}09$ \\
-\textbf{M3 --- GOP} & 68~\% & $0{,}18$ & $+1{,}04$ & $+1{,}49$ \\
-M4 --- GOP & 71~\% & $0{,}19$ & $+1{,}32$ & $+2{,}07$ \\
+M2 --- NANC & 62~\% & $0{,}16$ & $+1{,}27$ & $+0{,}84$ \\
+\textbf{M3 --- NANC} & 66~\% & $0{,}17$ & $+3{,}24$ & $+1{,}94$ \\
+M4 --- NANC & 64~\% & $0{,}17$ & $+4{,}97$ & $+1{,}99$ \\
+M2 --- GOP & 81~\% & $0{,}18$ & $+0{,}31$ & $+1{,}07$ \\
+\textbf{M3 --- GOP} & 69~\% & $0{,}18$ & $+1{,}06$ & $+1{,}49$ \\
+M4 --- GOP & 72~\% & $0{,}19$ & $+1{,}26$ & $+2{,}00$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -248,16 +252,15 @@ descendre bien plus bas.}
 \fig{meth17_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
 tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
 inertie qui laisse courir les positions.}
-\lecon{\textbf{le frein n'est pas retenu}. À $2\,\%$/mois il gagne $+0{,}12$~pt sur NANC et perd
-$-0{,}42$ sur GOP. Un seul plafond passe la règle des deux camps, $5\,\%$ ($+0{,}07$ et $+0{,}06$) --- mais
-il est \emph{encadré} de plafonds qui échouent ($-0{,}06$ à $10\,\%$, $-0{,}42$ à $2\,\%$). Serrer une
-contrainte devrait agir dans un sens, pas alterner : ce profil est celui du bruit.}
+\lecon{\textbf{le frein n'est pas retenu}. Un seul plafond passe la règle des deux camps, $5\,\%$/mois
+($+0{,}03$ et $+0{,}07$~pt) --- mais il est \emph{encadré} de plafonds qui échouent ($-0{,}05$ à $10\,\%$,
+$-0{,}48$ à $2\,\%$). Serrer une contrainte devrait agir dans un sens, pas alterner : ce profil est celui du
+bruit, et le gain est du même ordre que l'écart entre voisins.}
 
 \[ \boxed{\begin{gathered}
 s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
-w_i=\min(c,\lambda v_i),\quad c=8{,}5\,\%
+w_i=\min(c,\lambda v_i),\quad c=10\,\%
 \end{gathered}} \]
-\fig{meth17_nav.png}{}
 
 % ═══════════ CE QUI MANQUE ═══════════
 {\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
