@@ -88,8 +88,8 @@ Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions. Les r
 \concret
 À chaque fin de mois $t$, pour le parti $P$ :
 \begin{pts}
-\item on retient les \textbf{achats divulgués} sur les 756 derniers jours de bourse. Une vente de vieille
-      ligne n'est pas un signal négatif : elle est ignorée ;
+\item on retient les \textbf{achats seuls}, divulgués sur les 756 derniers jours de bourse ---
+      \textbf{les ventes n'entrent pas dans le score}, ni récentes ni anciennes ;
 \item chaque titre reçoit un score --- le montant acheté, multiplié par le nombre d'élus qui l'ont acheté :
 \end{pts}
 \[ s_{i} \;=\; \underbrace{\textstyle\sum_{k} A_k}_{B_i \ \text{: les dollars}}
@@ -101,6 +101,11 @@ Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions. Les r
 \item on garde les 150 plus gros, on normalise, on plafonne, et on tient le panier un mois --- acheté au
       \textbf{close du lendemain} de la coupe, puis plus aucune intervention.
 \end{pts}
+
+\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} Testé : en soustrayant la part de chaque
+vente qui porte sur un achat de moins de trois ans (appariement premier entré, premier sorti), l'excès NANC
+\textbf{tombe} de $+3{,}40$ à $+1{,}31$~\%/an et l'$\alpha_1$ passe à $-0{,}54$. \textbf{Le netting n'est pas
+retenu.}}
 
 \et{a}{Le plafond est un remplissage par niveau, pas un écrêtage}
 
