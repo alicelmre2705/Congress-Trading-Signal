@@ -1,6 +1,6 @@
 % !TEX program = tectonic
 \documentclass[9pt,a4paper]{extarticle}
-\usepackage[top=0.55cm,bottom=0.5cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[top=0.45cm,bottom=0.38cm,left=0.85cm,right=0.85cm]{geometry}
 \usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}\usepackage{multirow}
@@ -11,20 +11,20 @@
 \definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
 \definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
 \definecolor{or}{RGB}{150,105,0}
-\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.93\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
-\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.86\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.45pt}
 \setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
 \setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
 \renewcommand{\arraystretch}{0.95}
-\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
+\setlength{\columnsep}{5mm}\setlength{\columnseprule}{0.3pt}
 \renewcommand{\columnseprulecolor}{\color{grisf!40}}
 % un bloc = le niveau de titre fort (double filet)
-\newcommand{\mouv}[2]{\vspace{2.4mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}%
+\newcommand{\mouv}[2]{\vspace{1.7mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}%
   {\color{bleu}\bfseries #1~---~#2}\par\vspace{0.5mm}{\color{bleu!35}\hrule height 0.5pt}\vspace{1.1mm}}
 % un sous-titre à l'intérieur d'un bloc
-\newcommand{\et}[2]{\vspace{1.6mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
+\newcommand{\et}[2]{\vspace{1.05mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
 % une étape du protocole
-\newcommand{\etape}[2]{\vspace{1.3mm}{\color{rouge}\bfseries #1.}~{\bfseries #2}\par\vspace{0.15mm}}
+\newcommand{\etape}[2]{\vspace{0.9mm}{\color{rouge}\bfseries #1.}~{\bfseries #2}\par\vspace{0.15mm}}
 % ce que le notebook imprime pour attester l'étape
 \newcommand{\sortie}[1]{\vspace{0.4mm}{\scriptsize\color{vert}\textbf{\checkmark}~#1}\par\vspace{0.2mm}}
 \newcommand{\lecon}[1]{\vspace{0.4mm}{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça apprend :} #1}\par\vspace{0.2mm}}
@@ -35,16 +35,7 @@
 \begin{center}
 {\large\bfseries M3 --- pondérer au dollar \emph{et} au nombre d'élus}
 \end{center}
-\vspace{0.4mm}\hrule\vspace{0.8mm}
-{\footnotesize
-\textbf{En quatre blocs} : \textbf{I} ce qu'on fait, en dix étapes --- \textbf{II} ce que ça donne ---
-\textbf{III} la version qui n'achète que des ETF \emph{(trois étapes de plus)} --- \textbf{IV} comment on l'a
-vérifié.\par
-\vspace{0.5mm}
-\textbf{En deux lignes} : 2014--2026, à la divulgation, brut de frais, le portefeuille démocrate rend
-$+3{,}40$~\%/an de plus que le SPY et le républicain $+1{,}24$ ; \textbf{aucun des deux n'est significatif}.
-Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions.}\par
-\vspace{0.8mm}\hrule\vspace{1.2mm}
+\vspace{0.4mm}\hrule\vspace{1.2mm}
 
 \begin{multicols}{2}
 
@@ -57,7 +48,8 @@ Base : 113\,369 opérations, 350 élus, 2\,755 titres, 148 recompositions.}\par
 \item trois filtres : classe d'actif = \textbf{action}, transaction entre 2014 et 2026, série de prix
       exploitable ($\ge 2$ cotations, cours $\ge 0{,}10$~\$, aucun saut journalier au-delà de 300~\%) ;
 \item chaque opération $k$ porte : l'élu $m(k)$, son parti $P(k)$, le titre $i(k)$, le sens, la date de
-      transaction $\tau_k$, celle de \textbf{divulgation} $\delta_k$, le montant $A_k$ = milieu de fourchette.
+      transaction $\tau_k$, celle de \textbf{divulgation} $\delta_k$, le montant $A_k$ = milieu de fourchette ;
+\item il reste \textbf{113\,369 opérations}, \textbf{350 élus} et \textbf{2\,755 titres}.
 \end{pts}
 
 \etape{2}{Le calendrier et les prix}
@@ -309,22 +301,25 @@ secteurs cotés :
 \item le rattachement titre $\to$ GICS $\to$ SPDR est un \textbf{intrant} du dépôt, renseigné sur 100~\% des lignes ;
 \item la clé est le ticker \emph{après} fusion --- celle de l'étape 5 ;
 \item cinq tickers portent deux secteurs (BALL, CPAY, SONY, TFC, XYZ) : on retient le majoritaire ;
-\item \textbf{la carte est datée} --- deux secteurs n'existaient pas au début :
+\item \textbf{la carte est datée.} XLRE naît en 10/2015 et XLC en 06/2018, mais leurs \textbf{indices} ne
+      basculent qu'au 16/09/2016 et au 21/09/2018. Avant la bascule, chaque titre est rangé dans l'ETF de
+      \textbf{son secteur d'alors} :
 \end{pts}
 \vspace{-0.6mm}
-{\centering\scriptsize\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}l l l@{}}
+{\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l c l@{}}
 \toprule
-jusqu'au & le secteur d'époque & l'ETF \\
+un titre aujourd'hui classé\dots & avant & à partir de \\
 \midrule
-16/09/2016 & l'immobilier est dans Financials & \textbf{XLF} \\
-21/09/2018 & la communication est dans la technologie & \textbf{XLK} \\
- & \dots ou dans la consommation & \textbf{XLY} \\
+immobilier & \textbf{XLF} & \textbf{XLRE}, le 16/09/2016 \\
+communication, \emph{venue de la tech} & \textbf{XLK} & \textbf{XLC}, le 21/09/2018 \\
+communication, \emph{venue de la conso} & \textbf{XLY} & \textbf{XLC}, le 21/09/2018 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.3mm}
-{\scriptsize\color{grisf} dates de \textbf{bascule des indices}, pas de cotation des ETF ; le discriminant
-entre XLK et XLY est l'industrie du titre.}\par
+{\scriptsize\color{grisf} \emph{venue de la tech} : Google, Meta, AT\&T, les jeux vidéo $\cdot$ \emph{de la
+conso} : Netflix, Disney, les médias. Sans cette carte, un titre retenu par le score mais dont le secteur n'a
+pas encore d'ETF serait \textbf{perdu} --- 11 titres en médiane, jusqu'à 20,8~\% du portefeuille.}\par
 
 \etape{12}{Le signal : un seul portefeuille}
 Le score ne compte plus les élus d'un camp, mais ceux \textbf{des deux} :
@@ -356,7 +351,8 @@ républicains & $+0{,}78$ \emph{(1,02)} & $+0{,}41$ & $+1{,}12$ & $+0{,}65$ & 1,
 \end{tabular}\par}
 \vspace{0.2mm}
 {\scriptsize\color{grisf} lignes ETF mesurées avec la \textbf{carte datée} · le portefeuille unique porte les
-deux plus hauts $t$ du document (1,93 et \textbf{2,05}), \textbf{aucun n'atteint le seuil} --- voir \textbf{e}.}\par
+deux plus hauts $t$ du document (1,93 et \textbf{2,05}), \textbf{aucun n'atteint le seuil} de 2,18 qu'exigent
+treize années --- annexe D.}\par
 
 \etape{13}{La forme livrable : le marché, plus un tilt}
 \[ w \;=\; \underbrace{w^{\text{marché}}}_{\text{gratuit}} \;+\; \lambda\,\underbrace{(w^{\text{signal}} - w^{\text{marché}})}_{\text{le pari}} \]
@@ -386,24 +382,13 @@ $\lambda$ & excès net/an \emph{(t)} & $\alpha_1$ \emph{(t)} & $\beta$ & \textbf
 \vspace{0.2mm}
 {\scriptsize\color{grisf} l'\textbf{écart au marché} = écart-type annualisé de la différence avec l'indice : à
 4,2~\%, deux années sur trois l'écart au SPY tient entre $-4{,}2$ et $+4{,}2$~\%. \textbf{Fenêtre 2020--2026,
-net de 10~pb --- ne se compare pas au tableau ci-dessus} (voir \textbf{e}).}\par
+net de 10~pb --- ne se compare pas au tableau ci-dessus}, qui couvre 148 coupes depuis 2014, brut de frais.}\par
 \vspace{0.5mm}
 
 \fig{etf_livrable.png}{à gauche le portefeuille depuis 2020 (base 100, log) ; à droite ce que chaque niveau
 d'écart au marché rapporte --- la courbe est concave.}
 
-\et{a}{Ce que les résultats disent}
-\begin{pts}
-\item \textbf{$\lambda = 2$ domine les deux camps sur les quatre colonnes} : excès $+3{,}41$ contre $+3{,}17$
-      et $+3{,}21$ $\cdot$ écart 4,2 contre 4,6 et 5,6 $\cdot$ rdt/écart 0,83 contre 0,70 et 0,59 $\cdot$
-      rotation 41 contre 43 et 54 ;
-\item \textbf{on ne choisit pas $\lambda$, on choisit l'écart au marché} --- $\lambda$ s'en déduit. Le
-      rdt/écart plafonne à 0,83--0,85 vers $\lambda = 2$--3, puis cesse de progresser ;
-\item \textbf{l'excès n'est pas de l'$\alpha$} : à $\lambda = 2$, $+3{,}41$ d'excès mais $\alpha_1 = +1{,}29$
-      --- les $\simeq 2$ points restants sont le prix d'un $\beta$ de 1,09.
-\end{pts}
-
-\et{b}{Ce qui contraindra avant l'écart au marché}
+\et{a}{Ce qui contraindra avant l'écart au marché}
 \begin{pts}
 \item \textbf{aucun plafond sectoriel} : celui de 10~\% porte sur les \emph{titres} et \textbf{ne survit pas}
       à l'agrégation --- cinq titres tech à 6--10~\% font un secteur à 46,6~\% (dém.) et 42,2~\% (rép.) ;
@@ -412,19 +397,7 @@ d'écart au marché rapporte --- la courbe est concave.}
       --- $N_{\text{eff}}$ de 6,5 à 4,6.
 \end{pts}
 
-\et{c}{Le signal sectoriel existe --- mesuré hors de tout portefeuille}
-
-Rendements et poids dé-moyennés par date, erreurs-types groupées par date :
-\[ r^{S}_{t+1} - \bar r_{t+1} = a + b\,\bigl(\hat w^{S}_{t} - \bar w^{S}_{t}\bigr) + \varepsilon \]
-\begin{pts}
-\item $b = 0{,}030$ \emph{(t 1,90)} côté démocrate et $0{,}039$ \emph{(t 2,06)} côté républicain --- 1\,556
-      observations par camp, 148 coupes : un secteur surpondéré de 10 points sur-performe de 0,3 à 0,4~\% le
-      mois suivant ;
-\item \textbf{ce n'est pas un pari mono-sectoriel} : le plus gros contributeur ne pèse que 36~\% de l'excès
-      côté démocrate (la technologie) et 34~\% côté républicain (l'énergie) --- deux moteurs \emph{opposés}.
-\end{pts}
-
-\et{d}{Deux pistes écartées}
+\et{b}{Deux pistes écartées}
 \begin{pts}
 \item \textbf{32 instruments plus fins} (semi-conducteurs, biotechnologie, défense, banques régionales) :
       \textbf{dégrade} --- $+0{,}31$ et $-0{,}60$~\%/an contre $+1{,}50$ et $+0{,}45$. C'est l'instrument, pas
@@ -434,32 +407,13 @@ Rendements et poids dé-moyennés par date, erreurs-types groupées par date :
       du portefeuille seulement change de main d'une coupe à l'autre.
 \end{pts}
 
-\et{e}{Comment lire ces chiffres}
-\begin{pts}
-\item \textbf{les deux tableaux ne se comparent pas} : 148 coupes depuis le 28/02/2014 \emph{brut}, contre
-      \textbf{77 depuis le 31/01/2020} \emph{net} de 10~pb --- le tilt exige les poids du marché de l'année
-      précédente, or les onze SPDR ne cotent tous qu'à partir de 2019 ;
-\item pourtant \textbf{$\lambda = 1$ \emph{est} la version sectorielle simple} : $w^{\text{mkt}} +
-      1\cdot(w^{\text{signal}} - w^{\text{mkt}}) = w^{\text{signal}}$. L'écart entre $+1{,}73$ et $+1{,}15$ est
-      \textbf{entièrement} fenêtre et frais --- sur 2019+ les deux valent $+1{,}70$ et $+1{,}78$ ;
-\item \textbf{rien n'est significatif} : à treize années il faudrait $\lvert t\rvert > 2{,}18$. Les deux plus
-      hauts $t$ du document, 1,93 et \textbf{2,05}, restent dessous --- IC 95~\% du portefeuille unique
-      $[-0{,}3;+5{,}4]$ sur les titres, tous deux contiennent zéro ;
-\item \textbf{ce que la carte datée a réparé} : un titre sans ETF était \emph{écarté}, soit \textbf{11 titres
-      du top-150 en médiane} et 15,2~\% du portefeuille (jusqu'à 20,8) sur 52 coupes $\to$ désormais
-      \textbf{0 titre, 0,0~\%} ;
-\item \emph{en regard}, avec la carte d'aujourd'hui les trois lignes ETF rendaient $+1{,}50$, $+0{,}45$ et
-      $+1{,}15$ au lieu de $+1{,}78$, $+0{,}78$ et $+1{,}45$ ;
-\item \textbf{et 2019--2026 n'a pas bougé d'un millième} : aucune de ses coupes n'avait de secteur manquant, le
-      gain porte donc sur 2014--2018 seul. Restent \textbf{huit tickers} non attribués --- des \emph{fonds},
-      pas des actions (annexe C).
-\end{pts}
-
 \end{multicols}
+
+\clearpage
 
 % ══════════════════════════════════════════════════════════════════════
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
-{\color{bleu}\bfseries IV --- Comment on l'a vérifié}\par
+{\color{bleu}\bfseries Annexe A --- comment on l'a vérifié}\par
 \vspace{0.6mm}
 {\footnotesize
 Chaque ligne est un contrôle exécuté par le notebook, avec le chiffre qu'il imprime.\par}
@@ -485,11 +439,11 @@ M3 sur les titres n'a pas bougé & non-régression après le bloc III & NAV 661,
 \end{tabular}\par}
 \vspace{0.5mm}
 {\footnotesize\color{grisf} \textbf{Ce que ces contrôles ne disent pas} : ils garantissent que le calcul fait
-ce que le protocole décrit --- ils ne disent rien de la \emph{portée} des résultats, qui est en annexe C.}\par
+ce que le protocole décrit --- ils ne disent rien de la \emph{portée} des résultats, qui est en annexe D.}\par
 
 % ══════════════════════════════════════════════════════════════════════
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
-{\color{bleu}\bfseries Annexe A --- ce qui fixe chaque constante, hors de toute performance}\par
+{\color{bleu}\bfseries Annexe B --- ce qui fixe chaque constante, hors de toute performance}\par
 \vspace{0.6mm}
 {\centering\scriptsize
 \begin{tabular}{@{}l l l@{}}
@@ -516,7 +470,7 @@ monte à 36~\% en médiane et jusqu'à 87~\%}.}\par
 
 % ══════════════════════════════════════════════════════════════════════
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
-{\color{bleu}\bfseries Annexe B --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
+{\color{bleu}\bfseries Annexe C --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
 \vspace{0.6mm}
 {\footnotesize
 La technologie pèse un tiers du portefeuille sectoriel côté démocrate --- mais un tiers du S\&P 500 aussi.
@@ -540,11 +494,15 @@ GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
 marché les pèse, mais s'en écarte de deux à trois points par secteur --- et en sens \emph{opposés} sur le
 secteur qui décide de tout : les démocrates surpondèrent la technologie (31,7 contre 29,4~\%), les
 républicains la sous-pondèrent de dix points (19,8~\%). C'est précisément cet écart que la Version 2 achète,
-en laissant le reste à un indice.\par}
+en laissant le reste à un indice.\par
+\vspace{0.4mm}
+\textbf{Et ce n'est pas un pari sur un seul secteur} : le plus gros contributeur ne pèse que \textbf{36~\%} de
+l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicain (l'énergie) --- deux moteurs
+\emph{opposés}.\par}
 
 % ══════════════════════════════════════════════════════════════════════
 \vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
-{\color{bleu}\bfseries Annexe C --- ce que cette fiche n'établit pas}\par
+{\color{bleu}\bfseries Annexe D --- ce que cette fiche n'établit pas}\par
 \vspace{0.6mm}
 {\footnotesize
 \textbf{La significativité.} Aucun excès mesuré ici n'est significatif : treize années (sept pour la
@@ -563,7 +521,8 @@ stratégie.\par
 XLY est l'\textbf{industrie} du titre ; les 46 sociétés disparues, pour lesquelles aucune source de données ne
 répond plus, reçoivent une attribution \textbf{nominative} déclarée dans le notebook avant tout backtest.
 \textbf{Ce qui reste non attribué --- huit tickers, tous des fonds.} \textbf{EDR} d'abord : sa description dit
-« \emph{Education Realty Trust} », un REIT, et son secteur Communication Services est simplement \emph{faux}.
+\og{}\emph{Education Realty Trust}\fg{}, un REIT, et son secteur Communication Services est simplement
+\emph{faux}.
 Puis sept ETF --- \textbf{FDN}, \textbf{IXP}, \textbf{PNQI}, \textbf{VOX} (classés communication) et
 \textbf{VNQ}, \textbf{IYR}, \textbf{SCHH} (classés immobilier). Ils passent tous le filtre
 \texttt{asset\_class == "stock"}, et \emph{cinq d'entre eux portent} \texttt{asset\_type == "Mutual Fund"}
