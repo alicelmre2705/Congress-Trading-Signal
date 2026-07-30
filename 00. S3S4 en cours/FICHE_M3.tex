@@ -269,22 +269,25 @@ donc le score sur \textbf{tous les élus}. Ce n'est pas la moyenne des deux : un
 démocrates \emph{et} trois républicains obtient $m_i = 6$ au lieu de 3 --- \textbf{le consensus bipartisan
 est récompensé}. À la dernière coupe : 39 acheteurs démocrates, 60 républicains, \textbf{100 fusionnés}.
 
-{\centering\scriptsize
-\begin{tabular}{@{}l r r r@{\hspace{3mm}} r r@{}}
+{\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l r r r@{\hspace{2mm}} r r@{}}
 \toprule
-2014--2026 & excès/an & \emph{(t)} & IC 95~\% & 2019--2026 & NAV \\
+2014--2026 & excès/an \emph{(t)} & $\alpha_1$ & $\beta$ & 2019+ & NAV \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{sur les 150 titres}}\\
-démocrates & $+3{,}40$ & \emph{(1,61)} & $[-1{,}19\,;7{,}99]$ & $+4{,}16$ & 662 \\
-républicains & $+1{,}24$ & \emph{(1,61)} & $[-0{,}44\,;2{,}91]$ & $+2{,}28$ & 574 \\
-\textbf{unique} & $\mathbf{+2{,}51}$ & \emph{\textbf{(1,93)}} & $[-0{,}32\,;5{,}35]$ & $+3{,}29$ & \textbf{629} \\
+démocrates & $+3{,}40$ \emph{(1,61)} & $+1{,}66$ & 1,08 & $+4{,}16$ & 662 \\
+républicains & $+1{,}24$ \emph{(1,61)} & $+1{,}09$ & 1,00 & $+2{,}28$ & 574 \\
+\textbf{unique} & $\mathbf{+2{,}51}$ \emph{\textbf{(1,93)}} & $\mathbf{+1{,}48}$ & 1,05 & $+3{,}29$ & \textbf{629} \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{sur les 11 ETF sectoriels}}\\
-démocrates & $+1{,}50$ & \emph{(1,38)} & $[-0{,}87\,;3{,}88]$ & $+1{,}92$ & 565 \\
-républicains & $+0{,}45$ & \emph{(0,57)} & $[-1{,}29\,;2{,}20]$ & $+1{,}12$ & 530 \\
-\textbf{unique} & $\mathbf{+1{,}15}$ & \emph{\textbf{(1,54)}} & $[-0{,}48\,;2{,}78]$ & $+1{,}70$ & \textbf{555} \\
+démocrates & $+1{,}50$ \emph{(1,38)} & $+0{,}30$ & 1,05 & $+1{,}92$ & 565 \\
+républicains & $+0{,}45$ \emph{(0,57)} & $+0{,}09$ & 1,01 & $+1{,}12$ & 530 \\
+\textbf{unique} & $\mathbf{+1{,}15}$ \emph{\textbf{(1,54)}} & $\mathbf{+0{,}16}$ & 1,04 & $+1{,}70$ & \textbf{555} \\
 \bottomrule
 \end{tabular}\par}
+\vspace{0.2mm}
+{\scriptsize\color{grisf} IC 95~\% du portefeuille unique : $[-0{,}3;+5{,}4]$ sur les titres,
+$[-0{,}5;+2{,}8]$ en ETF --- les deux contiennent zéro.}\par
 \vspace{0.3mm}
 {\scriptsize\color{grisf} le portefeuille unique a le $t$ \textbf{le plus élevé du document} (1,93) pour un
 excès \emph{intermédiaire} : fusionner ne moyenne pas les rendements, cela réduit la \emph{variance}.}\par
@@ -298,12 +301,12 @@ depuis les prix seuls, avec ceux de \textbf{l'année précédente} --- aucun reg
 {\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{@{}l r r r r r@{}}
 \toprule
-$\lambda$ & excès net/an & \emph{(t)} & \textbf{écart marché} & rdt/écart & rotation \\
+$\lambda$ & excès net/an \emph{(t)} & $\alpha_1$ \emph{(t)} & $\beta$ & \textbf{écart marché} & rdt/écart \\
 \midrule
-0 \emph{(le marché)} & $-0{,}33$ & \emph{(--0,3)} & 2,1~\% & --- & 21~\% \\
-1 & $+1{,}73$ & \emph{(1,36)} & 2,6~\% & 0,68 & 25~\% \\
-2 & $\mathbf{+3{,}41}$ & \emph{\textbf{(1,82)}} & \textbf{4,2~\%} & \textbf{0,83} & 41~\% \\
-3 & $+4{,}31$ & \emph{(1,84)} & 5,2~\% & 0,85 & 51~\% \\
+0 \emph{(le marché)} & $-0{,}33$ \emph{(--0,3)} & $-0{,}65$ \emph{(--0,8)} & 1,00 & 2,1~\% & --- \\
+1 & $+1{,}73$ \emph{(1,36)} & $+0{,}42$ \emph{(0,45)} & 1,04 & 2,6~\% & 0,68 \\
+2 & $\mathbf{+3{,}41}$ \emph{\textbf{(1,82)}} & $\mathbf{+1{,}29}$ \emph{(0,87)} & 1,09 & \textbf{4,2~\%} & \textbf{0,83} \\
+3 & $+4{,}31$ \emph{(1,84)} & $+1{,}71$ \emph{(0,93)} & 1,10 & 5,2~\% & 0,85 \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.2mm}
@@ -321,7 +324,10 @@ d'écart au marché rapporte --- la courbe est concave.}
       4,6 et 5,6~\%), un meilleur rendement par unité d'écart (0,83 contre 0,70 et 0,59) et \emph{moins} de
       rotation (41 contre 43 et 54~\%) ;
 \item \textbf{on ne choisit pas $\lambda$, on choisit l'écart au marché} --- $\lambda$ s'en déduit. Le
-      rendement par unité d'écart plafonne à 0,83--0,85 vers $\lambda = 2$--3, puis cesse de progresser.
+      rendement par unité d'écart plafonne à 0,83--0,85 vers $\lambda = 2$--3, puis cesse de progresser ;
+\item \textbf{une part de l'excès vient du $\beta$, pas de l'$\alpha$} : à $\lambda = 2$, l'excès vaut
+      $+3{,}41$ mais l'$\alpha_1$ seulement $+1{,}29$ --- le portefeuille est plus exposé au marché que
+      l'indice ($\beta$ 1,09). Le reste, $\simeq 2$ points, est le prix de ce risque en plus.
 \end{pts}
 
 \et{d}{Deux pistes écartées}
