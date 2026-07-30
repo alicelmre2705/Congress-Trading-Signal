@@ -256,10 +256,15 @@ et aucune ne domine : GOP préfère 10, NANC préfère 50.}\par
 \item \textbf{sommer les poids}, puis \textbf{renormaliser} sur les seuls secteurs cotés à la date.
 \end{pts}
 \begin{pts}
-\item \emph{conséquence} : le plafond de 10~\% \textbf{ne survit pas} à l'agrégation --- la plus grosse ligne
-      pèse alors 46,6~\% (démocrates) et 42,2~\% (républicains) ;
-\item \emph{conséquence} : avant juin 2018 XLRE et XLC ne cotent pas, leur poids est réparti au prorata ---
-      la fenêtre \textbf{2019--2026} fait foi.
+\item \emph{conséquence} : le plafond de 10~\% \textbf{ne survit pas} à l'agrégation. Il porte sur les
+      titres ; cinq titres de technologie à 6--10~\% chacun font un secteur à 46,6~\%. \textbf{Il n'y a donc
+      aucun plafond sectoriel} --- la plus grosse ligne pèse 46,6~\% (démocrates) et 42,2~\% (républicains) ;
+\item \emph{conséquence} : deux des onze ETF n'existent pas au début du backtest --- \textbf{XLRE} cote
+      depuis 10/2015, \textbf{XLC} depuis 06/2018. Sur ces coupes-là, les titres qui devaient y aller
+      (Google, Meta, l'immobilier) n'ont pas d'instrument : leur poids est réparti sur les autres secteurs,
+      \textbf{jusqu'à 15,4~\% du portefeuille}. Sur 2014--2018 on ne tient donc pas vraiment l'exposition
+      sectorielle de M3, mais une version déformée --- d'où la fenêtre \textbf{2019--2026}, où les onze
+      cotent tous.
 \end{pts}
 
 \et{b}{Le portefeuille unique}
@@ -327,7 +332,12 @@ d'écart au marché rapporte --- la courbe est concave.}
       rendement par unité d'écart plafonne à 0,83--0,85 vers $\lambda = 2$--3, puis cesse de progresser ;
 \item \textbf{une part de l'excès vient du $\beta$, pas de l'$\alpha$} : à $\lambda = 2$, l'excès vaut
       $+3{,}41$ mais l'$\alpha_1$ seulement $+1{,}29$ --- le portefeuille est plus exposé au marché que
-      l'indice ($\beta$ 1,09). Le reste, $\simeq 2$ points, est le prix de ce risque en plus.
+      l'indice ($\beta$ 1,09). Le reste, $\simeq 2$ points, est le prix de ce risque en plus ;
+\item \textbf{et $\lambda$ concentre.} \emph{Il n'y a aucun plafond au niveau du secteur} --- celui de 10~\%
+      porte sur les titres et ne survit pas à l'agrégation. Le plus gros secteur atteint \textbf{38,7~\% à
+      $\lambda = 0$} (c'est la concentration du marché lui-même, en 2025), \textbf{47,8~\% à $\lambda = 1$}
+      et \textbf{61,2~\% à $\lambda = 2$} --- $N_{\text{eff}}$ tombant de 6,5 à 4,6. C'est la contrainte qui
+      décidera sans doute avant le tracking error.
 \end{pts}
 
 \et{d}{Deux pistes écartées}
