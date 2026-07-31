@@ -1,0 +1,772 @@
+{
+  "data_dir": "/Users/lemairealice/Downloads/Jupiter/00_recuperation_donnees/data/senate/tables",
+  "n_files": 138,
+  "files": {
+    "00_final_status.csv": {
+      "sha256": "ae62ec9de610fe8b48ae47d0b62ea83f89833140f8ed9e399e89185a74008068",
+      "rows": 13,
+      "bytes": 829
+    },
+    "00_year_status.csv": {
+      "sha256": "cbc4d1dced6a736ef8f4074c9ba9f33e5917b756c304e1bebc3a62efe39dc5d7",
+      "rows": 13,
+      "bytes": 1181
+    },
+    "06c_ocr_failures.csv": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "rows": 0,
+      "bytes": 1
+    },
+    "06d_docs_sans_transaction.csv": {
+      "sha256": "dfd11236a52a8ddea0923ef28283d704811ad6c44914f4309890f6c313242e9d",
+      "rows": 25,
+      "bytes": 4313
+    },
+    "2014/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2014/06_senate_2014_FINAL.csv": {
+      "sha256": "ad4c1d6c6533db62fbb6d2b0eca24abd6c6210665f02f5c9d0d1cd513bfcbd90",
+      "rows": 892,
+      "bytes": 528512
+    },
+    "2014/06_senate_2014_transactions.csv": {
+      "sha256": "63ba17899b1aadd26d0012186fc9d9e049b88fe242dd26d942f0a8d40e386bfa",
+      "rows": 651,
+      "bytes": 377270
+    },
+    "2014/06b_senate_2014_ocr_transactions.csv": {
+      "sha256": "5b475d084b0293aaf148b00d91dfdb88aaccb9421c768fc7d6c38e3bdb3a808a",
+      "rows": 241,
+      "bytes": 121928
+    },
+    "2014/07_quiver_comparison.csv": {
+      "sha256": "af2585955e3afe9ce7bf75febd9882b69b759b5b6d6852f629198815c0c1101a",
+      "rows": 22,
+      "bytes": 1109
+    },
+    "2014/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "7e1908dd02736cf936fd3723120a3e84f6cba7a02cc8ae02cdb7c1c50ed67753",
+      "rows": 24,
+      "bytes": 601
+    },
+    "2014/07d_quiver_field_agreement.csv": {
+      "sha256": "3604df78a5a5c2d47f18ee9bd20f2a6dad71dbe5f689c06f3b8467005ba1b838",
+      "rows": 12,
+      "bytes": 1055
+    },
+    "2014/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "972b4658bc047c6676ea36b32a2a8fbcb45496d797a6e4cfa3120d0ced6aa0d9",
+      "rows": 13,
+      "bytes": 552
+    },
+    "2014/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "74ba618ddd4cc698b1f04377bb1fc6e5f94b2547d91db762df8033de5c91fbde",
+      "rows": 0,
+      "bytes": 27
+    },
+    "2014/07g_quiver_match_by_asset.csv": {
+      "sha256": "6271a661b349da0ba06df72872a81262185ff1274ae6e2e659164e7c2f9cf77c",
+      "rows": 4,
+      "bytes": 185
+    },
+    "2015/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2015/06_senate_2015_FINAL.csv": {
+      "sha256": "ad5a929f5ee6fa32b0e8766ca0f804a713dcca5b6a62cc628b7cd8cf693dc53d",
+      "rows": 1598,
+      "bytes": 843062
+    },
+    "2015/06_senate_2015_transactions.csv": {
+      "sha256": "70a73ea58cb4a2ce48c36dba5de2e36a29d09e2fc1c80e3e69a438000ae3a518",
+      "rows": 1317,
+      "bytes": 661483
+    },
+    "2015/06b_senate_2015_ocr_transactions.csv": {
+      "sha256": "bdf2fb1c5bfc15569ee004ec92f697d6f483495147b686433f644c3cce994b95",
+      "rows": 281,
+      "bytes": 123108
+    },
+    "2015/07_quiver_comparison.csv": {
+      "sha256": "155b736ad960c6cbdeedf47f7aa2d2af02d98792903ef2cb6b1a47c8d78e8eff",
+      "rows": 27,
+      "bytes": 1398
+    },
+    "2015/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "be30bdcb66c8543ddda6e16eae19f3f8ef82ae482a9df36d0a87f9f52dc7f73a",
+      "rows": 24,
+      "bytes": 595
+    },
+    "2015/07d_quiver_field_agreement.csv": {
+      "sha256": "1999cd08ec8bcb10cac4882ebe11209d9ec746f5f2bcc59b4336e9b01e9aa35f",
+      "rows": 12,
+      "bytes": 1051
+    },
+    "2015/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "7c13536adf11a4ebcc60b66d4531491e750e9717eecc17d7c9a9897c69cdb5aa",
+      "rows": 15,
+      "bytes": 656
+    },
+    "2015/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "15e22a9ac4520578aa2c927ef9191c73dacf12fc65c62404e960e8c46b394804",
+      "rows": 5,
+      "bytes": 174
+    },
+    "2015/07g_quiver_match_by_asset.csv": {
+      "sha256": "f830ae94ac0e4ab6a5752d211788bb043ebeb4db858ed93c85a9b4fce4ff6b7e",
+      "rows": 6,
+      "bytes": 255
+    },
+    "2016/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2016/06_senate_2016_FINAL.csv": {
+      "sha256": "bcc9b0700e44ed5a8cbc9aeb3b02aee86b0c5971109b1e1dd00b3a1163b35b51",
+      "rows": 1787,
+      "bytes": 1003503
+    },
+    "2016/06_senate_2016_transactions.csv": {
+      "sha256": "c0ad04793976ff9a8f725b43cf3569ba28e547c8309516296e69a64dba99cf7d",
+      "rows": 1360,
+      "bytes": 664923
+    },
+    "2016/06b_senate_2016_ocr_transactions.csv": {
+      "sha256": "ec91ca0073640d705bbedb9b367c2aeb5842b80d74e4b220ea2028b1e3962613",
+      "rows": 427,
+      "bytes": 275066
+    },
+    "2016/07_quiver_comparison.csv": {
+      "sha256": "1f3f4d385327c4ba495adb78c946e89cd002855186390673b78a19fb7d206c28",
+      "rows": 29,
+      "bytes": 1461
+    },
+    "2016/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "b17db5a7d724982641fd2496b8473422cfb257217170bea4664377a3a92a05f5",
+      "rows": 24,
+      "bytes": 592
+    },
+    "2016/07d_quiver_field_agreement.csv": {
+      "sha256": "0cb82399845b2254c1b8ae120719f67f7bbfb19b1a76be6cc0a69a98c14b9486",
+      "rows": 12,
+      "bytes": 1043
+    },
+    "2016/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "79c62c6dd2f81f4b1f52440a3bedc255f6c1141afde57440cb48312621bc7125",
+      "rows": 18,
+      "bytes": 746
+    },
+    "2016/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "74ba618ddd4cc698b1f04377bb1fc6e5f94b2547d91db762df8033de5c91fbde",
+      "rows": 0,
+      "bytes": 27
+    },
+    "2016/07g_quiver_match_by_asset.csv": {
+      "sha256": "c63a6c4ccf815dcd5210ec554f4fab5972006447423476c4120c2f1bb1379a69",
+      "rows": 8,
+      "bytes": 307
+    },
+    "2017/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2017/06_senate_2017_FINAL.csv": {
+      "sha256": "d0c214e35aab6e90022dbe6e0fc91880c58036cfba836468af625c9b0a44b700",
+      "rows": 1696,
+      "bytes": 938217
+    },
+    "2017/06_senate_2017_transactions.csv": {
+      "sha256": "1956e7e0d05d3f468f9424334b46dda2c5fc30f4df8aaaf9a737610ff101cef6",
+      "rows": 1486,
+      "bytes": 752894
+    },
+    "2017/06b_senate_2017_ocr_transactions.csv": {
+      "sha256": "11227c4b4d6a96a203ee10dbbfb0b300c49cdd3cbde11a618c27074d6dfd0b02",
+      "rows": 212,
+      "bytes": 123257
+    },
+    "2017/07_quiver_comparison.csv": {
+      "sha256": "433e3e06070fab349732cf5262ce643ab6f9476d1048042416ad3a7df614c621",
+      "rows": 32,
+      "bytes": 1611
+    },
+    "2017/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "9b5e34253972ff23b1b93fab6bd9e6b25189d1979c6f7ee395096aaeb9f6a085",
+      "rows": 24,
+      "bytes": 594
+    },
+    "2017/07d_quiver_field_agreement.csv": {
+      "sha256": "d75231ebe5fd617ae15ce13b6049d572e3a7ab4b90d365331626423f60bff4ed",
+      "rows": 12,
+      "bytes": 1051
+    },
+    "2017/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "d1f219490a55bd6fa4792e6d5d2e0652db57c4c66079edee0ee8666c9226a3c1",
+      "rows": 20,
+      "bytes": 855
+    },
+    "2017/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "071b17c4f73a284895940dfe52e5ba350ee60d64883e4c2f3ddae6e0a279027d",
+      "rows": 8,
+      "bytes": 281
+    },
+    "2017/07g_quiver_match_by_asset.csv": {
+      "sha256": "eae62add3c20b04549fcb1404453168a255d5feef1800cfc60e4954966d48c1a",
+      "rows": 7,
+      "bytes": 279
+    },
+    "2018/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2018/06_senate_2018_FINAL.csv": {
+      "sha256": "8a5f8fdcc510ef7ad304d79041912952d0c5b1cdbcb475b040bbea10ffe58cab",
+      "rows": 2082,
+      "bytes": 1052103
+    },
+    "2018/06_senate_2018_transactions.csv": {
+      "sha256": "a7e5eeb38d27e9d7b3a05b2ae08c7da5b8802300630f52a4d3ab4a55b82f77f0",
+      "rows": 1441,
+      "bytes": 676236
+    },
+    "2018/06b_senate_2018_ocr_transactions.csv": {
+      "sha256": "95e58fc634a68d1fee1f75c53f8ddd4c06433a7cf36535fd8c7f94d55edbacbb",
+      "rows": 641,
+      "bytes": 298363
+    },
+    "2018/07_quiver_comparison.csv": {
+      "sha256": "896d4aa60f25549aa35d0c57b4bee4e140af6d8778ef95a5ff590fedc7ec2429",
+      "rows": 35,
+      "bytes": 1773
+    },
+    "2018/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "f83179b7238b3a509e8f82466a32373e436d15719b364f38abeff415f018758a",
+      "rows": 24,
+      "bytes": 591
+    },
+    "2018/07d_quiver_field_agreement.csv": {
+      "sha256": "1e27e495ac74992ec8546595ad9dfe2b8a0c6d242e2f67c159af1d5c180cfb47",
+      "rows": 12,
+      "bytes": 1045
+    },
+    "2018/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "ccf44152469569e2175b5eef24b134ceda7b6bcd1bd7012573bef227dcc66a06",
+      "rows": 17,
+      "bytes": 735
+    },
+    "2018/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "b093e8f894008821a8490abe7d783764a3a427fa5536df4bc3bee5ac9958a791",
+      "rows": 7,
+      "bytes": 249
+    },
+    "2018/07g_quiver_match_by_asset.csv": {
+      "sha256": "d807560e7fcafbc2bd9a9b9313efa6c176806b04a23518f263bcd2a467c04df0",
+      "rows": 7,
+      "bytes": 278
+    },
+    "2019/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2019/06_senate_2019_FINAL.csv": {
+      "sha256": "2196d369b9db367349238b896834e8826c40941e2dc3901b4337e669128223ac",
+      "rows": 1943,
+      "bytes": 1057492
+    },
+    "2019/06_senate_2019_transactions.csv": {
+      "sha256": "90759d38b54351edb5285fa421548067517793bbc189900b3baae5f8171fcc45",
+      "rows": 1397,
+      "bytes": 732629
+    },
+    "2019/06b_senate_2019_ocr_transactions.csv": {
+      "sha256": "3ecd98dc17f6992243a00ff14e88e83bc82c6c208916221b72ee09f511be2950",
+      "rows": 552,
+      "bytes": 255543
+    },
+    "2019/07_quiver_comparison.csv": {
+      "sha256": "8cc2127060aca6808ab0a8d9d3fb9a982b9bc96ebdf7acfdfae4411f639de03b",
+      "rows": 35,
+      "bytes": 1697
+    },
+    "2019/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "91e343dfdf044d8ead956073d791b7876f985b2f08cfbdcc277024b45e572ae8",
+      "rows": 24,
+      "bytes": 593
+    },
+    "2019/07d_quiver_field_agreement.csv": {
+      "sha256": "db51feac1a80525e6db715f591ff32d27f076d64e7d8e6a2477743d6f3b1fa85",
+      "rows": 12,
+      "bytes": 1041
+    },
+    "2019/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "85986c5e052143c0c3625a817704bffa8a153ae4eb282a2b1a0f3bbf6cef847f",
+      "rows": 25,
+      "bytes": 1022
+    },
+    "2019/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "0ef5677cf1d04fa8571f28d7d31823ff0add804e460f7843941b27ba6c665a8e",
+      "rows": 8,
+      "bytes": 283
+    },
+    "2019/07g_quiver_match_by_asset.csv": {
+      "sha256": "5f2ae1af7b1817695ea23a28cb7ec7a0181cc0249571517f602e3cbc3d1bc423",
+      "rows": 7,
+      "bytes": 290
+    },
+    "2020/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2020/06_senate_2020_FINAL.csv": {
+      "sha256": "f5ed8fb93f71b83f701df1ba9382c641a21061b6177a20413ee26e3fe5814cae",
+      "rows": 1961,
+      "bytes": 1034190
+    },
+    "2020/06_senate_2020_transactions.csv": {
+      "sha256": "41e4799497912c53a87ec2460f7f137b039528172c0d3998daa6fbe24209a554",
+      "rows": 1706,
+      "bytes": 795439
+    },
+    "2020/06b_senate_2020_ocr_transactions.csv": {
+      "sha256": "878931e0834440a8de169e02fdfd05451535e650c6ddc83d73c88358c57d79f2",
+      "rows": 255,
+      "bytes": 166167
+    },
+    "2020/07_quiver_comparison.csv": {
+      "sha256": "437e17b35a619e0155884760402af1f1bda9db49c2a0874f074ae0de65144ae7",
+      "rows": 33,
+      "bytes": 1652
+    },
+    "2020/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "5d8b40b9d8f5f1cdf44bee85b7ef47ff8af9ef918f0eeacc094c370c3e50fa5b",
+      "rows": 24,
+      "bytes": 596
+    },
+    "2020/07d_quiver_field_agreement.csv": {
+      "sha256": "bd3228d317bd5cd3fdeac709af99252785ad87c7b1145d48a1bb6bc63d008e4d",
+      "rows": 12,
+      "bytes": 1049
+    },
+    "2020/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "8060baa1bbd48235f7b3ef2e143451efbdfc36afc48829760d3b063ee49afe20",
+      "rows": 19,
+      "bytes": 814
+    },
+    "2020/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "5f9951f1068b1bdf812746bcb28329644b0d29f782a1ebaf8733cbf7bada9f24",
+      "rows": 8,
+      "bytes": 285
+    },
+    "2020/07g_quiver_match_by_asset.csv": {
+      "sha256": "8100d3d197b1ab211e277f386fd47f168e458bc3fb4c5084dbd4b762759b833a",
+      "rows": 8,
+      "bytes": 312
+    },
+    "2021/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2021/06_senate_2021_FINAL.csv": {
+      "sha256": "7512cde98cbe5098645504e52b7bb8fef1774925cc1642e7691a9344ab331b51",
+      "rows": 1379,
+      "bytes": 821982
+    },
+    "2021/06_senate_2021_transactions.csv": {
+      "sha256": "5d470e88674b15d868168665c288812256e0b9067ef12728370fe0e44db7c5ee",
+      "rows": 1098,
+      "bytes": 571149
+    },
+    "2021/06b_senate_2021_ocr_transactions.csv": {
+      "sha256": "89588d2757b55e37c2e6d853085fe55beb7413f07a6782cd39c0509a7659e9fa",
+      "rows": 281,
+      "bytes": 202662
+    },
+    "2021/07_quiver_comparison.csv": {
+      "sha256": "fa193d192dac34b483f6bc6b25bb63e9b170b8cb71815e137a129f882bcedb5d",
+      "rows": 35,
+      "bytes": 1756
+    },
+    "2021/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "f19eb8d8c4934770d42a12c4221b8a72e19fb080fe0f3904398711970d2666f4",
+      "rows": 24,
+      "bytes": 589
+    },
+    "2021/07d_quiver_field_agreement.csv": {
+      "sha256": "a1ef4c610a1d5b06832fdd4a39a9683ea4465b16f5ffed439cd644b2cd1225c6",
+      "rows": 12,
+      "bytes": 1041
+    },
+    "2021/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "8a417b61bc60869c96c6a3b9530198b539446d25167311f20cc26c803626e7c6",
+      "rows": 22,
+      "bytes": 924
+    },
+    "2021/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "56866f5a14206bb21a1726d0af8bd32248a7666801f46c68b30ca495cefcccbc",
+      "rows": 8,
+      "bytes": 282
+    },
+    "2021/07g_quiver_match_by_asset.csv": {
+      "sha256": "831fa099a9a30e8e38c499ffc10796ea8f44655d4258d806d3b5129791f863a4",
+      "rows": 10,
+      "bytes": 392
+    },
+    "2022/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2022/06_senate_2022_FINAL.csv": {
+      "sha256": "5b88287bdacf71382753b95859882d1825a50225b383611dbbbb9826fdf65554",
+      "rows": 1101,
+      "bytes": 738419
+    },
+    "2022/06_senate_2022_transactions.csv": {
+      "sha256": "7c7a0f0e58fe872c67f20031d63a4fef03acd3f4ebef4a03f166c3ed2afed9f3",
+      "rows": 919,
+      "bytes": 570629
+    },
+    "2022/06b_senate_2022_ocr_transactions.csv": {
+      "sha256": "06fce0ca603c20bc6444c26677d74bdc47ecc98ccc7ac1da64e68964e0d68ddb",
+      "rows": 182,
+      "bytes": 131415
+    },
+    "2022/07_quiver_comparison.csv": {
+      "sha256": "5dd912792e20a5b304ceee5e24d61466e5ddea12df4fda410515c5474e3fd1ad",
+      "rows": 25,
+      "bytes": 1239
+    },
+    "2022/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "1cedd63fb2c0c0c56e6128cdf54c920a82d2ca4854f8c5009e443d9e30cc8dff",
+      "rows": 24,
+      "bytes": 587
+    },
+    "2022/07d_quiver_field_agreement.csv": {
+      "sha256": "76240aaab2ab0d90620559831f4184955dd77687ae41fd59869ea9c376b55b89",
+      "rows": 12,
+      "bytes": 1041
+    },
+    "2022/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "69267f35ccc9abf50167a300e8a4c6d3e448aa33ef1e2ee4ec8625582300e5ee",
+      "rows": 20,
+      "bytes": 831
+    },
+    "2022/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "f2393584ef3c3c51fdcd0ca54012fb17b94b2a420c4e3061294292721f83a0da",
+      "rows": 4,
+      "bytes": 151
+    },
+    "2022/07g_quiver_match_by_asset.csv": {
+      "sha256": "f0edfe858e15db7b650ef07853b641e0bab1759d7aa1cd2492f66255064265de",
+      "rows": 10,
+      "bytes": 381
+    },
+    "2023/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2023/06_senate_2023_FINAL.csv": {
+      "sha256": "c00d9a58f9a4b506e3f6c4b16092f4fc4a94a2ba7843366671054de19c95e074",
+      "rows": 1159,
+      "bytes": 745796
+    },
+    "2023/06_senate_2023_transactions.csv": {
+      "sha256": "22718370100320353a14e5908d2855031818575f59dcb7e68d150fa5742b421b",
+      "rows": 1062,
+      "bytes": 633900
+    },
+    "2023/06b_senate_2023_ocr_transactions.csv": {
+      "sha256": "2b3a7bff790aaa43fb50c2e1852c3d9399394a609c3fbd93fd38b6d2b889ee27",
+      "rows": 97,
+      "bytes": 72484
+    },
+    "2023/07_quiver_comparison.csv": {
+      "sha256": "eacfb6dbe483b1e251a45c36a07252ceed94193c044e6e9e827c30e0c7df23d5",
+      "rows": 31,
+      "bytes": 1563
+    },
+    "2023/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "c5cc6e051941b6ce9d20ee53e315c1329e45a6f5c9f64450c079af06d991b643",
+      "rows": 24,
+      "bytes": 594
+    },
+    "2023/07d_quiver_field_agreement.csv": {
+      "sha256": "4fe47df32ca304b752eead91731c5360f71e09710d48840cfa243084887ab0a0",
+      "rows": 12,
+      "bytes": 1049
+    },
+    "2023/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "003dbd24402f733ffea15bde5929f37db14be997a5f76595c3f21760bd0707ac",
+      "rows": 21,
+      "bytes": 866
+    },
+    "2023/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "c4d0184abb99ac16c7c3d3699df853f31aca644470db5e1a6027801421c9136a",
+      "rows": 2,
+      "bytes": 90
+    },
+    "2023/07g_quiver_match_by_asset.csv": {
+      "sha256": "9dcaa6c87e21a2e74986c37d7daaa343a80c48f162b4ef32effa32d1d3fe782d",
+      "rows": 9,
+      "bytes": 349
+    },
+    "2024/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2024/06_senate_2024_FINAL.csv": {
+      "sha256": "e21fbfc490c087960d2bd1f2f11a2f3c587bc7bb073fca3a972e1c08a2e0d48f",
+      "rows": 1030,
+      "bytes": 686290
+    },
+    "2024/06_senate_2024_transactions.csv": {
+      "sha256": "db6a253d41605d7f262bf44255f1b0bef717ca618bd5a8f440494fe243434463",
+      "rows": 946,
+      "bytes": 594279
+    },
+    "2024/06b_senate_2024_ocr_transactions.csv": {
+      "sha256": "f261c99e4dfba4ccc984adee5e02e7146492f373c87e6fcf380ebf6d05017364",
+      "rows": 84,
+      "bytes": 59200
+    },
+    "2024/07_quiver_comparison.csv": {
+      "sha256": "c507188b223652dc043aedc616975bc93fd80aeb6952e1fbd202c7b7c4507218",
+      "rows": 24,
+      "bytes": 1190
+    },
+    "2024/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "4ec410c68d60c44335566256061d99046f7566c2e27ac6b990f6d8afcce7111b",
+      "rows": 24,
+      "bytes": 592
+    },
+    "2024/07d_quiver_field_agreement.csv": {
+      "sha256": "73836ee58485a4b50bb30532e22063aed34494e1760cf7482befb00c5e849680",
+      "rows": 12,
+      "bytes": 1047
+    },
+    "2024/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "7724ed36961f624578f946c3029f95a045711d78d27a0eedca34bdb0dbe691c2",
+      "rows": 21,
+      "bytes": 857
+    },
+    "2024/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "fc83b776b332eb6e3b1d2143695e874899a6cb85d95a72fe71b9468216a3b3e2",
+      "rows": 2,
+      "bytes": 94
+    },
+    "2024/07g_quiver_match_by_asset.csv": {
+      "sha256": "26dc294e4a9955eede796d73fb9610092873cb829441666b3207bb0879837cd7",
+      "rows": 6,
+      "bytes": 248
+    },
+    "2025/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2025/06_senate_2025_FINAL.csv": {
+      "sha256": "458634446c1610d88de12e43c22d530428b51bd71e75a7aafd13c25b7b073c01",
+      "rows": 1421,
+      "bytes": 970180
+    },
+    "2025/06_senate_2025_transactions.csv": {
+      "sha256": "fd0617a6e6b0f762d6e3bb7d3806815f86b3d87a59af265aa2b78d28702635de",
+      "rows": 943,
+      "bytes": 600222
+    },
+    "2025/06b_senate_2025_ocr_transactions.csv": {
+      "sha256": "09092d9e304c9828827cac01defadbfac13ab0b3e86b4d251b15759ca2d9f163",
+      "rows": 478,
+      "bytes": 331578
+    },
+    "2025/07_quiver_comparison.csv": {
+      "sha256": "a6141894822e364eabf73bf0f747806f08de1d64d1e698bf9b168ff923f03dbc",
+      "rows": 30,
+      "bytes": 1474
+    },
+    "2025/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "7f5285ddbccda573555c2c2b2fc39e17716dc2bfd0057faf0312ad7217efb757",
+      "rows": 24,
+      "bytes": 587
+    },
+    "2025/07d_quiver_field_agreement.csv": {
+      "sha256": "eb5452d500b4eb2114c6465d9cd81063f2abb0ff8bdb9df5f076cc9c54adabf4",
+      "rows": 12,
+      "bytes": 1041
+    },
+    "2025/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "5b1fee5a8dbd402e6344cf51160c3470b848fee93dd1eaba83ea7570659a5c50",
+      "rows": 25,
+      "bytes": 998
+    },
+    "2025/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "07503456ff89dd1138494579150a3055c49ee947af5bcd2d51cc64b43704e3eb",
+      "rows": 1,
+      "bytes": 60
+    },
+    "2025/07g_quiver_match_by_asset.csv": {
+      "sha256": "8733d0202dd3afeee5dec1d343a457ceec4438501640330265f66f109a5b2d47",
+      "rows": 7,
+      "bytes": 273
+    },
+    "2026/05_parse_failures.csv": {
+      "sha256": "b92c8bc420ed13ebb9a59fadf3f737c404682a5bc4ea06d49e400c7b373b1287",
+      "rows": 0,
+      "bytes": 14
+    },
+    "2026/06_senate_2026_FINAL.csv": {
+      "sha256": "3f068da9e78b6974d0c5a8691c84a76335e23e986daec154e9e52a2fa76dd2a7",
+      "rows": 790,
+      "bytes": 545137
+    },
+    "2026/06_senate_2026_transactions.csv": {
+      "sha256": "0f8207b31fcabf3d544d812ca0cd411f86ce6af451a8bd0cece5c1027cbbe268",
+      "rows": 487,
+      "bytes": 315303
+    },
+    "2026/06b_senate_2026_ocr_transactions.csv": {
+      "sha256": "eb8d51c9615242dc5cdc765e64fbc2357976fee0e20a2bf9003ac94dfc41ce09",
+      "rows": 303,
+      "bytes": 209308
+    },
+    "2026/07_quiver_comparison.csv": {
+      "sha256": "dd272804ce9550771c434a9e3a5e828d35109186c11c1d35cf03bf57407bbabb",
+      "rows": 21,
+      "bytes": 1072
+    },
+    "2026/07c_quiver_txn_reconciliation.csv": {
+      "sha256": "660bea98d1d5fdef7da7055e7b3867254e259f86aab10c6c7b294e0494e3eb03",
+      "rows": 24,
+      "bytes": 589
+    },
+    "2026/07d_quiver_field_agreement.csv": {
+      "sha256": "2adf11fd0aeb51c47c2323d0fb0f8f0baaefcee6ec668752b36ccb8519a18023",
+      "rows": 12,
+      "bytes": 1045
+    },
+    "2026/07e_quiver_ticker_per_senator.csv": {
+      "sha256": "4836e8c76814fba89d868a50a4c3816f4f6140669ec876b608a6ea70e8cb3627",
+      "rows": 16,
+      "bytes": 666
+    },
+    "2026/07f_quiver_only_quiver_txn.csv": {
+      "sha256": "74ba618ddd4cc698b1f04377bb1fc6e5f94b2547d91db762df8033de5c91fbde",
+      "rows": 0,
+      "bytes": 27
+    },
+    "2026/07g_quiver_match_by_asset.csv": {
+      "sha256": "98e73c278556ba8704aca8c3ebb2bfbd03d6749682f07179a7b9a6222353fd11",
+      "rows": 6,
+      "bytes": 235
+    },
+    "_paper_index_2014_2026.csv": {
+      "sha256": "fc3bbf553cef0b3087e4eac6b07f950d47cbb66b115d4aa2f9b526ee77c1725d",
+      "rows": 373,
+      "bytes": 25776
+    },
+    "_paper_index_2020_2026.csv": {
+      "sha256": "2de05104c50cea49650c6c6ad658bfb47b1ea4d765cc47ef9849b6649406db69",
+      "rows": 130,
+      "bytes": 9133
+    },
+    "_pilote_ocr.csv": {
+      "sha256": "a318c49a3dc877a14b558ff2ea4708c17f47e14d7ebd0550f14ba9ba400b4a90",
+      "rows": 135,
+      "bytes": 93296
+    },
+    "_quiver_senate_cache.csv": {
+      "sha256": "c8dd5fdfb3bab5dc267023c0ed4cca4ca9d6f46f5bb00bc9d76f2d2b251ae818",
+      "rows": 13342,
+      "bytes": 1060144
+    }
+  },
+  "headline": {
+    "total": {
+      "digital": 14813,
+      "ocr": 4026,
+      "final": 18839
+    },
+    "per_year": {
+      "2014": {
+        "final": 892,
+        "digital": 651,
+        "ocr": 241
+      },
+      "2015": {
+        "final": 1598,
+        "digital": 1317,
+        "ocr": 281
+      },
+      "2016": {
+        "final": 1787,
+        "digital": 1360,
+        "ocr": 427
+      },
+      "2017": {
+        "final": 1696,
+        "digital": 1486,
+        "ocr": 210
+      },
+      "2018": {
+        "final": 2082,
+        "digital": 1441,
+        "ocr": 641
+      },
+      "2019": {
+        "final": 1943,
+        "digital": 1397,
+        "ocr": 546
+      },
+      "2020": {
+        "final": 1961,
+        "digital": 1706,
+        "ocr": 255
+      },
+      "2021": {
+        "final": 1379,
+        "digital": 1098,
+        "ocr": 281
+      },
+      "2022": {
+        "final": 1101,
+        "digital": 919,
+        "ocr": 182
+      },
+      "2023": {
+        "final": 1159,
+        "digital": 1062,
+        "ocr": 97
+      },
+      "2024": {
+        "final": 1030,
+        "digital": 946,
+        "ocr": 84
+      },
+      "2025": {
+        "final": 1421,
+        "digital": 943,
+        "ocr": 478
+      },
+      "2026": {
+        "final": 790,
+        "digital": 487,
+        "ocr": 303
+      }
+    },
+    "n_declarants": 92,
+    "n_sans_bioguide": 10
+  }
+}

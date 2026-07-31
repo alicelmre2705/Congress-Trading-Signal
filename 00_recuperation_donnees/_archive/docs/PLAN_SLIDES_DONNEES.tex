@@ -1,0 +1,628 @@
+% !TEX program = tectonic
+% PLAN_SLIDES_DONNEES — plan à suivre pour la refonte du deck données (V4)
+% Document de travail : ce n'est PAS le deck, c'est son plan.
+% Périmètre : le deck données seulement (les « Parties 1-5 » actuelles de
+% SLIDES_DONNEES_S1S2.tex). Backtest (PARTIE II) et Tables (PARTIE III) : hors périmètre.
+% Chiffres : tous audités contre docs/RAPPORT_QUALITE.md + notebooks (2026-07-16).
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{newunicodechar}
+\usepackage[colorlinks=true, linkcolor=helec, urlcolor=helec]{hyperref}
+
+% Couleurs du deck (continuité visuelle)
+\definecolor{helec}{HTML}{3B6EA5}
+\definecolor{okgreen}{HTML}{2E8B57}
+\definecolor{alertred}{HTML}{C0392B}
+\definecolor{warnorange}{HTML}{E67E22}
+\definecolor{dataC}{RGB}{176,110,14}
+\definecolor{grisC}{RGB}{90,90,90}
+
+% Unicode → T1
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{—}{\textemdash}
+\newunicodechar{–}{\textendash}
+\newunicodechar{…}{\ldots}
+\newunicodechar{·}{\textperiodcentered}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{«}{\og}
+\newunicodechar{»}{\fg{}}
+\newunicodechar{œ}{\oe}
+\newunicodechar{°}{\textdegree}
+\newunicodechar{§}{\S}
+
+\newcommand{\co}[1]{\texttt{#1}}
+\emergencystretch=1.5em
+
+% ── Fiche de slide ──
+% \fiche{numéro}{titre-message}{idée}{chiffres}{provenance}
+\newcommand{\fiche}[5]{%
+  \par\noindent\begin{minipage}{\linewidth}
+  \vspace{2mm}
+  {\color{helec}\textbf{#1}}\quad{\textbf{« #2 »}}\\[1mm]
+  {\small\textbf{Idée} --- #3}\\[0.8mm]
+  {\small\textbf{Chiffres} --- #4}\\[0.8mm]
+  {\small\color{black!55}\textbf{Provenance} --- #5}\\[1mm]
+  {\color{black!18}\rule{\linewidth}{0.4pt}}
+  \end{minipage}\par}
+
+% \fichec{numéro}{titre-message}{idée}{chiffres}{choix}{provenance}
+\newcommand{\fichec}[6]{%
+  \par\noindent\begin{minipage}{\linewidth}
+  \vspace{2mm}
+  {\color{helec}\textbf{#1}}\quad{\textbf{« #2 »}}\\[1mm]
+  {\small\textbf{Idée} --- #3}\\[0.8mm]
+  {\small\textbf{Chiffres} --- #4}\\[0.8mm]
+  \colorbox{alertred!7}{\parbox{\dimexpr\linewidth-8pt}{\small
+    \textbf{\textcolor{alertred}{Choix}} --- #5}}\\[0.8mm]
+  {\small\color{black!55}\textbf{Provenance} --- #6}\\[1mm]
+  {\color{black!18}\rule{\linewidth}{0.4pt}}
+  \end{minipage}\par}
+
+% Intercalaire d'étape + bandeau réponse
+\newcommand{\interq}[1]{\par\noindent\colorbox{helec!8}{\parbox{\dimexpr\linewidth-8pt}{\small
+  \textbf{\textcolor{helec}{Intercalaire d'entrée}} --- question affichée : \emph{#1}}}\par\vspace{1mm}}
+\newcommand{\reponse}[1]{\par\noindent\colorbox{okgreen!10}{\parbox{\dimexpr\linewidth-8pt}{\small
+  \textbf{\textcolor{okgreen}{Bandeau de sortie}} (sur la dernière slide de l'étape) --- \textbf{Réponse :} #1}}\par\vspace{1mm}}
+
+\title{\vspace{-8mm}\textbf{Plan des slides --- La couche données (V4)}\\[2mm]
+  \large le plan à suivre pour la refonte, une idée par slide}
+\author{Alice Lemaire --- document de travail}
+\date{Juillet 2026}
+
+\begin{document}
+\maketitle
+\vspace{-6mm}
+\noindent\colorbox{grisC!10}{\parbox{\dimexpr\linewidth-8pt}{\small
+\textbf{Ce document est un plan, pas les slides.} Chaque « fiche » ci-dessous = une future
+slide. Périmètre : \textbf{le deck données seulement} (les Parties 1--5 actuelles de
+\co{SLIDES\_DONNEES\_S1S2.tex}) ; le backtest (PARTIE II) et les tables (PARTIE III) ne sont
+ni replanifiés ni déplacés. La mise en forme (orientation, charte, figures exactes) est un
+détail d'exécution, hors de ce plan.}}
+
+\section{Le diagnostic --- six règles d'or}
+
+Retour du chef de recherche : \emph{bien, mais pas assez organisé}. Traduit en règles
+appliquées à chaque fiche de ce plan :
+
+\begin{enumerate}[itemsep=1pt, topsep=3pt]
+  \item \textbf{Une idée par slide} --- le titre est une phrase affirmative qui \emph{est}
+        l'idée ; si une slide en porte deux, on la coupe.
+  \item \textbf{Le plan d'abord} --- l'histoire est annoncée en ouverture ; chaque étape
+        s'ouvre sur une question simple et se ferme sur une réponse chiffrée.
+  \item \textbf{Pensée chronologique} --- on suit le trajet de la donnée (brute → pipeline →
+        enrichie → vérifiée → livrée) ; les détails ne viennent qu'\emph{à l'intérieur} des étapes.
+  \item \textbf{Chiffres légendés} --- au plus 3 chiffres par slide, chacun avec sa légende
+        « à quoi ça correspond » (exceptions : les 2 slides-bilan à 4 tuiles).
+  \item \textbf{Zéro mini-détail} --- tout ce qui ne porte ni l'histoire ni la crédibilité
+        descend en annexe ou disparaît (liste en §\ref{sec:annexes}).
+  \item \textbf{Choix explicites} --- chaque choix méthodologique est énoncé dans un encadré
+        uniforme : « on a choisi X parce que Y » (carte complète en §\ref{sec:choix}).
+\end{enumerate}
+
+\noindent\textbf{Volumétrie} : deck données actuel = \textbf{47 frames} (titre + plan +
+5 transitions + 40 slides de contenu) → cible = \textbf{35 pages} de flux principal
+(titre + 5 intercalaires + \textbf{29 fiches} : 3 d'ouverture + 26 de contenu É1--É5),
+plus 7 planches d'annexe (réserve pour questions).
+
+\section{Le récit, et l'architecture cible}
+
+\noindent\colorbox{helec!8}{\parbox{\dimexpr\linewidth-8pt}{
+\textbf{Le récit en une phrase} : \emph{des déclarations publiques hétérogènes --- PDF, scans,
+pages web --- on a construit une table de recherche unique, prouvée de l'intérieur et de
+l'extérieur, livrée avec ses limites écrites.}}}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{@{}l l >{\raggedright\arraybackslash}p{4.6cm} >{\raggedright\arraybackslash}p{4.9cm}@{}}
+\toprule
+\textbf{Bloc} & \textbf{Slides} & \textbf{Question d'entrée} & \textbf{Réponse de sortie} \\
+\midrule
+Ouverture        & 3 & --- (résultats d'abord)             & les 4 résultats + le plan en 5 étapes \\
+É1 · Donnée brute & 6 & à quoi ressemble la matière première ? & 2 guichets · 4 formats · une matière majoritairement papier \\
+É2 · Pipeline    & 5 & comment 10\,000 documents deviennent une table ? & 169\,000 transactions extraites, 100\,\% identifiées \\
+É3 · Enrichir    & 3 & que faut-il ajouter pour un backtest ? & 12 champs garantis, chaque enrichissement tracé \\
+É4 · Vérification & 8 & comment sait-on qu'on n'a rien raté, ni rien inventé ? & rien raté (173) · cohérent dedans (87,8\,\%) · sur-ensemble du tiers ($>$\,92\,\%) \\
+É5 · Livrable    & 3+1 & qu'est-ce qu'on livre, avec quelles limites ? & 134\,464 × 36, limites écrites \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Numérotation} : les « Partie 1…5 » internes deviennent \textbf{« Étape
+1…5 »} (la frise du deck s'appelle déjà « cinq étapes ») --- le mot « Partie » est libéré
+pour le niveau global (backtest, tables), traité plus tard.
+
+\section{Le plan, slide par slide}
+
+\subsection*{Ouverture (3 slides, après le titre)}
+
+\fiche{O1 · NEUVE}{Depuis 2012, chaque élu du Congrès doit déclarer ses transactions en
+bourse sous 45 jours}{le cadre légal en 30 secondes --- qui (Chambre + Sénat), quoi (chaque
+transaction, dans un \emph{Periodic Transaction Report}, « PTR »), et la question de
+recherche : peut-on en tirer un signal ?}{\textbf{45 j} (délai légal de déclaration d'un
+trade) · \textbf{2014--2026} (la fenêtre étudiée --- la loi, elle, date de 2012) ·
+\textbf{2 chambres} (435 représentants + 100 sénateurs)}{neuve --- c'est le plus gros trou du deck actuel : le STOCK Act vit en note
+de bas de page de la slide plan. Définit : STOCK Act, PTR, dépôt, Chambre/Sénat.}
+
+\fiche{O2 · NEUVE}{La couche données, en quatre résultats}{les résultats d'abord --- le
+reste du deck ne fait que prouver ces quatre nombres ; chute : « comment peut-on affirmer
+ça ? c'est l'objet de la présentation ».}{4 tuiles (exception assumée) :
+\textbf{169\,000} transactions uniques, identité rattachée à 100\,\% ·
+\textbf{100\,\%} des 8\,252 déclarations officielles (PTR) traitées ·
+\textbf{$>$\,92\,\%} de la base d'un fournisseur commercial indépendant retrouvés chez
+nous (nous sommes son sur-ensemble) + \textbf{87,8\,\%} des positions de sortie
+expliquées comptablement ·
+\textbf{134\,464 × 36} : la table livrée, limites écrites}{neuve --- tuiles empruntées à
+l'actuelle « Ce qu'il faut retenir » (S29), qui reste en clôture : O2 promet, la fin prouve.}
+
+\fiche{O3 · refonte}{Le plan : cinq étapes, une promesse}{l'histoire promise en une image
+--- la frise donnée brute → pipeline → enrichir → vérification → livrable, seule promesse
+du deck.}{\textbf{5 étapes} (aucun autre chiffre sur cette slide)}{refonte de l'actuelle
+S1 « Le plan » : la frise TikZ existante est conservée, la note STOCK Act remonte en O1.}
+
+\subsection*{Étape 1 · La donnée brute (6 slides)}
+\interq{À quoi ressemble la matière première --- et pourquoi ce n'est pas juste télécharger un CSV ?}
+
+\fichec{1.1 · fusion}{Tout est public : deux guichets, treize années}{la Chambre publie des
+archives annuelles indexées ; le Sénat, un portail de recherche derrière un accord
+obligatoire --- les deux sont automatisés ; côté Sénat, la liste des dépôts s'obtient par
+recherche (un lien par dépôt).}{\textbf{35\,315} (dépôts de tous types dans l'index
+Chambre 2014--2026) · \textbf{13 années} couvertes}{l'\textbf{index annuel officiel est
+notre autorité} : c'est lui qui définit l'univers des documents à traiter --- pas ce qu'on
+a réussi à lire.}{fusion S2a + S2b + S7a + S7b (2 captures max : site Chambre, portail
+eFD) ; zoom XML et formulaire de recherche → annexe A2 ; jargon « CSRF/jeton » supprimé
+(dire : « accord obligatoire, accepté par notre collecteur ») ; le « 1\,705 rapports » de
+la capture actuelle est illustratif (non recalculable, verdict de l'audit) --- ne pas en
+faire un chiffre clé.}
+
+\fichec{1.2 · conservée}{Sur douze types de dépôts, un seul porte le signal : le P}{les PTR
+sont les seules déclarations de transactions datées sous 45 j --- on filtre, et on promet
+d'ouvrir les 11 autres types à l'Étape 4.}{\textbf{12} (types de dépôts existants) ·
+\textbf{8\,252} (PTR parmi les 35\,315 dépôts)}{on ne construit le signal qu'avec les
+dépôts de type \textbf{P}, parce qu'eux seuls déclarent des transactions datées sous
+45 jours --- les 11 autres types seront tous ouverts à l'Étape 4 (Vérification).}%
+{S3 conservée quasi telle quelle (figure des 12 types).}
+
+\fichec{1.3 · fusion}{Chaque dépôt s'ouvre dans un des deux mondes --- texte ou image :
+quatre sous-corpus}{la même donnée réglementaire existe sous 4 formats (Chambre : PDF
+lisible / PDF scanné ; Sénat : page web / papier scanné) → 4 voies de traitement
+distinctes.}{\textbf{71\,\% / 29\,\%} (dépôts Chambre lisibles vs scannés) ·
+\textbf{4 sous-corpus} (chambre × format) · \textbf{57,6\,\%} (part du corpus final qui
+viendra d'images : 55,2 Chambre + 2,4 Sénat)}{on découpe le corpus en \textbf{4 sous-corpus}
+et chaque voie reçoit son extracteur dédié --- un traitement uniforme raterait la moitié.}%
+{fusion S4 (deux mondes) + S7c (Sénat électronique) + S8 (Sénat papier) : 4 vignettes, une
+par sous-corpus ; « DocID » réduit à une ligne (« le numéro du dépôt, qui donne l'URL de son
+PDF ») ; les 4 variantes du papier Sénat → annexe.}
+
+\fiche{1.4 · conservée}{Le vrai point dur n'est pas le scan : c'est le manuscrit}{l'OCR
+moderne lit le tapé même tourné à 90° ; le manuscrit cursif est la seule zone rouge ---
+il faudra une politique, tranchée à l'Étape 2.}{\textbf{775} (scans manuscrits sur les
+2\,424 scans Chambre recensés) · 1 ligne Sénat : le papier y existe aussi, en faible
+volume}{S6 conservée (3 vignettes : tapé droit / tapé couché / manuscrit) + la ligne Sénat ;
+« 255/373 couchées » purgé (redite) ; définit OCR (« lecture automatique d'une image »).}
+
+\fichec{1.5 · allégée}{Deux dates par transaction --- seule la date de dépôt est fiable :
+c'est elle le signal}{la date de dépôt est une métadonnée, jamais lue dans le document
+(fiable) ; la date de transaction est extraite du texte ou de l'image (risquée →
+garde-fous, jamais inventée).}{\textbf{27 j / 24 j} (délai médian de divulgation Chambre /
+Sénat) · les dates de transaction douteuses sont \textbf{flaguées}, jamais réécrites}%
+{le signal est daté à la \textbf{date de dépôt} (divulgation), jamais à la date du trade :
+c'est ce qu'un investisseur réel aurait su, quand il l'aurait su (anti-look-ahead) ---
+et toute date de transaction douteuse est flaguée, jamais réécrite au hasard.}%
+{S9 (« Les dates ») allégée : tableau des 4 voies réduit à 2 colonnes ; la fenêtre de
+plausibilité $[-90\,\text{j}, +10\,\text{j}]$ descend en note.}
+
+\fiche{1.6 · corrigée}{169\,000 transactions --- dont $\sim$40\,\% viennent de deux élus,
+exclusivement sur papier}{la matière est massive mais très concentrée, et majoritairement
+du papier : le papier n'est pas un détail, c'est le centre de gravité du corpus (ferme
+l'étape).}{\textbf{169\,000} (transactions uniques, annonce de ce que les étapes 2--3 vont
+extraire) · \textbf{Khanna 41\,080 + McCaul 27\,123 $\approx$ 40\,\%} du corpus
+(\textbf{erratum} : le deck dit 27\,154) · \textbf{55,2\,\%} (part du corpus issue des
+scans Chambre)}{S10 conservée (barre des 4 voies + top déposants) ; l'idée « le papier est
+la majorité du corpus », aujourd'hui en petit gris, monte dans le titre.}
+
+\reponse{2 guichets publics · 4 formats · 8\,252 PTR --- une matière majoritairement papier.}
+
+\subsection*{Étape 2 · Le pipeline (5 slides)}
+\interq{Comment passe-t-on de $\sim$10\,000 documents hétérogènes à une seule table ?}
+
+\fiche{2.1 · conservée}{Le flux de bout en bout tient en une image}{acquisition → tri →
+4 extractions → tronc commun (normalisation, identité, enrichissement) → table --- la
+carte que les 4 slides suivantes détaillent.}{\textbf{4 voies → 1 table} ·
+\textbf{169\,000} uniques (170\,920 lignes brutes)}{S11 conservée avec sa révélation en
+4 temps (c'est la slide d'altitude du deck --- sa densité est assumée) ; les noms de
+fichiers internes sortent du schéma ; « clé naturelle » n'y apparaît plus (pas encore
+définie à ce stade).}
+
+\fichec{2.2 · fusion}{Les deux voies électroniques : du parsing déterministe de bout en
+bout}{pour le texte (PDF lisible, page web), pas d'IA --- du code déterministe, y compris
+le recollage des lignes coupées ; la figure multiligne montre pourquoi un parseur naïf
+raterait la moitié.}{\textbf{58\,728 + 13\,026} (transactions extraites : Chambre
+électronique + Sénat électronique) · en notes : 7\,996 montants recollés, 102 dépôts sans
+transaction, tous consignés}{la Chambre a \textbf{deux gabarits} de formulaire (l'ancien
+sans code type d'actif, le moderne avec \co{[ST]}, apparu vers 2018) --- \textbf{routés
+document par document}, jamais par année fixe.}{fusion S13 (deux pistes) + S5b (défi
+multiligne, qui devient l'illustration) ; S5a (le PTR lisible en grand) → annexe A1.}
+
+\fichec{2.3 · allégée}{Les scans Chambre : Vision lit tout --- le manuscrit est écarté par
+une règle mesurée et rejouable}{l'OCR par IA lit le tapé même tourné ; le manuscrit, non
+corroborable par le mètre externe, est écarté par une règle écrite plutôt que d'injecter
+des lectures douteuses.}{\textbf{93\,261} (transactions extraites des scans Chambre) ·
+\textbf{12,9\,\% vs 88\,\%} (part du manuscrit vs du tapé droit corroborée par Quiver,
+\emph{même sans exiger la date}) · \textbf{582} (PTR manuscrits écartés --- 7,1\,\% de
+l'index)}{\textbf{gating manuscrit} : on écarte 582 PTR par une règle écrite et rejouable,
+avec exceptions explicites --- parce qu'on ne met en table que ce qu'on sait lire.}%
+{S14 allégée : census 74/1\,575/775 (déjà vu en 1.4), \co{tool\_use}/JSON/cache, « 4,8\,\%
+avec date », « 3 déposants + 33 docs » → annexe. Définit \textbf{Quiver} à sa première
+apparition : « fournisseur commercial des mêmes données, notre mètre externe (détail à
+l'Étape 4) ». Titres 2.3/2.4 en miroir.}
+
+\fichec{2.4 · allégée}{Le papier Sénat : gardé --- faute de mètre externe pour le
+mesurer}{même moteur de lecture, politique inverse et assumée : Quiver est aveugle au
+papier du Sénat, donc aucune mesure d'exclusion possible --- on garde, sous garde-fous
+internes, et on l'écrit.}{\textbf{3\,985} (transactions papier Sénat, 14 déposants) ·
+\textbf{38,7\,\%} (part portée par Blumenthal, massivement du non-coté → couverture ticker
+plus basse = composition, pas défaut) · \textbf{2,4\,\%} (poids de cette voie dans le
+corpus : le risque est borné)}{on n'écarte que ce qu'on a pu \textbf{mesurer} ---
+l'asymétrie Chambre/Sénat est documentée, pas cachée.}{S15 allégée (l'extrait réel Boozman
+garde 3 lignes) ; « 255/373 » et « le prompt annonce 90° ou 180° » supprimés.}
+
+\fichec{2.5 · allégée}{Chaque ligne est rattachée à un élu officiel : identité
+100\,\%}{« Buddy Carter », « N. Pelosi », « Hon. Earl L. Carter »… → un identifiant
+officiel unique par une cascade d'essais ; les réparations se font à la lecture, jamais en
+réécrivant les fichiers extraits.}{\textbf{100\,\%} (des lignes rattachées à un élu) ·
+\textbf{367 + 78} (membres distincts Chambre + Sénat) · \textbf{1} (seul override manuel
+par chambre --- la cascade fait le reste)}{les fichiers extraits sont \textbf{figés} ;
+toute réparation est appliquée \textbf{à la lecture} --- l'audit reste possible à l'octet
+près.}{S12 conservée (cascade) ; vignette YAML réduite ; pièges Bob Casey / Angie Craig →
+annexe. Définit \emph{bioguide} : « l'identifiant officiel unique d'un élu au Congrès ».}
+
+\reponse{58\,728 + 93\,261 + 13\,026 + 3\,985 = 169\,000 transactions extraites,
+100\,\% identifiées.}
+
+\subsection*{Étape 3 · Enrichir (3 slides)}
+\interq{Que faut-il ajouter pour qu'un backtest puisse s'en servir ?}
+
+\fichec{3.1 · fusion}{Chaque transaction reçoit un ticker et un secteur --- par deux
+cascades tracées}{l'enrichissement n'est jamais une devinette silencieuse : deux cascades
+ordonnées du plus sûr au moins sûr, chaque étage tracé ligne à ligne.}%
+{\textbf{84,1\,\% / 77,9\,\%} (ticker renseigné Chambre / Sénat --- les vides sont du
+non-coté légitime, pas des défauts) · \textbf{2\,540} (lignes qui retrouvent leur symbole
+par récupération à double preuve) · \textbf{79,8\,\% / 70,4\,\%} (secteur renseigné ---
+11 secteurs, chacun adossé à son ETF)}{cascade ticker \textbf{ordonnée et tracée}
+(explicite → dictionnaire → LLM contraint → récupération) --- la couverture mesure le
+\emph{remplissage}, pas l'exactitude.}{fusion S16a + S16b ; la liste des 11 ETF un par un →
+annexe A7 (1 ligne suffit en séance). Définit GICS en une ligne.}
+
+\fichec{3.2 · scindée}{Une transaction = 7 champs : l'empreinte dédoublonne sans jamais
+détruire}{l'empreinte d'une transaction (qui · quand · quoi · sens · montant · pour qui ·
+chambre) fait qu'une re-déclaration ne compte qu'une fois --- tandis que les vrais lots
+répétés sont préservés par un compteur d'occurrence.}{\textbf{7 champs} (l'empreinte ---
+ticker et date de divulgation exclus délibérément) · \textbf{170\,920 → 169\,000}
+(lignes brutes → transactions uniques : $-$1\,920 re-divulgations)}{dédup \textbf{non
+destructrice} : empreinte + compteur d'occurrence, jamais de dédoublonnage aveugle --- le
+ticker est exclu de l'empreinte car ajouté après coup.}{moitié de S17 ; « clé naturelle »
+reformulée « empreinte » ; \co{occurrence\_index} / \co{drop\_duplicates()} bannis du texte.}
+
+\fichec{3.3 · scindée}{Le contrat de la table corpus : 12 champs garantis, montant = milieu
+de fourchette}{à la sortie de l'étape 3, chaque ligne garantit les 12 champs qu'un
+chercheur attend --- avec une convention de montant unique et assumée (ferme l'étape).}%
+{\textbf{12 champs garantis} (qui, quoi, quand ×2, sens, montant, ticker, secteur, ETF,
+parti, commissions --- le deck actuel n'en énumère que 11 : compléter la liste exacte
+contre le schéma, voir §\ref{sec:errata}) · \textbf{169\,000 × 28} (la table corpus
+complète)}{la loi ne donne
+qu'une \textbf{fourchette} de montant : on prend son \textbf{milieu exact} (d'où les
+« ,5 » dans la table) --- convention documentée plutôt que fausse précision.}%
+{autre moitié de S17 + convention montant remontée de S28 ; partiellement neuve.}
+
+\reponse{169\,000 transactions uniques · 12 champs garantis · chaque enrichissement tracé.}
+
+\subsection*{Étape 4 · Vérification (8 slides)}
+\interq{Comment sait-on qu'on n'a rien raté --- ni rien inventé ?}
+
+\fiche{4.1 · conservée}{Vérifier, c'est répondre à trois questions}{complétude (a-t-on tout
+le périmètre ?), cohérence (les flux se recollent-ils comptablement ?), corroboration (des
+tiers indépendants voient-ils la même chose ?) --- la même confiance, testée de l'intérieur
+puis de l'extérieur.}{les 3 tuiles-réponses annoncées : \textbf{173} (actions résiduelles
+échappant au signal) · \textbf{87,8\,\%} (\emph{des positions de sortie expliquées} ---
+Chambre, membres testables) · \textbf{93,5\,\%} (des combinaisons du fournisseur externe
+retrouvées chez nous --- Chambre)}{S18 conservée telle quelle (la meilleure slide
+d'architecture du deck) ; seules les légendes des tuiles sont précisées.}
+
+\fiche{4.2 · fusion}{Complétude : on ouvre les 11 autres types --- les transactions ne
+vivent que dans P, O, T et leurs amendements}{la vie déclarative d'un élu (entrée H,
+annuels O, sortie T, amendements A, candidats C…) et la découverte : les annuels
+contiennent aussi des transactions (Schedule B) ; les photos de patrimoine (Schedule A)
+serviront à la cohérence.}{\textbf{11} (types tous ouverts, promesse de 1.2 tenue) ·
+\textbf{31\,\%} (part des annuels O contenant des transactions) · \textbf{57\,259} (lignes
+de transactions brutes vivant hors PTR, doublons compris)}{fusion S19 (cycle de vie) + S20
+(famille patrimoine : 5 vignettes → 1 bande) + capture Pelosi de S21 en illustration ;
+matrice des sections A→J → annexe A3 ; administratifs + blind trust → annexe A4. Définit
+Schedule A (photo du patrimoine) / Schedule B (liste des transactions).}
+
+\fichec{4.3 · fusion}{Verdict complétude : le hors-PTR est du patrimoine découvert trop
+tard --- le signal ne perd que 173 actions}{la hiérarchie complète en une slide : 57\,259
+lignes brutes hors PTR → une fois doublons et échos retirés, l'essentiel est
+ETF/fonds re-déclarés → il ne manque au signal que 173 vraies actions, toutes anciennes ;
+publiées $\sim$1 an après coup, ces lignes nourrissent le patrimoine, jamais le signal.}%
+{\textbf{374 j} (délai médian trade → publication de ces lignes, contre 27 j en PTR) ·
+\textbf{173} (actions cotées réellement absentes du signal, toutes pré-2018)}{les
+transactions hors PTR alimentent le \textbf{patrimoine}, jamais le \textbf{signal} ---
+cohérent avec l'anti-look-ahead de l'Étape 1.}{essence de S21 (surprises) + Coh-5 (gain
+net O/A/T) ; le bloc chiffré 26\,115 / 22\,216 / 3\,899 descend en annexe A5, ré-ancré sur
+sa source (lignée v1-house) avec note anti-confusion (§\ref{sec:chiffres}).}
+
+\fiche{4.4 · fusion}{Cohérence : le test comptable --- patrimoine d'entrée + nos
+transactions $\overset{?}{=}$ patrimoine de sortie}{qui est testable de bout en bout ? il
+faut la photo d'entrée ET la photo de sortie ET des actions cotées --- la loi elle-même
+limite l'échantillon ; on définit ici photo (patrimoine) vs flux (transactions).}%
+{\textbf{900} (membres passés par la Chambre dans la fenêtre) · \textbf{149} (cycles
+complets : entrés PUIS sortis depuis 2014) · \textbf{56} (testables stricts : les deux
+photos + actions cotées)}{fusion Coh-1 + Coh-2 + Coh-3 (l'entonnoir 900 → 149 → 106 → 56
+remplace le quadrant ; la table de couverture 470 entrées / 463 sorties → annexe A7) ;
+le mot « quadrant » disparaît.}
+
+\fichec{4.5 · allégée}{Cohérence : 87,8\,\% des positions de sortie expliquées ---
+3,3\,\% restent vraiment inexpliquées}{premier passage 78,7\,\% ; puis chaque position
+inexpliquée est instruite une par une (déclarée ailleurs, structurelle) → 87,8\,\%, et un
+reliquat nominal minuscule.}{\textbf{78,7\,\% → 87,8\,\%} (positions de sortie expliquées,
+avant / après instruction des cas) · \textbf{45 / 1\,371 = 3,3\,\%} (positions vraiment
+inexpliquées, 14 membres)}{chaque position inexpliquée est \textbf{classée par preuve
+documentaire}, pas éliminée statistiquement (table nominative conservée).}%
+{Coh-4 allégée : sous-comptes (74/49/2 · 59/32/30/1) → note de bas de slide ; blind trust
+Phillips → annexe. Règle d'affichage : toujours « 87,8\,\% \emph{des positions
+expliquées} », jamais « 87,8\,\% » nu.}
+
+\fichec{4.6 · conservée}{Reconstruire n'est pas vérifier : 9 portefeuilles reconstruits sur
+10 restent sans preuve}{partition honnête des 900 (hors d'atteinte / partiel / complet non
+testable / vérifiable strict) --- le 87,8\,\% ne vaut que sur les 56 testables, et on
+l'affiche.}{\textbf{20 / 715 / 109 / 56} (la partition, somme = 900 --- un seul visuel)}%
+{on affiche le \textbf{périmètre réel du test} plutôt que de laisser croire à une
+vérification universelle.}{Coh-6 conservée telle quelle.}
+
+\fichec{4.7 · fusion}{Corroboration : nous retrouvons $>$\,92\,\% de la base du tiers
+--- et nous sommes son sur-ensemble}{on compare des ensembles (jamais une fusion de
+données) en trois crans --- exister → dater → concorder ; presque tout ce que Quiver a,
+nous l'avons aussi ; nous avons beaucoup en plus, et nos vrais trous se comptent un à
+un.}%
+{\textbf{93,5\,\% / 92,1\,\%} (combinaisons élu-ticker-sens \emph{de Quiver} retrouvées
+chez nous, Chambre / Sénat) · \textbf{$\approx$\,26\,500} (combinaisons présentes chez nous, absentes
+chez Quiver --- notre sur-ensemble) · \textbf{27 + 11} (nos vrais trous, documentés un à
+un)}{Quiver est une \textbf{vérité-terrain jamais réinjectée} : il mesure la table, ne la
+remplit jamais --- et en cas de désaccord de date, \textbf{le PDF officiel arbitre
+toujours}.}{fusion S24 (le Venn, conservé) + S25 compressée (l'escalier des 3 niveaux en
+bandeau ; badges « sens 96,8\,\% · montant 94,2\,\% ») ; la table des coquilles
+(\co{3031-04-30}…) et les « 545 candidats » → annexe A6 ; le vocabulaire
+« tuples / N1-N2-N3 / merge » disparaît.}
+
+\fiche{4.8 · resserrée}{Cinq preuves de plus, un principe : rien n'est réinjecté}{univers
+officiel re-traversé, deux collectes indépendantes, un agrégateur tiers, des signatures de
+fichiers pour la non-régression --- tout mesure, rien ne remplit (ferme l'étape).}%
+{\textbf{100\,\%} (des 8\,252 PTR de l'index : parsés, lus par OCR, ou écartés par règle
+écrite) · \textbf{100\,\% / 99,5\,\%} (lignes des deux collectes indépendantes retrouvées
+chez nous) · \textbf{368} (signatures de fichiers : tout re-run doit reproduire les
+tables à l'octet près)}{S26 resserrée : 5 cartes → 3 ; Kadoa → 1 ligne « agrégateur
+tiers » ; le mot « golden » banni (dire « re-run reproductible à l'octet près »).}
+
+\reponse{rien raté (173 actions résiduelles côté patrimoine · 27 + 11 vrais trous face au
+tiers) · cohérent dedans (87,8\,\% des positions expliquées) · sur-ensemble dehors
+($>$\,92\,\% de la base du tiers retrouvée chez nous).}
+
+\subsection*{Étape 5 · Le livrable (3 slides + bilan)}
+\interq{Qu'est-ce qu'on livre, et avec quelles limites ?}
+
+\fichec{5.1 · re-titrée}{De 169\,000 à 134\,464 : on ne retire que l'avéré
+inutilisable}{quatre portes objectives (dates cohérentes, coté, direction claire, montant
+présent) --- et un sauvetage : le ticker coté fait foi quand la case déclarée est vide.}%
+{\textbf{169\,000 → 134\,464} (79,6\,\% du corpus conservé) · \textbf{$-$29\,771} (la plus
+grosse coupe : le non-coté, sans prix de marché possible) · \textbf{21\,878} (lignes
+sauvées « ticker-first »)}{on ne retire que l'\textbf{avéré inutilisable} ; le doute est
+\textbf{flagué, jamais retiré} (late filing 12,2\,\%, délistés, lots multi-comptes) --- la
+recherche décide.}{S27 conservée ; le principe, aujourd'hui en colonne de droite, devient
+le titre.}
+
+\fichec{5.2 · allégée}{Du symbole au prix : 118\,029 trades valorisables --- et un biais de
+survie assumé}{la couverture prix est haute mais décroît vers le passé (titres morts non
+valorisables) ; la limite est écrite, les lignes non couvertes restent dans la table,
+flaguées.}{\textbf{118\,029} (trades avec prix fiable, soit $\approx$\,88\,\% --- note
+obligatoire : même valeur numérique que le taux de cohérence de l'Étape 4, pure
+coïncidence, aucun lien) · \textbf{3\,289 / 4\,618} (symboles exploitables après
+garde-fous) · \textbf{74\,\% → 99\,\%} (couverture 2014 → 2026 : le biais de survie)}%
+{\textbf{biais de survie assumé et écrit}, pas caché.}{S27b allégée (garde-fous prix et
+« 84 renommages » → note) ; \textbf{ajout} d'une ligne de réconciliation 134\,464 (table)
+vs 134\,429 (entrée du moteur aval) --- cause exacte des 35 lignes à tracer avant
+rédaction (§\ref{sec:errata}).}
+
+\fiche{5.3 · allégée}{La table livrée : 134\,464 lignes × 36 colonnes, traçables au
+document près}{le livrable concret --- 4 lignes réelles en exemple, les familles de
+colonnes, la composition, et les limites écrites au même endroit que la table (ferme
+l'étape).}{\textbf{134\,464 × 36} (372 élus ; chaque ligne traçable à son document source)
+· \textbf{99,4\,\%} (montants renseignés) · \textbf{91,3\,\% / 50,8\,\%} (part Chambre ;
+part d'achats)}{S28 allégée : les 4 lignes réelles restent (très pédagogiques) ; 5 familles
+de colonnes → 3 puces ; les limites (582 manuscrits écartés, biais de survie) restent sur
+la slide.}
+
+\fiche{FIN · conservée}{La couche données, en quatre chiffres}{la réponse à la promesse
+d'O2 : oui, on peut se fier à la table --- vérifiée de l'intérieur et de l'extérieur,
+limites comprises.}{4 tuiles (exception assumée) : \textbf{100\,\%} de l'univers officiel
+(8\,252 PTR) traité · \textbf{169\,000} uniques, identité 100\,\% · \textbf{$>$\,92\,\%}
+de la base du tiers retrouvée dehors / \textbf{87,8\,\%} des positions expliquées dedans ·
+\textbf{134\,464 × 36}, limites écrites}{S29 conservée ; légendes suffixées (les deux
+pourcentages ne se confondent plus).}
+
+\reponse{une table 134\,464 × 36 · 79,6\,\% du corpus · limites écrites.}
+
+\section{Les chiffres à retenir --- et les règles anti-confusion}
+\label{sec:chiffres}
+
+La liste est \textbf{fermée} : sept chiffres, chacun avec sa légende obligatoire (slide,
+tuile et oral). Tout autre chiffre est un chiffre de passage --- il apparaît une fois, ne
+se retient pas.
+
+\begin{center}\small
+\begin{tabular}{@{}l >{\raggedright\arraybackslash}p{11.2cm}@{}}
+\toprule
+\textbf{Chiffre} & \textbf{Légende obligatoire} \\
+\midrule
+\textbf{8\,252}        & les déclarations officielles de transactions (PTR) de la Chambre 2014--2026 --- toutes traitées (100\,\%) \\
+\textbf{169\,000}      & transactions uniques extraites de tous les documents, chacune rattachée à un élu identifié (100\,\%) \\
+\textbf{$\approx$\,40\,\%} & le poids de 2 élus seulement (Khanna, McCaul) --- tous deux 100\,\% papier : l'OCR n'est pas un détail \\
+\textbf{$>$\,92\,\%}   & « plus de 9 trades sur 10 \emph{du fournisseur commercial indépendant} sont aussi chez nous --- nous sommes son sur-ensemble » (corroboration, \emph{dehors}) \\
+\textbf{87,8\,\%}      & des positions de sortie expliquées comptablement : entrée + nos transactions = sortie (cohérence, \emph{dedans}) \\
+\textbf{582}           & les PTR manuscrits écartés par règle écrite et rejouable --- la limite assumée n°\,1 \\
+\textbf{134\,464 × 36} & la table de recherche livrée : 134\,464 transactions exploitables × 36 colonnes documentées \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Règles anti-confusion} (paires proches repérées à l'audit) :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item \textbf{deux « 87,8\,\% »} --- la cohérence garde l'exclusivité du chiffre, toujours
+        suffixée « des positions expliquées » ; la couverture prix s'exprime en absolu
+        (\textbf{118\,029} trades valorisables, « $\approx$\,88\,\% ») et son « 87,8\,\% »
+        est \textbf{banni} des tuiles, avec note « coïncidence numérique » sur la slide 5.2 ;
+  \item \textbf{26\,524 vs 26\,115} --- en corps de deck, seul le sur-ensemble Quiver
+        apparaît, arrondi « $\approx$\,26\,500 » ; le bloc 26\,115 (gain net O/A/T) vit en
+        annexe A5 uniquement, avec sa note « ne pas confondre » ;
+  \item \textbf{134\,464 vs 134\,429} --- 134\,429 banni des titres et tuiles ; une seule
+        ligne de réconciliation (slide 5.2), après traçage des 35 lignes ;
+  \item \textbf{« 100\,\% » toujours suffixé} --- « 100\,\% \emph{des 8\,252 PTR} traités » /
+        « 100\,\% \emph{des lignes} identifiées » ;
+  \item \textbf{372 vs 368} --- toujours avec l'unité : « 372 \emph{élus} » /
+        « 368 \emph{signatures} de fichiers » ;
+  \item \textbf{« empreinte » réservé à la dédup} (fiche 3.2) --- pour la non-régression,
+        dire « \emph{signature} de fichier » (fiche 4.8) : deux concepts, deux mots ;
+  \item \textbf{173 vs 27 + 11} --- deux « manques » différents : \textbf{173} = actions
+        absentes du signal, mesurées \emph{en interne} (hors-PTR) ; \textbf{27 + 11} =
+        vrais trous face au tiers \emph{externe} --- ne jamais les additionner ni les
+        confondre.
+\end{itemize}
+
+\section{La carte des choix --- un choix, une slide, une phrase}
+\label{sec:choix}
+
+Encadré uniforme sur la slide porteuse : \textbf{« Choix : on a fait X parce que Y »}.
+
+\begin{center}\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{6.6cm} l@{}}
+\toprule
+\textbf{Choix méthodologique} & \textbf{Slide porteuse} \\
+\midrule
+1. Filtre type P (signal = PTR uniquement)                  & 1.2 (promesse tenue en 4.2) \\
+2. Index annuel officiel = autorité                          & 1.1 \\
+3. Date de dépôt = date du signal (anti-look-ahead)          & 1.5 (écho en 4.3) \\
+4. Quatre sous-corpus, un extracteur par voie                & 1.3 \\
+5. Deux gabarits Chambre, routés par document                & 2.2 \\
+6. Dédup non destructrice (empreinte 7 champs)               & 3.2 \\
+7. Cascade ticker ordonnée et tracée                         & 3.1 \\
+8. Montant = milieu de fourchette                            & 3.3 \\
+9. Réparations à la lecture, sources figées                  & 2.5 \\
+10. Dates douteuses flaguées, jamais réécrites               & 1.5 \\
+11. Sources externes jamais réinjectées ; le PDF arbitre     & 4.7 (étendu en 4.8) \\
+12. Gating manuscrit rejouable (582) --- asymétrie Sénat assumée & 2.3 + 2.4 \\
+13. Entonnoir : « on ne retire que l'avéré inutilisable » + ticker-first & 5.1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent{\small Quatre encadrés \emph{locaux} complètent ces 13 choix : 4.3 (hors-PTR →
+patrimoine, jamais signal) · 4.5 (chaque cas classé par preuve documentaire) · 4.6
+(afficher le périmètre réel du test) · 5.2 (biais de survie écrit).}
+
+\section{Le lexique --- défini où, banni quoi}
+
+\noindent\textbf{Chaque terme est défini à sa première apparition} (règle : un spectateur
+neuf ne rencontre jamais un terme non défini) :
+
+\begin{center}\small
+\begin{tabular}{@{}l l l l@{}}
+\toprule
+STOCK Act, PTR, dépôt & O1 & Quiver (mètre externe) & 2.3 \\
+index annuel, eFD & 1.1 & bioguide (identifiant officiel) & 2.5 \\
+DocID (1 ligne, puis disparaît) & 1.3 & GICS, ETF proxy & 3.1 \\
+OCR & 1.4 & empreinte (ex-« clé naturelle ») & 3.2 \\
+date de dépôt vs date de transaction & 1.5 & Schedule A / Schedule B & 4.2 \\
+photo (patrimoine) vs flux (transactions) & 4.4 & signature de fichier (non-régression) & 4.8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Bannis du corps de deck} (annexe uniquement, ou reformulés) :
+« read-time » (dire : réparé à la lecture) · « CSRF / jeton » (dire : accord obligatoire
+automatisé) · \co{occurrence\_index} (dire : compteur d'occurrence) ·
+\co{drop\_duplicates()} · « \co{tool\_use} / JSON strict » (dire : sortie structurée
+forcée) · « golden » nu (dire : re-run reproductible à l'octet près) · « quadrant » ·
+« tuples / N1-N2-N3 / merge » (dire : exister → dater → concorder) · les noms de fichiers
+internes (sauf le CSV livrable, slide 5.3) · les numéros de notebooks.
+
+\section{Les annexes du deck --- la réserve pour questions}
+\label{sec:annexes}
+
+\begin{description}[itemsep=1pt, topsep=2pt, font=\normalfont\bfseries]
+  \item[A1] le PTR lisible, document exemple en grand (ex-S5a) ;
+  \item[A2] captures détaillées : index XML (ex-S2b), formulaire et liste eFD (ex-S7b) ;
+  \item[A3] la matrice des sections A→J du formulaire (ex-« Complétude 2/5 ») ;
+  \item[A4] les 5 types administratifs + le blind trust (ex-« Complétude 5/5 ») ;
+  \item[A5] le gain net O/A/T : 26\,115 (22\,216 annuels · 3\,899 sorties/amendements ·
+        374 j), \textbf{ré-ancré sur sa source} (lignée v1-house) + note « ne pas confondre
+        avec $\approx$\,26\,500 (corroboration) » ;
+  \item[A6] les dates arbitrées au PDF : la table des coquilles (\co{3031-04-30},
+        \co{01/35/22}, Khanna/COST, McCaul/GOOGL) + les 545 candidats ;
+  \item[A7] les 11 ETF sectoriels, les cascades ticker/secteur détaillées, la couverture
+        des entrées/sorties (470 / 463), pièges d'identité (Bob Casey, Angie Craig).
+\end{description}
+
+\noindent\textbf{Disparaît sans annexe} (redites et verbatims) : « 255/373 couchées » (×2),
+« l'orientation importe peu » (×2), la concentration Khanna répétée (gardée en 1.6, une
+ligne de rappel en 2.3), \co{report\_types=[11]}, la fenêtre $[-90, +10]$ en corps de
+texte, les URLs complètes.
+
+\section{Errata \& prérequis avant la réécriture}
+\label{sec:errata}
+
+\begin{enumerate}[itemsep=1pt, topsep=2pt]
+  \item \textbf{McCaul : 27\,154 → 27\,123} (slide corpus, l.\,461 du deck actuel) ---
+        seule erreur factuelle trouvée par l'audit ; le « trio 77,1\,\% » du deck n'est
+        d'ailleurs vrai qu'avec 27\,123.
+  \item \textbf{Tracer les 35 lignes} d'écart entre 134\,464 (table livrée) et 134\,429
+        (entrée du moteur aval) \emph{avant} de rédiger la ligne de réconciliation de la
+        slide 5.2 --- la cause exacte n'est écrite nulle part dans \co{docs/}.
+  \item \textbf{Ré-ancrer le bloc 26\,115} (annexe A5) sur sa source réelle, aujourd'hui
+        citée sans ancrage vérifiable côté S3S4 : la lignée v1-house,
+        \co{01\_autres\_filing\_types/cache/} (table 16).
+  \item \textbf{Compléter l'énumération des « 12 champs garantis »} (fiche 3.3) : le deck
+        actuel n'en liste que 11 --- identifier le 12\ieme{} (détenteur ? chambre ?) contre
+        le schéma de la table corpus, et vérifier au passage le stade exact où parti et
+        commissions sont joints.
+  \item \textbf{Ajouter ces points au registre de corrections}, passe 2 (ouverte et
+        vide), au moment de la réécriture : \co{CORRECTIONS\_SLIDES\_A\_FAIRE.md}.
+\end{enumerate}
+
+\section{Hors périmètre --- à signaler, sans agir}
+
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item la \textbf{PARTIE III (tables) est compilée après \co{\textbackslash appendix}}
+        dans le deck actuel : dans le PDF, les tables sont techniquement des annexes ---
+        à corriger lors d'une passe future sur la structure globale ;
+  \item le télescopage « Partie 2 » (pipeline) / « PARTIE II » (backtest) sera réglé au
+        niveau global plus tard --- piste notée : rétro-installer un séparateur
+        « PARTIE I » devant le deck données (dont la numérotation interne « Étape 1…5 »
+        devient alors naturelle) ;
+  \item les slides-ponts vers le backtest et les tables (passage de témoin, verdict
+        annoncé) restent à concevoir quand leur position dans le récit global sera
+        décidée.
+\end{itemize}
+
+\end{document}

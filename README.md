@@ -7,17 +7,28 @@ Sources officielles : *House Clerk* (PTR PDF) et Sénat *eFD*, **électroniques*
 **+ scannées** (OCR Claude Vision). Quiver Quantitative sert de **vérification externe uniquement**,
 jamais réinjecté dans les tables.
 
+## Les trois dossiers du dépôt
+
+Renommés le **2026-07-31** pour dire ce qu'ils contiennent (les anciens noms disaient *quand* le travail avait
+été fait). Le numéro donne l'ordre de lecture, qui est aussi l'ordre chronologique.
+
+| dossier | ce qu'il contient | ancien nom |
+|---|---|---|
+| [`00_recuperation_donnees/`](00_recuperation_donnees/) | **Ce que décrit ce README** : le pipeline d'extraction des PTR (House + Sénat, digital + OCR), les données, le rapport de qualité, le filet de non-régression | `00_S1S2_donnees` |
+| [`01_autres_filing_types/`](01_autres_filing_types/) | **Au-delà des PTR** : les autres types de dépôt (Schedule A/B, rapports annuels, photos d'entrée) et la reconstruction des portefeuilles House qu'ils permettent | `01_v1_house` |
+| [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : notebooks `05b` → `16`, les fiches qui les rendent opposables, les tables `tables/` | `00. S3S4 en cours` |
+
 ## 🧭 Comprendre tout le projet & le lancer
 
-Nouveau ici ? Trois documents (dans `00_S1S2_donnees/docs/`) :
-- **[RAPPORT_QUALITE.md](00_S1S2_donnees/docs/RAPPORT_QUALITE.md)** — le rapport de qualité à jour
+Nouveau ici ? Trois documents (dans `00_recuperation_donnees/docs/`) :
+- **[RAPPORT_QUALITE.md](00_recuperation_donnees/docs/RAPPORT_QUALITE.md)** — le rapport de qualité à jour
   (fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation Quiver par ère) ;
-- **[AUDIT_DONNEES_2014_2026.md](00_S1S2_donnees/docs/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
+- **[AUDIT_DONNEES_2014_2026.md](00_recuperation_donnees/docs/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
   du **2026-07-03** (complétude prouvée, +10 856 lignes récupérées, chaque erreur tracée → corrigée) ;
-- **[RAPPORT_FINAL.pdf](00_S1S2_donnees/docs/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
+- **[RAPPORT_FINAL.pdf](00_recuperation_donnees/docs/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
   (*voyage d'une transaction*, `common`+jumeaux, qualité, validation Quiver, nettoyage backtest) sur **2014-2026**.
 
-**La table prête-recherche** est `00_S1S2_donnees/data/clean/transactions_backtest_2014_2026.csv`
+**La table prête-recherche** est `00_recuperation_donnees/data/clean/transactions_backtest_2014_2026.csv`
 (**134 464 × 36**, produite par `Nettoyage_Backtest_2014_2026.ipynb` — parti/commissions point-in-time,
 tickers canoniques Yahoo + renommages, flags de traçabilité, invariants garantis).
 
@@ -67,7 +78,7 @@ pyproject.toml   installable :  pip install -e .
 **dédup cross-année** des re-divulgations tardives. Le pipeline produit **170 920 lignes brutes**. Une
 déclaration de **collaborateur non-élu** (HASC) est exclue du périmètre membres. **100 % des 8 252 PTR
 listés par l'index officiel du Clerk 2014-2026 sont traités** (parsés, OCRisés, ou gated par règle écrite).
-Détail : `00_S1S2_donnees/docs/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
+Détail : `00_recuperation_donnees/docs/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
 
 > **Fenêtre 2014-2026** — les scans **manuscrits** sont **écartés** par une politique uniforme et
 > **rejouable** (cluster `C_manuscrit`, 582 docs gated ; exceptions explicites dans `house/ocr.py`).

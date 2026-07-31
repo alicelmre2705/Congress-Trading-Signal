@@ -27,5 +27,5 @@ quality = ["matplotlib>=3.8"]
 # Liste explicite des packages du dépôt (cœur partagé + un pipeline par chambre).
 packages = ["common", "house", "senate"]
 # Le code S1/S2 (common/house/senate + data/, docs/, tests/) a été regroupé sous
-# 00_S1S2_donnees/ ; pyproject.toml reste à la racine mais pointe les packages vers ce dossier.
-package-dir = {"" = "00_S1S2_donnees"}
+# 00_recuperation_donnees/ ; pyproject.toml reste à la racine mais pointe les packages vers ce dossier.
+package-dir = {"" = "00_recuperation_donnees"}

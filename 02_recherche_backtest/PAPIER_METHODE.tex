@@ -1,0 +1,279 @@
+% !TEX program = tectonic
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[top=0.55cm,bottom=0.5cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
+\graphicspath{{figs_nb11/}}
+\definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
+\definecolor{or}{RGB}{150,105,0}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.93\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.85pt}
+\setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
+\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{6mm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{grisf!40}}
+% une méthode = un bloc : numéro, titre, et l'idée en une ligne
+\newcommand{\meth}[3]{\vspace{2.2mm}{\color{bleu}\hrule height 0.9pt}\vspace{0.7mm}%
+  {\color{bleu}\bfseries #1~---~#2}\par{\footnotesize\color{grisf}\emph{l'idée :} #3}\par\vspace{0.9mm}}
+\newcommand{\concret}{\par\vspace{0.9mm}{\color{rouge}\bfseries\footnotesize CONCRÈTEMENT}\par\vspace{0.2mm}}
+\newcommand{\lecon}[1]{\vspace{0.4mm}{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça apprend :} #1}\par\vspace{0.2mm}}
+\newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
+\newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries Construire un portefeuille à partir des déclarations du Congrès}
+\end{center}
+\vspace{0.4mm}\hrule\vspace{0.8mm}
+\vspace{1.4mm}
+
+% ═══════════ LA CARTE (1) : CE QUE FAIT CHAQUE MÉTHODE ═══════════
+{\color{bleu}\bfseries Ce que fait chaque méthode --- une seule chose change à la fois}\par\vspace{0.6mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l l l l l@{}}
+\toprule
+ & \textbf{fenêtre} & \textbf{ce qui entre dans le signal} & \textbf{poids} & \textbf{univers} \\
+\midrule
+\textbf{M1} & 42 j & achats $-$ ventes récentes ($\gamma$), titres à $\ge2$ élus
+            & une voix par élu, partagée & tous les titres retenus \\
+\textbf{M2} & 3 ans & achats seuls, par parti & $\propto B_i$ \emph{(dollars)} & 150 plus gros scores, cap 10~\% \\
+\textbf{M3} & 3 ans & \emph{idem} & $\propto B_i\,m_i$ \emph{(dollars $\times$ élus)} & \emph{idem} \\
+\textbf{M4} & 3 ans & \emph{idem}, hors dépôts de $\ge50$ opérations le même jour & $\propto B_i\,m_i$ & \emph{idem} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{1.6mm}
+
+% ═══════════ LA CARTE (2) : CE QUE CHACUNE DONNE ═══════════
+{\color{bleu}\bfseries Ce que chacune donne --- 2014--2026, à la divulgation, brut de frais}\par\vspace{0.6mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l r r c r r r r r@{}}
+\toprule
+ & excès/an & $t$ & IC 95~\% & $\alpha_1$ & $\alpha_4$ & $t(\alpha_4)$
+ & $\beta_{\mathrm{SMB}}$ & $\beta_{\mathrm{HML}}$ \\
+\midrule
+M1 \emph{(deux chambres)} & $+0{,}12$~\% & 0,06 & $[-4{,}0;+4{,}3]$ & $-0{,}23$ & $+0{,}79$ & 0,54 & $+0{,}01$ & $+0{,}07$ \\
+\midrule
+M2 --- NANC & $+1{,}43$~\% & 1,04 & $[-1{,}6;+4{,}4]$ & $+0{,}37$ & $+0{,}99$ & 1,30 & $-0{,}07$ & $-0{,}06$ \\
+M2 --- GOP & $+0{,}49$~\% & 0,26 & $[-3{,}6;+4{,}6]$ & $+0{,}17$ & $+1{,}23$ & 1,02 & $+0{,}06$ & $+0{,}17$ \\
+\midrule
+\textbf{M3 --- NANC} & $\mathbf{+3{,}40}$~\% & \textbf{1,61} & $[-1{,}2;+8{,}0]$ & $+1{,}66$ & $\mathbf{+2{,}09}$ & \textbf{2,08} & $-0{,}13$ & $-0{,}15$ \\
+\textbf{M3 --- GOP} & $\mathbf{+1{,}24}$~\% & \textbf{1,61} & $[-0{,}4;+2{,}9]$ & $+1{,}09$ & $\mathbf{+1{,}65}$ & \textbf{1,79} & $-0{,}08$ & $+0{,}05$ \\
+\midrule
+M4 --- NANC & $+5{,}14$~\% & 1,30 & $[-3{,}5;+13{,}8]$ & $+1{,}42$ & $+2{,}14$ & 1,27 & $-0{,}09$ & $-0{,}32$ \\
+M4 --- GOP & $+1{,}44$~\% & 0,98 & $[-1{,}8;+4{,}6]$ & $+1{,}54$ & $+2{,}18$ & \textbf{1,92} & $-0{,}04$ & $+0{,}11$ \\
+\midrule
+\emph{repère : le SPY lui-même} & --- & --- & --- & --- & \emph{$+0{,}04$} & \emph{0,12} & \emph{$-0{,}12$} & \emph{$+0{,}01$} \\
+\emph{repère : \textbf{M3, mais} équipondéré} & \emph{$-1{,}38$~\%} & \emph{$-1{,}45$} & \emph{$[-3{,}5;+0{,}7]$} & \emph{$-0{,}95$} & \emph{$+0{,}05$} & \emph{0,06} & \emph{$+0{,}02$} & \emph{$+0{,}14$} \\
+\emph{repère : \textbf{M3, mais} $m_i$ seuls, sans les \$} & \emph{$-0{,}65$~\%} & \emph{$-0{,}91$} & \emph{$[-2{,}2;+0{,}9]$} & \emph{$-0{,}41$} & \emph{$+0{,}38$} & \emph{0,50} & \emph{$-0{,}04$} & \emph{$+0{,}10$} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.5mm}
+{\scriptsize\itshape Le gras désigne la \textbf{méthode retenue} (M3) --- il ne signale \textbf{pas} une
+significativité. Un seul $t(\alpha_4)$ du tableau dépasse le seuil de 1,96 des $\alpha$ journaliers, celui de
+M3~--- NANC (\textbf{2,08}) ; le 1,92 de M4~--- GOP en est proche sans l'atteindre. Aucun IC~95~\% de la
+colonne \emph{excès/an} n'exclut zéro.\par}
+\vspace{0.8mm}\hrule\vspace{1.2mm}
+
+\begin{multicols}{2}
+
+% ═══════════ PROTOCOLE ═══════════
+{\color{bleu}\bfseries 0 $\cdot$ Le protocole commun --- et ce qui ne l'est pas}\par\vspace{0.3mm}
+\begin{pts}
+\item \textbf{Données} : 134\,464 déclarations brutes $\to$ \textbf{113\,369 exploitées} (350 élus,
+2\,755 titres, 2014--2026). Chaque déclaration donne un titre, un sens, une date et une \emph{fourchette} de
+montant --- on retient le \textbf{milieu} $A_k$.
+\item \textbf{On se place à la divulgation} $\delta_k$, jamais à la transaction : c'est la seule date où
+l'information est publique, donc la seule où la stratégie est réalisable. \emph{À la date de transaction tous les
+chiffres seraient meilleurs --- et faux.}
+\item \textbf{Le backtest démarre où la spécification est applicable} --- le 28/02/2014. Le plafond
+n'a de solution que si l'univers compte au moins $\lceil 1/c\rceil=10$ titres ; à la première fin de
+mois la fenêtre de trois ans ne contient qu'un mois de déclarations et les démocrates n'ont que \textbf{9}
+titres. Critère \emph{structurel}, sans aucun rendement --- et il fait \emph{baisser} le résultat.
+\item \textbf{Le plafond $c=10\,\%$} est le seul paramètre absent du prospectus. Deux sources indépendantes
+du rendement le fixent : les \textbf{treize} états de portefeuille déposés par le fonds donnent une médiane de
+\textbf{10,3~\%} pour sa plus grosse ligne, et \textbf{10~\% est la limite UCITS} par émetteur.
+\item \textbf{Recomposition mensuelle}, exécution au \textbf{close J+1}, \textbf{buy-and-hold} entre deux coupes.
+Ce qui n'est pas commun est dans le tableau ci-dessus, plus le \textbf{périmètre} : M1 prend les deux chambres
+ensemble sans distinguer les partis, M2--M4 traitent chaque parti \textbf{séparément et identiquement}.
+\item \textbf{Long seulement} : la jambe courte, testée à $\tau$ (la date la plus favorable), termine à
+\textbf{16} sur base 100 --- c'est le marché à l'envers ($\beta=-1{,}03$).
+\item \textbf{Trois mesures}, de la plus indulgente à la plus sévère :
+\end{pts}
+\[ \underbrace{x_Y=\!\prod_{t\in Y}\!(1{+}r_t)-\!\prod_{t\in Y}\!(1{+}r^{m}_t)}_{\text{excès brut}}
+   \qquad t=\frac{\bar x}{\sigma_x/\sqrt n} \]
+\[ \underbrace{r-r_f=\alpha_1+\beta(r^{m}\!-\!r_f)+\varepsilon}_{\text{on retire le marché}} \]
+\[ \underbrace{r-r_f=\alpha_4+\beta_{\mathrm M}(r^{m}\!-\!r_f)+\beta_{\mathrm S}\mathrm{SMB}
+   +\beta_{\mathrm H}\mathrm{HML}+\beta_{\mathrm U}\mathrm{MOM}+\varepsilon}_{\text{on retire aussi taille, valeur, momentum}} \]
+\obs{Facteurs Fama-French-Carhart, repris tels quels de la bibliothèque de Kenneth French.}
+
+% ═══════════ M1 ═══════════
+\meth{M1}{Une voix par membre}{chaque élu qui achète a le même poids, quel que soit le montant --- l'hypothèse la
+plus neutre possible.}
+\concret
+\begin{pts}
+\item \textbf{Chaque fin de mois} $t$, les opérations \textbf{divulguées} dans les 42 derniers jours de bourse :
+$\ \mathcal K(t)=\{k:\ t-42<\delta_k\le t\}$. Pour chaque titre, les achats moins les ventes, sans descendre sous
+zéro :
+\[ B_i=\!\!\sum_{k\in\mathcal K,\ \text{achat}}\!\! A_k,\quad
+   S_i=\!\!\sum_{k\in\mathcal K,\ \text{vente}}\!\!\gamma_k A_k,\quad
+   \mathrm{Net}_i=\bigl[B_i-S_i\bigr]^{+} \]
+\item \textbf{Une vente de titres détenus depuis plus de 2 ans ne compte pas.} On reconstitue les lots en
+\emph{premier entré, premier sorti} ; $\gamma_k$ est la part de la vente portant sur des lots \textbf{récents} :
+\[ \gamma_k=\frac{\sum_{h\le\bar a}q_h+r_k}{\sum_h q_h+r_k}\in[0,1],\quad \bar a=504\ \text{j}\approx2\ \text{ans} \]
+$q_h$ = quantité vendue provenant d'un lot détenu depuis $h$ jours ; $r_k$ = part \textbf{non appariée} (aucun
+achat antérieur connu), comptée comme récente --- le choix prudent. \emph{En pratique} : $\gamma=1$ pour 80~\%
+des ventes, $\gamma=0$ pour 17~\%.
+\item Univers $\ \mathcal S_t=\{i:\ \mathrm{Net}_i>0,\ m_i\ge2\}$. Chaque élu retenu a \textbf{une voix},
+partagée entre ses titres $\mathcal B_m$ --- \textbf{le montant n'entre pas}, 5\,000~\$ pèsent autant que
+500\,000~\$ :
+\[ w_i=\frac1{K_t}\sum_{m}\frac{\mathbf 1\{i\in\mathcal B_m\}}{|\mathcal B_m|},\qquad K_t=\#\{\text{élus acheteurs}\} \]
+\item Exécution $\ q_i=w_i\,V(t)/P_i(t{+}1)$, puis plus rien jusqu'à la coupe suivante --- les poids
+\textbf{dérivent} avec les cours.
+\end{pts}
+
+% ═══════════ M2 ═══════════
+\meth{M2}{Pondérer aux dollars déclarés}{celui qui engage 500\,000~\$ y croit plus que celui qui en engage 5\,000.}
+\concret
+\begin{pts}
+\item La fenêtre passe à \textbf{3 ans} et \textbf{les ventes sortent complètement du signal} --- plus de
+$\gamma$, plus de solde :
+$\ \mathcal K^P(t)=\{k:\ P(k)=P,\ \text{achat},\ t-756<\delta_k\le t\}$, et
+$\ B_i=\sum_{k\in\mathcal K^P,\ i(k)=i}A_k$.
+\item Le poids est \textbf{proportionnel} à cette somme : $\ w_i\propto B_i$, plafonné à $c=10$~\%.
+\item \textbf{L'univers et le plafond sont figés ici pour M2, M3 et M4.} En les gardant identiques, la
+comparaison M2 \emph{vs} M3 isole le seul facteur ajouté, et jamais un effet de sélection.
+\end{pts}
+\obs{\emph{Et si on nettait les ventes, comme le fait le fonds ?} Testé \textbf{sur M3} : l'excès NANC
+\textbf{tombe} de $+3{,}40$ à $+1{,}31$~\%/an. \emph{(Côté GOP il améliore un peu : la conclusion ne vaut
+que d'un côté.)}}
+
+% ═══════════ M3 ═══════════
+\meth{M3}{Ajouter le consensus, et borner la concentration}{dix acheteurs valent mieux qu'un --- et aucune ligne
+ne doit pouvoir emporter le portefeuille.}
+\concret
+\begin{pts}
+\item On \textbf{multiplie} les dollars par le \textbf{nombre d'élus distincts} $m_i$. \emph{Le geste se lit à
+somme égale} : 200\,000~\$ déclarés par \textbf{deux} élus donnent un score \textbf{double} de 200\,000~\$
+déclarés par un \textbf{seul}. On préfère l'argent dispersé à l'argent concentré.
+\[ s_i=B_i\,m_i,\qquad m_i=\#\{m(k):k\in\mathcal K^P,\ i(k)=i\} \]
+\item \emph{Conséquence, qu'il faut voir} : si $K$ élus déclarent chacun le même montant $a$, alors $B_i=Ka$ et
+$s_i=K^2a$ --- le score croît comme le \textbf{carré} du nombre d'élus, car $m_i$ est déjà dans $B_i$ (plus
+d'acheteurs, plus de dollars) et on le remultiplie.
+\item Univers $\mathcal U(t)$ = les \textbf{150 plus gros scores} ;
+$\ v_i=s_i\big/\sum_{j\in\mathcal U}s_j$. On \textbf{plafonne chaque ligne à $c=10$~\%}, l'excédent
+redistribué au prorata jusqu'à ce que plus rien ne dépasse. Le point d'arrivée s'écrit d'un coup :
+\[ \boxed{\,w_i=\min(c,\ \lambda v_i)\,}\qquad \lambda\ \text{tel que}\ \sum_i w_i=1 \]
+$\lambda\mapsto\sum_i\min(c,\lambda v_i)$ croît de 1 à $|\mathcal U|c$ : $\lambda$ existe et est \textbf{unique}
+dès que $|\mathcal U|\ge\lceil 1/c\rceil=10$ titres.
+\end{pts}
+\obs{\emph{La frontière du top-150 n'est pas nette} --- les montants étant des fourchettes, \textbf{104 titres}
+partagent le score du 150\textsuperscript{e} à une coupe de 2014, et \textbf{36} s'échangent selon l'ordre de tri. Mesuré : les trier de A à Z ou de Z à A déplace
+l'excès de \textbf{0,03 pt/an}.}
+
+% ═══════════ M4 ═══════════
+\meth{M4}{Écarter le bruit des comptes gérés}{le gérant du fonds dit ignorer les dépôts en masse : \og{}\emph{300
+trades \ldots{} 5 shares of something \ldots{} that's just a rebalance}\fg{}. On teste sa règle.}
+\concret
+\begin{pts}
+\item \textbf{Avant tout calcul}, on compte les opérations déclarées par un même élu \textbf{le même jour},
+$\ n_k=\#\{k':\ m(k')=m(k),\ \delta_{k'}=\delta_k\}$, et l'on écarte celles des dépôts de \textbf{50 opérations
+ou plus} --- signature d'un compte piloté par un courtier, pas d'une décision : $\ n_k<\theta=50$.
+\item Cela retire \textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain. Tout le reste est identique
+à M3.
+\end{pts}
+
+\fig{meth17_cascade.png}{la cascade, méthode par méthode : excès brut (gris), $\alpha$ marché seul (bleu),
+$\alpha$ quatre facteurs (vert). Le passage du gris au bleu mesure ce que le marché explique.}
+
+% ═══════════ ÉPREUVE 1 ═══════════
+
+% ═══════════ ÉPREUVE 2 ═══════════
+\meth{$\circlearrowright$}{Épreuve 1 --- le résultat tient-il année après année ?}{un $\alpha$ moyen sur douze ans
+peut n'être que deux bonnes années. On rejoue la régression sur une fenêtre glissante d'un an.}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r c r r@{}}
+\toprule
+ & $\beta$ méd. & $\beta$ min--max & $\alpha$ étendue & $\alpha>0$ \\
+\midrule
+M1 \emph{(commune)} & 1,00 & 0,90--1,08 & 29 pts & 57~\% \\
+M2 --- NANC & 1,04 & 0,98--1,18 & 17 pts & 62~\% \\
+M2 --- GOP & 0,97 & 0,83--1,22 & 25 pts & \textbf{52~\%} \\
+\textbf{M3 --- NANC} & 1,06 & 0,95--1,27 & 24 pts & \textbf{71~\%} \\
+\textbf{M3 --- GOP} & 1,00 & 0,90--1,13 & \textbf{14 pts} & \textbf{71~\%} \\
+M4 --- NANC & 1,13 & 0,96--\textbf{1,51} & \textbf{50 pts} & 69~\% \\
+M4 --- GOP & 0,97 & 0,84--1,10 & 16 pts & 69~\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\fig{meth17_rolling.png}{un panneau par méthode : $\beta$ (trait plein) et $\alpha$ divisé par dix
+(pointillé), réestimés sur chaque fenêtre d'un an --- fenêtres chevauchantes : ces courbes \emph{décrivent},
+elles ne testent pas.}
+\lecon{\textbf{M3 est la seule régulière des deux côtés} : son $\alpha$ tient au-dessus de zéro \textbf{71~\%}
+du temps côté démocrate \emph{et} républicain --- le même chiffre des deux côtés --- quand M2 y tombe à
+\textbf{52~\%}, pile ou face. M4, lui, paie sa performance en instabilité : $\beta$ de $0{,}96$ à $1{,}51$
+d'un côté, $0{,}84$ de l'autre. \textbf{Et rien de
+tout cela n'a servi à choisir M3} --- c'est une confirmation, pas l'argument.}
+
+% ═══════════ ÉPREUVE 3 ═══════════
+\meth{\textdollar}{Épreuve 2 --- que coûte l'exécution, et faut-il ralentir ?}{tous les chiffres précédents sont
+bruts. On facture le passage d'ordre, puis on demande s'il vaut mieux freiner pour en payer moins.}
+\concret
+\begin{pts}
+\item \textbf{La vitesse} se mesure à chaque coupe :
+$\ \mathrm{TO}_t=\tfrac12\sum_i\bigl|w^{\text{réalisé}}_i-w^{\text{dérivé}}_i\bigr|$, la fraction du portefeuille
+qui change de mains. \textbf{Elle ne se règle pas, elle découle de la fenêtre} : à chaque coupe celle-ci avance
+d'un mois, or 42 jours n'en contiennent que \textbf{deux} --- la moitié du signal est renouvelée et le classement
+se refait --- quand 3 ans en contiennent \textbf{trente-six}, dont un seul change. D'où l'écart mesuré :
+\textbf{59~\%} de rotation par mois pour M1, \textbf{5~\%} pour M2--M4.
+\item \textbf{Les frais} : $\ V_t\leftarrow V_t(1-2\,\mathrm{TO}_t\,c)$ avec $c=10$~pb. Le \textbf{facteur 2}
+parce que $\mathrm{TO}_t$ est le montant acheté, égal au montant vendu : on paie des deux côtés.
+\end{pts}
+\begin{center}\scriptsize
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & rotation/an & coût/an & excès net & $\alpha_4$ net \\
+\midrule
+M1 \emph{(commune)} & \textbf{715~\%} & $1{,}57$~pt & $\mathbf{-1{,}45}$~\% & $-0{,}66$ \\
+M2 --- NANC & 62~\% & $0{,}16$ & $+1{,}27$ & $+0{,}84$ \\
+\textbf{M3 --- NANC} & 66~\% & $0{,}17$ & $+3{,}24$ & $+1{,}94$ \\
+M4 --- NANC & 64~\% & $0{,}17$ & $+4{,}97$ & $+1{,}99$ \\
+M2 --- GOP & 81~\% & $0{,}18$ & $+0{,}31$ & $+1{,}07$ \\
+\textbf{M3 --- GOP} & 69~\% & $0{,}18$ & $+1{,}06$ & $+1{,}49$ \\
+M4 --- GOP & 72~\% & $0{,}19$ & $+1{,}26$ & $+2{,}00$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\obs{\textbf{Le frein} : au lieu de rejoindre la cible, on n'en parcourt qu'une fraction,
+$\ \lambda_R=\min(1,\tau_{\max}/\mathrm{TO}_t)$, puis $w^{\text{réalisé}}=w^{\text{dérivé}}+\lambda_R
+(w^{\text{cible}}-w^{\text{dérivé}})$. Le frein n'agit que si la rotation voulue \emph{dépasse} $\tau_{\max}$ --- sinon $\lambda_R=1$ et rien ne
+change. À $\tau_{\max}=25\,\%$ il se déclenche donc \textbf{à chaque coupe} sur M1 (59~\%/mois, on ne parcourt
+que 42~\% du chemin) mais sur \textbf{1~\% des coupes} sur M3. Pour que la question ait un sens, il faut
+descendre bien plus bas.}
+\fig{meth17_frein.png}{le frein appliqué à M3, \textbf{frais compris}. À 2~\%/mois la contrainte sature : la rotation
+tombe à 24~\%/an des deux côtés et le portefeuille ne suit plus sa cible --- ce n'est plus M3 ralentie, c'est une
+inertie qui laisse courir les positions.}
+\lecon{\textbf{le frein n'est pas retenu}. Un seul plafond passe la règle des deux camps, $5\,\%$/mois
+($+0{,}03$ et $+0{,}07$~pt) --- mais il est \emph{encadré} de plafonds qui échouent ($-0{,}05$ à $10\,\%$,
+$-0{,}48$ à $2\,\%$). Serrer une contrainte devrait agir dans un sens, pas alterner : ce profil est celui du
+bruit, et le gain est du même ordre que l'écart entre voisins.}
+
+\[ \boxed{\begin{gathered}
+s_i=B_i\,m_i\ \text{ sur 3 ans à }\delta,\quad \mathcal U=\text{top-150}\\[0.4mm]
+w_i=\min(c,\lambda v_i),\quad c=10\,\%
+\end{gathered}} \]
+
+% ═══════════ CE QUI MANQUE ═══════════
+{\color{bleu}\bfseries $\varnothing$ $\cdot$ Ce qu'aucune de ces méthodes ne fait}\par\vspace{0.3mm}
+{\small \textbf{Suivre les options, les ETF ou les obligations} --- seules les actions entrent.
+\textbf{Payer l'impact de marché} --- le passage d'ordre est facturé (épreuve 2), l'effet d'un ordre \emph{sur le
+prix} non. \textbf{Sortir parce qu'un élu vend} --- sauf M1, et seulement sous deux ans.\par}
+
+\end{multicols}
+
+\end{document}
