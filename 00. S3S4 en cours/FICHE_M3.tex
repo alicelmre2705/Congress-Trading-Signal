@@ -61,7 +61,8 @@
 
 \etape{3}{Les coupes}
 $t$ parcourt le dernier jour coté de chaque mois, de janvier 2014 à juin 2026 : 150 coupes. On garde la
-première où l'univers atteint $\lceil 1/c\rceil = 10$ titres \textbf{pour les deux partis}, et les suivantes.
+première où l'univers atteint $\lceil 1/c\rceil = 10$ titres \textbf{pour les deux partis}, et les suivantes :
+\textbf{149 dates} retenues, dont la dernière ne fait que clore la série --- soit \textbf{148 recompositions}.
 
 \etape{4}{La fenêtre du signal}
 À la coupe $t$, parti $P$ : \textbf{les achats seuls}, datés à leur \textbf{divulgation}.
@@ -148,12 +149,14 @@ et sont annualisés ($\times 252$) ; intervalle de Student à 95~\%.
 \bottomrule
 \end{tabular}\par}
 \vspace{0.3mm}
-{\scriptsize\color{grisf} rendement \emph{total} : NANC 16,6~\%/an $\cdot$ GOP 15,2 $\cdot$ SPY 13,9 ;
+{\scriptsize\color{grisf} rendement \emph{total composé} : NANC 16,6~\%/an $\cdot$ GOP 15,2 $\cdot$ SPY 13,9
+--- soit 2,7 pt d'écart composé ; l'excès du tableau ($+3{,}40$) est la \emph{moyenne des 13 écarts annuels}
+(étape 10), pas la différence de ces totaux ;
 \textbf{9 années gagnantes sur 13} des deux côtés. Les deux repères tournent sur le \emph{même univers}
 --- seule la pondération change. \textbf{Les deux repères sont donnés côté démocrate} ; leurs contreparties
 républicaines sont au tableau \textbf{a}.}\par
 
-\fig{m3_nav.png}{à gauche la valeur du portefeuille, base 100 en février 2014, échelle log ; à droite
+\fig{m3_nav.png}{à gauche la valeur du portefeuille, base 100 au 3 mars 2014 (close du lendemain de la première coupe), échelle log ; à droite
 l'écart au SPY année par année (NANC $-11{,}6$ pt en 2022, $+19{,}7$ en 2023).}
 
 \et{a}{D'où vient l'excès : la pondération, à univers identique}
@@ -174,8 +177,9 @@ $\mathbf{B_i m_i}$ \emph{(M3)} & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}66}$ & \text
 \end{tabular}\par}
 \vspace{0.3mm}
 {\scriptsize\color{grisf} \textbf{le produit dépasse ses deux composantes} : ni les dollars seuls ni les élus
-seuls ne rendent ce que rend leur produit. Le $\beta$ monte avec l'excès (0,98 $\to$ 1,08) --- c'est
-l'$\alpha_1$, qui retire le marché, qui montre que l'essentiel ne vient pas de là.}\par
+seuls ne rendent ce que rend leur produit. Marché retiré, \textbf{la moitié} de l'excès démocrate subsiste
+($\alpha_1$ $+1{,}66$ sur $+3{,}40$) et \textbf{l'essentiel} du républicain ($+1{,}09$ sur $+1{,}24$) --- aucun
+des deux n'étant distinguable de zéro ($t$ 1,36 et 1,07).}\par
 
 \et{b}{Le risque : est-ce un pari de style ?}
 
@@ -192,7 +196,10 @@ M3 --- GOP & $+1{,}65$~\% & 1,79 & 0,979 & $-0{,}081$ & $+0{,}049$ & $-0{,}073$ 
 \vspace{0.3mm}
 \begin{pts}
 \item $\alpha_4 > \alpha_1$ ($+1{,}66 \to +2{,}09$) : les facteurs de style n'expliquent pas l'excès, ils en
-      \textbf{masquaient} une partie.
+      \textbf{masquaient} une partie --- mais le modèle change de facteur de marché en même temps que de
+      modèle, et l'écart des deux $\alpha$ n'est pas testé ;
+\item $t = 2{,}08$ dépasse 1,96, seuil des $\alpha$ journaliers (3\,059 jours) --- l'un des deux seuls
+      chiffres de la fiche dans ce cas, et en test isolé (annexe D).
 \end{pts}
 
 \et{c}{Le résultat tient-il année après année ?}
@@ -265,7 +272,7 @@ GOP --- excès & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}
 \et{f}{Le netting des ventes --- testé, non retenu}
 Le fonds réel nette : une vente réduit la position. On l'applique, \textbf{et rien d'autre} --- même fenêtre,
 même score, même top-150, même plafond. De chaque achat on retire la part des ventes portant sur un lot de
-moins de trois ans (FIFO $\gamma_3$) ; vendre un lot plus ancien ne change rien, comme au prospectus.
+moins de trois ans ($\gamma_3$ : la part du lot détenue depuis moins de trois ans, FIFO) ; vendre un lot plus ancien ne change rien, comme au prospectus.
 
 {\centering\scriptsize
 \begin{tabular}{@{}l r r r r r@{}}
@@ -337,22 +344,23 @@ Trois démocrates \emph{et} trois républicains donnent $m_i = 6$, pas 3 --- et 
 \toprule
  & \multicolumn{2}{c}{\textbf{2014--2026}} & \multicolumn{2}{c}{\textbf{2019--2026}} & & \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
- & excès/an \emph{(t)} & $\alpha_1$ & excès/an & $\alpha_1$ & $\beta$ & NAV \\
+ & excès/an \emph{(t)} & $\alpha_1$ & excès/an \emph{(t)} & $\alpha_1$ & $\beta$ & NAV \\
 \midrule
 \multicolumn{7}{@{}l}{\emph{sur les 150 titres}}\\
-démocrates & $+3{,}40$ \emph{(1,61)} & $+1{,}66$ & $+4{,}16$ & $+1{,}62$ & 1,08 & 662 \\
-républicains & $+1{,}24$ \emph{(1,61)} & $+1{,}09$ & $+2{,}28$ & $+2{,}21$ & 1,00 & 574 \\
-\textbf{unique} & $\mathbf{+2{,}51}$ \emph{\textbf{(1,93)}} & $\mathbf{+1{,}48}$ & $+3{,}29$ & $\mathbf{+1{,}87}$ & 1,05 & \textbf{629} \\
+démocrates & $+3{,}40$ \emph{(1,61)} & $+1{,}66$ & $+4{,}16$ \emph{(1,20)} & $+1{,}62$ & 1,08 & 662 \\
+républicains & $+1{,}24$ \emph{(1,61)} & $+1{,}09$ & $+2{,}28$ \emph{\textbf{(2,71)}} & $+2{,}21$ & 1,00 & 574 \\
+\textbf{unique} & $\mathbf{+2{,}51}$ \emph{\textbf{(1,93)}} & $\mathbf{+1{,}48}$ & $+3{,}29$ \emph{(1,61)} & $\mathbf{+1{,}87}$ & 1,05 & \textbf{629} \\
 \midrule
 \multicolumn{7}{@{}l}{\emph{sur les 11 ETF sectoriels}}\\
-démocrates & $+1{,}78$ \emph{(1,66)} & $+0{,}59$ & $+1{,}92$ & $+0{,}20$ & 1,05 & 586 \\
-républicains & $+0{,}78$ \emph{(1,02)} & $+0{,}41$ & $+1{,}12$ & $+0{,}65$ & 1,02 & 552 \\
-\textbf{unique} & $\mathbf{+1{,}45}$ \emph{\textbf{(2,05)}} & $\mathbf{+0{,}46}$ & $+1{,}70$ & $\mathbf{+0{,}32}$ & 1,04 & \textbf{577} \\
+démocrates & $+1{,}78$ \emph{(1,66)} & $+0{,}59$ & $+1{,}92$ \emph{(1,09)} & $+0{,}20$ & 1,05 & 586 \\
+républicains & $+0{,}78$ \emph{(1,02)} & $+0{,}41$ & $+1{,}12$ \emph{(0,92)} & $+0{,}65$ & 1,02 & 552 \\
+\textbf{unique} & $\mathbf{+1{,}45}$ \emph{\textbf{(2,05)}} & $\mathbf{+0{,}46}$ & $+1{,}70$ \emph{(1,49)} & $\mathbf{+0{,}32}$ & 1,04 & \textbf{577} \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.2mm}
-{\scriptsize\color{grisf} lignes ETF mesurées avec la \textbf{carte datée} ; les deux plus hauts $t$ de
-\emph{ce tableau} \textbf{n'atteignent pas le seuil} de 2,18 qu'exigent treize années --- annexe D.}\par
+{\scriptsize\color{grisf} lignes ETF avec la \textbf{carte datée}. Seuils : 2,18 à treize années, 2,36 à
+huit. \textbf{Une seule case le franchit} --- l'excès républicain 2019--2026, $t$ 2,71, IC [0,29 ; 4,26] :
+sous-fenêtre, un seul camp, parmi 84 runs (annexe D).}\par
 
 \etape{13}{La forme livrable : le marché, plus un tilt \emph{(2020--2026 seulement)}}
 \[ w \;=\; \underbrace{w^{\text{marché}}}_{\text{la brique de base}} \;+\; \lambda\,\underbrace{(w^{\text{signal}} - w^{\text{marché}})}_{\text{le pari}} \]
@@ -365,8 +373,9 @@ de $\lambda$ --- l'\textbf{écart au marché} et ce qu'une unité d'écart rappo
 $w^{\text{marché}}$ se reconstruit depuis les prix, les onze SPDR \textbf{partitionnant} le S\&P 500 :
 \[ r^{\text{SPY}} = \beta_1 r^{\text{XLK}} + \beta_2 r^{\text{XLF}} + \dots + \beta_{11} r^{\text{XLU}}
    + \varepsilon \]
-Sous $\sum \beta = 1$ et $\beta \ge 0$, les $\beta$ tiennent lieu de poids sectoriels ($R^2$ de 0,984 à
-0,999), estimés sur \textbf{l'année précédente} --- aucun regard vers l'avenir. Après le tilt, tout poids
+Sous $\sum \beta = 1$ et $\beta \ge 0$, les $\beta$ servent de \emph{proxy} des poids sectoriels, estimés sur
+\textbf{l'année précédente} --- aucun regard vers l'avenir. Le $R^2$ (0,984 à 0,999) atteste que les onze
+SPDR \textbf{engendrent} l'indice ; il n'identifie pas chaque coefficient. Après le tilt, tout poids
 négatif est ramené à zéro (long seul).
 
 {\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
@@ -382,7 +391,7 @@ $\lambda$ & excès \textbf{net}/an & $\alpha_1$ \emph{(t)} & $\beta$ & \textbf{�
 \end{tabular}\par}
 \vspace{0.2mm}
 {\scriptsize\color{grisf} l'\textbf{écart au marché} = écart-type annualisé de la différence avec l'indice : à
-4,2~\%, deux années sur trois l'écart au SPY tient dans une bande de $\pm 4{,}2$~\%. \textbf{Fenêtre 2020--2026,
+4,2~\%, deux années sur trois l'écart au SPY se tient à $\pm 4{,}2$~\% \emph{autour de sa moyenne}, non autour de zéro. \textbf{Fenêtre 2020--2026,
 net de 10~pb --- ne se compare pas au tableau ci-dessus}, qui couvre 148 coupes depuis 2014, brut de frais.
 \textbf{Seule la colonne d'excès est nette} : $\alpha_1$, $\beta$ et rdt/écart sont mesurés sur la série brute.}\par
 \vspace{0.5mm}
@@ -393,10 +402,11 @@ d'écart au marché rapporte --- la courbe est concave.}
 \et{a}{Ce qui contraindra avant l'écart au marché}
 \begin{pts}
 \item \textbf{aucun plafond sectoriel} : celui de 10~\% porte sur les \emph{titres} et \textbf{ne survit pas}
-      à l'agrégation --- cinq titres tech à 6--10~\% font un secteur à 46,6~\% (dém.) et 42,2~\% (rép.) ;
-\item \textbf{et le tilt concentre} : le plus gros secteur pèse 38,7~\% à $\lambda = 0$ \emph{(la
-      concentration du marché lui-même, en 2025)}, 47,8~\% à $\lambda = 1$, \textbf{61,2~\% à $\lambda = 2$}
-      --- $N_{\text{eff}}$ de 6,5 à 4,6.
+      à l'agrégation --- cinq titres tech à 6--10~\% font un secteur à 46,6~\% (dém.) et 42,2~\% (rép.) à la dernière coupe ;
+\item \textbf{et le tilt concentre} : le plus gros secteur pèse 38,7~\% à $\lambda = 0$ \emph{(la concentration du marché \textbf{reconstruit} : les
+      SPDR plafonnant leurs lignes, la régression surcharge XLK --- la part réelle de la tech est plus basse)},
+      47,8~\% à $\lambda = 1$, \textbf{61,2~\% à $\lambda = 2$}
+      --- $N_{\text{eff}} = 1/\sum w_i^2$ de 6,5 à 4,6.
 \end{pts}
 
 \et{b}{Deux pistes écartées}
@@ -408,7 +418,8 @@ d'écart au marché rapporte --- la courbe est concave.}
       C'est l'instrument, pas le signal : \textbf{les ETF fins ne battent le secteur qu'ils découpent que
       6 fois sur 21}, $-1{,}6$~pt/an en moyenne ($-0{,}65$ en médiane) ;
 \item \textbf{recomposer plus souvent} : sans objet --- le signal est une \textbf{inclinaison}, pas une
-      rotation : 85~\% des écarts de poids sont permanents côté démocrate, 76~\% côté républicain, et 2,2~\%
+      rotation. Mesuré sur le signal sectoriel \emph{par parti, avant inclinaison} : 85~\% de la \textbf{variance}
+      des écarts de poids est permanente côté démocrate, 76~\% côté républicain, et 2,2~\%
       du portefeuille (2,3 côté républicain) change de main d'une coupe à l'autre.
 \end{pts}
 
@@ -432,10 +443,10 @@ la chaîne de mesure ne fabrique rien & le SPY passé au même moulin & $\beta_{
 le moteur fait ce qui est écrit & un mois recalculé à la main, hors moteur & NAV 106,442585 des deux côtés \\
 le plafond est bien $\min(c,\lambda v)$ & $\lambda$ retrouvé par bissection indépendante & écart max $<10^{-16}$ \\
 le coût facturé est celui de la formule & $\mathrm{NAV}_{\text{nette}}/\mathrm{NAV}_{\text{brute}}$ contre $\prod_t(1-2\,\mathrm{TO}_t\kappa)$ & écart $<10^{-14}$ (661,57 $\to$ 648,69) \\
-l'extraction est fidèle au papier & rejouée sur 150 coupes, au plafond de 8,5~\% & \textbf{18 chiffres reproduits} (NAV 672,35 / 612,25) \\
+l'extraction est fidèle au notebook 11 & rejouée sur 150 coupes, au plafond de 8,5~\% & \textbf{18 chiffres reproduits} (NAV 672,35 / 612,25) \\
 la sélection mord & cardinal de $\mathcal S$ sur les 148 coupes & min 99 (NANC) et 112 (GOP), \textbf{médiane 150} \\
 aucune coupe ne dégénère & $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil$ partout & 0 coupe sous 10 titres \\
-les ETF n'entrent pas dans le flux & flux recompté après chargement des 11 SPDR & 113\,369 opérations, inchangé \\
+les 11 SPDR n'entrent pas dans le flux & flux recompté après leur chargement & 113\,369 opérations, inchangé \\
 le passage aux ETF ne change que l'agrégation & carte identité (chaque titre $\to$ lui-même) & redonne M3 à $<10^{-16}$ \\
 le poids d'un secteur est la somme de ses titres & conservation, avec la vraie carte & vérifié sur 296 couples \\
 le repli sur secteur non coté est au prorata & proportions relatives des survivants & vérifié sur 104 couples \\
@@ -499,11 +510,12 @@ GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
 {\footnotesize
 \textbf{Le classement, oui ; les poids, non.} Le portefeuille range les onze secteurs à peu près comme le
 marché les pèse, mais s'en écarte de deux à trois points par secteur --- et en sens \emph{opposés} sur le
-secteur qui décide de tout : les démocrates surpondèrent la technologie (31,7 contre 29,4~\%), les
-républicains la sous-pondèrent de dix points (19,8~\%). C'est précisément cet écart que la Version 2 achète,
-en laissant le reste à un indice.\par
+secteur qui décide de tout : les démocrates surpondèrent la technologie, les républicains la
+sous-pondèrent --- en 2022, 31,7~\% contre 19,8~\% pour un marché à 29,5. C'est cet écart que la Version 2
+achète. \emph{Les deux médianes du tableau tombent sur des années différentes : leur différence ne mesure
+rien.}\par
 \vspace{0.4mm}
-\textbf{Et ce n'est pas un pari sur un seul secteur} : le plus gros contributeur ne pèse que \textbf{36~\%} de
+\textbf{Et ce n'est pas un pari sur un seul secteur} : sur les portefeuilles sectoriels \textbf{par parti et non inclinés}, mesurés sur 2020--2026, le plus gros contributeur ne pèse que \textbf{36~\%} de
 l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicain (l'énergie) --- deux moteurs
 \emph{opposés}.\par}
 
@@ -512,8 +524,17 @@ l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicai
 {\color{bleu}\bfseries Annexe D --- ce que cette fiche n'établit pas}\par
 \vspace{0.6mm}
 {\footnotesize
-\textbf{La significativité.} Aucun excès mesuré ici n'est significatif : treize années (sept pour la
-Version 2) ne suffisent pas à trancher, et les intervalles de confiance contiennent zéro.
+\textbf{La significativité.} \textbf{Deux seuils cohabitent} : 2,18 pour un excès mesuré sur treize années,
+1,96 pour un $\alpha$ lu sur 3\,059 rendements journaliers. Aucun excès sur treize ans ne franchit le sien, ni
+sur les sept années de la Version 2 --- leurs intervalles de confiance contiennent zéro. \textbf{Deux chiffres
+font exception} : l'excès républicain sur \textbf{2019--2026} ($+2{,}28$~\%/an, $t$ 2,71 pour un seuil de 2,36
+à huit années, IC [0,29 ; 4,26]) et l'$\alpha_4$ de M3-NANC ($t$ 2,08 contre 1,96). Tous deux sont lus en test
+\emph{isolé} : ce sont deux cases parmi les 84 ci-dessous, et la première est une sous-fenêtre choisie après
+coup sur un seul camp. Nous ne les revendiquons pas.\par
+\vspace{0.5mm}
+\textbf{La multiplicité.} \textbf{84 runs distincts} passent au bilan dans le notebook, et tous y sont publiés ;
+aucun seuil n'en est corrigé. Le protocole s'en protège autrement : chaque constante est fixée hors de toute
+performance (annexe B), et chaque balayage est publié en entier, le verdict lu à la valeur déclarée d'avance.
 \textbf{Les frais.} Seuls 10 points de base par aller-retour, à l'étape 9 --- aucun impact de marché, aucune
 contrainte de liquidité, aucune capacité chiffrée. \textbf{Le portefeuille.} Long seul, sans levier, sans
 vente à découvert. \textbf{Les facteurs.} Ceux de Kenneth French, repris tels quels ; ils s'arrêtent au
