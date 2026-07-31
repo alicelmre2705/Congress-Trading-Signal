@@ -61,3 +61,27 @@ actif ne garde que le **courant** : fiches ticker `FICHE_STRAT_TICKER_22JUIL` + 
 
 *Voir aussi le sous-dossier `recherche_v1/` : l'archive de la toute première version de la recherche stratégie
 (notebooks 02/03/04/05 + notes).*
+
+## 2026-07-30 — les trois notebooks de M3 fusionnés en un seul
+
+`FICHE_M3` exigeait **trois** notebooks pour être vérifiée (le 13 pour le protocole et les épreuves, le 15
+pour les ETF, le 11 pour le netting). Chercher d'où venait un chiffre donnait donc plusieurs réponses — et
+le 15 écrasait `m3_nav.png` **dans le dossier du 13**, si bien que `\graphicspath` désignait deux sources
+pour une seule. Tout est désormais dans **`16_M3_Complet.ipynb`**, seul notebook de la fiche.
+
+| archivé | pourquoi | ce qui l'a remplacé |
+|---|---|---|
+| `13_Methode_M3.ipynb` | socle, épreuves, §12.5 | §1--§10 et §19 du 16 |
+| `15_Strategie_ETF.ipynb` | toute la partie ETF | §11--§18 du 16 |
+| `14_M3_Alternatives.ipynb` | **aucune** valeur de la fiche n'en dépendait (0 exclusive sur 245 mesurée) | rien |
+| `figs_nb13/`, `figs_nb15/` | figures | `figs_nb16/` |
+
+**Ce qui n'a pas été porté**, et pourquoi : la variante ETF du §11 du 13 (elle substituait l'ETF *avant*
+le `groupby`, rend $-2{,}37$ %/an et la fiche l'a abandonnée), les §12.1 à §12.4 (le diagnostic A/B/C qui l'a
+réfutée), et le §12.5.1. Ils restent lisibles ici.
+
+⚠️ **`11_Strategie_Ticker.ipynb` n'est PAS archivé** : il est la source des 8 tableaux de `PAPIER_METHODE`.
+Seule sa machinerie de netting (FIFO $\gamma_3$, §17.1) a été copiée dans le 16.
+
+**Contrôle de la fusion** : `FICHE_M3.tex` auditée contre le seul notebook 16 rend **38/38 lignes de
+tableau conformes** et **0 chiffre en prose sans source**.
