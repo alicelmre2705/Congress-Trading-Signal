@@ -12,7 +12,11 @@ import pandas as pd
 
 RACINE = Path(__file__).resolve().parents[2]          # …/Jupiter
 DOSSIER = RACINE / "02_recherche_backtest"
+# La table COURANTE (produite par le pipeline, step 7) — et la V1 du 04/07, archivée, sur laquelle
+# TOUTES les ancres publiées (FICHE_M3, carte, notebooks) restent adossées (cf. NOTE_DIFF_TABLE_CLEAN).
 CLEAN = RACINE / "00_recuperation_donnees" / "data" / "clean" / "transactions_backtest_2014_2026.csv"
+CLEAN_V1 = (RACINE / "00_recuperation_donnees" / "_archive" / "data_clean"
+            / "transactions_backtest_2014_2026_v20260704.csv")
 PX = DOSSIER / "cache" / "prices_v2"
 FF_CSV = DOSSIER / "cache" / "ff_factors.csv"
 
@@ -22,14 +26,18 @@ ETF_SECT = ["XLB", "XLC", "XLE", "XLF", "XLI", "XLK", "XLP", "XLRE", "XLU", "XLV
 FUSION = {"GOOGL": "GOOG", "BRK-A": "BRK-B", "FOXA": "FOX", "NWSA": "NWS"}  # classes d'actions = une société
 
 
-def charger(verbose=True):
+def charger(verbose=True, table=None):
     """Charge tout le contexte de la lignée titre et le rend en un seul objet `D`.
+
+    `table` : None → la table CLEAN courante (pipeline) ; "v1" → la table archivée du 04/07,
+    celle des ancres publiées ; ou un chemin explicite.
 
     Attributs : df (le flux, 113 369 opérations), cal, spy, r_spy, PXV, PXV_ACTIONS,
     NFIRST/NLAST, vivant(tk, i), coupes (calendrier conforme, ≥ ⌈1/c⌉ titres des deux côtés),
     coupes_tout, i_start, FF, ordre_d/I_de (index trié sur la divulgation).
     """
-    df0 = pd.read_csv(CLEAN, usecols=["bioguide_id", "member_name", "ticker_yahoo", "direction",
+    chemin = {None: CLEAN, "v1": CLEAN_V1}.get(table, Path(table) if table else CLEAN)
+    df0 = pd.read_csv(chemin, usecols=["bioguide_id", "member_name", "ticker_yahoo", "direction",
                                       "transaction_date", "disclosure_date", "amount_midpoint",
                                       "asset_class", "chamber", "committee_membership",
                                       "committees_key_flag", "sector_gics", "flag_late_filing",

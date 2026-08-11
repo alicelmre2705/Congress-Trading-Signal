@@ -3,7 +3,7 @@
 **Ce qui a changé de structure.** Le nettoyage backtest est désormais **du code de pipeline** :
 `common/backtest_clean.py`, step 7 de `python -m common.pipeline`, testé par
 `tests/regression/test_backtest_clean.py` (« ZÉRO ÉCART »), avec le notebook
-`Nettoyage_Backtest_2014_2026.ipynb` comme vitrine. Avant toute correction, le module a
+le notebook d'origine (archivé) comme trace. Avant toute correction, le module a
 **reproduit octet pour octet** la table v1 (134 464 × 36) — chaque écart ci-dessous est donc
 une correction voulue, pas une dérive.
 

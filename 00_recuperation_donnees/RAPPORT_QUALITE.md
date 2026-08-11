@@ -538,7 +538,7 @@ Listes actionnables complètes (ligne à ligne) → `data/quiver_validation/` (`
 
 ## 7. Du corpus à la table de recherche (nettoyage backtest)
 
-Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le notebook `Nettoyage_Backtest_2014_2026.ipynb` dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 464 lignes × 36 colonnes**) par un entonnoir en 4 étapes.
+Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes : `NETTOYAGE.md`) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 464 lignes × 36 colonnes**) par un entonnoir en 4 étapes.
 
 **Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport avec les mêmes règles que le notebook, puis confrontés au fichier publié (égalité vérifiée par assertion à chaque run).*
 

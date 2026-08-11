@@ -19,3 +19,11 @@ house/ tools/ congress_core/   scripts et notebooks des refontes successives
 
 ⚠️ Collision de nom assumée : `docs/RAPPORT_FINAL.*` (ici, version du 26/06) ≠
 `../docs/RAPPORT_FINAL.*` (la version courante du 04/07) — même nom, contenus différents.
+
+## 2026-08-11 (soir) — le notebook de nettoyage archivé
+
+Le nettoyage vit désormais dans **`common/backtest_clean.py`** (step 7 du pipeline, testé par
+`tests/regression/test_backtest_clean.py`) et se lit dans **`../NETTOYAGE.md`** — les étapes et
+leur code, sans notebook, comme le reste du pipeline. `Nettoyage_Backtest_2014_2026_vitrine.ipynb`
+(ex-vitrine du module, et avant elle le notebook qui portait toute la logique) est archivé ici.
+La table de recherche du 2026-07-04 (celle des documents publiés) est dans `data_clean/`.

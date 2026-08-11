@@ -34,8 +34,7 @@ Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/`) :
 tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et **gated**
 (7 287 manuscrites écartées, avec motif) + la table annexe des commissions
 (bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
-pipeline, testé) ; vitrine : `Nettoyage_Backtest_2014_2026.ipynb` ; diff v1→courante :
-`00_recuperation_donnees/NOTE_DIFF_TABLE_CLEAN.md`.
+pipeline, testé). **Les étapes du nettoyage et leur code : `00_recuperation_donnees/NETTOYAGE.md`.**
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 

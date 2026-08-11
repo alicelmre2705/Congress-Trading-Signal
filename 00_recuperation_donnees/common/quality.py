@@ -165,7 +165,7 @@ def _keys(df, dim):
 def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
     """Statistiques du nettoyage backtest (§7 du rapport) : l'entonnoir A→D vient de
     `common.backtest_clean` (source unique — le module que le pipeline exécute en step 7 et dont
-    le notebook Nettoyage_Backtest_2014_2026.ipynb est la vitrine). Renvoie {} si la table
+    les étapes sont recensées dans NETTOYAGE.md). Renvoie {} si la table
     canonique est absente. Un écart avec le CSV publié n'interrompt plus le rapport : il est
     signalé (le CSV se régénère par `python -m common.backtest_clean`)."""
     clean_p = Path(repo_root) / "data" / "clean" / "transactions_backtest_2014_2026.csv"
@@ -1456,7 +1456,7 @@ def build_report(repo_root: Path) -> Path:
         parts.append(
             "Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, "
             "options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un "
-            "**montant**. Le notebook `Nettoyage_Backtest_2014_2026.ipynb` dérive la **table de recherche "
+            "**montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes : `NETTOYAGE.md`) dérive la **table de recherche "
             "canonique** `data/clean/transactions_backtest_2014_2026.csv` "
             f"(**{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes**) par un entonnoir en 4 étapes.\n\n"
             "**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ "
