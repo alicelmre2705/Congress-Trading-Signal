@@ -12,7 +12,8 @@ data/{house,senate}/
     ocr_cache/           ← cache Vision (re-run = 0 appel si inchangé)
     *.json               ← caches ticker / secteur
 house/ uniquement :
-    pdfs/ {y}/           ← 547 PDF scannés (source brute Chambre)
+    pdfs/ {y}/           ← 5 129 PDF embarqués (2014-2019 : les années --acquire en entier ;
+                           2020-2026 : les 614 scannés restants — census _scan_census.csv)
     index/ {y}FD.xml     ← index XML annuel du Clerk
 ```
 

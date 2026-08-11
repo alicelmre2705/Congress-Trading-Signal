@@ -20,9 +20,11 @@ done
 Seuls les **artefacts figés** (tables CSV, index XML, caches Vision/Quiver, référentiels YAML) sont
 embarqués dans `data/`. Les **sources brutes** des deux pistes digitales sont absentes :
 
-- **House digital** — les PDF *lisibles* (numériques) ont été parsés puis écartés ; il ne reste sous
-  `data/house/pdfs/` que les **547 PDF scannés** (le backlog OCR, non lisibles). Re-jouer une année
-  produirait donc une table digitale **vide** (0 doc lisible), jamais égale au golden.
+- **House digital** — pour **2020-2026**, les PDF *lisibles* (numériques) ont été parsés puis
+  écartés ; il ne reste sous `data/house/pdfs/` que les **614 scannés** (le backlog OCR, non
+  lisibles). Re-jouer une de ces années produirait donc une table digitale **vide** (0 doc lisible),
+  jamais égale au golden. Les années **2014-2019**, acquises en bloc (`--acquire`), sont embarquées
+  en entier (4 515 PDF).
 - **Senate** — le scraping eFD exige le réseau (cf. en-tête de `test_senate_repro.py`).
 
 On ne teste donc pas le bout-en-bout PDF→table ; on **reproduit chaque transformation depuis les
