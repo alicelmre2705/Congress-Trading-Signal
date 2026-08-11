@@ -8,12 +8,30 @@ Sources officielles : *House Clerk* (PTR PDF) et Sénat *eFD*, **électroniques*
 **+ scannées** (OCR Claude Vision). Quiver Quantitative sert de **vérification externe uniquement**,
 jamais réinjecté dans les tables.
 
-> **Publication par parties.** Cette branche `main` porte la version finale, partie par partie.
-> Celle-ci — **Partie 0 : récupération & nettoyage des données** (`00_recuperation_donnees/`) — est
-> la première ; suivront les autres types de dépôts (Schedule A/B, rapports annuels) puis la
-> recherche stratégie & backtests. L'historique de travail complet vit sur la branche `presentation`.
+> **Publication par parties.** Cette branche `main` porte la version finale, partie par partie —
+> un commit par partie. Publiées : **Partie 0 — récupération & nettoyage des données**
+> (`00_recuperation_donnees/`) et **Partie 1 — au-delà des PTR** (`01_autres_filing_types/` :
+> Schedule A/B, rapports annuels, photos d'entrée, portefeuilles House reconstruits). À venir :
+> la recherche stratégie & backtests. L'historique de travail complet vit sur la branche
+> `presentation`.
 
-## 🧭 Par où commencer
+## 🧭 Par où commencer — Partie 1 (au-delà des PTR)
+
+1. **[SYNTHESE_EXTRACTION_HOUSE.pdf](01_autres_filing_types/SYNTHESE_EXTRACTION_HOUSE.pdf)** —
+   le document maître de la partie : ce qui a été extrait, vérifié, et avec quelles garanties ;
+2. **[FICHE_HOUSE.pdf](01_autres_filing_types/FICHE_HOUSE.pdf)** — la fiche de référence
+   (synthèse graphique données + backtest) ;
+3. les deux decks : **[SLIDES_DONNEE_HOUSE_court.pdf](01_autres_filing_types/slides/SLIDES_DONNEE_HOUSE_court.pdf)**
+   (39 p.) et **[SLIDES_AUTRES_DEPOTS.pdf](01_autres_filing_types/slides/SLIDES_AUTRES_DEPOTS.pdf)** (35 p.).
+
+La chaîne de production : `V1_House.ipynb` (l'usine — index du Clerk → **20 tables gelées** dans
+`cache/tables/` + `MANIFEST.json` sha256) → `Portefeuilles_House_Complet.ipynb` (**le notebook de
+livraison**, P0→P7, chaque partie avec son bloc de validation) + `10_Stock_Divulgations_MathSpec.ipynb`
+(la stratégie « partir du portefeuille d'entrée ») + `Recuperation_photos_entree.ipynb`.
+`reference/` embarque des entrées **irremplaçables** (les 13 index XML instantanés du Clerk — le
+site purge les années anciennes — et les caches OCR payés).
+
+## 🧭 Par où commencer — Partie 0 (les données)
 
 1. **[SLIDES_DONNEES_S1S2_V2.pdf](00_recuperation_donnees/docs/SLIDES_DONNEES_S1S2_V2.pdf)** — le
    deck de présentation de la partie (recompilé et certifié conforme à sa source `.tex`) ;
@@ -56,6 +74,14 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                    RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf · quality/ ·
                    quiver_validation/ · sources/
   tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
+01_autres_filing_types/
+  V1_House.ipynb · Portefeuilles_House_Complet.ipynb · 10_Stock_Divulgations_MathSpec.ipynb ·
+  Recuperation_photos_entree.ipynb          la chaîne décrite ci-dessus
+  FICHE_HOUSE.* · SYNTHESE_EXTRACTION_HOUSE.*   les deux documents de référence
+  slides/          SLIDES_DONNEE_HOUSE_court · SLIDES_AUTRES_DEPOTS (+ leurs figures)
+  cache/           le contrat gelé : 20 tables CSV + MANIFEST.json (sha256)
+  reference/       entrées irremplaçables : index XML instantanés du Clerk, caches OCR, YAML élus
+  figures/ figures_house/   figures des fiches et decks
 pyproject.toml   installable :  pip install -e .
 ```
 
@@ -110,3 +136,5 @@ correction est donc prouvée par **reproduction depuis les colonnes figées** (`
 
 **Note data** : les PDF bruts House (447 Mo) et les caches eFD Sénat ne sont pas embarqués sur cette
 branche — `--acquire` les retélécharge au besoin ; le filet golden ne lit que `data/*/tables/`.
+Re-exécuter certains notebooks de la Partie 1 exige en plus des caches de prix locaux non versionnés
+(ils se reconstruisent via yfinance) ; les tables gelées de `cache/tables/`, elles, sont embarquées.

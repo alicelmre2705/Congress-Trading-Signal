@@ -1,0 +1,307 @@
+% !TEX program = tectonic
+% FICHE HOUSE — la donnée du dépôt au backtest, en un seul document. A4 portrait, 2 colonnes.
+% Synthèse GRAPHIQUE des fiches DONNÉES + BACKTEST : 3 actes, ~11 boîtes, une figure par boîte,
+% puces courtes, deux tailles de texte. Remplace FICHE_DONNEES_HOUSE et FICHE_BACKTEST_HOUSE.
+% Tous les chiffres viennent du run gelé de Portefeuilles_House_Complet.ipynb (canal OCR activé).
+% Figures : figures_house/ (extraites de ce même run, garanties cohérentes).
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1.05cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usetikzlibrary{positioning}
+
+\definecolor{bleu}{RGB}{20,77,144}
+\definecolor{vert}{RGB}{20,110,60}
+\definecolor{orange}{RGB}{196,110,0}
+\definecolor{rouge}{RGB}{160,30,30}
+\definecolor{grisf}{RGB}{110,110,110}
+\definecolor{grisc}{RGB}{205,205,205}
+
+\setlength{\columnsep}{5.5mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\setlist[itemize]{leftmargin=3.4mm,topsep=0.8mm,itemsep=0.7mm,parsep=0pt,label=\textbullet}
+
+% ── ruban : 11 pastilles, la courante pleine ────────────────────────────────
+\newcommand{\ruban}[1]{%
+  \begin{tikzpicture}[baseline=-0.6ex, x=1.9mm, y=1.9mm]
+    \foreach \k in {1,...,11}{%
+      \ifnum\k=#1\relax
+        \fill[white] (\k,0) circle (0.82);
+      \else
+        \fill[white, opacity=0.42] (\k,0) circle (0.52);
+      \fi}
+  \end{tikzpicture}}
+
+\newtcolorbox{etapebox}[3]{%
+  enhanced, breakable=false, colback=#2!3, colframe=#2!55, boxrule=0.5pt,
+  arc=2pt, left=2.2mm, right=2.2mm, top=1.6mm, bottom=1.6mm,
+  toptitle=0.6mm, bottomtitle=0.6mm, boxsep=0pt,
+  title={\begin{minipage}[c]{0.60\linewidth}\raggedright\footnotesize\bfseries
+           \textcolor{white}{#3}\end{minipage}\hfill
+         \begin{minipage}[c]{0.33\linewidth}\raggedleft\ruban{#1}\end{minipage}},
+  colbacktitle=#2, coltitle=white, fonttitle=\footnotesize\bfseries,
+  before skip=1.7mm, after skip=0mm}
+
+\newcommand{\reponse}[1]{{\footnotesize #1\par}\vspace{1mm}}
+\newcommand{\phare}[3]{%
+  \begin{center}\vspace{-0.4mm}
+  {\Large\bfseries\color{#3} #1}\\[0.3mm]{\footnotesize #2}
+  \end{center}\vspace{0.5mm}}
+\newcommand{\pts}[1]{{\footnotesize\begin{itemize}#1\end{itemize}}\vspace{0.6mm}}
+\newcommand{\vis}[1]{\vspace{0.6mm}\begin{center}\includegraphics[width=0.95\linewidth]{figures_house/#1}\end{center}\vspace{0.3mm}}
+\newcommand{\visb}[2]{\vspace{0.6mm}\begin{center}\includegraphics[width=#2\linewidth]{figures_house/#1}\end{center}\vspace{0.3mm}}
+\newcommand{\src}[1]{{\scriptsize\color{grisf} #1\par}}
+\newcommand{\acte}[2]{%
+  \vspace{1mm}{\footnotesize\bfseries\color{#2} #1}\vspace{-1.3mm}
+  \par{\color{#2}\rule{\linewidth}{1pt}}\vspace{0.5mm}}
+\newlength{\colw}\setlength{\colw}{0.4865\textwidth}
+\newcommand{\rangee}[2]{%
+  \noindent\begin{minipage}[t]{\colw}\vspace{0pt}#1\end{minipage}%
+  \hfill\begin{minipage}[t]{\colw}\vspace{0pt}#2\end{minipage}\par}
+
+\begin{document}
+
+% ═══════════════ CHAPEAU ═══════════════
+\begin{center}
+{\large\bfseries Du dépôt au backtest --- la donnée House de bout en bout}\\[0.2mm]
+{\scriptsize ce que les élus déposent $\rightarrow$ ce qu'on en reconstruit $\rightarrow$ ce que donne une
+stratégie qui les copie $\cdot$ House 2014-2026 $\cdot$ notebook \texttt{Portefeuilles\_House\_Complet}}
+\end{center}
+\vspace{0.9mm}
+
+\begin{tcolorbox}[enhanced, colback=white, colframe=grisc, boxrule=0.5pt, arc=2pt,
+                  left=3mm, right=3mm, top=1.1mm, bottom=1.1mm]
+{\footnotesize\bfseries\color{bleu} ACTE I --- la donnée}\hfill
+{\footnotesize\bfseries\color{vert} ACTE II --- la reconstruction}\hfill
+{\footnotesize\bfseries\color{orange} ACTE III --- la stratégie}\\[0.8mm]
+\begin{center}
+\begin{tikzpicture}[x=1.02cm, y=0.78cm, font=\scriptsize]
+\foreach \k/\lab/\c [count=\i from 0] in {%
+  1/pop./bleu, 2/att.\,vs\,obs./bleu, 3/invent./bleu, 4/tri/bleu,
+  5/valoriser/vert, 6/reconstr./vert, 7/vérifier/vert,
+  8/règle/orange, 9/réglage/orange, 10/{combien K}/orange, 11/portée/orange}{%
+  \ifnum\k<11 \draw[grisc, line width=0.9pt] ({\i*1.34+0.26}, 0) -- ({\i*1.34+1.08}, 0);\fi
+  \fill[\c] ({\i*1.34}, 0) circle (0.19);
+  \node[text=white, font=\tiny\bfseries] at ({\i*1.34}, 0) {\k};
+  \node[text=\c, font=\tiny, anchor=north, align=center] at ({\i*1.34}, -0.22) {\lab};}
+\end{tikzpicture}
+\end{center}
+\vspace{0.6mm}
+{\footnotesize\textbf{Les documents, une fois pour toutes.} Un membre dépose \textbf{cinq types} de
+documents ; deux \textbf{sections} comptent --- \textcolor{bleu}{\textbf{Schedule A}} = ce qu'il
+\textbf{possède} (positions), \textcolor{orange}{\textbf{Schedule B}} = ce qu'il a \textbf{échangé}
+(transactions).}
+\begin{center}\includegraphics[width=0.62\linewidth]{figures_house/fig_10_catalogue.png}\end{center}
+\vspace{-0.5mm}
+{\footnotesize Le \textbf{B (transactions) n'existe que dans P, O, T} ; H et C ne portent que le A.
+L'amendement (\textbf{A}) reprend les sections du document qu'il corrige. On \textbf{reconstruit} le
+portefeuille de chacun avec les transactions, on l'\textbf{ancre et le vérifie} avec les positions, puis
+une stratégie le \textbf{copie}.}
+\end{tcolorbox}
+
+\vspace{1mm}
+% ═══════════════ ACTE I — LA DONNÉE ═══════════════
+\acte{ACTE I --- la donnée : qui dépose quoi, et ce qu'on en garde}{bleu}
+\rangee{\begin{etapebox}{1}{bleu}{1 $\cdot$ LA POPULATION --- qui est là, qui trade}
+\reponse{Les \textbf{900 membres} et leurs 4 trajectoires viennent du \textbf{registre officiel des élus}
+(projet \emph{congress-legislators}), pas de nos dépôts (haut). \textbf{408} tradent des actions cotées,
+vus selon le \textbf{type de document} qui les révèle (bas).}
+\phare{408 sur 900}{membres qui tradent des actions cotées}{bleu}
+\vis{fig_10_quadrant.png}
+\vis{fig_10_trois_zones.png}
+\src{305 vus par les PTR (dont 199 aussi par un rapport annuel), 103 vus \emph{seulement} par un rapport
+annuel.\\
+source : registre officiel \texttt{congress-legislators} (les 900 $+$ leurs trajectoires) ; les 408 qui
+tradent $=$ PTR $\cup$ Schedule B, en actions cotées valorisables.}
+\end{etapebox}}{\begin{etapebox}{2}{bleu}{2 $\cdot$ A-T-ON CE QUI EST DÛ ? --- attendu vs observé}
+\reponse{Un \textbf{arrivé} doit une photo d'entrée, un \textbf{partant} une photo de sortie (plein $=$ observé,
+pointillés $=$ attendu). Et chacun, un rapport chaque année.}
+\phare{85 \%}{des années de mandat couvertes par un rapport (médiane)}{bleu}
+\vis{fig_recup_photos.png}
+\vis{fig_10_etape_sortie.png}
+\src{Les scans sont bien océrisés (l'étiquette \og{} hors périmètre \fg{} du registre est périmée) :
+\textbf{aucun manque ne vient d'un document \og{} pas exploité \fg{}}. Les membres sans photo ne détiennent
+\emph{aucune action cotée} (immobilier, fonds, banque, assurance-vie) ou n'ont rien déposé --- \textbf{aucune
+photo d'entrée d'un membre détenant une action cotée lisible} n'échappe au pipeline. Source : notebook
+\emph{Récupération photos d'entrée}.}
+\end{etapebox}}
+\vspace{2mm}
+\rangee{\begin{etapebox}{3}{bleu}{3 $\cdot$ L'INVENTAIRE --- deux schedules, deux métiers}
+\reponse{Deux sections, deux métiers qui n'ont \textbf{rien à voir}. Le \textbf{Schedule A} (positions) sert à
+\textbf{reconstruire le portefeuille} ; le \textbf{Schedule B} (transactions) se \textbf{compare aux PTR} pour
+ne garder que les ordres inédits.}
+\phare{3 sur 4}{lignes du Schedule B redisent déjà un PTR --- 26\,115 inédites}{bleu}
+\vis{fig_inventaire_ab.png}
+\pts{
+\item \textbf{Schedule A} : \textbf{609\,886} positions dans 14\,887 documents (C, H, O, T) --- la matière
+première du portefeuille (boîtes 4 et suivantes).
+\item \textbf{Schedule B} : \textbf{110\,147} transactions (O, T), \textbf{comparées aux PTR} --- 84\,032
+(76 \%) redisent un ordre déjà déclaré, seules \textbf{26\,115} sont inédites et complètent les 161\,076
+déclarations rapides.
+}
+\src{source : cellules \og inventaire documentaire \fg{} et \og flux O/A/T net \fg{} (colonne \texttt{echo\_ptr}).}
+\end{etapebox}}{\begin{etapebox}{4}{bleu}{4 $\cdot$ LE TRI --- action ou pas action}
+\reponse{Avant tout prix, chaque ligne reçoit une classe : action cotée, fonds, monétaire, ou code de
+formulaire. Le moteur ne verra que les actions et ETF.}
+\phare{231\,426 sur 609\,886}{lignes qui sont vraiment des actions ou des ETF}{bleu}
+\vis{fig_10_paysage.png}
+\pts{
+\item La majorité de ce qui est déclaré n'a pas de ticker : immobilier, sociétés non cotées, comptes.
+\item En valeur cumulée : 87,4 Md\$ sans ticker contre 12,8 Md\$ d'actions. Le patrimoine \emph{réel}, au
+dernier document de chaque membre, vaut \textbf{8,9 Md\$}.
+}
+\src{source : cellules \og classification \fg{} et \og paysage déclaré \fg{}. Valeurs = milieu de fourchette ; le cumul recompte un actif à chaque rapport, ce n'est pas un patrimoine.}
+\end{etapebox}}
+\vspace{2.6mm}
+
+% ═══════════════ ACTE II — LA RECONSTRUCTION ═══════════════
+\acte{ACTE II --- la reconstruction : de la ligne déclarée au portefeuille vérifié}{vert}
+\rangee{\begin{etapebox}{5}{vert}{5 $\cdot$ VALORISER --- les transactions retenues}
+\reponse{Une transaction n'entre au moteur que si l'on connaît le prix de son titre le jour dit. Trois
+sources s'additionnent, chacune datée.}
+\phare{129\,538}{transactions datées et valorisées}{vert}
+\vis{fig_10_delais.png}
+\pts{
+\item \textbf{107\,976} déclarations rapides (PTR, publiques en 27 jours) $+$ les \textbf{inédites} du
+Schedule B qu'on a pu valoriser : \textbf{14\,084} d'annuels (sur les 26\,115) $+$ \textbf{7\,478} de scans.
+\item Deux horloges pour une même transaction : la rapide est un \emph{signal}, l'annuelle un
+\emph{enregistrement}. Chaque transaction garde sa provenance.
+}
+\src{source : cellules \og livre de comptes O/A/T \fg{} et \og délais \fg{}. Chaque ligne écartée a une raison affichée.}
+\end{etapebox}}{\begin{etapebox}{6}{vert}{6 $\cdot$ RECONSTRUIRE --- la photo devient un portefeuille}
+\reponse{Une photo donne des fourchettes de valeur, pas des quantités. On la convertit en parts détenues
+au prix du jour de son dépôt, puis on applique les transactions.}
+\phare{243}{portefeuilles de départ construits}{vert}
+\vis{fig_10_entonnoir_h0.png}
+\begin{center}\footnotesize
+$h_0 = \dfrac{\tilde v}{P(\text{jour du dépôt})}$ \quad achat $h \mathrel{+}= \dfrac{\tilde v}{P}$ \quad
+vente $h \mathrel{-}= \min(q,h)$
+\end{center}
+\vspace{0.4mm}
+\pts{
+\item Prix du jour du \textbf{dépôt}, jamais antérieur : rien ne regarde le futur. 84,5 \% de la valeur en
+actions des photos devient des parts.
+\item Sans photo, un membre part de zéro : son point de départ n'est pas nul, il est inconnu.
+}
+\src{source : cellules \og $h_0$ en parts \fg{} et \og livre de comptes photos \fg{}.}
+\end{etapebox}}
+\vspace{2mm}
+\rangee{\begin{etapebox}{7}{vert}{7 $\cdot$ VÉRIFIER --- les rapports annuels jugent}
+\reponse{Le rapport annuel dit ce que l'élu possédait vraiment. On confronte notre reconstruction à cette
+déclaration, position par position, à la date du dépôt.}
+\phare{9 \% $\rightarrow$ 57 \%}{des positions déclarées retrouvées, sur la photo médiane}{vert}
+\vis{fig_10_recouvrement.png}
+\pts{
+\item Avec les seules déclarations rapides, la reconstruction ne retrouve que 9 \% des positions déclarées.
+Avec le \textbf{dossier complet} (photo d'entrée $+$ rapports annuels), \textbf{57 \%} --- six fois plus.
+\item Sans perdre en justesse : la précision passe de 55 à 56 \%, la valeur de 44 à 47 \%. Médianes sur
+1\,557 et 1\,878 photos. Même exercice sur 136 photos de sortie : 60 \% retrouvé.
+}
+\src{source : cellules \og confrontation \fg{} et \og agrégats \fg{}. C'est le juge indépendant de tout ce qui suit.}
+\end{etapebox}}{\begin{tcolorbox}[enhanced, breakable=false, colback=grisc!12, colframe=grisc, boxrule=0.5pt,
+                  arc=2pt, left=2.2mm, right=2.2mm, top=1.6mm, bottom=1.6mm,
+                  toptitle=0.6mm, bottomtitle=0.6mm, boxsep=0pt, before skip=1.7mm, after skip=0mm,
+                  colbacktitle=grisf, coltitle=white, fonttitle=\footnotesize\bfseries,
+                  title={CHARNIÈRE --- ce qu'on a en main pour la suite}]
+\reponse{Fin de la reconstruction. On dispose maintenant, pour chaque membre qui trade, d'un
+\textbf{portefeuille daté}, vérifié contre ses propres déclarations annuelles.}
+\pts{
+\item Trois compteurs, trois regards : \textbf{408} membres tradent des actions ; \textbf{243} partent
+d'une photo de départ (les autres, de zéro) ; \textbf{376} ont un portefeuille copiable au bout du compte.
+\item \textbf{129\,538} transactions les font vivre jour après jour.
+\item L'Acte III pose une seule question : \textbf{les copier rapporte-t-il ?} On garde exactement la même
+donnée, on change seulement ce qu'on en fait.
+}
+\end{tcolorbox}}
+\vspace{2.6mm}
+
+% ═══════════════ ACTE III — LA STRATÉGIE ═══════════════
+\acte{ACTE III --- la stratégie : on empile des tests, une mesure à chaque fois}{orange}
+\rangee{\begin{etapebox}{8}{orange}{8 $\cdot$ LA RÈGLE --- copier les mieux classés}
+\reponse{Le portefeuille reconstruit d'un membre est un \textbf{fonds} : on en achète des parts. La règle
+testée est la plus simple du projet.}
+\phare{376}{membres dont le portefeuille peut être copié}{orange}
+\vis{fig_10_valeur_part.png}
+\pts{
+\item \textbf{Éligible} à chaque 31 décembre si $\ge$ 126 jours d'historique et Sharpe $> 0{,}4$ --- sans
+jamais regarder l'avenir.
+\item Chaque année, trois gestes : \textbf{compter} le capital, le \textbf{redéployer} à parts égales sur
+les mieux classés, \textbf{tenir} un an. Rien n'entre, rien ne sort.
+}
+\src{source : cellules \og un membre = un fonds \fg{} et \og le moteur en trois temps \fg{}.}
+\end{etapebox}}{\begin{etapebox}{9}{orange}{9 $\cdot$ LE RÉGLAGE --- face au SPY}
+\reponse{Le nombre de membres copiés est choisi chaque année sur le passé seulement. Voici ce que donne ce
+réglage de base contre le \textbf{SPY}, l'indice des grandes actions américaines (dividendes réinvestis).}
+\phare{$+0{,}2$ \%}{d'écart au SPY par an, en moyenne sur 11 années}{orange}
+\vis{fig_10_nav.png}
+\pts{
+\item 100~\$ placés au départ donnent 451~\$ au bout de 10,5 ans, contre 433~\$ pour le SPY.
+\item Quatre années au-dessus du marché, sept en dessous : la moyenne ne se lit pas sans son incertitude
+(étape 11).
+}
+\src{source : cellule \og le réglage de base \fg{}.}
+\end{etapebox}}
+\vspace{2mm}
+\rangee{\begin{etapebox}{10}{orange}{10 $\cdot$ COMBIEN COPIER --- le nombre K}
+\reponse{On change un seul réglage : le nombre de membres copiés, fixé de 4 à 20, et on regarde ce que
+devient l'écart au marché.}
+\phare{K = 5}{le nombre qui produit le plus grand écart mesuré}{orange}
+\vis{fig_10_balayage_k.png}
+\pts{
+\item L'écart est maximal au milieu de la grille : $K = 5$ donne $+1{,}3$ \%/an. Copier très peu ne fait
+pas grandir l'écart, cela le rend plus instable ; copier beaucoup le dilue puis l'inverse.
+\item Aucune valeur de $K$ n'approche le seuil de 1,81 : le meilleur cas atteint $t = 0{,}63$.
+}
+\src{source : cellule \og le balayage de K \fg{}.}
+\end{etapebox}}{\begin{etapebox}{11}{orange}{11 $\cdot$ LA SOURCE, ET LA PORTÉE DU TEST}
+\reponse{Même règle, quatre jeux de données (courbes ci-dessous). Puis la question qu'aucune mesure ne
+règle : avec onze années, qu'aurait-on pu détecter ?}
+\phare{4,6 \%}{l'écart annuel minimal détectable huit fois sur dix}{orange}
+\vis{fig_10_sources.png}
+{\footnotesize écart/an $\cdot$ $t$ : rapides $+0{,}9$/$0{,}37$ $\cdot$ $+$photo $-0{,}7$/$-0{,}23$ $\cdot$
+$+$annuels $+0{,}1$/$0{,}07$ $\cdot$ complet $+0{,}2$/$0{,}13$ ($\beta \approx 0{,}9$ partout).}
+\vspace{0.5mm}
+\pts{
+\item Les quatre sources restent \textbf{toutes proches de zéro} ($-0{,}7$ à $+0{,}9$ \%/an) : enrichir la
+donnée change ce qu'on copie, pas l'écart au marché.
+\item Le plus haut $t$ est $0{,}37$, loin de 1,81. Mais sous 4,6 \%/an, un écart réel serait resté
+invisible : le $t$ faible \textbf{borne} ce qu'on voit, il ne prouve pas qu'il n'y a rien.
+}
+\src{source : cellules \og le réglage de base \fg{} (4 sources) et \og la puissance du test \fg{} ($\sigma = 5{,}7$ \%/an).}
+\end{etapebox}}
+\vspace{2mm}
+
+% ═══════════════ CLÔTURE ═══════════════
+\begin{tcolorbox}[enhanced, colback=rouge!3, colframe=rouge!45, boxrule=0.5pt, arc=2pt,
+                  left=3mm, right=3mm, top=1.6mm, bottom=1.6mm,
+                  colbacktitle=rouge, coltitle=white, fonttitle=\footnotesize\bfseries,
+                  title={CE QUE CETTE PREMIÈRE VERSION NE DIT PAS}]
+\begin{multicols}{2}
+\pts{
+\item \textbf{Datation à l'opération}, pas à la publication : les chiffres sont une \textbf{borne haute}.
+\item \textbf{Aucun coût de transaction} n'est appliqué.
+\item \textbf{Aucun placebo}, une seule pondération (parts égales), une seule règle (le Sharpe).
+\item \textbf{Le juge reste la vérification} (étape 7) : elle dit si la reconstruction colle aux
+déclarations, que la stratégie gagne ou non.
+}
+\end{multicols}
+\vspace{-1mm}
+{\scriptsize\color{grisf}\textbf{Pourquoi croire ces chiffres} : empreinte sha256 des tables conforme au
+manifeste $\cdot$ cascades et tableaux vérifiés par assert $\cdot$ classe d'actif décidée avant tout prix
+$\cdot$ moteur testé de trois façons ($r=0$ à l'injection, recalcul naïf, photo recomptée) $\cdot$ aucun
+chiffre écrit en dur : tout se régénère en ré-exécutant le notebook.}
+\end{tcolorbox}
+
+\end{document}

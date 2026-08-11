@@ -1,0 +1,58 @@
+{
+ "doc_id": "9107015",
+ "member": "Albio Sires",
+ "filing_type": "O",
+ "model": "claude-sonnet-5",
+ "prompt_sha": "76ca0838b43c",
+ "dpi": 200,
+ "n_pages": 8,
+ "created_utc": "2026-07-13T13:02:46.655533+00:00",
+ "status": "ok",
+ "batches": 2,
+ "holdings": [
+  {
+   "asset_description": "UTD Bank - Checking",
+   "owner": "Joint",
+   "ticker": null,
+   "value_range": "$1,001-$15,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Merrill Lynch Brokerage",
+   "owner": "Spouse",
+   "ticker": null,
+   "value_range": "$15,001-$50,000",
+   "txn_flag": null
+  },
+  {
+   "asset_description": "Conoco Phillips Stock",
+   "owner": "Spouse",
+   "ticker": null,
+   "value_range": "$15,001-$50,000",
+   "txn_flag": "S(part)"
+  },
+  {
+   "asset_description": "Phillips 66",
+   "owner": "Spouse",
+   "ticker": null,
+   "value_range": "$1-$1,000",
+   "txn_flag": "S(part)"
+  },
+  {
+   "asset_description": "Pfizer",
+   "owner": "Spouse",
+   "ticker": null,
+   "value_range": "$250,001-$500,000",
+   "txn_flag": null
+  }
+ ],
+ "transactions": [
+  {
+   "asset_description": "Conoco Phillips Stock",
+   "transaction_type": "Partial Sale",
+   "owner": "Spouse",
+   "transaction_date": "2014-03-05",
+   "amount_range": "$15,001-$50,000"
+  }
+ ]
+}
