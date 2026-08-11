@@ -41,7 +41,8 @@ common/   le cœur partagé : schema (clé naturelle, corrections read-time) · 
 house/    pipeline Chambre : acquire · digital · ocr · …          ← jumeau de senate/
 senate/   pipeline Sénat   : digital · ocr · fusion · … · report_types_probe (collecteur eFD, opt-in)
 data/     house/ · senate/ (tables FINAL figées) · reference/ (référentiels déclaratifs) ·
-          external/ (collectes tierces — jamais réinjectées) · clean/ (les 4 tables de recherche)
+          external/ (collectes tierces — jamais réinjectées) · quiver_validation/ (les preuves
+          ligne à ligne de la validation Quiver, 13 CSV) · clean/ (les 4 tables de recherche)
 png/      les images — figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (partie II du deck)
           (le README de png/ = la carte qui-produit-quoi, qui-consomme-quoi)
 tests/    golden 230 + 138 fichiers (SHA256) + tests de régression — tout doit dire « ZÉRO ÉCART »
@@ -58,6 +59,19 @@ tests/    golden 230 + 138 fichiers (SHA256) + tests de régression — tout doi
 
 Le détail de chaque étape du nettoyage, son code (`module :: fonction`) et ses référentiels :
 **§7 du rapport**.
+
+## Comment la donnée est validée — quatre étages de preuve
+
+| étage | contre quoi | résultat | où c'est prouvé |
+|---|---|---|---|
+| 1 · **L'univers officiel** | l'index annuel du House Clerk (`{Y}FD.xml`, versionnés dans `data/house/index/`) | **100 % des 8 252 PTR officiels 2014-2026 traités** — parsés, OCRisés, ou écartés par une règle écrite | rapport **§1** · `common/quality.py :: official_coverage` |
+| 2 · **Quiver Quantitative** | la vérité-terrain commerciale — **jamais réinjectée** dans nos tables | **93,5 % (House) / 92,1 % (Sénat)** des combinaisons Quiver (déposant, ticker, sens) retrouvées dans la fenêtre commune ; le solde net est **en notre faveur** (on a plus de trades cotés que Quiver) ; chaque désaccord de date ou de champ est typé un à un | rapport **§6** (6.1 → 6.6) · `common/quiver_diagnosis.py` · les preuves ligne à ligne : `data/quiver_validation/` (13 CSV, régénérés avec le rapport) |
+| 3 · **Deux collectes tierces indépendantes** | *senate-stock-watcher* et *house-stock-watcher*, qui re-lisent les mêmes sources officielles (JSON versionnés dans `data/external/`) | **99,7 % / 99,6 %** de nos lignes d'actions retrouvées **à la transaction près** (déposant · ticker · sens · date) | rapport **§8** · `common/crosscheck.py` |
+| 4 · **Le filet interne** | le dépôt lui-même, rejoué hors-ligne depuis un clone | golden **230 + 138 fichiers** verrouillés par SHA256, « ZÉRO ÉCART » ; les 4 tables de `data/clean/` reconstruites à l'identique | `tests/regression/` (les trois commandes ci-dessous) |
+
+Pourquoi Quiver et les collectes tierces ne sont **jamais réinjectés** : une source qui servirait
+à la fois à construire et à vérifier ne prouverait rien. Elles ne servent qu'à **mesurer** —
+et les mesures sont recalculées à chaque régénération du rapport.
 
 ## Vérifier
 
