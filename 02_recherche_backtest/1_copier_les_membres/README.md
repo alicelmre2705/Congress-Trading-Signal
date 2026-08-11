@@ -1,11 +1,9 @@
-# Strate 2 — copier les membres
+# 1 · Copier les membres *(strate 2 de la carte de la recherche)*
 
 La question : *copier les meilleurs élus bat-il le marché ?* Le notebook de la strate :
-[`05b_Portefeuille_Membre_MathSpec.ipynb`](05b_Portefeuille_Membre_MathSpec.ipynb) — la
-spécification mathématique (reconstruction des portefeuilles, IR/appraisal, top-K walk-forward,
-pondérations, Ledoit-Wolf) **et son autopsie** (§13-§17). Rendu :
-[HTML](05b_Portefeuille_Membre_MathSpec.html) (ses 27 figures y sont, elles vivent dans le
-notebook).
+[`copier_les_membres.ipynb`](copier_les_membres.ipynb) — la spécification mathématique
+(reconstruction des portefeuilles, IR/appraisal, top-K walk-forward, pondérations, Ledoit-Wolf)
+**et son autopsie** (§13-§17). Ses 27 figures vivent dans le notebook (sorties figées).
 
 ## Les résultats
 
@@ -26,12 +24,10 @@ adossés à la table v1 du 04/07 (archivée).
 
 ## `etudes/` — comprendre la population (pas une strate)
 
-- [`07_Comprendre_Portefeuilles_Membres`](etudes/07_Comprendre_Portefeuilles_Membres.ipynb) —
-  qui trade, comment, six portraits ([HTML](etudes/07_Comprendre_Portefeuilles_Membres.html)) ;
-  il re-prouve le moteur du 05b par ré-exécution indépendante ;
-- [`12_Population_et_Portraits`](etudes/12_Population_et_Portraits.ipynb) — l'usine à images de
-  la partie II du deck ([HTML](etudes/12_Population_et_Portraits.html)) ; ses figures vivent dans
-  `00_recuperation_donnees/png/figs_pop/`.
+- [`etude_population.ipynb`](etudes/etude_population.ipynb) — qui trade, comment, six portraits ;
+  il re-prouve le moteur de `copier_les_membres` par ré-exécution indépendante ;
+- [`etude_portraits.ipynb`](etudes/etude_portraits.ipynb) — l'usine à images de la partie II du
+  deck ; ses figures vivent dans `00_recuperation_donnees/png/figs_pop/`.
 
 ![La population qui trade, dans le temps](../../00_recuperation_donnees/png/figs_pop/P1_population_temps.png)
 

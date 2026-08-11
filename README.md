@@ -22,27 +22,28 @@ jamais réinjecté dans les tables.
 0. **[LA CARTE DE LA RECHERCHE](02_recherche_backtest/README.md)** — le README de la partie :
    **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son résultat
    chiffré et l'endroit où c'est prouvé — pour ne jamais ré-explorer une piste morte ;
-1. **[FICHE_M3.pdf](02_recherche_backtest/strate_7_livrable_M3/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
+1. **[FICHE_M3.pdf](02_recherche_backtest/3_livrable_M3/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
    (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
    sa version ETF, et le portefeuille final à **deux poches** (SPY + signal sectoriel, dose pilotée
-   par le budget de risque). Adossée au notebook `16_M3_Complet.ipynb` — tout ce que la fiche
+   par le budget de risque). Adossée au notebook `M3_preuve_complete.ipynb` — tout ce que la fiche
    affirme y est établi ;
-2. **[PAPIER_METHODE.pdf](02_recherche_backtest/strate_5_noter_les_titres/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
+2. **[PAPIER_METHODE.pdf](02_recherche_backtest/2_noter_les_titres/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
    côte à côte (notebook 11) ;
-3. **[FICHE_STRAT_TICKER_22JUIL.pdf](02_recherche_backtest/strate_5_noter_les_titres/FICHE_STRAT_TICKER_22JUIL.pdf)** — la
+3. **[FICHE_NOTER_LES_TITRES.pdf](02_recherche_backtest/2_noter_les_titres/FICHE_NOTER_LES_TITRES.pdf)** — la
    spécification de la ligne « par titre » et ses six tests ;
-4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/strate_5_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
+4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/2_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
    documents officiels des ETF NANC/GOP disent (17 pièces citées, passages surlignés ;
    version auto-portante : `AUDIT_FONDS_NANC_GOP_COMPLET.pdf`, 798 p.) ;
-5. **[ETAT_DE_L_ART_STRATEGIES.md](02_recherche_backtest/strate_5_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md)** — 69
+5. **[ETAT_DE_L_ART_STRATEGIES.md](02_recherche_backtest/2_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md)** — 69
    fiches de littérature vérifiées en source primaire.
 
-Le chemin de la recherche, notebook par notebook : `05b` (copier les élus — **pas d'alpha**, et
-l'autopsie qui le prouve) → `07`/`12` (comprendre la population, les portraits) → `09` (les tables
-propres `tables/`) → `11` (noter les **titres** plutôt que copier les élus : méthodes M1-M4,
-réplique NANC/GOP) → **`16`** (M3 complet + version ETF + le livrable deux poches). Chaque notebook
-a son rendu `.html` consultable sans Jupyter. Pour prolonger la recherche sans recopier le nb 16 :
-le paquet **[`tools/`](02_recherche_backtest/tools/README.md)** — son moteur extrait et prouvé
+Le chemin de la recherche, dans l'ordre des trois dossiers : `copier_les_membres` (**pas
+d'alpha**, et l'autopsie qui le prouve ; + `etudes/` — la population, les portraits) →
+`noter_les_titres` (noter les **titres** plutôt que copier les élus : méthodes M1-M4, répliques
+NANC/GOP et Quiver) → **`M3_preuve_complete`** (M3 complet + version ETF + le livrable deux
+poches) et `M3_table_pipeline` (la même lignée rejouée sur la table courante du pipeline —
+aucune conclusion ne change). Le socle des deux derniers est le paquet
+**[`tools/`](02_recherche_backtest/tools/README.md)** — le moteur extrait et prouvé
 (`python -m tools.test_ancres` rejoue M3 et retrouve les ancres gelées).
 
 ## 🧭 Par où commencer — Partie 1 (au-delà des PTR)
@@ -106,8 +107,8 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                    secteurs, snapshots commissions par Congrès · clean/ ← table canonique)
   (racine)         README.md (la carte du dossier) · SLIDES_DONNEES (le deck, .tex + .pdf) ·
                    RAPPORT_DONNEES (.md + .pdf — régénérable)
-  png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
-                   — le README de png/ dit qui produit quoi
+  png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/
+                   (etude_portraits du 02) — le README de png/ dit qui produit quoi
   tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 01_autres_filing_types/
   V1_House.ipynb · Portefeuilles_House_Complet.ipynb · 10_Stock_Divulgations_MathSpec.ipynb ·
@@ -118,16 +119,17 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   reference/       entrées irremplaçables : index XML instantanés du Clerk, caches OCR, YAML élus
   figures/ figures_house/   figures des fiches et decks
 02_recherche_backtest/
-  README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, verdicts chiffrés, pièges
-  tools/           le moteur du nb 16 extrait et prouvé — pour la strate suivante
-  09_Tables_Membres_Tickers + tables/   le socle : les 4 tables propres et leur producteur
-  strate_2_copier_les_membres/   05b (la strate) + etudes/ (07 · 12 — la population, pas la strate)
-  strate_5_noter_les_titres/     11 (socle, tests, méthodes) · 11b (réplique NANC/GOP) ·
-                                 11c (stratégies Quiver) · PAPIER_METHODE · FICHE_STRAT_TICKER ·
-                                 AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs_nb11/ ·
-                                 docs_nanc_gop/ · docs_nanc_gop_surlignes/ (les 18 pièces)
-  strate_7_livrable_M3/          16 · 17 (table courante, sur tools) · FICHE_M3 · figs_nb16/
-  tables/          les tables propres du nb 09 (membres, tickers, membres_annees + dictionnaire)
+  README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, résultats chiffrés, pièges,
+                   et la correspondance notebooks historiques ↔ fichiers renommés
+  tools/           le moteur de la lignée titre, extrait et prouvé sur les ancres
+  tables_membres_tickers.ipynb + tables/   le socle : les 4 tables propres et leur producteur
+  1_copier_les_membres/   copier_les_membres (la strate) + etudes/ (population · portraits)
+  2_noter_les_titres/     noter_les_titres (socle, tests, méthodes) · replique_NANC_GOP ·
+                          repliques_quiver · PAPIER_METHODE · FICHE_NOTER_LES_TITRES ·
+                          AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs/ ·
+                          docs_nanc_gop/ · docs_nanc_gop_surlignes/ (les 18 pièces)
+  3_livrable_M3/          M3_preuve_complete (sur tools, gen 2) · M3_table_pipeline (la table
+                          courante) · FICHE_M3 · figs/ · ancres_table_courante.json
 pyproject.toml   installable :  pip install -e .
 ```
 
@@ -186,4 +188,4 @@ Re-exécuter certains notebooks des Parties 1 et 2 exige en plus des caches de p
 versionnés (ils se reconstruisent via yfinance) ; les tables gelées (`cache/tables/` du 01,
 `tables/` du 02) et les quelques caches non re-téléchargeables (N-PORT, OCR récupéré, prix de
 tickers disparus) sont, eux, embarqués. Les sorties des notebooks restent lisibles dans les
-`.ipynb`/`.html` sans rien exécuter.
+`.ipynb` sans rien exécuter.
