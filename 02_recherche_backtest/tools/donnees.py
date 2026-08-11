@@ -37,11 +37,14 @@ def charger(verbose=True, table=None):
     coupes_tout, i_start, FF, ordre_d/I_de (index trié sur la divulgation).
     """
     chemin = {None: CLEAN, "v1": CLEAN_V1}.get(table, Path(table) if table else CLEAN)
-    df0 = pd.read_csv(chemin, usecols=["bioguide_id", "member_name", "ticker_yahoo", "direction",
-                                      "transaction_date", "disclosure_date", "amount_midpoint",
-                                      "asset_class", "chamber", "committee_membership",
-                                      "committees_key_flag", "sector_gics", "flag_late_filing",
-                                      "party", "etf_proxy"],
+    # colonnes voulues ∩ colonnes présentes : la v1 porte committee_membership inline, la table
+    # courante l'a normalisée en annexe (NOTE_DIFF_TABLE_CLEAN) — tools n'en a pas besoin.
+    voulues = ["bioguide_id", "member_name", "ticker_yahoo", "direction", "transaction_date",
+               "disclosure_date", "amount_midpoint", "asset_class", "chamber",
+               "committee_membership", "committees_key_flag", "sector_gics", "flag_late_filing",
+               "party", "etf_proxy"]
+    entete = pd.read_csv(chemin, nrows=0).columns
+    df0 = pd.read_csv(chemin, usecols=[c for c in voulues if c in entete],
                       parse_dates=["transaction_date", "disclosure_date"])
     a = df0[df0.asset_class == "stock"]                                                  # actions seules
     b = a[(a.transaction_date.dt.year >= 2014) & (a.transaction_date.dt.year <= 2026)]   # fenêtre canonique

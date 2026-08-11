@@ -153,3 +153,30 @@ def gamma_purge(D, seuil):
             continue
         gam[idx] = (sum(q for h, q in pieces if h <= seuil) + reste) / tot
     return gam
+
+
+def poids_netting(D, gamma, i1, parti, topN=TOPN, cap=CAP):
+    """M3 à l'identique, sauf que les ventes récentes réduisent la position (γ par vente).
+
+    `gamma` vient de gamma_purge(D, seuil) — le seuil est un résultat de recherche (756 j au
+    prospectus). Plancher 0 PAR ÉLU : jamais de position négative. (nb 16, §17.1)
+    """
+    lo, hi = np.searchsorted(D.I_de, i1 - W3, "right"), np.searchsorted(D.I_de, i1, "right")
+    g = D.df.iloc[D.ordre_d[lo:hi]]
+    g = g[g.party == parti]
+    if not len(g):
+        return {}
+    tkm = g.tk.map(lambda t: FUSION.get(t, t)).values
+    sg = g.A.values * np.where(g.op.values == "buy", 1.0, -gamma[g.index.values])
+    per = pd.Series(sg).groupby([g.bioguide_id.values, tkm]).sum()
+    per = per[per > 0]
+    if not len(per):
+        return {}
+    neti, mi = per.groupby(level=1).sum(), per.groupby(level=1).size()
+    score = (neti * mi).dropna()
+    score = score[[t for t in score.index
+                   if t in D.PXV and np.isfinite(D.PXV[t][i1 + 1]) and D.vivant(t, i1)]]
+    score = score.sort_values(ascending=False).head(topN)
+    if not len(score) or score.sum() <= 0:
+        return {}
+    return cap_poids(score / score.sum(), cap).to_dict()

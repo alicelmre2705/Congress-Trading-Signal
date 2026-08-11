@@ -30,6 +30,14 @@ paramètre libre, **TE\***, est le budget de risque du client — la question à
 
 ![Les deux poches : NAV, risque estimé, dose](figs_nb16/deux_poches.png)
 
+## La génération 2 : la table du pipeline
+
+[`17_M3_Table_Courante.ipynb`](17_M3_Table_Courante.ipynb) ([HTML](17_M3_Table_Courante.html)) —
+le notebook **mince** (20 cellules, 33 s, tout sur `tools/`) qui rejoue chaque bloc de la fiche
+sur la **table courante** du pipeline : **+3,42 / +1,21 / +2,51** contre +3,40 / +1,24 / +2,51
+publiés, ETF +1,49, IR des deux poches constant (0,648), calibration 1,28 — **aucune conclusion
+ne change**. Ses ancres : [`ancres_table_courante.json`](ancres_table_courante.json).
+
 *Le chemin complet des pistes testées : [la carte de la recherche](../README.md). Les ancres
-ci-dessus sont adossées à la table v1 du 04/07 (archivée) — reproduction : `python -m
-tools.test_ancres` depuis la racine du 02.*
+de la fiche sont adossées à la table v1 du 04/07 (archivée) — reproduction : `python -m
+tools.test_ancres` depuis la racine du 02 ; la table courante se lit dans le notebook 17.*
