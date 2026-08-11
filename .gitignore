@@ -12,14 +12,10 @@ __pycache__/
 build/
 dist/
 *.log
-# Caches API (volumineux, regenerables)
-**/samples/quiver_cache.json
-**/quiver/congress_trades_raw.json
 # Sénat (data/senate) — caches eFD régénérables : HTML des PTR + media .gif scannés (~230 MB,
-# re-téléchargeables depuis efd-media-public) + sortie intermédiaire du pilote OCR
-# (data/ a été déplacé sous 00_recuperation_donnees/ — motifs ré-ancrés)
+# re-téléchargeables depuis efd-media-public). NB : tables/_pilote_ocr.csv reste versionné —
+# le golden manifest Sénat l'inventorie (il fait partie du corpus figé).
 00_recuperation_donnees/data/senate/reports/
-00_recuperation_donnees/data/senate/_pilote_ocr.csv
 
 # utilitaire perso (garder le Mac éveillé) — hors dépôt
 keepawake
