@@ -4,7 +4,8 @@ Toutes les pièces qui ont servi à établir le fonctionnement de ces deux ETF.
 Chaque document est le document officiel tel que déposé ou publié, converti en PDF sans retouche.
 **Les numéros suivent l'importance** : [1]–[3] établissent la règle, [4]–[8] le changement de régime d'août 2024,
 [9]–[12] les chiffres publiés, [13]–[17] le contexte.
-Les renvois `[n p.X]` de **FICHE_NANC_GOP** pointent directement vers ces fichiers, à la page indiquée.
+Les renvois `[n p.X]` de **AUDIT_FONDS_NANC_GOP** pointent vers ces pièces (version surlignée), à la
+page indiquée ; ceux de la fiche archivée `../_archive/FICHE_NANC_GOP.pdf` faisaient de même.
 
 ⚠️ Les fonds relèvent de **Tidal Trust I** (CIK 1742912) depuis fin 2024, et de **Series Portfolios Trust**
 (CIK 1650149) avant : les dépôts SEC sont donc répartis sur deux identifiants.
@@ -65,9 +66,11 @@ sur la fiche, que vous avez ouverte vous-même, mais **aucune sur le fichier cib
 « vous ne disposez pas de l'autorisation nécessaire pour l'afficher ». Retirer l'attribut de quarantaine ne
 suffit pas — ce n'est pas lui le coupable.
 
-**La solution retenue : `../FICHE_NANC_GOP_avec_sources.pdf`** — la fiche (3 p.) suivie des documents cités,
-dans **un seul fichier**, avec les renvois convertis en liens **internes**. Un seul fichier à autoriser,
-et un clic tombe sur la page exacte, où le passage utilisé est **surligné en jaune**.
+**La solution retenue : `../AUDIT_FONDS_NANC_GOP_COMPLET.pdf`** — l'audit (2 p.) suivi des 18 pièces
+citées, dans **un seul fichier** (798 p.), avec les renvois convertis en liens **internes**. Un seul
+fichier à autoriser, et un clic tombe sur la page exacte, où le passage utilisé est **surligné en
+jaune**. (L'équivalent pour la fiche de réplique, `FICHE_NANC_GOP_COMPLET.pdf`, est archivé —
+il portait des chiffres périmés, cf. `../_archive/README.md`.)
 
 ## Deux documents s'appuient sur ce dossier
 
@@ -75,7 +78,9 @@ et un clic tombe sur la page exacte, où le passage utilisé est **surligné en 
   la règle dite ailleurs par les gérants, le changement de régime d'août 2024, les chiffres publiés, et ce que les
   documents **ne** disent **pas**. Aucun calcul de notre part. Chaque affirmation porte sa citation en langue
   originale. La version **`_COMPLET`** (798 p.) contient les 18 pièces à la suite, renvois cliquables internes.
-- **`../FICHE_NANC_GOP.pdf`** (3 p.) — **notre travail** : les trois répliques, la fidélité mesurée, le diagnostic λ.
+- **`../_archive/FICHE_NANC_GOP.pdf`** (4 p., archivée) — **notre travail** : les trois répliques, la
+  fidélité mesurée, le diagnostic λ. La mesure vivante est portée par le notebook 11 (§13) et
+  `FICHE_STRAT_TICKER_22JUIL`.
 
 ## Deux dossiers, deux usages
 
@@ -83,8 +88,9 @@ et un clic tombe sur la page exacte, où le passage utilisé est **surligné en 
 - **`docs_nanc_gop_surlignes/`** — les mêmes, avec **162 passages surlignés en jaune** : exactement ce sur quoi
   la fiche s'appuie, page par page. C'est cette version qui est fusionnée dans le PDF auto-portant.
 
-Les deux sont régénérables : `scratchpad/surligner.py` (surlignage, avec rapport d'échec par fragment) puis
-`scratchpad/fiche_autoportante.py` (fusion et conversion des liens).
+⚠️ Les scripts qui les ont produits (`surligner.py`, `fiche_autoportante.py`) vivaient dans un
+scratchpad de session et n'ont **pas** été conservés : les deux dossiers sont des **artefacts figés**,
+non régénérables. Le contrôle qu'ils avaient effectué reste acquis (ci-dessous).
 
 ## Ce que le surlignage a vérifié au passage
 
