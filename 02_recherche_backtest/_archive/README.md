@@ -247,3 +247,12 @@ moteur backtest en `.py` (`data`, `prices`, `portfolio`, `selection`, `evaluate`
 `recherche_v1/02_construction_table_2014_2026.ipynb`). Il n'avait rien à faire dans la couche
 données : le voici sous `recherche_v0/`, la strate la plus ancienne de la recherche — antérieure à
 `recherche_v1/`. Zéro collision de nom, `git mv` intégral.
+
+---
+
+## 2026-08-11 (soir) — le dossier actif est passé en strates
+
+L'actif est désormais organisé par strates : `strate_2_copier_les_membres/` (05b·07·09·12),
+`strate_5_noter_les_titres/` (11 + fiches + pièces NANC/GOP), `strate_7_livrable_M3/` (16 +
+FICHE_M3 + figs_nb16/). Les chemins actifs cités plus haut (ex. `figs_nb16/`, `figs_nb11/`)
+se lisent donc préfixés de leur strate. Ce dossier d'archives, lui, n'a pas bougé.
