@@ -13,7 +13,9 @@ data/{house,senate}/
     *.json               ← caches ticker / secteur
 house/ uniquement :
     pdfs/ {y}/           ← 5 129 PDF embarqués (2014-2019 : les années --acquire en entier ;
-                           2020-2026 : les 614 scannés restants — census _scan_census.csv)
+                           2020-2026 : les 614 scannés restants — census _scan_census.csv).
+                           Branche `main` : non embarqués (--acquire les retélécharge ;
+                           le filet golden ne les lit pas)
     index/ {y}FD.xml     ← index XML annuel du Clerk
 ```
 
