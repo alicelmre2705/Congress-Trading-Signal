@@ -256,3 +256,14 @@ L'actif est désormais organisé par strates : `strate_2_copier_les_membres/` (0
 `strate_5_noter_les_titres/` (11 + fiches + pièces NANC/GOP), `strate_7_livrable_M3/` (16 +
 FICHE_M3 + figs_nb16/). Les chemins actifs cités plus haut (ex. `figs_nb16/`, `figs_nb11/`)
 se lisent donc préfixés de leur strate. Ce dossier d'archives, lui, n'a pas bougé.
+
+---
+
+## 2026-08-11 (soir) — le notebook 11 découpé en trois volets
+
+Le 11 portait trois sujets (la stratégie ticker, le dossier NANC/GOP du §13, les répliques Quiver
+du §14) : l'actif le découpe en `11_Strategie_Ticker` (allégé), `11b_Replique_NANC_GOP` et
+`11c_Strategies_Quiver` — cellules et **sorties figées** copiées telles quelles, mêmes chiffres.
+L'intégral d'origine est ici : `11_Strategie_Ticker_integral_20260811.ipynb` (+ son `.html`).
+⚠️ L'invariant « `figs_nb11/` = sorties du notebook 11 (36 = 36) » se lit désormais : l'union des
+`savefig` des **trois volets** (toujours 36).
