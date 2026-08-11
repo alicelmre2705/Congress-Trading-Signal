@@ -293,3 +293,16 @@ d'analyse et de **validation sont conservées** et re-dérivent le reste indépe
 en entier le 11/08 : chaque assert passe, mêmes ancres (661,57 / 573,57 · 162 runs). L'état
 antérieur (gen 1, autonome) reste dans git ; la doctrine « notebooks figés autonomes » (carte §6)
 n'est pas touchée pour la lignée membre ni les trois volets du 11.
+
+---
+
+## 2026-08-11 (nuit, 2) — la carte scindée en deux, le vocabulaire aligné
+
+Le `README.md` de la racine du 02 est désormais **court** (le résultat, le chemin en trois
+dossiers, les pistes ouvertes) ; l'inventaire complet des ~90 pistes, les pièges de navigation,
+la doctrine des notebooks autonomes et la passerelle vers la table du pipeline vivent dans
+**`../PISTES_TESTEES.md`** — c'est lui qui porte maintenant la table de correspondance
+anciens ↔ nouveaux noms. Les documents actifs de la Partie 2 ne parlent plus de « placebo »
+(décision d'Alice, comme « verdict » avant lui) : les passages concernés ont été retirés des
+README, de `FICHE_NOTER_LES_TITRES` (recompilée) et de l'état de l'art — les cellules des
+notebooks, elles, ne bougent pas (sorties figées, preuves).

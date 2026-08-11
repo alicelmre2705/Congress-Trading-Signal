@@ -1,13 +1,14 @@
-# 2 · Noter les titres *(strate 5 de la carte de la recherche)*
+# 2 · Noter les titres *(strate 5 de [l'inventaire des pistes](../PISTES_TESTEES.md))*
 
-Le virage du projet : on ne copie plus des élus, on **score des titres** (dollars déclarés ×
-nombre d'élus, purge FIFO γ, fenêtre choisie sur la concentration). Trois volets, découpés du
-même run (sorties figées) :
+Le virage du projet : on ne copie plus des élus, on **score des titres** — dollars déclarés ×
+nombre d'élus, purge FIFO γ (γ = la part d'une vente qui compte encore, premier entré-premier
+sorti), fenêtre choisie sur la concentration. Trois volets, découpés du même run (sorties
+figées) ; les §N sont les sections du notebook d'origine :
 
 | volet | contenu |
 |---|---|
 | [`noter_les_titres.ipynb`](noter_les_titres.ipynb) | le socle (§1-§7), les 6 tests (§8-§11), les autres pistes (§12), les méthodes M1→M4 (§16-§17) |
-| [`replique_NANC_GOP.ipynb`](replique_NANC_GOP.ipynb) | la réplique des ETF NANC/GOP — six versions, le diagnostic λ (§13.0-§13.15) |
+| [`replique_NANC_GOP.ipynb`](replique_NANC_GOP.ipynb) | la réplique des ETF NANC/GOP — six versions, et le diagnostic d'échelle : leurs positions valent jusqu'à 25× le flux déclaré (§13.0-§13.15) |
 | [`repliques_quiver.ipynb`](repliques_quiver.ipynb) | les stratégies Quiver répliquées (§14-§14.2) |
 
 Documents : [`PAPIER_METHODE.pdf`](PAPIER_METHODE.pdf) · [`FICHE_NOTER_LES_TITRES.pdf`](FICHE_NOTER_LES_TITRES.pdf) ·
@@ -17,10 +18,10 @@ Documents : [`PAPIER_METHODE.pdf`](PAPIER_METHODE.pdf) · [`FICHE_NOTER_LES_TITR
 
 ## Les résultats
 
-**Les six tests** (2014-2026, brut) : à τ +1,71 %/an (t 1,03) — mais **à la divulgation δ :
+**Les six tests** (2014-2026, brut ; τ = date de la transaction, δ = date de **divulgation** —
+la seule où l'information est publique) : à τ +1,71 %/an (t 1,03) — mais **à δ :
 +0,35 %/an (t 0,18)**, le résultat qui commande tout ; short −12,8 %/an (les titres vendus
-montent) ; comités +7,67 à τ mais le placebo fait aussi bien, et −3,65 à δ ; dépôts tardifs
-−8,25 %/an.
+montent) ; comités +7,67 à τ mais **−3,65 à δ** ; dépôts tardifs −8,25 %/an.
 
 ![À la transaction contre à la divulgation](figs/divulgation.png)
 
@@ -31,7 +32,7 @@ montent) ; comités +7,67 à τ mais le placebo fait aussi bien, et −3,65 à �
 | M1 · une voix par membre | +0,12 % (t 0,06) | — |
 | M2 · dollars purs | +1,43 % (t 1,04) | +0,49 % (t 0,26) |
 | **M3 · dollars × élus (retenue)** | **+3,40 % (t 1,61)** | **+1,24 % (t 1,61)** |
-| M4 · M3 + filtre θ=50 | +5,14 % (t 1,30, β instable) | +1,44 % (t 0,98) |
+| M4 · M3 + filtre θ=50 (écarte les dépôts groupés de ≥ 50 lignes) | +5,14 % (t 1,30, β instable) | +1,44 % (t 0,98) |
 
 ![Les méthodes, NAV](figs/meth17_nav.png)
 
@@ -49,4 +50,4 @@ paramètres divulgués sont matchés, leur panneau de métriques est incohérent
 
 ![La réplique Quiver](figs/quiver.png)
 
-*Le détail piste par piste : [la carte de la recherche](../README.md), strate 5.*
+*Le détail piste par piste : [PISTES_TESTEES.md](../PISTES_TESTEES.md), strate 5.*

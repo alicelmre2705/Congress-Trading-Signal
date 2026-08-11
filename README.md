@@ -16,7 +16,7 @@ Renommés le **2026-07-31** pour dire ce qu'ils contiennent (les anciens noms di
 |---|---|---|
 | [`00_recuperation_donnees/`](00_recuperation_donnees/) | **Ce que décrit ce README** : le pipeline d'extraction des PTR (House + Sénat, digital + OCR), les données, le rapport des données (régénérable), le filet de non-régression | `00_S1S2_donnees` |
 | [`01_autres_filing_types/`](01_autres_filing_types/) | **Au-delà des PTR** : les autres types de dépôt (Schedule A/B, rapports annuels, photos d'entrée) et la reconstruction des portefeuilles House qu'ils permettent | `01_v1_house` |
-| [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : les trois dossiers `1_copier_les_membres` → `2_noter_les_titres` → `3_livrable_M3`, les fiches qui les rendent opposables, les tables `tables/`, le moteur `tools/` | `00. S3S4 en cours` |
+| [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : les trois dossiers `1_copier_les_membres` → `2_noter_les_titres` → `3_livrable_M3`, les fiches de résultats, les tables `tables/`, le moteur `tools/` | `00. S3S4 en cours` |
 
 ## 🧭 Comprendre tout le projet & le lancer
 
@@ -63,8 +63,8 @@ data/            données  (house/ · senate/ · external/ · reference/ ← ren
 (racine)        README.md (la carte du 00) · SLIDES_DONNEES.pdf · RAPPORT_DONNEES.md (régénérable) ·
                  AUDIT_DONNEES_2014_2026.md · RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf ·
                  NOTE_DIFF_TABLE_CLEAN.md · les 2 ANALYSE_*.md
-png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
-                 (README de png/ = la carte qui-produit-quoi)
+png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/
+                 (etude_portraits du 02) — README de png/ = la carte qui-produit-quoi
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .

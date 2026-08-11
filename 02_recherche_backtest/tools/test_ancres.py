@@ -16,7 +16,7 @@ from . import moteur, mesure
 def main():
     # Les ancres publiées sont adossées à la table V1 du 04/07 (archivée) — la table courante du
     # pipeline a depuis reçu des corrections (NOTE_DIFF_TABLE_CLEAN, branche presentation) qui les déplacent légèrement ;
-    # la re-certification sur la table courante est le chantier « Temps 2 ».
+    # la re-certification sur la table courante : le notebook M3_table_pipeline.
     D = charger(table="v1")
     resultats = {}
     for parti, nom in [("Democrat", "NANC"), ("Republican", "GOP"), (None, "UNIQUE")]:
@@ -36,7 +36,7 @@ def main():
     assert round(resultats["UNIQUE"]["NAV"]) == 629, \
         f"UNIQUE : NAV {resultats['UNIQUE']['NAV']:.2f}, attendu ≈ 629"
 
-    print("\n✅ ANCRES REPRODUITES — le paquet tools est bien le moteur du notebook 16 :")
+    print("\n✅ ANCRES REPRODUITES — le paquet tools est bien le moteur de M3_preuve_complete :")
     print("   NAV 661,57 / 573,57 · excès +3,40 / +1,24 / +2,51 · t 1,61 / 1,61 / 1,93")
 
 
