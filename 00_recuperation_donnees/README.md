@@ -19,6 +19,12 @@ python -m common.pipeline --years 2020-2026    # la chaîne complète : acquisit
 python -m common.report_pdf                    # le PDF du rapport (Chrome headless)
 ```
 
+**NB : `--years` ne borne que la collecte** (scraping + OCR — les années à rafraîchir) ; le
+nettoyage et le rapport relisent **toujours les 26 tables FINAL 2014-2026 en entier** — la
+commande ci-dessus produit donc bien la table clean et le rapport complets. Les années 2014-2019
+se re-collectent avec `--acquire` (leurs index et PDF bruts ne sont pas embarqués ici, et déjà
+figées en FINAL elles sont verrouillées par le filet golden).
+
 Les deux derniers steps seuls — 100 % hors-ligne, rejouables depuis un simple clone :
 
 ```bash
