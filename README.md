@@ -1,8 +1,7 @@
 # Congress Trading Signal — pipeline de données
 
 Extraction et validation des déclarations boursières (PTR, *STOCK Act*) des membres du Congrès américain
-— **Chambre des représentants + Sénat, 2014 → 2026** — en vue d'une stratégie de copy-trading
-(brief de mission : [0.Notion_Ramify.pdf](0.Notion_Ramify.pdf)).
+— **Chambre des représentants + Sénat, 2014 → 2026** — en vue d'une stratégie de copy-trading.
 
 Sources officielles : *House Clerk* (PTR PDF) et Sénat *eFD*, **électroniques** (parsing déterministe)
 **+ scannées** (OCR Claude Vision). Quiver Quantitative sert de **vérification externe uniquement**,
@@ -13,7 +12,10 @@ jamais réinjecté dans les tables.
 > **Partie 1 — au-delà des PTR** (`01_autres_filing_types/` : Schedule A/B, rapports annuels,
 > photos d'entrée, portefeuilles House reconstruits) ·
 > **Partie 2 — la recherche stratégie & les backtests** (`02_recherche_backtest/`).
-> L'historique de travail complet vit sur la branche `presentation`.
+> Cette branche ne garde que **ce qui se montre** : les supports de présentation, les documents de
+> référence et la donnée certifiée. Le brief de mission, les documents de travail (audit-réparation,
+> rapport d'architecture, analyses intermédiaires), les archives et tout l'historique vivent sur la
+> branche `presentation`.
 
 ## 🧭 Par où commencer — Partie 2 (la stratégie)
 
@@ -58,14 +60,9 @@ site purge les années anciennes — et les caches OCR payés).
 
 1. **[SLIDES_DONNEES_S1S2_V2.pdf](00_recuperation_donnees/docs/SLIDES_DONNEES_S1S2_V2.pdf)** — le
    deck de présentation de la partie (recompilé et certifié conforme à sa source `.tex`) ;
-2. **[RAPPORT_QUALITE.md](00_recuperation_donnees/docs/RAPPORT_QUALITE.md)** — le rapport de qualité
-   (fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation Quiver par ère) ;
-3. **[AUDIT_DONNEES_2014_2026.md](00_recuperation_donnees/docs/AUDIT_DONNEES_2014_2026.md)** —
-   l'audit-réparation du **2026-07-03** (complétude prouvée, +10 856 lignes récupérées, chaque
-   erreur tracée → corrigée) ;
-4. **[RAPPORT_FINAL.pdf](00_recuperation_donnees/docs/RAPPORT_FINAL.pdf)** — le rapport
-   d'architecture complet (*voyage d'une transaction*, `common`+jumeaux, qualité, validation
-   Quiver, nettoyage backtest) sur **2014-2026**.
+2. **[RAPPORT_QUALITE.md](00_recuperation_donnees/docs/RAPPORT_QUALITE.md)** — la certification des
+   chiffres du deck : fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation
+   Quiver par ère, les preuves derrière chaque nombre.
 
 **La table prête-recherche** est `00_recuperation_donnees/data/clean/transactions_backtest_2014_2026.csv`
 (**134 464 × 36**, produite par `Nettoyage_Backtest_2014_2026.ipynb` — parti/commissions point-in-time,
@@ -93,9 +90,9 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                    census_probe                                ← jumeau de house/
   data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                    secteurs, snapshots commissions par Congrès · clean/ ← table canonique)
-  docs/            SLIDES_DONNEES_S1S2_V2.pdf · RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md ·
-                   RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf · quality/ ·
-                   quiver_validation/ · sources/
+  docs/            SLIDES_DONNEES_S1S2_V2 (le deck, .tex + .pdf) · RAPPORT_QUALITE (.md + .pdf) ·
+                   les figures du deck (figs/ · figs_bt/ · figs_pop/ · slides/ · sources/ ·
+                   quality/) · quiver_validation/ (les 13 CSV de verdicts Quiver)
   tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 01_autres_filing_types/
   V1_House.ipynb · Portefeuilles_House_Complet.ipynb · 10_Stock_Divulgations_MathSpec.ipynb ·
