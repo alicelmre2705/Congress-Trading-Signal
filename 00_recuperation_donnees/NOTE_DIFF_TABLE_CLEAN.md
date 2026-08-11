@@ -71,6 +71,6 @@ une correction voulue, pas une dérive.
   ancres (134 464 × 36, 113 369 lignes du périmètre M3…) restent vraies **pour la v1** ; toute
   recherche future part de la table courante. La table Quiver jumelle (orpheline, producteur
   archivé) est archivée au même endroit.
-- `RAPPORT_QUALITE.md` (certifié le 18/07 sur la v1) n'est pas régénéré ici ; son générateur
-  (`common/quality.py` §7) est désormais branché sur le module — le prochain
-  `python -m common.quality` produira les chiffres de la table courante.
+- Le rapport (certifié le 18/07 sur la v1 sous le nom `RAPPORT_QUALITE.md`) a été **renommé
+  `RAPPORT_DONNEES.md` et régénéré le 11/08** : il porte désormais les chiffres de la table
+  courante, et se régénère à chaque run (`python -m common.quality`, step 8 du pipeline).

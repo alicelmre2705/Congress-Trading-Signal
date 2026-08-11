@@ -125,8 +125,10 @@ plus aucun document « jamais entré dans le pipeline ».
 
 ## 5. La table de recherche canonique
 
-`data/clean/transactions_backtest_2014_2026.csv` — **134 464 lignes × 36 colonnes**, produite par
-`common/backtest_clean.py` — les étapes sont recensées dans `NETTOYAGE.md` (entonnoir A→D documenté
+`data/clean/transactions_backtest_2014_2026.csv` — **134 452 lignes × 39 colonnes** (134 464 × 36
+au moment de l'audit — l'écart : tickers faux-positifs corrigés depuis, cf.
+`NOTE_DIFF_TABLE_CLEAN.md`), produite par
+`common/backtest_clean.py` — les étapes sont recensées au **§7 de `RAPPORT_DONNEES.md`** (entonnoir A→D documenté
 étape par étape, philosophie « on ne retire que l'avéré, tout le reste est flagué »,
 invariants vérifiés par asserts à l'export : bioguide/ticker/montant/
 direction/chronologie/hash tous garantis).

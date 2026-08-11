@@ -14,15 +14,18 @@ Renommés le **2026-07-31** pour dire ce qu'ils contiennent (les anciens noms di
 
 | dossier | ce qu'il contient | ancien nom |
 |---|---|---|
-| [`00_recuperation_donnees/`](00_recuperation_donnees/) | **Ce que décrit ce README** : le pipeline d'extraction des PTR (House + Sénat, digital + OCR), les données, le rapport de qualité, le filet de non-régression | `00_S1S2_donnees` |
+| [`00_recuperation_donnees/`](00_recuperation_donnees/) | **Ce que décrit ce README** : le pipeline d'extraction des PTR (House + Sénat, digital + OCR), les données, le rapport des données (régénérable), le filet de non-régression | `00_S1S2_donnees` |
 | [`01_autres_filing_types/`](01_autres_filing_types/) | **Au-delà des PTR** : les autres types de dépôt (Schedule A/B, rapports annuels, photos d'entrée) et la reconstruction des portefeuilles House qu'ils permettent | `01_v1_house` |
 | [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : notebooks `05b` → `16`, les fiches qui les rendent opposables, les tables `tables/` | `00. S3S4 en cours` |
 
 ## 🧭 Comprendre tout le projet & le lancer
 
-Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/`) :
-- **[RAPPORT_QUALITE.md](00_recuperation_donnees/RAPPORT_QUALITE.md)** — le rapport de qualité à jour
-  (fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation Quiver par ère) ;
+Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/` — sa carte :
+[son README](00_recuperation_donnees/README.md)) :
+- **[RAPPORT_DONNEES.md](00_recuperation_donnees/RAPPORT_DONNEES.md)** — **LE rapport, régénérable**
+  (`python -m common.quality`, dernier step du pipeline : relancer = tous les chiffres recalculés) —
+  couverture vs l'index officiel du Clerk, validation Quiver par ère, nettoyage (§7), corroboration
+  externe (§8), papier Sénat (§9), types de dépôts Sénat (§10) ;
 - **[AUDIT_DONNEES_2014_2026.md](00_recuperation_donnees/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
   du **2026-07-03** (complétude prouvée, +10 856 lignes récupérées, chaque erreur tracée → corrigée) ;
 - **[RAPPORT_FINAL.pdf](00_recuperation_donnees/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
@@ -34,7 +37,7 @@ Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/`) :
 tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et **gated**
 (7 287 manuscrites écartées, avec motif) + la table annexe des commissions
 (bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
-pipeline, testé). **Les étapes du nettoyage et leur code : `00_recuperation_donnees/NETTOYAGE.md`.**
+pipeline, testé). **Les étapes du nettoyage et leur code : le §7 du rapport.**
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 
@@ -48,16 +51,18 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
 
 ```
 common/   contrat UNIVERSEL : reference · schema (clé, fixes read-time, canonical_ticker) · sector_enrich ·
-                 vision_ocr · crosscheck · quality (rapport) · quiver_diagnosis (§6) · quiver_scopes ·
+                 vision_ocr · crosscheck · backtest_clean (step 7 : brute→clean) · quality (step 8 :
+                 LE rapport, régénérable) · quiver_diagnosis (§6) · quiver_scopes ·
                  enrich_tenure (ancienneté) · report_pdf · pipeline (orchestrateur)
 house/    pipeline Chambre  : digital · acquire (téléchargement index+PDF) · classify_scans · ocr ·
                  identity · amounts · quiver · echantillon
 senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
-                 census_probe                                ← jumeau de house/
+                 census_probe · report_types_probe (collecteurs eFD opt-in) ← jumeau de house/
 data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                  secteurs, snapshots commissions par Congrès · clean/ ← table canonique de recherche)
-(racine)        SLIDES_DONNEES_S1S2_V2.pdf · RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md ·
-                 RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf · les 2 ANALYSE_*.md
+(racine)        README.md (la carte du 00) · SLIDES_DONNEES.pdf · RAPPORT_DONNEES.md (régénérable) ·
+                 AUDIT_DONNEES_2014_2026.md · RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf ·
+                 NOTE_DIFF_TABLE_CLEAN.md · les 2 ANALYSE_*.md
 png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
                  (README de png/ = la carte qui-produit-quoi)
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
@@ -101,7 +106,7 @@ d'archive — et la même faute une seconde fois dans un autre dossier. Elle tie
 **dédup cross-année** des re-divulgations tardives. Le pipeline produit **170 920 lignes brutes**. Une
 déclaration de **collaborateur non-élu** (HASC) est exclue du périmètre membres. **100 % des 8 252 PTR
 listés par l'index officiel du Clerk 2014-2026 sont traités** (parsés, OCRisés, ou gated par règle écrite).
-Détail : `00_recuperation_donnees/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
+Détail : `00_recuperation_donnees/RAPPORT_DONNEES.md` (§1 « Couverture vs l'univers officiel »).
 
 > **Fenêtre 2014-2026** — les scans **manuscrits** sont **écartés** par une politique uniforme et
 > **rejouable** (cluster `C_manuscrit`, 582 docs gated ; exceptions explicites dans `house/ocr.py`).

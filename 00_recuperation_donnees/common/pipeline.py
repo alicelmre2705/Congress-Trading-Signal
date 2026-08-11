@@ -55,6 +55,9 @@ def build_steps(years_csv, skip_ocr, force, no_quiver, senate_ocr_mode, acquire=
     steps.append(("Enrichissement — années en poste", ["common.enrich_tenure"]))
     # Post-FINAL, offline, idempotent : les tables de recherche (brute + clean + gated).
     steps.append(("Nettoyage — tables de recherche (brute + clean + gated)", ["common.backtest_clean"]))
+    # Post-nettoyage, offline, idempotent : LE rapport des données (RAPPORT_DONNEES.md + figures) —
+    # régénéré à chaque run, tous les chiffres suivent la donnée. (PDF : `python -m common.report_pdf`.)
+    steps.append(("Rapport — RAPPORT_DONNEES.md régénéré (tous chiffres recalculés)", ["common.quality"]))
     return steps
 
 
