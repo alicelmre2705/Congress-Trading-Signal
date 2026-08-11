@@ -121,7 +121,7 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                                  11c (stratégies Quiver) · PAPIER_METHODE · FICHE_STRAT_TICKER ·
                                  AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs_nb11/ ·
                                  docs_nanc_gop/ · docs_nanc_gop_surlignes/ (les 18 pièces)
-  strate_7_livrable_M3/          16 · FICHE_M3 · figs_nb16/
+  strate_7_livrable_M3/          16 · 17 (table courante, sur tools) · FICHE_M3 · figs_nb16/
   tables/          les tables propres du nb 09 (membres, tickers, membres_annees + dictionnaire)
 pyproject.toml   installable :  pip install -e .
 ```

@@ -20,4 +20,4 @@ Conventions héritées de la lignée titre (et DITES ici parce qu'elles ne sont 
 α = Jensen en excès du taux sans risque, annualisé ×252 (arithmétique) ; excès = moyenne des
 écarts d'années civiles au SPY ; la lignée « membre » (05b/07/09/12) mesure AUTRE CHOSE.
 """
-from . import donnees, moteur, mesure  # noqa: F401
+from . import donnees, moteur, mesure, etf, poches  # noqa: F401

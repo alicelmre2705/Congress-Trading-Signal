@@ -293,3 +293,27 @@ Quatre défauts mineurs connus, documentés ici et laissés en l'état (les sort
 `_mode` diverge entre 09 (`dropna()`) et 07/12 ; le nb 11 relit `ff_factors.csv` à chaque appel de
 `bilan()` (le 16 a corrigé) ; `exces_spy` est défini deux fois dans le 12 et `rotation` deux fois
 dans le 16 (corps identiques).
+
+## 7 · Temps 2 — la table du pipeline, et la passerelle
+
+Le nettoyage vit désormais dans le pipeline (`common/backtest_clean.py`, step 7) et la table
+courante corrige des tickers que la v1 du 04/07 ratait (`NOTE_DIFF_TABLE_CLEAN.md`). **Les
+documents publiés restent adossés à la v1, archivée** ; la ré-exécution complète de la lignée
+titre sur la table courante est le notebook
+[`17_M3_Table_Courante`](strate_7_livrable_M3/17_M3_Table_Courante.ipynb) — mince, entièrement
+sur [`tools/`](tools/README.md) :
+
+| mesure | v1 (publié) | courante | 
+|---|---|---|
+| flux | 113 369 | 113 645 |
+| M3 NANC — excès (NAV) | +3,40 (661,57) | **+3,42 (662,37)** |
+| M3 GOP — excès (NAV) | +1,24 (573,57) | **+1,21 (572,10)** |
+| M3 UNIQUE — excès (NAV) | +2,51 (629,09) | **+2,51 (628,75)** |
+| ETF carte datée, unique | +1,45 (577) | **+1,49 (578,78)** |
+| IR deux poches (constant) | 0,637 | **0,648** |
+| calibration (médiane) | 1,257 | **1,276** |
+
+**Aucune conclusion ne change** : le produit dépasse toujours ses composantes, aucun excès ne
+franchit son seuil, l'identité de l'IR tient, TE\* reste la question du client. Toute strate
+future travaille sur la table courante, avec `tools/` — et se mesure contre
+`strate_7_livrable_M3/ancres_table_courante.json`.
