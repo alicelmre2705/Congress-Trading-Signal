@@ -11,8 +11,10 @@
 
 ## 1 · Ce qui fait foi aujourd'hui
 
-Le livrable est le couple **[`16_M3_Complet.ipynb`](strate_7_livrable_M3/16_M3_Complet.ipynb) + [`FICHE_M3.pdf`](strate_7_livrable_M3/FICHE_M3.pdf)**
-— tout ce que la fiche affirme est établi dans ce notebook, et rien d'ailleurs.
+Le livrable est le couple **[`M3_preuve_complete.ipynb`](3_livrable_M3/M3_preuve_complete.ipynb) + [`FICHE_M3.pdf`](3_livrable_M3/FICHE_M3.pdf)**
+— tout ce que la fiche affirme est établi dans ce notebook, et rien d'ailleurs. (Depuis le 11/08
+son socle est importé de [`tools/`](tools/README.md) et il a été **ré-exécuté en entier** :
+chaque validation passe, mêmes ancres — cf. §6.)
 
 - **M3 sur les titres** — pondérer chaque titre par (dollars déclarés × nombre d'élus distincts),
   achats seuls, 3 ans à δ, top-150, plafond 10 % : **+3,40 %/an** (t 1,61, NAV 662) côté démocrate,
@@ -32,11 +34,11 @@ Le livrable est le couple **[`16_M3_Complet.ipynb`](strate_7_livrable_M3/16_M3_C
   **162 runs publiés**, aucun seuil corrigé — le protocole se protège par les constantes fixées
   hors de toute performance et les balayages publiés en entier.
 
-Autour du livrable, quatre documents actifs : [`PAPIER_METHODE.pdf`](strate_5_noter_les_titres/PAPIER_METHODE.pdf) (M1→M4
-côte à côte, notebook 11) · [`FICHE_STRAT_TICKER_22JUIL.pdf`](strate_5_noter_les_titres/FICHE_STRAT_TICKER_22JUIL.pdf) (la
-ligne ticker et ses six tests) · [`AUDIT_FONDS_NANC_GOP.pdf`](strate_5_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf) (ce que
+Autour du livrable, quatre documents actifs : [`PAPIER_METHODE.pdf`](2_noter_les_titres/PAPIER_METHODE.pdf) (M1→M4
+côte à côte, notebook 11) · [`FICHE_NOTER_LES_TITRES.pdf`](2_noter_les_titres/FICHE_NOTER_LES_TITRES.pdf) (la
+ligne ticker et ses six tests) · [`AUDIT_FONDS_NANC_GOP.pdf`](2_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf) (ce que
 disent les documents officiels des ETF NANC/GOP — version auto-portante `_COMPLET.pdf`, 798 p.) ·
-[`ETAT_DE_L_ART_STRATEGIES.md`](strate_5_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md) (69 fiches de littérature vérifiées
+[`ETAT_DE_L_ART_STRATEGIES.md`](2_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md) (69 fiches de littérature vérifiées
 en source primaire).
 
 ## 2 · Comment lire le dossier
@@ -46,23 +48,38 @@ des élus : 2013-2026, toutes classes d'actifs, 118 029 trades, résultat *pas d
 **« titre »** (11 → 16) note des titres : 2014-2026, actions seules, 113 369 opérations, résultat
 *M3*. Elles ne partagent pas trois lignes de code — et c'est voulu (cf. §6).
 
-**Le dossier est organisé par strates** — chaque strate vivante contient ses notebooks, leurs rendus
-`.html`, ses figures et ses documents — chaque dossier a son README de résultats :
+**Le dossier est organisé en trois dossiers numérotés dans l'ordre de lecture** (qui est aussi
+l'ordre chronologique de la recherche) — chacun contient ses notebooks, ses figures (`figs/`) et
+ses documents, et a son README de résultats :
 
 ```
 02_recherche_backtest/
 ├── README.md                        ← ce document, la carte
-├── 09_Tables_Membres_Tickers        le socle : le producteur des 4 tables propres, à côté de tables/
-├── tables/                          membres · tickers · membres_annees + dictionnaire (lus par 11, 12, 16)
-├── strate_2_copier_les_membres/     05b (la spec math + l'autopsie, §13-§17)
-│   └── etudes/                      07 (comprendre, 6 portraits) · 12 (l'usine à images du deck)
-├── strate_5_noter_les_titres/       11 (socle, 6 tests, M1→M4) · 11b (la réplique NANC/GOP) ·
-│                                    11c (les stratégies Quiver) + PAPIER_METHODE ·
-│                                    FICHE_STRAT_TICKER_22JUIL · AUDIT_FONDS_NANC_GOP(_COMPLET) ·
-│                                    ETAT_DE_L_ART · figs_nb11/ · docs_nanc_gop(_surlignes)/
-├── strate_7_livrable_M3/            16 (LE LIVRABLE, §1→§20) + FICHE_M3 + figs_nb16/
+├── tables_membres_tickers.ipynb     le socle : le producteur des 4 tables propres, à côté de tables/
+├── tables/                          membres · tickers · membres_annees + dictionnaire
+├── 1_copier_les_membres/            copier_les_membres (la spec math + l'autopsie, §13-§17)
+│   └── etudes/                      etude_population (6 portraits) · etude_portraits (l'usine à images du deck)
+├── 2_noter_les_titres/              noter_les_titres (socle, 6 tests, M1→M4) · replique_NANC_GOP ·
+│                                    repliques_quiver + PAPIER_METHODE · FICHE_NOTER_LES_TITRES ·
+│                                    AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs/ ·
+│                                    docs_nanc_gop(_surlignes)/
+├── 3_livrable_M3/                   M3_preuve_complete (LE LIVRABLE, §1→§20) · M3_table_pipeline
+│                                    (la table courante) + FICHE_M3 + figs/ + ancres_table_courante.json
 └── tools/                           le moteur commun, prouvé sur les ancres (pour la strate 8)
 ```
+
+La carte cite les pistes par leurs **numéros historiques** de notebooks (05b, 07, 09, 11, 16…) —
+la correspondance avec les fichiers (renommés le 11/08 pour dire ce qu'ils contiennent) :
+
+| notebook historique | fichier aujourd'hui |
+|---|---|
+| 09 | `tables_membres_tickers.ipynb` |
+| 05b | `1_copier_les_membres/copier_les_membres.ipynb` |
+| 07 · 12 | `1_copier_les_membres/etudes/etude_population.ipynb` · `etude_portraits.ipynb` |
+| 11 · 11b · 11c | `2_noter_les_titres/noter_les_titres.ipynb` · `replique_NANC_GOP.ipynb` · `repliques_quiver.ipynb` |
+| 16 | `3_livrable_M3/M3_preuve_complete.ipynb` |
+| 17 | `3_livrable_M3/M3_table_pipeline.ipynb` |
+| FICHE_STRAT_TICKER_22JUIL | `2_noter_les_titres/FICHE_NOTER_LES_TITRES.pdf` |
 
 Les strates closes (0, 1, 3, 4, 6) vivent dans `_archive/` — sur la branche `presentation`, avec
 son journal d'archivage détaillé (`_archive/README.md`).
@@ -105,7 +122,7 @@ son journal d'archivage détaillé (`_archive/README.md`).
 | Portefeuille par membre v1, top-4 IR | `05` | 20 significatifs vs ~11 attendus ; top-4 +3,6 %, t 1,14 | supersédé par le 05b |
 | Garde-fou tickers corrompus | `05` conclusion | un seul glitch (`DAIUF`) fabriquait **+12 %/an** | leçon conservée partout |
 
-### Strate 2 — la ligne membre à terme (`strate_2_copier_les_membres/` · `06` archivé)
+### Strate 2 — la ligne membre à terme (`1_copier_les_membres/` · `06` archivé)
 
 Le rapport de clôture : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 significatifs bruts →
 12 par appraisal ≈ 11 attendus par hasard ⇒ pas d'α.**
@@ -147,7 +164,7 @@ couverture prix 76,4 %). **Fermé définitivement** : « copier le stock agrég�
 médian **374 jours**). Les tests E1/E2 pré-enregistrés n'ont jamais été dévoilés : le chantier a
 été redirigé vers le dossier 01 (notebook 10 House, `FICHE_10` de l'époque).
 
-### Strate 5 — la ligne titre (`strate_5_noter_les_titres/`)
+### Strate 5 — la ligne titre (`2_noter_les_titres/`)
 
 Le socle retenu : **purge FIFO γ** (89,5 % de la masse vendue alimente le signal) et **W = 42 j
 choisi sur la concentration, jamais sur le rendement**.
@@ -168,7 +185,7 @@ de façon monotone (H=12 m : −0,89 à δ) · marché neutralisé : α **+0,03 
 caché sous le β · Sénat seul −3,72 % · **dépôts tardifs −8,25 % (t −1,98)** — l'hypothèse « un
 trade qu'on cache » est renversée.
 
-**§13 (volet `11b_Replique_NANC_GOP`) — la réplique NANC/GOP, six versions** (l'audit documentaire est dans
+**§13 (volet `replique_NANC_GOP`) — la réplique NANC/GOP, six versions** (l'audit documentaire est dans
 `AUDIT_FONDS_NANC_GOP.pdf`) : la version au net brut est *fausse* (le prospectus dit de ne pas
 soustraire les vieux lots) ; **A** (score, régime Subversive) NVDA à 8,5 % exact, ρ 0,73 ;
 **B** (livre événementiel, régime Tidal) turnover 13 % ≈ leur 10 % ; **C** (bascule au
@@ -178,7 +195,7 @@ et le chiffre qui clôt le dossier : **leurs positions valent jusqu'à 25× le f
 (§13.12) — leur fournisseur n'est pas les fourchettes publiques. La règle *dite* par les gérants
 tranche différemment selon le fonds (§13.13) : le facteur mᵢ reste notre invention.
 
-**§14 (volet `11c_Strategies_Quiver`) — les stratégies Quiver, répliquées fidèlement** : Congress Buys ≈ **22,6 %/an à τ,
+**§14 (volet `repliques_quiver`) — les stratégies Quiver, répliquées fidèlement** : Congress Buys ≈ **22,6 %/an à τ,
 21,4 % à δ** contre SPY 21,1 % (2020-26) — leur page annonce 36,2 %. Les cinq leviers testés un
 par un (pondération, ETF écartés, couverture, fenêtre W, accumulation) ne comblent jamais l'écart ;
 leur panneau est **incohérent** (vol affichée 4,63 %/an incompatible avec β 1,14) ; le
@@ -211,7 +228,7 @@ d'avance et vérifiée** ; le plafond est **monotone** des deux côtés ⇒ la v
 accidentelle. **Promu : le portefeuille unique** (+2,51 %/an, t 1,93) — le seul qui ne demande
 aucune décision prise après avoir vu les résultats.
 
-### Strate 7 — le livrable (`strate_7_livrable_M3/`)
+### Strate 7 — le livrable (`3_livrable_M3/`)
 
 - **§11** — y a-t-il de l'information sectorielle ? \|t\| groupé par date = **2,06** contre 1,96 :
   le test qui autorise tout le reste, passé de justesse ;
@@ -255,9 +272,10 @@ aucune décision prise après avoir vu les résultats.
 - **Deux plafonds coexistent dans le nb 11** : avant le §17 tout est à **8,5 %** (ancres 672,35 /
   612,25 — la trace de recherche) ; le §17 et tout le nb 16 sont à **10 %** (ancres 661,57 /
   573,57).
-- `_archive/FICHE_STRAT_TICKER_22JUIL_v2` est **antérieure** à la version courante (piège « v2 »).
-- `figs_nb16/m3_nav.png` ≠ `figs_nb13/m3_nav.png` : même nom, contenus différents — **ne jamais
-  dédoublonner par nom**.
+- `_archive/FICHE_STRAT_TICKER_22JUIL_v2` est **antérieure** à la version courante (renommée
+  depuis `FICHE_NOTER_LES_TITRES` — piège « v2 »).
+- `3_livrable_M3/figs/m3_nav.png` ≠ `_archive/…/figs_nb13/m3_nav.png` : même nom, contenus
+  différents — **ne jamais dédoublonner par nom**.
 - `_archive/FICHE_NANC_GOP_COMPLET.pdf` publie un t(α₄) NANC **périmé** (1,81 ; la valeur courante
   est 2,08 — le seul chiffre du dossier qui franchit un seuil).
 - `ETAT_DE_L_ART_STRATEGIES.md` empile deux documents : la note du 04/07 (non revérifiée) puis
@@ -269,8 +287,8 @@ aucune décision prise après avoir vu les résultats.
 
 Un module commun a **déjà existé** (les 7 `.py` de `_archive/recherche_v0/`) et a été supprimé
 par décision : commit `d477c473` (27/06) — *« un seul notebook de recherche AUTONOME (zéro .py) »*.
-Depuis, **zéro import local** dans les six notebooks, et une discipline de copie *documentée*
-(bannières « COPIE EXACTE 05b — cellule N »). Les raisons tiennent toujours :
+Depuis, **zéro import local dans les notebooks aux sorties figées**, et une discipline de copie
+*documentée* (bannières « COPIE EXACTE 05b — cellule N »). Les raisons tiennent toujours :
 
 1. **il n'y a pas UN alpha, il y en a deux** — la lignée membre régresse le rendement brut
    (annualisation géométrique), la lignée titre un vrai Jensen en excès du taux sans risque
@@ -287,7 +305,15 @@ Depuis, **zéro import local** dans les six notebooks, et une discipline de copi
 
 Le gisement honnêtement factorisable mesuré : ~150 lignes sur 9 490 (1,6 %).
 **Pour la suite** (une strate 8), le module [`tools/`](tools/README.md) fournit le moteur de la
-lignée titre extrait du nb 16 et **validé contre les ancres gelées** — sans toucher aux notebooks.
+lignée titre extrait du nb 16 et **validé contre les ancres gelées**.
+
+**La seule exception, prouvée par ré-exécution (11/08)** : les deux notebooks *vivants* de
+`3_livrable_M3/` tournent sur `tools/`. `M3_preuve_complete` (génération 2) importe le socle et
+**garde toutes ses cellules de validation**, qui re-dérivent indépendamment ce que tools calcule
+(la règle de démarrage recalculée == `tools.donnees`, l'oracle du nb 11 à 18 chiffres, la carte
+identité, les identités du §20) ; ré-exécuté en entier, chaque assert passe et les ancres sont
+identiques (661,57 / 573,57 · 162 runs). La doctrine reste entière pour les notebooks figés —
+la lignée membre et les trois volets du 11 ne sont pas touchés.
 
 Quatre défauts mineurs connus, documentés ici et laissés en l'état (les sorties sont figées) :
 `_mode` diverge entre 09 (`dropna()`) et 07/12 ; le nb 11 relit `ff_factors.csv` à chaque appel de
@@ -297,10 +323,11 @@ dans le 16 (corps identiques).
 ## 7 · Temps 2 — la table du pipeline, et la passerelle
 
 Le nettoyage vit désormais dans le pipeline (`common/backtest_clean.py`, step 7) et la table
-courante corrige des tickers que la v1 du 04/07 ratait (`NOTE_DIFF_TABLE_CLEAN.md`). **Les
+courante corrige des tickers que la v1 du 04/07 ratait (`NOTE_DIFF_TABLE_CLEAN.md`, branche
+`presentation` ; le §7 de `RAPPORT_DONNEES.md` recense les étapes). **Les
 documents publiés restent adossés à la v1, archivée** ; la ré-exécution complète de la lignée
 titre sur la table courante est le notebook
-[`17_M3_Table_Courante`](strate_7_livrable_M3/17_M3_Table_Courante.ipynb) — mince, entièrement
+[`M3_table_pipeline`](3_livrable_M3/M3_table_pipeline.ipynb) — mince, entièrement
 sur [`tools/`](tools/README.md) :
 
 | mesure | v1 (publié) | courante | 
@@ -316,4 +343,4 @@ sur [`tools/`](tools/README.md) :
 **Aucune conclusion ne change** : le produit dépasse toujours ses composantes, aucun excès ne
 franchit son seuil, l'identité de l'IR tient, TE\* reste la question du client. Toute strate
 future travaille sur la table courante, avec `tools/` — et se mesure contre
-`strate_7_livrable_M3/ancres_table_courante.json`.
+`3_livrable_M3/ancres_table_courante.json`.

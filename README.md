@@ -16,7 +16,7 @@ Renommés le **2026-07-31** pour dire ce qu'ils contiennent (les anciens noms di
 |---|---|---|
 | [`00_recuperation_donnees/`](00_recuperation_donnees/) | **Ce que décrit ce README** : le pipeline d'extraction des PTR (House + Sénat, digital + OCR), les données, le rapport des données (régénérable), le filet de non-régression | `00_S1S2_donnees` |
 | [`01_autres_filing_types/`](01_autres_filing_types/) | **Au-delà des PTR** : les autres types de dépôt (Schedule A/B, rapports annuels, photos d'entrée) et la reconstruction des portefeuilles House qu'ils permettent | `01_v1_house` |
-| [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : notebooks `05b` → `16`, les fiches qui les rendent opposables, les tables `tables/` | `00. S3S4 en cours` |
+| [`02_recherche_backtest/`](02_recherche_backtest/) | **La recherche stratégie et les backtests** : les trois dossiers `1_copier_les_membres` → `2_noter_les_titres` → `3_livrable_M3`, les fiches qui les rendent opposables, les tables `tables/`, le moteur `tools/` | `00. S3S4 en cours` |
 
 ## 🧭 Comprendre tout le projet & le lancer
 

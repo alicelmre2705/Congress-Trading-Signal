@@ -79,8 +79,8 @@ il portait des chiffres périmés, cf. `../_archive/README.md`.)
   documents **ne** disent **pas**. Aucun calcul de notre part. Chaque affirmation porte sa citation en langue
   originale. La version **`_COMPLET`** (798 p.) contient les 18 pièces à la suite, renvois cliquables internes.
 - **`../_archive/FICHE_NANC_GOP.pdf`** (4 p., archivée) — **notre travail** : les trois répliques, la
-  fidélité mesurée, le diagnostic λ. La mesure vivante est portée par le notebook 11 (§13) et
-  `FICHE_STRAT_TICKER_22JUIL`.
+  fidélité mesurée, le diagnostic λ. La mesure vivante est portée par le notebook 11 (§13,
+  volet `replique_NANC_GOP.ipynb`) et `FICHE_NOTER_LES_TITRES` (ex-FICHE_STRAT_TICKER_22JUIL).
 
 ## Deux dossiers, deux usages
 

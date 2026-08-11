@@ -13,7 +13,8 @@ import pandas as pd
 RACINE = Path(__file__).resolve().parents[2]          # …/Jupiter
 DOSSIER = RACINE / "02_recherche_backtest"
 # La table COURANTE (produite par le pipeline, step 7) — et la V1 du 04/07, archivée, sur laquelle
-# TOUTES les ancres publiées (FICHE_M3, carte, notebooks) restent adossées (cf. NOTE_DIFF_TABLE_CLEAN).
+# TOUTES les ancres publiées (FICHE_M3, carte, notebooks) restent adossées (cf. NOTE_DIFF_TABLE_CLEAN,
+# branche presentation).
 CLEAN = RACINE / "00_recuperation_donnees" / "data" / "clean" / "transactions_backtest_2014_2026.csv"
 CLEAN_V1 = (RACINE / "00_recuperation_donnees" / "_archive" / "data_clean"
             / "transactions_backtest_2014_2026_v20260704.csv")
@@ -38,7 +39,7 @@ def charger(verbose=True, table=None):
     """
     chemin = {None: CLEAN, "v1": CLEAN_V1}.get(table, Path(table) if table else CLEAN)
     # colonnes voulues ∩ colonnes présentes : la v1 porte committee_membership inline, la table
-    # courante l'a normalisée en annexe (NOTE_DIFF_TABLE_CLEAN) — tools n'en a pas besoin.
+    # courante l'a normalisée en annexe (NOTE_DIFF_TABLE_CLEAN, branche presentation) — tools n'en a pas besoin.
     voulues = ["bioguide_id", "member_name", "ticker_yahoo", "direction", "transaction_date",
                "disclosure_date", "amount_midpoint", "asset_class", "chamber",
                "committee_membership", "committees_key_flag", "sector_gics", "flag_late_filing",

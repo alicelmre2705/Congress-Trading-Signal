@@ -267,3 +267,29 @@ du §14) : l'actif le découpe en `11_Strategie_Ticker` (allégé), `11b_Repliqu
 L'intégral d'origine est ici : `11_Strategie_Ticker_integral_20260811.ipynb` (+ son `.html`).
 ⚠️ L'invariant « `figs_nb11/` = sorties du notebook 11 (36 = 36) » se lit désormais : l'union des
 `savefig` des **trois volets** (toujours 36).
+
+---
+
+## 2026-08-11 (nuit) — les noms disent enfin ce qu'ils contiennent, zéro HTML, le 16 sur tools
+
+**Renommages** (`git mv`, l'actif seulement — cette archive garde ses noms d'époque) :
+`strate_2_copier_les_membres/` → `1_copier_les_membres/` · `strate_5_noter_les_titres/` →
+`2_noter_les_titres/` · `strate_7_livrable_M3/` → `3_livrable_M3/` — l'ordre 1-2-3 est l'ordre de
+lecture ET l'ordre chronologique. Les notebooks suivent : 09 → `tables_membres_tickers` ·
+05b → `copier_les_membres` · 07 → `etudes/etude_population` · 12 → `etudes/etude_portraits` ·
+11 → `noter_les_titres` · 11b → `replique_NANC_GOP` · 11c → `repliques_quiver` ·
+16 → `M3_preuve_complete` · 17 → `M3_table_pipeline` ; `FICHE_STRAT_TICKER_22JUIL` →
+`FICHE_NOTER_LES_TITRES` ; `figs_nb11/` et `figs_nb16/` → `figs/` de leur dossier. La table de
+correspondance complète : la carte (`../README.md`, §2). Les notes ci-dessus citent les noms
+d'époque — c'est voulu, ce journal est daté.
+
+**Les 9 rendus `.html` sont supprimés** (`git rm`, décision d'Alice — dérivés purs, régénérables
+par `nbconvert` depuis les notebooks versionnés ; ils encombraient la lecture). Seule exception à
+la règle « archiver, jamais supprimer », avec les doublons octet-pour-octet.
+
+**Le 16 passe en génération 2** : `M3_preuve_complete.ipynb` importe désormais son socle de
+`tools/` (chargement, moteur, mesure, carte ETF) au lieu de le redéfinir — toutes ses cellules
+d'analyse et de **validation sont conservées** et re-dérivent le reste indépendamment ; ré-exécuté
+en entier le 11/08 : chaque assert passe, mêmes ancres (661,57 / 573,57 · 162 runs). L'état
+antérieur (gen 1, autonome) reste dans git ; la doctrine « notebooks figés autonomes » (carte §6)
+n'est pas touchée pour la lignée membre ni les trois volets du 11.

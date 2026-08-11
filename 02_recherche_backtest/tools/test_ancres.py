@@ -15,7 +15,7 @@ from . import moteur, mesure
 
 def main():
     # Les ancres publiées sont adossées à la table V1 du 04/07 (archivée) — la table courante du
-    # pipeline a depuis reçu des corrections (NOTE_DIFF_TABLE_CLEAN) qui les déplacent légèrement ;
+    # pipeline a depuis reçu des corrections (NOTE_DIFF_TABLE_CLEAN, branche presentation) qui les déplacent légèrement ;
     # la re-certification sur la table courante est le chantier « Temps 2 ».
     D = charger(table="v1")
     resultats = {}
