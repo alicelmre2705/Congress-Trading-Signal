@@ -87,8 +87,8 @@ le §7 du rapport.**
 Tout le pipeline se lance par **un seul point d'entrée** :
 
 ```bash
-python -m common.pipeline --years 2020-2026            # années 2020-2026 (index déjà présents)
-python -m common.pipeline --years 2014-2019 --acquire  # années anciennes : télécharge d'abord index+PDF
+python -m common.pipeline --years 2014-2026            # tout est embarqué : index + PDF bruts House dans data/house/
+python -m common.pipeline --years 2026 --acquire       # --acquire : compléter une année nouvelle (idempotent)
 python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans rien exécuter
 ```
 
@@ -181,11 +181,15 @@ python3.12 -m venv .venv
 ./.venv/bin/python 00_recuperation_donnees/tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker
 ```
 
-Le pipeline n'est pas re-jouable hors-ligne (le scraping/téléchargement exige le réseau) ; la
-correction est donc prouvée par **reproduction depuis les colonnes figées** (`tests/regression/`).
+La collecte Sénat et la validation Quiver exigent le réseau ; la correction est prouvée par
+**reproduction depuis les colonnes figées** (`tests/regression/`), et le nettoyage + le rapport
+(steps 7-8) se rejouent **100 % hors-ligne** depuis un clone.
 
-**Note data** : les PDF bruts House (447 Mo) et les caches eFD Sénat ne sont pas embarqués sur cette
-branche — `--acquire` les retélécharge au besoin ; le filet golden ne lit que `data/*/tables/`.
+**Note data** : la **source primaire House est embarquée en entier** — les 13 index `{Y}FD.xml`
+et **tous les PDF bruts des PTR 2014-2026** (`data/house/pdfs/`, un dossier par année) : chaque
+ligne des tables est re-vérifiable contre son document source, sans rien télécharger. Les pages
+brutes eFD Sénat (re-téléchargeables) ne sont pas embarquées — `senate.digital`/`senate.ocr` les
+re-scrapent au besoin ; le filet golden ne lit que `data/*/tables/`.
 Re-exécuter certains notebooks des Parties 1 et 2 exige en plus des caches de prix locaux non
 versionnés (ils se reconstruisent via yfinance) ; les tables gelées (`cache/tables/` du 01,
 `tables/` du 02) et les quelques caches non re-téléchargeables (N-PORT, OCR récupéré, prix de
