@@ -1323,9 +1323,10 @@ def build_report(repo_root: Path) -> Path:
                  f"{_n_gold_s} Sénat), rejouées à **zéro écart** (`tests/regression/check_golden.py`, "
                  "`senate_check_golden.py`).\n"
                  f"- **Invariants porteurs** — pour chaque chambre `digital + OCR = FINAL`, identité rattachée à "
-                 f"**{id_pct} %**, {_n_bio_h} bioguides (House) / {_n_bio_s} (Sénat) recomptés "
-                 "(`tests/regression/audit_metrics.py`).\n"
-                 "- **Transformations déterministes** — 11 tests reproduisent chaque étape (clé naturelle, "
+                 f"**{id_pct} %**, {_n_bio_h} bioguides (House) / {_n_bio_s} (Sénat) recomptés par ce "
+                 "rapport (corrections read-time incluses ; les invariants des FINAL crus sont "
+                 "verrouillés par `tests/regression/audit_metrics.py`).\n"
+                 "- **Transformations déterministes** — 9 tests reproduisent chaque étape (clé naturelle, "
                  "montants, tickers, identité, ancienneté, cache Vision) depuis les colonnes figées.\n")
 
     parts.append("\n### Les quatre sous-corpus\n")

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """Audit des métriques — recompute TOUTES les métriques clés des deux chambres depuis `data/`.
 
-Source unique de vérité chiffrée (pour la doc et le rapport) : aucune valeur codée en dur, tout est
-recalculé depuis les tables FINAL. Asserte les invariants porteurs (totaux, identité). Le reste est
-imprimé pour relecture vs la documentation.
+Tout est RECALCULÉ depuis les tables FINAL, puis confronté aux invariants porteurs figés dans
+main() (totaux bruts, identité, déposants) — c'est le principe du filet : les attendus sont codés
+en dur EXPRÈS, pour que tout mouvement des FINAL se voie. Le reste est imprimé pour relecture.
 
     .venv/bin/python tests/regression/audit_metrics.py
 """
@@ -55,15 +55,14 @@ def report(chamber, prov_elec, prov_ocr):
 def main():
     h = report("house", "house-pdf-electronic", "house-pdf-ocr")
     s = report("senate", "senate-efd-electronic", "senate-efd-ocr")
-    # invariants porteurs
-    # Fenêtre étendue 2014-2026 (branche feature/collecte-2014-2019). Identité ~100 % : quelques
-    # déposants anciens (2014-2019, formats/noms OCR anciens) restent non appariés → invariant dig+ocr==n
-    # (asserté dans report()) + totaux figés ci-dessous.
-    # House : scans manuscrits pré-2020 gatés (cluster C_manuscrit) comme en 2020-2026 → 141 225.
-    assert h["n"] == 141225 and h["dig"] == 54170 and h["ocr"] == 87055, "House totaux"
+    # invariants porteurs — les totaux attendus sont FIGÉS ici (c'est le rôle du filet : détecter
+    # tout mouvement des FINAL) ; ils correspondent à l'état 2014-2026 complet. NB : ces comptes
+    # sont mesurés sur les FINAL CRUS — le rapport, lui, compte APRÈS les corrections read-time
+    # (identités récupérées : 367/78 bioguides) et après dédup cross-année (169 000 uniques).
+    assert h["n"] == 152081 and h["dig"] == 58756 and h["ocr"] == 93325, "House totaux"
     assert s["n"] == 18839 and s["dig"] == 14813 and s["ocr"] == 4026, "Sénat totaux"
     assert h["sans_bio"] == 42 and s["sans_bio"] == 10, "sans-bioguide (déposants anciens 2014-2019)"
-    assert h["bios"] == 358 and h["names"] == 382, "House déposants"
+    assert h["bios"] == 366 and h["names"] == 390, "House déposants"
     assert s["bios"] == 76 and s["names"] == 92, "Sénat déposants"
     print("\nRÉSULTAT : ✅ invariants OK (totaux, identité, déposants) — métriques ci-dessus = source du rapport")
 

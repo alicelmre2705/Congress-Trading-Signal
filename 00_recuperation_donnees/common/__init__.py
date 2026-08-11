@@ -12,12 +12,19 @@ Modules :
     sector_enrich GICS → ETF SPDR (importé par house.ocr ET senate.fusion, en direct)
     enrich_tenure years_in_office, appendu aux 14 tables FINAL (House + Sénat)
     quiver_scopes validation Quiver multi-scopes (digital/ocr/both) + breakdown métriques (07c-h)
-    quality       SIX contrôles (a–f), dont (f) = validation externe Quiver par scope ; lecture seule
-                  des FINAL + des 07c/07g/07h figés des deux chambres
-    crosscheck    triangulation Quiver / Kadoa / Stock Watcher + statut par déposant (via quality)
+    backtest_clean step 7 : corpus → les 4 tables de recherche de data/clean/ (brute · clean ·
+                  gated · commissions), 100 % offline, testé par tests/regression
+    quality       step 8 : LE rapport des données (RAPPORT_DONNEES.md, §1→§10 + figures),
+                  régénérable — lecture seule des FINAL + artefacts figés, aucun appel API
+    quiver_diagnosis  le §6 du rapport (réconciliation Quiver stricte) + les 13 CSV de preuve
+                  de data/quiver_validation/
+    crosscheck    corroboration externe ligne à ligne (senate/house-stock-watcher, §8 du rapport)
+                  + statuts de triangulation par déposant
+    report_pdf    Markdown → PDF A4 (Chrome headless) pour le rapport et les documents .md
     vision_ocr    moteur OCR Vision de RÉFÉRENCE (deskew + cache versionné), exercé par les tests ;
                   chaque chambre a son OCR en prod (house.ocr, senate.ocr_engine)
-    pipeline      orchestrateur (enchaîne house.* + senate.* + enrich_tenure)
+    pipeline      orchestrateur — enchaîne house.* + senate.* + enrich_tenure + backtest_clean
+                  (step 7) + quality (step 8)
 """
 
 __version__ = "0.1.0"

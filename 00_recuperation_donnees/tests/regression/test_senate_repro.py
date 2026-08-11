@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 """Preuve « zéro changement » Sénat — reproduction fonction-par-fonction depuis les colonnes figées.
 
-Comme le pipeline House, le pipeline Sénat n'est PAS re-jouable hors-ligne (le scraping eFD exige le
-réseau ; seuls les artefacts figés sont embarqués). On prouve donc que le code re-logé dans `senate/`
-ET le cœur `common` reproduisent À L'IDENTIQUE les colonnes des tables FINAL gelées
-(`data/senate/{an}/06_senate_{an}_FINAL.csv`) — sans aucun appel API, sans re-run.
+On prouve que le code re-logé dans `senate/` ET le cœur `common` reproduisent À L'IDENTIQUE les
+colonnes des tables FINAL gelées (`data/senate/tables/{an}/06_senate_{an}_FINAL.csv`) — hors-ligne,
+sans aucun appel API, sans re-run.
 
-Trois invariants (sur les 8 841 lignes FINAL) :
+Trois invariants (sur les 18 839 lignes FINAL 2014-2026) :
   1. natural_key_hash  : recomputé par common.schema.natural_key_hash(., "senate")
      ET par senate.identity.natural_key → == colonne figée. (⇒ « bâti sur common ».)
   2. recover_ticker    : pour ticker_source == 'asset_name', senate.identity.recover_ticker
@@ -26,7 +25,7 @@ from common.schema import natural_key_hash as core_nkh   # noqa: E402
 from senate import identity as si                               # noqa: E402
 
 DATA = REPO / "data" / "senate"
-YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
+YEARS = list(range(2014, 2027))
 NK_FIELDS = ["chamber", "declarant_name", "transaction_date",
              "asset_description", "operation_type", "amount_range", "owner"]
 
@@ -41,9 +40,9 @@ def _load_all():
 
 def _hash_input(r):
     """Reconstitue le dict des 7 champs TEL QU'IL A ÉTÉ HASHÉ en mémoire (le CSV est lossy).
-    Seule subtilité : une `transaction_date` illisible (8 lignes OCR, date non lue) valait un float
+    Seule subtilité : une `transaction_date` illisible (lignes OCR, date non lue) valait un float
     NaN au moment du hash → `str(NaN)` = 'nan' ; la sérialisation CSV l'a rendue vide. Les autres
-    champs vides étaient des chaînes vides ('') à l'origine. Vérifié exhaustivement : 8 841/8 841."""
+    champs vides étaient des chaînes vides ('') à l'origine."""
     row = {c: r[c] for c in NK_FIELDS}
     if row["transaction_date"] == "":
         row["transaction_date"] = "nan"
