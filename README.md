@@ -52,8 +52,9 @@ senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identit
                  census_probe                                ← jumeau de house/
 data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                  secteurs, snapshots commissions par Congrès · clean/ ← table canonique de recherche)
-docs/            RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md · RAPPORT_FINAL.pdf ·
-                 SLIDES_DONNEES_S1S2_V2.pdf · quality/ · quiver_validation/ · sources/
+docs/            SLIDES_DONNEES_S1S2_V2.pdf · RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md ·
+                 RAPPORT_FINAL.pdf · figs_deck/ · quality/ · figs_pop/ · quiver_validation/
+                 (README de docs/ = la carte qui-produit-quoi)
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
