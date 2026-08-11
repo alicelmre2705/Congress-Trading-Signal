@@ -205,7 +205,7 @@ famille `fig_nb05b_*` — et ferait mentir la phrase qui justifie qu'on archive 
 | empreinte | fichiers | ce que l'égalité octet-à-octet prouve |
 |---|---|---|
 | `49f59be3` · `75cb2f96` · `540060ec` · `b09d40a8` | `figs_nb13/{m3_decomposition,m3_facteurs,m3_frein,m3_rolling}.png` ≡ `figs_nb16/` | que la **fusion du 30/07 n'a rien changé** à ces 4 figures : le notebook 16 régénère exactement ce que le 13 produisait. Un contrôle de non-régression, matérialisé |
-| `db2c5056` | `figs_nb15/etf_livrable.png` ≡ `figs_nb16/etf_livrable.png` | idem pour la partie ETF |
+| `db2c5056` | `figs_nb15/etf_livrable.png` ≡ `figs_nb16/etf_livrable.png` | idem pour la partie ETF. ⚠️ **Plus vrai depuis le 2026-08-11** : `9b070f23` (§20) a régénéré la version de `figs_nb16/` — l'archive garde l'état du 30/07, c'est son rôle |
 | `8932f67a` | `figures/fig_nb05b_vt_membre.png` ≡ `figures/fig_rap_vt.png` | que les figures du rapport ont bien été **prélevées dans le vivier du 05b** : même image, deux conventions de nom |
 | `91b5e5a8` | `_archive/nanc_gop_v3.png` ≡ `figs_nb11/nanc_gop_v3.png` | la copie volontaire de cette passe (contenu identique ⇒ **même blob git, 0 objet ajouté** à l'historique) |
 
@@ -227,7 +227,7 @@ inclusion de chaque `.tex` et `.md` selon la vraie règle de recherche — dossi
 |---|---|
 | inclusions résolues | **31 vérifiées, 0 manquante** (avant la passe : 17 manquantes) |
 | `figs_nb11/` = sorties du notebook 11 | **36 = 36** |
-| `figs_nb16/` = sorties du notebook 16 | **6 = 6** |
+| `figs_nb16/` = sorties du notebook 16 | **6 = 6** *(depuis `9b070f23` du 2026-08-11, le §20 ajoute `deux_poches.png` : **7 = 7**)* |
 | `_archive/figs_nb14/` = sorties du 14 | **2 = 2** |
 | documents **actifs** recompilés (`tectonic -o` hors du dépôt, pour ne pas écraser les PDF versionnés) | `FICHE_M3` 4 p./2 fig. · `PAPIER_METHODE` 2 p./3 · `FICHE_STRAT_TICKER_22JUIL` 3 p./8 · `AUDIT_FONDS_NANC_GOP` 2 p./0 — et **texte identique** au PDF versionné dans les quatre cas |
 | documents **archivés**, recompilés **en place** | `RAPPORT_PORTEFEUILLE_MEMBRE` 4 p./9 fig. · `RAPPORT_RECHERCHE` 10 p./2 · `FICHE_NANC_GOP` 4 p./1 · `FICHE_08_CALENDAR_VW` 1 p./1 — tous **égaux à leur PDF figé** |
@@ -235,3 +235,15 @@ inclusion de chaque `.tex` et `.md` selon la vraie règle de recherche — dossi
 
 ⚠️ Toujours compiler avec `-o "$(mktemp -d)"` pour un contrôle : sans `-o`, `tectonic` écrit le PDF **à côté du
 `.tex`** et écrase donc le rendu figé, c'est-à-dire précisément ce que cette archive garantit.
+
+---
+
+## Passe du 2026-08-11 — `recherche_v0/` rapatrié du dossier 00
+
+Le `_archive/_archive/` de `00_recuperation_donnees/` contenait exclusivement du **matériel de
+recherche S3/S4** — les notebooks `RAMIFY_V1_actions` / `RAMIFY_V2_ETF`, les `SUPP_*`, le premier
+moteur backtest en `.py` (`data`, `prices`, `portfolio`, `selection`, `evaluate`, `leadership`,
+`variants`), et les notes dont `PATCHS_S3S4_A_APPLIQUER.md` (patchs jamais appliqués au notebook
+`recherche_v1/02_construction_table_2014_2026.ipynb`). Il n'avait rien à faire dans la couche
+données : le voici sous `recherche_v0/`, la strate la plus ancienne de la recherche — antérieure à
+`recherche_v1/`. Zéro collision de nom, `git mv` intégral.

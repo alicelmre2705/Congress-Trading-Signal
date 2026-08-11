@@ -12,9 +12,9 @@ docs/            rapports et decks supplantés (RAPPORT_COMPLET, RAPPORT_V2_*, A
 data_external/   senate_openset (kadoa, ssw) — remplacé par ../data/external/ (README y documente
                  la migration)
 house/ tools/ congress_core/   scripts et notebooks des refontes successives
-_archive/        strate la plus ancienne : notebooks RAMIFY_V1/V2, SUPP_*, moteur backtest .py,
-                 PATCHS_S3S4_A_APPLIQUER.md — matériel de recherche S3/S4 (candidat à un
-                 déménagement vers 02_recherche_backtest/_archive/)
+(_archive/ interne — DÉMÉNAGÉ le 2026-08-11 : les notebooks RAMIFY_V1/V2, SUPP_*, le moteur
+                 backtest .py et PATCHS_S3S4_A_APPLIQUER.md étaient du matériel de recherche S3/S4 ;
+                 ils vivent désormais dans 02_recherche_backtest/_archive/recherche_v0/)
 ```
 
 ⚠️ Collision de nom assumée : `docs/RAPPORT_FINAL.*` (ici, version du 26/06) ≠
