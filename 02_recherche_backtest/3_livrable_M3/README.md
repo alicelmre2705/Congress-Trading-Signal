@@ -1,11 +1,11 @@
-# 3 · Le livrable M3 *(strate 7 de la carte de la recherche)*
+# 3 · Le livrable M3 *(strate 7 de [l'inventaire des pistes](../PISTES_TESTEES.md))*
 
 **Le couple qui fait foi** : [`M3_preuve_complete.ipynb`](M3_preuve_complete.ipynb) (tout ce que
 la fiche affirme y est établi) + [`FICHE_M3.pdf`](FICHE_M3.pdf) (4 pages). Depuis le 11/08, le
 notebook est en **génération 2** : son socle (chargement, moteur, mesure, carte ETF) est importé
 du paquet [`tools/`](../tools/README.md) — extrait de lui, prouvé par `python -m tools.test_ancres` —
 et **toutes ses cellules d'analyse et de validation re-dérivent le reste indépendamment** ;
-ré-exécuté en entier, chaque assert passe, mêmes ancres.
+ré-exécuté en entier, chaque assert passe, mêmes ancres (les chiffres témoins gelés de la fiche).
 
 ## Les résultats
 
@@ -42,6 +42,6 @@ tout sur `tools/`) qui rejoue chaque bloc de la fiche sur la **table courante** 
 constant (0,648), calibration 1,28 — **aucune conclusion ne change**. Ses ancres :
 [`ancres_table_courante.json`](ancres_table_courante.json).
 
-*Le chemin complet des pistes testées : [la carte de la recherche](../README.md). Les ancres
-de la fiche sont adossées à la table v1 du 04/07 (archivée) — reproduction : `python -m
+*Le chemin complet des pistes testées : [PISTES_TESTEES.md](../PISTES_TESTEES.md). Les chiffres
+témoins de la fiche sont adossés à la table v1 du 04/07 (archivée) — reproduction : `python -m
 tools.test_ancres` depuis la racine du 02 ; la table courante se lit dans `M3_table_pipeline`.*

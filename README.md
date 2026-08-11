@@ -19,16 +19,17 @@ jamais réinjecté dans les tables.
 
 ## 🧭 Par où commencer — Partie 2 (la stratégie)
 
-0. **[LA CARTE DE LA RECHERCHE](02_recherche_backtest/README.md)** — le README de la partie :
-   **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son résultat
-   chiffré et l'endroit où c'est prouvé — pour ne jamais ré-explorer une piste morte ;
+0. **[le README de la partie](02_recherche_backtest/README.md)** — le résultat et le chemin en
+   trois dossiers ; et **[PISTES_TESTEES.md](02_recherche_backtest/PISTES_TESTEES.md)** —
+   l'inventaire complet des **~90 pistes testées**, chacune avec son résultat chiffré et
+   l'endroit où c'est prouvé, pour ne jamais ré-explorer une piste morte ;
 1. **[FICHE_M3.pdf](02_recherche_backtest/3_livrable_M3/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
    (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
    sa version ETF, et le portefeuille final à **deux poches** (SPY + signal sectoriel, dose pilotée
    par le budget de risque). Adossée au notebook `M3_preuve_complete.ipynb` — tout ce que la fiche
    affirme y est établi ;
 2. **[PAPIER_METHODE.pdf](02_recherche_backtest/2_noter_les_titres/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
-   côte à côte (notebook 11) ;
+   côte à côte (établies dans `noter_les_titres.ipynb`) ;
 3. **[FICHE_NOTER_LES_TITRES.pdf](02_recherche_backtest/2_noter_les_titres/FICHE_NOTER_LES_TITRES.pdf)** — la
    spécification de la ligne « par titre » et ses six tests ;
 4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/2_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
@@ -119,9 +120,10 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   reference/       entrées irremplaçables : index XML instantanés du Clerk, caches OCR, YAML élus
   figures/ figures_house/   figures des fiches et decks
 02_recherche_backtest/
-  README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, résultats chiffrés, pièges,
-                   et la correspondance notebooks historiques ↔ fichiers renommés
-  tools/           le moteur de la lignée titre, extrait et prouvé sur les ancres
+  README.md        le résultat et le chemin en trois dossiers
+  PISTES_TESTEES.md  l'inventaire : ~90 pistes testées, résultats chiffrés, pièges,
+                   et la correspondance noms historiques ↔ fichiers renommés
+  tools/           le moteur de la famille titre, extrait et prouvé sur les chiffres témoins
   tables_membres_tickers.ipynb + tables/   le socle : les 4 tables propres et leur producteur
   1_copier_les_membres/   copier_les_membres (la strate) + etudes/ (population · portraits)
   2_noter_les_titres/     noter_les_titres (socle, tests, méthodes) · replique_NANC_GOP ·

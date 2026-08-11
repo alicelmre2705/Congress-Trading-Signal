@@ -1,4 +1,4 @@
-# 1 · Copier les membres *(strate 2 de la carte de la recherche)*
+# 1 · Copier les membres *(strate 2 de [l'inventaire des pistes](../PISTES_TESTEES.md))*
 
 La question : *copier les meilleurs élus bat-il le marché ?* Le notebook de la strate :
 [`copier_les_membres.ipynb`](copier_les_membres.ipynb) — la spécification mathématique
@@ -11,12 +11,13 @@ La question : *copier les meilleurs élus bat-il le marché ?* Le notebook de la
   disparaît dès qu'on retire le marché ;
 - meilleur portefeuille de tout le notebook : K walk-forward **+4,07 %/an (t 1,58)** — max de
   **160 essais** (E[max t | hasard] = 2,69), Deflated Sharpe 0,11 ;
-- l'autopsie montre que c'était écrit : le Sharpe passé ne prédit pas (IC **0,047**), le protocole
-  n'a pas la puissance (MDE ≈ **8 %/an** — détecter +2 %/an demanderait ~170 ans), et le placebo
-  (1 000 sélections au hasard) a un q95 de **1,43**, au-dessus de tous nos t ;
+- l'analyse d'après-coup montre que c'était écrit : le Sharpe passé ne prédit pas (IC **0,047**)
+  et le protocole n'a pas la puissance (MDE ≈ **8 %/an** — détecter +2 %/an demanderait
+  ~170 ans de données) ;
 - le test le plus propre du projet — le même élu dans le périmètre de ses commissions,
   intra-membre : **p 0,54**. La dernière hypothèse mécaniste s'éteint ;
-- une seule dimension reste dormante : conjoint vs élu (p 0,063, cohérente sur les deux ères).
+- une seule dimension reste en sommeil : conjoint vs élu (p 0,063, cohérente avant comme
+  après 2020).
 
 La strate est **close**. Son rapport : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` (branche
 `presentation`) ; le premier passage (trade-based) : `_archive/06_…` ; les chiffres restent
@@ -33,4 +34,4 @@ adossés à la table v1 du 04/07 (archivée).
 
 ![Plus une mesure est réplicable, plus le chiffre baisse](../../00_recuperation_donnees/png/figs_pop/K2_paysage_benchmarks.png)
 
-*Le détail piste par piste : [la carte de la recherche](../README.md), strates 1-2.*
+*Le détail piste par piste : [PISTES_TESTEES.md](../PISTES_TESTEES.md), strates 1-2.*
