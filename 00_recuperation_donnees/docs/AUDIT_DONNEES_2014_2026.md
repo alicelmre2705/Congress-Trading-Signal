@@ -3,7 +3,7 @@
 **Date : 2026-07-03 · Branche : `2014-2026-fable` · Périmètre : couche données uniquement** (le dossier
 « 02_recherche_backtest/ » n'a pas été touché — ses corrections sont consignées dans
 `PATCHS_S3S4_A_APPLIQUER.md`, archivé sur la branche de travail `presentation` sous
-`00_recuperation_donnees/_archive/_archive/`).
+`02_recherche_backtest/_archive/recherche_v0/`).
 
 **Objet** : certifier que TOUTE la donnée nécessaire à la phase de recherche est récupérée, propre,
 corrigée — et livrer une table de recherche canonique documentée. Règle appliquée : **chaque erreur

@@ -8,12 +8,35 @@ Sources officielles : *House Clerk* (PTR PDF) et Sénat *eFD*, **électroniques*
 **+ scannées** (OCR Claude Vision). Quiver Quantitative sert de **vérification externe uniquement**,
 jamais réinjecté dans les tables.
 
-> **Publication par parties.** Cette branche `main` porte la version finale, partie par partie —
-> un commit par partie. Publiées : **Partie 0 — récupération & nettoyage des données**
-> (`00_recuperation_donnees/`) et **Partie 1 — au-delà des PTR** (`01_autres_filing_types/` :
-> Schedule A/B, rapports annuels, photos d'entrée, portefeuilles House reconstruits). À venir :
-> la recherche stratégie & backtests. L'historique de travail complet vit sur la branche
-> `presentation`.
+> **Publication par parties** — un commit par partie, dans l'ordre du projet :
+> **Partie 0 — récupération & nettoyage des données** (`00_recuperation_donnees/`) ·
+> **Partie 1 — au-delà des PTR** (`01_autres_filing_types/` : Schedule A/B, rapports annuels,
+> photos d'entrée, portefeuilles House reconstruits) ·
+> **Partie 2 — la recherche stratégie & les backtests** (`02_recherche_backtest/`).
+> L'historique de travail complet vit sur la branche `presentation`.
+
+## 🧭 Par où commencer — Partie 2 (la stratégie)
+
+1. **[FICHE_M3.pdf](02_recherche_backtest/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
+   (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
+   sa version ETF, et le portefeuille final à **deux poches** (SPY + signal sectoriel, dose pilotée
+   par le budget de risque). Adossée au notebook `16_M3_Complet.ipynb` — tout ce que la fiche
+   affirme y est établi ;
+2. **[PAPIER_METHODE.pdf](02_recherche_backtest/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
+   côte à côte (notebook 11) ;
+3. **[FICHE_STRAT_TICKER_22JUIL.pdf](02_recherche_backtest/FICHE_STRAT_TICKER_22JUIL.pdf)** — la
+   spécification de la ligne « par titre » et ses six tests ;
+4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
+   documents officiels des ETF NANC/GOP disent (17 pièces citées, passages surlignés ;
+   version auto-portante : `AUDIT_FONDS_NANC_GOP_COMPLET.pdf`, 798 p.) ;
+5. **[ETAT_DE_L_ART_STRATEGIES.md](02_recherche_backtest/ETAT_DE_L_ART_STRATEGIES.md)** — 69
+   fiches de littérature vérifiées en source primaire.
+
+Le chemin de la recherche, notebook par notebook : `05b` (copier les élus — **pas d'alpha**, et
+l'autopsie qui le prouve) → `07`/`12` (comprendre la population, les portraits) → `09` (les tables
+propres `tables/`) → `11` (noter les **titres** plutôt que copier les élus : méthodes M1-M4,
+réplique NANC/GOP) → **`16`** (M3 complet + version ETF + le livrable deux poches). Chaque notebook
+a son rendu `.html` consultable sans Jupyter.
 
 ## 🧭 Par où commencer — Partie 1 (au-delà des PTR)
 
@@ -82,6 +105,14 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   cache/           le contrat gelé : 20 tables CSV + MANIFEST.json (sha256)
   reference/       entrées irremplaçables : index XML instantanés du Clerk, caches OCR, YAML élus
   figures/ figures_house/   figures des fiches et decks
+02_recherche_backtest/
+  05b · 07 · 09 · 11 · 12 · 16   les six notebooks de recherche (.ipynb + .html)
+  FICHE_M3.* · PAPIER_METHODE.* · FICHE_STRAT_TICKER_22JUIL.* · AUDIT_FONDS_NANC_GOP.*
+                   les documents opposables, chacun adossé à son notebook
+  ETAT_DE_L_ART_STRATEGIES.md    la base de preuves de la littérature
+  tables/          les tables propres du nb 09 (membres, tickers, membres_annees + dictionnaire)
+  docs_nanc_gop/ · docs_nanc_gop_surlignes/   les 18 pièces officielles NANC/GOP (brutes · surlignées)
+  figs_nb11/ · figs_nb16/        les figures produites par les notebooks 11 et 16
 pyproject.toml   installable :  pip install -e .
 ```
 
@@ -136,5 +167,8 @@ correction est donc prouvée par **reproduction depuis les colonnes figées** (`
 
 **Note data** : les PDF bruts House (447 Mo) et les caches eFD Sénat ne sont pas embarqués sur cette
 branche — `--acquire` les retélécharge au besoin ; le filet golden ne lit que `data/*/tables/`.
-Re-exécuter certains notebooks de la Partie 1 exige en plus des caches de prix locaux non versionnés
-(ils se reconstruisent via yfinance) ; les tables gelées de `cache/tables/`, elles, sont embarquées.
+Re-exécuter certains notebooks des Parties 1 et 2 exige en plus des caches de prix locaux non
+versionnés (ils se reconstruisent via yfinance) ; les tables gelées (`cache/tables/` du 01,
+`tables/` du 02) et les quelques caches non re-téléchargeables (N-PORT, OCR récupéré, prix de
+tickers disparus) sont, eux, embarqués. Les sorties des notebooks restent lisibles dans les
+`.ipynb`/`.html` sans rien exécuter.

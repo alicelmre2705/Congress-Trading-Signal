@@ -1,0 +1,621 @@
+% !TEX program = tectonic
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[top=0.45cm,bottom=0.38cm,left=0.85cm,right=0.85cm]{geometry}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}\usepackage{textcomp}\usepackage{xcolor}\usepackage{booktabs}\usepackage{array}\usepackage{multirow}
+\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}\usepackage{multicol}\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}\usepackage{url}\urlstyle{sf}
+\graphicspath{{figs_nb16/}}
+\definecolor{bleu}{RGB}{20,77,144}\definecolor{vert}{RGB}{20,110,60}
+\definecolor{rouge}{RGB}{160,30,30}\definecolor{grisf}{RGB}{110,110,110}
+\definecolor{or}{RGB}{150,105,0}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=0.86\linewidth]{#1}\end{center}\vspace{-2.5mm}{\scriptsize\color{grisf} #2}\par\vspace{0.6mm}}
+\pagestyle{empty}\setlength{\parindent}{0pt}\setlength{\parskip}{0.45pt}
+\setlength{\abovedisplayskip}{2.5pt}\setlength{\belowdisplayskip}{2.5pt}
+\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
+\renewcommand{\arraystretch}{0.95}
+\setlength{\columnsep}{5mm}\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{grisf!40}}
+% un bloc = le niveau de titre fort (double filet)
+\newcommand{\mouv}[2]{\vspace{1.7mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}%
+  {\color{bleu}\bfseries #1~---~#2}\par\vspace{0.5mm}{\color{bleu!35}\hrule height 0.5pt}\vspace{1.1mm}}
+% un sous-titre à l'intérieur d'un bloc
+\newcommand{\et}[2]{\vspace{1.05mm}{\color{bleu}\bfseries #1 $\cdot$ #2}\par\vspace{0.2mm}}
+% une étape du protocole
+\newcommand{\etape}[2]{\vspace{0.9mm}{\color{rouge}\bfseries #1.}~{\bfseries #2}\par\vspace{0.15mm}}
+% ce que le notebook imprime pour attester l'étape
+\newcommand{\sortie}[1]{\vspace{0.4mm}{\scriptsize\color{vert}\textbf{\checkmark}~#1}\par\vspace{0.2mm}}
+\newcommand{\lecon}[1]{\vspace{0.4mm}{\scriptsize\color{vert}$\blacktriangleright$~\textbf{ce que ça apprend :} #1}\par\vspace{0.2mm}}
+\newcommand{\obs}[1]{\vspace{0.2mm}\hangindent=3.4mm\hangafter=0{\color{bleu}\footnotesize\textbullet}~{\small #1}\par\vspace{0.2mm}}
+\newenvironment{pts}{\begin{itemize}[leftmargin=3.4mm,itemsep=0.2mm,topsep=0.4mm,parsep=0pt,label={\color{bleu}\footnotesize\textbullet}]}{\end{itemize}}
+\begin{document}
+
+\begin{center}
+{\large\bfseries M3 --- pondérer au dollar \emph{et} au nombre d'élus}
+\end{center}
+\vspace{0.4mm}\hrule\vspace{1.2mm}
+
+\begin{multicols}{2}
+
+% ══════════════════════════════════════════════════════════════════════
+\mouv{I --- Ce qu'on fait}{dix étapes, dans l'ordre d'exécution}
+
+\etape{1}{Les données}
+\begin{pts}
+\item une source : la table des déclarations ;
+\item trois filtres : classe d'actif = \textbf{action}, transaction entre 2014 et 2026, série de prix
+      exploitable ($\ge 2$ cotations, cours $\ge 0{,}10$~\$, aucun saut journalier au-delà de 300~\%) ;
+\item chaque opération $k$ porte : l'élu $m(k)$, son parti $P(k)$, le titre $i(k)$, le sens, la date de
+      transaction $\tau_k$, celle de \textbf{divulgation} $\delta_k$, le montant $A_k$ = milieu de fourchette ;
+\item il reste \textbf{113\,369 opérations}, \textbf{350 élus} et \textbf{2\,755 titres}.
+\end{pts}
+
+\etape{2}{Le calendrier et les prix}
+\begin{pts}
+\item $\mathcal C$ = les 3\,645 jours cotés du SPY (03/01/2012 $\to$ 02/07/2026) ; toute date est un indice ;
+\item $P_i(t)$ = cours de clôture, reporté sur $\mathcal C$ par le dernier cours connu ;
+\item un titre est \emph{vivant} en $t$ si sa série a commencé et n'est pas arrêtée depuis plus de 4 jours.
+\end{pts}
+
+\etape{3}{Les coupes}
+$t$ parcourt le dernier jour coté de chaque mois, de janvier 2014 à juin 2026 : 150 coupes. On garde la
+première où l'univers atteint $\lceil 1/c\rceil = 10$ titres \textbf{pour les deux partis}, et les suivantes :
+\textbf{149 dates} retenues, dont la dernière ne fait que clore la série --- soit \textbf{148 recompositions}.
+
+\etape{4}{La fenêtre du signal}
+À la coupe $t$, parti $P$ : \textbf{les achats seuls}, datés à leur \textbf{divulgation}.
+\[ \mathcal K^P(t) = \bigl\{\,k : P(k)=P,\ \text{achat},\ t - W_3 < \delta_k \le t \,\bigr\},
+   \quad W_3 = 756\ \text{j} \]
+Les ventes n'entrent pas dans le score, ni récentes ni anciennes.
+
+\etape{5}{La clé d'agrégation, puis le score}
+La clé est le \textbf{titre}, classes d'actions fusionnées (GOOGL$\to$GOOG, BRK-A$\to$BRK-B, FOXA$\to$FOX,
+NWSA$\to$NWS). \emph{Elle ne change pas au bloc III : le score reste calculé par titre, ce sont les
+\textbf{poids} de M3 qui y sont sommés par ETF.}
+\[ s_{i} \;=\; \underbrace{\textstyle\sum_{k} A_k}_{B_i \ \text{: les dollars}}
+   \;\times\; \underbrace{\#\{\,m(k)\,\}}_{m_i \ \text{: les élus distincts}} \]
+$K$ élus au même montant $a$ donnent $s_i = K^2 a$ : \textbf{le consensus compte au carré}. Les deux comptes
+se font après la fusion.
+
+\etape{6}{L'univers}
+Parmi les clés vivantes en $t$ et cotées au close $t+1$ :
+$\mathcal S(t) = \text{les } N = 150 \text{ plus gros } s_i$.
+
+\etape{7}{Les poids}
+Normalisation, puis plafond $c = 10$~\% par \textbf{remplissage de niveau} --- les lignes saturées y restent,
+les autres montent jusqu'à ce que la somme fasse 1 :
+\[ \boxed{\;w_i \;=\; \min\bigl(c,\; \lambda\, v_i\bigr), \qquad v_i = s_i \Big/ \textstyle\sum_{j\in\mathcal S} s_j\;} \]
+$\lambda$ existe et est unique dès que $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil = 10$.
+
+\etape{8}{L'exécution}
+Achat au close du lendemain, $e = t+1$ ; \textbf{parts figées} entre deux coupes.
+\[ q_i = V_e\,w_i / P_i(e), \qquad V_u = \textstyle\sum_i q_i P_i(u),\ \ u \in (e, e'] \]
+
+\etape{9}{Le frottement}
+\[ \mathrm{TO}_t = \tfrac12\textstyle\sum_i \bigl\lvert w^{\text{réal}}_i - w^{\text{dér}}_i \bigr\rvert,
+   \qquad V_e \leftarrow V_e\,\bigl(1 - 2\,\mathrm{TO}_t\,\kappa\bigr) \]
+$\kappa = 10$ points de base ; le facteur 2 parce qu'on paie à l'achat \textbf{et} à la vente.
+
+\etape{10}{Les mesures}
+\[ x_Y = \textstyle\prod_{t\in Y}(1+r_t) - \prod_{t\in Y}(1+r^{m}_t),
+   \qquad t = \bar x \big/ (\sigma_x/\sqrt n) \]
+\[ r - r_f = \alpha_1 + \beta\,(r^{m} - r_f) + \varepsilon \]
+{\footnotesize\color{grisf} Facteurs quotidiens tirés de la
+\href{https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html}{\color{bleu}Kenneth
+R.\ French Data Library} --- séries {\urlstyle{tt}\url{F-F_Research_Data_Factors_daily}} et
+{\urlstyle{tt}\url{F-F_Momentum_Factor_daily}}. Modèle de
+\href{https://doi.org/10.1016/0304-405X(93)90023-5}{\color{bleu}Fama \& French (1993)}, augmenté du
+momentum de \href{https://doi.org/10.1111/j.1540-6261.1997.tb03808.x}{\color{bleu}Carhart (1997)}.}\par\vspace{0.5mm}
+\[ r - r_f = \alpha_4 + \beta_M (r^{m}-r_f) + \beta_S \mathrm{SMB} + \beta_H \mathrm{HML} + \beta_U \mathrm{MOM} + \varepsilon \]
+\vspace{-1.2mm}
+{\scriptsize
+\begin{tabular}{@{}l@{~~}>{\raggedright\arraybackslash}p{1.65cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{2.2cm}@{}}
+\toprule
+ & le pari mesuré & $\beta > 0$ & $\beta < 0$ \\
+\midrule
+$\beta_S$ SMB & petites $-$ grosses & on ressemble aux petites & on ressemble aux grosses \\
+$\beta_H$ HML & décotées $-$ chères & \emph{value} : banques, énergie & \emph{croissance} : la tech \\
+$\beta_U$ MOM & gagnants $-$ perdants & on suit la tendance & on va à contre-courant \\
+\bottomrule
+\end{tabular}}
+\par\vspace{0.5mm}
+{\scriptsize\color{grisf} \textbf{S}mall \textbf{M}inus \textbf{B}ig $\cdot$ \textbf{H}igh \textbf{M}inus
+\textbf{L}ow, le rapport valeur comptable $\div$ prix $\cdot$ \textbf{Mom}entum, sur 12 mois.}
+\par\vspace{0.9mm}
+$x_Y$ = excès d'une \textbf{année civile} ($n = 13$) ; les $\alpha$ se lisent sur les rendements journaliers
+et sont annualisés ($\times 252$) ; intervalle de Student à 95~\%.
+
+
+% ══════════════════════════════════════════════════════════════════════
+\mouv{II --- Ce que ça donne}{2014--2026, brut de frais}
+
+{\centering\scriptsize\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}l r c r r r@{}}
+\toprule
+ & excès/an \emph{(t)} & IC 95~\% & $\alpha_1$ \emph{(t)} & $\beta$ & NAV \\
+\midrule
+\textbf{M3 --- NANC} & $\mathbf{+3{,}40}$ \emph{(1,61)} & $[-1{,}2;+8{,}0]$
+  & $+1{,}66$ \emph{(1,36)} & 1,080 & \textbf{662} \\
+\textbf{M3 --- GOP} & $\mathbf{+1{,}24}$ \emph{(1,61)} & $[-0{,}4;+2{,}9]$
+  & $+1{,}09$ \emph{(1,07)} & 1,004 & \textbf{574} \\
+\midrule
+\emph{repère : le SPY} & --- & --- & --- & --- & \emph{494} \\
+\emph{repère : équipondéré} & \emph{$-1{,}38$ ($-1{,}45$)} & \emph{$[-3{,}5;+0{,}7]$}
+  & \emph{$-0{,}95$ ($-0{,}72$)} & \emph{0,98} & \emph{430} \\
+\emph{repère : $m_i$ seuls} & \emph{$-0{,}65$ ($-0{,}91$)} & \emph{$[-2{,}2;+0{,}9]$}
+  & \emph{$-0{,}41$ ($-0{,}38$)} & \emph{0,99} & \emph{464} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} rendement \emph{total composé} : NANC 16,6~\%/an $\cdot$ GOP 15,2 $\cdot$ SPY 13,9
+--- soit 2,7 pt d'écart composé ; l'excès du tableau ($+3{,}40$) est la \emph{moyenne des 13 écarts annuels}
+(étape 10), pas la différence de ces totaux ;
+\textbf{9 années gagnantes sur 13} des deux côtés. Les deux repères tournent sur le \emph{même univers}
+--- seule la pondération change. \textbf{Les deux repères sont donnés côté démocrate} ; leurs contreparties
+républicaines sont au tableau \textbf{a}.}\par
+
+\fig{m3_nav.png}{à gauche la valeur du portefeuille, base 100 au 3 mars 2014 (close du lendemain de la première coupe), échelle log ; à droite
+l'écart au SPY année par année (NANC $-11{,}6$ pt en 2022, $+19{,}7$ en 2023).}
+
+\et{a}{D'où vient l'excès : la pondération, à univers identique}
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r@{\hspace{2.5mm}} r r r@{}}
+\toprule
+ & \multicolumn{3}{c}{NANC} & \multicolumn{3}{c}{GOP} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+$w\propto$ & excès & $\alpha_1$ & NAV & excès & $\alpha_1$ & NAV \\
+\midrule
+$1$ \emph{(équipondéré)} & $-1{,}38$ & $-0{,}95$ & 430 & $-1{,}08$ & $-0{,}67$ & 448 \\
+$m_i$ \emph{(élus seuls)} & $-0{,}65$ & $-0{,}41$ & 464 & $-0{,}78$ & $-0{,}17$ & 466 \\
+$B_i$ \emph{(dollars purs)} & $+1{,}43$ & $+0{,}37$ & 554 & $+0{,}49$ & $+0{,}17$ & 523 \\
+$\mathbf{B_i m_i}$ \emph{(M3)} & $\mathbf{+3{,}40}$ & $\mathbf{+1{,}66}$ & \textbf{662}
+  & $\mathbf{+1{,}24}$ & $\mathbf{+1{,}09}$ & \textbf{574} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} \textbf{le produit dépasse ses deux composantes} : ni les dollars seuls ni les élus
+seuls ne rendent ce que rend leur produit. Marché retiré, \textbf{la moitié} de l'excès démocrate subsiste
+($\alpha_1$ $+1{,}66$ sur $+3{,}40$) et \textbf{l'essentiel} du républicain ($+1{,}09$ sur $+1{,}24$) --- aucun
+des deux n'étant distinguable de zéro ($t$ 1,36 et 1,07).}\par
+
+\et{b}{Le risque : est-ce un pari de style ?}
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r r r@{}}
+\toprule
+ & $\alpha_4$/an & $t$ & Mkt & SMB & HML & Mom \\
+\midrule
+M3 --- NANC & $\mathbf{+2{,}09}$~\% & \textbf{2,08} & 1,047 & $-0{,}131$ & $-0{,}146$ & $-0{,}076$ \\
+M3 --- GOP & $+1{,}65$~\% & 1,79 & 0,979 & $-0{,}081$ & $+0{,}049$ & $-0{,}073$ \\
+\emph{SPY (repère)} & \emph{$+0{,}04$} & \emph{0,12} & \emph{0,980} & \emph{$-0{,}123$} & \emph{$+0{,}012$} & \emph{$-0{,}009$} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+\begin{pts}
+\item $\alpha_4 > \alpha_1$ ($+1{,}66 \to +2{,}09$) : les facteurs de style n'expliquent pas l'excès, ils en
+      \textbf{masquaient} une partie --- mais le modèle change de facteur de marché en même temps que de
+      modèle, et l'écart des deux $\alpha$ n'est pas testé ;
+\item $t = 2{,}08$ dépasse 1,96, seuil des $\alpha$ journaliers (3\,059 jours) --- l'un des deux seuls
+      chiffres de la fiche dans ce cas, et en test isolé (annexe D).
+\end{pts}
+
+\et{c}{Le résultat tient-il année après année ?}
+Les chiffres ci-dessus écrasent douze ans en un nombre. On rejoue la régression sur une fenêtre
+\textbf{glissante d'un an} (252 jours).
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r c@{\hspace{3mm}} r c r@{}}
+\toprule
+ & \multicolumn{2}{c}{$\beta$ glissant} & \multicolumn{3}{c}{$\alpha$ glissant, \%/an} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}
+ & méd. & min--max & méd. & min--max & $>0$ \\
+\midrule
+NANC & 1,06 & 0,95--1,27 & $+2{,}01$ & $-11{,}0$ / $+13{,}2$ & \textbf{71~\%} \\
+GOP & 1,00 & 0,90--1,13 & $+1{,}67$ & $-6{,}0$ / $+8{,}0$ & \textbf{71~\%} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} la médiane glissante de l'$\alpha$ ($+2{,}01$ / $+1{,}67$) est du même ordre que
+l'$\alpha_1$ plein-échantillon ($+1{,}66$ / $+1{,}09$). \textbf{Réserve} : les fenêtres se chevauchent ---
+ces chiffres \emph{décrivent}, ils ne testent pas.}\par
+
+\et{d}{Le coût, et faut-il ralentir}
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r@{\hspace{4mm}} r r r r@{}}
+\toprule
+ & \multicolumn{2}{c}{rotation \%/an} & brut & net & coût & NAV nette \\
+\cmidrule(lr){2-3}
+ & médiane & \textbf{moy.} & & & & \\
+\midrule
+NANC & 65,6 & \textbf{71,8} & $+3{,}40$ & $+3{,}23$ & 0,17 & 649 \\
+GOP & 69,2 & \textbf{76,9} & $+1{,}24$ & $+1{,}06$ & 0,18 & 562 \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} \textbf{c'est la moyenne qui fixe la facture}, pas la médiane. Le fonds réel publie
+44, 62 puis 10~\% pour NANC.}\par
+\vspace{0.4mm}
+\begingroup\makeatletter\@beginparpenalty=10000\makeatother
+{\color{bleu}\bfseries Le frein --- non retenu}\nopagebreak\par\nopagebreak\vspace{0.2mm}\nopagebreak
+\begin{pts}
+\item \textbf{ce qu'il fait} --- si rejoindre la nouvelle cible exige de tourner plus de $\tau_{\max}$, on
+      ne parcourt qu'une fraction du chemin : $\lambda_R = \min\bigl(1,\ \tau_{\max}/\mathrm{TO}_t\bigr)$ ;
+\item \textbf{à 25~\%/mois il est quasi inerte} --- M3 tourne 4,9~\% (NANC) et 5,3~\% (GOP) par mois en
+      médiane, cinq fois sous le plafond : il ne mord que sur \textbf{1~\% des coupes} ;
+\item \textbf{le balayage entier}, gain du parti le moins bien servi : $-0{,}04$ à 25~\%, $-0{,}05$ à
+      10~\%, $\mathbf{+0{,}03}$ à 5~\%, $-0{,}48$ à 2~\%.
+\end{pts}\endgroup
+
+\et{e}{Le filtre anti-bruit $\theta$}
+
+Un élu qui déclare 300 opérations le même jour ne prend pas 300 décisions : son courtier rééquilibre un
+mandat. Le filtre est massif --- il retire \textbf{54~\%} du \$ démocrate et \textbf{58~\%} du républicain.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+ & $\theta=10$ & 20 & \textbf{50} \emph{(M4)} & 100 & $\infty$ \emph{(M3)} \\
+\midrule
+NANC --- excès & $+4{,}71$ & $+4{,}62$ & $\mathbf{+5{,}14}$ & $+4{,}75$ & $+3{,}40$ \\
+\emph{\quad$\alpha_1$} & \emph{$+0{,}60$} & \emph{$+0{,}78$} & \emph{$+1{,}42$} & \emph{$+1{,}36$} & \emph{$\mathbf{+1{,}66}$} \\
+GOP --- excès & $+3{,}02$ & $+2{,}14$ & $\mathbf{+1{,}44}$ & $+1{,}64$ & $+1{,}24$ \\
+\emph{\quad$\alpha_1$} & \emph{$+2{,}77$} & \emph{$+1{,}88$} & \emph{$+1{,}54$} & \emph{$+1{,}60$} & \emph{$+1{,}09$} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} balayage publié en entier, verdict lu à la valeur \emph{déclarée d'avance} --- et aucune ne domine.}\par
+
+\et{f}{Le netting des ventes --- testé, non retenu}
+Le fonds réel nette : une vente réduit la position. On l'applique, \textbf{et rien d'autre} --- même fenêtre,
+même score, même top-150, même plafond. De chaque achat on retire la part des ventes portant sur un lot de
+moins de trois ans ($\gamma_3$ : la part du lot détenue depuis moins de trois ans, FIFO) ; vendre un lot plus ancien ne change rien, comme au prospectus.
+
+{\centering\scriptsize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+ & M3 & \emph{avec netting} & écart & $t$ & $\alpha_1$ \\
+\midrule
+NANC & $+3{,}40$ & $+1{,}31$ & $\mathbf{-2{,}09}$ & 0,76 & $-0{,}30$ \\
+GOP & $+1{,}24$ & $+1{,}06$ & $-0{,}18$ & 1,17 & $+0{,}90$ \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} \textbf{les deux partis se dégradent} --- mais l'ampleur n'a rien à voir d'un camp
+à l'autre. \textbf{Contrôle} : en neutralisant $\gamma_3$, la fonction redonne M3 à $10^{-12}$, ce qui
+garantit que \emph{seul} le netting change.}\par
+
+% ══════════════════════════════════════════════════════════════════════
+\mouv{III --- Version 2}{un portefeuille qui n'achète que des ETF}
+
+\textbf{Le moteur ne change pas} --- fenêtre, score, top-150, plafond, exécution : les dix étapes ci-dessus.
+\textbf{Trois étapes s'y greffent} : deux \emph{après} le calcul des poids (11 et 13), et une \emph{en
+amont} --- l'étape 12 retire le filtre de parti de l'étape 4.\par
+\vspace{0.3mm}
+\etape{11}{L'instrument}
+Chaque ligne devient l'ETF de son secteur ; les poids se somment, puis se renormalisent sur les seuls
+secteurs cotés :
+\[ w^{S} = \!\!\!\sum_{i\,:\,\mathrm{etf}(i)=S}\!\!\! w_i \ , \qquad
+   w^{S} \leftarrow w^{S} \Big/ \textstyle\sum_{S' \text{ coté}} w^{S'} \]
+\begin{pts}
+\item le rattachement titre $\to$ GICS $\to$ SPDR est un \textbf{intrant} du dépôt, renseigné sur 100~\% des lignes ;
+\item la clé est le ticker \emph{après} fusion --- celle de l'étape 5 ;
+\item cinq tickers portent deux secteurs (BALL, CPAY, SONY, TFC, XYZ) : on retient le majoritaire ;
+\item \textbf{la carte est datée.} XLRE naît en 10/2015 et XLC en 06/2018, mais leurs \textbf{indices} ne
+      basculent qu'au 16/09/2016 et au 21/09/2018. Avant la bascule, chaque titre est rangé dans l'ETF de
+      \textbf{son secteur d'alors} :
+\end{pts}
+\vspace{-0.6mm}
+{\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l c l@{}}
+\toprule
+un titre aujourd'hui classé\dots & avant & à partir de \\
+\midrule
+immobilier & \textbf{XLF} & \textbf{XLRE}, le 16/09/2016 \\
+communication, \emph{tech ou télécoms} & \textbf{XLK} & \textbf{XLC}, le 21/09/2018 \\
+communication, \emph{venue de la conso} & \textbf{XLY} & \textbf{XLC}, le 21/09/2018 \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.3mm}
+{\scriptsize\color{grisf} \emph{tech ou télécoms} : Google, Meta, les jeux vidéo, \emph{et} AT\&T et Verizon
+--- XLK portait aussi les télécoms, faute de SPDR dédié $\cdot$ \emph{de la conso} : Netflix, Disney, les
+médias. Sans cette carte, un titre retenu par le score mais dont le secteur n'a pas encore d'ETF serait
+\textbf{perdu} : côté démocrate \textbf{11 titres et 15,2~\%} du portefeuille en médiane, jusqu'à 20,8~\%
+(côté républicain 9 titres et 11,8~\%).}\par
+
+\etape{12}{Le signal : un seul portefeuille}
+Le filtre de parti de l'étape 4 est \textbf{retiré} --- le score ne compte plus les élus d'un camp, mais
+\textbf{tous} ceux de la fenêtre :
+\[ m_i = \#\bigl\{\, m(k) \ :\ k \in \mathcal K(t) \,\bigr\}, \qquad
+   \mathcal K(t) = \bigcup_{P} \mathcal K^{P}(t) \]
+Trois démocrates \emph{et} trois républicains donnent $m_i = 6$, pas 3 --- et le score compte au carré
+(étape 5), donc \textbf{le consensus bipartisan est récompensé}.
+\begin{pts}
+\item retenir un camp serait un choix fait \emph{après} avoir vu les résultats ; celui-ci n'en demande aucun.
+      Dernière coupe : 39 acheteurs démocrates, 60 républicains, \textbf{100 fusionnés} --- la centième voix
+      n'appartient à aucun des deux grands partis, le filtre étant levé pour tous.
+\end{pts}
+
+{\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l r r@{\hspace{2.5mm}} r r@{\hspace{2.5mm}} r r@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{2014--2026}} & \multicolumn{2}{c}{\textbf{2019--2026}} & & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & excès/an \emph{(t)} & $\alpha_1$ & excès/an \emph{(t)} & $\alpha_1$ & $\beta$ & NAV \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{sur les 150 titres}}\\
+démocrates & $+3{,}40$ \emph{(1,61)} & $+1{,}66$ & $+4{,}16$ \emph{(1,20)} & $+1{,}62$ & 1,08 & 662 \\
+républicains & $+1{,}24$ \emph{(1,61)} & $+1{,}09$ & $+2{,}28$ \emph{\textbf{(2,71)}} & $+2{,}21$ & 1,00 & 574 \\
+\textbf{unique} & $\mathbf{+2{,}51}$ \emph{\textbf{(1,93)}} & $\mathbf{+1{,}48}$ & $+3{,}29$ \emph{(1,61)} & $\mathbf{+1{,}87}$ & 1,05 & \textbf{629} \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{sur les 11 ETF sectoriels}}\\
+démocrates & $+1{,}78$ \emph{(1,66)} & $+0{,}59$ & $+1{,}92$ \emph{(1,09)} & $+0{,}20$ & 1,05 & 586 \\
+républicains & $+0{,}78$ \emph{(1,02)} & $+0{,}41$ & $+1{,}12$ \emph{(0,92)} & $+0{,}65$ & 1,02 & 552 \\
+\textbf{unique} & $\mathbf{+1{,}45}$ \emph{\textbf{(2,05)}} & $\mathbf{+0{,}46}$ & $+1{,}70$ \emph{(1,49)} & $\mathbf{+0{,}32}$ & 1,04 & \textbf{577} \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.2mm}
+{\scriptsize\color{grisf} lignes ETF avec la \textbf{carte datée}. Seuils : 2,18 à treize années, 2,36 à
+huit. \textbf{Une seule case le franchit} --- l'excès républicain 2019--2026, $t$ 2,71, IC [0,29 ; 4,26] :
+sous-fenêtre, un seul camp, parmi 162 runs (annexe D).}\par
+
+\etape{13}{Le livrable : une poche de marché, une poche de stratégie}
+La forme \og\emph{le marché, plus un tilt $\lambda$}\fg{} des versions antérieures de cette fiche est
+\textbf{retirée}, pour trois défauts que le notebook démontre (\S20) : son c\oe ur $\lambda=0$ n'était pas
+le marché mais une \emph{reconstruction} par onze SPDR ($-0{,}33$~\%/an, 2,1~\% d'écart et 21~\%/an de
+rotation avant le moindre pari) ; à $\lambda=2$ la formule tenait $-100$~\% de marché pour $+200$~\% de
+signal, poids négatifs écrêtés ensuite --- la formule publiée ne décrivait plus le portefeuille tenu ;
+et son \og rdt/écart\fg{} qui montait avec $\lambda$ (0,68 $\to$ 0,83 $\to$ 0,85) était un
+\textbf{artefact de construction} : dans une forme propre ce ratio est \textbf{constant} par identité.
+\par\vspace{0.5mm}
+Le bon objet n'est pas un vecteur de poids mais \textbf{une seule série} --- l'écart actif à pleine dose :
+\[ d_t = r^{\text{sig}}_t - r^{\text{SPY}}_t
+   \;\Longrightarrow\; r^{p}_t - r^{b}_t = a_t\,d_t,
+   \quad \mathrm{TE}(a) = a\,\sigma(d)\sqrt{252} \]
+Le signal est l'\textbf{unique} de l'étape 12, carte datée (NAV 577) ; le marché est le \textbf{SPY
+lui-même}, plus aucune reconstruction --- la série $d$ couvre \textbf{2014--2026} (3\,101 jours cotés,
+12,3 ans ; le tilt était borné à 2020--2026 par sa reconstruction annuelle).
+Vérifié par identité : $\mathrm{IR}(a)$ vaut \textbf{0,637 à toutes les doses} (écart 7 pour dix mille,
+la dérive entre deux coupes) et le $t$ est \textbf{invariant} (2,05--2,06) ---
+\textbf{doser plus achète du rendement, jamais de la preuve}.
+\par\vspace{0.5mm}
+{\color{bleu}\bfseries Le protocole, à chaque fin de mois}\par\vspace{0.2mm}
+\begin{pts}
+\item \textbf{le signal} --- étape 12 inchangée $\Rightarrow w^{\text{sig}}_t$ (11 ETF) ;
+\item \textbf{le risque du pari} --- $\hat\sigma_t = \sqrt{252}\cdot\mathrm{sd}\{d_u\}$ sur les
+      \textbf{756 jours cotés précédant $t$}, jamais au-delà ;
+\item \textbf{la dose} --- $\boxed{a_t = \min\bigl(1,\ \mathrm{TE}^\star/\hat\sigma_t\bigr)}$ ---
+      analytique : rien ne se choisit après avoir vu un rendement ; $a\le1$ = pas de levier ;
+\item \textbf{la bande morte} --- on ne re-dimensionne que si $\lvert a_t - a_{\text{détenu}}\rvert >
+      20\,\%\cdot a_{\text{détenu}}$ : pas de frais sur du bruit d'estimation ;
+\item \textbf{le portefeuille} --- $w_t = (1-a_t)\,\mathrm{SPY} + a_t\,w^{\text{sig}}_t$ :
+      \textbf{douze lignes}, combinaison convexe, $\sum w = 1$, tous $\ge 0$, \textbf{aucun écrêtage} ;
+\item \textbf{l'exécution} --- close $t{+}1$, parts figées jusqu'à la coupe suivante, 10~pb par
+      aller-retour : le moteur des dix étapes, inchangé.
+\end{pts}
+Trois constantes, aucune calée sur nos rendements (annexe B) : $H = 756$~j \emph{(demandé d'avance)},
+bande morte $20\,\%$ \emph{(déclarée avant le premier run)}, et $\mathrm{TE}^\star$ --- \textbf{le seul
+paramètre du dispositif}, publié en \textbf{profil complet} $\{1, 2, 3\}$~\% : on ne le choisit pas,
+c'est le budget de risque du client --- \textbf{la question à poser à Ramify}.
+\par\vspace{0.5mm}
+{\color{bleu}\bfseries De quoi l'écart actif est fait}\par\vspace{0.2mm}
+\begin{pts}
+\item $\mathrm{Var}(d) = (\beta_s-1)^2\sigma_b^2 + \sigma_\varepsilon^2$, exacte : \textbf{14,1~\%} du
+      budget de risque est du \textbf{bêta} --- un allocataire l'obtient en levant le SPY, sans nous ;
+      le ratio qui l'exclut est l'\emph{appraisal} (\textbf{0,242}), pas l'IR ;
+\item $\rho(r^{\text{sig}}, r^{b}) = 0{,}994$ : \textbf{98,8~\%} de la variance du signal est du
+      marché --- 11 lignes et $\sim$30~\%/an de rotation pour ce qu'un SPY donne à 0,09~\% de frais.
+      \textbf{C'est la justification des deux poches : rendre visible ce qu'on achète gratuitement} ;
+\item mélanger les camps plutôt que fusionner les scores ? $\rho(d^{\text{NANC}}, d^{\text{GOP}}) =
+      0{,}218$, IR 0,62 et 0,35, borne théorique $\sqrt{\mathrm{IR}'\Omega^{-1}\mathrm{IR}} = 0{,}66$ ---
+      publiée comme \textbf{borne}, jamais retenue : l'estimer sur nos données serait optimiser sur le
+      rendement. Le mélange retenu resterait équipondéré, déclaré d'avance.
+\end{pts}
+\vspace{0.3mm}
+{\color{bleu}\bfseries Ce que le pilotage promet, et ce qu'il ne promet pas}\par\vspace{0.2mm}
+\begin{pts}
+\item il \textbf{tient le budget de risque} --- il ne promet pas de rapporter plus : notre $d$ est un
+      long-short de somme nulle, l'effet de levier du \emph{volatility targeting} n'a aucune raison d'y
+      être ; si l'IR s'améliore c'est un bonus mesuré, pas une promesse ;
+\item \textbf{calibration} : la TE réalisée \emph{après} dépasse la prévision 61~\% du temps, médiane
+      \textbf{1,26} --- annoncer $\mathrm{TE}^\star = 3$~\% se lit \textbf{$\approx 3{,}8$~\% en
+      pratique} (95\textsuperscript{e} centile : 5,5~\%). C'est la phrase à mettre devant un
+      allocataire, pas la TE plein-échantillon ;
+\item \textbf{limite structurelle} : une fenêtre de trois ans ne voit pas venir un krach --- au
+      31/03/2020, $\hat\sigma = 1{,}78$~\% $\Rightarrow a = 1$ : la dose était \textbf{pleine} au pire
+      moment. Sensibilité déclarée : $H = 63/126/252$~j auraient donné $a = 0{,}49/0{,}68/0{,}86$ ;
+\item le pilotage consomme 756~j de démarrage : il se compare au statique \textbf{sur sa propre
+      fenêtre} (111 coupes, 03/2017 $\to$ 06/2026).
+\end{pts}
+\vspace{0.3mm}
+{\color{bleu}\bfseries Le portefeuille tenu} --- dernière coupe (29/05/2026), budget
+$\mathrm{TE}^\star = 2$~\% : $\hat\sigma = 2{,}40$~\% $\Rightarrow a = 0{,}832$, soit \textbf{16,8~\% de
+SPY} et 83,2~\% de signal --- XLK 38,6 $\cdot$ XLC 11,7 $\cdot$ XLV 9,8 $\cdot$ XLY 8,1 $\cdot$ XLF 6,2
+$\cdot$ XLP 2,8 $\cdot$ XLI 2,6 $\cdot$ XLE 2,1 $\cdot$ XLB 0,8 $\cdot$ XLU 0,3 $\cdot$ XLRE 0,2~\%.
+Et deux diagnostics qu'aucune version antérieure ne donnait : le \emph{transfer coefficient} de Grinold
+\& Kahn --- corrélation entre le pari souhaité (score pur) et le pari tenu (top-150 + plafond) ---
+vaut \textbf{0,947 en médiane} [0,83 ; 1,00] : nos contraintes laissent passer $\sim$95~\% du signal ;
+et $t \approx \mathrm{IR}\sqrt{T}$ : la preuve ne viendra que de l'IR et de la durée, jamais de la dose.
+\par\vspace{0.5mm}
+
+\fig{deux_poches.png}{le livrable, sur la fenêtre du pilotage (2017$\to$, après les 756~j de
+démarrage) : à gauche les NAV base 100 (log) --- piloté $\mathrm{TE}^\star{=}2$~\% 409, signal seul
+415, SPY 366 ; au centre $\hat\sigma$ du pari estimé sur 756~j ; à droite la dose $a_t$ qui en
+découle, aux trois budgets.}
+
+\et{a}{Ce qui contraindra avant l'écart au marché}
+\begin{pts}
+\item \textbf{aucun plafond sectoriel} : celui de 10~\% porte sur les \emph{titres} et \textbf{ne survit pas}
+      à l'agrégation --- cinq titres tech à 6--10~\% font un secteur à 46,6~\% (dém.) et 42,2~\% (rép.) à la dernière coupe ;
+\item \textbf{la poche de marché dilue, mécaniquement} : à la dernière coupe le signal porte
+      \textbf{46,4~\% de XLK} ; mélangé à $a = 0{,}832$, le portefeuille \emph{tenu} n'en garde que
+      38,6~\%. Mais à pleine dose ($a = 1$, comme au 31/03/2020) plus rien ne dilue --- la
+      concentration du signal est le vrai plafond du dispositif.
+\end{pts}
+
+\et{b}{Deux pistes écartées}
+\begin{pts}
+\item \textbf{32 instruments plus fins} (semi-conducteurs, biotechnologie, défense, banques régionales) :
+      \textbf{dégrade} --- $+0{,}31$ et $-0{,}60$~\%/an contre $+1{,}50$ et $+0{,}45$. \emph{Ces deux
+      références sont celles de la carte \textbf{non} datée} : l'univers fin en dérive, et la comparaison ne
+      vaut qu'à carte constante --- avec la carte datée les mêmes lignes rendent $+1{,}78$ et $+0{,}78$.
+      C'est l'instrument, pas le signal : \textbf{les ETF fins ne battent le secteur qu'ils découpent que
+      6 fois sur 21}, $-1{,}6$~pt/an en moyenne ($-0{,}65$ en médiane) ;
+\item \textbf{recomposer plus souvent} : sans objet --- le signal est une \textbf{inclinaison}, pas une
+      rotation. Mesuré sur le signal sectoriel \emph{par parti, avant inclinaison} : 85~\% de la \textbf{variance}
+      des écarts de poids est permanente côté démocrate, 76~\% côté républicain, et 2,2~\%
+      du portefeuille (2,3 côté républicain) change de main d'une coupe à l'autre.
+\end{pts}
+
+\end{multicols}
+
+\clearpage
+
+% ══════════════════════════════════════════════════════════════════════
+\vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Annexe A --- comment on l'a vérifié}\par
+\vspace{0.6mm}
+{\footnotesize
+Chaque ligne est un contrôle exécuté par le notebook, avec le chiffre qu'il imprime.\par}
+\vspace{0.4mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l l l@{}}
+\toprule
+\textbf{ce qui est vérifié} & \textbf{comment} & \textbf{résultat} \\
+\midrule
+la chaîne de mesure ne fabrique rien & le SPY passé au même moulin & $\beta_{\text{MKT}}$ 0,980 $\cdot$ $\alpha_4$ $+0{,}04$~\% ($t$ 0,12) \\
+le moteur fait ce qui est écrit & un mois recalculé à la main, hors moteur & NAV 106,442585 des deux côtés \\
+le plafond est bien $\min(c,\lambda v)$ & $\lambda$ retrouvé par bissection indépendante & écart max $<10^{-16}$ \\
+le coût facturé est celui de la formule & $\mathrm{NAV}_{\text{nette}}/\mathrm{NAV}_{\text{brute}}$ contre $\prod_t(1-2\,\mathrm{TO}_t\kappa)$ & écart $<10^{-14}$ (661,57 $\to$ 648,69) \\
+l'extraction est fidèle au notebook 11 & rejouée sur 150 coupes, au plafond de 8,5~\% & \textbf{18 chiffres reproduits} (NAV 672,35 / 612,25) \\
+la sélection mord & cardinal de $\mathcal S$ sur les 148 coupes & min 99 (NANC) et 112 (GOP), \textbf{médiane 150} \\
+aucune coupe ne dégénère & $\lvert\mathcal S\rvert \ge \lceil 1/c\rceil$ partout & 0 coupe sous 10 titres \\
+les 11 SPDR n'entrent pas dans le flux & flux recompté après leur chargement & 113\,369 opérations, inchangé \\
+le passage aux ETF ne change que l'agrégation & carte identité (chaque titre $\to$ lui-même) & redonne M3 à $<10^{-16}$ \\
+le poids d'un secteur est la somme de ses titres & conservation, avec la vraie carte & vérifié sur 296 couples \\
+le repli sur secteur non coté est au prorata & proportions relatives des survivants & vérifié sur 104 couples \\
+M3 sur les titres n'a pas bougé & non-régression après le bloc III & NAV 661,57 et 573,57 \\
+la poche active est celle de l'étape 12 & NAV comparée au run \og unique, carte datée\fg{} & 576,90 --- identique \\
+décider en rendements $=$ facturer en poids & deux chemins vers la même NAV, cinq doses & écart relatif max $3{,}1\cdot10^{-15}$ \\
+la fenêtre du pilotage ne triche pas & $\hat\sigma_t$ recalculée à la main sur trois coupes & strictement antérieure à $t$, écart $<10^{-9}$ \\
+les identités du profil statique & $\mathrm{TE}(a)=a\,\mathrm{TE}(1)$ et excès$(a)=a\cdot$excès$(1)$ & vraies à 1\,179 ppm (la dérive entre coupes) \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.5mm}
+{\footnotesize\color{grisf} \textbf{Ce que ces contrôles ne disent pas} : ils garantissent que le calcul fait
+ce que le protocole décrit --- ils ne disent rien de la \emph{portée} des résultats, qui est en annexe D.}\par
+
+% ══════════════════════════════════════════════════════════════════════
+\vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Annexe B --- ce qui fixe chaque constante, hors de toute performance}\par
+\vspace{0.6mm}
+{\centering\scriptsize
+\begin{tabular}{@{}l l l@{}}
+\toprule
+\textbf{étape} & \textbf{valeur} & \textbf{ce qui la fixe --- jamais notre rendement} \\
+\midrule
+1 $\cdot$ montant retenu & milieu de la fourchette déclarée & la règle publiée du fonds \\
+3 $\cdot$ recomposition & mensuelle & un signal à 3 ans ne se renouvelle qu'un trente-sixième par mois \\
+3 $\cdot$ départ du backtest & 28/02/2014 & la 1\textsuperscript{re} coupe où le plafond a une solution ($\ge10$ titres) \\
+4 $\cdot$ fenêtre du signal & 756 j ($\simeq$ 3 ans) & la règle publiée du fonds \\
+4 $\cdot$ date prise en compte & la \textbf{divulgation} $\delta$ & la date de transaction n'est pas investissable \\
+6 $\cdot$ univers & les $N = 150$ plus gros scores & le prospectus annonce 100 à 200 lignes \\
+7 $\cdot$ plafond de position & $c = 10$~\% & la médiane du fonds réel sur 13 dates, \emph{et} la limite UCITS \\
+9 $\cdot$ coût facturé & 10 points de base & l'ordre de grandeur d'un aller-retour sur méga-capitalisation \\
+\emph{hors M3} $\cdot$ filtre anti-bruit & $\theta = 50$ opérations & la description d'un gérant, pas un réglage \\
+13 $\cdot$ fenêtre du pilotage & $H = 756$ j & demandée d'avance par le chef de recherche \\
+13 $\cdot$ bande morte & $h = 20$~\% & déclarée avant le premier run ; publiée avec et sans \\
+13 $\cdot$ budget d'écart $\mathrm{TE}^\star$ & profil $\{1, 2, 3\}$~\% & le budget de risque du client --- publié en profil, jamais choisi \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\footnotesize\color{grisf} Le plafond mérite un mot : c'est le seul paramètre absent du prospectus. Deux
+sources indépendantes, dont aucune n'est notre rendement, donnent la même valeur --- la plus grosse ligne de
+\textbf{NANC} vaut \textbf{10,3~\% en médiane} sur ses treize états déposés à la SEC (entre 8,0 et 12,7~\%),
+et \textbf{10~\% est la limite UCITS} par émetteur. \textbf{Mais le fonds républicain est bien plus serré}
+--- 3,8~\% en médiane, 7,4~\% au maximum : un plafond à 10~\% ne le contraint pas, notre réplique y est plus
+concentrée que lui. Il en faut un malgré tout : \textbf{sans plafond la plus grosse ligne monte à 36~\% en
+médiane et jusqu'à 87~\%} (côté démocrate).}\par
+
+% ══════════════════════════════════════════════════════════════════════
+\vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Annexe C --- le score sectoriel n'est-il qu'un reflet de la taille des secteurs ?}\par
+\vspace{0.6mm}
+{\footnotesize
+La technologie pèse un tiers du portefeuille sectoriel côté démocrate --- mais un tiers du S\&P 500 aussi.
+L'exposition sectorielle du marché se reconstruit depuis les prix (les onze SPDR couvrent l'indice, $\beta \ge 0$
+et $\sum\beta = 1$) : \emph{un proxy des poids, pas les poids eux-mêmes}.\par}
+\vspace{0.4mm}
+{\centering\scriptsize\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}l r r r r@{}}
+\toprule
+ & $\rho$ de rang, portefeuille contre marché & écart absolu moyen & \multicolumn{2}{c}{la technologie (XLK)} \\
+\cmidrule(lr){4-5}
+médiane sur 2019--2025 & & & marché & portefeuille \\
+\midrule
+NANC & 0,85 & 3,00 pt & 29,36~\% & 31,71~\% \\
+GOP & 0,88 & 2,38 pt & 29,36~\% & 19,75~\% \\
+\bottomrule
+\end{tabular}\par}
+\vspace{0.4mm}
+{\footnotesize
+\textbf{Le classement, oui ; les poids, non.} Le portefeuille range les onze secteurs à peu près comme le
+marché les pèse, mais s'en écarte de deux à trois points par secteur --- et en sens \emph{opposés} sur le
+secteur qui décide de tout : les démocrates surpondèrent la technologie, les républicains la
+sous-pondèrent --- en 2022, 31,7~\% contre 19,8~\% pour un marché à 29,5. C'est cet écart que la Version 2
+achète. \emph{Les deux médianes du tableau tombent sur des années différentes : leur différence ne mesure
+rien.}\par
+\vspace{0.4mm}
+\textbf{Et ce n'est pas un pari sur un seul secteur} : sur les portefeuilles sectoriels \textbf{par parti et non inclinés}, mesurés sur 2020--2026, le plus gros contributeur ne pèse que \textbf{36~\%} de
+l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicain (l'énergie) --- deux moteurs
+\emph{opposés}.\par}
+
+% ══════════════════════════════════════════════════════════════════════
+\vspace{1.5mm}{\color{bleu}\hrule height 1pt}\vspace{0.8mm}
+{\color{bleu}\bfseries Annexe D --- ce que cette fiche n'établit pas}\par
+\vspace{0.6mm}
+{\footnotesize
+\textbf{La significativité.} \textbf{Deux seuils cohabitent} : 2,18 pour un excès mesuré sur treize années,
+1,96 pour un $\alpha$ lu sur 3\,059 rendements journaliers. Aucun excès sur treize ans ne franchit le sien, ni
+sur les sept années de la Version 2 --- leurs intervalles de confiance contiennent zéro. \textbf{Deux chiffres
+font exception} : l'excès républicain sur \textbf{2019--2026} ($+2{,}28$~\%/an, $t$ 2,71 pour un seuil de 2,36
+à huit années, IC [0,29 ; 4,26]) et l'$\alpha_4$ de M3-NANC ($t$ 2,08 contre 1,96). Tous deux sont lus en test
+\emph{isolé} : ce sont deux cases parmi les 162 ci-dessous, et la première est une sous-fenêtre choisie après
+coup sur un seul camp. Nous ne les revendiquons pas.\par
+\vspace{0.5mm}
+\textbf{La multiplicité.} \textbf{162 runs distincts} passent au bilan dans le notebook (le pilotage du
+bloc III en ajoute, et ils comptent tous), et tous y sont publiés ;
+aucun seuil n'en est corrigé. Le protocole s'en protège autrement : chaque constante est fixée hors de toute
+performance (annexe B), et chaque balayage est publié en entier, le verdict lu à la valeur déclarée d'avance.
+\textbf{Les frais.} Seuls 10 points de base par aller-retour, à l'étape 9 --- aucun impact de marché, aucune
+contrainte de liquidité, aucune capacité chiffrée. \textbf{Le portefeuille.} Long seul, sans levier, sans
+vente à découvert. \textbf{Les facteurs.} Ceux de Kenneth French, repris tels quels ; ils s'arrêtent au
+30/04/2026, si bien que les régressions portent sur 3\,059 jours au lieu de l'échantillon complet.
+\textbf{La fidélité.} Reproduire le fonds réel est une \emph{autre} question --- cette fiche mesure une
+stratégie.\par
+\vspace{0.5mm}
+\textbf{Le calendrier des ETF sectoriels.} La carte est datée (étape 11), sur des dates de bascule d'indice
+établies par sources primaires SEC : l'immobilier quitte \textbf{XLF} le 16/09/2016 (formulaire 497 du
+02/09/2016), la communication quitte \textbf{XLK} ou \textbf{XLY} le 21/09/2018 (SAI du 485BPOS du 15/06/2018)
+--- soit onze et trois mois \emph{après} la première cotation de XLRE et de XLC. Le discriminant entre XLK et
+XLY est l'\textbf{industrie} du titre ; les sociétés disparues, pour lesquelles aucune source de données ne
+répond plus, reçoivent une attribution \textbf{nominative} déclarée dans le notebook avant tout backtest
+(45 entrées).\par
+\vspace{0.4mm}
+\textbf{Ce que la carte ne tranche pas.} Le notebook attribue \textbf{113 titres sur 136} en communication
+(71 vers XLK, 42 vers XLY) et \textbf{167 sur 170} en immobilier : il reste donc \textbf{26 titres} au
+comportement d'avant, et non huit. \textbf{Huit sont des fonds}, et c'est le cas gênant --- \textbf{EDR}
+d'abord : sa description dit \og{}\emph{Education Realty Trust}\fg{}, un REIT, et son secteur Communication
+Services est simplement \emph{faux} ; puis sept ETF, \textbf{FDN}, \textbf{IXP}, \textbf{PNQI}, \textbf{VOX}
+(classés communication) et \textbf{VNQ}, \textbf{IYR}, \textbf{SCHH} (classés immobilier). Ils passent tous
+le filtre \texttt{asset\_class == "stock"}, et \emph{cinq d'entre eux portent} \texttt{asset\_type == "Mutual
+Fund"} \emph{sur la même ligne} : la table se contredit. Les \textbf{dix-huit autres} sont des sociétés
+opérationnelles, dont l'industrie ne permettait pas de trancher entre XLK et XLY.
+Les réattribuer aurait fait acheter un secteur au prétexte d'une étiquette douteuse ; elles gardent donc
+l'ancien comportement. \textbf{La vraie correction serait de retirer les fonds du flux}, mais elle
+déplacerait toutes les ancres du projet --- chantier du pipeline, consigné et non traité ici.\par}
+
+\end{document}
