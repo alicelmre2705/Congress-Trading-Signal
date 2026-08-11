@@ -1,6 +1,6 @@
 """senate — pipeline Sénat (digital eFD + OCR papier). N'importe le cœur QUE pour le secteur.
 
-⚠️ ÉTAT RÉEL (cf. docs/RAPPORT_FINAL.pdf, architecture à jour) : seul le secteur est mutualisé — `senate.fusion` importe
+⚠️ ÉTAT RÉEL (architecture : RAPPORT_FINAL.pdf, branche presentation) : seul le secteur est mutualisé — `senate.fusion` importe
 `common.sector_enrich` directement (avec son cache local). Le reste **réimplémente localement** une
 logique qui DIVERGE vraiment de House : identité/clé/dédup (`senate.identity` : SCHEMA, natural_key,
 make_matcher), montants (`senate.digital:amount_midpoint`), ticker (`senate.ticker`, prompt ≠

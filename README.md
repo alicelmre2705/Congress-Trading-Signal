@@ -63,11 +63,15 @@ site purge les années anciennes — et les caches OCR payés).
 
 ## 🧭 Par où commencer — Partie 0 (les données)
 
-1. **[SLIDES_DONNEES_S1S2_V2.pdf](00_recuperation_donnees/SLIDES_DONNEES_S1S2_V2.pdf)** — le
-   deck de présentation de la partie (recompilé et certifié conforme à sa source `.tex`) ;
-2. **[RAPPORT_QUALITE.md](00_recuperation_donnees/RAPPORT_QUALITE.md)** — la certification des
-   chiffres du deck : fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation
-   Quiver par ère, les preuves derrière chaque nombre.
+0. **[le README de la partie](00_recuperation_donnees/README.md)** — la carte du dossier :
+   structure, commandes, les 4 tables livrées ;
+1. **[SLIDES_DONNEES.pdf](00_recuperation_donnees/SLIDES_DONNEES.pdf)** — le
+   deck de présentation de la partie (certifié conforme à sa source `.tex`) ;
+2. **[RAPPORT_DONNEES.md](00_recuperation_donnees/RAPPORT_DONNEES.md)** — **LE rapport,
+   régénérable** (`python -m common.quality`, dernier step du pipeline — relancer = tous les
+   chiffres recalculés depuis la donnée) : couverture vs l'index officiel du Clerk, validation
+   Quiver par ère, nettoyage (§7), corroboration externe (§8), papier Sénat (§9), types de
+   dépôts Sénat (§10) — les preuves derrière chaque nombre.
 
 **Les tables prête-recherche** vivent dans `00_recuperation_donnees/data/clean/` — **brute**
 (169 000 × 41, tout le corpus avec le verdict d'entonnoir par ligne), **clean**
@@ -76,7 +80,7 @@ tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et
 (7 287 manuscrites écartées, avec motif) + la table annexe des commissions
 (bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
 pipeline, testé par le filet de non-régression). **Les étapes du nettoyage et leur code :
-`00_recuperation_donnees/NETTOYAGE.md`.**
+le §7 du rapport.**
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 
@@ -91,16 +95,17 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
 ```
 00_recuperation_donnees/
   common/   contrat UNIVERSEL : reference · schema (clé, fixes read-time, canonical_ticker) ·
-                   sector_enrich · vision_ocr · crosscheck · quality (rapport) ·
-                   quiver_diagnosis (§6) · quiver_scopes · enrich_tenure (ancienneté) ·
-                   report_pdf · pipeline (orchestrateur)
+                   sector_enrich · vision_ocr · crosscheck · backtest_clean (step 7 : brute→clean) ·
+                   quality (step 8 : LE rapport, régénérable) · quiver_diagnosis (§6) ·
+                   quiver_scopes · enrich_tenure (ancienneté) · report_pdf · pipeline (orchestrateur)
   house/    pipeline Chambre  : digital · acquire (téléchargement index+PDF) · classify_scans ·
                    ocr · identity · amounts · quiver · echantillon
   senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
-                   census_probe                                ← jumeau de house/
+                   census_probe · report_types_probe (collecteurs eFD opt-in) ← jumeau de house/
   data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                    secteurs, snapshots commissions par Congrès · clean/ ← table canonique)
-  (racine)         SLIDES_DONNEES_S1S2_V2 (le deck, .tex + .pdf) · RAPPORT_QUALITE (.md + .pdf)
+  (racine)         README.md (la carte du dossier) · SLIDES_DONNEES (le deck, .tex + .pdf) ·
+                   RAPPORT_DONNEES (.md + .pdf — régénérable)
   png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
                    — le README de png/ dit qui produit quoi
   tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
@@ -145,7 +150,7 @@ pyproject.toml   installable :  pip install -e .
 **dédup cross-année** des re-divulgations tardives. Le pipeline produit **170 920 lignes brutes**. Une
 déclaration de **collaborateur non-élu** (HASC) est exclue du périmètre membres. **100 % des 8 252 PTR
 listés par l'index officiel du Clerk 2014-2026 sont traités** (parsés, OCRisés, ou gated par règle écrite).
-Détail : `00_recuperation_donnees/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
+Détail : `00_recuperation_donnees/RAPPORT_DONNEES.md` (§1 « Couverture vs l'univers officiel »).
 
 > **Fenêtre 2014-2026** — les scans **manuscrits** sont **écartés** par une politique uniforme et
 > **rejouable** (cluster `C_manuscrit`, 582 docs gated ; exceptions explicites dans `house/ocr.py`).

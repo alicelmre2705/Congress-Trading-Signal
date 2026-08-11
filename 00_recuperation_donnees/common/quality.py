@@ -1,8 +1,8 @@
-"""Rapport de qualité des données — livrable Ramify Semaine 2.
+"""Le rapport des données — RÉGÉNÉRABLE : chaque relance recalcule tous les chiffres.
 
 Charge les tables FINAL des deux chambres (2014→2026), calcule SIX contrôles qualité et génère
-figures + `RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
-aucun appel API.**
+figures + `RAPPORT_DONNEES.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
+aucun appel API.** Exécuté par le pipeline en step 8 (`python -m common.pipeline`).
 
 En plus des 6 contrôles (a–f), le rapport décline désormais l'essentiel des statistiques par les
 **quatre sous-corpus** — House électronique, House OCR, Sénat électronique, Sénat OCR (colonne
@@ -21,7 +21,14 @@ Les contrôles :
       exact/date_mismatch/no_match/non_equity par type d'actif et par cluster de scan — agrégée depuis
       les `07c/07g/07h` figés (définition des métriques : common/quiver_scopes.py).
 
-Usage : `python -m common.quality`  (écrit RAPPORT_QUALITE.md + png/quality/*.png)
+Au-delà des contrôles : §7 = le nettoyage backtest (entonnoir + étapes + référentiels, rejoués
+depuis `common.backtest_clean`), §8 = corroboration externe ligne à ligne (SSW/HSW, via
+`common.crosscheck`), §9 = le papier Sénat (census des 373 scans), §10 = les types de dépôts
+Sénat (depuis les CSV mesurés sur l'eFD — rafraîchissables par `python -m senate.report_types_probe`).
+
+Usage : `python -m common.quality`   (écrit RAPPORT_DONNEES.md + png/quality/*.png
+                                      + png/figs_deck/fig_senat_types.png)
+        `python -m common.report_pdf` (le PDF, via Chrome headless)
 """
 import bisect
 from pathlib import Path
@@ -164,8 +171,8 @@ def _keys(df, dim):
 
 def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
     """Statistiques du nettoyage backtest (§7 du rapport) : l'entonnoir A→D vient de
-    `common.backtest_clean` (source unique — le module que le pipeline exécute en step 7 et dont
-    les étapes sont recensées dans NETTOYAGE.md). Renvoie {} si la table
+    `common.backtest_clean` (source unique — le module que le pipeline exécute en step 7 ; ses
+    étapes sont recensées au §7 du rapport). Renvoie {} si la table
     canonique est absente. Un écart avec le CSV publié n'interrompt plus le rapport : il est
     signalé (le CSV se régénère par `python -m common.backtest_clean`)."""
     clean_p = Path(repo_root) / "data" / "clean" / "transactions_backtest_2014_2026.csv"
@@ -892,6 +899,12 @@ _COLS = {
     "year": "année", "n_paires_appariées": "n paires", "accord_sens_pct": "accord sens %",
     "accord_montant_bas_pct": "accord montant %", "bioguide": "bioguide", "n_notre_manque": "n trous",
     "n_eligibles": "n éligibles", "state_district": "État/district",
+    "report_type": "type de dépôt", "filer_type": "type de déposant",
+    "dont_PTR": "dont PTR", "part_%": "part %", "part_du_PTR_%": "part des PTR %",
+    "member": "déposant", "trades_quiver": "trades Quiver",
+    "nos_lignes_tickerisables": "nos lignes tickerisables",
+    "lignes_actions": "lignes actions", "retrouvees_pct": "retrouvées (date exacte) %",
+    "residu_n": "résidu (n)",
 }
 
 
@@ -943,6 +956,207 @@ def stock_corroboration_by_year(repo_root: Path) -> pd.DataFrame:
         if c in out.columns:
             out[c] = out[c].astype("Int64")   # rendu entier (pas de « 2015.0 » dans le tableau)
     return out
+
+
+# ──────────────── §8-§10 : corroboration externe & annexes Sénat (ex-notebooks, absorbés) ────────────────
+def external_corroboration(repo_root: Path) -> dict:
+    """§8 — corroboration LIGNE À LIGNE de la table de recherche contre deux collectes publiques
+    tierces (senate-stock-watcher / house-stock-watcher, JSON versionnés dans `data/external/`,
+    jamais réinjectées). La logique vit dans `common.crosscheck` ; tout est recalculé à chaque
+    run. Renvoie {} si une entrée manque."""
+    clean_p = repo_root / "data" / "clean" / "transactions_backtest_2014_2026.csv"
+    ssw_p = repo_root / "data" / "external" / "senate_openset" / "ssw_all_daily_summaries.json"
+    hsw_p = repo_root / "data" / "external" / "house_openset" / "hsw_all_transactions.json"
+    if not (clean_p.exists() and ssw_p.exists() and hsw_p.exists()):
+        return {}
+    cols = ["member_name", "chamber", "ticker", "ticker_yahoo", "direction", "transaction_date"]
+    bt = pd.read_csv(clean_p, usecols=cols, dtype=str)
+    r_ssw = crosscheck.corroboration_lignes(bt, crosscheck.load_ssw_lines(ssw_p), "senate")
+    r_hsw = crosscheck.corroboration_lignes(bt, crosscheck.load_hsw_lines(hsw_p), "house")
+    recap = pd.DataFrame([
+        {"source": "senate-stock-watcher (Sénat)", "lignes_actions": r_ssw["actions"]["n"],
+         "retrouvees_pct": r_ssw["actions"]["pct_exact"], "residu_n": len(r_ssw["residu"])},
+        {"source": "house-stock-watcher (Chambre)", "lignes_actions": r_hsw["actions"]["n"],
+         "retrouvees_pct": r_hsw["actions"]["pct_exact"], "residu_n": len(r_hsw["residu"])},
+    ])
+    return {"ssw": r_ssw, "hsw": r_hsw, "recap": recap}
+
+
+def senate_paper_census(df: pd.DataFrame, repo_root: Path) -> dict:
+    """§9 — le papier Sénat : census des scans (1 ligne par document, catégorie d'écriture),
+    recoupé avec la sortie OCR (docs portant ≥1 transaction) et la réconciliation Quiver
+    (scope `ocr`, par année). Tout relu depuis des artefacts versionnés — aucun appel Vision.
+    Renvoie {} si le census manque."""
+    import re as _re
+
+    tdir = repo_root / "data" / "senate" / "tables"
+    cen_p = tdir / "_scan_census_senat.csv"
+    paper_p = tdir / "_paper_index_2014_2026.csv"
+    if not (cen_p.exists() and paper_p.exists()):
+        return {}
+    paper = pd.read_csv(paper_p, dtype=str)
+    cen = pd.read_csv(cen_p, dtype=str)
+
+    uure = _re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
+    txn = set()
+    for f in sorted(tdir.glob("*/06b_senate_*_ocr_transactions.csv")):
+        d = pd.read_csv(f, dtype=str)
+        for col in ("doc_id", "source_url"):
+            if col in d.columns:
+                for v in d[col].dropna():
+                    mo = uure.search(str(v))
+                    if mo:
+                        txn.add(mo.group(0).lower())
+    cen = cen.assign(a_txn=cen["uuid"].str.lower().isin(txn))
+
+    order = ["tape", "manuscrit", "annexe_courtier", "cas_a_part"]
+    lab = {"tape": "tapé", "manuscrit": "manuscrit", "annexe_courtier": "annexe courtier",
+           "cas_a_part": "cas à part (0 txn)"}
+    cnt = cen["category"].value_counts().reindex(order).fillna(0).astype(int)
+    ecritures = pd.DataFrame({"écriture": [lab[c] for c in order], "docs": cnt.values,
+                              "part_%": (100 * cnt.values / len(cen)).round(1)})
+    coherence = {lab[c]: f"{int(s.sum())} avec / {int((~s).sum())} sans"
+                 for c, s in cen.groupby("category")["a_txn"]}
+    piv = cen.pivot_table(index="member", columns="category", values="uuid",
+                          aggfunc="count", fill_value=0)
+    piv = piv.reindex(columns=order, fill_value=0)
+    piv["total"] = piv.sum(axis=1)
+    piv = piv.sort_values("total", ascending=False).reset_index().rename(columns=lab)
+
+    rows = []
+    for f in sorted(tdir.glob("*/07c_quiver_txn_reconciliation.csv")):
+        d = pd.read_csv(f)
+        o = d[d["scope"] == "ocr"].set_index("metric")["value"]
+        rows.append({"année": f.parent.name, "trades_quiver": o.get("quiver"),
+                     "nos_lignes_tickerisables": o.get("ours_tickerizable"),
+                     "matched": o.get("matched")})
+    quiv = pd.DataFrame(rows)
+    for c in ("trades_quiver", "nos_lignes_tickerisables", "matched"):
+        if c in quiv.columns:
+            quiv[c] = pd.to_numeric(quiv[c], errors="coerce").astype("Int64")
+    n_matched = int(pd.to_numeric(quiv.get("matched"), errors="coerce").fillna(0).sum()) if len(quiv) else 0
+
+    return {"n_docs": len(cen), "n_deposants": int(paper["member"].nunique()),
+            "ecritures": ecritures, "coherence": coherence, "pivot": piv,
+            "avec_txn": int(cen["a_txn"].sum()), "sans_txn": int((~cen["a_txn"]).sum()),
+            "quiver": quiv, "quiver_matched": n_matched,
+            # le nombre de transactions issues du papier Sénat, dérivé du CORPUS (jamais un littéral)
+            "n_txn_ocr": int((df["corpus"] == "Sénat OCR").sum())}
+
+
+def senate_filing_types(repo_root: Path) -> dict:
+    """§10 — types de dépôts Sénat, depuis les CSV mesurés sur le portail eFD. Le portail ne se
+    rejoue pas hors-ligne : la mesure est DATÉE, versionnée dans `data/senate/`, rafraîchissable
+    par `python -m senate.report_types_probe` (réseau, opt-in). Parts et partitions sont
+    recalculées ici à chaque run — un CSV incohérent se voit immédiatement."""
+    base = repo_root / "data" / "senate"
+    rt_p, ft_p, meta_p = (base / "_report_types_2014_2026.csv",
+                          base / "_filer_types_2014_2026.csv",
+                          base / "_report_types_meta.csv")
+    if not (rt_p.exists() and ft_p.exists()):
+        return {}
+    rt = pd.read_csv(rt_p)
+    ft = pd.read_csv(ft_p)
+    meta = pd.read_csv(meta_p).iloc[0].to_dict() if meta_p.exists() else {}
+    total = int(meta.get("total_2014_2026", rt["dépôts"].sum()))
+    ptr = int(rt.loc[rt["report_type"] == "Periodic Transactions", "dépôts"].iloc[0])
+    checks = {
+        "la partition par type somme au total (Other Documents = 0)": int(rt["dépôts"].sum()) == total,
+        "la partition par déposant somme au total": int(ft["dépôts"].sum()) == total,
+        "les PTR par déposant somment au total PTR": int(ft["dont_PTR"].sum()) == ptr,
+    }
+    rt = (rt.assign(**{"part_%": (100 * rt["dépôts"] / total).round(1)})
+            .sort_values("dépôts", ascending=False).reset_index(drop=True))
+    ft = ft.assign(**{"part_%": (100 * ft["dépôts"] / total).round(1),
+                      "part_du_PTR_%": (100 * ft["dont_PTR"] / ptr).round(1)})
+    return {"report_types": rt, "filer_types": ft, "total": total, "ptr": ptr,
+            "scrape_date": str(meta.get("scrape_date", "")) or "date non renseignée",
+            "alltime": int(meta["total_alltime"]) if "total_alltime" in meta else None,
+            "checks": checks,
+            "cand_ptr": int(ft.loc[ft["filer_type"] == "Candidate", "dont_PTR"].iloc[0]),
+            "former_pct": float(ft.loc[ft["filer_type"] == "Former Senator", "part_du_PTR_%"].iloc[0])}
+
+
+def house_filing_share(repo_root: Path) -> dict:
+    """Contraste Chambre pour le §10 : part des PTR parmi TOUS les dépôts des index {Y}FD.xml du
+    Clerk (offline pur — les index sont versionnés). Renvoie {} si les index manquent."""
+    import xml.etree.ElementTree as ET
+
+    idx_dir = repo_root / "data" / "house" / "index"
+    if not idx_dir.exists():
+        return {}
+    tot = ptr = 0
+    for p in sorted(idx_dir.glob("*FD.xml")):
+        root = ET.fromstring(p.read_bytes())
+        members = root.findall("Member") or list(root)
+        tot += len(members)
+        ptr += sum(1 for m in members if (m.findtext("FilingType") or "").strip() == "P")
+    return {"total": tot, "ptr": ptr, "pct": round(100 * ptr / tot, 1) if tot else None}
+
+
+def _fig_senat_types(ft_stats: dict, outpath: Path) -> None:
+    """La figure du deck `png/figs_deck/fig_senat_types.png` — produite ICI (producteur vivant,
+    charte du deck : violet Sénat). Reprend trait pour trait la figure certifiée du deck."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    SELEC, SOCR, GRAY, INK = "#8E44AD", "#CFAEDE", "#C8CCD0", "#2b2b2b"
+    fr = lambda n: f"{int(n):,}".replace(",", " ")
+    rt, ft = ft_stats["report_types"], ft_stats["filer_types"]
+    total, ptr = ft_stats["total"], ft_stats["ptr"]
+
+    with plt.rc_context({"font.size": 12, "font.family": "DejaVu Sans"}):
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6.8, 5.4),
+                                       gridspec_kw={"height_ratios": [4, 3], "hspace": 0.55})
+        d1 = rt.iloc[::-1]
+        cols = [SELEC if t == "Periodic Transactions" else GRAY for t in d1["report_type"]]
+        y = range(len(d1))
+        ax1.barh(y, d1["dépôts"], color=cols, height=0.68)
+        ax1.set_yticks(list(y)); ax1.set_yticklabels(d1["report_type"], fontsize=10.5)
+        for i, (t, v, p) in enumerate(zip(d1["report_type"], d1["dépôts"], d1["part_%"])):
+            b = (t == "Periodic Transactions"); ptxt = "<1 %" if p < 1 else f"{p:.0f} %"
+            ax1.text(v + 55, i, f"{fr(v)} ({ptxt})", va="center", fontsize=10,
+                     fontweight="bold" if b else "normal", color=SELEC if b else INK)
+        ptr_y = list(d1["report_type"]).index("Periodic Transactions")
+        ax1.annotate("le seul type qu'on garde", xy=(ptr, ptr_y), xytext=(2350, 0.75),
+                     fontsize=9.5, fontweight="bold", color=SELEC,
+                     arrowprops=dict(arrowstyle="->", color=SELEC, lw=1.4))
+        ax1.set_xlim(0, 3700)
+        ax1.set_title(f"par $\\it{{Report\\ Type}}$  —  {fr(total)} dépôts (somme = 100 %)",
+                      fontsize=11, loc="left", pad=8)
+        ax1.set_xlabel("nombre de dépôts (2014-2026)", fontsize=8.5, color="#666")
+        ax1.spines[["top", "right"]].set_visible(False)
+        ax1.tick_params(axis="x", labelsize=8, colors="#888")
+
+        d2 = ft.iloc[::-1]
+        y2 = range(len(d2))
+        ax2.barh(y2, d2["dépôts"], color=SOCR, height=0.62, label="tous types")
+        ax2.barh(y2, d2["dont_PTR"], color=SELEC, height=0.62, label="dont PTR")
+        ax2.set_yticks(list(y2)); ax2.set_yticklabels(d2["filer_type"], fontsize=10.5)
+        for i, (t, p, pc) in enumerate(zip(d2["dépôts"], d2["dont_PTR"], d2["part_%"])):
+            ax2.text(t + 55, i, f"{fr(t)} ({pc:.0f} %) · {fr(p)} PTR", va="center",
+                     fontsize=9.3, color=INK)
+        ax2.set_xlim(0, 4300)
+        ax2.set_title(f"par $\\it{{Filer\\ Type}}$  —  tous déposants (somme = {fr(total)})",
+                      fontsize=11, loc="left", pad=8)
+        ax2.spines[["top", "right"]].set_visible(False)
+        ax2.tick_params(axis="x", labelsize=8, colors="#888")
+        ax2.legend(loc="lower right", fontsize=8.5, frameon=False)
+
+        outpath.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(outpath, dpi=150, bbox_inches="tight")
+        plt.close(fig)
+
+
+def _csv_shape(p: Path):
+    """(lignes, colonnes) d'un CSV sans le charger en entier en mémoire — robuste aux champs
+    multi-lignes (usecols sur la 1re colonne). None si absent."""
+    if not p.exists():
+        return None
+    head = pd.read_csv(p, nrows=0)
+    n = len(pd.read_csv(p, usecols=[head.columns[0]], dtype=str))
+    return n, len(head.columns)
 
 
 def build_report(repo_root: Path) -> Path:
@@ -1010,9 +1224,13 @@ def build_report(repo_root: Path) -> Path:
     _bio = df.groupby("chamber")["bioguide_id"].nunique()
     _n_bio_h, _n_bio_s = int(_bio.get("house", 0)), int(_bio.get("senate", 0))
 
+    from datetime import date as _date_today
+
     parts = []
-    parts.append("# Rapport qualité — Données de trading du Congrès américain\n")
-    parts.append(f"> Chambre des représentants + Sénat · {yr} · généré par `python -m common.quality` "
+    parts.append("# Rapport des données — trading du Congrès américain\n")
+    parts.append(f"> Chambre des représentants + Sénat · {yr} · **régénéré le "
+                 f"{_date_today.today().isoformat()}** par `python -m common.quality` — relancer le "
+                 "pipeline régénère ce rapport : si les données changent, chaque chiffre suit "
                  "(lecture seule des tables FINAL, aucun appel API) · "
                  "Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. "
                  "*Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*\n")
@@ -1058,7 +1276,9 @@ def build_report(repo_root: Path) -> Path:
         "`transaction_date` OCR — quelques dates OCR restent imprécises (§3).*\n")
     parts.append("\n*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des "
                  "dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver "
-                 "(vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest).*\n")
+                 "(vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest) · "
+                 "§8 corroboration externe ligne à ligne (SSW/HSW) · §9 le papier Sénat · "
+                 "§10 les types de dépôts Sénat.*\n")
 
     # ════════ §1 Construction & validation du corpus ════════
     parts.append("\n## 1. Construction & validation du corpus\n")
@@ -1093,7 +1313,8 @@ def build_report(repo_root: Path) -> Path:
                           "(politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to "
                           "report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). "
                           "Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait "
-                          "foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`)."))
+                          "foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`) ; "
+                          "la part des PTR dans le portail eFD : §10."))
 
     parts.append("\n### Validation & reproductibilité\n")
     parts.append("\nTout est **rejouable hors-ligne** (lecture seule des tables FINAL, **0 appel API**), adossé "
@@ -1456,13 +1677,14 @@ def build_report(repo_root: Path) -> Path:
         parts.append(
             "Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, "
             "options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un "
-            "**montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes : `NETTOYAGE.md`) dérive la **table de recherche "
+            "**montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : "
+            "ci-dessous) dérive la **table de recherche "
             "canonique** `data/clean/transactions_backtest_2014_2026.csv` "
             f"(**{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes**) par un entonnoir en 4 étapes.\n\n"
             "**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ "
             "et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. "
-            "*Les comptes ci-dessous sont REJOUÉS par ce rapport avec les mêmes règles que le notebook, "
-            "puis confrontés au fichier publié (égalité vérifiée par assertion à chaque run).*\n\n")
+            "*Les comptes ci-dessous sont REJOUÉS par ce rapport depuis le module "
+            "(`common.backtest_clean`), puis confrontés au fichier publié à chaque run.*\n\n")
         parts.append("### L'entonnoir\n\n")
         parts.append(_md_table(_bf["funnel"]))
         parts.append(_leg(f"{_n(n_total)} → {_n(_bf['n_final'])} = "
@@ -1506,7 +1728,179 @@ def build_report(repo_root: Path) -> Path:
             "- **Invariants garantis à l'export** (assertions) : bioguide, ticker, montant, direction, "
             "chronologie (divulgation ≥ transaction) et clé naturelle remplis sur 100 % des lignes.\n")
 
-    report = root / "RAPPORT_QUALITE.md"
+        # — les étapes et leur code (le recensement du nettoyage vit ICI, dans le rapport) —
+        parts.append("\n### Les étapes, dans l'ordre — et où vit leur code\n\n")
+        parts.append(
+            "Le code du nettoyage est **`common/backtest_clean.py`** — un module Python comme "
+            "`house/` et `senate/`, exécuté par le pipeline en step 7, 100 % hors-ligne :\n\n"
+            "```bash\n"
+            "python -m common.pipeline --years 2020-2026    # step 7 = nettoyage · step 8 = ce rapport\n"
+            "python -m common.backtest_clean                # le step seul\n"
+            "python tests/regression/test_backtest_clean.py # le contrôle : doit afficher « ZÉRO ÉCART »\n"
+            "```\n\n")
+        parts.append(_md_table(pd.DataFrame([
+            {"étape": "0 · assemblage du corpus", "code": "`common/quality.py :: load_final`",
+             "règle": "concatène les 26 FINAL, déduplique les re-divulgations cross-année (clé naturelle), "
+                      "applique les corrections de LECTURE (dates, identités, fourchettes, tickers retrouvés — "
+                      "`common/schema.py :: apply_*_fixes`) ; le figé sur disque n'est jamais modifié"},
+            {"étape": "1 · tickers faux-positifs", "code": "`backtest_clean :: apply_ticker_false_positive_fixes`",
+             "règle": "répare les tickers extraits à tort d'une parenthèse descriptive (« NetApp, Inc. stock "
+                      "(IRA) » portait le ticker `IRA`) — règles déclaratives de `ticker_false_positives.csv`"},
+            {"étape": "2 · montants unifiés", "code": "`backtest_clean :: unify_amounts`",
+             "règle": "milieu de fourchette (lo+hi)/2 recalculé uniformément ; palier ouvert « Over $50M » au "
+                      "plancher 50 M$ ; `amount_open_bracket` marque les paliers sans borne haute"},
+            {"étape": "3 · l'entonnoir A→D", "code": "`backtest_clean :: funnel_verdicts`",
+             "règle": "les 4 coupes du tableau ci-dessus, une seule cause par ligne — le verdict est ÉCRIT "
+                      "dans la table brute (`exclusion_etape`, `exclusion_motif`)"},
+            {"étape": "4 · enrichissements", "code": "`backtest_clean :: enrich`",
+             "règle": "parti et commissions À LA DATE du trade, ticker canonique Yahoo + renommages, classe "
+                      "d'actif / secteur GICS / ETF proxy, flags — la liste : « ce que la table ajoute » ci-dessus"},
+            {"étape": "5 · export & invariants", "code": "`backtest_clean :: write_tables`",
+             "règle": "les quatre tables, après six assertions bloquantes (bioguide, ticker, montant, "
+                      "direction, chronologie, clé naturelle)"},
+        ])))
+        cdir = root / "data" / "clean"
+        shp_brut = _csv_shape(cdir / "transactions_brut_2014_2026.csv")
+        shp_gated = _csv_shape(cdir / "transactions_gated_2014_2026.csv")
+        shp_comm = _csv_shape(cdir / "commissions_membre_congres.csv")
+        _shp = lambda s: f"{_n(s[0])} × {s[1]}" if s else "—"
+        parts.append("\n**Les quatre tables produites** (`data/clean/`) :\n\n")
+        parts.append(_md_table(pd.DataFrame([
+            {"table": "`transactions_brut_2014_2026.csv`", "dimensions": _shp(shp_brut),
+             "contenu": "la donnée BRUTE : tout le corpus, avec pour chaque ligne écartée son étape et son "
+                        "motif (`exclusion_etape`, `exclusion_motif`)"},
+            {"table": "`transactions_backtest_2014_2026.csv`",
+             "dimensions": f"{_n(_bf['n_final'])} × {_bf['n_cols']}",
+             "contenu": "la donnée CLEAN : celle que la recherche consomme"},
+            {"table": "`transactions_gated_2014_2026.csv`", "dimensions": _shp(shp_gated),
+             "contenu": "les transactions des scans manuscrits écartés par la politique OCR "
+                        "(`house/ocr.py`), avec leur motif"},
+            {"table": "`commissions_membre_congres.csv`", "dimensions": _shp(shp_comm),
+             "contenu": "annexe : texte complet des commissions et sous-commissions par élu × Congrès "
+                        "(jointure `bioguide_id` × `congress`)"},
+        ])))
+        refdir = root / "data" / "reference"
+
+        def _ref_n(name):
+            try:
+                return _n(len(pd.read_csv(refdir / name)))
+            except Exception:
+                return "—"
+        _snapdir = refdir / "committees_snapshots"
+        n_snap = sum(1 for p in _snapdir.iterdir() if p.is_dir()) if _snapdir.exists() else 0
+        parts.append("\n### Les référentiels du nettoyage (`data/reference/`)\n\n")
+        parts.append(_md_table(pd.DataFrame([
+            {"référentiel": "`ticker_false_positives.csv`", "entrées": _ref_n("ticker_false_positives.csv"),
+             "rôle": "tickers extraits à tort d'une parenthèse (étape 1)"},
+            {"référentiel": "`ticker_renames.csv`", "entrées": _ref_n("ticker_renames.csv"),
+             "rôle": "renommages / fusions / délistages, chacun vérifié sur cours"},
+            {"référentiel": "`ticker_sector_map.csv`", "entrées": _ref_n("ticker_sector_map.csv"),
+             "rôle": "classe d'actif · secteur GICS · ETF proxy"},
+            {"référentiel": "`ticker_sector_map_datee.csv`", "entrées": _ref_n("ticker_sector_map_datee.csv"),
+             "rôle": "bascules d'indice datées (XLRE 16/09/2016, XLC 21/09/2018) + attributions nominatives"},
+            {"référentiel": "`committees_snapshots/`", "entrées": f"{n_snap} Congrès",
+             "rôle": "commissions et sous-commissions par Congrès (113→119), bascule au 3 janvier"},
+        ])))
+        parts.append(_leg("tous versionnés, tous déclaratifs : corriger la donnée = éditer un référentiel, "
+                          "jamais du code."))
+
+    # ════════ §8 Corroboration externe ligne à ligne ════════
+    ext = external_corroboration(repo_root)
+    if ext:
+        a_s, a_h = ext["ssw"]["actions"], ext["hsw"]["actions"]
+        parts.append("\n## 8. Corroboration externe ligne à ligne (deux collectes tierces)\n\n")
+        parts.append(
+            "Deux collectes publiques **indépendantes** re-lisent les mêmes sources officielles : "
+            "*senate-stock-watcher* (Sénat) et *house-stock-watcher* (Chambre) — JSON versionnés dans "
+            "`data/external/`, **jamais réinjectés** : ils ne servent qu'à MESURER la robustesse de notre "
+            "lecture. Clé stricte d'appariement = (déposant, ticker, sens, date) ; le montant reste hors "
+            "clé (la loi ne donne qu'une fourchette). Périmètre directement comparable : leurs lignes "
+            "`asset_type == \"Stock\"` contre la table de recherche (§7). La logique vit dans "
+            "`common/crosscheck.py`.\n\n")
+        parts.append(_md_table(ext["recap"]))
+        parts.append(_leg("lignes actions = transactions d'actions cotées de la collecte tierce · retrouvées "
+                          "= présentes chez nous à la transaction près (déposant · ticker · sens · date) · "
+                          "résidu = actions non retrouvées (tickers exotiques, période très récente)"))
+        parts.append(
+            f"\n- **Sénat / SSW** — {_n(a_s['n'])} actions cotées, **{a_s['pct_exact']} % retrouvées à la "
+            f"transaction près** ; toutes lignes cotées confondues (fonds/ETF inclus) : "
+            f"{ext['ssw']['tout_cote']['pct_exact']} % — l'écart = fonds mutuels/ETF que notre pipeline "
+            f"filtre, pas des trous ; {ext['ssw']['n_echanges']} échanges (SSW les scinde en 2 lignes, "
+            f"représentés autrement chez nous) ; résidu {len(ext['ssw']['residu'])} lignes.\n"
+            f"- **Chambre / HSW** — {_n(a_h['n'])} actions cotées, **{a_h['pct_exact']} % retrouvées à la "
+            f"transaction près** ; résidu {len(ext['hsw']['residu'])} lignes (surtout 2026, période très "
+            f"récente).\n"
+            f"- **Lecture** : deux lectures tierces indépendantes retrouvent chacune "
+            f"≥ {min(a_s['pct_exact'], a_h['pct_exact'])} % de nos lignes d'actions, à la transaction "
+            "près — la robustesse de l'extraction est corroborée de l'extérieur.\n")
+
+    # ════════ §9 Le papier Sénat ════════
+    pap = senate_paper_census(df, repo_root)
+    if pap:
+        parts.append("\n## 9. Le papier Sénat — census des scans\n\n")
+        parts.append(
+            f"Le Sénat a déposé **{_n(pap['n_docs'])} PTR papier** ({yr}), portés par "
+            f"**{pap['n_deposants']} déposants** — soit {_n(pap['n_txn_ocr'])} transactions du corpus "
+            "(le sous-corpus « Sénat OCR », cf. §1). Chaque document est classé par écriture ; tout est "
+            "relu depuis des artefacts versionnés (`data/senate/tables/_scan_census_senat.csv`, "
+            "`_paper_index_2014_2026.csv`, sorties OCR `06b_*`) — aucun appel Vision.\n\n")
+        parts.append(_md_table(pap["ecritures"]))
+        parts.append(_leg(f"recoupement avec la sortie OCR : {pap['avec_txn']} docs portent ≥ 1 transaction, "
+                          f"{pap['sans_txn']} zéro — et ces derniers sont exactement les « cas à part » "
+                          f"({' · '.join(f'{k} : {v}' for k, v in sorted(pap['coherence'].items()))})."))
+        parts.append("\n**Par déposant × écriture** :\n\n")
+        parts.append(_md_table(pap["pivot"]))
+        parts.append("\n**Quiver et le papier Sénat** (réconciliation par année, scope `ocr`) :\n\n")
+        parts.append(_md_table(pap["quiver"]))
+        parts.append(_leg(f"total apparié sur {len(pap['quiver'])} ans : {pap['quiver_matched']} → Quiver "
+                          + ("corrobore 0 % du papier Sénat (mesuré, pas affirmé)"
+                             if pap["quiver_matched"] == 0 else
+                             f"n'apparie que {pap['quiver_matched']} lignes du papier Sénat")
+                          + " : sur ce sous-corpus, notre OCR est la source unique."))
+
+    # ════════ §10 Les types de dépôts Sénat ════════
+    sft = senate_filing_types(repo_root)
+    if sft:
+        parts.append("\n## 10. Les types de dépôts Sénat (mesure eFD datée)\n\n")
+        parts.append(
+            "Le portail eFD du Sénat ne se rejoue pas hors-ligne : ces comptes sont une **mesure du "
+            f"portail, datée du {sft['scrape_date']}**, versionnée "
+            "(`data/senate/_report_types_2014_2026.csv`, `_filer_types_2014_2026.csv`) et rafraîchissable "
+            "par `python -m senate.report_types_probe` (réseau, opt-in — réécrit les CSV et la date). "
+            "Parts et contrôles de partition sont **recalculés à chaque run** depuis ces CSV.\n\n")
+        parts.append(_md_table(sft["report_types"]))
+        top_rt = sft["report_types"].iloc[0]
+        nb_top = ("" if top_rt["report_type"] == "Periodic Transactions" else
+                  f" NB : le type le plus fréquent est « {top_rt['report_type']} » "
+                  f"({_n(int(top_rt['dépôts']))}) — la part PTR reste exacte.")
+        parts.append(_leg(f"part des PTR = {_n(sft['ptr'])} / {_n(sft['total'])} = "
+                          f"**{round(100 * sft['ptr'] / sft['total'], 1)} %** — le seul type qu'on garde."
+                          + nb_top))
+        parts.append("\n**Par type de déposant** :\n\n")
+        parts.append(_md_table(sft["filer_types"]))
+        parts.append(_leg(f"lecture : les candidats ne tradent quasi pas ({sft['cand_ptr']} PTR) ; les "
+                          f"anciens sénateurs pèsent {round(sft['former_pct'])} % des PTR (mandat de 6 ans "
+                          "+ obligation de déclarer après le départ)."))
+        ctrl = " · ".join(("✓" if ok else "✗") + " " + k for k, ok in sft["checks"].items())
+        parts.append(f"\n**Contrôles de partition (recalculés)** : {ctrl}.")
+        if sft["alltime"]:
+            parts.append(f" Au moment de la mesure, le total all-time ({_n(sft['alltime'])}) dépassait la "
+                         f"fenêtre 2014-2026 ({_n(sft['total'])}) — le filtre de date est bien appliqué.")
+        hfs = house_filing_share(repo_root)
+        if hfs:
+            parts.append(f"\n\n**Contraste Chambre** (offline, index du Clerk versionnés) : "
+                         f"{_n(hfs['ptr'])} PTR / {_n(hfs['total'])} dépôts = **{hfs['pct']} %** — la part "
+                         f"des PTR au Sénat ({round(100 * sft['ptr'] / sft['total'], 1)} %) est nettement "
+                         "plus élevée.\n")
+        parts.append("\n![Types de dépôts Sénat](png/figs_deck/fig_senat_types.png)\n")
+        parts.append(_leg("la figure du deck (`png/figs_deck/fig_senat_types.png`) — produite par ce "
+                          "rapport à chaque run."))
+        try:
+            _fig_senat_types(sft, root / "png" / "figs_deck" / "fig_senat_types.png")
+        except Exception as e:
+            print(f"⚠️ figure fig_senat_types non régénérée : {e}")
+
+    report = root / "RAPPORT_DONNEES.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")
     return report
 

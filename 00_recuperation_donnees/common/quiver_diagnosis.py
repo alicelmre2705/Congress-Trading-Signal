@@ -1,6 +1,6 @@
 """Diagnostic Quiver « qui a raison ? » — recompute OFFLINE, lecture seule, jamais réinjecté.
 
-Le §6 de RAPPORT_QUALITE.md confronte nos trades à Quiver par **strictesse croissante** : inclusion
+Le §6 de RAPPORT_DONNEES.md confronte nos trades à Quiver par **strictesse croissante** : inclusion
 date-AGNOSTIQUE (`ticker_inclusion`, §6.2 — a-t-on le trade), réconciliation date-ANCRÉE 1-à-1
 (`reconcile_dates`, §6.3 — le même trade à la même date, apparié par dépôt), puis **verdicts
 actionnables** (ci-dessous, §6.5). Tout est recalculé depuis les tables FINAL + le cache Quiver

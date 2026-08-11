@@ -11,13 +11,15 @@ Trois sorties dans data/clean/ :
     data/house/ocr_gated_recovered.csv) — exportées pour que rien ne soit écarté en silence.
 
 La logique de l'entonnoir et des enrichissements vient du notebook
-Nettoyage_Backtest_2014_2026.ipynb (2026-07-03), qui devient la VITRINE de ce module.
+Nettoyage_Backtest_2014_2026.ipynb (2026-07-03, archivé — `_archive/` de la branche presentation) ;
+les étapes sont recensées au §7 de RAPPORT_DONNEES.md (régénéré par `python -m common.quality`).
 `corrections=False` rejoue le schéma v1 (36 colonnes, commissions inline) — la reproduction
 octet pour octet de la table du 2026-07-04 a été prouvée avant les corrections des référentiels
 (elle se rejoue en restaurant `ticker_renames.csv`/`ticker_sector_map.csv` d'époque depuis git) ;
 `corrections=True` (défaut du pipeline) applique en plus les correctifs documentés dans
-NOTE_DIFF_TABLE_CLEAN.md (renommages complétés, tickers faux-positifs, carte corrigée,
-colonnes owner_n / member_name_canon / ticker_groupe / amount_open_bracket, sous-commissions).
+NOTE_DIFF_TABLE_CLEAN.md (branche presentation : renommages complétés, tickers faux-positifs,
+carte corrigée, colonnes owner_n / member_name_canon / ticker_groupe / amount_open_bracket,
+sous-commissions résolues).
 
 Usage : python -m common.backtest_clean            (écrit les trois tables + le résumé)
         python -m common.backtest_clean --v1       (mode reproduction, table clean seule)

@@ -1,5 +1,5 @@
-# Rapport qualité — Données de trading du Congrès américain
-> Chambre des représentants + Sénat · 2014–2026 · généré par `python -m common.quality` (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
+# Rapport des données — trading du Congrès américain
+> Chambre des représentants + Sénat · 2014–2026 · **régénéré le 2026-08-11** par `python -m common.quality` — relancer le pipeline régénère ce rapport : si les données changent, chaque chiffre suit (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
 
 ## Résumé exécutif
 
@@ -13,7 +13,7 @@
 | Dates cohérentes / délai médian de divulgation | **99.8 %** / **27 j** |
 | Montants renseignés | **99.4 %** |
 | Combinaisons Quiver retrouvées (déposant, ticker, sens — fenêtre commune) | **93.5 %** House · **92.1 %** Sénat |
-| Table de recherche backtest (§7) | **134 464 lignes × 36 colonnes** |
+| Table de recherche backtest (§7) | **134 452 lignes × 39 colonnes** |
 | Filet de non-régression | golden **230 + 138 fichiers** (SHA256), zéro écart |
 
 - **Périmètre** — 169 000 transactions uniques de membres élus (House 151 989 + Sénat 17 011), 2014–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
@@ -22,7 +22,7 @@
 - **Les « écarts » de date ne sont pas des erreurs** — la réconciliation 1-à-1 (§6.3) montre que l'essentiel est du « nous-seul » (Quiver n'a pas le trade) ; seuls 545 candidats House (même déclaration) méritent l'œil, et le vrai contrôle des dates reste l'audit PDF (§3).
 - **Données propres** — identité rattachée à 100.0 %, dates cohérentes 99.8 %, délai de divulgation médian 27 j, montants renseignés 99.4 %. *Anti-look-ahead : tout usage aval (backtest) entre sur `disclosure_date` (date de dépôt imprimée, fiable), jamais sur la `transaction_date` OCR — quelques dates OCR restent imprécises (§3).*
 
-*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver (vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest).*
+*Plan : §1 construction & validation · §2 composition & complétude · §3 qualité des dates · §4 montants · §5 activité & concentration · §6 complétude vs Quiver (vérité-terrain) · §7 du corpus à la table de recherche (nettoyage backtest) · §8 corroboration externe ligne à ligne (SSW/HSW) · §9 le papier Sénat · §10 les types de dépôts Sénat.*
 
 ## 1. Construction & validation du corpus
 
@@ -62,7 +62,7 @@ Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; l
 | 2025 | 515 | 503 | 6 | 6 | 100.0 |
 | 2026 | 274 | 268 | 2 | 4 | 100.0 |
 | TOTAL | 8252 | 7568 | 582 | 102 | 100.0 |
-*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`). **Part des PTR au Sénat** (scrape eFD `report_types=[]`, 2026-07-18, fenêtre **2014-2026** tous déposants — filtre de date vérifié : all-time = 6 045 > 5 096) : **2 160 PTR sur 5 096 dépôts tous types = ≈ 42 %** (census interne 2 153 en contre-vérif. ; vs Chambre 23,4 %, même fenêtre/périmètre) — détail dans `ANALYSE_TYPES_RAPPORTS_SENAT.md`.*
+*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`) ; la part des PTR dans le portail eFD : §10.*
 
 ### Validation & reproductibilité
 
@@ -538,9 +538,9 @@ Listes actionnables complètes (ligne à ligne) → `data/quiver_validation/` (`
 
 ## 7. Du corpus à la table de recherche (nettoyage backtest)
 
-Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes : `NETTOYAGE.md`) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 464 lignes × 36 colonnes**) par un entonnoir en 4 étapes.
+Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : ci-dessous) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 452 lignes × 39 colonnes**) par un entonnoir en 4 étapes.
 
-**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport avec les mêmes règles que le notebook, puis confrontés au fichier publié (égalité vérifiée par assertion à chaque run).*
+**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport depuis le module (`common.backtest_clean`), puis confrontés au fichier publié à chaque run.*
 
 ### L'entonnoir
 
@@ -548,18 +548,18 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 | --- | --- | --- | --- |
 | — | corpus unique (`load_final`) | 0 | 169000 |
 | A | dates présentes & cohérentes (divulgation ≥ transaction, année plausible) | 3252 | 165748 |
-| B | actions + ETF cotés (ticker exploitable, réellement coté, famille cotée) | 29771 | 135977 |
-| C | direction claire (achat / vente — les échanges sortent) | 826 | 135151 |
-| D | montant présent (fourchette STOCK Act → point milieu) | 687 | 134464 |
-*169 000 → 134 464 = 79.6 % du corpus conservé. Chaque retrait est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un simple champ vide récupérable.*
+| B | actions + ETF cotés (ticker exploitable, réellement coté, famille cotée) | 29783 | 135965 |
+| C | direction claire (achat / vente — les échanges sortent) | 826 | 135139 |
+| D | montant présent (fourchette STOCK Act → point milieu) | 687 | 134452 |
+*169 000 → 134 452 = 79.6 % du corpus conservé. Chaque retrait est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un simple champ vide récupérable.*
 
 ### Pourquoi les lignes de l'étape B partent (une seule cause par ligne)
 
 | cause | lignes |
 | --- | --- |
-| ticker vide (aucun symbole → pas de prix) | 27006 |
-| ticker malformé / non coté (CUSIP, fragment OCR…) | 164 |
-| famille non cotée (option, obligation, muni, gouvernement) | 2601 |
+| ticker vide (aucun symbole → pas de prix) | 27018 |
+| option / obligation (famille non cotée) | 2601 |
+| ticker malformé ($, espace, fragment OCR) | 164 |
 *ticker vide = actifs non cotés (munis, obligations, sociétés privées) qui n'ont légitimement pas de symbole · malformé/non coté = CUSIP, fragments OCR, préférentielles non joignables à un prix · famille non cotée = options, obligations, bons du Trésor (classes détectées ticker-first : une action au type déclaré vide est GARDÉE grâce à son ticker).*
 
 ### Composition de la table publiée
@@ -568,7 +568,7 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 
 | chambre | ère | transactions |
 | --- | --- | --- |
-| house | 2014-2019 | 56706 |
+| house | 2014-2019 | 56694 |
 | house | 2020-2026 | 66108 |
 | senate | 2014-2019 | 7111 |
 | senate | 2020-2026 | 4539 |
@@ -576,27 +576,27 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 
 | sens | transactions |
 | --- | --- |
-| buy | 68250 |
-| sell | 66214 |
+| buy | 68241 |
+| sell | 66211 |
 **Par classe d'actif :**
 
 | classe d'actif | transactions |
 | --- | --- |
-| stock | 128974 |
-| unknown | 3300 |
-| etf_broad | 2022 |
-| etf_sector | 168 |
+| stock | 128957 |
+| unknown | 3226 |
+| etf_broad | 2023 |
+| etf_sector | 246 |
 *`stock` = action avec secteur GICS (rempli à 100 % sur les actions) · `etf_sector` = SPDR sectoriel (son propre proxy) · `etf_broad` = ETF diversifié coté, GARDÉ et flagué (pas de secteur GICS par nature) · `unknown` = coté mais classe non résolue, flagué.*
 
 ### Ce qui est flagué (gardé, jamais retiré)
 
 | flag | lignes | % |
 | --- | --- | --- |
-| `flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication) | 16349 | 12.2 |
-| `flag_very_late_filing` — divulgation > 365 j | 3075 | 2.3 |
+| `flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication) | 16343 | 12.2 |
+| `flag_very_late_filing` — divulgation > 365 j | 3071 | 2.3 |
 | `is_delisted` — titre sorti de cote (rachat/faillite, typé via `data/reference/ticker_renames.csv`) | 3542 | 2.6 |
-| `lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer | 11873 | 8.8 |
-| `flag_price_caution` — symbole recyclé / jambe absorbée d'une fusion (join prix par période) | 505 | 0.4 |
+| `lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer | 11871 | 8.8 |
+| `flag_price_caution` — symbole recyclé / jambe absorbée d'une fusion (join prix par période) | 525 | 0.4 |
 ### Ce que la table ajoute au corpus (enrichissements)
 
 - **Parti à la date de la transaction** (les changements de parti en cours de mandat sont datés — `party_affiliations` du référentiel officiel).
@@ -604,4 +604,133 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 - **`ticker` fidèle à la déclaration + `ticker_yahoo` prêt pour le join prix** (format Yahoo, renommages et fusions appliqués via `data/reference/ticker_renames.csv` ; les titres délistés sont typés — faillite, rachat — au lieu de disparaître en silence).
 - **`amount_midpoint` = milieu exact de la fourchette STOCK Act** (convention unique sur tout le corpus) ; `owner`, `occurrence_index`, `lot_size`, `doc_id`, `natural_key_hash` pour la traçabilité ligne à ligne.
 - **Invariants garantis à l'export** (assertions) : bioguide, ticker, montant, direction, chronologie (divulgation ≥ transaction) et clé naturelle remplis sur 100 % des lignes.
+
+### Les étapes, dans l'ordre — et où vit leur code
+
+Le code du nettoyage est **`common/backtest_clean.py`** — un module Python comme `house/` et `senate/`, exécuté par le pipeline en step 7, 100 % hors-ligne :
+
+```bash
+python -m common.pipeline --years 2020-2026    # step 7 = nettoyage · step 8 = ce rapport
+python -m common.backtest_clean                # le step seul
+python tests/regression/test_backtest_clean.py # le contrôle : doit afficher « ZÉRO ÉCART »
+```
+
+| étape | code | règle |
+| --- | --- | --- |
+| 0 · assemblage du corpus | `common/quality.py :: load_final` | concatène les 26 FINAL, déduplique les re-divulgations cross-année (clé naturelle), applique les corrections de LECTURE (dates, identités, fourchettes, tickers retrouvés — `common/schema.py :: apply_*_fixes`) ; le figé sur disque n'est jamais modifié |
+| 1 · tickers faux-positifs | `backtest_clean :: apply_ticker_false_positive_fixes` | répare les tickers extraits à tort d'une parenthèse descriptive (« NetApp, Inc. stock (IRA) » portait le ticker `IRA`) — règles déclaratives de `ticker_false_positives.csv` |
+| 2 · montants unifiés | `backtest_clean :: unify_amounts` | milieu de fourchette (lo+hi)/2 recalculé uniformément ; palier ouvert « Over $50M » au plancher 50 M$ ; `amount_open_bracket` marque les paliers sans borne haute |
+| 3 · l'entonnoir A→D | `backtest_clean :: funnel_verdicts` | les 4 coupes du tableau ci-dessus, une seule cause par ligne — le verdict est ÉCRIT dans la table brute (`exclusion_etape`, `exclusion_motif`) |
+| 4 · enrichissements | `backtest_clean :: enrich` | parti et commissions À LA DATE du trade, ticker canonique Yahoo + renommages, classe d'actif / secteur GICS / ETF proxy, flags — la liste : « ce que la table ajoute » ci-dessus |
+| 5 · export & invariants | `backtest_clean :: write_tables` | les quatre tables, après six assertions bloquantes (bioguide, ticker, montant, direction, chronologie, clé naturelle) |
+**Les quatre tables produites** (`data/clean/`) :
+
+| table | dimensions | contenu |
+| --- | --- | --- |
+| `transactions_brut_2014_2026.csv` | 169 000 × 41 | la donnée BRUTE : tout le corpus, avec pour chaque ligne écartée son étape et son motif (`exclusion_etape`, `exclusion_motif`) |
+| `transactions_backtest_2014_2026.csv` | 134 452 × 39 | la donnée CLEAN : celle que la recherche consomme |
+| `transactions_gated_2014_2026.csv` | 7 287 × 13 | les transactions des scans manuscrits écartés par la politique OCR (`house/ocr.py`), avec leur motif |
+| `commissions_membre_congres.csv` | 3 707 × 3 | annexe : texte complet des commissions et sous-commissions par élu × Congrès (jointure `bioguide_id` × `congress`) |
+### Les référentiels du nettoyage (`data/reference/`)
+
+| référentiel | entrées | rôle |
+| --- | --- | --- |
+| `ticker_false_positives.csv` | 26 | tickers extraits à tort d'une parenthèse (étape 1) |
+| `ticker_renames.csv` | 96 | renommages / fusions / délistages, chacun vérifié sur cours |
+| `ticker_sector_map.csv` | 4 849 | classe d'actif · secteur GICS · ETF proxy |
+| `ticker_sector_map_datee.csv` | 47 | bascules d'indice datées (XLRE 16/09/2016, XLC 21/09/2018) + attributions nominatives |
+| `committees_snapshots/` | 7 Congrès | commissions et sous-commissions par Congrès (113→119), bascule au 3 janvier |
+*tous versionnés, tous déclaratifs : corriger la donnée = éditer un référentiel, jamais du code.*
+
+## 8. Corroboration externe ligne à ligne (deux collectes tierces)
+
+Deux collectes publiques **indépendantes** re-lisent les mêmes sources officielles : *senate-stock-watcher* (Sénat) et *house-stock-watcher* (Chambre) — JSON versionnés dans `data/external/`, **jamais réinjectés** : ils ne servent qu'à MESURER la robustesse de notre lecture. Clé stricte d'appariement = (déposant, ticker, sens, date) ; le montant reste hors clé (la loi ne donne qu'une fourchette). Périmètre directement comparable : leurs lignes `asset_type == "Stock"` contre la table de recherche (§7). La logique vit dans `common/crosscheck.py`.
+
+| source | lignes actions | retrouvées (date exacte) % | résidu (n) |
+| --- | --- | --- | --- |
+| senate-stock-watcher (Sénat) | 5524 | 99.7 | 11 |
+| house-stock-watcher (Chambre) | 23437 | 99.6 | 17 |
+*lignes actions = transactions d'actions cotées de la collecte tierce · retrouvées = présentes chez nous à la transaction près (déposant · ticker · sens · date) · résidu = actions non retrouvées (tickers exotiques, période très récente)*
+
+- **Sénat / SSW** — 5 524 actions cotées, **99.7 % retrouvées à la transaction près** ; toutes lignes cotées confondues (fonds/ETF inclus) : 96.2 % — l'écart = fonds mutuels/ETF que notre pipeline filtre, pas des trous ; 66 échanges (SSW les scinde en 2 lignes, représentés autrement chez nous) ; résidu 11 lignes.
+- **Chambre / HSW** — 23 437 actions cotées, **99.6 % retrouvées à la transaction près** ; résidu 17 lignes (surtout 2026, période très récente).
+- **Lecture** : deux lectures tierces indépendantes retrouvent chacune ≥ 99.6 % de nos lignes d'actions, à la transaction près — la robustesse de l'extraction est corroborée de l'extérieur.
+
+## 9. Le papier Sénat — census des scans
+
+Le Sénat a déposé **373 PTR papier** (2014–2026), portés par **14 déposants** — soit 3 985 transactions du corpus (le sous-corpus « Sénat OCR », cf. §1). Chaque document est classé par écriture ; tout est relu depuis des artefacts versionnés (`data/senate/tables/_scan_census_senat.csv`, `_paper_index_2014_2026.csv`, sorties OCR `06b_*`) — aucun appel Vision.
+
+| écriture | docs | part % |
+| --- | --- | --- |
+| tapé | 254 | 68.1 |
+| manuscrit | 11 | 2.9 |
+| annexe courtier | 101 | 27.1 |
+| cas à part (0 txn) | 7 | 1.9 |
+*recoupement avec la sortie OCR : 366 docs portent ≥ 1 transaction, 7 zéro — et ces derniers sont exactement les « cas à part » (annexe courtier : 101 avec / 0 sans · cas à part (0 txn) : 0 avec / 7 sans · manuscrit : 11 avec / 0 sans · tapé : 254 avec / 0 sans).*
+
+**Par déposant × écriture** :
+
+| déposant | tapé | manuscrit | annexe courtier | cas à part (0 txn) | total |
+| --- | --- | --- | --- | --- | --- |
+| RICHARD BLUMENTHAL | 110 | 3 | 6 | 1 | 120 |
+| RICHARD M BURR | 56 | 0 | 25 | 3 | 84 |
+| JOHN BOOZMAN | 3 | 4 | 66 | 1 | 74 |
+| DIANNE FEINSTEIN | 37 | 0 | 3 | 0 | 40 |
+| MARK R WARNER | 33 | 0 | 1 | 1 | 35 |
+| PAT ROBERTS | 0 | 4 | 0 | 0 | 4 |
+| SHELDON WHITEHOUSE | 4 | 0 | 0 | 0 | 4 |
+| SUSAN M COLLINS | 4 | 0 | 0 | 0 | 4 |
+| JAMES M INHOFE | 1 | 0 | 0 | 1 | 2 |
+| THOMAS R CARPER | 2 | 0 | 0 | 0 | 2 |
+| JACK REED | 1 | 0 | 0 | 0 | 1 |
+| JOHN FETTERMAN | 1 | 0 | 0 | 0 | 1 |
+| JOHN HOEVEN | 1 | 0 | 0 | 0 | 1 |
+| MARIA CANTWELL | 1 | 0 | 0 | 0 | 1 |
+**Quiver et le papier Sénat** (réconciliation par année, scope `ocr`) :
+
+| année | trades Quiver | nos lignes tickerisables | appariés |
+| --- | --- | --- | --- |
+| 2014 | 450 | 19 | 0 |
+| 2015 | 38 | 0 | 0 |
+| 2016 | 0 | 0 | 0 |
+| 2017 | 3 | 0 | 0 |
+| 2018 | 0 | 0 | 0 |
+| 2019 | 0 | 0 | 0 |
+| 2020 | 0 | 0 | 0 |
+| 2021 | 0 | 0 | 0 |
+| 2022 | 0 | 0 | 0 |
+| 2023 | 14 | 64 | 0 |
+| 2024 | 1 | 0 | 0 |
+| 2025 | 0 | 0 | 0 |
+| 2026 | 0 | 0 | 0 |
+*total apparié sur 13 ans : 0 → Quiver corrobore 0 % du papier Sénat (mesuré, pas affirmé) : sur ce sous-corpus, notre OCR est la source unique.*
+
+## 10. Les types de dépôts Sénat (mesure eFD datée)
+
+Le portail eFD du Sénat ne se rejoue pas hors-ligne : ces comptes sont une **mesure du portail, datée du 2026-07-18**, versionnée (`data/senate/_report_types_2014_2026.csv`, `_filer_types_2014_2026.csv`) et rafraîchissable par `python -m senate.report_types_probe` (réseau, opt-in — réécrit les CSV et la date). Parts et contrôles de partition sont **recalculés à chaque run** depuis ces CSV.
+
+| type de dépôt | code | dépôts | part % |
+| --- | --- | --- | --- |
+| Annual | 7 | 2165 | 42.5 |
+| Periodic Transactions | 11 | 2160 | 42.4 |
+| Due Date Extension | 10 | 753 | 14.8 |
+| Blind Trusts | 14 | 18 | 0.4 |
+*part des PTR = 2 160 / 5 096 = **42.4 %** — le seul type qu'on garde. NB : le type le plus fréquent est « Annual » (2 165) — la part PTR reste exacte.*
+
+**Par type de déposant** :
+
+| type de déposant | code | dépôts | dont PTR | part % | part des PTR % |
+| --- | --- | --- | --- | --- | --- |
+| Senator | 1 | 3370 | 1479 | 66.1 | 68.5 |
+| Former Senator | 5 | 1216 | 668 | 23.9 | 30.9 |
+| Candidate | 4 | 510 | 13 | 10.0 | 0.6 |
+*lecture : les candidats ne tradent quasi pas (13 PTR) ; les anciens sénateurs pèsent 31 % des PTR (mandat de 6 ans + obligation de déclarer après le départ).*
+
+**Contrôles de partition (recalculés)** : ✓ la partition par type somme au total (Other Documents = 0) · ✓ la partition par déposant somme au total · ✓ les PTR par déposant somment au total PTR. Au moment de la mesure, le total all-time (6 045) dépassait la fenêtre 2014-2026 (5 096) — le filtre de date est bien appliqué.
+
+**Contraste Chambre** (offline, index du Clerk versionnés) : 8 252 PTR / 35 315 dépôts = **23.4 %** — la part des PTR au Sénat (42.4 %) est nettement plus élevée.
+
+![Types de dépôts Sénat](png/figs_deck/fig_senat_types.png)
+
+*la figure du deck (`png/figs_deck/fig_senat_types.png`) — produite par ce rapport à chaque run.*
 
