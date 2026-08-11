@@ -42,8 +42,8 @@ pipeline, testé). **Les étapes du nettoyage et leur code : le §7 du rapport.*
 Tout le pipeline se lance par **un seul point d'entrée** :
 
 ```bash
-python -m common.pipeline --years 2020-2026            # années embarquées (PDF/index déjà présents)
-python -m common.pipeline --years 2014-2019 --acquire  # années anciennes : télécharge d'abord index+PDF
+python -m common.pipeline --years 2014-2026            # tout est embarqué : index + PDF bruts House dans data/house/
+python -m common.pipeline --years 2026 --acquire       # --acquire : compléter une année nouvelle (idempotent)
 python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans rien exécuter
 ```
 
