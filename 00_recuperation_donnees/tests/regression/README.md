@@ -1,62 +1,55 @@
-# Tests de non-régression
+# Tests de non-régression — le filet du dépôt
 
-Filet de la refonte **« zéro changement »** : prouver, à l'octet près et **hors-ligne**, que le code
-re-logé dans `house/`, `senate/` et le contrat partagé `common/` reproduit À L'IDENTIQUE les tables
-figées, sans rien re-télécharger ni re-jouer un pipeline réseau.
+Deux étages de preuve, tous **hors-ligne** :
 
-Lancer toute la suite :
+1. **Golden octet-à-octet** — toutes les sorties du pipeline (`data/*/tables/`) sont gelées par
+   SHA256 : 230 fichiers House + 138 Sénat. Tout mouvement non voulu est détecté.
+2. **Reproduction fonction-par-fonction** — chaque transformation (clé naturelle, montants,
+   tickers, identité, ancienneté, cache Vision, nettoyage) est recomputée depuis les colonnes
+   figées et comparée à la valeur stockée — la preuve isole le code des aléas réseau/OCR.
+
+Depuis que la **source primaire des deux chambres est embarquée** (8 252 PDF House dans
+`data/house/pdfs/`, 3 788 pages eFD dans `data/senate/reports/`), la collecte elle-même est
+rejouable localement — le filet, lui, n'en a jamais eu besoin : il ne lit que les artefacts
+figés.
+
+Lancer toute la suite (depuis `00_recuperation_donnees/`) :
 
 ```bash
-.venv/bin/python tests/regression/check_golden.py         # golden House (230 fichiers, sha256)
-.venv/bin/python tests/regression/senate_check_golden.py  # golden Sénat (138 fichiers, sha256)
+.venv/bin/python tests/regression/check_golden.py         # golden House  (230 fichiers, sha256)
+.venv/bin/python tests/regression/senate_check_golden.py  # golden Sénat  (138 fichiers, sha256)
+.venv/bin/python tests/regression/test_backtest_clean.py  # les 4 tables de data/clean/ (sha256)
 for t in test_schema test_amounts_tickers test_identity test_tenure \
-         test_crosscheck test_vision_sha test_incremental test_senate_repro; do
+         test_crosscheck test_vision_sha test_incremental test_senate_repro audit_metrics; do
   .venv/bin/python tests/regression/$t.py || echo "ÉCHEC: $t"
 done
 ```
 
-## Principe : les pipelines NE sont PAS re-jouables hors-ligne
+Tout doit dire « ZÉRO ÉCART » / « ✅ ».
 
-Seuls les **artefacts figés** (tables CSV, index XML, caches Vision/Quiver, référentiels YAML) sont
-embarqués dans `data/`. Les **sources brutes** des deux pistes digitales sont absentes :
+## Index
 
-- **House digital** — pour **2020-2026**, les PDF *lisibles* (numériques) ont été parsés puis
-  écartés ; il ne reste sous `data/house/pdfs/` que les **614 scannés** (le backlog OCR, non
-  lisibles). Re-jouer une de ces années produirait donc une table digitale **vide** (0 doc lisible),
-  jamais égale au golden. Les années **2014-2019**, acquises en bloc (`--acquire`), sont embarquées
-  en entier (4 515 PDF). Sur la branche `main`, `data/house/pdfs/` n'est pas embarqué du tout —
-  le filet golden ne lit que `data/*/tables/`.
-- **Senate** — le scraping eFD exige le réseau (cf. en-tête de `test_senate_repro.py`).
-
-On ne teste donc pas le bout-en-bout PDF→table ; on **reproduit chaque transformation depuis les
-colonnes figées** et on la compare à la valeur stockée. C'est une preuve plus forte et déterministe :
-elle isole le code refondu des aléas réseau/OCR.
-
-## Index des tests
-
-| Test | Prouve |
+| Fichier | Prouve / sert à |
 |------|--------|
-| `check_golden.py` / `build_golden.py` | Toutes les sorties House reproduisent le golden (sha256) ; `build_golden.py` (re)gèle l'empreinte. |
-| `test_schema.py` | `common.schema.natural_key_hash` = drop-in exact des deux moteurs (équivalence unitaire + repro CSV). |
-| `test_amounts_tickers.py` | `amount_midpoint` / `infer_asset_type` reproduisent les colonnes figées (06 digital + 06b OCR), sans PDF. |
-| `test_identity.py` | Le matcher `house.identity` == `house.digital.match_bioguide` original ; bioguides figés reproduits. |
-| `test_tenure.py` | `years_in_office` recomputé depuis (bioguide, date) + référentiel embarqué == valeur figée des FINAL. |
-| `test_crosscheck.py` | Smoke Quiver + crosscheck : un déposant papier SANS contrepartie Quiver (Quiver≈0, ex. munis Sénat) ressort `ocr_unique` ; un déposant papier que Quiver possède (Khanna) sort `quiver_validable`. |
-| `test_vision_sha.py` | `VisionExtractor.prompt_sha` == SHA original == `prompt_sha` des caches (déplacer l'OCR n'invalide pas le cache). |
-| `test_incremental.py` | Mise à jour incrémentale : 2ᵉ run OCR = 0 appel Vision (cache versionné par `(prompt_sha, model)`). |
-| `test_senate_repro.py` | Pipeline Sénat re-logé (`senate/` + `common`) reproduit les colonnes des FINAL gelées. |
+| `check_golden.py` / `build_golden.py` | Les 230 sorties House reproduisent le golden (sha256) ; `build_golden.py` (re)gèle l'empreinte. |
+| `senate_check_golden.py` / `senate_build_golden.py` | Idem Sénat (138 fichiers). NB : `_scan_census_senat.csv` (139ᵉ CSV, ajouté après le gel) est volontairement hors manifest — le check le signale « en trop », c'est attendu. |
+| `test_backtest_clean.py` | **Le step 7 de bout en bout** : reconstruit les 4 tables de `data/clean/` hors-ligne et les compare au manifest (`backtest_clean_manifest.json`, shapes + sha256 + entonnoir). `--build` re-fige. |
+| `audit_metrics.py` | Recompte les métriques des FINAL crus et les confronte aux invariants figés (House 152 081 = 58 756 + 93 325 · Sénat 18 839 = 14 813 + 4 026 · identité). |
+| `test_schema.py` | `common.schema.natural_key_hash` = drop-in exact des deux moteurs. |
+| `test_amounts_tickers.py` | `amount_midpoint` / `infer_asset_type` reproduisent les colonnes figées, sans PDF. |
+| `test_identity.py` | Le matcher `house.identity` reproduit les bioguides figés. |
+| `test_tenure.py` | `years_in_office` recomputé == valeur figée des 26 FINAL. |
+| `test_crosscheck.py` | Statuts de triangulation : un déposant papier sans contrepartie Quiver ressort `ocr_unique` ; Khanna (vu par Quiver) sort `quiver_validable`. |
+| `test_vision_sha.py` | Le SHA du prompt OCR == celui des caches (déplacer le code n'invalide pas le cache payé). |
+| `test_incremental.py` | 2ᵉ run OCR = 0 appel Vision (cache versionné par `(prompt_sha, model)`). |
+| `test_senate_repro.py` | Le pipeline Sénat re-logé reproduit les colonnes des FINAL gelées — **sur les 18 839 lignes 2014-2026** (natural_key_hash, recover_ticker, identité). |
 
-## Note : `smoke_digital.py` retiré (2026-06-26)
+## Couverture, dite honnêtement
 
-Cet ancien test re-générait une année digitale House dans `/tmp` et la comparait au golden. Deux
-raisons de fond le rendaient caduc :
-
-1. Il faisait `import house_multiyear`, module **supprimé** lors de la refonte (remplacé par
-   `house/digital.py`) → `ModuleNotFoundError`, donc toujours rouge.
-2. Même repointé sur `house.digital`, il **ne pouvait pas** reproduire le golden hors-ligne : les PDF
-   digitaux lisibles sont absents (cf. *Principe* ci-dessus), donc le re-run sortirait une table vide.
-
-Son intention — « le rebranchement sur le cœur partagé ne change rien en bout de chaîne » — est
-désormais couverte, en mieux, par les tests de **reproduction depuis colonnes figées**
-(`test_schema`, `test_amounts_tickers`, `test_identity`, `test_tenure`) + le golden octet-à-octet,
-qui valident chaque transformation sans dépendre des PDF sources.
+- Le golden couvre **tout `data/*/tables/` 2014-2026**, à l'octet.
+- `test_backtest_clean` couvre le **step 7 entier** (la chaîne corpus → 4 tables).
+- Les tests de reproduction couvrent les transformations unitaires des deux chambres ;
+  `test_senate_repro` balaie l'intégralité des lignes Sénat (18 839/18 839).
+- Ce qui n'est **pas** couvert : le bout-en-bout réseau (scraping/téléchargement) — par
+  construction, le filet est hors-ligne ; la collecte se vérifie par la couverture vs l'index
+  officiel (§1 du rapport) et la corroboration externe (§8).

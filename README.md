@@ -87,7 +87,7 @@ le §7 du rapport.**
 Tout le pipeline se lance par **un seul point d'entrée** :
 
 ```bash
-python -m common.pipeline --years 2014-2026            # tout est embarqué : index + PDF bruts House dans data/house/
+python -m common.pipeline --years 2014-2026            # tout est embarqué : la source primaire des DEUX chambres
 python -m common.pipeline --years 2026 --acquire       # --acquire : compléter une année nouvelle (idempotent)
 python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans rien exécuter
 ```
@@ -101,7 +101,7 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                    quality (step 8 : LE rapport, régénérable) · quiver_diagnosis (§6) ·
                    quiver_scopes · enrich_tenure (ancienneté) · report_pdf · pipeline (orchestrateur)
   house/    pipeline Chambre  : digital · acquire (téléchargement index+PDF) · classify_scans ·
-                   ocr · identity · amounts · quiver · echantillon
+                   ocr · identity · amounts · tickers · quiver · echantillon
   senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
                    census_probe · report_types_probe (collecteurs eFD opt-in) ← jumeau de house/
   data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
@@ -147,7 +147,7 @@ pyproject.toml   installable :  pip install -e .
 
 | Chambre | FINAL (uniques) | brut = digital + OCR | Identité | Concordance Quiver |
 |---|---|---|---|---|
-| **House** | **151 989** | 152 081 = 58 728 + 93 353 | 100 % (367 bioguides) | in-window : **93,5 %** des trades Quiver retrouvés — §6 |
+| **House** | **151 989** | 152 081 = 58 756 + 93 325 | 100 % (367 bioguides) | in-window : **93,5 %** des trades Quiver retrouvés — §6 |
 | **Sénat** | **17 011** | 18 839 = 14 813 + 4 026 | 100 % (78 bioguides) | in-window : **92,1 %** ; 98–100 %/an |
 
 **Périmètre d'analyse = 169 000 transactions uniques de membres élus** (House 151 989 + Sénat 17 011), après
@@ -177,8 +177,9 @@ python3.12 -m venv .venv
 # Filet de non-régression (doit afficher « ZÉRO ÉCART ») :
 ./.venv/bin/python 00_recuperation_donnees/tests/regression/check_golden.py         # House — 230 fichiers
 ./.venv/bin/python 00_recuperation_donnees/tests/regression/senate_check_golden.py  # Sénat — 138 fichiers
-# Preuves de reproduction fonction-par-fonction :
-./.venv/bin/python 00_recuperation_donnees/tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker
+./.venv/bin/python 00_recuperation_donnees/tests/regression/test_backtest_clean.py  # les 4 tables clean
+# Preuve de reproduction fonction-par-fonction (Sénat entier) :
+./.venv/bin/python 00_recuperation_donnees/tests/regression/test_senate_repro.py    # natural_key_hash 18 839/18 839 (2014-2026)
 ```
 
 Seuls les dépôts nouveaux et la validation Quiver exigent le réseau ; la correction est prouvée
@@ -190,9 +191,17 @@ index `{Y}FD.xml` et **tous les PDF bruts des PTR 2014-2026** (`data/house/pdfs/
 par année — 8 252 documents, un par dépôt officiel de l'index). Sénat : **toutes les pages eFD
 brutes** (`data/senate/reports/` — un HTML par dépôt des tables FINAL, 2 128 / 2 128, plus les
 scans `.gif` du papier). Chaque ligne des tables est re-vérifiable contre son document source,
-sans rien télécharger ; le filet golden ne lit que `data/*/tables/`.
+sans rien télécharger ; le filet golden ne lit que `data/*/tables/`. Compter **~1 Go** au clone —
+c'est le prix de l'autonomie.
 Re-exécuter certains notebooks des Parties 1 et 2 exige en plus des caches de prix locaux non
 versionnés (ils se reconstruisent via yfinance) ; les tables gelées (`cache/tables/` du 01,
 `tables/` du 02) et les quelques caches non re-téléchargeables (N-PORT, OCR récupéré, prix de
 tickers disparus) sont, eux, embarqués. Les sorties des notebooks restent lisibles dans les
 `.ipynb` sans rien exécuter.
+
+## Avertissement
+
+Les données proviennent de documents **publics officiels** (STOCK Act — déclarations obligatoires
+des élus) ; elles restent **nominatives** et sont fournies telles que déclarées, avec leurs limites
+documentées. Ce dépôt est un **travail de recherche** : rien ici ne constitue un conseil en
+investissement.

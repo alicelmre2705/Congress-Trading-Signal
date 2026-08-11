@@ -46,6 +46,7 @@ son code (`module :: fonction`) et ses référentiels : **§7 du rapport**.
 | 4 · **Le filet interne** | le dépôt lui-même, rejoué hors-ligne depuis un clone | golden **230 + 138 fichiers** verrouillés par SHA256 ; les 4 tables de `data/clean/` reconstruites à l'identique | les trois commandes ci-dessous — chacune doit dire « **ZÉRO ÉCART** » |
 
 ```bash
+cd 00_recuperation_donnees                      # (chemins relatifs au 00)
 python tests/regression/check_golden.py         # House
 python tests/regression/senate_check_golden.py  # Sénat
 python tests/regression/test_backtest_clean.py  # les 4 tables
@@ -58,9 +59,12 @@ collectes tierces ne font que mesurer.*
 
 ```bash
 pip install -e ".[quality]"                    # depuis la racine du dépôt
-python -m common.pipeline --years 2020-2026    # la chaîne complète : acquisition → FINAL → nettoyage → rapport
+python -m common.pipeline --years 2020-2026    # la chaîne complète : collecte → FINAL → nettoyage (7) → rapport (8)
 python -m common.report_pdf                    # le PDF du rapport (Chrome headless)
 ```
+
+*(avec `--acquire`, l'étape de téléchargement s'insère en tête et la numérotation des steps
+glisse d'un cran.)*
 
 **`--years` ne borne que la collecte** (les années à re-traiter) : le nettoyage et le rapport
 relisent toujours les 26 tables FINAL 2014-2026 en entier.
@@ -69,11 +73,13 @@ relisent toujours les 26 tables FINAL 2014-2026 en entier.
   13 index `{Y}FD.xml` **et les PDF bruts des PTR 2014-2026** vivent dans `data/house/` — la
   collecte House se rejoue sans rien télécharger. `--acquire` ne sert qu'à compléter une année
   nouvelle (idempotent : ne re-télécharge jamais un fichier présent).
-- **La source primaire Sénat est embarquée aussi** : `data/senate/reports/` — un HTML par dépôt
-  des tables FINAL (2 128 / 2 128, vérifié) + les scans `.gif` du papier (`media/`). La collecte
-  se rejoue depuis ces pages ; le réseau ne sert qu'aux dépôts nouveaux et à la validation
-  Quiver (désactivable par `--no-quiver`). Clés dans le `.env` à la racine :
+- **La source primaire Sénat est embarquée aussi** : `data/senate/reports/` — 2 150 pages HTML
+  couvrant les **2 128 / 2 128 dépôts des tables FINAL** (vérifié ; les 22 de plus = dépôts sans
+  transaction retenue) + les 1 638 scans `.gif` du papier (`media/`). La collecte se rejoue
+  depuis ces pages ; le réseau ne sert qu'aux dépôts nouveaux et à la validation Quiver
+  (désactivable côté House par `--no-quiver`). Clés dans le `.env` à la racine :
   `ANTHROPIC_API_KEY` (OCR Vision + repli LLM ticker/secteur), `QUIVER_API_KEY`.
+  Compter **~1 Go au clone** — le prix de l'autonomie.
 - **Le nettoyage et le rapport (steps 7-8) sont 100 % hors-ligne**, rejouables depuis un simple
   clone : `python -m common.backtest_clean` puis `python -m common.quality`.
 
@@ -98,7 +104,8 @@ tests/    golden 230 + 138 fichiers (SHA256) + tests de régression
 ## À savoir avant d'utiliser la table
 
 - **Anti-look-ahead** : on n'entre jamais sur `transaction_date` — l'information n'est publique
-  qu'à `disclosure_date` (délai médian **27 j**). Tout usage aval doit entrer à la divulgation.
+  qu'à `disclosure_date` (délai médian **27 j** côté House, 24 j au Sénat). Tout usage aval doit
+  entrer à la divulgation.
 - **Les manuscrits gated existent** : 7 287 transactions écartées par la politique OCR sont
   livrées à part (`transactions_gated_*`), avec leur motif — rien n'a disparu en silence.
 - **Les titres délistés sont gardés** (et flagués) : les retirer serait un biais de survie caché.

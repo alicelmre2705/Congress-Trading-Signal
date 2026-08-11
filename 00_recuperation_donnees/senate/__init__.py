@@ -13,5 +13,7 @@ légitime, pas duplication accidentelle).
 `senate.fusion`    : fusion digital + OCR → table FINALE 27 champs (ticker dict+LLM, secteur, dates).
 `senate.identity`  : référentiel + matcher bioguide + enrichissement (logique figée Q1, reproduit le golden).
 `senate.quiver` : reconcile transaction-niveau (07c-f) + dédup amendements.
-Données sous `data/senate/` (parité `data/house/`).
+`senate.census_probe` / `senate.report_types_probe` : collecteurs eFD HORS pipeline (réseau, à la
+demande) — census PTR et mesure datée des types de dépôt (les CSV `data/senate/_*.csv`, §10 du rapport).
+Données sous `data/senate/` (parité `data/house/` ; source primaire embarquée : `reports/`).
 """

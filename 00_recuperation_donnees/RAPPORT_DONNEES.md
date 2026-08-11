@@ -69,8 +69,8 @@ Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; l
 Tout est **rejouable hors-ligne** (lecture seule des tables FINAL, **0 appel API**), adossé à trois filets automatiques :
 
 - **Golden octet-à-octet** — 368 tables CSV figées par SHA256 (230 House + 138 Sénat), rejouées à **zéro écart** (`tests/regression/check_golden.py`, `senate_check_golden.py`).
-- **Invariants porteurs** — pour chaque chambre `digital + OCR = FINAL`, identité rattachée à **100.0 %**, 367 bioguides (House) / 78 (Sénat) recomptés (`tests/regression/audit_metrics.py`).
-- **Transformations déterministes** — 11 tests reproduisent chaque étape (clé naturelle, montants, tickers, identité, ancienneté, cache Vision) depuis les colonnes figées.
+- **Invariants porteurs** — pour chaque chambre `digital + OCR = FINAL`, identité rattachée à **100.0 %**, 367 bioguides (House) / 78 (Sénat) recomptés par ce rapport (corrections read-time incluses ; les invariants des FINAL crus sont verrouillés par `tests/regression/audit_metrics.py`).
+- **Transformations déterministes** — 9 tests reproduisent chaque étape (clé naturelle, montants, tickers, identité, ancienneté, cache Vision) depuis les colonnes figées.
 
 ### Les quatre sous-corpus
 

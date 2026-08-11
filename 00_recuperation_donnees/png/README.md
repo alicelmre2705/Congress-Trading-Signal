@@ -8,7 +8,7 @@ qu'elles servaient).
 
 | dossier | contenu | produit par | consommé par |
 |---|---|---|---|
-| `figs_deck/` (63) | les figures **fixes** du deck : entonnoirs, schémas, captures annotées | figées (pas de code producteur — extraites des notebooks d'époque ou faites à la main) | le deck (62) ; 6 aussi reprises par `RAPPORT_FINAL` et `FICHE_NETTOYAGE_BACKTEST_V2` |
+| `figs_deck/` (63) | les figures **fixes** du deck : entonnoirs, schémas, captures annotées | figées (pas de code producteur — extraites des notebooks d'époque ou faites à la main) | le deck (62) ; 6 aussi reprises par `RAPPORT_FINAL` et `FICHE_NETTOYAGE_BACKTEST_V2` (branche `presentation`) — la 63ᵉ, `senate_ocr.png`, ne sert que ces deux documents-là |
 | `quality/` (9) | les figures du rapport des données | `common/quality.py` (savefig — le dossier = exactement ses 9 sorties, régénérées avec le rapport) | le rapport (9) + le deck (`top_deposants`) |
 | `figs_pop/` (41) | population & portraits — la partie II du deck | `02_recherche_backtest/1_copier_les_membres/etudes/etude_portraits.ipynb` (le dossier = exactement ses savefig) | le deck (13 ; le reste = les cartes par membre, même famille) |
 
