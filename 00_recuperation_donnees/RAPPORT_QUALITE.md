@@ -62,7 +62,7 @@ Chaque index annuel `{Y}FD.xml` du Clerk liste TOUS les dépôts de l'année ; l
 | 2025 | 515 | 503 | 6 | 6 | 100.0 |
 | 2026 | 274 | 268 | 2 | 4 | 100.0 |
 | TOTAL | 8252 | 7568 | 582 | 102 | 100.0 |
-*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`). **Part des PTR au Sénat** (scrape eFD `report_types=[]`, 2026-07-18, fenêtre **2014-2026** tous déposants — filtre de date vérifié : all-time = 6 045 > 5 096) : **2 160 PTR sur 5 096 dépôts tous types = ≈ 42 %** (census interne 2 153 en contre-vérif. ; vs Chambre 23,4 %, même fenêtre/périmètre) — détail dans `docs/ANALYSE_TYPES_RAPPORTS_SENAT.md`.*
+*PTR officiels = FilingType='P' de l'index du Clerk · avec transactions = docs présents dans le FINAL de l'année · gated manuscrit = cluster C du census hors exceptions (politique §6.6, listes rejouables) · sans txn retenue = vides réels (« nothing to report »), amendements sans lignes ou échecs documentés (`05_parse_failures`). Sénat : pas d'index public re-vérifiable sans re-scraping eFD — le census interne fait foi (25 dépôts sans transaction tous motivés dans `06d_docs_sans_transaction.csv`). **Part des PTR au Sénat** (scrape eFD `report_types=[]`, 2026-07-18, fenêtre **2014-2026** tous déposants — filtre de date vérifié : all-time = 6 045 > 5 096) : **2 160 PTR sur 5 096 dépôts tous types = ≈ 42 %** (census interne 2 153 en contre-vérif. ; vs Chambre 23,4 %, même fenêtre/périmètre) — détail dans `ANALYSE_TYPES_RAPPORTS_SENAT.md`.*
 
 ### Validation & reproductibilité
 
@@ -98,7 +98,7 @@ Toute la suite distingue **quatre familles** (chambre × voie), car leur qualit�
 | Sénat OCR | 3985 | 56.4 | 43.0 | 0.6 | 0.0 |
 *achat = `operation_type` contient « Purchase » · vente = contient « Sale » (**inclut Sale (Partial) et (Full)**) · échange = « Exchange » · autre = reste*
 
-![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)
+![Mix achat/vente par sous-corpus](png/quality/mix_operations_par_corpus.png)
 
 ### Détenteur déclaré
 
@@ -122,7 +122,7 @@ L'OCR du Sénat se distingue : la part d'actions y tombe et la catégorie « aut
 | Sénat OCR | 3985 | 40.4 | 0.0 | 0.0 | 0.7 | 2.2 | 0.0 | 41.2 | 15.5 |
 *familles d'`asset_type` : action = Stock · option · oblig. État = Gov/Treasury · muni = Municipal · oblig. corp. = Bond · fonds = Fund/ETF · manquant = vide*
 
-![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)
+![Mix de types d'actifs par sous-corpus](png/quality/mix_actifs_par_corpus.png)
 
 ### Couverture des champs enrichis (taux de remplissage)
 
@@ -164,7 +164,7 @@ L'OCR du Sénat se distingue : la part d'actions y tombe et la catégorie « aut
 | Sénat OCR | 3985 | 32.8 | 13.5 | 0.6 | 53.2 |
 *yfinance = base factuelle · LLM · manuel = correction vérifiée à la main · aucune*
 
-![Volume par secteur GICS](quality/volume_par_secteur.png)
+![Volume par secteur GICS](png/quality/volume_par_secteur.png)
 
 ## 3. Qualité des dates
 
@@ -204,7 +204,7 @@ Trois questions, de la plus faible à la plus forte : les dates sont-elles **lis
 | Sénat OCR | 3947 | 74.5 | 7.7 | 16.6 | 1.2 | 31 |
 *n dates valides = transactions dont le délai est CALCULABLE (les deux dates présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (j) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j*
 
-![Délai de divulgation](quality/delai_divulgation.png)
+![Délai de divulgation](png/quality/delai_divulgation.png)
 
 ### Divulgations les plus tardives (> 365 j)
 
@@ -241,13 +241,13 @@ Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent
 | Sénat OCR | 3985 | 32500 | 301252 | 8000 | 175000 | 750000 | 1193.6 |
 *médiane/moyenne/P25/P75/P95 en $ · volume total = Σ midpoint (M$) · midpoint = milieu de la fourchette déclarée*
 
-![Composition par tranche de montant](quality/mix_montants_par_corpus.png)
+![Composition par tranche de montant](png/quality/mix_montants_par_corpus.png)
 
 *la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, le P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → médiane 32 500 ≠ P25 8 000.*
 
 **Ensemble** — 167 989 montants renseignés · médiane 8 000 $ · moyenne 58 314 $ · P90 75 000 $ · max 75 000 000 $.
 
-![Distribution des montants](quality/distribution_montants.png)
+![Distribution des montants](png/quality/distribution_montants.png)
 
 ## 5. Activité & concentration
 
@@ -264,7 +264,7 @@ Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent
 
 `HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par déposant (plus c'est haut, plus quelques déposants dominent).
 
-![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)
+![Concentration du volume (Lorenz)](png/quality/concentration_lorenz.png)
 
 ### Où va le volume
 
@@ -353,9 +353,9 @@ Le montant = **midpoint** de la fourchette déclarée (les déclarations donnent
 | Daniel Goldman | 1291 | 0 | 0 | 2 | 2023 | 2025 |
 *total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · 1re/dern. année = première/dernière année de transaction (une 1re année < 2014 = vieilles transactions régularisées dans un dépôt 2014+)*
 
-![Top déposants](quality/top_deposants.png)
+![Top déposants](png/quality/top_deposants.png)
 
-![Transactions par an](quality/transactions_par_an.png)
+![Transactions par an](png/quality/transactions_par_an.png)
 
 ### Devenir des achats à +12 mois (revente vs fermeture forcée, pour la stratégie)
 
@@ -497,14 +497,14 @@ On a vérifié l'**existence** (§6.2) et la **date** (§6.3). Restent deux chos
 | senate | 9775 | 99.9 | 99.8 |
 *on apparie les cellules (membre, ticker, date) présentes des DEUX côtés ; un désaccord = vraie erreur d'extraction, listée dans `desaccord_champ_*.csv`.*
 
-**La to-do (à corriger).** Un seul chiffre est **dur** — les vrais trous `NOTRE_MANQUE` (le résidu après tous les filtres) ; les deux autres sont des **bornes hautes** ensemblistes = des listes à revoir cas par cas dans `docs/quiver_validation/`, pas des taux d'erreur :
+**La to-do (à corriger).** Un seul chiffre est **dur** — les vrais trous `NOTRE_MANQUE` (le résidu après tous les filtres) ; les deux autres sont des **bornes hautes** ensemblistes = des listes à revoir cas par cas dans `data/quiver_validation/`, pas des taux d'erreur :
 
 | à corriger | House | Sénat | nature | annexe |
 | --- | --- | --- | --- | --- |
 | vrais trous cotés (`NOTRE_MANQUE`) | 27 | 11 | **DUR** — vrai trou confirmé au trade près (mesure au trade DATÉ, clé différente de la borne ticker-niveau du §6.2 : les deux comptes ne s'emboîtent pas) | `notre_manque_*` |
 | lignes OCR papier (`MANQUANT_PAPIER`) | 3378 | 0 | borne haute — trades Quiver de déposants qu'on OCR, absents de nos clés exactes | `manquant_papier_*` |
 | tickers à revoir (`ECART_TICKER`) | 8418 | 190 | borne haute — autre ticker ce jour-là (gonflée par la multiplicité, PAS un taux d'erreur) | `ecart_ticker_*` |
-**Qui ?** — top 12 des déposants derrière les vrais trous (`NOTRE_MANQUE` ; liste complète ligne à ligne : `docs/quiver_validation/notre_manque_*.csv`) :
+**Qui ?** — top 12 des déposants derrière les vrais trous (`NOTRE_MANQUE` ; liste complète ligne à ligne : `data/quiver_validation/notre_manque_*.csv`) :
 
 | chambre | bioguide | nom | n trous |
 | --- | --- | --- | --- |
@@ -534,7 +534,7 @@ Les tables **figées** du golden (`data/house/tables/*/07c_*`, `07g_*`, `07h_*` 
 | C_manuscrit | 2518 | 193 | 98.6 | 83.3 | 12.9 |
 *`date plausible %` / `ticker %` = qualité INTERNE (sans Quiver) · `Quiver a le trade %` = part de nos trades cotés que Quiver possède AUSSI (appariée sur membre+ticker+sens, date ou non). Sur le manuscrit (C), la qualité interne reste haute mais `Quiver a le trade %` s'effondre (ticker/identité mal lus, ou Quiver mince sur le papier) → faute de pouvoir le confirmer contre la vérité-terrain, on l'exclut par défaut (conservateur). Exceptions explicites et REJOUABLES (house/ocr.py) : 3 déposants à forte perte corroborée (FILERS_C_A_RECUPERER) + 33 documents curés manuellement (DOCS_C_HERITES_2020_2026).*
 
-Listes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). Hors golden.
+Listes actionnables complètes (ligne à ligne) → `data/quiver_validation/` (`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], `on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). Hors golden.
 
 ## 7. Du corpus à la table de recherche (nettoyage backtest)
 

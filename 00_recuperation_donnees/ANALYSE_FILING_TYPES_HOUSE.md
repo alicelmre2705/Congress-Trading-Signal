@@ -31,8 +31,8 @@ pour les actions, (iii) structurellement trop tardif pour être tradé. Il doit 
 revanche être **documenté comme limite** (fait ici), et les annuels restent une
 **option « vue patrimoine »** si un besoin futur le justifie.
 
-![Entonnoir Schedule B](filing_types/fig_entonnoir_schedb.png)
-![Trou par année et délai](filing_types/fig_trou_annee_delai.png)
+![Entonnoir Schedule B](data/filing_types/fig_entonnoir_schedb.png)
+![Trou par année et délai](data/filing_types/fig_trou_annee_delai.png)
 
 ## 2. L'univers des 12 types — chacun ouvert et vérifié
 
@@ -128,12 +128,12 @@ porter `source_type` + `flag_disclosure_annual` (divulgation imprécise à l'ann
 
 ## 6. Annexes
 
-- [`filing_types/annexe_trou_annuel_seul.csv`](filing_types/annexe_trou_annuel_seul.csv)
+- [`data/filing_types/annexe_trou_annuel_seul.csv`](data/filing_types/annexe_trou_annuel_seul.csv)
   — les 2 030 transactions tickérisées « annuel-seul » (dédupliquées), ligne à ligne.
-- [`filing_types/annexe_trou_actions.csv`](filing_types/annexe_trou_actions.csv)
+- [`data/filing_types/annexe_trou_actions.csv`](data/filing_types/annexe_trou_actions.csv)
   — la sous-liste « actions » avant requalification manuelle des ETF (295 lignes,
   dont 122 ETF au nom explicite → 173 actions individuelles).
-- Figures : `filing_types/fig_entonnoir_schedb.png`, `filing_types/fig_trou_annee_delai.png`.
+- Figures : `data/filing_types/fig_entonnoir_schedb.png`, `data/filing_types/fig_trou_annee_delai.png`.
 - Reproduction : recensement + téléchargement (5 779 PDF, ~40 min) + parsing Schedule B
   + réconciliation contre les tables FINAL — scripts d'analyse exploratoire exécutés
   en session (non committés, conformément à la règle « pas de .py de support ») ;

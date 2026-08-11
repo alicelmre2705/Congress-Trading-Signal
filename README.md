@@ -20,12 +20,12 @@ Renommés le **2026-07-31** pour dire ce qu'ils contiennent (les anciens noms di
 
 ## 🧭 Comprendre tout le projet & le lancer
 
-Nouveau ici ? Trois documents (dans `00_recuperation_donnees/docs/`) :
-- **[RAPPORT_QUALITE.md](00_recuperation_donnees/docs/RAPPORT_QUALITE.md)** — le rapport de qualité à jour
+Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/`) :
+- **[RAPPORT_QUALITE.md](00_recuperation_donnees/RAPPORT_QUALITE.md)** — le rapport de qualité à jour
   (fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation Quiver par ère) ;
-- **[AUDIT_DONNEES_2014_2026.md](00_recuperation_donnees/docs/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
+- **[AUDIT_DONNEES_2014_2026.md](00_recuperation_donnees/AUDIT_DONNEES_2014_2026.md)** — l'audit-réparation
   du **2026-07-03** (complétude prouvée, +10 856 lignes récupérées, chaque erreur tracée → corrigée) ;
-- **[RAPPORT_FINAL.pdf](00_recuperation_donnees/docs/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
+- **[RAPPORT_FINAL.pdf](00_recuperation_donnees/RAPPORT_FINAL.pdf)** — le rapport d'architecture complet
   (*voyage d'une transaction*, `common`+jumeaux, qualité, validation Quiver, nettoyage backtest) sur **2014-2026**.
 
 **La table prête-recherche** est `00_recuperation_donnees/data/clean/transactions_backtest_2014_2026.csv`
@@ -52,9 +52,10 @@ senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identit
                  census_probe                                ← jumeau de house/
 data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                  secteurs, snapshots commissions par Congrès · clean/ ← table canonique de recherche)
-docs/            SLIDES_DONNEES_S1S2_V2.pdf · RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md ·
-                 RAPPORT_FINAL.pdf · figs_deck/ · quality/ · figs_pop/ · quiver_validation/
-                 (README de docs/ = la carte qui-produit-quoi)
+(racine)        SLIDES_DONNEES_S1S2_V2.pdf · RAPPORT_QUALITE.md · AUDIT_DONNEES_2014_2026.md ·
+                 RAPPORT_FINAL.pdf · FICHE_NETTOYAGE_BACKTEST_V2.pdf · les 2 ANALYSE_*.md
+png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
+                 (README de png/ = la carte qui-produit-quoi)
 _archive/        code/données/docs supplantés (orphelins prouvés, conservés pour traçabilité)
 tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 pyproject.toml   installable :  pip install -e .
@@ -96,7 +97,7 @@ d'archive — et la même faute une seconde fois dans un autre dossier. Elle tie
 **dédup cross-année** des re-divulgations tardives. Le pipeline produit **170 920 lignes brutes**. Une
 déclaration de **collaborateur non-élu** (HASC) est exclue du périmètre membres. **100 % des 8 252 PTR
 listés par l'index officiel du Clerk 2014-2026 sont traités** (parsés, OCRisés, ou gated par règle écrite).
-Détail : `00_recuperation_donnees/docs/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
+Détail : `00_recuperation_donnees/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
 
 > **Fenêtre 2014-2026** — les scans **manuscrits** sont **écartés** par une politique uniforme et
 > **rejouable** (cluster `C_manuscrit`, 582 docs gated ; exceptions explicites dans `house/ocr.py`).

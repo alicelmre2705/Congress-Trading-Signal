@@ -1,7 +1,7 @@
 # Les types de rapports du Sénat — quelle part le PTR pèse-t-il ?
 
 > Branche `presentation` · 2026-07-18 · périmètre : **Sénat uniquement**.
-> Pendant : `docs/ANALYSE_FILING_TYPES_HOUSE.md` (Chambre, 35 315 dépôts, P = 8 252 = 23,4 %).
+> Pendant : `ANALYSE_FILING_TYPES_HOUSE.md` (Chambre, 35 315 dépôts, P = 8 252 = 23,4 %).
 > Question : notre collecteur ne récupère que les **PTR** (`report_types=[11]`) → 2 153 PTR.
 > Quelle est la part des PTR **parmi tous les types de rapports** déposés au Sénat ?
 >

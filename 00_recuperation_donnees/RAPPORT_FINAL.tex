@@ -2,7 +2,7 @@
 % Rapport « Congress Trading Signal · couche données » — état final, fenêtre 2014-2026.
 % Tous les chiffres proviennent des tables FINAL
 % (data/house/tables/{an}/06_house_{an}_FINAL.csv, data/senate/tables/{an}/06_senate_{an}_FINAL.csv),
-% du rapport qualité docs/RAPPORT_QUALITE.md (python -m common.quality, offline)
+% du rapport qualité RAPPORT_QUALITE.md (python -m common.quality, offline)
 % et du notebook Nettoyage_Backtest_2014_2026.ipynb (table de recherche canonique).
 \documentclass[11pt,a4paper]{article}
 \usepackage[T1]{fontenc}
@@ -619,7 +619,7 @@ Sénat~; le solde serait clos d'office par une stratégie à horizon fixe.
 \item \textbf{(f) Validation externe contre Quiver} — développée à la section suivante
 (\S{}\ref{sec:quiver}).
 \end{itemize}
-Le détail par an et par champ figure dans \co{docs/RAPPORT_QUALITE.md}~; l'essentiel en
+Le détail par an et par champ figure dans \co{RAPPORT_QUALITE.md}~; l'essentiel en
 annexe~\ref{anx:metrics}.
 
 \subsection{Les quatre sous-corpus}
@@ -659,41 +659,41 @@ corpus en annexe~\ref{anx:metrics} (D.2--D.5).}
 
 \begin{figure}[p]\centering
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/delai_divulgation.png}
+  \includegraphics[width=\linewidth]{png/quality/delai_divulgation.png}
   \caption{Délai \co{disclosure − transaction} (0--200~j).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/distribution_montants.png}
+  \includegraphics[width=\linewidth]{png/quality/distribution_montants.png}
   \caption{Distribution des montants (\co{log10}).}
 \end{subfigure}
 
 \vspace{0.5em}
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/transactions_par_an.png}
+  \includegraphics[width=\linewidth]{png/quality/transactions_par_an.png}
   \caption{Transactions par année et par chambre.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/top_deposants.png}
+  \includegraphics[width=\linewidth]{png/quality/top_deposants.png}
   \caption{Top~12 déposants (nombre de transactions).}
 \end{subfigure}
 
 \vspace{0.5em}
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/mix_operations_par_corpus.png}
+  \includegraphics[width=\linewidth]{png/quality/mix_operations_par_corpus.png}
   \caption{Sens des opérations, \emph{par sous-corpus}.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/mix_actifs_par_corpus.png}
+  \includegraphics[width=\linewidth]{png/quality/mix_actifs_par_corpus.png}
   \caption{Mix de types d'actifs, \emph{par sous-corpus}.}
 \end{subfigure}
 
 \vspace{0.5em}
 \begin{subfigure}[t]{0.46\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/volume_par_secteur.png}
+  \includegraphics[width=\linewidth]{png/quality/volume_par_secteur.png}
   \caption{Volume par secteur GICS (top 12, ensemble).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.40\textwidth}\centering
-  \includegraphics[width=\linewidth]{quality/concentration_lorenz.png}
+  \includegraphics[width=\linewidth]{png/quality/concentration_lorenz.png}
   \caption{Concentration du volume (Lorenz, Gini~; ensemble).}
 \end{subfigure}
 \caption{\textbf{Le rapport de qualité en images}, généré par \co{common/quality.py} (lecture seule, aucun
@@ -762,7 +762,7 @@ l'accord est de \textbf{96,8\,\%} sur le sens et \textbf{94,2\,\%} sur le montan
 (\textbf{99,9} / \textbf{99,8\,\%} au Sénat). La liste résiduelle « à revoir » tient en trois lignes —
 \textbf{27 / 11} vrais trous cotés (le seul chiffre dur), 3\,378 lignes-papier absentes de nos clés exactes
 et 8\,418 + 190 « autre ticker le même jour » (bornes hautes ensemblistes, listées cas par cas dans
-\co{docs/quiver_validation/}, pas des taux d'erreur).
+\co{data/quiver_validation/}, pas des taux d'erreur).
 
 \textbf{Honnêteté par ère.} Le taux global lisse une hétérogénéité temporelle~: au niveau action (Chambre),
 \textbf{87,2\,\%} de nos actions 2020--2026 sont corroborées par Quiver, contre \textbf{58,7\,\%} sur
@@ -1057,24 +1057,24 @@ Captures des plateformes publiques (\emph{House Clerk}, Sénat \emph{eFD}) et re
 
 \begin{center}
 \begin{minipage}[t]{0.47\textwidth}\centering
-\includegraphics[height=7cm]{figs_deck/house_digital.png}\\[3pt]
+\includegraphics[height=7cm]{png/figs_deck/house_digital.png}\\[3pt]
 {\footnotesize\textbf{(a) Chambre — électronique.} PTR (\emph{House Clerk})~: tableau texte, ticker entre
 parenthèses (AMZN), type d'actif entre crochets.}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.47\textwidth}\centering
-\includegraphics[height=7cm]{figs_deck/house_ocr.png}\\[3pt]
+\includegraphics[height=7cm]{png/figs_deck/house_ocr.png}\\[3pt]
 {\footnotesize\textbf{(b) Chambre — OCR.} PDF scanné, ici \emph{couché}~: formulaire à cases, redressé
 par deskew avant lecture Vision.}
 \end{minipage}
 
 \vspace{12pt}
 \begin{minipage}[t]{0.47\textwidth}\centering
-\includegraphics[width=\linewidth]{figs_deck/senate_digital.png}\\[3pt]
+\includegraphics[width=\linewidth]{png/figs_deck/senate_digital.png}\\[3pt]
 {\footnotesize\textbf{(c) Sénat — électronique.} Page web eFD~: ticker cliquable (YUM), type d'opération
 et montant — lue par \co{pd.read_html}.}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.47\textwidth}\centering
-\includegraphics[width=\linewidth]{figs_deck/senate_ocr.png}\\[3pt]
+\includegraphics[width=\linewidth]{png/figs_deck/senate_ocr.png}\\[3pt]
 {\footnotesize\textbf{(d) Sénat — OCR.} Formulaire papier scanné (eFD \emph{media})~: lignes à cocher,
 fourchettes de montant en colonnes.}
 \end{minipage}
@@ -1179,7 +1179,7 @@ Sénat)~; le contenu garanti — les 12 champs « métier » — est identique. 
 \co{tests/regression/audit_metrics.py} (un écart le fait échouer)~; \textbf{[Q]} recalculé par
 \co{common/quality.py} (descriptif)~; \textbf{[D]} recalculé par \co{common/quiver_diagnosis.py}
 (diagnostic Quiver, offline déterministe). La version exhaustive — toutes les années, tous les champs —
-est le rapport qualité \co{docs/RAPPORT_QUALITE.md}, dont cette annexe ne retient que l'essentiel.
+est le rapport qualité \co{RAPPORT_QUALITE.md}, dont cette annexe ne retient que l'essentiel.
 
 \textbf{D.1 — Volumes par an \& identité} \hfill {\footnotesize\textbf{[A]} totaux \& identité · \textbf{[Q]} ventilation par an}
 \begin{center}\small
@@ -1338,7 +1338,7 @@ python3.12 -m venv .venv && ./.venv/bin/pip install -e .
 ./.venv/bin/python -m common.pipeline --years 2024 --dry-run
 
 # Rapport de qualite (offline, lecture seule des FINAL)
-#   -> docs/RAPPORT_QUALITE.md + docs/quality/*.png
+#   -> RAPPORT_QUALITE.md + png/quality/*.png
 ./.venv/bin/python -m common.quality
 
 # Table de recherche canonique (offline, depuis les FINAL)

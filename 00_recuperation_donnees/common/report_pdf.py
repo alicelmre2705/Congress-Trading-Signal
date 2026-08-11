@@ -1,4 +1,4 @@
-"""Convertit un rapport Markdown (ex. docs/RAPPORT_QUALITE.md) en PDF imprimable A4.
+"""Convertit un rapport Markdown (ex. RAPPORT_QUALITE.md) en PDF imprimable A4.
 
 Aucune dépendance externe (pandoc/wkhtmltopdf/weasyprint absents de la machine) : petit convertisseur
 maison Markdown→HTML du sous-ensemble utilisé par le rapport (titres, gras/italique, `code`, tables
@@ -6,8 +6,8 @@ maison Markdown→HTML du sous-ensemble utilisé par le rapport (titres, gras/it
 **Google Chrome headless**. Les **figures sont incluses en petit format** (CSS `img.fig` plafonnée) —
 contrairement à l'ancienne version texte-seul.
 
-Usage : `python -m common.report_pdf`  (→ docs/RAPPORT_QUALITE.pdf)
-        `python -m common.report_pdf docs/AUTRE.md`
+Usage : `python -m common.report_pdf`  (→ RAPPORT_QUALITE.pdf)
+        `python -m common.report_pdf AUTRE.md`
 """
 import html
 import re
@@ -172,7 +172,7 @@ def build_pdf(md_path: Path) -> Path:
 
 
 def main():
-    md = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent / "docs" / "RAPPORT_QUALITE.md"
+    md = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent / "RAPPORT_QUALITE.md"
     pdf = build_pdf(md)
     print(f"PDF écrit : {pdf}")
 

@@ -27,7 +27,7 @@ classification — une re-divulgation tardive (même trade re-déposé une autre
 fois (Sénat : 8 841 → 8 245). Sans ça la copie tardive tombait à tort en ON_EST_PLUS_COMPLET.
 
 Sorties : un dict de tables agrégées (consommé par common.quality, §6) + des annexes actionnables
-sous `docs/quiver_validation/` (hors golden). Aucun appel API ; tout est offline.
+sous `data/quiver_validation/` (hors golden). Aucun appel API ; tout est offline.
 
 Réutilise les briques de prod : `house.quiver.{reconcile,norm_ticker,norm_sense,low_bound}` (identiques
 au Sénat) et `common.quiver_scopes.reconcile_scopes`. La clé d'appariement et la fenêtre Quiver sont
@@ -522,9 +522,9 @@ def _tally(series, order, label):
 
 def build_diagnosis(repo_root) -> dict:
     """Recalcule tout le diagnostic Quiver (offline) pour House+Sénat, 2014-2026. Écrit les annexes
-    actionnables sous docs/quiver_validation/ et renvoie les tables agrégées pour le rapport."""
+    actionnables sous data/quiver_validation/ et renvoie les tables agrégées pour le rapport."""
     repo = Path(repo_root)
-    annex = repo / "docs" / "quiver_validation"
+    annex = repo / "data" / "quiver_validation"
     annex.mkdir(parents=True, exist_ok=True)
 
     coverage, our_tally, quiver_tally, field_rows, synth_rows = [], [], [], [], []

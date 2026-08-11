@@ -13,8 +13,8 @@
 % Vérification = étape 9 de Partie I : Quiver + autres preuves. (univers retiré ; autres types & cohérence → Partie III)
 % Périmètre : les DONNÉES seulement. Backtest et tables : hors périmètre.
 % L'ancien deck SLIDES_DONNEES_S1S2.tex n'est PAS modifié.
-% Chiffres : docs/RAPPORT_QUALITE.md (source de vérité) + ANALYSE_FILING_TYPES_HOUSE.md
-% + lignée v1-house (01_autres_filing_types/cache/) pour la Cohérence. Figures : docs/{slides,quality,sources}/.
+% Chiffres : RAPPORT_QUALITE.md (source de vérité) + ANALYSE_FILING_TYPES_HOUSE.md
+% + lignée v1-house (01_autres_filing_types/cache/) pour la Cohérence. Figures : png/{figs_deck,quality,figs_pop}/.
 \documentclass[11pt,aspectratio=169]{beamer}
 \definecolor{helec}{HTML}{3B6EA5}   % couleur maîtresse (Chambre électronique)
 \usetheme{Madrid}
@@ -410,7 +410,7 @@
 \begin{frame}{1a · Chambre · acquisition --- récupérer les dépôts depuis l'index annuel}
   \begin{columns}[T]
     \begin{column}{0.40\textwidth}\centering
-      \fcolorbox{black!25}{white}{\clickzoom{site_house_clerk}{\includegraphics[width=0.95\linewidth,height=22mm,keepaspectratio]{figs_deck/site_house_clerk.png}}}\\[0.8mm]
+      \fcolorbox{black!25}{white}{\clickzoom{site_house_clerk}{\includegraphics[width=0.95\linewidth,height=22mm,keepaspectratio]{png/figs_deck/site_house_clerk.png}}}\\[0.8mm]
       {\scriptsize \href{https://disclosures-clerk.house.gov/FinancialDisclosure}{\texttt{disclosures-clerk.house.gov}}}\\[1.5mm]
       \begin{tikzpicture}[node distance=1.6mm]
         \node[bande=helec, text width=4.6cm] (z) {une \textbf{archive par année}, 2014→2026};
@@ -421,7 +421,7 @@
       \end{tikzpicture}
     \end{column}
     \begin{column}{0.57\textwidth}\centering
-      \clickzoom{fichier_index_xml}{\includegraphics[width=0.94\linewidth,height=37mm,keepaspectratio]{figs_deck/fichier_index_xml.png}}\\[0.5mm]
+      \clickzoom{fichier_index_xml}{\includegraphics[width=0.94\linewidth,height=37mm,keepaspectratio]{png/figs_deck/fichier_index_xml.png}}\\[0.5mm]
       {\scriptsize\color{black!60} l'index réel : chaque dépôt y déclare son type, sa
        \textbf{date de dépôt (divulgation)} et son numéro de document}\\[1mm]
       {\scriptsize \textbf{exemple} --- le dépôt surligné (\textbf{n\textsuperscript{o} 20024277})
@@ -438,7 +438,7 @@
 \begin{frame}{1a · Chambre · tri --- choisir les PTR : on lit la lettre \textbf{P} dans l'index}
   \centering
   \vspace{0.5mm}
-  \includegraphics[width=0.70\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/fig_filingtypes.png}\\[3mm]
+  \includegraphics[width=0.70\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/fig_filingtypes.png}\\[3mm]
   {\footnotesize l'index déclare le \textbf{type} de chaque dépôt --- on ne garde que le
    type \textbf{P} (les \textbf{PTR}, les seules transactions datées) :
    \textbf{8\,252 sur 35\,315}}\\[1.5mm]
@@ -455,12 +455,12 @@
    = \textbf{scanné} :}\\[3mm]
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{helec}{white}{\clickzoom{house_digital}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{figs_deck/house_digital.png}}}\\[1.2mm]
+      \fcolorbox{helec}{white}{\clickzoom{house_digital}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{png/figs_deck/house_digital.png}}}\\[1.2mm]
       \badge{helec}{PDF lisible --- 71\,\%}\\[0.6mm]
       {\scriptsize couche texte, lu directement \;·\; DocID en \co{2\ldots}}
     \end{column}
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{hocr}{white}{\clickzoom{house_ocr}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{figs_deck/house_ocr.png}}}\\[1.2mm]
+      \fcolorbox{hocr}{white}{\clickzoom{house_ocr}{\includegraphics[width=0.58\linewidth,height=0.40\textheight,keepaspectratio]{png/figs_deck/house_ocr.png}}}\\[1.2mm]
       \badgel{hocr}{PDF scanné --- 29\,\%}\\[0.6mm]
       {\scriptsize image, à lire par \textbf{OCR} \;·\; DocID en \co{8\ldots}/\co{9\ldots}}
     \end{column}
@@ -471,13 +471,13 @@
 \begin{frame}{1b · Sénat --- choisir les PTR de tous les membres}
   \begin{columns}[T]
     \begin{column}{0.40\textwidth}\centering
-      \fcolorbox{black!25}{white}{\clickzoom{site_senate_form}{\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{figs_deck/site_senate_form.png}}}\\[0.6mm]
+      \fcolorbox{black!25}{white}{\clickzoom{site_senate_form}{\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{png/figs_deck/site_senate_form.png}}}\\[0.6mm]
       {\scriptsize \href{https://efdsearch.senate.gov/search/home/}{\texttt{efdsearch.senate.gov}}}\\[0.6mm]
       {\scriptsize\color{black!60} on coche \textbf{PTR} pour \textbf{tous les déposants} → la liste des dépôts}
     \end{column}
     \begin{column}{0.57\textwidth}\centering
       \badge{selec}{2\,160 \emph{Periodic Transactions} = \textbf{42\,\%} des \textbf{5\,096} dépôts}\\[1.2mm]
-      \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{figs_deck/fig_senat_types.png}
+      \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{png/figs_deck/fig_senat_types.png}
     \end{column}
   \end{columns}
   \vspace{2mm}
@@ -494,12 +494,12 @@
    soit en \textbf{image scannée} (à lire par OCR) :}\\[4mm]
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{selec}{white}{\clickzoom{senate_digital_1}{\includegraphics[width=0.72\linewidth,height=0.42\textheight,keepaspectratio]{figs_deck/senate_digital.png}}}\\[1.5mm]
+      \fcolorbox{selec}{white}{\clickzoom{senate_digital_1}{\includegraphics[width=0.72\linewidth,height=0.42\textheight,keepaspectratio]{png/figs_deck/senate_digital.png}}}\\[1.5mm]
       \badge{selec}{page web --- 1\,780}\\[0.8mm]
       {\scriptsize table déjà propre, lue directement}
     \end{column}
     \begin{column}{0.46\textwidth}\centering
-      \fcolorbox{socr}{white}{\clickzoom{senat_papier_droit_1}{\includegraphics[width=0.52\linewidth,height=0.42\textheight,keepaspectratio]{figs_deck/senat_papier_droit.png}}}\\[1.5mm]
+      \fcolorbox{socr}{white}{\clickzoom{senat_papier_droit_1}{\includegraphics[width=0.52\linewidth,height=0.42\textheight,keepaspectratio]{png/figs_deck/senat_papier_droit.png}}}\\[1.5mm]
       \badgel{socr}{papier scanné --- 373}\\[0.8mm]
       {\scriptsize image, à lire par \textbf{OCR}}
     \end{column}
@@ -573,7 +573,7 @@
 \begin{frame}{2b · Chambre · texte --- un PDF n'est pas un tableau}
   \begin{columns}[T]
     \begin{column}{0.40\textwidth}\centering
-      \clickzoom{fig_ptr_multiligne}{\includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{figs_deck/fig_ptr_multiligne.png}}\\[0.5mm]
+      \clickzoom{fig_ptr_multiligne}{\includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{png/figs_deck/fig_ptr_multiligne.png}}\\[0.5mm]
       {\scriptsize\color{black!60} un \textbf{PTR réel} --- \textbf{un parseur naïf en
        raterait la moitié}}
     \end{column}
@@ -601,11 +601,11 @@
   \begin{columns}[c]
     \begin{column}{0.38\textwidth}\centering
       \begin{minipage}[t]{0.49\linewidth}\centering
-        \fcolorbox{helec}{white}{\clickzoom{scan_full_droit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{figs_deck/scan_full_droit.png}}}\\[0.6mm]
+        \fcolorbox{helec}{white}{\clickzoom{scan_full_droit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{png/figs_deck/scan_full_droit.png}}}\\[0.6mm]
         {\scriptsize\textbf{tapé}}
       \end{minipage}\hfill
       \begin{minipage}[t]{0.49\linewidth}\centering
-        \fcolorbox{hocr}{white}{\clickzoom{scan_full_manuscrit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{figs_deck/scan_full_manuscrit.png}}}\\[0.6mm]
+        \fcolorbox{hocr}{white}{\clickzoom{scan_full_manuscrit}{\includegraphics[width=0.9\linewidth,keepaspectratio]{png/figs_deck/scan_full_manuscrit.png}}}\\[0.6mm]
         {\scriptsize\textbf{manuscrit}}
       \end{minipage}
     \end{column}
@@ -631,7 +631,7 @@
 \begin{frame}{2c · Sénat · texte --- la donnée arrive déjà en table}
   \begin{columns}[c]
     \begin{column}{0.52\textwidth}\centering
-      \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.46\textheight,keepaspectratio]{figs_deck/senate_digital.png}}}
+      \fcolorbox{selec}{white}{\clickzoom{senate_digital_2}{\includegraphics[width=0.96\linewidth,height=0.46\textheight,keepaspectratio]{png/figs_deck/senate_digital.png}}}
     \end{column}
     \begin{column}{0.44\textwidth}
       \badge{selec}{14\,813 lignes → 13\,026 uniques}\\[2.5mm]
@@ -651,15 +651,15 @@
    classées au \textbf{Vision}, comptes recoupés avec la sortie OCR :}\\[4.5mm]
   \begin{columns}[T]
     \begin{column}{0.30\textwidth}\centering
-      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_tape}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{figs_deck/senat_papier_droit.png}}}}\\[1.5mm]
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_tape}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{png/figs_deck/senat_papier_droit.png}}}}\\[1.5mm]
       {\scriptsize\textbf{tapé}}\\[0.4mm]{\textbf{254}~{\scriptsize\color{black!55}69\,\%}}
     \end{column}
     \begin{column}{0.30\textwidth}\centering
-      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_manu}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{figs_deck/senat_papier_manuscrit.png}}}}\\[1.5mm]
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_manu}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{png/figs_deck/senat_papier_manuscrit.png}}}}\\[1.5mm]
       {\scriptsize\textbf{manuscrit}}\\[0.4mm]{\textbf{11}~{\scriptsize\color{black!55}3\,\%}}
     \end{column}
     \begin{column}{0.30\textwidth}\centering
-      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_annexe}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{figs_deck/senat_papier_annexe_v.png}}}}\\[1.5mm]
+      \parbox[t][37mm][c]{\linewidth}{\centering\fcolorbox{socr}{white}{\clickzoom{sp_annexe}{\includegraphics[width=0.8\linewidth,height=35mm,keepaspectratio]{png/figs_deck/senat_papier_annexe_v.png}}}}\\[1.5mm]
       {\scriptsize\textbf{annexe courtier}}\\[0.4mm]{\textbf{101}~{\scriptsize\color{black!55}28\,\%}}
     \end{column}
   \end{columns}
@@ -672,7 +672,7 @@
 \begin{frame}{2c · Sénat · image --- Quiver ne peut rien vérifier, donc on garde tout}
   \begin{columns}[c]
     \begin{column}{0.42\textwidth}\centering
-      \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[width=0.92\linewidth,height=0.60\textheight,keepaspectratio]{figs_deck/senat_papier_droit.png}}}\\[0.6mm]
+      \fcolorbox{black!30}{white}{\clickzoom{senat_papier_droit_2}{\includegraphics[width=0.92\linewidth,height=0.60\textheight,keepaspectratio]{png/figs_deck/senat_papier_droit.png}}}\\[0.6mm]
       {\scriptsize\color{black!60} papier Blumenthal (\textbf{38,7\,\%} de la voie) --- actifs
        \textbf{non cotés} : LLC, parts privées}
     \end{column}
@@ -857,7 +857,7 @@
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{figs_deck/entonnoir_backtest.png}
+      \includegraphics[width=\linewidth]{png/figs_deck/entonnoir_backtest.png}
     \end{column}
     \begin{column}{0.40\textwidth}
       {\footnotesize \textbf{quatre portes} --- ce que chacune vérifie :}\\[1mm]
@@ -883,7 +883,7 @@
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{figs_deck/entonnoir_tickers.png}
+      \includegraphics[width=\linewidth]{png/figs_deck/entonnoir_tickers.png}
     \end{column}
     \begin{column}{0.40\textwidth}
       {\footnotesize pour valoriser un trade, il faut un \textbf{vrai cours} --- chaque symbole est
@@ -980,7 +980,7 @@
 \begin{frame}{9 · Quiver --- la corroboration monte avec le temps : peu de vérité-terrain avant 2017}
   \begin{columns}[c]
     \begin{column}{0.58\textwidth}\centering
-      \includegraphics[width=\linewidth]{figs_deck/corroboration_par_annee.png}\\[0.5mm]
+      \includegraphics[width=\linewidth]{png/figs_deck/corroboration_par_annee.png}\\[0.5mm]
       {\scriptsize\color{black!60} part de \textbf{nos} actions (Chambre, \co{Stock})
        que Quiver possède aussi --- par année civile de dépôt}
     \end{column}
@@ -1039,7 +1039,7 @@
 
 \begin{frame}{La population de trades dans le temps}
   \centering
-  \includegraphics[width=0.97\textwidth,height=0.60\textheight,keepaspectratio]{figs_pop/P1_population_temps.png}\\[2mm]
+  \includegraphics[width=0.97\textwidth,height=0.60\textheight,keepaspectratio]{png/figs_pop/P1_population_temps.png}\\[2mm]
   \defl{\textbf{à gauche} : le nombre de membres qui passent au moins un trade dans l'année (une centaine environ) — la population active monte jusqu'en 2020 puis reflue. \textbf{à droite} : achats (vert) vs ventes (rouge), un flux globalement équilibré.}\\[1mm]
   \kpi{helec}{118\,029}{trades exploitables sur 2014--2026}\hspace{10mm}%
   \kpi{dataC}{$\sim$110}{membres actifs par an (372 au total)}
@@ -1047,7 +1047,7 @@
 
 \begin{frame}{Une poignée de membres fait l'essentiel des trades}
   \centering
-  \includegraphics[width=0.9\textwidth,height=0.68\textheight,keepaspectratio]{figs_pop/P2_top_membres.png}\\[2.5mm]
+  \includegraphics[width=0.9\textwidth,height=0.68\textheight,keepaspectratio]{png/figs_pop/P2_top_membres.png}\\[2.5mm]
   \kpi{alertred}{41\,\%}{des trades viennent des 2 plus actifs (Khanna, McCaul)}
 \end{frame}
 
@@ -1072,7 +1072,7 @@
 
 \begin{frame}{Et souvent, c'est le conjoint qui passe l'ordre}
   \centering
-  \includegraphics[width=0.95\textwidth,height=0.56\textheight,keepaspectratio]{figs_deck/A3_proprietaires.png}\\[2mm]
+  \includegraphics[width=0.95\textwidth,height=0.56\textheight,keepaspectratio]{png/figs_deck/A3_proprietaires.png}\\[2mm]
   \begin{tabular}{@{}l c c c c@{}}
     \toprule
     Propriétaire du compte & conjoint & élu & joint & enfant\\\midrule
@@ -1086,7 +1086,7 @@
   {\small $\displaystyle a_j \;=\; \tfrac{1}{2}\bigl(\underline{m}_j+\overline{m}_j\bigr)$}\hspace{6mm}
   \defl{la loi ne déclare qu'un intervalle $[\underline{m}_j,\overline{m}_j]$ (STOCK Act) — on retient le milieu $a_j$ comme montant du trade $j$.}\\[1.5mm]
   \centering
-  \includegraphics[width=0.95\textwidth,height=0.54\textheight,keepaspectratio]{figs_deck/A4_tailles.png}\\[2mm]
+  \includegraphics[width=0.95\textwidth,height=0.54\textheight,keepaspectratio]{png/figs_deck/A4_tailles.png}\\[2mm]
   \kpi{helec}{75\,\%}{des trades dans la 1\up{re} tranche (milieu 8\,000\,\$)}
 \end{frame}
 
@@ -1094,7 +1094,7 @@
   {\small $\displaystyle \mathrm{lag}_j \;=\; \delta_j-\tau_j \;\le\; 45\text{ j (délai légal)}$}\hspace{6mm}
   \defl{$\tau_j$ = date de la transaction (inaccessible en direct) ; $\delta_j$ = date de divulgation (la seule qu'un copieur voit).}\\[1.5mm]
   \centering
-  \includegraphics[width=0.95\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/A5_delai.png}\\[2mm]
+  \includegraphics[width=0.95\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/A5_delai.png}\\[2mm]
   \kpi{helec}{27 j}{délai médian trade → divulgation}\hspace{10mm}%
   \kpi{warnorange}{11,7\,\%}{déclarations en retard ($>45$ j)}
 \end{frame}
@@ -1103,7 +1103,7 @@
   \centering
   {\small $\displaystyle \text{align}_m \;=\; \frac{\#\{\text{achats de }m : \text{secteur}_{\text{GICS}}\in \text{juridiction de ses comités}\}}{\#\text{achats de }m}$}\\[1mm]
   \defl{chaque comité (via sa « jurisdiction » officielle) est relié à des secteurs GICS ; on regarde si le secteur du titre acheté en fait partie.}\\[2mm]
-  \includegraphics[width=0.97\textwidth,height=0.46\textheight,keepaspectratio]{figs_pop/P4c_conflit.png}\\[1.5mm]
+  \includegraphics[width=0.97\textwidth,height=0.46\textheight,keepaspectratio]{png/figs_pop/P4c_conflit.png}\\[1.5mm]
   \kpi{helec}{16\,\%}{des achats tombent dans un secteur régulé par leurs comités}\hspace{5mm}%
   \kpi{warnorange}{quelques-uns}{très alignés (Hickenlooper $\sim$90\,\%)}\\[1mm]
   \repband{marché ultra-concentré (2 membres = 41\,\%), souvent via le conjoint (38\,\%), déclaré $\sim$27 j après ; alignement comité faible en moyenne (16\,\%).}
@@ -1129,7 +1129,7 @@
       \defl{$\tau$ = 1\up{er} jour coté $\ge$ date du trade ; $P_i(t)$ = prix ajusté (dividendes, splits). $V(t)$ saute à chaque apport → figure.}
 \end{column}
     \begin{column}{0.54\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figs_deck/B1_vt_membre.png}
+      \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{png/figs_deck/B1_vt_membre.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1153,7 +1153,7 @@
       \end{tabular}
     \end{column}
     \begin{column}{0.54\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]{figs_deck/B2_spaghetti.png}
+      \includegraphics[width=\linewidth,height=0.64\textheight,keepaspectratio]{png/figs_deck/B2_spaghetti.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -1162,7 +1162,7 @@
   {\small $\displaystyle \text{durée}_i \;=\; \delta^{\text{vente}}_i - \delta^{\text{achat}}_i \quad(\text{appariement FIFO})$}\hspace{6mm}
   \defl{on apparie chaque vente au plus ancien achat non soldé (FIFO) ; la durée = l'écart entre les deux dates.}\\[1.5mm]
   \centering
-  \includegraphics[width=0.9\textwidth,height=0.56\textheight,keepaspectratio]{figs_pop/P5b_duree.png}\\[1.5mm]
+  \includegraphics[width=0.9\textwidth,height=0.56\textheight,keepaspectratio]{png/figs_pop/P5b_duree.png}\\[1.5mm]
   \kpi{helec}{$\sim$1 an}{avant de revendre (médiane 390 j)}\hspace{8mm}%
   \kpi{dataC}{44\,\%}{des positions ne sont jamais revendues}
 \end{frame}
@@ -1176,7 +1176,7 @@
       \defl{la ligne = un membre ; la couleur = la part de ses achats dans le secteur.}
     \end{column}
     \begin{column}{0.68\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{figs_deck/B6_secteurs.png}
+      \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{png/figs_deck/B6_secteurs.png}
     \end{column}
   \end{columns}
   \vspace{1mm}
@@ -1188,7 +1188,7 @@
 
 \begin{frame}{La question naïve : le Congrès bat-il le marché ?}
   \centering
-  \includegraphics[width=0.97\textwidth,height=0.58\textheight,keepaspectratio]{figs_pop/P7a_distributions.png}\\[2mm]
+  \includegraphics[width=0.97\textwidth,height=0.58\textheight,keepaspectratio]{png/figs_pop/P7a_distributions.png}\\[2mm]
   \kpi{helec}{34\,\%}{des éligibles battent le SPY sur leur fenêtre}\hspace{8mm}%
   \kpi{dataC}{0,72 / 0,83}{Sharpe médian membres / SPY}
 \end{frame}
@@ -1197,7 +1197,7 @@
 \begin{frame}{La porte d'entrée : 223 membres sur 266 sont jugeables}
   \centering
   {\footnotesize éligible $\iff$ $n_{\text{trades}} \geq 10$ \textbf{et} $n_{\text{jours}} \geq 126$ ($\sim$ 6 mois de bourse)}\\[2mm]
-  \includegraphics[height=0.62\textheight]{figs_deck/fig_05b_eligibilite.png}\\[1.5mm]
+  \includegraphics[height=0.62\textheight]{png/figs_deck/fig_05b_eligibilite.png}\\[1.5mm]
   \defl{sous les seuils : trop court pour distinguer chance et talent — \textbf{exclus du jugement}, pas des données.}
 \end{frame}
 
@@ -1222,7 +1222,7 @@
       \defl{$\beta=1 \ \Rightarrow\ $ appraisal $=$ IR}
     \end{column}
     \begin{column}{0.44\textwidth}\centering
-      \includegraphics[width=0.93\linewidth]{figs_deck/fig_05b_regression_demo.png}\\[0.5mm]
+      \includegraphics[width=0.93\linewidth]{png/figs_deck/fig_05b_regression_demo.png}\\[0.5mm]
       \defl{la pente absorbe le marché ; l'ordonnée à l'origine, c'est le talent.}
     \end{column}
   \end{columns}
@@ -1232,7 +1232,7 @@
 \begin{frame}{La mesure ne trouve presque rien : 20 « gagnants », 12 après le $\beta$, 11 par hasard}
   \centering
   \defl{diagnostic \textbf{rétrospectif} (\emph{in-sample}) : tout l'historique jugé d'un coup ($\approx$ 2014 → mi-2026), sur les \textbf{223 éligibles} — \emph{pas} encore de walk-forward.}\\[1.5mm]
-  \includegraphics[height=0.54\textheight]{figs_deck/fig_05b_hist_t.png}\\[2mm]
+  \includegraphics[height=0.54\textheight]{png/figs_deck/fig_05b_hist_t.png}\\[2mm]
   {\footnotesize \textbf{20} membres battent le SPY à l'IR, \textbf{12} seulement une fois le $\beta$ retiré (appraisal) — pour \textbf{$\approx$11} attendus par pur hasard (5 \% de 223).}
 \end{frame}
 
@@ -1337,7 +1337,7 @@
        continue) — \textbf{la mécanique en 3 temps, ci-après}}
     \end{column}
     \begin{column}{0.47\textwidth}\centering
-      \includegraphics[width=\linewidth]{figs_deck/fig_05b_nsig_par_an.png}\\[1mm]
+      \includegraphics[width=\linewidth]{png/figs_deck/fig_05b_nsig_par_an.png}\\[1mm]
       {\scriptsize\color{black!60} le vivier à chaque coupe :
        de quoi alimenter un top-$K$ chaque année}
     \end{column}
@@ -1377,7 +1377,7 @@
   {\footnotesize 1 année civile = 1 observation :
    $x_Y=\prod_{t\in Y}(1+r_{\text{strat}})-\prod_{t\in Y}(1+r_{\mathrm{SPY}})$ ;\;
    $t=\overline{x}/\sigma(x)\cdot\sqrt{11}$ ; seuil $t_{10}\approx 1{,}81$}\\[1mm]
-  \includegraphics[height=0.40\textheight]{figs_deck/fig_05b_nav_top4.png}\\[2mm]
+  \includegraphics[height=0.40\textheight]{png/figs_deck/fig_05b_nav_top4.png}\\[2mm]
   \tuile{helec}{+3,1 \%/an}{excès brut\\7/11 années}\hfill
   \tuile{alertred}{t = 0,94}{sous le seuil\\1,81}\hfill
   \tuile{warnorange}{$\beta$ = 1,20}{l'excès = du style,\\pas du talent}\hfill
@@ -1390,7 +1390,7 @@
   {\footnotesize\color{helec!85}\textbf{Tests 2 \& 3} · on fait varier \textbf{COMBIEN} ($K$) et \textbf{QUAND} (cadence)}\\[0.8mm]
   {\footnotesize le top-4 ne passe pas → on laisse $K$ \textbf{s'ajuster chaque année}
    ($K^{*}(Y)=\arg\max_{K\in[4,20]}$ score sur le passé, walk-forward) et on rebalance tous les 6 mois}\\[1mm]
-  \includegraphics[width=0.55\textwidth]{figs_deck/fig_05b_k_et_cadence.png}\\[1.5mm]
+  \includegraphics[width=0.55\textwidth]{png/figs_deck/fig_05b_k_et_cadence.png}\\[1.5mm]
   \badge{helec}{COMBIEN — $K$ walk-forward, annuel : +4,1 \%/an, t = 1,58}\\[1mm]
   \badge{warnorange}{QUAND — top-4 fixe, 6 mois : +0,4 \%/an, t = 0,14}\\[1.2mm]
   {\scriptsize\color{black!60} plus de liberté sur $K$ et la cadence — le $t$ monte un peu, ne passe jamais le seuil (1,81)}
@@ -1417,7 +1417,7 @@
       {\scriptsize\color{black!60} + $\Sigma$ stabilisée par shrinkage (Ledoit-Wolf) — annexe}
     \end{column}
     \begin{column}{0.51\textwidth}\centering
-      \includegraphics[width=0.92\linewidth]{figs_deck/fig_05b_ponderations.png}
+      \includegraphics[width=0.92\linewidth]{png/figs_deck/fig_05b_ponderations.png}
     \end{column}
   \end{columns}
   \vspace{0.5mm}
@@ -1431,7 +1431,7 @@
   {\footnotesize\color{selec}\textbf{Test 5} · on change \textbf{QUI} (la règle de sélection) — les réglages restent les mêmes}\\[0.8mm]
   {\footnotesize $\mathrm{Sharpe}=\dfrac{\overline{r_P}}{\sigma(r_P)}\sqrt{252}$ ;\quad
    éligible v2 $\iff n_{\text{jours}}\ge 126$ \textbf{et} $\mathrm{Sharpe}>0{,}4$ — \textbf{plus aucun test t}}\\[1.5mm]
-  \includegraphics[height=0.48\textheight]{figs_deck/fig_05b_hist_sharpe.png}\\[1.5mm]
+  \includegraphics[height=0.48\textheight]{png/figs_deck/fig_05b_hist_sharpe.png}\\[1.5mm]
   {\footnotesize \textbf{224} éligibles (vs 223 en stratégie 1 — presque les mêmes) ;
    \textbf{même moteur} de copie en parts, seule la règle de classement change}\\[0.4mm]
   {\scriptsize\color{black!60} au prix d'admettre des historiques courts en tête (Fetterman 284 j, Sewell 4 trades)}
@@ -1440,7 +1440,7 @@
 % ── Test 5 · ce qu'on observe (balayage K) ──
 \begin{frame}{Test 5 · ce qu'on observe : le $t$ plafonne à 1,22, loin du seuil}
   \centering
-  \includegraphics[width=0.62\textwidth]{figs_deck/fig_05b_balayage_k.png}\\[2mm]
+  \includegraphics[width=0.62\textwidth]{png/figs_deck/fig_05b_balayage_k.png}\\[2mm]
   {\footnotesize balayage $K$ de 2 à 20 (poids $1/K$, annuel), plus 5 pondérations × 2 cadences
    ($K=5/10/20$) : le meilleur cas reste $K=6$, \textbf{$t=1{,}22$} ($<1{,}81$) ; l'excès se dilue quand $K$ grandit}\\[0.6mm]
   {\scriptsize\color{black!60} Sharpe 0,93 vs SPY 0,87 (fenêtre de tenue) — changer la règle ne fait pas non plus
@@ -1480,56 +1480,56 @@
 
 \begin{frame}{Nancy Pelosi — $+3{,}4\,\%$/an vs SPY, mais non significatif ($\alpha$ t 0,64)}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{figs_pop/G_P000197_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.72\textheight,keepaspectratio]{png/figs_pop/G_P000197_portrait.png}\\[1mm]
   \kpi{helec}{$+3{,}4\,\%$/an}{de croissance au-dessus du SPY}\hspace{8mm}%
   \kpi{warnorange}{$\alpha$ t 0,64 · IR t 1,06}{indiscernable de la chance}
 \end{frame}
 
 \begin{frame}{Ro Khanna — 32\,700 trades, aucun avantage au niveau du trade (PF 0,88)}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_K000389_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_K000389_portrait.png}\\[1mm]
   \kpi{helec}{$\sim$32\,700 trades}{Sharpe 0,87}\hspace{10mm}%
   \kpi{alertred}{PF 0,88 · IR t 0,13}{au niveau du trade, il perd contre le marché}
 \end{frame}
 
 \begin{frame}{John Fetterman — premier du classement, mais sur 10 trades et 1 an}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_F000479_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_F000479_portrait.png}\\[1mm]
   \kpi{okgreen}{Sharpe 2,90}{le plus haut du Congrès, en tête des 3 mètres}\hspace{6mm}%
   \kpi{alertred}{10 trades · 1 an}{l'outlier de queue — rien de reproductible}
 \end{frame}
 
 \begin{frame}{Sheldon Whitehouse — significatif sur 718 trades (le plus robuste), pour $+6\,\%$/an}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_W000802_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_W000802_portrait.png}\\[1mm]
   \kpi{helec}{IR t 2,07 · appr t 1,85}{significatif aux deux mètres, sur 718 trades}\hspace{6mm}%
   \kpi{dataC}{$+6\,\%$/an}{le candidat le plus sérieux — et pourtant modeste}
 \end{frame}
 
 \begin{frame}{Lisa McClain — $+41\,\%$/an porté par le $\beta$ (1,76), pas par l'alpha}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_M001136_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_M001136_portrait.png}\\[1mm]
   \kpi{helec}{1\,479 trades · IR t 1,92}{$+41\,\%$/an d'excès}\hspace{8mm}%
   \kpi{alertred}{$\beta$ 1,76 → $t_{\text{appr}}$ 1,27}{l'excès, c'est du levier, pas du talent}
 \end{frame}
 
 \begin{frame}{Raul Ruiz — « significatif » à l'appraisal sur 10 trades : un faux positif}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_R000599_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_R000599_portrait.png}\\[1mm]
   \kpi{warnorange}{appraisal t 2,40}{« significatif »\ldots}\hspace{8mm}%
   \kpi{alertred}{10 trades · $\beta$ 0,09}{0\,\% de trades gagnants : un faux positif}
 \end{frame}
 
 \begin{frame}{David Trott — 8\,\% de trades gagnants, $-9\,\%$/an}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_T000475_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_T000475_portrait.png}\\[1mm]
   \kpi{alertred}{8\,\%}{de ses achats battent le marché}\hspace{8mm}%
   \kpi{alertred}{$-9{,}4\,\%$/an · PF 0,08}{l'autre extrême du classement}
 \end{frame}
 
 \begin{frame}{Richard Burr — les ventes de février 2020 (enquête COVID)}
   \centering
-  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{figs_pop/G_B001135_portrait.png}\\[1mm]
+  \includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{png/figs_pop/G_B001135_portrait.png}\\[1mm]
   \defl{ventes juste avant le krach (zoom juin 2019 – juin 2020) ; enquêtes DOJ/SEC classées sans charge — le cas éthique, hors performance.}
 \end{frame}
 
@@ -1599,23 +1599,23 @@
    \textbf{transactions (Schedule B) n'existent que dans \co{O}, \co{T} et leurs amendements \co{A}} :}\\[2mm]
   \begin{columns}[T]
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{figs_deck/ftype_o.png}}}\\[0.8mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10059952.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{png/figs_deck/ftype_o.png}}}\\[0.8mm]
       {\footnotesize\textbf{O — Annual}}\\{\scriptsize bilan annuel · \textbf{4\,626}}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{figs_deck/ftype_c.png}}}\\[0.8mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10056211.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{png/figs_deck/ftype_c.png}}}\\[0.8mm]
       {\footnotesize\textbf{C — Candidate}}\\{\scriptsize candidat · \textbf{10\,129}}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{figs_deck/ftype_h.png}}}\\[0.8mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062638.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{png/figs_deck/ftype_h.png}}}\\[0.8mm]
       {\footnotesize\textbf{H — New Filer}}\\{\scriptsize 1\iere{} déclaration · \textbf{395}}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{figs_deck/ftype_t.png}}}\\[0.8mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10050798.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{png/figs_deck/ftype_t.png}}}\\[0.8mm]
       {\footnotesize\textbf{T — Termination}}\\{\scriptsize départ · \textbf{394}}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{figs_deck/ftype_a.png}}}\\[0.8mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/10062190.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=29mm]{png/figs_deck/ftype_a.png}}}\\[0.8mm]
       {\footnotesize\textbf{A — Amendment}}\\{\scriptsize correction · \textbf{2\,305}}
     \end{column}
   \end{columns}
@@ -1630,30 +1630,30 @@
   {\footnotesize cinq types \textbf{sans aucune transaction} :}\quad{\scriptsize\color{black!55} chaque vignette ouvre le vrai PDF}\\[1.5mm]
   \begin{columns}[T]
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/30019473.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{figs_deck/ftype_x.png}}}\\[0.6mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/30019473.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{png/figs_deck/ftype_x.png}}}\\[0.6mm]
       {\scriptsize\textbf{X — Extension}\\demande de délai}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/40003491.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{figs_deck/ftype_d.png}}}\\[0.6mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/40003491.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{png/figs_deck/ftype_d.png}}}\\[0.6mm]
       {\scriptsize\textbf{D — Campaign Notice}\\« < 5\,000 \$ »}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219940.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{figs_deck/ftype_w.png}}}\\[0.6mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219940.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{png/figs_deck/ftype_w.png}}}\\[0.6mm]
       {\scriptsize\textbf{W — idem, papier}\\(ou retrait)}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219324.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{figs_deck/ftype_e.png}}}\\[0.6mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219324.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{png/figs_deck/ftype_e.png}}}\\[0.6mm]
       {\scriptsize\textbf{E — Exemption}\\départ, poste fédéral}
     \end{column}
     \begin{column}{0.19\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219737.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{figs_deck/ftype_g.png}}}\\[0.6mm]
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219737.pdf}{\fcolorbox{black!30}{white}{\includegraphics[height=21mm]{png/figs_deck/ftype_g.png}}}\\[0.6mm]
       {\scriptsize\textbf{G — Gift Waiver}\\dérogation cadeau}
     \end{column}
   \end{columns}
   \vspace{2.5mm}
   \begin{columns}[c]
     \begin{column}{0.14\textwidth}\centering
-      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219364.pdf}{\fcolorbox{alertred}{white}{\includegraphics[height=20mm]{figs_deck/ftype_b.png}}}
+      \href{https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2023/8219364.pdf}{\fcolorbox{alertred}{white}{\includegraphics[height=20mm]{png/figs_deck/ftype_b.png}}}
     \end{column}
     \begin{column}{0.82\textwidth}
       \colorbox{alertred!10}{\parbox{0.97\linewidth}{\footnotesize\raggedright\vspace{0.5mm}
@@ -1667,7 +1667,7 @@
 % ── III.2 · Le catalogue : la vie déclarative (frise cycle de vie) ───────
 \begin{frame}{1 · Le catalogue --- la vie déclarative d'un élu}
   \centering
-  \includegraphics[width=0.84\textwidth]{figs_deck/fig_house_loi_cycle.png}\\[1mm]
+  \includegraphics[width=0.84\textwidth]{png/figs_deck/fig_house_loi_cycle.png}\\[1mm]
   {\footnotesize les \textbf{photos} (\co{C}\,·\,\co{H}\,·\,\co{O}\,·\,\co{T}) disent ce qu'il
    \textbf{possède}, le \co{P} ce qu'il \textbf{fait} --- chaque étape a son dépôt \textbf{et son
    délai légal}}
@@ -1696,7 +1696,7 @@
   {\footnotesize un dépôt est découpé en \textbf{Schedules} --- des sections, de \co{A} à \co{J} ---
    chacune sa catégorie : \co{A} patrimoine · \co{B} transactions · \co{C} revenus · \co{D} dettes
    · \co{E} postes… ; la matrice montre \textbf{lesquelles apparaissent selon le type} :}\\[1mm]
-  \includegraphics[height=0.54\textheight]{figs_deck/fig_sections_matrix.png}\\[0.5mm]
+  \includegraphics[height=0.54\textheight]{png/figs_deck/fig_sections_matrix.png}\\[0.5mm]
   {\footnotesize seules \textbf{deux} nous servent : la \textbf{\co{B}} = les transactions (on trade ça) ;
    la \textbf{\co{A}} (patrimoine) sert à \emph{vérifier} --- le reste est un socle commun}
 \end{frame}
@@ -1816,7 +1816,7 @@
   \hfill{\scriptsize\color{black!55} Chambre uniquement}\\[0.3mm]
   \begin{columns}[c]
     \begin{column}{0.44\textwidth}\centering
-      \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{figs_deck/fig_v1_coherence.png}\\[0.5mm]
+      \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{png/figs_deck/fig_v1_coherence.png}\\[0.5mm]
       {\scriptsize\color{black!60} premier passage : entrée + achats PTR expliquent
        \textbf{78,7\,\%} des \textbf{1\,371} positions de sortie de la \textbf{cohorte
        électronique} (H \emph{et} T déposés) → \textbf{292} inexpliquées}
@@ -1857,7 +1857,7 @@
        ainsi la cohorte des testables}
     \end{column}
     \begin{column}{0.48\textwidth}\centering
-      \fcolorbox{black!25}{white}{\includegraphics[width=0.9\linewidth,height=34mm,keepaspectratio]{figs_deck/fig_pelosi_schedb.png}}\\[1mm]
+      \fcolorbox{black!25}{white}{\includegraphics[width=0.9\linewidth,height=34mm,keepaspectratio]{png/figs_deck/fig_pelosi_schedb.png}}\\[1mm]
       {\footnotesize\textbf{La répétition} --- un amendement \co{A} re-déclare les trades
        de l'annuel qu'il corrige}\\[1mm]
       {\scriptsize\color{black!60} Pelosi 2014 : le même trade \textbf{3 fois} (\co{O}+\co{A}+\co{A})
@@ -1936,7 +1936,7 @@
 \begin{frame}{A1 --- Le document lisible : un PTR électronique}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
-      \fcolorbox{helec}{white}{\clickzoom{fig_ptr_digital}{\includegraphics[width=0.92\linewidth,height=64mm,keepaspectratio]{figs_deck/fig_ptr_digital.png}}}\\[0.5mm]
+      \fcolorbox{helec}{white}{\clickzoom{fig_ptr_digital}{\includegraphics[width=0.92\linewidth,height=64mm,keepaspectratio]{png/figs_deck/fig_ptr_digital.png}}}\\[0.5mm]
       {\scriptsize\color{black!60} PTR électronique complet (Hon.\ John A.\ Yarmuth, KY03)}
     \end{column}
     \begin{column}{0.43\textwidth}
@@ -1954,7 +1954,7 @@
 % ── A2 · La liste eFD, en détail ──
 \begin{frame}{A2 --- Le portail du Sénat : ce que rend la recherche}
   \centering
-  \fcolorbox{black!25}{white}{\clickzoom{site_senate_results}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{figs_deck/site_senate_results.png}}}\\[1.5mm]
+  \fcolorbox{black!25}{white}{\clickzoom{site_senate_results}{\includegraphics[width=0.78\textwidth,height=0.60\textheight,keepaspectratio]{png/figs_deck/site_senate_results.png}}}\\[1.5mm]
   {\footnotesize la liste réelle des dépôts (1b) --- \textbf{un lien par dépôt} :
    chacun s'ouvre en \textbf{page web} ou en \textbf{papier scanné}, c'est là que se décide la
    voie d'extraction}\\[1mm]
@@ -1965,7 +1965,7 @@
 % ── A3 · La matrice des sections ──
 \begin{frame}{A3 --- Le même formulaire, des sections en commun}
   \centering
-  \includegraphics[height=0.61\textheight]{figs_deck/fig_sections_matrix.png}\\[0.5mm]
+  \includegraphics[height=0.61\textheight]{png/figs_deck/fig_sections_matrix.png}\\[0.5mm]
   {\footnotesize la \textbf{section B} = les transactions ; le reste est un socle
    commun, la \textbf{A} (patrimoine) sert à \emph{vérifier}}
 \end{frame}
@@ -2041,7 +2041,7 @@
   \end{tikzpicture}\\[2mm]
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}\centering
-      \includegraphics[width=0.74\linewidth]{quality/top_deposants.png}
+      \includegraphics[width=0.74\linewidth]{png/quality/top_deposants.png}
     \end{column}
     \begin{column}{0.43\textwidth}
       \colorbox{warnorange!12}{\parbox{0.96\linewidth}{\footnotesize\vspace{0.5mm}
@@ -2064,7 +2064,7 @@
   {\footnotesize $\Sigma_{\text{shrink}}=\delta\,F+(1-\delta)\,\Sigma_{\text{emp}}$,\;
    $\delta=\frac{\pi-\rho}{T\gamma}$ borné à $[0,1]$ —
    3 cibles $F$ : diagonale (LW 2004) · single-factor (LW 2001) · corrélation constante (LW 2003)}\\[1mm]
-  \includegraphics[height=0.40\textheight]{figs_deck/fig_05b_gmv_ledoitwolf.png}\\[1.5mm]
+  \includegraphics[height=0.40\textheight]{png/figs_deck/fig_05b_gmv_ledoitwolf.png}\\[1.5mm]
   \tuile{okgreen}{−4,5 → −4,3}{\%/an : l'artefact GMV\\(sél. appr) tempéré}\hfill
   \tuile{okgreen}{−2,76 → −2,46}{le t remonte…\\sans devenir positif}\hfill
   \tuile{helec}{50 → 25}{conditionnement\\de $\Sigma$ (LW diag)}\hfill
@@ -2076,7 +2076,7 @@
 % ── An4 · Contre-preuve IR ↔ β (ex-S3-8) ──
 \begin{frame}{La contre-preuve point par point : la queue droite de l'IR, c'était du $\beta$}
   \centering
-  \includegraphics[height=0.63\textheight]{figs_deck/fig_05b_ir_vs_appraisal.png}\\[1mm]
+  \includegraphics[height=0.63\textheight]{png/figs_deck/fig_05b_ir_vs_appraisal.png}\\[1mm]
   {\footnotesize au-dessus de la diagonale : classé par l'IR \textbf{grâce à son $\beta$} —
    l'ajustement dégonfle la queue droite}\\[0.8mm]
   {\scriptsize\color{black!60} c'est la version « membre par membre » du 20 → 12 :
@@ -2085,7 +2085,7 @@
 
 % ══════════════════════════════════════════════════════════════════
 % PARTIE III — TABLES DE DONNÉES  (notebook 09 : membres · tickers · panel)
-% Figures : docs/figs_deck/fig_09_*.png (régénérées du notebook, fidèles aux inline)
+% Figures : png/figs_deck/fig_09_*.png (régénérées du notebook, fidèles aux inline)
 % ══════════════════════════════════════════════════════════════════
 % ── Séparateur · PARTIE III ──
 
@@ -2110,7 +2110,7 @@
   \bmaths{deux portes : le trade exploitable, puis l'élu jugeable}%
     {\text{reconstruit}\iff r_m\ \text{calculable}\qquad
      \text{éligible}\iff n_{\text{trades}}\ge 10\ \text{et}\ n_{\text{jours}}\ge 126}
-  \includegraphics[width=0.80\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/fig_09_entonnoir.png}\\[2mm]
+  \includegraphics[width=0.80\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/fig_09_entonnoir.png}\\[2mm]
   {\footnotesize des 169\,000 dépôts bruts, seuls les trades à \textbf{prix exploitable} alimentent
    les quatre tables — et la chaîne des élus suit : 372 → 359 → 266 reconstruits → 223 éligibles}\\[1.5mm]
   \badge{helec}{118\,029 trades exploitables}\;
@@ -2153,7 +2153,7 @@
   \bmaths{colonnes \co{comites} · \co{secteurs\_juridiction}}%
     {\mathrm{comites}(m)=\bigcup_{j}\mathrm{codes}_j\qquad
      \mathrm{secteurs\_juridiction}(m)=\bigcup_{c\,\in\,\mathrm{comites}(m)}\mathrm{COMITE\_GICS}[c]}
-  \includegraphics[width=0.78\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/fig_09_identite.png}\\[2mm]
+  \includegraphics[width=0.78\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/fig_09_identite.png}\\[2mm]
   {\footnotesize 94 colonnes en \textbf{6 familles} (identité, activité, portefeuille, durées,
    risque-perf, comportement) ; pour les incarner, un fil rouge : Nancy Pelosi}\\[1.5mm]
   \badge{dataC}{372 fiches}\;
@@ -2166,7 +2166,7 @@
   \bmaths{colonnes \co{buy\_share} · \co{part\_late} (et \co{notional\_total}, \co{lag\_med})}%
     {\mathrm{buy\_share}=\frac{\#\{d_j=\mathrm{buy}\}}{\#j}\qquad
      \mathrm{part\_late}=\mathbb{P}(\delta_j-\tau_j>45\ \text{j})}
-  \includegraphics[height=0.52\textheight,width=0.9\textwidth,keepaspectratio]{figs_deck/fig_09_activite.png}\\[2mm]
+  \includegraphics[height=0.52\textheight,width=0.9\textwidth,keepaspectratio]{png/figs_deck/fig_09_activite.png}\\[2mm]
   {\footnotesize chaque point est un trade daté et monté — \textcolor{okgreen}{\textbf{achats en vert}},
    \textcolor{alertred}{\textbf{ventes en rouge}}, montants $A_j$ en échelle log
    (leur somme : \co{notional\_total}) ; en bas, le rythme par année}
@@ -2178,7 +2178,7 @@
   \bmaths{colonnes \co{hhi} (\co{n\_eff} $=1/$\co{hhi}) · \co{top1\_part} · \co{turnover}}%
     {\mathrm{hhi}=\mathrm{moy}_t\Bigl[\textstyle\sum_k w_k^m(t)^2\Bigr]\qquad
      \mathrm{turnover}=\frac{\sum_j A_j}{2\,\overline{V}_m}\cdot\frac{252}{T_m}}
-  \includegraphics[height=0.46\textheight,width=0.9\textwidth,keepaspectratio]{figs_deck/fig_09_portefeuille.png}\\[2mm]
+  \includegraphics[height=0.46\textheight,width=0.9\textwidth,keepaspectratio]{png/figs_deck/fig_09_portefeuille.png}\\[2mm]
   {\footnotesize la reconstruction \textbf{FIFO datée} donne la valeur $V_m(t)$ et les poids de chaque
    titre à chaque instant — le rendement est \textbf{time-weighted}, jamais estimé}\\[1.5mm]
   \badge{helec}{un portefeuille en parts, valorisé jour par jour}
@@ -2190,7 +2190,7 @@
   \bmaths{colonnes \co{duree\_km\_med} · \co{duree\_med\_fermee}}%
     {\hat S_m(t)=\widehat{\mathbb{P}}\bigl(\text{part encore détenue}>t\bigr)\qquad
      \mathrm{km\_med}=\inf\{t:\hat S_m(t)\le 0{,}5\}}
-  \includegraphics[width=0.72\textwidth,height=0.46\textheight,keepaspectratio]{figs_deck/fig_09_km.png}\\[2mm]
+  \includegraphics[width=0.72\textwidth,height=0.46\textheight,keepaspectratio]{png/figs_deck/fig_09_km.png}\\[2mm]
   {\footnotesize l'estimateur de \textbf{Kaplan-Meier} traite honnêtement les positions jamais
    revendues : \textbf{censurées}, pas ignorées — sinon les durées seraient sous-estimées}\\[1.5mm]
   \badge{warnorange}{44\,\% des parts jamais revendues (tous élus)}
@@ -2203,7 +2203,7 @@
     {\mathrm{sharpe}=\frac{\overline{r_m}}{\sigma(r_m)}\sqrt{252}\qquad
      r_m=\alpha+\beta\,r_{\mathrm{SPY}}+\varepsilon\ \Rightarrow\
      \mathrm{appraisal}=\frac{\alpha}{\sigma(\varepsilon)}\sqrt{252}}
-  \includegraphics[height=0.40\textheight,width=0.9\textwidth,keepaspectratio]{figs_deck/fig_09_nav.png}\\[2mm]
+  \includegraphics[height=0.40\textheight,width=0.9\textwidth,keepaspectratio]{png/figs_deck/fig_09_nav.png}\\[2mm]
   {\footnotesize +3,4\,\% de croissance par an au-dessus du SPY\ldots{} mais ni l'alpha
    ($t$ = 0,64) ni l'IR ($t$ = 1,06) ne passent le seuil de 2 : \textbf{indiscernable de la chance}}\\[1.5mm]
   \badge{okgreen}{+3,4\,\%/an vs SPY}\;
@@ -2216,7 +2216,7 @@
   \bmaths{colonnes \co{part\_ci\_achats} · \co{part\_coachat} ($\ge 3$ acheteurs le même mois) ·
           \co{part\_trades\_repetes} (titre déjà tradé)}%
     {\mathrm{part\_ci}=\mathbb{P}\bigl(\mathrm{GICS}(k_j)\in J(\mathrm{comites}_m)\,\big|\,\mathrm{buy}\bigr)}
-  \includegraphics[width=0.64\textwidth,height=0.40\textheight,keepaspectratio]{figs_deck/fig_09_comportement.png}\\[2mm]
+  \includegraphics[width=0.64\textwidth,height=0.40\textheight,keepaspectratio]{png/figs_deck/fig_09_comportement.png}\\[2mm]
   {\footnotesize alignement avec ses comités ($J$ = les \co{secteurs\_juridiction} de la famille 1),
    répétition, co-achat : trois signaux mesurés pour chaque élu, comparés à la médiane des 223}\\[1.5mm]
   \badge{warnorange}{16,4\,\% des achats alignés comité (tous élus)}
@@ -2228,7 +2228,7 @@
   \bmaths{colonnes \co{ret\_annee} · \co{exces\_spy\_annee} (NaN si $<40$ j cotés dans l'année)}%
     {\mathrm{ret\_annee}=\prod_{t\in Y}\bigl(1+r_m(t)\bigr)-1\qquad
      \mathrm{exces\_spy\_annee}=\mathrm{ret\_annee}-\mathrm{ret\_annee}^{\mathrm{SPY}}\ \text{(mêmes jours)}}
-  \includegraphics[width=0.76\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/fig_09_annees.png}\\[2mm]
+  \includegraphics[width=0.76\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/fig_09_annees.png}\\[2mm]
   {\footnotesize chaque barre est une ligne de \co{membres\_annees.csv} —
    2\,628 couples (élu, année) prêts pour l'économétrie}\\[1.5mm]
   \badge{dataC}{2\,628 × 11}
@@ -2240,7 +2240,7 @@
   \bmaths{colonnes \co{notional\_net} · \co{exces\_21j\_moy} / \co{exces\_63j\_moy}}%
     {\mathrm{notional\_net}=\!\!\sum_{d_j=\mathrm{buy}}\!\!A_j\ -\!\!\sum_{d_j=\mathrm{sell}}\!\!A_j\qquad
      \mathrm{exces}_H=\mathrm{moy}\Bigl[\tfrac{P_k(\tau+H)}{P_k(\tau)}-\tfrac{\mathrm{SPY}(\tau+H)}{\mathrm{SPY}(\tau)}\Bigr],\ H\in\{21,63\}\ \text{j}}
-  \includegraphics[height=0.44\textheight,width=0.9\textwidth,keepaspectratio]{figs_deck/fig_09_ticker_nvda.png}\\[2mm]
+  \includegraphics[height=0.44\textheight,width=0.9\textwidth,keepaspectratio]{png/figs_deck/fig_09_ticker_nvda.png}\\[2mm]
   {\footnotesize \co{tickers.csv} renverse la perspective : pour 4\,618 titres,
    \textbf{qui achète, qui vend, et quand} — triangles proportionnels aux montants}\\[1.5mm]
   \badge{dataC}{4\,618 × 40}
@@ -2252,7 +2252,7 @@
   \bmaths{colonnes \co{vol\_ann} · \co{beta\_spy} (les autres : déjà définies, vues en distribution)}%
     {\mathrm{vol\_ann}=\sigma\bigl(\Delta\log P_k\bigr)\sqrt{252}\qquad
      \beta_{\mathrm{spy}}=\mathrm{cov}(r_k,r_{\mathrm{SPY}})/\mathrm{var}(r_{\mathrm{SPY}})}
-  \includegraphics[width=0.84\textwidth,height=0.52\textheight,keepaspectratio]{figs_deck/fig_09_distributions.png}\\[2mm]
+  \includegraphics[width=0.84\textwidth,height=0.52\textheight,keepaspectratio]{png/figs_deck/fig_09_distributions.png}\\[2mm]
   {\footnotesize volatilité, durées de détention, notionnels par titre :
    chaque statistique individuelle se lit dans sa distribution}\\[1.5mm]
   \badge{helec}{223 élus éligibles}
@@ -2269,7 +2269,7 @@
   {\small $x_j=\Bigl[\tfrac{P_k(t^{s}_j)}{P_k(\tau_j^{+})}-1\Bigr]
           -\Bigl[\tfrac{\mathrm{SPY}(t^{s}_j)}{\mathrm{SPY}(\tau_j^{+})}-1\Bigr]
           \qquad \mathrm{hit\_rate}=\mathbb{P}(x_j>0)$}\\[2mm]
-  \includegraphics[width=0.60\textwidth,height=0.30\textheight,keepaspectratio]{figs_deck/fig_09_exces.png}\\[1.5mm]
+  \includegraphics[width=0.60\textwidth,height=0.30\textheight,keepaspectratio]{png/figs_deck/fig_09_exces.png}\\[1.5mm]
   {\footnotesize même pour elle — 63\,\% d'achats gagnants, médiane +5,0\,\% — le $t$ reste
    \textbf{sous 2} ; l'élu médian, lui, sous-performe : \textbf{−1,62\,\%} (58\,926 achats)}\\[1.5mm]
   \badge{warnorange}{elle : $t$ = 1,89 $<$ 2}\;
@@ -2297,29 +2297,29 @@
 
 
 % ══════════════════ FRAMES DE ZOOM (agrandissement des captures, hors comptage) ══════════════════
-\zoomframe{scan_full_droit}{figs_deck/scan_full_droit.png}
-\zoomframe{scan_full_manuscrit}{figs_deck/scan_full_manuscrit.png}
-\zoomframe{site_house_clerk}{figs_deck/site_house_clerk.png}
-\zoomframe{fichier_index_xml}{figs_deck/fichier_index_xml.png}
-\zoomframe{house_digital}{figs_deck/house_digital.png}
-\zoomframe{house_ocr}{figs_deck/house_ocr.png}
-\zoomframe{site_senate_form}{figs_deck/site_senate_form.png}
-\zoomframe{senate_digital_1}{figs_deck/senate_digital.png}
-\zoomframe{senat_papier_droit_1}{figs_deck/senat_papier_droit.png}
-\zoomframe{fig_ptr_multiligne}{figs_deck/fig_ptr_multiligne.png}
-\zoomframe{senate_digital_2}{figs_deck/senate_digital.png}
-\zoomframe{senat_papier_droit_2}{figs_deck/senat_papier_droit.png}
-\zoomframe{sp_tape}{figs_deck/senat_papier_droit.png}
-\zoomframe{sp_manu}{figs_deck/senat_papier_manuscrit.png}
-\zoomframe{sp_annexe}{figs_deck/senat_papier_annexe_v.png}
-\zoomframe{fig_pelosi_schedb}{figs_deck/fig_pelosi_schedb.png}
-\zoomframe{fig_ptr_digital}{figs_deck/fig_ptr_digital.png}
-\zoomframe{site_senate_results}{figs_deck/site_senate_results.png}
-\zoomframe{ftype_x}{figs_deck/ftype_x.png}
-\zoomframe{ftype_d}{figs_deck/ftype_d.png}
-\zoomframe{ftype_w}{figs_deck/ftype_w.png}
-\zoomframe{ftype_e}{figs_deck/ftype_e.png}
-\zoomframe{ftype_g}{figs_deck/ftype_g.png}
-\zoomframe{ftype_b}{figs_deck/ftype_b.png}
+\zoomframe{scan_full_droit}{png/figs_deck/scan_full_droit.png}
+\zoomframe{scan_full_manuscrit}{png/figs_deck/scan_full_manuscrit.png}
+\zoomframe{site_house_clerk}{png/figs_deck/site_house_clerk.png}
+\zoomframe{fichier_index_xml}{png/figs_deck/fichier_index_xml.png}
+\zoomframe{house_digital}{png/figs_deck/house_digital.png}
+\zoomframe{house_ocr}{png/figs_deck/house_ocr.png}
+\zoomframe{site_senate_form}{png/figs_deck/site_senate_form.png}
+\zoomframe{senate_digital_1}{png/figs_deck/senate_digital.png}
+\zoomframe{senat_papier_droit_1}{png/figs_deck/senat_papier_droit.png}
+\zoomframe{fig_ptr_multiligne}{png/figs_deck/fig_ptr_multiligne.png}
+\zoomframe{senate_digital_2}{png/figs_deck/senate_digital.png}
+\zoomframe{senat_papier_droit_2}{png/figs_deck/senat_papier_droit.png}
+\zoomframe{sp_tape}{png/figs_deck/senat_papier_droit.png}
+\zoomframe{sp_manu}{png/figs_deck/senat_papier_manuscrit.png}
+\zoomframe{sp_annexe}{png/figs_deck/senat_papier_annexe_v.png}
+\zoomframe{fig_pelosi_schedb}{png/figs_deck/fig_pelosi_schedb.png}
+\zoomframe{fig_ptr_digital}{png/figs_deck/fig_ptr_digital.png}
+\zoomframe{site_senate_results}{png/figs_deck/site_senate_results.png}
+\zoomframe{ftype_x}{png/figs_deck/ftype_x.png}
+\zoomframe{ftype_d}{png/figs_deck/ftype_d.png}
+\zoomframe{ftype_w}{png/figs_deck/ftype_w.png}
+\zoomframe{ftype_e}{png/figs_deck/ftype_e.png}
+\zoomframe{ftype_g}{png/figs_deck/ftype_g.png}
+\zoomframe{ftype_b}{png/figs_deck/ftype_b.png}
 
 \end{document}

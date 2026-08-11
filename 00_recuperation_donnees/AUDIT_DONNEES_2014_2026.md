@@ -126,7 +126,7 @@ plus aucun document « jamais entré dans le pipeline ».
 ## 5. La table de recherche canonique
 
 `data/clean/transactions_backtest_2014_2026.csv` — **134 464 lignes × 36 colonnes**, produite par
-[Nettoyage_Backtest_2014_2026.ipynb](../Nettoyage_Backtest_2014_2026.ipynb) (entonnoir A→D documenté
+[Nettoyage_Backtest_2014_2026.ipynb](Nettoyage_Backtest_2014_2026.ipynb) (entonnoir A→D documenté
 étape par étape, philosophie « on ne retire que l'avéré, tout le reste est flagué », dictionnaire des
 colonnes en dernière cellule, invariants vérifiés par asserts à l'export : bioguide/ticker/montant/
 direction/chronologie/hash tous garantis).
