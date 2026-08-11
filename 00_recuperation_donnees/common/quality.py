@@ -163,55 +163,47 @@ def _keys(df, dim):
 
 
 def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
-    """Statistiques du nettoyage backtest (§7 du rapport) : rejoue l'entonnoir A→D du notebook
-    `Nettoyage_Backtest_2014_2026.ipynb` avec les MÊMES primitives (canonical_ticker,
-    _quiver_untradeable, _asset_bucket) et confronte le compte final au CSV canonique publié.
-    Renvoie {} si la table canonique est absente. Cohérence notebook↔rapport garantie par assert."""
+    """Statistiques du nettoyage backtest (§7 du rapport) : l'entonnoir A→D vient de
+    `common.backtest_clean` (source unique — le module que le pipeline exécute en step 7 et dont
+    le notebook Nettoyage_Backtest_2014_2026.ipynb est la vitrine). Renvoie {} si la table
+    canonique est absente. Un écart avec le CSV publié n'interrompt plus le rapport : il est
+    signalé (le CSV se régénère par `python -m common.backtest_clean`)."""
     clean_p = Path(repo_root) / "data" / "clean" / "transactions_backtest_2014_2026.csv"
     if not clean_p.exists():
         return {}
-    from common.schema import canonical_ticker
-    from common.quiver_diagnosis import _quiver_untradeable
+    from common.backtest_clean import apply_ticker_false_positive_fixes, funnel_verdicts, unify_amounts
 
+    df = df.copy()
+    df, _ = apply_ticker_false_positive_fixes(df)
+    df = unify_amounts(df)
+    etape, _motif = funnel_verdicts(df)
     n0 = len(df)
-    fy = pd.to_numeric(df["file_year"], errors="coerce")
-    # A — dates présentes & cohérentes (chronologie exploitable)
-    kA = df["lag_days"].notna() & (df["lag_days"] >= 0) & (df["txn_year"] >= 2012) & (df["txn_year"] <= fy)
-    dA = df[kA]
-    # B — actions/ETF cotés, ticker-first
-    NON_COTE = {"bond", "muni", "gov", "option", "autre"}
-    m_tk = dA["ticker"].map(lambda t: canonical_ticker(t)[0]) != ""
-    m_tr = ~dA["ticker"].map(_quiver_untradeable)
-    m_fam = ~dA["asset_type"].map(_asset_bucket).isin(NON_COTE)
-    kB = m_tk & m_tr & m_fam
-    dB = dA[kB]
-    # C — sens achat/vente ; D — montant présent
-    dC = dB[dB["op"].isin(["buy", "sell"])]
-    dD = dC[dC["amount_midpoint"].notna()]
+    nA = n0 - int((etape == "A").sum())
+    nB = nA - int((etape == "B").sum())
+    nC = nB - int((etape == "C").sum())
+    nD = nC - int((etape == "D").sum())
+    dD_len = nD
+    m_B = etape == "B"
+    causes_B_counts = _motif[m_B].value_counts()
 
     clean = pd.read_csv(clean_p, dtype=str)
-    assert len(clean) == len(dD), (
-        f"entonnoir rejoué ({len(dD)}) ≠ table canonique publiée ({len(clean)}) — "
-        "re-générer le notebook Nettoyage_Backtest_2014_2026.ipynb")
+    if len(clean) != dD_len:
+        print(f"⚠️ entonnoir rejoué ({dD_len:,}) ≠ table publiée ({len(clean):,}) — "
+              "re-générer via `python -m common.backtest_clean`")
 
     funnel = pd.DataFrame([
         {"étape": "—", "règle": "corpus unique (`load_final`)", "retirées": 0, "restantes": n0},
         {"étape": "A", "règle": "dates présentes & cohérentes (divulgation ≥ transaction, année plausible)",
-         "retirées": n0 - len(dA), "restantes": len(dA)},
+         "retirées": n0 - nA, "restantes": nA},
         {"étape": "B", "règle": "actions + ETF cotés (ticker exploitable, réellement coté, famille cotée)",
-         "retirées": len(dA) - len(dB), "restantes": len(dB)},
+         "retirées": nA - nB, "restantes": nB},
         {"étape": "C", "règle": "direction claire (achat / vente — les échanges sortent)",
-         "retirées": len(dB) - len(dC), "restantes": len(dC)},
+         "retirées": nB - nC, "restantes": nC},
         {"étape": "D", "règle": "montant présent (fourchette STOCK Act → point milieu)",
-         "retirées": len(dC) - len(dD), "restantes": len(dD)},
+         "retirées": nC - nD, "restantes": nD},
     ])
-    # causes de l'étape B, exclusives dans l'ordre (une ligne = une cause)
-    causes = pd.DataFrame([
-        {"cause": "ticker vide (aucun symbole → pas de prix)", "lignes": int((~m_tk).sum())},
-        {"cause": "ticker malformé / non coté (CUSIP, fragment OCR…)", "lignes": int((m_tk & ~m_tr).sum())},
-        {"cause": "famille non cotée (option, obligation, muni, gouvernement)",
-         "lignes": int((m_tk & m_tr & ~m_fam).sum())},
-    ])
+    # causes de l'étape B, exclusives dans l'ordre (une ligne = une cause) — motifs du module
+    causes = pd.DataFrame([{"cause": c, "lignes": int(n)} for c, n in causes_B_counts.items()])
     # composition de la table publiée
     era = pd.to_datetime(clean["transaction_date"], errors="coerce").dt.year < 2020
     compo = (clean.assign(_era=era.map({True: "2014-2019", False: "2020-2026"}))

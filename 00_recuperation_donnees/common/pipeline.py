@@ -53,6 +53,8 @@ def build_steps(years_csv, skip_ocr, force, no_quiver, senate_ocr_mode, acquire=
     steps.append(("Sénat — fusion FINAL", ["senate.fusion"]))
     # Post-FINAL (offline, gratuit, idempotent) : métadonnée « années en poste » sur les 2 chambres.
     steps.append(("Enrichissement — années en poste", ["common.enrich_tenure"]))
+    # Post-FINAL, offline, idempotent : les tables de recherche (brute + clean + gated).
+    steps.append(("Nettoyage — tables de recherche (brute + clean + gated)", ["common.backtest_clean"]))
     return steps
 
 

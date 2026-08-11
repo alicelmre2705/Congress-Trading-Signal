@@ -69,9 +69,14 @@ site purge les années anciennes — et les caches OCR payés).
    chiffres du deck : fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation
    Quiver par ère, les preuves derrière chaque nombre.
 
-**La table prête-recherche** est `00_recuperation_donnees/data/clean/transactions_backtest_2014_2026.csv`
-(**134 464 × 36**, produite par `Nettoyage_Backtest_2014_2026.ipynb` — parti/commissions point-in-time,
-tickers canoniques Yahoo + renommages, flags de traçabilité, invariants garantis).
+**Les tables prête-recherche** vivent dans `00_recuperation_donnees/data/clean/` — **brute**
+(169 000 × 41, tout le corpus avec le verdict d'entonnoir par ligne), **clean**
+(`transactions_backtest_2014_2026.csv`, **134 452 × 39** — parti/commissions point-in-time,
+tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et **gated**
+(7 287 manuscrites écartées, avec motif) + la table annexe des commissions
+(bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
+pipeline, testé par le filet de non-régression) ; vitrine : `Nettoyage_Backtest_2014_2026.ipynb` ;
+diff v1→courante : `00_recuperation_donnees/NOTE_DIFF_TABLE_CLEAN.md`.
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 

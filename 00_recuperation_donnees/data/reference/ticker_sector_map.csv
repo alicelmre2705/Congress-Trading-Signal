@@ -1365,7 +1365,7 @@ ED,stock,Utilities,XLU,yfinance,
 EDAC,stock,Industrials,XLI,llm,
 EDIT,stock,Health Care,XLV,yfinance,
 EDPFY,stock,Utilities,XLU,yfinance,
-EDR,stock,Communication Services,XLC,llm,
+EDR,stock,Real Estate,XLRE,manuel,Education Realty Trust — REIT ; classification LLM « Communication » erronée (corrigé 2026-08-11)
 EDU,stock,Consumer Staples,XLP,yfinance,
 EEFT,stock,Information Technology,XLK,yfinance,
 EEI,stock,Utilities,XLU,llm,
@@ -1603,7 +1603,7 @@ FDIS,stock,Consumer Discretionary,XLY,llm,
 FDL,unknown,,,none,
 FDM,unknown,,,none,
 FDML,stock,Industrials,XLI,llm,
-FDN,stock,Communication Services,XLC,llm,
+FDN,etf_sector,,XLK,manuel,ETF internet — reclassé d'action à ETF (2026-08-11)
 FDO,stock,Consumer Staples,XLP,llm,
 FDRR,stock,Real Estate,XLRE,llm,
 FDRXX,unknown,,,none,
@@ -2334,13 +2334,13 @@ IX,stock,Financials,XLF,yfinance,
 IXHL,stock,Health Care,XLV,yfinance,
 IXJ,stock,Health Care,XLV,llm,
 IXNZF,stock,Industrials,XLI,llm,
-IXP,stock,Communication Services,XLC,llm,
+IXP,etf_sector,,XLC,manuel,ETF communication mondiale — reclassé (2026-08-11)
 IXYS,stock,Information Technology,XLK,llm,
 IYE,stock,Energy,XLE,llm,
 IYG,stock,Financials,XLF,llm,
 IYH,stock,Health Care,XLV,llm,
 IYLD,unknown,,,none,
-IYR,stock,Real Estate,XLRE,llm,
+IYR,etf_sector,,XLRE,manuel,ETF iShares immobilier — reclassé (2026-08-11)
 IYT,stock,Industrials,XLI,llm,
 IYY,stock,Information Technology,XLK,llm,
 IYZ,stock,Communication Services,XLC,llm,
@@ -3388,7 +3388,7 @@ PNGAY,stock,Financials,XLF,yfinance,
 PNM,stock,Utilities,XLU,llm,
 PNNT,stock,Financials,XLF,yfinance,
 PNPFF,stock,Financials,XLF,yfinance,
-PNQI,stock,Communication Services,XLC,llm,
+PNQI,etf_sector,,XLK,manuel,ETF internet Nasdaq — reclassé (2026-08-11)
 PNR,stock,Industrials,XLI,yfinance,
 PNRA,stock,Consumer Discretionary,XLY,llm,
 PNW,stock,Utilities,XLU,yfinance,
@@ -3759,7 +3759,7 @@ SCHA,etf_broad,,SCHA,audit,ETF diversifié/obligataire/commodities — pas de se
 SCHD,etf_broad,,SCHD,audit,ETF diversifié/obligataire/commodities — pas de secteur GICS
 SCHE,unknown,,,none,
 SCHF,etf_broad,,SCHF,audit,ETF diversifié/obligataire/commodities — pas de secteur GICS
-SCHH,stock,Real Estate,XLRE,llm,
+SCHH,etf_sector,,XLRE,manuel,ETF Schwab immobilier — reclassé (2026-08-11)
 SCHN,stock,Materials,XLB,llm,
 SCHP,etf_broad,,SCHP,audit,ETF diversifié/obligataire/commodities — pas de secteur GICS
 SCHW,stock,Financials,XLF,yfinance,
@@ -4544,7 +4544,7 @@ VMW,stock,Information Technology,XLK,llm,
 VNCE,stock,Consumer Discretionary,XLY,yfinance,
 VNO,stock,Real Estate,XLRE,yfinance,
 VNOM,stock,Energy,XLE,yfinance,
-VNQ,stock,Real Estate,XLRE,llm,
+VNQ,etf_sector,,XLRE,manuel,ETF Vanguard immobilier — reclassé (2026-08-11)
 VNQI,stock,Real Estate,XLRE,llm,
 VNR,stock,Energy,XLE,llm,
 VNT,stock,Information Technology,XLK,yfinance,
@@ -4560,7 +4560,7 @@ VONOY,stock,Real Estate,XLRE,yfinance,
 VOO,etf_broad,,VOO,audit,ETF diversifié/obligataire/commodities — pas de secteur GICS
 VOPKY,stock,Energy,XLE,yfinance,
 VOT,etf_broad,,VOT,audit,ETF diversifié/obligataire/commodities — pas de secteur GICS
-VOX,stock,Communication Services,XLC,llm,
+VOX,etf_sector,,XLC,manuel,ETF Vanguard communication — reclassé (2026-08-11)
 VOYA,stock,Financials,XLF,yfinance,
 VOYG,stock,Industrials,XLI,yfinance,
 VPFG,stock,Financials,XLF,llm,
@@ -4847,3 +4847,4 @@ ZTS,stock,Health Care,XLV,yfinance,
 ZU,stock,Information Technology,XLK,llm,
 ZUO,stock,Information Technology,XLK,llm,
 ZURVY,stock,Financials,XLF,yfinance,
+CWI,etf_broad,,,manuel,ETF SPDR MSCI ACWI ex-US — ajouté 2026-08-11 (correction faux-positif IRA)
