@@ -59,6 +59,23 @@ tests/regression/ filet « zéro changement » : golden + preuves de reproductio
 pyproject.toml   installable :  pip install -e .
 ```
 
+### Où vivent les figures
+
+Règle du dépôt, posée le **2026-07-31** après avoir trouvé **17 inclusions d'images cassées** dans un dossier
+d'archive — et la même faute une seconde fois dans un autre dossier. Elle tient en cinq points :
+
+1. **Un dossier par notebook producteur**, nommé `figs_nbXX/`, contenant **exactement** ses `savefig` — rien
+   d'autre. Cette égalité se teste, et c'est elle qui empêche le fourre-tout de revenir.
+2. **Le dossier suit son notebook** quand celui-ci part en `_archive/` (`git mv`), jamais l'inverse.
+3. Une figure lue par un document **gelé** est **copiée** à côté de lui — copiée, pas déplacée, si son
+   producteur est encore vivant : un notebook actif réécrit ses figures sous le même nom, et un document figé
+   ne doit pas dépendre d'un artefact qui bouge.
+4. **Un chemin d'image est relatif au document, pas au terminal** : `tectonic` cherche depuis le dossier du
+   `.tex`. Un document qui déménage sans ses images ne compile plus — c'est l'origine des 17 cassées.
+5. **Ces dossiers restent versionnés**, contrairement à `cache/` et `build_cache/` qui sont ignorés : ceux-là se
+   régénèrent, ceux-ci non. Dans un cas mesuré, **31 figures sur 32** n'étaient reproductibles par aucun code
+   (extraites à la main d'un notebook qui, bien qu'actif, ne contient aucun `savefig`).
+
 **Asymétries House/Sénat assumées** (le reste des modules est symétrique) :
 - `senate/fusion.py` (House fusionne *inline* dans `ocr.py`) — **volume** : le Sénat enrichit sur tout le
   corpus en une passe (mutualise le dico de tickers), House fusionne année par année.
