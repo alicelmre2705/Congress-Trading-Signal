@@ -20,7 +20,7 @@ jamais réinjecté dans les tables.
 ## 🧭 Par où commencer — Partie 2 (la stratégie)
 
 0. **[LA CARTE DE LA RECHERCHE](02_recherche_backtest/README.md)** — le README de la partie :
-   **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son verdict
+   **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son résultat
    chiffré et l'endroit où c'est prouvé — pour ne jamais ré-explorer une piste morte ;
 1. **[FICHE_M3.pdf](02_recherche_backtest/strate_7_livrable_M3/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
    (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
@@ -75,8 +75,8 @@ site purge les années anciennes — et les caches OCR payés).
 tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et **gated**
 (7 287 manuscrites écartées, avec motif) + la table annexe des commissions
 (bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
-pipeline, testé par le filet de non-régression) ; vitrine : `Nettoyage_Backtest_2014_2026.ipynb` ;
-diff v1→courante : `00_recuperation_donnees/NOTE_DIFF_TABLE_CLEAN.md`.
+pipeline, testé par le filet de non-régression). **Les étapes du nettoyage et leur code :
+`00_recuperation_donnees/NETTOYAGE.md`.**
 
 Tout le pipeline se lance par **un seul point d'entrée** :
 
@@ -115,8 +115,10 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
 02_recherche_backtest/
   README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, verdicts chiffrés, pièges
   tools/           le moteur du nb 16 extrait et prouvé — pour la strate suivante
-  strate_2_copier_les_membres/   05b · 07 · 09 · 12 (.ipynb + .html)
-  strate_5_noter_les_titres/     11 · PAPIER_METHODE · FICHE_STRAT_TICKER_22JUIL ·
+  09_Tables_Membres_Tickers + tables/   le socle : les 4 tables propres et leur producteur
+  strate_2_copier_les_membres/   05b (la strate) + etudes/ (07 · 12 — la population, pas la strate)
+  strate_5_noter_les_titres/     11 (socle, tests, méthodes) · 11b (réplique NANC/GOP) ·
+                                 11c (stratégies Quiver) · PAPIER_METHODE · FICHE_STRAT_TICKER ·
                                  AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs_nb11/ ·
                                  docs_nanc_gop/ · docs_nanc_gop_surlignes/ (les 18 pièces)
   strate_7_livrable_M3/          16 · FICHE_M3 · figs_nb16/

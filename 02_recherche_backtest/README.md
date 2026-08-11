@@ -1,7 +1,7 @@
 # La carte de la recherche — `02_recherche_backtest/`
 
 > **Le but de ce document** : qu'on n'ait jamais à ré-explorer une piste morte. Tout ce qui a été
-> tenté est ici, strate par strate, avec son verdict chiffré et l'endroit exact où c'est prouvé.
+> tenté est ici, strate par strate, avec son résultat chiffré et l'endroit exact où c'est prouvé.
 > Conventions : τ = date de transaction (non investissable, borne haute) · δ = date de
 > **divulgation** (le seul régime réplicable) · « excès » = moyenne des écarts annuels au SPY,
 > 2014-2026, brut de frais sauf mention · seuils de Student : **2,18** (13 années), **1,96**
@@ -42,26 +42,26 @@ en source primaire).
 ## 2 · Comment lire le dossier
 
 **Deux lignées disjointes, pas six notebooks.** La lignée **« membre »** (05b → 07, 09, 12) copie
-des élus : 2013-2026, toutes classes d'actifs, 118 029 trades, verdict *pas d'alpha*. La lignée
-**« titre »** (11 → 16) note des titres : 2014-2026, actions seules, 113 369 opérations, verdict
+des élus : 2013-2026, toutes classes d'actifs, 118 029 trades, résultat *pas d'alpha*. La lignée
+**« titre »** (11 → 16) note des titres : 2014-2026, actions seules, 113 369 opérations, résultat
 *M3*. Elles ne partagent pas trois lignes de code — et c'est voulu (cf. §6).
 
-**Le dossier est organisé par strates** — chaque strate vivante contient son notebook, son rendu
-`.html`, ses figures et ses documents :
+**Le dossier est organisé par strates** — chaque strate vivante contient ses notebooks, leurs rendus
+`.html`, ses figures et ses documents — chaque dossier a son README de résultats :
 
 ```
 02_recherche_backtest/
 ├── README.md                        ← ce document, la carte
-├── strate_2_copier_les_membres/     05b (la spec math + l'autopsie, §13-§17) · 07 (descriptif,
-│                                    re-prouve le moteur par ré-exécution) · 09 (producteur des
-│                                    tables propres) · 12 (l'usine à images du deck)
-├── strate_5_noter_les_titres/       11 (M1→M4, purge FIFO, les 6 tests, NANC/GOP §13, Quiver §14)
-│                                    + PAPIER_METHODE · FICHE_STRAT_TICKER_22JUIL ·
-│                                    AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART ·
-│                                    docs_nanc_gop/ (pièces brutes) · docs_nanc_gop_surlignes/
+├── 09_Tables_Membres_Tickers        le socle : le producteur des 4 tables propres, à côté de tables/
+├── tables/                          membres · tickers · membres_annees + dictionnaire (lus par 11, 12, 16)
+├── strate_2_copier_les_membres/     05b (la spec math + l'autopsie, §13-§17)
+│   └── etudes/                      07 (comprendre, 6 portraits) · 12 (l'usine à images du deck)
+├── strate_5_noter_les_titres/       11 (socle, 6 tests, M1→M4) · 11b (la réplique NANC/GOP) ·
+│                                    11c (les stratégies Quiver) + PAPIER_METHODE ·
+│                                    FICHE_STRAT_TICKER_22JUIL · AUDIT_FONDS_NANC_GOP(_COMPLET) ·
+│                                    ETAT_DE_L_ART · figs_nb11/ · docs_nanc_gop(_surlignes)/
 ├── strate_7_livrable_M3/            16 (LE LIVRABLE, §1→§20) + FICHE_M3 + figs_nb16/
-├── tools/                           le moteur commun, prouvé sur les ancres (pour la strate 8)
-└── tables/                          les 4 CSV propres du nb 09 (lus par 11, 12, 16)
+└── tools/                           le moteur commun, prouvé sur les ancres (pour la strate 8)
 ```
 
 Les strates closes (0, 1, 3, 4, 6) vivent dans `_archive/` — sur la branche `presentation`, avec
@@ -75,7 +75,7 @@ son journal d'archivage détaillé (`_archive/README.md`).
 
 ⚠️ Univers de prix sans délistés → tous les chiffres de cette strate sont des bornes hautes.
 
-| piste | où | verdict | statut |
+| piste | où | résultat | statut |
 |---|---|---|---|
 | Copy-trading « brief Ramify » V1 (K membres au Sharpe rétréci) | `RAMIFY_V1_actions` §3-5 | meilleur K=8 : α₄ +4,0 %/an, **t 0,88** ; aucun K ne bat le Sharpe SPY | close — non significatif |
 | Persistance des track records | `RAMIFY_V1` §7 | top-10 IS +22,8 % → OOS **+3,8 %** | close — sur-apprentissage |
@@ -89,7 +89,7 @@ son journal d'archivage détaillé (`_archive/README.md`).
 
 ### Strate 1 — les critères de sélection (`_archive/recherche_v1/`, nb 02-05, table hybride)
 
-| piste | où | verdict | statut |
+| piste | où | résultat | statut |
 |---|---|---|---|
 | **Le t clusterisé par membre** — l'arbitre de la strate | `03` §3.0 | commission clé **t 11,33 → 1,42** ; « ≥ 250 k$ » 1,59 → −0,33 | les t naïfs étaient gonflés par le chevauchement |
 | Coupes chambre/parti/taille/durée/commission/timing | `03` §3.1 | rien ne survit au clustering + résidualisation | closes |
@@ -110,7 +110,7 @@ son journal d'archivage détaillé (`_archive/README.md`).
 Le rapport de clôture : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 significatifs bruts →
 12 par appraisal ≈ 11 attendus par hasard ⇒ pas d'α.**
 
-| piste | où | verdict | statut |
+| piste | où | résultat | statut |
 |---|---|---|---|
 | Event-study sur la table canonique | `06` §3 | achats **−0,76 %** à 6 m (t −8), même à τ | aucun spread directionnel |
 | Le drift post-publication 1 mois | `06` §3 | **+7 bps (t 1,9)** — réel, mais 6× sous les coûts | → repris proprement au nb 08 |
@@ -120,7 +120,7 @@ Le rapport de clôture : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 sig
 | Passage trade → compte (NAV, coûts) | `06` §7 | +1,9 à +2,3 %/an, t ≤ 0,9 ; Sharpe 0,74 < SPY 0,82 | close |
 | Classement IR vs appraisal | `05b` §4 | 20 → 12 ≈ hasard | le surnombre = du marché |
 | Top-K, K walk-forward | `05b` §7 | max du notebook : **+4,07 %/an, t 1,584** | enterré au §14 : max de 160 essais, DSR 0,106 |
-| Cadence 6 mois · inverse-vol/ERC/GMV · Ledoit-Wolf | `05b` §8-§10 | max t_appraisal **+0,48** ; GMV −4,5 %/an (t −2,76) | le verdict est invariant au *qui/combien/comment* |
+| Cadence 6 mois · inverse-vol/ERC/GMV · Ledoit-Wolf | `05b` §8-§10 | max t_appraisal **+0,48** ; GMV −4,5 %/an (t −2,76) | le résultat est invariant au *qui/combien/comment* |
 | Sélection par le Sharpe brut | `05b` §11-§12 | max t 1,215 ; dilution +3,5 → −0,2 % à K=20 | close |
 | **§13 — le Sharpe passé prédit-il ?** | `05b` §13 | **IC +0,047 (t 0,82)** ; il faudrait IC ≥ 0,15 pour espérer t > 1,81 | le dead-end était écrit d'avance |
 | **§14 — puissance, essais, placebo** | `05b` §14 | MDE ≈ **8 %/an** (détecter +2 % ⇒ ~170 ans) ; **160 essais**, E[max t\|H₀] 2,69 ; placebo q95 **1,43** > tous nos t | personne n'a la puissance de valider un α réaliste |
@@ -130,7 +130,7 @@ Le rapport de clôture : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 sig
 
 ### Strate 3 — le NO-GO pré-enregistré (`_archive/08_Strategie_Calendar_Time`)
 
-Protocole **gelé avant calcul** (`_archive/FICHE_PREENREGISTREMENT_08`), verdict mécanique
+Protocole **gelé avant calcul** (`_archive/FICHE_PREENREGISTREMENT_08`), résultat mécanique
 (`_archive/FICHE_08_CALENDAR_VW`) : test primaire **α₄ net −0,77 %/an (t −0,48)**, 11/12 cellules
 de la grille fermée négatives (max \|t\| 2,63 ≈ E[max\|H₀]), **DSR 0,04**, coût de break-even
 **≈ 5 bps** par jambe pour un turnover de 16,5×/an, placebos de falsification échoués. Ce dossier
@@ -154,7 +154,7 @@ choisi sur la concentration, jamais sur le rendement**.
 
 **Les six tests fondateurs** (fiche du 22 juillet) :
 
-| test | verdict | leçon |
+| test | résultat | leçon |
 |---|---|---|
 | T1 base à τ | +1,71 %/an (t 1,03, NAV 622) | borne haute non réplicable |
 | T2 + cap 25 %/mois | +0,27 % | sans frais, freiner coûte |
@@ -168,7 +168,7 @@ de façon monotone (H=12 m : −0,89 à δ) · marché neutralisé : α **+0,03 
 caché sous le β · Sénat seul −3,72 % · **dépôts tardifs −8,25 % (t −1,98)** — l'hypothèse « un
 trade qu'on cache » est renversée.
 
-**§13 — la réplique NANC/GOP, six versions** (l'audit documentaire est dans
+**§13 (volet `11b_Replique_NANC_GOP`) — la réplique NANC/GOP, six versions** (l'audit documentaire est dans
 `AUDIT_FONDS_NANC_GOP.pdf`) : la version au net brut est *fausse* (le prospectus dit de ne pas
 soustraire les vieux lots) ; **A** (score, régime Subversive) NVDA à 8,5 % exact, ρ 0,73 ;
 **B** (livre événementiel, régime Tidal) turnover 13 % ≈ leur 10 % ; **C** (bascule au
@@ -178,7 +178,7 @@ et le chiffre qui clôt le dossier : **leurs positions valent jusqu'à 25× le f
 (§13.12) — leur fournisseur n'est pas les fourchettes publiques. La règle *dite* par les gérants
 tranche différemment selon le fonds (§13.13) : le facteur mᵢ reste notre invention.
 
-**§14 — les stratégies Quiver, répliquées fidèlement** : Congress Buys ≈ **22,6 %/an à τ,
+**§14 (volet `11c_Strategies_Quiver`) — les stratégies Quiver, répliquées fidèlement** : Congress Buys ≈ **22,6 %/an à τ,
 21,4 % à δ** contre SPY 21,1 % (2020-26) — leur page annonce 36,2 %. Les cinq leviers testés un
 par un (pondération, ETF écartés, couverture, fenêtre W, accumulation) ne comblent jamais l'écart ;
 leur panneau est **incohérent** (vol affichée 4,63 %/an incompatible avec β 1,14) ; le
@@ -231,7 +231,7 @@ aucune décision prise après avoir vu les résultats.
   dose pleine), transfer coefficient 0,947, portefeuille tenu 12 lignes (a = 0,832 à la dernière
   coupe). Voir `FICHE_M3` partie III.
 
-## 4 · Les pistes encore ouvertes — les seules sans verdict
+## 4 · Les pistes encore ouvertes — les seules sans résultat
 
 1. **Le drift court post-disclosure, hors value-weighted** — la construction VW est fermée par le
    NO-GO du nb 08 ; d'autres constructions ne sont ni testées ni promises.
