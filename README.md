@@ -58,9 +58,9 @@ site purge les années anciennes — et les caches OCR payés).
 
 ## 🧭 Par où commencer — Partie 0 (les données)
 
-1. **[SLIDES_DONNEES_S1S2_V2.pdf](00_recuperation_donnees/docs/SLIDES_DONNEES_S1S2_V2.pdf)** — le
+1. **[SLIDES_DONNEES_S1S2_V2.pdf](00_recuperation_donnees/SLIDES_DONNEES_S1S2_V2.pdf)** — le
    deck de présentation de la partie (recompilé et certifié conforme à sa source `.tex`) ;
-2. **[RAPPORT_QUALITE.md](00_recuperation_donnees/docs/RAPPORT_QUALITE.md)** — la certification des
+2. **[RAPPORT_QUALITE.md](00_recuperation_donnees/RAPPORT_QUALITE.md)** — la certification des
    chiffres du deck : fenêtre **2014-2026**, couverture vs l'index officiel du Clerk, validation
    Quiver par ère, les preuves derrière chaque nombre.
 
@@ -90,9 +90,9 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
                    census_probe                                ← jumeau de house/
   data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
                    secteurs, snapshots commissions par Congrès · clean/ ← table canonique)
-  docs/            SLIDES_DONNEES_S1S2_V2 (le deck, .tex + .pdf) · RAPPORT_QUALITE (.md + .pdf) ·
-                   les figures du deck (figs/ · figs_bt/ · figs_pop/ · slides/ · sources/ ·
-                   quality/) · quiver_validation/ (les 13 CSV de verdicts Quiver)
+  (racine)         SLIDES_DONNEES_S1S2_V2 (le deck, .tex + .pdf) · RAPPORT_QUALITE (.md + .pdf)
+  png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (nb 12)
+                   — le README de png/ dit qui produit quoi
   tests/regression/ filet « zéro changement » : golden + preuves de reproduction (sans réseau)
 01_autres_filing_types/
   V1_House.ipynb · Portefeuilles_House_Complet.ipynb · 10_Stock_Divulgations_MathSpec.ipynb ·
@@ -132,7 +132,7 @@ pyproject.toml   installable :  pip install -e .
 **dédup cross-année** des re-divulgations tardives. Le pipeline produit **170 920 lignes brutes**. Une
 déclaration de **collaborateur non-élu** (HASC) est exclue du périmètre membres. **100 % des 8 252 PTR
 listés par l'index officiel du Clerk 2014-2026 sont traités** (parsés, OCRisés, ou gated par règle écrite).
-Détail : `00_recuperation_donnees/docs/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
+Détail : `00_recuperation_donnees/RAPPORT_QUALITE.md` (§1 « Couverture vs l'univers officiel »).
 
 > **Fenêtre 2014-2026** — les scans **manuscrits** sont **écartés** par une politique uniforme et
 > **rejouable** (cluster `C_manuscrit`, 582 docs gated ; exceptions explicites dans `house/ocr.py`).

@@ -1,7 +1,7 @@
 """Rapport de qualité des données — livrable Ramify Semaine 2.
 
 Charge les tables FINAL des deux chambres (2014→2026), calcule SIX contrôles qualité et génère
-figures + `docs/RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
+figures + `RAPPORT_QUALITE.md`. **Lecture seule des CSV FINAL (+ des 07c/07g/07h figés pour (f)),
 aucun appel API.**
 
 En plus des 6 contrôles (a–f), le rapport décline désormais l'essentiel des statistiques par les
@@ -21,7 +21,7 @@ Les contrôles :
       exact/date_mismatch/no_match/non_equity par type d'actif et par cluster de scan — agrégée depuis
       les `07c/07g/07h` figés (définition des métriques : common/quiver_scopes.py).
 
-Usage : `python -m common.quality`  (écrit docs/RAPPORT_QUALITE.md + docs/quality/*.png)
+Usage : `python -m common.quality`  (écrit RAPPORT_QUALITE.md + png/quality/*.png)
 """
 import bisect
 from pathlib import Path
@@ -956,8 +956,8 @@ def stock_corroboration_by_year(repo_root: Path) -> pd.DataFrame:
 def build_report(repo_root: Path) -> Path:
     df = load_final(repo_root)
     coverage = coverage_per_member(df)
-    docs = repo_root / "docs"
-    figdir = docs / "quality"
+    root = repo_root
+    figdir = root / "png" / "quality"
     figs = _figures(df, coverage, figdir)
 
     coh = date_coherence(df)
@@ -1130,7 +1130,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(operation_mix(df)))
     parts.append(_leg("achat = `operation_type` contient « Purchase » · vente = contient « Sale » "
                       "(**inclut Sale (Partial) et (Full)**) · échange = « Exchange » · autre = reste"))
-    parts.append("\n![Mix achat/vente par sous-corpus](quality/mix_operations_par_corpus.png)\n")
+    parts.append("\n![Mix achat/vente par sous-corpus](png/quality/mix_operations_par_corpus.png)\n")
     parts.append("\n### Détenteur déclaré\n\n")
     parts.append(_md_table(owner_mix(df)))
     parts.append(_leg("titulaire du compte : perso = Self · conjoint = Spouse/SP · joint = Joint/JT · "
@@ -1141,7 +1141,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(asset_type_mix(df)))
     parts.append(_leg("familles d'`asset_type` : action = Stock · option · oblig. État = Gov/Treasury · "
                       "muni = Municipal · oblig. corp. = Bond · fonds = Fund/ETF · manquant = vide"))
-    parts.append("\n![Mix de types d'actifs par sous-corpus](quality/mix_actifs_par_corpus.png)\n")
+    parts.append("\n![Mix de types d'actifs par sous-corpus](png/quality/mix_actifs_par_corpus.png)\n")
     parts.append("\n### Couverture des champs enrichis (taux de remplissage)\n\n")
     parts.append(_md_table(coverage_scorecard(df)))
     parts.append(_leg("% de lignes où le champ est renseigné · identité = rattachée à un `bioguide_id` · "
@@ -1160,7 +1160,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append("\n**Origine du secteur** (`sector_source`) :\n\n")
     parts.append(_md_table(sy["sector"]))
     parts.append(_leg("yfinance = base factuelle · LLM · manuel = correction vérifiée à la main · aucune"))
-    parts.append("\n![Volume par secteur GICS](quality/volume_par_secteur.png)\n")
+    parts.append("\n![Volume par secteur GICS](png/quality/volume_par_secteur.png)\n")
 
     # ════════ §3 Qualité des dates ════════
     parts.append("\n## 3. Qualité des dates\n")
@@ -1186,7 +1186,7 @@ def build_report(repo_root: Path) -> Path:
                       "lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (j) · "
                       "≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = "
                       "anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j"))
-    parts.append("\n![Délai de divulgation](quality/delai_divulgation.png)\n")
+    parts.append("\n![Délai de divulgation](png/quality/delai_divulgation.png)\n")
     if len(outliers):
         parts.append("\n### Divulgations les plus tardives (> 365 j)\n\n")
         parts.append(_md_table(outliers))
@@ -1208,14 +1208,14 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(amount_stats_by_corpus(df)))
     parts.append(_leg("médiane/moyenne/P25/P75/P95 en $ · volume total = Σ midpoint (M$) · midpoint = milieu de "
                       "la fourchette déclarée"))
-    parts.append("\n![Composition par tranche de montant](quality/mix_montants_par_corpus.png)\n")
+    parts.append("\n![Composition par tranche de montant](png/quality/mix_montants_par_corpus.png)\n")
     parts.append(_leg("la plus petite tranche (≤ 15 k$, midpoint 8 000 $) domine → dès qu'elle dépasse 50 %, le "
                       "P25 ET la médiane y tombent ensemble (cas House/Sénat élec). Sénat OCR < 50 % → médiane "
                       "32 500 ≠ P25 8 000."))
     _ov = amounts["overall"]
     parts.append(f"\n**Ensemble** — {_n(_ov['count'])} montants renseignés · médiane {_n(_ov['50%'])} $ · "
                  f"moyenne {_n(_ov['mean'])} $ · P90 {_n(_ov['90%'])} $ · max {_n(_ov['max'])} $.\n")
-    parts.append("\n![Distribution des montants](quality/distribution_montants.png)\n")
+    parts.append("\n![Distribution des montants](png/quality/distribution_montants.png)\n")
 
     # ════════ §5 Activité & concentration ════════
     parts.append("\n## 5. Activité & concentration\n")
@@ -1225,7 +1225,7 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_md_table(conc["inequality"]))
     parts.append("\n\n`HHI` ∈ [0, 10000] et `Gini` ∈ [0, 1] mesurent la concentration du volume par déposant "
                  "(plus c'est haut, plus quelques déposants dominent).\n")
-    parts.append("\n![Concentration du volume (Lorenz)](quality/concentration_lorenz.png)\n")
+    parts.append("\n![Concentration du volume (Lorenz)](png/quality/concentration_lorenz.png)\n")
     parts.append("\n### Où va le volume\n")
     parts.append("\n**Top tickers par volume estimé :**\n\n")
     parts.append(_md_table(conc["top_tickers"]))
@@ -1246,8 +1246,8 @@ def build_report(repo_root: Path) -> Path:
     parts.append(_leg("total = nb transactions · dont OCR / OCR % = part scannée · n années = années actives · "
                       "1re/dern. année = première/dernière année de transaction (une 1re année < 2014 = vieilles "
                       "transactions régularisées dans un dépôt 2014+)"))
-    parts.append("\n![Top déposants](quality/top_deposants.png)\n")
-    parts.append("\n![Transactions par an](quality/transactions_par_an.png)\n")
+    parts.append("\n![Top déposants](png/quality/top_deposants.png)\n")
+    parts.append("\n![Transactions par an](png/quality/transactions_par_an.png)\n")
 
     # §5 — Devenir des achats à +12 mois (règle de la stratégie)
     _cut = (df["_dd"].max() - pd.Timedelta(days=FORCED_CLOSE_HORIZON_DAYS)).date()
@@ -1426,11 +1426,11 @@ def build_report(repo_root: Path) -> Path:
     ])
     parts.append("\n**La to-do (à corriger).** Un seul chiffre est **dur** — les vrais trous `NOTRE_MANQUE` (le "
                  "résidu après tous les filtres) ; les deux autres sont des **bornes hautes** ensemblistes = des "
-                 "listes à revoir cas par cas dans `docs/quiver_validation/`, pas des taux d'erreur :\n\n")
+                 "listes à revoir cas par cas dans `data/quiver_validation/`, pas des taux d'erreur :\n\n")
     parts.append(_md_table(_todo))
     if len(diag["top_notre_manque"]):
         parts.append("\n**Qui ?** — top 12 des déposants derrière les vrais trous (`NOTRE_MANQUE` ; liste "
-                     "complète ligne à ligne : `docs/quiver_validation/notre_manque_*.csv`) :\n\n")
+                     "complète ligne à ligne : `data/quiver_validation/notre_manque_*.csv`) :\n\n")
         parts.append(_md_table(diag["top_notre_manque"]))
         parts.append("\n")
 
@@ -1453,7 +1453,7 @@ def build_report(repo_root: Path) -> Path:
                           "Exceptions explicites et REJOUABLES (house/ocr.py) : 3 déposants à forte perte "
                           "corroborée (FILERS_C_A_RECUPERER) + 33 documents curés manuellement "
                           "(DOCS_C_HERITES_2020_2026)."))
-    parts.append("\nListes actionnables complètes (ligne à ligne) → `docs/quiver_validation/` "
+    parts.append("\nListes actionnables complètes (ligne à ligne) → `data/quiver_validation/` "
                  "(`ecart_ticker_*`, `notre_manque_*`, `manquant_papier_*`, `desaccord_champ_*` [typé], "
                  "`on_est_plus_complet_*`, `quiver_non_cote_*`, `candidats_ecart_date_meme_depot`). "
                  "Hors golden.\n")
@@ -1514,7 +1514,7 @@ def build_report(repo_root: Path) -> Path:
             "- **Invariants garantis à l'export** (assertions) : bioguide, ticker, montant, direction, "
             "chronologie (divulgation ≥ transaction) et clé naturelle remplis sur 100 % des lignes.\n")
 
-    report = docs / "RAPPORT_QUALITE.md"
+    report = root / "RAPPORT_QUALITE.md"
     report.write_text("".join(parts) + "\n", encoding="utf-8")
     return report
 
