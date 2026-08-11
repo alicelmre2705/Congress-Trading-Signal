@@ -34,14 +34,14 @@ HERE = Path(__file__).resolve().parent           # <repo>/house
 REPO = HERE.parent                                # racine du dépôt
 OUTDIR = REPO / "data" / "house"                  # données (Phase 7 : data/house/)
 BASE_DIR = OUTDIR
-load_dotenv(REPO / ".env")
+load_dotenv(REPO.parent / ".env")  # .env à la racine du dépôt git (parité senate.ocr)
 if not os.getenv("ANTHROPIC_API_KEY"):
     load_dotenv()  # repli : .env ailleurs dans l'arbre
 TABROOT = OUTDIR / "tables"
 TABROOT.mkdir(parents=True, exist_ok=True)
 
 # Données embarquées localement
-PDF_DIR   = OUTDIR / "pdfs"                              # 547 PDF scannés (pour le run OCR)
+PDF_DIR   = OUTDIR / "pdfs"                              # PDF embarqués (2014-2019 en entier ; 2020-2026 : scannés, pour le run OCR)
 INDEX_DIR = OUTDIR / "index"                            # {year}FD.xml
 REF_DIR   = OUTDIR / "reference"                        # YAML législateurs/comités (+ baseline)
 BASELINE  = REF_DIR / "baseline_house_transactions.csv" # cross-check semaine1 (optionnel)

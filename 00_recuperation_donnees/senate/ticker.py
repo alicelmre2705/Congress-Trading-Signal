@@ -88,7 +88,7 @@ _PROMPT_SHA = hashlib.sha256((_TICKER_PROMPT + json.dumps(_TICKER_TOOL, sort_key
 def _api_key():
     try:
         from dotenv import load_dotenv
-        load_dotenv(REPO / ".env")
+        load_dotenv(REPO.parent / ".env")  # .env à la racine du dépôt git (parité senate.ocr)
         if not os.getenv("ANTHROPIC_API_KEY"):
             load_dotenv()
     except Exception:
