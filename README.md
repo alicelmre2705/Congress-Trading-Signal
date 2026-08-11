@@ -44,8 +44,11 @@ d'alpha**, et l'autopsie qui le prouve ; + `etudes/` — la population, les port
 NANC/GOP et Quiver) → **`M3_preuve_complete`** (M3 complet + version ETF + le livrable deux
 poches) et `M3_table_pipeline` (la même lignée rejouée sur la table courante du pipeline —
 aucune conclusion ne change). Le socle des deux derniers est le paquet
-**[`tools/`](02_recherche_backtest/tools/README.md)** — le moteur extrait et prouvé
-(`python -m tools.test_ancres` rejoue M3 et retrouve les ancres gelées).
+**[`tools/`](02_recherche_backtest/tools/README.md)** — les moteurs extraits et prouvés
+(`python -m tools.test_ancres` rejoue M3 et retrouve les ancres gelées ;
+`python -m tools.membre.test_ancres_membre` fait de même pour la famille membre, dont
+`copier_les_membres` et `tables_membres_tickers` sont aussi en génération 2 sur la table
+courante du pipeline).
 
 ## 🧭 Par où commencer — Partie 1 (au-delà des PTR)
 
@@ -123,7 +126,8 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   README.md        le résultat et le chemin en trois dossiers
   PISTES_TESTEES.md  l'inventaire : ~90 pistes testées, résultats chiffrés, pièges,
                    et la correspondance noms historiques ↔ fichiers renommés
-  tools/           le moteur de la famille titre, extrait et prouvé sur les chiffres témoins
+  tools/           les moteurs des DEUX familles (titre · membre/), extraits et prouvés sur
+                   leurs chiffres témoins
   tables_membres_tickers.ipynb + tables/   le socle : les 4 tables propres et leur producteur
   1_copier_les_membres/   copier_les_membres (la strate) + etudes/ (population · portraits)
   2_noter_les_titres/     noter_les_titres (socle, tests, méthodes) · replique_NANC_GOP ·

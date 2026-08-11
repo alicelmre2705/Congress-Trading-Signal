@@ -1,4 +1,17 @@
-# tools/ — le moteur de la lignée « titre », pour la suite
+# tools/ — les moteurs des deux familles de recherche
+
+Deux sous-ensembles aux **conventions incompatibles**, jamais mélangés :
+la racine du paquet (`donnees`, `moteur`, `mesure`, `etf`, `poches`) porte la famille **titre**
+(M3) ; le sous-paquet [`membre/`](membre/__init__.py) porte la famille **membre** (copier les
+élus) — α brut annualisé en géométrique côté membre, Jensen en excès du taux sans risque ×252
+côté titre. Chaque famille a sa preuve : `python -m tools.test_ancres` (titre, table v1) et
+`python -m tools.membre.test_ancres_membre` (membre, table courante). Les notebooks vivants qui
+les importent : `3_livrable_M3/` (titre) ; `tables_membres_tickers` et
+`1_copier_les_membres/copier_les_membres` (membre, génération 2 du 11/08 — le socle importé
+consomme les colonnes du pipeline, plus aucun re-nettoyage local ; seuls les prix restent
+nettoyés côté recherche, le pipeline ne les possède pas).
+
+## La famille titre — pour la suite
 
 **À quoi ça sert.** Démarrer une nouvelle étape de recherche sans recopier `M3_preuve_complete` :
 chargement de la table clean, prix, calendrier conforme, moteur M3 (score, plafond

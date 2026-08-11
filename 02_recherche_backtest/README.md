@@ -47,10 +47,11 @@ littérature vérifiées en source primaire).
 | [`3_livrable_M3/`](3_livrable_M3/README.md) | que vaut M3, et comment la tenir en portefeuille ? | La preuve complète, la version ETF, le portefeuille deux poches — et [`M3_table_pipeline`](3_livrable_M3/M3_table_pipeline.ipynb), qui rejoue tout sur la table courante du pipeline : **aucune conclusion ne change**. |
 
 Le socle des trois : [`tables_membres_tickers.ipynb`](tables_membres_tickers.ipynb) produit les
-4 tables propres de `tables/` (membres, titres, membre×année, dictionnaire). Le moteur de calcul,
-extrait du notebook de preuve et validé contre ses chiffres témoins — les valeurs gelées que
-tout re-calcul doit retrouver à l'identique : [`tools/`](tools/README.md)
-(`python -m tools.test_ancres`).
+4 tables propres de `tables/` (membres, titres, membre×année, dictionnaire). Les moteurs de
+calcul des deux familles de recherche, extraits des notebooks et validés contre leurs chiffres
+témoins — les valeurs gelées que tout re-calcul doit retrouver à l'identique :
+[`tools/`](tools/README.md) (`python -m tools.test_ancres` ·
+`python -m tools.membre.test_ancres_membre`).
 
 ## Ce qui reste ouvert
 
