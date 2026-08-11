@@ -306,3 +306,25 @@ anciens ↔ nouveaux noms. Les documents actifs de la Partie 2 ne parlent plus d
 (décision d'Alice, comme « verdict » avant lui) : les passages concernés ont été retirés des
 README, de `FICHE_NOTER_LES_TITRES` (recompilée) et de l'état de l'art — les cellules des
 notebooks, elles, ne bougent pas (sorties figées, preuves).
+
+---
+
+## 2026-08-11 (nuit, 3) — la famille membre en génération 2, les tables v1 archivées
+
+**`tables_v20260704/`** : les 4 CSV que `tables_membres_tickers` (ex-09) avait produits sur la
+table v1 du 04/07 (membres 372×94 · tickers 4 618×40 · membres_annees 2 628×11 + dictionnaire).
+Les études (`etudes/etude_population`, `etude_portraits`) restent adossées à CES fichiers — leur
+oracle (`membres.csv` à 10⁻⁶) se lit contre cette archive, pas contre les tables régénérées.
+
+**Génération 2 (table courante du pipeline)** : `tables_membres_tickers` et
+`copier_les_membres` importent désormais leur socle de `tools/membre/` (chargement, prix,
+parts, mesures, pondérations, Ledoit-Wolf, carte commissions→secteurs) — les re-nettoyages
+locaux disparaissent : `owner_n`, le nom canonique et les commissions (table annexe) viennent du
+pipeline. L'entonnoir re-certifié : **𝒯^brut 134 429 → 134 417 · exploitables 118 029 →
+118 316 · tickers 4 618 → 4 607 · prix 3 289 → 3 286** (membres 372/359/266/223 inchangés).
+La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
+
+**`anciennete_2014_2026.csv`** (racine du 02, versionné, 341 lignes) : l'extrait
+bioguide_id → years_in_office de `table_congres_2014_2026.csv` (41 Mo, non versionné, 100 %
+Quiver, producteur archivé dans `recherche_v1/02_…`) — la famille membre ne dépend plus du
+gros fichier. Les études figées, elles, le lisent encore (sorties d'époque).

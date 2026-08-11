@@ -5,15 +5,15 @@ membres,identite (§2),chamber,mode sur les trades (un House→Senate a un mode 
 membres,identite (§2),state,state_district[:2],§2,str
 membres,identite (§2),congress_first,n° du premier Congrès tradé (mandat de 2 ans ; 113e = 2013-2014),§2,int
 membres,identite (§2),congress_last,n° du dernier Congrès tradé,§2,int
-membres,identite (§2),years_in_office,ancienneté (années de mandat),anciennete_2014_2026.csv,float
+membres,identite (§2),years_in_office,ancienneté (années de mandat),table_congres_2014_2026.csv,float
 membres,identite (§2),leader,occupe l'un des 12 postes de direction des partis,leadership_2014_2026.csv,bool
 membres,identite (§2),leader_postes,"postes occupés, séparés par |",leadership_2014_2026.csv,str
 membres,identite (§2),comites,"∪ codes THOMAS racine (4 lettres), séparés par |",§2,str
 membres,identite (§2),comite_cle,∃ trade avec committees_key_flag,§2,bool
 membres,identite (§2),secteurs_juridiction,"∪ secteurs GICS supervisés par ses comités, séparés par |",matrice §1,str
 membres,identite (§2),n_secteurs_juridiction,cardinal de secteurs_juridiction,§2,int
-membres,activite (§3),n_trades_brut,# trades dans 𝒯^brut (134 417),§3,int
-membres,activite (§3),n_trades,# trades dans 𝒯 (118 316),§3,int
+membres,activite (§3),n_trades_brut,# trades dans 𝒯^brut (134 429),§3,int
+membres,activite (§3),n_trades,# trades dans 𝒯 (118 029),§3,int
 membres,activite (§3),n_buy,# achats,§3,int
 membres,activite (§3),n_sell,# ventes,§3,int
 membres,activite (§3),buy_share,n_buy / n_trades,§3,float

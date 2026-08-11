@@ -14,9 +14,10 @@ sont les trois dossiers actifs `1_copier_les_membres/`, `2_noter_les_titres/`, `
 
 **Deux familles de travaux disjointes, pas six notebooks.** La famille **« membre »**
 (`copier_les_membres` + les études) copie des élus : 2013-2026, toutes classes d'actifs,
-118 029 trades, résultat *pas d'alpha*. La famille **« titre »** (`noter_les_titres` →
-`M3_preuve_complete`) note des titres : 2014-2026, actions seules, 113 369 opérations, résultat
-*M3*. Elles ne partagent pas trois lignes de code — et c'est voulu (cf. « la doctrine », plus bas).
+118 316 trades (table courante ; 118 029 sur la v1), résultat *pas d'alpha*. La famille
+**« titre »** (`noter_les_titres` → `M3_preuve_complete`) note des titres : 2014-2026, actions
+seules, 113 369 opérations, résultat *M3*. Elles ne partagent pas trois lignes de code — et
+c'est voulu (cf. « la doctrine », plus bas).
 
 **Les noms historiques.** Les archives, les fiches et les sorties figées citent les notebooks par
 leurs anciens numéros. La correspondance avec les fichiers d'aujourd'hui (renommés le 11/08) :
@@ -73,9 +74,12 @@ Dans cette table, `03` = `_archive/recherche_v1/03_Recherche_Signal_2014_2026.ip
 ## Strate 2 — la ligne membre à terme (`1_copier_les_membres/`)
 
 Dans cette table, `06` = `_archive/06_Recherche_Strategie_2014_2026.ipynb` (le premier passage) ;
-les §4-§17 sont les sections de `copier_les_membres.ipynb`. Le rapport de clôture :
-`_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 élus « significatifs » bruts → 12 une fois le
-marché retiré ≈ 11 attendus par pur hasard ⇒ pas d'α.**
+les §4-§17 sont les sections de `copier_les_membres.ipynb` — en **génération 2** depuis le 11/08 :
+socle importé de `tools/membre`, ré-exécuté en entier sur la **table courante** du pipeline, et
+les chiffres ci-dessous sont les re-certifiés (le passage v1 → courante, consigné plus bas, ne
+change aucune conclusion). Le rapport de clôture :
+`_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` (chiffres v1 d'époque) — **20 élus « significatifs »
+bruts → 12 une fois le marché retiré ≈ 11 attendus par pur hasard ⇒ pas d'α.**
 
 | piste | où | résultat | statut |
 |---|---|---|---|
@@ -86,14 +90,14 @@ marché retiré ≈ 11 attendus par pur hasard ⇒ pas d'α.**
 | Les 12 leaders de parti (Wei & Zhou) | `06` §5a | **89 % des achats = une seule personne** (2025) | **non testable** sur notre fenêtre |
 | Passage trade → compte (NAV, coûts) | `06` §7 | +1,9 à +2,3 %/an, t ≤ 0,9 ; Sharpe 0,74 < SPY 0,82 | close |
 | Classement IR vs appraisal | `copier_les_membres` §4 | 20 → 12 ≈ hasard | le surnombre = du marché |
-| Top-K, K walk-forward | §7 | max du notebook : **+4,07 %/an, t 1,584** | enterré au §14 : max de 160 essais, DSR 0,106 |
+| Top-K, K walk-forward | §7 | max du notebook : **+4,06 %/an, t 1,581** | enterré au §14 : max de 160 essais, DSR 0,106 |
 | Cadence 6 mois · inverse-vol/ERC/GMV · Ledoit-Wolf | §8-§10 | max t_appraisal **+0,48** ; GMV −4,5 %/an (t −2,76) | le résultat est invariant au *qui/combien/comment* |
 | Sélection par le Sharpe brut | §11-§12 | max t 1,215 ; dilution +3,5 → −0,2 % à K=20 | close |
-| **Le Sharpe passé prédit-il ?** | §13 | **IC +0,047 (t 0,82)** ; il faudrait IC ≥ 0,15 pour espérer t > 1,81 | l'impasse était écrite d'avance |
+| **Le Sharpe passé prédit-il ?** | §13 | **IC +0,048 (t 0,83)** ; il faudrait IC ≥ 0,15 pour espérer t > 1,81 | l'impasse était écrite d'avance |
 | **Puissance et multiplicité** | §14 | MDE ≈ **8 %/an** (détecter +2 % ⇒ ~170 ans de données) ; **160 essais**, E[max t\|H₀] 2,69 | personne n'a la puissance de valider un α réaliste |
 | **L'analyse d'après-coup du style** | §15 | +3,5 = **+6,9 sélection − 3,5 allocation** ; le panier est AMZN/MSFT/NVDA à 22-25 % | l'excès brut = des gains concentrés sur quelques titres, non reproductibles |
-| **Commissions, test intra-membre** (le plus propre du projet) | §16.2 | le même élu dans le périmètre de ses commissions : **Wilcoxon p 0,54**, répliqué sur les 2 ères (avant/après 2020) | la dernière hypothèse mécaniste meurt |
-| Six dimensions jamais lues | §17.2 | p de Wilcoxon — ère 0,053 · **conjoint 0,063 (cohérent 2 ères)** · **ventes 0,002 mais en NÉGATIF** · taille 0,052 non répliqué · délai 0,22 · parti/chambre/leadership ≥ 0,21 | une conclusion (les sorties détruisent un peu), une piste en sommeil (conjoint), le reste ne montre rien |
+| **Commissions, test intra-membre** (le plus propre du projet) | §16.2 | le même élu dans le périmètre de ses commissions : **Wilcoxon p 0,48**, répliqué sur les 2 ères (avant/après 2020) | la dernière hypothèse mécaniste meurt |
+| Six dimensions jamais lues | §17.2 | p (test de signe) — ère 0,064 · **conjoint 0,063 (cohérent 2 ères)** · **ventes 0,001 mais en NÉGATIF** · taille 0,052 non répliqué · délai 0,22 · parti/chambre/leadership ≥ 0,21 | une conclusion (les sorties détruisent un peu), une piste en sommeil (conjoint), le reste ne montre rien |
 
 ## Strate 3 — le NO-GO pré-enregistré (`_archive/08_Strategie_Calendar_Time`)
 
@@ -260,18 +264,21 @@ Les raisons tiennent toujours :
 4. **les sorties figées font preuve** — refactorer sans tout ré-exécuter dissocierait le code de
    ses sorties ; tout ré-exécuter risquerait de déplacer des chiffres publiés.
 
-Le gisement honnêtement factorisable mesuré : ~150 lignes sur 9 490 (1,6 %). **Pour la suite**,
-le module [`tools/`](tools/README.md) fournit le moteur de la famille titre, extrait de
-`M3_preuve_complete` et **validé contre les chiffres témoins gelés** (`python -m tools.test_ancres`).
+**Pour la suite**, le paquet [`tools/`](tools/README.md) fournit les DEUX moteurs, jamais
+mélangés : la famille titre (racine du paquet, extraite de `M3_preuve_complete`, prouvée par
+`python -m tools.test_ancres` sur la v1) et la famille membre (`tools/membre/`, extraite de
+`copier_les_membres`/`tables_membres_tickers`, prouvée par
+`python -m tools.membre.test_ancres_membre` sur la table courante).
 
-**La seule exception, prouvée par ré-exécution (11/08)** : les deux notebooks *vivants* de
-`3_livrable_M3/` tournent sur `tools/`. `M3_preuve_complete` (génération 2) importe le socle et
-**garde toutes ses cellules de validation**, qui re-dérivent indépendamment ce que tools calcule
-(la règle de démarrage recalculée == `tools.donnees`, l'extraction de `noter_les_titres`
-reproduite à 18 chiffres, la carte identité, les identités du §20) ; ré-exécuté en entier, chaque
-assert passe et les chiffres sont identiques (661,57 / 573,57 · 162 runs). La doctrine reste
-entière pour les notebooks figés — la famille membre et les trois volets de `2_noter_les_titres/`
-ne sont pas touchés.
+**Les exceptions, chacune prouvée par ré-exécution complète (11/08)** : quatre notebooks
+*vivants* tournent sur `tools/` — `M3_preuve_complete` (génération 2 : socle importé, toutes les
+validations conservées, mêmes chiffres 661,57 / 573,57 · 162 runs), `M3_table_pipeline` (la table
+courante), et depuis le même soir **`tables_membres_tickers` + `copier_les_membres`** (génération
+2 famille membre : socle `tools/membre`, table courante, plus aucun re-nettoyage local — le
+passage v1 → courante est consigné dans la passerelle plus bas ; aucune conclusion ne change).
+La doctrine reste entière pour les notebooks figés — les deux études (recalculs indépendants,
+adossés aux `_archive/tables_v20260704/`) et les trois volets de `2_noter_les_titres/` ne sont
+pas touchés.
 
 Quatre défauts mineurs connus, documentés ici et laissés en l'état (les sorties sont figées) :
 `_mode` diverge entre `tables_membres_tickers` (`dropna()`) et les deux études ;
@@ -302,3 +309,22 @@ entièrement sur [`tools/`](tools/README.md) :
 franchit son seuil, l'identité de l'IR tient, TE\* reste la question du client. Toute recherche
 future travaille sur la table courante, avec `tools/` — et se mesure contre
 `3_livrable_M3/ancres_table_courante.json`.
+
+**La même passerelle pour la famille membre** (génération 2 du 11/08, notebooks ré-exécutés sur
+la table courante ; l'état v1 reste dans git, ses tables dans `_archive/tables_v20260704/`) :
+
+| mesure | v1 (04/07) | courante |
+|---|---|---|
+| 𝒯^brut (fenêtre 2013-2026) | 134 429 | **134 417** |
+| trades exploitables | 118 029 | **118 316** |
+| tickers (dont couverts prix) | 4 618 (3 289) | **4 607 (3 286)** |
+| membres bruts / prix / reconstruits / éligibles | 372 / 359 / 266 / 223 | identiques |
+| meilleur cas (K walk-forward, §7) | +4,07 %/an, t 1,584 | **+4,06 %/an, t 1,581** |
+| IC du Sharpe passé (§13) | +0,047 (t 0,82) | **+0,048 (t 0,83)** |
+| décomposition §15 (K=5) | +6,9 sélection − 3,5 allocation | **+6,9 − 3,5** (inchangé à l'arrondi) |
+| commissions intra-membre (§16) | Wilcoxon p 0,54 | **p 0,48** |
+| conjoint − élu (§17 ②) | p 0,063, médianes +0,07/+0,08 | **identiques** |
+| ventes (§17 ③, en négatif) | p 0,002 | **p 0,001** |
+
+**Aucune conclusion ne change là non plus** : toujours pas d'alpha, mêmes pistes closes, même
+piste en sommeil (conjoint). La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
