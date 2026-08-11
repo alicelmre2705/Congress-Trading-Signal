@@ -69,10 +69,11 @@ relisent toujours les 26 tables FINAL 2014-2026 en entier.
   13 index `{Y}FD.xml` **et les PDF bruts des PTR 2014-2026** vivent dans `data/house/` — la
   collecte House se rejoue sans rien télécharger. `--acquire` ne sert qu'à compléter une année
   nouvelle (idempotent : ne re-télécharge jamais un fichier présent).
-- **Le réseau reste requis pour** : le Sénat (les pages eFD ne sont pas embarquées —
-  re-scrapées par `senate.digital`/`senate.ocr`) et la validation Quiver (désactivable par
-  `--no-quiver`). Clés dans le `.env` à la racine : `ANTHROPIC_API_KEY` (OCR Vision + repli LLM
-  ticker/secteur), `QUIVER_API_KEY`.
+- **La source primaire Sénat est embarquée aussi** : `data/senate/reports/` — un HTML par dépôt
+  des tables FINAL (2 128 / 2 128, vérifié) + les scans `.gif` du papier (`media/`). La collecte
+  se rejoue depuis ces pages ; le réseau ne sert qu'aux dépôts nouveaux et à la validation
+  Quiver (désactivable par `--no-quiver`). Clés dans le `.env` à la racine :
+  `ANTHROPIC_API_KEY` (OCR Vision + repli LLM ticker/secteur), `QUIVER_API_KEY`.
 - **Le nettoyage et le rapport (steps 7-8) sont 100 % hors-ligne**, rejouables depuis un simple
   clone : `python -m common.backtest_clean` puis `python -m common.quality`.
 
@@ -85,7 +86,8 @@ common/   le cœur partagé : schema (clé naturelle, corrections read-time) · 
 house/    pipeline Chambre : acquire · digital · ocr · …          ← jumeau de senate/
 senate/   pipeline Sénat   : digital · ocr · fusion · … · report_types_probe (collecteur eFD, à la demande)
 data/     house/ (tables FINAL figées · index/ les 13 {Y}FD.xml · pdfs/ TOUS les PTR bruts
-          2014-2026) · senate/ (tables FINAL figées) · reference/ (référentiels déclaratifs) ·
+          2014-2026) · senate/ (tables FINAL figées · reports/ TOUTES les pages eFD brutes,
+          HTML + scans .gif) · reference/ (référentiels déclaratifs) ·
           external/ (collectes tierces — jamais réinjectées) · quiver_validation/ (les preuves
           ligne à ligne de la validation Quiver, 13 CSV) · clean/ (les 4 tables de recherche)
 png/      les images — figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/ (partie II du deck)

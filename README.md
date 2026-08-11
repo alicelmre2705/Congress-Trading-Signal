@@ -181,15 +181,16 @@ python3.12 -m venv .venv
 ./.venv/bin/python 00_recuperation_donnees/tests/regression/test_senate_repro.py    # natural_key_hash 8 841/8 841, identité, ticker
 ```
 
-La collecte Sénat et la validation Quiver exigent le réseau ; la correction est prouvée par
-**reproduction depuis les colonnes figées** (`tests/regression/`), et le nettoyage + le rapport
-(steps 7-8) se rejouent **100 % hors-ligne** depuis un clone.
+Seuls les dépôts nouveaux et la validation Quiver exigent le réseau ; la correction est prouvée
+par **reproduction depuis les colonnes figées** (`tests/regression/`), et le nettoyage + le
+rapport (steps 7-8) se rejouent **100 % hors-ligne** depuis un clone.
 
-**Note data** : la **source primaire House est embarquée en entier** — les 13 index `{Y}FD.xml`
-et **tous les PDF bruts des PTR 2014-2026** (`data/house/pdfs/`, un dossier par année) : chaque
-ligne des tables est re-vérifiable contre son document source, sans rien télécharger. Les pages
-brutes eFD Sénat (re-téléchargeables) ne sont pas embarquées — `senate.digital`/`senate.ocr` les
-re-scrapent au besoin ; le filet golden ne lit que `data/*/tables/`.
+**Note data** : la **source primaire des deux chambres est embarquée en entier**. House : les 13
+index `{Y}FD.xml` et **tous les PDF bruts des PTR 2014-2026** (`data/house/pdfs/`, un dossier
+par année — 8 252 documents, un par dépôt officiel de l'index). Sénat : **toutes les pages eFD
+brutes** (`data/senate/reports/` — un HTML par dépôt des tables FINAL, 2 128 / 2 128, plus les
+scans `.gif` du papier). Chaque ligne des tables est re-vérifiable contre son document source,
+sans rien télécharger ; le filet golden ne lit que `data/*/tables/`.
 Re-exécuter certains notebooks des Parties 1 et 2 exige en plus des caches de prix locaux non
 versionnés (ils se reconstruisent via yfinance) ; les tables gelées (`cache/tables/` du 01,
 `tables/` du 02) et les quelques caches non re-téléchargeables (N-PORT, OCR récupéré, prix de
