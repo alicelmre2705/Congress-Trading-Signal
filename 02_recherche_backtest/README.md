@@ -56,8 +56,9 @@ des élus : 2013-2026, toutes classes d'actifs, 118 029 trades, verdict *pas d'a
 | `16_M3_Complet` | **LE LIVRABLE** — fusion des nb 13/14/15, §1→§20 |
 
 Chaque notebook a son rendu `.html` consultable sans Jupyter. Les archives sont rangées par
-strates dans [`_archive/`](_archive/README.md) (journal d'archivage détaillé). Les pièces NANC/GOP
-sont dans `docs_nanc_gop/` (brutes) et `docs_nanc_gop_surlignes/` (162 passages surlignés).
+strates dans `_archive/` — sur la branche `presentation`, avec son journal d'archivage détaillé
+(`_archive/README.md`). Les pièces NANC/GOP sont dans `docs_nanc_gop/` (brutes) et
+`docs_nanc_gop_surlignes/` (162 passages surlignés).
 
 ---
 
