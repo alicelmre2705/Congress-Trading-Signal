@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "congress-trading"
+version = "0.1.0"
+description = "Pipeline données Congress Trading (House + Sénat) — cœur partagé + pipelines par chambre"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "pdfplumber>=0.11",
+    "pymupdf>=1.24",
+    "anthropic>=0.40",
+    "openpyxl>=3.1",
+    "python-dotenv>=1.0",
+    "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# Génération du rapport de qualité (common.quality) — import paresseux, hors cœur pipeline.
+quality = ["matplotlib>=3.8"]
+
+[tool.setuptools]
+# Liste explicite des packages du dépôt (cœur partagé + un pipeline par chambre).
+packages = ["common", "house", "senate"]
+# Le code S1/S2 (common/house/senate + data/, docs/, tests/) a été regroupé sous
+# 00_recuperation_donnees/ ; pyproject.toml reste à la racine mais pointe les packages vers ce dossier.
+package-dir = {"" = "00_recuperation_donnees"}

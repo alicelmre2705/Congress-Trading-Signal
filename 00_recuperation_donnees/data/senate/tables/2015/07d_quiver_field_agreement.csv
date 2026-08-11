@@ -1,0 +1,13 @@
+scope,field,agreement_pct,n_pairs,note
+digital,sense,100.0,666,désaccords = artefact merge option-vs-action même jour (cf. AUDIT_SENAT.md)
+digital,date_traded,99.2,615,appariement sur Quiver Traded = vraie date de trade
+digital,date_filed,0.2,615,Filed ≠ date de trade → ne pas apparier dessus
+digital,amount_bucket,99.4,666,Quiver Trade_Size_USD = borne basse exacte de la fourchette
+ocr,sense,,0,désaccords = artefact merge option-vs-action même jour (cf. AUDIT_SENAT.md)
+ocr,date_traded,0.0,38,appariement sur Quiver Traded = vraie date de trade
+ocr,date_filed,0.0,38,Filed ≠ date de trade → ne pas apparier dessus
+ocr,amount_bucket,,0,Quiver Trade_Size_USD = borne basse exacte de la fourchette
+both,sense,100.0,668,désaccords = artefact merge option-vs-action même jour (cf. AUDIT_SENAT.md)
+both,date_traded,99.2,615,appariement sur Quiver Traded = vraie date de trade
+both,date_filed,0.3,615,Filed ≠ date de trade → ne pas apparier dessus
+both,amount_bucket,99.4,668,Quiver Trade_Size_USD = borne basse exacte de la fourchette

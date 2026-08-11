@@ -1,0 +1,70 @@
+{
+  "doc_id": "9112151",
+  "member": "Peter Welch",
+  "model": "claude-sonnet-4-6",
+  "prompt_sha": "0d3d617274e6",
+  "dpi": 200,
+  "n_pages": 1,
+  "created_utc": "2026-07-02T21:51:16.051975+00:00",
+  "status": "ok",
+  "batches": [
+    {
+      "batch": 0,
+      "pages": 1,
+      "status": "ok",
+      "n": 3,
+      "transactions": [
+        {
+          "asset_description": "Moodys Corp, 2.75%, due 7/15/19",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2017-11-20",
+          "notification_date": "2017-11-22",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Regeneron (REGN)",
+          "transaction_type": "Purchase",
+          "owner": "Self",
+          "transaction_date": "2017-11-03",
+          "notification_date": "2017-11-07",
+          "amount_code": "A"
+        },
+        {
+          "asset_description": "Regeneron (REGN)",
+          "transaction_type": "Sale",
+          "owner": "Self",
+          "transaction_date": "2017-11-06",
+          "notification_date": "2017-11-08",
+          "amount_code": "A"
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "asset_description": "Moodys Corp, 2.75%, due 7/15/19",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2017-11-20",
+      "notification_date": "2017-11-22",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Regeneron (REGN)",
+      "transaction_type": "Purchase",
+      "owner": "Self",
+      "transaction_date": "2017-11-03",
+      "notification_date": "2017-11-07",
+      "amount_code": "A"
+    },
+    {
+      "asset_description": "Regeneron (REGN)",
+      "transaction_type": "Sale",
+      "owner": "Self",
+      "transaction_date": "2017-11-06",
+      "notification_date": "2017-11-08",
+      "amount_code": "A"
+    }
+  ]
+}

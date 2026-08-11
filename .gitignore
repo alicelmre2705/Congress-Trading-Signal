@@ -1,0 +1,21 @@
+.env
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# Config/session de l'outil Claude Code (permissions locales incluses) — hors dépôt
+.claude/
+# Environnement Python à la racine (recréable : python3.12 -m venv .venv && .venv/bin/pip install -e .)
+.venv/
+# Artefacts de build du package (refonte)
+*.egg-info/
+build/
+dist/
+*.log
+# Sénat (data/senate) — caches eFD régénérables : HTML des PTR + media .gif scannés (~230 MB,
+# re-téléchargeables depuis efd-media-public). NB : tables/_pilote_ocr.csv reste versionné —
+# le golden manifest Sénat l'inventorie (il fait partie du corpus figé).
+00_recuperation_donnees/data/senate/reports/
+
+# utilitaire perso (garder le Mac éveillé) — hors dépôt
+keepawake
