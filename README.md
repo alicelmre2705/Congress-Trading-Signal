@@ -22,19 +22,19 @@ jamais réinjecté dans les tables.
 0. **[LA CARTE DE LA RECHERCHE](02_recherche_backtest/README.md)** — le README de la partie :
    **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son verdict
    chiffré et l'endroit où c'est prouvé — pour ne jamais ré-explorer une piste morte ;
-1. **[FICHE_M3.pdf](02_recherche_backtest/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
+1. **[FICHE_M3.pdf](02_recherche_backtest/strate_7_livrable_M3/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
    (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
    sa version ETF, et le portefeuille final à **deux poches** (SPY + signal sectoriel, dose pilotée
    par le budget de risque). Adossée au notebook `16_M3_Complet.ipynb` — tout ce que la fiche
    affirme y est établi ;
-2. **[PAPIER_METHODE.pdf](02_recherche_backtest/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
+2. **[PAPIER_METHODE.pdf](02_recherche_backtest/strate_5_noter_les_titres/PAPIER_METHODE.pdf)** — les quatre méthodes M1→M4
    côte à côte (notebook 11) ;
-3. **[FICHE_STRAT_TICKER_22JUIL.pdf](02_recherche_backtest/FICHE_STRAT_TICKER_22JUIL.pdf)** — la
+3. **[FICHE_STRAT_TICKER_22JUIL.pdf](02_recherche_backtest/strate_5_noter_les_titres/FICHE_STRAT_TICKER_22JUIL.pdf)** — la
    spécification de la ligne « par titre » et ses six tests ;
-4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
+4. **[AUDIT_FONDS_NANC_GOP.pdf](02_recherche_backtest/strate_5_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf)** — ce que les
    documents officiels des ETF NANC/GOP disent (17 pièces citées, passages surlignés ;
    version auto-portante : `AUDIT_FONDS_NANC_GOP_COMPLET.pdf`, 798 p.) ;
-5. **[ETAT_DE_L_ART_STRATEGIES.md](02_recherche_backtest/ETAT_DE_L_ART_STRATEGIES.md)** — 69
+5. **[ETAT_DE_L_ART_STRATEGIES.md](02_recherche_backtest/strate_5_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md)** — 69
    fiches de littérature vérifiées en source primaire.
 
 Le chemin de la recherche, notebook par notebook : `05b` (copier les élus — **pas d'alpha**, et
@@ -110,13 +110,12 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
 02_recherche_backtest/
   README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, verdicts chiffrés, pièges
   tools/           le moteur du nb 16 extrait et prouvé — pour la strate suivante
-  05b · 07 · 09 · 11 · 12 · 16   les six notebooks de recherche (.ipynb + .html)
-  FICHE_M3.* · PAPIER_METHODE.* · FICHE_STRAT_TICKER_22JUIL.* · AUDIT_FONDS_NANC_GOP.*
-                   les documents opposables, chacun adossé à son notebook
-  ETAT_DE_L_ART_STRATEGIES.md    la base de preuves de la littérature
+  strate_2_copier_les_membres/   05b · 07 · 09 · 12 (.ipynb + .html)
+  strate_5_noter_les_titres/     11 · PAPIER_METHODE · FICHE_STRAT_TICKER_22JUIL ·
+                                 AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART · figs_nb11/ ·
+                                 docs_nanc_gop/ · docs_nanc_gop_surlignes/ (les 18 pièces)
+  strate_7_livrable_M3/          16 · FICHE_M3 · figs_nb16/
   tables/          les tables propres du nb 09 (membres, tickers, membres_annees + dictionnaire)
-  docs_nanc_gop/ · docs_nanc_gop_surlignes/   les 18 pièces officielles NANC/GOP (brutes · surlignées)
-  figs_nb11/ · figs_nb16/        les figures produites par les notebooks 11 et 16
 pyproject.toml   installable :  pip install -e .
 ```
 

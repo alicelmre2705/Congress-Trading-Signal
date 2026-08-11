@@ -11,7 +11,7 @@
 
 ## 1 · Ce qui fait foi aujourd'hui
 
-Le livrable est le couple **[`16_M3_Complet.ipynb`](16_M3_Complet.ipynb) + [`FICHE_M3.pdf`](FICHE_M3.pdf)**
+Le livrable est le couple **[`16_M3_Complet.ipynb`](strate_7_livrable_M3/16_M3_Complet.ipynb) + [`FICHE_M3.pdf`](strate_7_livrable_M3/FICHE_M3.pdf)**
 — tout ce que la fiche affirme est établi dans ce notebook, et rien d'ailleurs.
 
 - **M3 sur les titres** — pondérer chaque titre par (dollars déclarés × nombre d'élus distincts),
@@ -32,11 +32,11 @@ Le livrable est le couple **[`16_M3_Complet.ipynb`](16_M3_Complet.ipynb) + [`FIC
   **162 runs publiés**, aucun seuil corrigé — le protocole se protège par les constantes fixées
   hors de toute performance et les balayages publiés en entier.
 
-Autour du livrable, quatre documents actifs : [`PAPIER_METHODE.pdf`](PAPIER_METHODE.pdf) (M1→M4
-côte à côte, notebook 11) · [`FICHE_STRAT_TICKER_22JUIL.pdf`](FICHE_STRAT_TICKER_22JUIL.pdf) (la
-ligne ticker et ses six tests) · [`AUDIT_FONDS_NANC_GOP.pdf`](AUDIT_FONDS_NANC_GOP.pdf) (ce que
+Autour du livrable, quatre documents actifs : [`PAPIER_METHODE.pdf`](strate_5_noter_les_titres/PAPIER_METHODE.pdf) (M1→M4
+côte à côte, notebook 11) · [`FICHE_STRAT_TICKER_22JUIL.pdf`](strate_5_noter_les_titres/FICHE_STRAT_TICKER_22JUIL.pdf) (la
+ligne ticker et ses six tests) · [`AUDIT_FONDS_NANC_GOP.pdf`](strate_5_noter_les_titres/AUDIT_FONDS_NANC_GOP.pdf) (ce que
 disent les documents officiels des ETF NANC/GOP — version auto-portante `_COMPLET.pdf`, 798 p.) ·
-[`ETAT_DE_L_ART_STRATEGIES.md`](ETAT_DE_L_ART_STRATEGIES.md) (69 fiches de littérature vérifiées
+[`ETAT_DE_L_ART_STRATEGIES.md`](strate_5_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md) (69 fiches de littérature vérifiées
 en source primaire).
 
 ## 2 · Comment lire le dossier
@@ -46,19 +46,26 @@ des élus : 2013-2026, toutes classes d'actifs, 118 029 trades, verdict *pas d'a
 **« titre »** (11 → 16) note des titres : 2014-2026, actions seules, 113 369 opérations, verdict
 *M3*. Elles ne partagent pas trois lignes de code — et c'est voulu (cf. §6).
 
-| fichier actif | rôle |
-|---|---|
-| `05b_Portefeuille_Membre_MathSpec` | la spec math de la ligne membre **et son autopsie** (§13-§17) |
-| `07_Comprendre_Portefeuilles_Membres` | descriptif : population, styles, 6 portraits — re-prouve le moteur du 05b par ré-exécution indépendante |
-| `09_Tables_Membres_Tickers` | le producteur des tables propres `tables/` (membres · tickers · membres_annees + dictionnaire) |
-| `11_Strategie_Ticker` | la ligne titre : M1→M4, purge FIFO, les 6 tests, NANC/GOP (§13), Quiver (§14) |
-| `12_Population_et_Portraits` | l'usine à images de la partie II du deck (autonome, silencieux) |
-| `16_M3_Complet` | **LE LIVRABLE** — fusion des nb 13/14/15, §1→§20 |
+**Le dossier est organisé par strates** — chaque strate vivante contient son notebook, son rendu
+`.html`, ses figures et ses documents :
 
-Chaque notebook a son rendu `.html` consultable sans Jupyter. Les archives sont rangées par
-strates dans `_archive/` — sur la branche `presentation`, avec son journal d'archivage détaillé
-(`_archive/README.md`). Les pièces NANC/GOP sont dans `docs_nanc_gop/` (brutes) et
-`docs_nanc_gop_surlignes/` (162 passages surlignés).
+```
+02_recherche_backtest/
+├── README.md                        ← ce document, la carte
+├── strate_2_copier_les_membres/     05b (la spec math + l'autopsie, §13-§17) · 07 (descriptif,
+│                                    re-prouve le moteur par ré-exécution) · 09 (producteur des
+│                                    tables propres) · 12 (l'usine à images du deck)
+├── strate_5_noter_les_titres/       11 (M1→M4, purge FIFO, les 6 tests, NANC/GOP §13, Quiver §14)
+│                                    + PAPIER_METHODE · FICHE_STRAT_TICKER_22JUIL ·
+│                                    AUDIT_FONDS_NANC_GOP(_COMPLET) · ETAT_DE_L_ART ·
+│                                    docs_nanc_gop/ (pièces brutes) · docs_nanc_gop_surlignes/
+├── strate_7_livrable_M3/            16 (LE LIVRABLE, §1→§20) + FICHE_M3 + figs_nb16/
+├── tools/                           le moteur commun, prouvé sur les ancres (pour la strate 8)
+└── tables/                          les 4 CSV propres du nb 09 (lus par 11, 12, 16)
+```
+
+Les strates closes (0, 1, 3, 4, 6) vivent dans `_archive/` — sur la branche `presentation`, avec
+son journal d'archivage détaillé (`_archive/README.md`).
 
 ---
 
@@ -98,7 +105,7 @@ strates dans `_archive/` — sur la branche `presentation`, avec son journal d'a
 | Portefeuille par membre v1, top-4 IR | `05` | 20 significatifs vs ~11 attendus ; top-4 +3,6 %, t 1,14 | supersédé par le 05b |
 | Garde-fou tickers corrompus | `05` conclusion | un seul glitch (`DAIUF`) fabriquait **+12 %/an** | leçon conservée partout |
 
-### Strate 2 — la ligne membre à terme (`_archive/06`, `05b` et son autopsie)
+### Strate 2 — la ligne membre à terme (`strate_2_copier_les_membres/` · `06` archivé)
 
 Le rapport de clôture : `_archive/RAPPORT_PORTEFEUILLE_MEMBRE.pdf` — **20 significatifs bruts →
 12 par appraisal ≈ 11 attendus par hasard ⇒ pas d'α.**
@@ -140,7 +147,7 @@ couverture prix 76,4 %). **Fermé définitivement** : « copier le stock agrég�
 médian **374 jours**). Les tests E1/E2 pré-enregistrés n'ont jamais été dévoilés : le chantier a
 été redirigé vers le dossier 01 (notebook 10 House, `FICHE_10` de l'époque).
 
-### Strate 5 — la ligne titre (`11_Strategie_Ticker`, actif)
+### Strate 5 — la ligne titre (`strate_5_noter_les_titres/`)
 
 Le socle retenu : **purge FIFO γ** (89,5 % de la masse vendue alimente le signal) et **W = 42 j
 choisi sur la concentration, jamais sur le rendement**.
@@ -204,7 +211,7 @@ d'avance et vérifiée** ; le plafond est **monotone** des deux côtés ⇒ la v
 accidentelle. **Promu : le portefeuille unique** (+2,51 %/an, t 1,93) — le seul qui ne demande
 aucune décision prise après avoir vu les résultats.
 
-### Strate 7 — le livrable (`16_M3_Complet`)
+### Strate 7 — le livrable (`strate_7_livrable_M3/`)
 
 - **§11** — y a-t-il de l'information sectorielle ? \|t\| groupé par date = **2,06** contre 1,96 :
   le test qui autorise tout le reste, passé de justesse ;

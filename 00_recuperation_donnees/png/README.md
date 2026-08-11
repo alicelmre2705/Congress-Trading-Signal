@@ -9,7 +9,7 @@ est utilisée par un document vivant ; les orphelines ont été archivées le 20
 |---|---|---|---|
 | `figs_deck/` (63) | les figures **fixes** du deck : entonnoirs, schémas, captures annotées | figées (pas de code producteur — extraites des notebooks d'époque ou faites à la main) | le deck (62) ; 6 aussi reprises par `RAPPORT_FINAL` et `FICHE_NETTOYAGE_BACKTEST_V2` |
 | `quality/` (9) | les figures du rapport de qualité | `common/quality.py` (savefig — le dossier = exactement ses 9 sorties) | le rapport (9) + le deck (`top_deposants`) |
-| `figs_pop/` (41) | population & portraits — la partie II du deck | `02_recherche_backtest/12_Population_et_Portraits.ipynb` (le dossier = exactement ses savefig) | le deck (13 ; le reste = les cartes par membre, même famille) |
+| `figs_pop/` (41) | population & portraits — la partie II du deck | `02_recherche_backtest/strate_2_copier_les_membres/12_Population_et_Portraits.ipynb` (le dossier = exactement ses savefig) | le deck (13 ; le reste = les cartes par membre, même famille) |
 
 Cas particuliers : `figs_deck/fig_senat_types.png` a un producteur vivant
 (`../Analyse_Types_Rapports_Senat.ipynb`) ; les CSV de preuve de la validation Quiver sont dans
