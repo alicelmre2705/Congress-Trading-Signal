@@ -68,7 +68,14 @@ def build(tables: Path) -> dict:
     for p in sorted(tables.rglob("*.csv")):
         rel = p.relative_to(tables).as_posix()
         files[rel] = {"sha256": sha256_file(p), "rows": count_lines(p), "bytes": p.stat().st_size}
-    return {"tables_dir": str(tables), "n_files": len(files), "files": files,
+    # Chemin relatif au dossier 00_recuperation_donnees/ : le manifest reste identique d'une machine
+    # à l'autre (aucun script ne lit cette clé — elle est purement descriptive).
+    root = Path(__file__).resolve().parents[2]
+    try:
+        tables_str = tables.resolve().relative_to(root).as_posix()
+    except ValueError:
+        tables_str = str(tables)
+    return {"tables_dir": tables_str, "n_files": len(files), "files": files,
             "headline": headline(tables)}
 
 

@@ -65,7 +65,14 @@ def build(data: Path) -> dict:
     for p in sorted(data.rglob("*.csv")):
         rel = p.relative_to(data).as_posix()
         files[rel] = {"sha256": sha256_file(p), "rows": count_lines(p), "bytes": p.stat().st_size}
-    return {"data_dir": str(data), "n_files": len(files), "files": files,
+    # Chemin relatif au dossier 00_recuperation_donnees/ : le manifest reste identique d'une machine
+    # à l'autre (aucun script ne lit cette clé — elle est purement descriptive).
+    root = Path(__file__).resolve().parents[2]
+    try:
+        data_str = data.resolve().relative_to(root).as_posix()
+    except ValueError:
+        data_str = str(data)
+    return {"data_dir": data_str, "n_files": len(files), "files": files,
             "headline": headline(data)}
 
 
