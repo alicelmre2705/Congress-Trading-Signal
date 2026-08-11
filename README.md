@@ -19,6 +19,9 @@ jamais réinjecté dans les tables.
 
 ## 🧭 Par où commencer — Partie 2 (la stratégie)
 
+0. **[LA CARTE DE LA RECHERCHE](02_recherche_backtest/README.md)** — le README de la partie :
+   **toutes les pistes testées** (~90, en 7 strates chronologiques), chacune avec son verdict
+   chiffré et l'endroit où c'est prouvé — pour ne jamais ré-explorer une piste morte ;
 1. **[FICHE_M3.pdf](02_recherche_backtest/FICHE_M3.pdf)** — **LE livrable** : la stratégie M3
    (pondérer au dollar *et* au nombre d'élus, +3,40 %/an d'excès côté démocrate sur 2014-2026),
    sa version ETF, et le portefeuille final à **deux poches** (SPY + signal sectoriel, dose pilotée
@@ -38,7 +41,9 @@ Le chemin de la recherche, notebook par notebook : `05b` (copier les élus — *
 l'autopsie qui le prouve) → `07`/`12` (comprendre la population, les portraits) → `09` (les tables
 propres `tables/`) → `11` (noter les **titres** plutôt que copier les élus : méthodes M1-M4,
 réplique NANC/GOP) → **`16`** (M3 complet + version ETF + le livrable deux poches). Chaque notebook
-a son rendu `.html` consultable sans Jupyter.
+a son rendu `.html` consultable sans Jupyter. Pour prolonger la recherche sans recopier le nb 16 :
+le paquet **[`tools/`](02_recherche_backtest/tools/README.md)** — son moteur extrait et prouvé
+(`python -m tools.test_ancres` rejoue M3 et retrouve les ancres gelées).
 
 ## 🧭 Par où commencer — Partie 1 (au-delà des PTR)
 
@@ -103,6 +108,8 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   reference/       entrées irremplaçables : index XML instantanés du Clerk, caches OCR, YAML élus
   figures/ figures_house/   figures des fiches et decks
 02_recherche_backtest/
+  README.md        LA CARTE DE LA RECHERCHE : ~90 pistes testées, verdicts chiffrés, pièges
+  tools/           le moteur du nb 16 extrait et prouvé — pour la strate suivante
   05b · 07 · 09 · 11 · 12 · 16   les six notebooks de recherche (.ipynb + .html)
   FICHE_M3.* · PAPIER_METHODE.* · FICHE_STRAT_TICKER_22JUIL.* · AUDIT_FONDS_NANC_GOP.*
                    les documents opposables, chacun adossé à son notebook
