@@ -360,53 +360,100 @@ républicains & $+0{,}78$ \emph{(1,02)} & $+0{,}41$ & $+1{,}12$ \emph{(0,92)} & 
 \vspace{0.2mm}
 {\scriptsize\color{grisf} lignes ETF avec la \textbf{carte datée}. Seuils : 2,18 à treize années, 2,36 à
 huit. \textbf{Une seule case le franchit} --- l'excès républicain 2019--2026, $t$ 2,71, IC [0,29 ; 4,26] :
-sous-fenêtre, un seul camp, parmi 84 runs (annexe D).}\par
+sous-fenêtre, un seul camp, parmi 162 runs (annexe D).}\par
 
-\etape{13}{La forme livrable : le marché, plus un tilt \emph{(2020--2026 seulement)}}
-\[ w \;=\; \underbrace{w^{\text{marché}}}_{\text{la brique de base}} \;+\; \lambda\,\underbrace{(w^{\text{signal}} - w^{\text{marché}})}_{\text{le pari}} \]
-$\lambda = 0$ donne le marché \emph{reconstruit} --- onze SPDR rebalancés chaque mois, d'où $-0{,}33$~\%/an
-et 2,1~\% d'écart ; $\lambda = 1$ donne la version sectorielle simple. Les deux grandeurs qui décident
-de $\lambda$ --- l'\textbf{écart au marché} et ce qu'une unité d'écart rapporte :
-\[ \mathrm{TE} = \sigma\bigl(r_p - r^{m}\bigr)\sqrt{252} \ , \qquad
-   \text{rdt/écart} = \bar x \big/ \mathrm{TE} \]
-\textbf{Les deux vecteurs.} $w^{\text{signal}}$ = M3 traduite en secteurs, c'est l'étape 11.
-$w^{\text{marché}}$ se reconstruit depuis les prix, les onze SPDR \textbf{partitionnant} le S\&P 500 :
-\[ r^{\text{SPY}} = \beta_1 r^{\text{XLK}} + \beta_2 r^{\text{XLF}} + \dots + \beta_{11} r^{\text{XLU}}
-   + \varepsilon \]
-Sous $\sum \beta = 1$ et $\beta \ge 0$, les $\beta$ servent de \emph{proxy} des poids sectoriels, estimés sur
-\textbf{l'année précédente} --- aucun regard vers l'avenir. Le $R^2$ (0,984 à 0,999) atteste que les onze
-SPDR \textbf{engendrent} l'indice ; il n'identifie pas chaque coefficient. Après le tilt, tout poids
-négatif est ramené à zéro (long seul).
+\etape{13}{Le livrable : une poche de marché, une poche de stratégie}
+La forme \og\emph{le marché, plus un tilt $\lambda$}\fg{} des versions antérieures de cette fiche est
+\textbf{retirée}, pour trois défauts que le notebook démontre (\S20) : son c\oe ur $\lambda=0$ n'était pas
+le marché mais une \emph{reconstruction} par onze SPDR ($-0{,}33$~\%/an, 2,1~\% d'écart et 21~\%/an de
+rotation avant le moindre pari) ; à $\lambda=2$ la formule tenait $-100$~\% de marché pour $+200$~\% de
+signal, poids négatifs écrêtés ensuite --- la formule publiée ne décrivait plus le portefeuille tenu ;
+et son \og rdt/écart\fg{} qui montait avec $\lambda$ (0,68 $\to$ 0,83 $\to$ 0,85) était un
+\textbf{artefact de construction} : dans une forme propre ce ratio est \textbf{constant} par identité.
+\par\vspace{0.5mm}
+Le bon objet n'est pas un vecteur de poids mais \textbf{une seule série} --- l'écart actif à pleine dose :
+\[ d_t = r^{\text{sig}}_t - r^{\text{SPY}}_t
+   \;\Longrightarrow\; r^{p}_t - r^{b}_t = a_t\,d_t,
+   \quad \mathrm{TE}(a) = a\,\sigma(d)\sqrt{252} \]
+Le signal est l'\textbf{unique} de l'étape 12, carte datée (NAV 577) ; le marché est le \textbf{SPY
+lui-même}, plus aucune reconstruction --- la série $d$ couvre \textbf{2014--2026} (3\,101 jours cotés,
+12,3 ans ; le tilt était borné à 2020--2026 par sa reconstruction annuelle).
+Vérifié par identité : $\mathrm{IR}(a)$ vaut \textbf{0,637 à toutes les doses} (écart 7 pour dix mille,
+la dérive entre deux coupes) et le $t$ est \textbf{invariant} (2,05--2,06) ---
+\textbf{doser plus achète du rendement, jamais de la preuve}.
+\par\vspace{0.5mm}
+{\color{bleu}\bfseries Le protocole, à chaque fin de mois}\par\vspace{0.2mm}
+\begin{pts}
+\item \textbf{le signal} --- étape 12 inchangée $\Rightarrow w^{\text{sig}}_t$ (11 ETF) ;
+\item \textbf{le risque du pari} --- $\hat\sigma_t = \sqrt{252}\cdot\mathrm{sd}\{d_u\}$ sur les
+      \textbf{756 jours cotés précédant $t$}, jamais au-delà ;
+\item \textbf{la dose} --- $\boxed{a_t = \min\bigl(1,\ \mathrm{TE}^\star/\hat\sigma_t\bigr)}$ ---
+      analytique : rien ne se choisit après avoir vu un rendement ; $a\le1$ = pas de levier ;
+\item \textbf{la bande morte} --- on ne re-dimensionne que si $\lvert a_t - a_{\text{détenu}}\rvert >
+      20\,\%\cdot a_{\text{détenu}}$ : pas de frais sur du bruit d'estimation ;
+\item \textbf{le portefeuille} --- $w_t = (1-a_t)\,\mathrm{SPY} + a_t\,w^{\text{sig}}_t$ :
+      \textbf{douze lignes}, combinaison convexe, $\sum w = 1$, tous $\ge 0$, \textbf{aucun écrêtage} ;
+\item \textbf{l'exécution} --- close $t{+}1$, parts figées jusqu'à la coupe suivante, 10~pb par
+      aller-retour : le moteur des dix étapes, inchangé.
+\end{pts}
+Trois constantes, aucune calée sur nos rendements (annexe B) : $H = 756$~j \emph{(demandé d'avance)},
+bande morte $20\,\%$ \emph{(déclarée avant le premier run)}, et $\mathrm{TE}^\star$ --- \textbf{le seul
+paramètre du dispositif}, publié en \textbf{profil complet} $\{1, 2, 3\}$~\% : on ne le choisit pas,
+c'est le budget de risque du client --- \textbf{la question à poser à Ramify}.
+\par\vspace{0.5mm}
+{\color{bleu}\bfseries De quoi l'écart actif est fait}\par\vspace{0.2mm}
+\begin{pts}
+\item $\mathrm{Var}(d) = (\beta_s-1)^2\sigma_b^2 + \sigma_\varepsilon^2$, exacte : \textbf{14,1~\%} du
+      budget de risque est du \textbf{bêta} --- un allocataire l'obtient en levant le SPY, sans nous ;
+      le ratio qui l'exclut est l'\emph{appraisal} (\textbf{0,242}), pas l'IR ;
+\item $\rho(r^{\text{sig}}, r^{b}) = 0{,}994$ : \textbf{98,8~\%} de la variance du signal est du
+      marché --- 11 lignes et $\sim$30~\%/an de rotation pour ce qu'un SPY donne à 0,09~\% de frais.
+      \textbf{C'est la justification des deux poches : rendre visible ce qu'on achète gratuitement} ;
+\item mélanger les camps plutôt que fusionner les scores ? $\rho(d^{\text{NANC}}, d^{\text{GOP}}) =
+      0{,}218$, IR 0,62 et 0,35, borne théorique $\sqrt{\mathrm{IR}'\Omega^{-1}\mathrm{IR}} = 0{,}66$ ---
+      publiée comme \textbf{borne}, jamais retenue : l'estimer sur nos données serait optimiser sur le
+      rendement. Le mélange retenu resterait équipondéré, déclaré d'avance.
+\end{pts}
+\vspace{0.3mm}
+{\color{bleu}\bfseries Ce que le pilotage promet, et ce qu'il ne promet pas}\par\vspace{0.2mm}
+\begin{pts}
+\item il \textbf{tient le budget de risque} --- il ne promet pas de rapporter plus : notre $d$ est un
+      long-short de somme nulle, l'effet de levier du \emph{volatility targeting} n'a aucune raison d'y
+      être ; si l'IR s'améliore c'est un bonus mesuré, pas une promesse ;
+\item \textbf{calibration} : la TE réalisée \emph{après} dépasse la prévision 61~\% du temps, médiane
+      \textbf{1,26} --- annoncer $\mathrm{TE}^\star = 3$~\% se lit \textbf{$\approx 3{,}8$~\% en
+      pratique} (95\textsuperscript{e} centile : 5,5~\%). C'est la phrase à mettre devant un
+      allocataire, pas la TE plein-échantillon ;
+\item \textbf{limite structurelle} : une fenêtre de trois ans ne voit pas venir un krach --- au
+      31/03/2020, $\hat\sigma = 1{,}78$~\% $\Rightarrow a = 1$ : la dose était \textbf{pleine} au pire
+      moment. Sensibilité déclarée : $H = 63/126/252$~j auraient donné $a = 0{,}49/0{,}68/0{,}86$ ;
+\item le pilotage consomme 756~j de démarrage : il se compare au statique \textbf{sur sa propre
+      fenêtre} (111 coupes, 03/2017 $\to$ 06/2026).
+\end{pts}
+\vspace{0.3mm}
+{\color{bleu}\bfseries Le portefeuille tenu} --- dernière coupe (29/05/2026), budget
+$\mathrm{TE}^\star = 2$~\% : $\hat\sigma = 2{,}40$~\% $\Rightarrow a = 0{,}832$, soit \textbf{16,8~\% de
+SPY} et 83,2~\% de signal --- XLK 38,6 $\cdot$ XLC 11,7 $\cdot$ XLV 9,8 $\cdot$ XLY 8,1 $\cdot$ XLF 6,2
+$\cdot$ XLP 2,8 $\cdot$ XLI 2,6 $\cdot$ XLE 2,1 $\cdot$ XLB 0,8 $\cdot$ XLU 0,3 $\cdot$ XLRE 0,2~\%.
+Et deux diagnostics qu'aucune version antérieure ne donnait : le \emph{transfer coefficient} de Grinold
+\& Kahn --- corrélation entre le pari souhaité (score pur) et le pari tenu (top-150 + plafond) ---
+vaut \textbf{0,947 en médiane} [0,83 ; 1,00] : nos contraintes laissent passer $\sim$95~\% du signal ;
+et $t \approx \mathrm{IR}\sqrt{T}$ : la preuve ne viendra que de l'IR et de la durée, jamais de la dose.
+\par\vspace{0.5mm}
 
-{\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
-\begin{tabular}{@{}l r r r r r@{}}
-\toprule
-$\lambda$ & excès \textbf{net}/an & $\alpha_1$ \emph{(t)} & $\beta$ & \textbf{écart marché} & rdt/écart \\
-\midrule
-0 \emph{(le marché)} & $-0{,}33$ & $-0{,}65$ \emph{(--0,8)} & 1,00 & 2,1~\% & --- \\
-1 & $+1{,}73$ & $+0{,}42$ \emph{(0,45)} & 1,04 & 2,6~\% & 0,68 \\
-2 & $\mathbf{+3{,}41}$ & $\mathbf{+1{,}29}$ \emph{(0,87)} & 1,09 & \textbf{4,2~\%} & \textbf{0,83} \\
-3 & $+4{,}31$ & $+1{,}71$ \emph{(0,93)} & 1,10 & 5,2~\% & 0,85 \\
-\bottomrule
-\end{tabular}\par}
-\vspace{0.2mm}
-{\scriptsize\color{grisf} l'\textbf{écart au marché} = écart-type annualisé de la différence avec l'indice : à
-4,2~\%, deux années sur trois l'écart au SPY se tient à $\pm 4{,}2$~\% \emph{autour de sa moyenne}, non autour de zéro. \textbf{Fenêtre 2020--2026,
-net de 10~pb --- ne se compare pas au tableau ci-dessus}, qui couvre 148 coupes depuis 2014, brut de frais.
-\textbf{Seule la colonne d'excès est nette} : $\alpha_1$, $\beta$ et rdt/écart sont mesurés sur la série brute.}\par
-\vspace{0.5mm}
-
-\fig{etf_livrable.png}{à gauche le portefeuille depuis 2020 (base 100, log) ; à droite ce que chaque niveau
-d'écart au marché rapporte --- la courbe est concave.}
+\fig{deux_poches.png}{le livrable, sur la fenêtre du pilotage (2017$\to$, après les 756~j de
+démarrage) : à gauche les NAV base 100 (log) --- piloté $\mathrm{TE}^\star{=}2$~\% 409, signal seul
+415, SPY 366 ; au centre $\hat\sigma$ du pari estimé sur 756~j ; à droite la dose $a_t$ qui en
+découle, aux trois budgets.}
 
 \et{a}{Ce qui contraindra avant l'écart au marché}
 \begin{pts}
 \item \textbf{aucun plafond sectoriel} : celui de 10~\% porte sur les \emph{titres} et \textbf{ne survit pas}
       à l'agrégation --- cinq titres tech à 6--10~\% font un secteur à 46,6~\% (dém.) et 42,2~\% (rép.) à la dernière coupe ;
-\item \textbf{et le tilt concentre} : le plus gros secteur pèse 38,7~\% à $\lambda = 0$ \emph{(la concentration du marché \textbf{reconstruit} : les
-      SPDR plafonnant leurs lignes, la régression surcharge XLK --- la part réelle de la tech est plus basse)},
-      47,8~\% à $\lambda = 1$, \textbf{61,2~\% à $\lambda = 2$}
-      --- $N_{\text{eff}} = 1/\sum w_i^2$ de 6,5 à 4,6.
+\item \textbf{la poche de marché dilue, mécaniquement} : à la dernière coupe le signal porte
+      \textbf{46,4~\% de XLK} ; mélangé à $a = 0{,}832$, le portefeuille \emph{tenu} n'en garde que
+      38,6~\%. Mais à pleine dose ($a = 1$, comme au 31/03/2020) plus rien ne dilue --- la
+      concentration du signal est le vrai plafond du dispositif.
 \end{pts}
 
 \et{b}{Deux pistes écartées}
@@ -451,6 +498,10 @@ le passage aux ETF ne change que l'agrégation & carte identité (chaque titre $
 le poids d'un secteur est la somme de ses titres & conservation, avec la vraie carte & vérifié sur 296 couples \\
 le repli sur secteur non coté est au prorata & proportions relatives des survivants & vérifié sur 104 couples \\
 M3 sur les titres n'a pas bougé & non-régression après le bloc III & NAV 661,57 et 573,57 \\
+la poche active est celle de l'étape 12 & NAV comparée au run \og unique, carte datée\fg{} & 576,90 --- identique \\
+décider en rendements $=$ facturer en poids & deux chemins vers la même NAV, cinq doses & écart relatif max $3{,}1\cdot10^{-15}$ \\
+la fenêtre du pilotage ne triche pas & $\hat\sigma_t$ recalculée à la main sur trois coupes & strictement antérieure à $t$, écart $<10^{-9}$ \\
+les identités du profil statique & $\mathrm{TE}(a)=a\,\mathrm{TE}(1)$ et excès$(a)=a\cdot$excès$(1)$ & vraies à 1\,179 ppm (la dérive entre coupes) \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.5mm}
@@ -475,6 +526,9 @@ ce que le protocole décrit --- ils ne disent rien de la \emph{portée} des rés
 7 $\cdot$ plafond de position & $c = 10$~\% & la médiane du fonds réel sur 13 dates, \emph{et} la limite UCITS \\
 9 $\cdot$ coût facturé & 10 points de base & l'ordre de grandeur d'un aller-retour sur méga-capitalisation \\
 \emph{hors M3} $\cdot$ filtre anti-bruit & $\theta = 50$ opérations & la description d'un gérant, pas un réglage \\
+13 $\cdot$ fenêtre du pilotage & $H = 756$ j & demandée d'avance par le chef de recherche \\
+13 $\cdot$ bande morte & $h = 20$~\% & déclarée avant le premier run ; publiée avec et sans \\
+13 $\cdot$ budget d'écart $\mathrm{TE}^\star$ & profil $\{1, 2, 3\}$~\% & le budget de risque du client --- publié en profil, jamais choisi \\
 \bottomrule
 \end{tabular}\par}
 \vspace{0.4mm}
@@ -529,10 +583,11 @@ l'excès côté démocrate (la technologie) et \textbf{34~\%} côté républicai
 sur les sept années de la Version 2 --- leurs intervalles de confiance contiennent zéro. \textbf{Deux chiffres
 font exception} : l'excès républicain sur \textbf{2019--2026} ($+2{,}28$~\%/an, $t$ 2,71 pour un seuil de 2,36
 à huit années, IC [0,29 ; 4,26]) et l'$\alpha_4$ de M3-NANC ($t$ 2,08 contre 1,96). Tous deux sont lus en test
-\emph{isolé} : ce sont deux cases parmi les 84 ci-dessous, et la première est une sous-fenêtre choisie après
+\emph{isolé} : ce sont deux cases parmi les 162 ci-dessous, et la première est une sous-fenêtre choisie après
 coup sur un seul camp. Nous ne les revendiquons pas.\par
 \vspace{0.5mm}
-\textbf{La multiplicité.} \textbf{84 runs distincts} passent au bilan dans le notebook, et tous y sont publiés ;
+\textbf{La multiplicité.} \textbf{162 runs distincts} passent au bilan dans le notebook (le pilotage du
+bloc III en ajoute, et ils comptent tous), et tous y sont publiés ;
 aucun seuil n'en est corrigé. Le protocole s'en protège autrement : chaque constante est fixée hors de toute
 performance (annexe B), et chaque balayage est publié en entier, le verdict lu à la valeur déclarée d'avance.
 \textbf{Les frais.} Seuls 10 points de base par aller-retour, à l'étape 9 --- aucun impact de marché, aucune
