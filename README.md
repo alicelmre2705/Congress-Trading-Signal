@@ -33,8 +33,9 @@ Nouveau ici ? Trois documents (à la racine de `00_recuperation_donnees/` — sa
 
 **Les tables prête-recherche** vivent dans `00_recuperation_donnees/data/clean/` — **brute**
 (169 000 × 41, tout le corpus avec le verdict d'entonnoir par ligne), **clean**
-(`transactions_backtest_2014_2026.csv`, **134 452 × 39** — parti/commissions point-in-time,
-tickers canoniques Yahoo + renommages vérifiés, flags, invariants garantis) et **gated**
+(`transactions_backtest_2014_2026.csv`, **118 316 × 39** — PROPRE au sens plein depuis le
+2026-08-12 : fenêtre 2013-2026 et couverture prix dans l'entonnoir A→F du pipeline ;
+parti/commissions point-in-time, tickers canoniques Yahoo, flags, invariants garantis) et **gated**
 (7 287 manuscrites écartées, avec motif) + la table annexe des commissions
 (bioguide × Congrès, sous-commissions résolues). Produites par `common/backtest_clean.py` (step 7 du
 pipeline, testé). **Les étapes du nettoyage et leur code : le §7 du rapport.**

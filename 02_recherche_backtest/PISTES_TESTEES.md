@@ -328,3 +328,10 @@ la table courante ; l'état v1 reste dans git, ses tables dans `_archive/tables_
 
 **Aucune conclusion ne change là non plus** : toujours pas d'alpha, mêmes pistes closes, même
 piste en sommeil (conjoint). La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
+
+**12/08 — l'entonnoir absorbe les filtres de la recherche.** La table clean du pipeline est
+désormais PROPRE au sens plein (étapes E fenêtre et F couverture prix — référentiel versionné
+`couverture_prix_v20260812.csv`) : **118 316 × 39**, zéro re-filtrage au chargement. Aucun
+périmètre de recherche ne change (portes vérifiées : flux titre 113 645 identique, famille
+membre 118 316/266/223 identiques) ; le 𝒯^brut (134 417 · 372 membres) se lit dans la table
+BRUTE (verdicts ∅+F). Les tableaux v1 → courante ci-dessus restent la passerelle historique.

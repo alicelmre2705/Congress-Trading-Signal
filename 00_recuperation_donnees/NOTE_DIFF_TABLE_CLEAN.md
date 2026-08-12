@@ -74,3 +74,18 @@ une correction voulue, pas une dérive.
 - Le rapport (certifié le 18/07 sur la v1 sous le nom `RAPPORT_QUALITE.md`) a été **renommé
   `RAPPORT_DONNEES.md` et régénéré le 11/08** : il porte désormais les chiffres de la table
   courante, et se régénère à chaque run (`python -m common.quality`, step 8 du pipeline).
+
+## 2026-08-12 — la table clean devient PROPRE au sens plein (entonnoir A→F)
+
+Décision d'Alice : « la table propre, c'est : tu épures les tickers qui ne fonctionnent pas, et
+les dates qui ne fonctionnent pas non plus. » Deux étapes rejoignent l'entonnoir du pipeline :
+**E** — fenêtre 2013-2026 (35 trades exécutés en 2012, déclarés dans des dépôts ultérieurs) ;
+**F** — couverture prix (16 101 trades sur 1 321 tickers sans série exploitable — référentiel
+versionné `data/reference/couverture_prix_v20260812.csv`, extrait daté du cache de la recherche
+par `python -m tools.couverture_prix`). **134 452 → 118 316 × 39.** Ces filtres existaient déjà —
+chaque notebook de recherche les rejouait localement : les périmètres de recherche sont
+INCHANGÉS (flux titre 113 645 ; famille membre 118 316/266/223 — portes vérifiées), le 𝒯^brut
+(134 417, 372 membres) se lit désormais dans la table BRUTE (verdicts ∅+F). Au passage, OWNER_N
+couvre « Dependent Child » et « Joint Tenancy » (fin des 26 875 « autre/inconnu »). La
+corroboration externe (§8 du rapport) se mesure sur le corpus A→D (table brute) — la collecte ne
+dépend pas de notre couverture prix.

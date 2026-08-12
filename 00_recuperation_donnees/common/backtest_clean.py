@@ -3,9 +3,12 @@
 Quatre sorties dans data/clean/ :
   - transactions_brut_2014_2026.csv   : TOUT le corpus assemblé (dédup cross-année + fixes
     read-time), rien d'écarté — chaque ligne porte le verdict de l'entonnoir
-    (exclusion_etape ∈ {A,B,C,D} ou vide, exclusion_motif) et tous les enrichissements ;
-  - transactions_backtest_2014_2026.csv : la table CLEAN (entonnoir A→D + corrections) —
-    la table que la recherche consomme ;
+    (exclusion_etape ∈ {A,B,C,D,E,F} ou vide, exclusion_motif) et tous les enrichissements ;
+  - transactions_backtest_2014_2026.csv : la table CLEAN (entonnoir A→F + corrections) —
+    la table que la recherche consomme ; depuis le 2026-08-12, elle est PROPRE au sens plein :
+    E écarte les trades hors fenêtre 2013-2026, F les tickers sans série de prix exploitable
+    (référentiel versionné data/reference/couverture_prix_*.csv) — les filtres que chaque
+    notebook de recherche rejouait localement vivent désormais ici ;
   - transactions_gated_2014_2026.csv  : les transactions des scans manuscrits gated
     (cluster C/B), récupérées par une passe OCR une-fois (cache non régénérable
     data/house/ocr_gated_recovered.csv) — exportées pour que rien ne soit écarté en silence ;
@@ -61,8 +64,19 @@ FUSION_CLASSES = {"GOOGL": "GOOG", "BRK-A": "BRK-B", "FOXA": "FOX", "NWSA": "NWS
 # Normalisation du champ owner (couverture 100 % vérifiée par assertion à l'export).
 OWNER_N = {"Spouse": "conjoint", "SP": "conjoint", "spouse": "conjoint",
            "SELF": "élu", "Self": "élu", "self": "élu",
-           "Joint": "joint", "JT": "joint", "joint": "joint",
-           "Child": "enfant", "DC": "enfant", "dependent": "enfant", "Dependent": "enfant"}
+           "Joint": "joint", "JT": "joint", "joint": "joint", "Joint Tenancy": "joint",
+           "Child": "enfant", "DC": "enfant", "dependent": "enfant", "Dependent": "enfant",
+           "Dependent Child": "enfant"}
+
+# Couverture prix : référentiel VERSIONNÉ et DATÉ (extrait du cache de la recherche par
+# `python -m tools.couverture_prix`, 02_recherche_backtest — le pipeline reste hors-ligne).
+# Étape F de l'entonnoir : un trade sur un ticker sans série de prix exploitable n'est pas
+# backtestable — verdict en table brute, exclu de la clean. Les tickers ABSENTS du référentiel
+# (postérieurs à son extraction) ne sont pas exclus : ré-extraire pour les couvrir.
+COUVERTURE_PRIX = REF / "couverture_prix_v20260812.csv"
+# Fenêtre de la table clean (étape E) : les trades exécutés avant 2013 (déclarés dans des
+# dépôts 2014+) sortent de la clean — la fenêtre que toute la recherche applique.
+FENETRE = (2013, 2026)
 
 COLS = ["bioguide_id", "member_name", "party", "chamber", "state_district",
         "committee_membership", "committees_key_flag", "congress",
@@ -349,6 +363,29 @@ def build_tables(corrections=True, verbose=True):
     df["exclusion_etape"] = etape
     df["exclusion_motif"] = motif
     df = enrich(df, corrections=corrections)
+
+    if corrections:
+        # étapes E (fenêtre) et F (couverture prix) — APRÈS enrich : F se juge sur ticker_yahoo.
+        # « La table propre, c'est : tu épures les tickers qui ne fonctionnent pas, et les dates
+        # qui ne fonctionnent pas non plus. » Verdict en brute, exclusion de la clean.
+        libre = df["exclusion_etape"] == ""
+        hors_fenetre = libre & ~df["txn_year"].between(*FENETRE)
+        df.loc[hors_fenetre, "exclusion_etape"] = "E"
+        df.loc[hors_fenetre, "exclusion_motif"] = \
+            f"hors fenêtre {FENETRE[0]}-{FENETRE[1]} (transaction antérieure, déclarée dans un dépôt ultérieur)"
+        couv = pd.read_csv(COUVERTURE_PRIX).set_index("ticker_yahoo")["statut_prix"]
+        statut = df["ticker_yahoo"].map(couv)
+        libre = df["exclusion_etape"] == ""
+        sans_px = libre & statut.eq("sans_prix")
+        corrompu = libre & statut.eq("prix_corrompu")
+        df.loc[sans_px, "exclusion_etape"] = "F"
+        df.loc[sans_px, "exclusion_motif"] = "aucune série de prix exploitable (référentiel couverture_prix)"
+        df.loc[corrompu, "exclusion_etape"] = "F"
+        df.loc[corrompu, "exclusion_motif"] = "série de prix corrompue (< 0,10 $ ou saut > 300 %/j)"
+        n_inconnus = int((libre & statut.isna()).sum())
+        if n_inconnus:
+            log(f"⚠ {n_inconnus:,} lignes sur des tickers hors référentiel couverture_prix — gardées "
+                f"(ré-extraire tools.couverture_prix pour les statuer)")
 
     funnel = (df["exclusion_etape"].replace("", "∅ (gardée)").value_counts().sort_index())
     log("entonnoir :", dict(funnel))

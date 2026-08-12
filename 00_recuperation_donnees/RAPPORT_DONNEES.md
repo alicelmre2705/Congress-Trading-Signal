@@ -1,5 +1,5 @@
 # Rapport des données — trading du Congrès américain
-> Chambre des représentants + Sénat · 2014–2026 · **régénéré le 2026-08-11** par `python -m common.quality` — relancer le pipeline régénère ce rapport : si les données changent, chaque chiffre suit (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
+> Chambre des représentants + Sénat · 2014–2026 · **régénéré le 2026-08-12** par `python -m common.quality` — relancer le pipeline régénère ce rapport : si les données changent, chaque chiffre suit (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
 
 ## Résumé exécutif
 
@@ -13,7 +13,7 @@
 | Dates cohérentes / délai médian de divulgation | **99.8 %** / **27 j** |
 | Montants renseignés | **99.4 %** |
 | Combinaisons Quiver retrouvées (déposant, ticker, sens — fenêtre commune) | **93.5 %** House · **92.1 %** Sénat |
-| Table de recherche backtest (§7) | **134 452 lignes × 39 colonnes** |
+| Table de recherche backtest (§7) | **118 316 lignes × 39 colonnes** |
 | Filet de non-régression | golden **230 + 138 fichiers** (SHA256), zéro écart |
 
 - **Périmètre** — 169 000 transactions uniques de membres élus (House 151 989 + Sénat 17 011), 2014–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
@@ -538,7 +538,7 @@ Listes actionnables complètes (ligne à ligne) → `data/quiver_validation/` (`
 
 ## 7. Du corpus à la table de recherche (nettoyage backtest)
 
-Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : ci-dessous) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**134 452 lignes × 39 colonnes**) par un entonnoir en 4 étapes.
+Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : ci-dessous) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**118 316 lignes × 39 colonnes**) par un entonnoir en 6 étapes — depuis le 2026-08-12, la fenêtre (E) et la couverture prix (F, référentiel versionné `data/reference/couverture_prix_*.csv`) vivent dans le pipeline : la table clean est PROPRE au sens plein, plus aucun re-filtrage côté recherche.
 
 **Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport depuis le module (`common.backtest_clean`), puis confrontés au fichier publié à chaque run.*
 
@@ -551,7 +551,9 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 | B | actions + ETF cotés (ticker exploitable, réellement coté, famille cotée) | 29783 | 135965 |
 | C | direction claire (achat / vente — les échanges sortent) | 826 | 135139 |
 | D | montant présent (fourchette STOCK Act → point milieu) | 687 | 134452 |
-*169 000 → 134 452 = 79.6 % du corpus conservé. Chaque retrait est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un simple champ vide récupérable.*
+| E | fenêtre 2013-2026 (transaction dans la fenêtre d'étude) | 35 | 134417 |
+| F | couverture prix (référentiel versionné `couverture_prix_*.csv` — série exploitable exigée) | 16101 | 118316 |
+*169 000 → 118 316 = 70.0 % du corpus conservé. Chaque retrait est motivé par l'impossibilité MATÉRIELLE de backtester la ligne, jamais par un simple champ vide récupérable.*
 
 ### Pourquoi les lignes de l'étape B partent (une seule cause par ligne)
 
@@ -568,23 +570,23 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 
 | chambre | ère | transactions |
 | --- | --- | --- |
-| house | 2014-2019 | 56694 |
-| house | 2020-2026 | 66108 |
-| senate | 2014-2019 | 7111 |
-| senate | 2020-2026 | 4539 |
+| house | 2014-2019 | 45918 |
+| house | 2020-2026 | 62304 |
+| senate | 2014-2019 | 5847 |
+| senate | 2020-2026 | 4247 |
 **Par sens :**
 
 | sens | transactions |
 | --- | --- |
-| buy | 68241 |
-| sell | 66211 |
+| buy | 60154 |
+| sell | 58162 |
 **Par classe d'actif :**
 
 | classe d'actif | transactions |
 | --- | --- |
-| stock | 128957 |
-| unknown | 3226 |
-| etf_broad | 2023 |
+| stock | 114173 |
+| etf_broad | 2022 |
+| unknown | 1875 |
 | etf_sector | 246 |
 *`stock` = action avec secteur GICS (rempli à 100 % sur les actions) · `etf_sector` = SPDR sectoriel (son propre proxy) · `etf_broad` = ETF diversifié coté, GARDÉ et flagué (pas de secteur GICS par nature) · `unknown` = coté mais classe non résolue, flagué.*
 
@@ -592,10 +594,10 @@ Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obliga
 
 | flag | lignes | % |
 | --- | --- | --- |
-| `flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication) | 16343 | 12.2 |
-| `flag_very_late_filing` — divulgation > 365 j | 3071 | 2.3 |
-| `is_delisted` — titre sorti de cote (rachat/faillite, typé via `data/reference/ticker_renames.csv`) | 3542 | 2.6 |
-| `lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer | 11871 | 8.8 |
+| `flag_late_filing` — divulgation > 45 j (l'info reste exploitable à sa date de publication) | 13886 | 11.7 |
+| `flag_very_late_filing` — divulgation > 365 j | 2632 | 2.2 |
+| `is_delisted` — titre sorti de cote (rachat/faillite, typé via `data/reference/ticker_renames.csv`) | 722 | 0.6 |
+| `lot_size` > 1 — lots multi-comptes réels (Self/Spouse/Joint) — ne JAMAIS dédupliquer | 9998 | 8.5 |
 | `flag_price_caution` — symbole recyclé / jambe absorbée d'une fusion (join prix par période) | 525 | 0.4 |
 ### Ce que la table ajoute au corpus (enrichissements)
 
@@ -628,7 +630,7 @@ python tests/regression/test_backtest_clean.py # le contrôle : doit afficher «
 | table | dimensions | contenu |
 | --- | --- | --- |
 | `transactions_brut_2014_2026.csv` | 169 000 × 41 | la donnée BRUTE : tout le corpus, avec pour chaque ligne écartée son étape et son motif (`exclusion_etape`, `exclusion_motif`) |
-| `transactions_backtest_2014_2026.csv` | 134 452 × 39 | la donnée CLEAN : celle que la recherche consomme |
+| `transactions_backtest_2014_2026.csv` | 118 316 × 39 | la donnée CLEAN : celle que la recherche consomme |
 | `transactions_gated_2014_2026.csv` | 7 287 × 13 | les transactions des scans manuscrits écartés par la politique OCR (`house/ocr.py`), avec leur motif |
 | `commissions_membre_congres.csv` | 3 707 × 3 | annexe : texte complet des commissions et sous-commissions par élu × Congrès (jointure `bioguide_id` × `congress`) |
 ### Les référentiels du nettoyage (`data/reference/`)

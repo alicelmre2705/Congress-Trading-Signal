@@ -38,6 +38,9 @@ def charger(verbose=True, table=None):
     coupes_tout, i_start, FF, ordre_d/I_de (index trié sur la divulgation).
     """
     chemin = {None: CLEAN, "v1": CLEAN_V1}.get(table, Path(table) if table else CLEAN)
+    # Depuis le 2026-08-12, la table courante est déjà fenêtrée et couverte-prix (entonnoir E/F
+    # du pipeline) : les filtres prix/fenêtre ci-dessous sont des garde-fous à zéro effet sur
+    # elle (toujours actifs sur la v1).
     # colonnes voulues ∩ colonnes présentes : la v1 porte committee_membership inline, la table
     # courante l'a normalisée en annexe (NOTE_DIFF_TABLE_CLEAN, branche presentation) — tools n'en a pas besoin.
     voulues = ["bioguide_id", "member_name", "ticker_yahoo", "direction", "transaction_date",

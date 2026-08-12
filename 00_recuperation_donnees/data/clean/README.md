@@ -3,7 +3,7 @@
 | table | dimensions | contenu |
 |---|---|---|
 | `transactions_brut_2014_2026.csv` | 169 000 × 41 | **la brute** : tout le corpus unique, avec pour chaque ligne écartée son étape et son motif (`exclusion_etape`, `exclusion_motif`) — rien d'écarté en silence |
-| `transactions_backtest_2014_2026.csv` | 134 452 × 39 | **la clean** : la table de recherche canonique (celle que `02_recherche_backtest/` consomme) |
+| `transactions_backtest_2014_2026.csv` | 118 316 × 39 | **la clean** : la table de recherche canonique (celle que `02_recherche_backtest/` consomme) |
 | `transactions_gated_2014_2026.csv` | 7 287 × 13 | les scans manuscrits écartés par la politique OCR (`house/ocr.py`), avec leur motif |
 | `commissions_membre_congres.csv` | 3 707 × 3 | annexe : texte complet des commissions et sous-commissions par élu × Congrès (jointure `bioguide_id` × `congress`) |
 
