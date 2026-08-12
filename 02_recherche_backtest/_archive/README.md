@@ -328,3 +328,18 @@ La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
 bioguide_id → years_in_office de `table_congres_2014_2026.csv` (41 Mo, non versionné, 100 %
 Quiver, producteur archivé dans `recherche_v1/02_…`) — la famille membre ne dépend plus du
 gros fichier. Les études figées, elles, le lisent encore (sorties d'époque).
+
+---
+
+## 2026-08-12 — les études deviennent le producteur exact des slides ; l'exploratoire archivé
+
+**`etudes_v1_20260720/`** : les deux études exploratoires (`etude_population`, `etude_portraits`,
+sorties figées du 20/07, adossées v1) et leurs **24 figures jamais présentées** (`figs_mortes/` :
+les 10 cartes + 10 fiches par membre — dont le code producteur avait déjà disparu du notebook —,
+le paysage des benchmarks, K1, P5, P7b). Leurs contre-preuves du moteur (recalcul Pelosi en
+double boucle à 10⁻¹², conservation FIFO) restent lisibles ICI — décision d'Alice : la preuve
+vivante du socle est `python -m tools.membre.test_ancres_membre`.
+
+L'actif : `etudes/figures_du_deck.ipynb` produit les 10 figures **à prix** de la partie II du
+deck ; les 7 figures de population **sans prix** sont produites par la chaîne du rapport
+(`common/quality.py`) — `png/figs_pop/` = exactement les 17 figures présentées (contrat asserté).
