@@ -189,13 +189,24 @@ def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
     nB = nA - int((etape == "B").sum())
     nC = nB - int((etape == "C").sum())
     nD = nC - int((etape == "D").sum())
-    dD_len = nD
     m_B = etape == "B"
     causes_B_counts = _motif[m_B].value_counts()
 
+    # étapes E (fenêtre) et F (couverture prix) — mêmes règles que le module (step 7)
+    from common.backtest_clean import COUVERTURE_PRIX, FENETRE
+    kept = etape == ""
+    mE = kept & ~df["txn_year"].between(*FENETRE)
+    nE = nD - int(mE.sum())
+    ren = pd.read_csv(Path(repo_root) / "data" / "reference" / "ticker_renames.csv").set_index("ticker_ancien")
+    map_new = ren.loc[ren["ticker_nouveau"].notna() & (ren["ticker_nouveau"] != ""), "ticker_nouveau"]
+    tk_y = df["ticker"].map(lambda t: schema.canonical_ticker(t)[0]).map(lambda t: map_new.get(t, t))
+    couv = pd.read_csv(COUVERTURE_PRIX).set_index("ticker_yahoo")["statut_prix"]
+    mF = kept & ~mE & tk_y.map(couv).isin(["sans_prix", "prix_corrompu"])
+    nF = nE - int(mF.sum())
+
     clean = pd.read_csv(clean_p, dtype=str)
-    if len(clean) != dD_len:
-        print(f"⚠️ entonnoir rejoué ({dD_len:,}) ≠ table publiée ({len(clean):,}) — "
+    if len(clean) != nF:
+        print(f"⚠️ entonnoir rejoué ({nF:,}) ≠ table publiée ({len(clean):,}) — "
               "re-générer via `python -m common.backtest_clean`")
 
     funnel = pd.DataFrame([
@@ -208,6 +219,11 @@ def backtest_funnel(df: pd.DataFrame, repo_root: Path) -> dict:
          "retirées": nB - nC, "restantes": nC},
         {"étape": "D", "règle": "montant présent (fourchette STOCK Act → point milieu)",
          "retirées": nC - nD, "restantes": nD},
+        {"étape": "E", "règle": f"fenêtre {FENETRE[0]}-{FENETRE[1]} (transaction dans la fenêtre d'étude)",
+         "retirées": nD - nE, "restantes": nE},
+        {"étape": "F", "règle": "couverture prix (référentiel versionné `couverture_prix_*.csv` — "
+                                "série exploitable exigée)",
+         "retirées": nE - nF, "restantes": nF},
     ])
     # causes de l'étape B, exclusives dans l'ordre (une ligne = une cause) — motifs du module
     causes = pd.DataFrame([{"cause": c, "lignes": int(n)} for c, n in causes_B_counts.items()])
@@ -963,14 +979,20 @@ def external_corroboration(repo_root: Path) -> dict:
     """§8 — corroboration LIGNE À LIGNE de la table de recherche contre deux collectes publiques
     tierces (senate-stock-watcher / house-stock-watcher, JSON versionnés dans `data/external/`,
     jamais réinjectées). La logique vit dans `common.crosscheck` ; tout est recalculé à chaque
-    run. Renvoie {} si une entrée manque."""
-    clean_p = repo_root / "data" / "clean" / "transactions_backtest_2014_2026.csv"
+    run. Renvoie {} si une entrée manque.
+
+    ⚠️ Base = le corpus A→D (table BRUTE, verdicts ∅/E/F) et non la clean : la corroboration
+    mesure la COLLECTE — les sources externes ne connaissent ni notre fenêtre (étape E) ni
+    notre couverture prix (étape F), les en priver ferait chuter le taux artificiellement."""
+    brut_p = repo_root / "data" / "clean" / "transactions_brut_2014_2026.csv"
     ssw_p = repo_root / "data" / "external" / "senate_openset" / "ssw_all_daily_summaries.json"
     hsw_p = repo_root / "data" / "external" / "house_openset" / "hsw_all_transactions.json"
-    if not (clean_p.exists() and ssw_p.exists() and hsw_p.exists()):
+    if not (brut_p.exists() and ssw_p.exists() and hsw_p.exists()):
         return {}
-    cols = ["member_name", "chamber", "ticker", "ticker_yahoo", "direction", "transaction_date"]
-    bt = pd.read_csv(clean_p, usecols=cols, dtype=str)
+    cols = ["member_name", "chamber", "ticker", "ticker_yahoo", "direction", "transaction_date",
+            "exclusion_etape"]
+    bt = pd.read_csv(brut_p, usecols=cols, dtype=str)
+    bt = bt[bt["exclusion_etape"].fillna("").isin(["", "E", "F"])].drop(columns=["exclusion_etape"])
     r_ssw = crosscheck.corroboration_lignes(bt, crosscheck.load_ssw_lines(ssw_p), "senate")
     r_hsw = crosscheck.corroboration_lignes(bt, crosscheck.load_hsw_lines(hsw_p), "house")
     recap = pd.DataFrame([
@@ -1681,7 +1703,10 @@ def build_report(repo_root: Path) -> Path:
             "**montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : "
             "ci-dessous) dérive la **table de recherche "
             "canonique** `data/clean/transactions_backtest_2014_2026.csv` "
-            f"(**{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes**) par un entonnoir en 4 étapes.\n\n"
+            f"(**{_n(_bf['n_final'])} lignes × {_bf['n_cols']} colonnes**) par un entonnoir en 6 étapes — "
+            f"depuis le 2026-08-12, la fenêtre (E) et la couverture prix (F, référentiel versionné "
+            f"`data/reference/couverture_prix_*.csv`) vivent dans le pipeline : la table clean est "
+            f"PROPRE au sens plein, plus aucun re-filtrage côté recherche.\n\n"
             "**Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ "
             "et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. "
             "*Les comptes ci-dessous sont REJOUÉS par ce rapport depuis le module "
@@ -1906,11 +1931,214 @@ def build_report(repo_root: Path) -> Path:
     return report
 
 
+# ──────────────── les figures de POPULATION du deck (partie II, étape A + secteurs) ────────────────
+# Portées du notebook d'étude (ex-12, cellules 24-39) le 2026-08-12 — décision : les figures qui ne
+# demandent QUE la table clean sont produites par la chaîne du rapport (régénérables avec lui,
+# zéro double calcul côté recherche). Les figures qui exigent les PRIX (durées, distributions de
+# performance, portraits) restent produites par 02_recherche_backtest/…/etudes/. Le deck (document
+# figé) garde ses copies figs_deck — règle des figures du dépôt.
+
+# comité (code THOMAS racine) → secteurs GICS supervisés (juridiction officielle) ; les comités
+# transverses (budget/justice/règlement) ne donnent aucun secteur — choix d'étude, assumé
+SECTEURS_REG = {
+    "HSAG": {"Consumer Staples", "Materials"},          "SSAF": {"Consumer Staples", "Materials"},
+    "HSAS": {"Industrials"},  "SSAS": {"Industrials"},  "HLIG": {"Industrials"},
+    "HSHM": {"Industrials", "Information Technology"},
+    "HSBA": {"Financials", "Real Estate"},              "SSBK": {"Financials", "Real Estate"},
+    "HSIF": {"Energy", "Utilities", "Health Care", "Communication Services"},
+    "HSII": {"Energy", "Materials", "Utilities"},       "SSEG": {"Energy", "Utilities", "Materials"},
+    "SSEV": {"Utilities", "Materials", "Industrials"},  "HSPW": {"Industrials", "Utilities"},
+    "SSCM": {"Industrials", "Communication Services", "Information Technology"},
+    "HSWM": {"Health Care", "Financials"},              "SSFI": {"Health Care", "Financials"},
+    "HSSY": {"Information Technology"},                 "SSHR": {"Health Care"},  "HSVR": {"Health Care"},
+}
+
+
+def figures_population(repo_root: Path) -> list:
+    """Écrit les 7 figures de population de la partie II du deck dans png/figs_pop/ (dpi=200) :
+    P1_population_temps · P2_top_membres · P3_proprietaires · P4a_fourchettes · P4b_delai ·
+    P4c_conflit · P6_secteurs. Base = LA TABLE CLEAN (propre au sens plein, entonnoir A→F)."""
+    import re as _re
+
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    clean_p = repo_root / "data" / "clean" / "transactions_backtest_2014_2026.csv"
+    annexe_p = repo_root / "data" / "clean" / "commissions_membre_congres.csv"
+    outdir = repo_root / "png" / "figs_pop"
+    if not clean_p.exists():
+        return []
+    outdir.mkdir(parents=True, exist_ok=True)
+    kw = dict(dpi=200, bbox_inches="tight", facecolor="white")
+
+    d = pd.read_csv(clean_p, low_memory=False)
+    d["traded"] = pd.to_datetime(d["transaction_date"], errors="coerce")
+    d["annee"] = d["traded"].dt.year
+    d = d.rename(columns={"member_name_canon": "name", "direction": "op",
+                          "amount_midpoint": "size_usd"})
+    ecrites = []
+
+    # P1 — la population de trades dans le temps
+    _by = d.groupby("annee")
+    fig, ax = plt.subplots(1, 2, figsize=(12, 4.5))
+    _by["bioguide_id"].nunique().plot(kind="line", marker="o", ax=ax[0], color="tab:green")
+    ax[0].set_title("Membres actifs par an"); ax[0].set_ylim(0, None); ax[0].set_xlabel("")
+    ax[0].set_ylabel("membres ayant tradé ≥ 1 fois")
+    _bs = d.groupby(["annee", "op"]).size().unstack(fill_value=0)
+    _bs.plot(kind="bar", stacked=True, ax=ax[1], color={"buy": "tab:green", "sell": "tab:red"}, alpha=.8)
+    ax[1].set_title("Achats vs ventes par an"); ax[1].set_xlabel(""); ax[1].set_ylabel("trades")
+    fig.tight_layout(); fig.savefig(outdir / "P1_population_temps.png", **kw); plt.close(fig)
+    ecrites.append("P1_population_temps")
+
+    # P2 — les 10 membres les plus actifs
+    _top = d.groupby("name").size().sort_values(ascending=False).head(10)
+    fig, ax = plt.subplots(figsize=(11, 5))
+    _top.iloc[::-1].plot(kind="barh", ax=ax, color="tab:purple", alpha=.85)
+    ax.set_title("Les 10 membres les plus actifs (nombre de trades)"); ax.set_xlabel("trades déclarés")
+    fig.tight_layout(); fig.savefig(outdir / "P2_top_membres.png", **kw); plt.close(fig)
+    ecrites.append("P2_top_membres")
+
+    # P3 — répartition par trade vs par membre (chambre / parti / propriétaire)
+    fig, ax = plt.subplots(1, 3, figsize=(13, 3.8))
+    for a, col, titre in [(ax[0], "chamber", "Chambre"), (ax[1], "party", "Parti"),
+                          (ax[2], "owner_n", "Propriétaire")]:
+        _vc_tr = d[col].value_counts(normalize=True)
+        _vc_mb = (d.groupby("bioguide_id")[col]
+                  .agg(lambda s: s.mode().iloc[0] if len(s.mode()) else np.nan)
+                  .value_counts(normalize=True))
+        _cmp = pd.DataFrame({"par trade": _vc_tr, "par membre": _vc_mb}).fillna(0)
+        _cmp.plot(kind="bar", ax=a, color=["tab:blue", "tab:orange"], alpha=.85)
+        a.set_title(titre); a.set_xlabel(""); a.tick_params(axis="x", rotation=30)
+    fig.suptitle("Répartition par trade vs par membre", fontweight="bold")
+    fig.tight_layout(); fig.savefig(outdir / "P3_proprietaires.png", **kw); plt.close(fig)
+    ecrites.append("P3_proprietaires")
+
+    # P4a — distribution des fourchettes de montant
+    _order = ["$1,001 - $15,000", "$15,001 - $50,000", "$50,001 - $100,000", "$100,001 - $250,000",
+              "$250,001 - $500,000", "$500,001 - $1,000,000", "$1,000,001 - $5,000,000",
+              "$5,000,001 - $25,000,000", "$25,000,001 - $50,000,000", "$50,000,000 +"]
+    _ar = d["amount_range"].value_counts()
+    _ar = _ar.reindex([o for o in _order if o in _ar.index])
+    fig, ax = plt.subplots(figsize=(10, 3.6))
+    _ar.plot(kind="bar", ax=ax, color="teal", alpha=.85)
+    ax.set_title("Distribution des fourchettes de montant déclarées"); ax.set_xlabel("")
+    ax.tick_params(axis="x", rotation=40)
+    fig.tight_layout(); fig.savefig(outdir / "P4a_fourchettes.png", **kw); plt.close(fig)
+    ecrites.append("P4a_fourchettes")
+
+    # P4b — délai de déclaration + part de retards par an
+    fig, ax = plt.subplots(1, 2, figsize=(12, 3.8))
+    _lag = pd.to_numeric(d["lag_days"], errors="coerce").clip(lower=0)
+    ax[0].hist(_lag.clip(upper=_lag.quantile(.99)), bins=50, color="tab:brown", alpha=.8)
+    ax[0].axvline(45, color="red", ls="--", lw=1.2, label="seuil STOCK Act 45 j")
+    ax[0].set_title(f"Délai de déclaration (médiane {_lag.median():.0f} j)")
+    ax[0].set_xlabel("jours"); ax[0].legend()
+    _late = d.assign(_l=d["flag_late_filing"].astype(str).str.lower().eq("true")).groupby("annee")["_l"].mean()
+    _late.plot(kind="line", marker="o", ax=ax[1], color="tab:red")
+    ax[1].set_title("Part de dépôts en retard (>45 j) par an"); ax[1].set_ylim(0, None); ax[1].set_xlabel("")
+    fig.tight_layout(); fig.savefig(outdir / "P4b_delai.png", **kw); plt.close(fig)
+    ecrites.append("P4b_delai")
+
+    # P4c — conflit d'intérêt : part des achats dont le secteur est régulé par les comités du membre
+    if annexe_p.exists():
+        annexe = pd.read_csv(annexe_p)
+        d = d.merge(annexe[["bioguide_id", "congress", "committee_membership"]],
+                    on=["bioguide_id", "congress"], how="left")
+
+        def _codes_racine(s):
+            if not isinstance(s, str):
+                return frozenset()
+            return frozenset(t.strip()[:4] for t in s.split(";")
+                             if _re.fullmatch(r"[A-Z]{4}\d*", t.strip()))
+
+        # la table annexe porte des NOMS de commissions (« Parent — Sous-commission ») ; les codes
+        # THOMAS de l'étude d'origine n'y figurent plus — appariement nominal PAR SEGMENT EXACT
+        # (une sous-chaîne ferait matcher « Committee on Finance » dans « …Financial Services »)
+        _codes = d["committee_membership"].map(_codes_racine)
+        if _codes.map(len).sum() == 0:
+            NOMS_REG = {"Committee on Agriculture": "HSAG",
+                        "Committee on Agriculture, Nutrition, and Forestry": "SSAF",
+                        "Committee on Armed Services": "HSAS",
+                        "Permanent Select Committee on Intelligence": "HLIG",
+                        "Committee on Financial Services": "HSBA",
+                        "Committee on Banking, Housing, and Urban Affairs": "SSBK",
+                        "Committee on Energy and Commerce": "HSIF",
+                        "Committee on Energy and Natural Resources": "SSEG",
+                        "Committee on Environment and Public Works": "SSEV",
+                        "Committee on Health, Education, Labor, and Pensions": "SSHR",
+                        "Committee on Commerce, Science, and Transportation": "SSCM",
+                        "Committee on Transportation and Infrastructure": "HSPW",
+                        "Committee on Science, Space, and Technology": "HSSY",
+                        "Committee on Homeland Security": "HSHM",
+                        "Committee on Natural Resources": "HSII",
+                        "Committee on Ways and Means": "HSWM", "Committee on Finance": "SSFI",
+                        "Committee on Veterans' Affairs": "HSVR"}
+
+            def _canon_seg(s):
+                for p in ("House ", "Senate ", "Joint "):
+                    if s.startswith(p):
+                        return s[len(p):]
+                return s
+
+            def _codes_par_nom(cm):
+                if not isinstance(cm, str):
+                    return frozenset()
+                segs = [_canon_seg(t.strip()) for t in cm.split(";")]
+                return frozenset(code for nom, code in NOMS_REG.items()
+                                 if any(s == nom or s.startswith(nom + " —") for s in segs))
+
+            _codes = d["committee_membership"].map(_codes_par_nom)
+        _juri = _codes.map(lambda cs: frozenset().union(*[SECTEURS_REG.get(c, set()) for c in cs])
+                           if cs else frozenset())
+        d["_ci"] = [s in sm for s, sm in zip(d["sector_gics"], _juri)]
+        _pool = d.loc[d["op"] == "buy", "_ci"].mean()
+        _al = d[d["op"] == "buy"].groupby("bioguide_id")["_ci"].agg(n="size", part="mean")
+        _al = _al[_al.n >= 20]
+        _noms = d.groupby("bioguide_id")["name"].first()
+        _topa = _al.sort_values("part", ascending=False).head(10).copy()
+        _topa.index = [_noms.get(b, b) for b in _topa.index]
+        fig, ax = plt.subplots(1, 2, figsize=(13, 4.2))
+        ax[0].hist(_al.part, bins=30, color="tab:purple", alpha=.8)
+        ax[0].axvline(_pool, color="k", ls="--", label=f"moyenne {_pool:.0%}")
+        ax[0].set_title("Part des achats alignés comité (membres ≥ 20 achats)")
+        ax[0].set_xlabel("part alignée"); ax[0].legend()
+        (_topa.part * 100).iloc[::-1].plot(kind="barh", ax=ax[1], color="tab:red", alpha=.8)
+        ax[1].set_title("Top-10 des plus alignés"); ax[1].set_xlabel("% des achats dans un secteur régulé")
+        fig.tight_layout(); fig.savefig(outdir / "P4c_conflit.png", **kw); plt.close(fig)
+        ecrites.append("P4c_conflit")
+
+    # P6 — part du notional d'achat par secteur, top-30 membres
+    _ach = d[d["op"] == "buy"]
+    _notional = _ach.groupby("bioguide_id")["size_usd"].sum().sort_values(ascending=False)
+    _top30 = _notional.head(30).index
+    _g = _ach[_ach["bioguide_id"].isin(_top30)].groupby(["bioguide_id", "sector_gics"])["size_usd"].sum()
+    _hm = _g.div(_g.groupby(level=0).transform("sum")).unstack(fill_value=0)
+    _hm = _hm.reindex(_top30)
+    _noms = d.groupby("bioguide_id")["name"].first()
+    _hm.index = [_noms.get(b, b) for b in _hm.index]
+    fig, ax = plt.subplots(figsize=(11, 8))
+    im = ax.imshow(_hm.values, aspect="auto", cmap="YlOrRd", vmin=0, vmax=0.6)
+    ax.set_xticks(range(len(_hm.columns))); ax.set_xticklabels(_hm.columns, rotation=45, ha="right", fontsize=8)
+    ax.set_yticks(range(len(_hm))); ax.set_yticklabels(_hm.index, fontsize=7)
+    ax.set_title("Part du notional d'achat par secteur (top-30 membres)")
+    fig.colorbar(im, ax=ax, shrink=.6, label="part du notional d'achat")
+    fig.tight_layout(); fig.savefig(outdir / "P6_secteurs.png", **kw); plt.close(fig)
+    ecrites.append("P6_secteurs")
+
+    return ecrites
+
+
 def main():
     repo_root = Path(__file__).resolve().parent.parent
     report = build_report(repo_root)
     print(f"Rapport écrit : {report}")
     print(f"Figures : {report.parent / 'quality'}")
+    try:
+        pop = figures_population(repo_root)
+        print(f"Figures population (deck, partie II) : {len(pop)} → png/figs_pop/ ({', '.join(pop)})")
+    except Exception as e:  # la population ne doit jamais faire échouer le rapport
+        print(f"⚠️ figures population non régénérées : {e}")
 
 
 if __name__ == "__main__":

@@ -257,10 +257,10 @@ Les raisons tiennent toujours :
 2. **les constantes qui divergent sont des résultats** (purge γ à 504 j dans `noter_les_titres`
    contre 756 dans `M3_preuve_complete` ; plafond 8,5 contre 10 %) — les fondre dans des défauts
    de fonction, c'est enterrer le résultat ;
-3. **les études valent parce qu'elles réimplémentent** (`etude_population` recalcule Pelosi en
-   double boucle naïve, validé à 10⁻¹² ; `etude_portraits` recale sa table de comportements
-   (`beh`) sur `membres.csv` à 10⁻⁶). Un recalcul de contrôle qui importe ce qu'il vérifie ne
-   prouve plus rien ;
+3. **un recalcul de contrôle qui importe ce qu'il vérifie ne prouve plus rien** — les
+   contre-preuves historiques du moteur (le recalcul Pelosi en double boucle naïve à 10⁻¹², la
+   conservation FIFO) vivent dans les études archivées (`_archive/etudes_v1_20260720/`, sorties
+   figées v1) ; la preuve vivante du socle est `python -m tools.membre.test_ancres_membre` ;
 4. **les sorties figées font preuve** — refactorer sans tout ré-exécuter dissocierait le code de
    ses sorties ; tout ré-exécuter risquerait de déplacer des chiffres publiés.
 
@@ -276,9 +276,11 @@ validations conservées, mêmes chiffres 661,57 / 573,57 · 162 runs), `M3_table
 courante), et depuis le même soir **`tables_membres_tickers` + `copier_les_membres`** (génération
 2 famille membre : socle `tools/membre`, table courante, plus aucun re-nettoyage local — le
 passage v1 → courante est consigné dans la passerelle plus bas ; aucune conclusion ne change).
-La doctrine reste entière pour les notebooks figés — les deux études (recalculs indépendants,
-adossés aux `_archive/tables_v20260704/`) et les trois volets de `2_noter_les_titres/` ne sont
-pas touchés.
+S'y ajoute depuis le 12/08 `etudes/figures_du_deck.ipynb` (les 10 figures à prix de la partie
+II du deck, sur tools + membres.csv ; les 7 sans-prix : la chaîne du rapport). La doctrine reste
+entière pour les notebooks figés — les études exploratoires (archivées avec leurs 24 figures
+jamais présentées dans `_archive/etudes_v1_20260720/`) et les trois volets de
+`2_noter_les_titres/` ne sont pas touchés.
 
 Quatre défauts mineurs connus, documentés ici et laissés en l'état (les sorties sont figées) :
 `_mode` diverge entre `tables_membres_tickers` (`dropna()`) et les deux études ;
@@ -328,3 +330,10 @@ la table courante ; l'état v1 reste dans git, ses tables dans `_archive/tables_
 
 **Aucune conclusion ne change là non plus** : toujours pas d'alpha, mêmes pistes closes, même
 piste en sommeil (conjoint). La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
+
+**12/08 — l'entonnoir absorbe les filtres de la recherche.** La table clean du pipeline est
+désormais PROPRE au sens plein (étapes E fenêtre et F couverture prix — référentiel versionné
+`couverture_prix_v20260812.csv`) : **118 316 × 39**, zéro re-filtrage au chargement. Aucun
+périmètre de recherche ne change (portes vérifiées : flux titre 113 645 identique, famille
+membre 118 316/266/223 identiques) ; le 𝒯^brut (134 417 · 372 membres) se lit dans la table
+BRUTE (lignes marquées ∅ ou F par l’entonnoir). Les tableaux v1 → courante ci-dessus restent la passerelle historique.

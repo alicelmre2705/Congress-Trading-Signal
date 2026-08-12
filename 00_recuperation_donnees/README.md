@@ -4,7 +4,7 @@ Les déclarations de transactions des élus du Congrès américain (PTR Chambre 
 électronique et papier scanné), **2014-2026**. Le fil en une ligne :
 
 > **169 000 transactions uniques** collectées et validées → entonnoir de nettoyage →
-> **134 452 exploitables** (la table de recherche). La coupe vers ~113 600 qu'on voit côté
+> **118 316 exploitables** (la table de recherche — entonnoir A→F : fenêtre et couverture prix comprises depuis le 12/08). La coupe vers ~113 600 qu'on voit côté
 > recherche n'est **pas** du nettoyage : c'est un choix d'étude (actions seules, prix
 > exploitable), fait dans `../02_recherche_backtest/`.
 
@@ -24,7 +24,7 @@ documenté au §7 du rapport.*
 | table | contenu |
 |---|---|
 | `transactions_brut_2014_2026.csv` (169 000 × 41) | **la brute** : tout le corpus, verdict d'entonnoir écrit sur chaque ligne écartée — rien d'écarté en silence |
-| `transactions_backtest_2014_2026.csv` (134 452 × 39) | **la clean** : la table de recherche canonique |
+| `transactions_backtest_2014_2026.csv` (118 316 × 39) | **la clean** : la table de recherche canonique |
 | `transactions_gated_2014_2026.csv` (7 287 × 13) | les scans manuscrits écartés par la politique OCR, avec leur motif |
 | `commissions_membre_congres.csv` | annexe : commissions et sous-commissions par élu × Congrès |
 

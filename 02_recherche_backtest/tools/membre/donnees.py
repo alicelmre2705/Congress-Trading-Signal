@@ -7,7 +7,13 @@ CONSOMME owner_n, member_name_canon et la table annexe des commissions au lieu d
 
 ⚠️ Le garde-fou prix garde l'ORDRE HISTORIQUE de la famille membre : reindex(cal).ffill()
 PUIS les seuils (< 0,10 $, saut > 300 %/j) — tools.donnees (famille titre) teste les seuils
-sur la série brute AVANT alignement. Les deux périmètres n'ont pas de raison de coïncider.
+sur la série brute AVANT alignement. (Vérifié le 12/08 : les deux définitions donnent des
+statuts IDENTIQUES sur les 4 607 tickers.)
+
+Depuis le 2026-08-12, la table clean du pipeline est DÉJÀ fenêtrée (2013-2026, étape E) et
+couverte-prix (étape F, référentiel data/reference/couverture_prix_*.csv) : les filtres
+ci-dessous deviennent des garde-fous à ZÉRO effet sur la courante — conservés parce qu'ils
+restent nécessaires sur table="v1" et qu'ils protègent contre une dérive du cache local.
 """
 import glob
 import os
@@ -19,6 +25,7 @@ import pandas as pd
 
 from ..donnees import RACINE, DOSSIER, CLEAN, CLEAN_V1
 
+BRUT = RACINE / "00_recuperation_donnees" / "data" / "clean" / "transactions_brut_2014_2026.csv"
 PRICES = DOSSIER / "cache" / "prices_v2"
 ANCIENNETE = DOSSIER / "anciennete_2014_2026.csv"    # bioguide_id → years_in_office (extrait versionné)
 LEADERSHIP = DOSSIER / "leadership_2014_2026.csv"
@@ -45,42 +52,55 @@ def charger_membre(table=None, verbose=True):
     (celle des sorties figées historiques) ; ou un chemin explicite.
 
     Attributs : df (6 colonnes, périmètre exploitable), dfx (toutes colonnes, même périmètre,
-    committee_membership joint depuis la table annexe sur la courante), dfb (𝒯^brut : avant le
-    filtre prix), prices (dict de Series alignées ffill sur cal), cal, spy, r_spy,
-    need / missing / corrompus, n0.
+    committee_membership joint depuis la table annexe sur la courante), dfb (𝒯^brut : le
+    périmètre fenêtré AVANT le filtre prix — lu dans la table BRUTE du pipeline sur la
+    courante, verdicts ∅ et F), prices (dict de Series alignées ffill sur cal), cal, spy,
+    r_spy, need / missing / corrompus, n0.
     """
     chemin = {None: CLEAN, "v1": CLEAN_V1}.get(table, Path(table) if table else CLEAN)
     brut = pd.read_csv(chemin, low_memory=False)
     n0 = len(brut)
     v1 = "member_name_canon" not in brut.columns
 
-    brut = (brut.drop(columns=["ticker"])
-                .rename(columns={"ticker_yahoo": "ticker", "direction": "op",
-                                 "transaction_date": "traded", "amount_midpoint": "size_usd"}))
-    # le nom : canonique (une seule graphie par bioguide_id) — colonne pipeline sur la courante
-    if v1:
-        brut = brut.rename(columns={"member_name": "name"})
-        canon = brut.groupby("bioguide_id")["name"].transform(_mode)
-        brut["name"] = canon.where(canon.notna(), brut["name"])
-        brut["owner_n"] = brut["owner"].map(_OWNER_V1).fillna("autre/inconnu")
+    def _preparer(b, v1_):
+        b = (b.drop(columns=["ticker"])
+              .rename(columns={"ticker_yahoo": "ticker", "direction": "op",
+                               "transaction_date": "traded", "amount_midpoint": "size_usd"}))
+        # le nom : canonique (une seule graphie par bioguide_id) — colonne pipeline sur la courante
+        if v1_:
+            b = b.rename(columns={"member_name": "name"})
+            canon = b.groupby("bioguide_id")["name"].transform(_mode)
+            b["name"] = canon.where(canon.notna(), b["name"])
+            b["owner_n"] = b["owner"].map(_OWNER_V1).fillna("autre/inconnu")
+        else:
+            b["name"] = b["member_name_canon"]
+            # complément local : deux libellés longtemps absents d'OWNER_N côté pipeline
+            # (« Dependent Child », « Joint Tenancy ») — sans effet depuis le correctif du 12/08
+            trous = b["owner_n"].eq("autre/inconnu")
+            b.loc[trous, "owner_n"] = (b.loc[trous, "owner"].map(_OWNER_V1)
+                                       .fillna("autre/inconnu"))
+        b["traded"] = pd.to_datetime(b["traded"], errors="coerce")
+        b = b[b["traded"].dt.year.between(2013, 2026)].reset_index(drop=True)
+        # commissions : inline sur la v1 ; sur la courante, jointure de la table annexe du pipeline
+        if "committee_membership" not in b.columns and COMMISSIONS.exists():
+            annexe = pd.read_csv(COMMISSIONS)
+            b = b.merge(annexe[["bioguide_id", "congress", "committee_membership"]],
+                        on=["bioguide_id", "congress"], how="left")
+        return b
+
+    propre = _preparer(brut, v1)
+
+    # 𝒯^brut : depuis le 12/08 la clean est déjà couverte-prix (étape F du pipeline) — le
+    # périmètre « fenêtré avant prix » se lit donc dans la table BRUTE (verdicts ∅ et F).
+    if not v1 and BRUT.exists():
+        b0 = pd.read_csv(BRUT, low_memory=False)
+        b0 = b0[b0["exclusion_etape"].fillna("").isin(["", "F"])].drop(
+            columns=["exclusion_etape", "exclusion_motif"])
+        dfb = _preparer(b0, False)
     else:
-        brut["name"] = brut["member_name_canon"]
-        # complément local : deux libellés absents d'OWNER_N côté pipeline (correctif signalé) —
-        # « Dependent Child » → enfant (20 837 l.) et « Joint Tenancy » → joint (9 932 l.)
-        trous = brut["owner_n"].eq("autre/inconnu")
-        brut.loc[trous, "owner_n"] = (brut.loc[trous, "owner"].map(_OWNER_V1)
-                                      .fillna("autre/inconnu"))
-    brut["traded"] = pd.to_datetime(brut["traded"], errors="coerce")
-    brut = brut[brut["traded"].dt.year.between(2013, 2026)].reset_index(drop=True)
+        dfb = propre                                      # v1 : la clean d'époque EST le 𝒯^brut
 
-    # commissions : inline sur la v1 ; sur la courante, jointure de la table annexe du pipeline
-    if "committee_membership" not in brut.columns and COMMISSIONS.exists():
-        annexe = pd.read_csv(COMMISSIONS)
-        brut = brut.merge(annexe[["bioguide_id", "congress", "committee_membership"]],
-                          on=["bioguide_id", "congress"], how="left")
-
-    dfb = brut                                            # 𝒯^brut : tout le périmètre 2013-2026
-    df = dfb[["bioguide_id", "name", "ticker", "op", "traded", "size_usd"]].copy()
+    df = propre[["bioguide_id", "name", "ticker", "op", "traded", "size_usd"]].copy()
 
     # prix : cache prices_v2, alignés ffill sur le calendrier SPY PUIS garde-fous (ordre membre)
     spy = (pd.read_csv(PRICES / "SPY.csv", parse_dates=["Date"])
@@ -106,15 +126,15 @@ def charger_membre(table=None, verbose=True):
 
     n_jetes = int((~df["ticker"].isin(need)).sum())
     df = df[df["ticker"].isin(need)].reset_index(drop=True)
-    dfx = dfb[dfb["ticker"].isin(need)].reset_index(drop=True)
+    dfx = propre[propre["ticker"].isin(need)].reset_index(drop=True)
     assert len(dfx) == len(df), "dfx doit porter exactement le périmètre exploitable de df"
 
     M = SimpleNamespace(df=df, dfx=dfx, dfb=dfb, prices=prices, cal=cal, spy=spy, r_spy=r_spy,
                         need=need, missing=missing, corrompus=corrompus, n0=n0, n_jetes=n_jetes,
                         v1=v1)
     if verbose:
-        print(f"{n0} -> {len(dfb)} trades (fenêtre 2013-2026) | {dfb.bioguide_id.nunique()} membres "
-              f"| {dfb.ticker.nunique():,} tickers")
-        print(f"tickers avec prix : {len(need)} | sans prix : {len(missing)} | corrompus exclus : "
-              f"{len(corrompus)} | trades jetés : {n_jetes} => {len(df)} exploitables")
+        print(f"𝒯^brut (fenêtré, avant prix — table brute) : {len(dfb):,} trades | "
+              f"{dfb.bioguide_id.nunique()} membres | {dfb.ticker.nunique():,} tickers")
+        print(f"clean (exploitable) : {len(df):,} trades | tickers avec prix {len(need):,} | "
+              f"sans prix {len(missing)} | corrompus {len(corrompus)} | jetés au chargement {n_jetes}")
     return M
