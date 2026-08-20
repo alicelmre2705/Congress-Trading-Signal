@@ -90,14 +90,22 @@ bruts → 12 une fois le marché retiré ≈ 11 attendus par pur hasard ⇒ pas 
 | Les 12 leaders de parti (Wei & Zhou) | `06` §5a | **89 % des achats = une seule personne** (2025) | **non testable** sur notre fenêtre |
 | Passage trade → compte (NAV, coûts) | `06` §7 | +1,9 à +2,3 %/an, t ≤ 0,9 ; Sharpe 0,74 < SPY 0,82 | close |
 | Classement IR vs appraisal | `copier_les_membres` §4 | 20 → 12 ≈ hasard | le surnombre = du marché |
-| Top-K, K walk-forward | §7 | max du notebook : **+4,06 %/an, t 1,581** | enterré au §14 : max de 160 essais, DSR 0,106 |
+| Top-K, K walk-forward | §7 | max du notebook : **+4,06 %/an, t 1,581** | enterré par l'autopsie ⚰ : max de 160 essais, DSR 0,106 |
 | Cadence 6 mois · inverse-vol/ERC/GMV · Ledoit-Wolf | §8-§10 | max t_appraisal **+0,48** ; GMV −4,5 %/an (t −2,76) | le résultat est invariant au *qui/combien/comment* |
 | Sélection par le Sharpe brut | §11-§12 | max t 1,215 ; dilution +3,5 → −0,2 % à K=20 | close |
-| **Le Sharpe passé prédit-il ?** | §13 | **IC +0,048 (t 0,83)** ; il faudrait IC ≥ 0,15 pour espérer t > 1,81 | l'impasse était écrite d'avance |
-| **Puissance et multiplicité** | §14 | MDE ≈ **8 %/an** (détecter +2 % ⇒ ~170 ans de données) ; **160 essais**, E[max t\|H₀] 2,69 | personne n'a la puissance de valider un α réaliste |
-| **L'analyse d'après-coup du style** | §15 | +3,5 = **+6,9 sélection − 3,5 allocation** ; le panier est AMZN/MSFT/NVDA à 22-25 % | l'excès brut = des gains concentrés sur quelques titres, non reproductibles |
-| **Commissions, test intra-membre** (le plus propre du projet) | §16.2 | le même élu dans le périmètre de ses commissions : **Wilcoxon p 0,48**, répliqué sur les 2 ères (avant/après 2020) | la dernière hypothèse mécaniste meurt |
-| Six dimensions jamais lues | §17.2 | p (test de signe) — ère 0,064 · **conjoint 0,063 (cohérent 2 ères)** · **ventes 0,001 mais en NÉGATIF** · taille 0,052 non répliqué · délai 0,22 · parti/chambre/leadership ≥ 0,21 | une conclusion (les sorties détruisent un peu), une piste en sommeil (conjoint), le reste ne montre rien |
+| **Le Sharpe passé prédit-il ?** | ⚰ §13 | **IC +0,048 (t 0,83)** ; il faudrait IC ≥ 0,15 pour espérer t > 1,81 | l'impasse était écrite d'avance |
+| **Puissance et multiplicité** | ⚰ §14 | MDE ≈ **8 %/an** (détecter +2 % ⇒ ~170 ans de données) ; **160 essais**, E[max t\|H₀] 2,69 | personne n'a la puissance de valider un α réaliste |
+| **L'analyse d'après-coup du style** | ⚰ §15 | +3,5 = **+6,9 sélection − 3,5 allocation** ; le panier est AMZN/MSFT/NVDA à 22-25 % | l'excès brut = des gains concentrés sur quelques titres, non reproductibles |
+| **Commissions, test intra-membre** (le plus propre du projet) | ⚰ §16.2 | le même élu dans le périmètre de ses commissions : **Wilcoxon p 0,48**, répliqué sur les 2 ères (avant/après 2020) | la dernière hypothèse mécaniste meurt |
+| Six dimensions jamais lues | ⚰ §17.2 | p (test de signe) — ère 0,064 · **conjoint 0,063 (cohérent 2 ères)** · **ventes 0,001 mais en NÉGATIF** · taille 0,052 non répliqué · délai 0,22 · parti/chambre/leadership ≥ 0,21 | une conclusion (les sorties détruisent un peu), une piste en sommeil (conjoint), le reste ne montre rien |
+
+> ⚰ **L'autopsie (§13-§17) a été retirée de `copier_les_membres.ipynb` le 2026-08-20** — elle
+> n'avait aucune contrepartie dans le deck `SLIDES_DONNEES`. **Les résultats ci-dessus restent
+> acquis** : ce sont eux qui closent les pistes commissions et conjoint, et c'est la raison
+> d'être de ce fichier de ne pas les rouvrir. La preuve rejouable est dans l'historique git :
+> ```
+> git show 13a6b075:02_recherche_backtest/1_copier_les_membres/copier_les_membres.ipynb
+> ```
 
 ## Strate 3 — le NO-GO pré-enregistré (`_archive/08_Strategie_Calendar_Time`)
 
@@ -322,14 +330,16 @@ la table courante ; l'état v1 reste dans git, ses tables dans `_archive/tables_
 | tickers (dont couverts prix) | 4 618 (3 289) | **4 607 (3 286)** |
 | membres bruts / prix / reconstruits / éligibles | 372 / 359 / 266 / 223 | identiques |
 | meilleur cas (K walk-forward, §7) | +4,07 %/an, t 1,584 | **+4,06 %/an, t 1,581** |
-| IC du Sharpe passé (§13) | +0,047 (t 0,82) | **+0,048 (t 0,83)** |
-| décomposition §15 (K=5) | +6,9 sélection − 3,5 allocation | **+6,9 − 3,5** (inchangé à l'arrondi) |
-| commissions intra-membre (§16) | Wilcoxon p 0,54 | **p 0,48** |
-| conjoint − élu (§17 ②) | p 0,063, médianes +0,07/+0,08 | **identiques** |
-| ventes (§17 ③, en négatif) | p 0,002 | **p 0,001** |
+| IC du Sharpe passé (⚰ §13) | +0,047 (t 0,82) | **+0,048 (t 0,83)** |
+| décomposition ⚰ §15 (K=5) | +6,9 sélection − 3,5 allocation | **+6,9 − 3,5** (inchangé à l'arrondi) |
+| commissions intra-membre (⚰ §16) | Wilcoxon p 0,54 | **p 0,48** |
+| conjoint − élu (⚰ §17 ②) | p 0,063, médianes +0,07/+0,08 | **identiques** |
+| ventes (⚰ §17 ③, en négatif) | p 0,002 | **p 0,001** |
 
 **Aucune conclusion ne change là non plus** : toujours pas d'alpha, mêmes pistes closes, même
 piste en sommeil (conjoint). La preuve rejouable : `python -m tools.membre.test_ancres_membre`.
+Les lignes marquées ⚰ ont été certifiées sur l'autopsie §13-§17, retirée du notebook depuis
+(voir l'encadré de la strate 2 pour la récupérer dans git).
 
 **12/08 — l'entonnoir absorbe les filtres de la recherche.** La table clean du pipeline est
 désormais PROPRE au sens plein (étapes E fenêtre et F couverture prix — référentiel versionné

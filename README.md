@@ -39,7 +39,7 @@ jamais réinjecté dans les tables.
    fiches de littérature vérifiées en source primaire.
 
 Le chemin de la recherche, dans l'ordre des trois dossiers : `copier_les_membres` (**pas
-d'alpha**, et l'autopsie qui le prouve ; + `etudes/` — la population, les portraits) →
+d'alpha** ; + `etudes/` — la population, les portraits) →
 `noter_les_titres` (noter les **titres** plutôt que copier les élus : méthodes M1-M4, répliques
 NANC/GOP et Quiver) → **`M3_preuve_complete`** (M3 complet + version ETF + le livrable deux
 poches) et `M3_table_pipeline` (la même lignée rejouée sur la table courante du pipeline —

@@ -46,12 +46,6 @@ Puis les cinq réglages, un à la fois — aucun ne fait décrocher l'excès du 
 | 4 · COMMENT | inverse-vol, ERC, GMV (Ledoit-Wolf) | max t_appraisal **+0,48** ; GMV −4,5 %/an |
 | 5 · LA RÈGLE | classement par le Sharpe brut | le t **plafonne à 1,21** (K=6) |
 
-L'analyse d'après-coup montre que c'était écrit : le Sharpe passé ne prédit pas (IC **0,048**),
-le protocole n'a pas la puissance (MDE ≈ **8 %/an** — détecter +2 %/an demanderait ~170 ans),
-**160 essais** publiés (E[max t | hasard] = 2,69, Deflated Sharpe 0,11) ; le test le plus propre
-du projet — le même élu dans le périmètre de ses commissions — donne **p 0,48** ; une seule
-dimension reste en sommeil : conjoint vs élu (p 0,063, cohérente avant comme après 2020).
-
 ## Étape D — les portraits : pourquoi le classement ment
 
 ![Whitehouse — le seul robuste](../../00_recuperation_donnees/png/figs_pop/G_W000802_portrait.png)
