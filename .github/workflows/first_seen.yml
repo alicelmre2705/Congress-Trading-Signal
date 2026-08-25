@@ -1,0 +1,85 @@
+# Crawl d'horodatage — écrit `first_seen_at` : la date à laquelle NOUS voyons un document en ligne.
+#
+# C'est le seul job du dépôt dont la donnée ne se reconstitue PAS a posteriori : chaque jour sans
+# passage est un jour d'historique perdu pour toujours. Il est donc volontairement minuscule —
+# une dépendance (`requests`), aucun accès au corpus, aucune écriture hors `data/first_seen/`.
+#
+# Voir `00_recuperation_donnees/common/first_seen.py` pour le détail du contrat.
+name: first_seen
+
+on:
+  schedule:
+    - cron: "0 6 * * *"      # tous les jours à 06:00 UTC
+  workflow_dispatch:          # + déclenchement manuel (à utiliser pour le premier essai)
+
+permissions:
+  contents: write             # le job commite le CSV qu'il produit
+
+concurrency:
+  group: first-seen           # jamais deux passages en parallèle : le CSV est en append
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      # Le dépôt pèse ~730 Mo (.git) + 1,5 Go de source primaire embarquée. Un checkout complet
+      # quotidien serait absurde : on ne récupère que le code du crawl et le CSV qu'il alimente.
+      - name: Checkout (sparse — le dépôt complet ferait ~730 Mo)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            00_recuperation_donnees/common
+            00_recuperation_donnees/senate
+            00_recuperation_donnees/data/first_seen
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # `requests` suffit : le module n'importe ni pandas, ni pdfplumber, ni le référentiel des
+      # élus. C'est ce qui rend ce job rapide et difficile à casser.
+      - name: Dépendance unique
+        run: pip install --disable-pip-version-check requests
+
+      # Le module sort en 2 quand UNE chambre a échoué mais que l'autre a bien été enregistrée :
+      # on veut alors committer quand même, tout en laissant la trace de l'incident.
+      - name: Crawl
+        id: crawl
+        run: |
+          set +e
+          cd 00_recuperation_donnees
+          python -m common.first_seen --years "$(date -u +%Y)" --days-back 90 --no-snapshot
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then
+            echo "::error::le crawl a échoué (code $code) — aucune chambre n'a répondu"
+          elif [ "$code" -eq 2 ]; then
+            echo "::warning::une chambre n'a pas répondu — l'autre a bien été enregistrée"
+          fi
+
+      - name: Commit
+        run: |
+          cd 00_recuperation_donnees/data/first_seen
+          if git diff --quiet -- . && [ -z "$(git status --porcelain -- .)" ]; then
+            echo "aucun document nouveau — rien à committer"
+            exit 0
+          fi
+          n=$(git diff --numstat -- first_seen.csv | awk '{print $1}')
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "first_seen: +${n:-?} document(s) ($(date -u +%Y-%m-%d))"
+          git push
+
+      # Séparé du crawl pour que l'échec soit visible APRÈS le commit : ce qui a été observé est
+      # enregistré d'abord, le rouge vient ensuite.
+      - name: Statut final
+        if: steps.crawl.outputs.code != '0'
+        run: |
+          echo "crawl terminé avec le code ${{ steps.crawl.outputs.code }}"
+          [ "${{ steps.crawl.outputs.code }}" = "2" ] && exit 0 || exit 1

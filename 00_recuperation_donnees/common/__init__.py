@@ -25,6 +25,15 @@ Modules :
                   chaque chambre a son OCR en prod (house.ocr, senate.ocr_engine)
     pipeline      orchestrateur — enchaîne house.* + senate.* + enrich_tenure + backtest_clean
                   (step 7) + quality (step 8)
+    first_seen    ★ crawl d'horodatage : écrit `first_seen_at` (data/first_seen/), la date à
+                  laquelle NOUS voyons un document en ligne — la seule des trois dates dont on soit
+                  certain qu'elle est publique, et la seule qui NE SE RECONSTITUE PAS. N'importe
+                  rien du pipeline (requests + stdlib) : ce job ne doit jamais tomber.
+    live_run      run en direct : les dépôts nouveaux → lignes au format de la table de référence
+                  (12 champs, p. 31 du deck) dans data/live/. Voie PARALLÈLE — n'écrit jamais dans
+                  data/*/tables/, verrouillé à l'octet par le golden.
+    notification_dates  récolte la 2e date du PTR House (« Date Notified of Transaction ») depuis
+                  les PDF et les caches OCR déjà payés → référentiel annexe appliqué à la LECTURE
 """
 
 __version__ = "0.1.0"

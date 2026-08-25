@@ -1,5 +1,5 @@
 # Rapport des données — trading du Congrès américain
-> Chambre des représentants + Sénat · 2014–2026 · **régénéré le 2026-08-12** par `python -m common.quality` — relancer le pipeline régénère ce rapport : si les données changent, chaque chiffre suit (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
+> Chambre des représentants + Sénat · 2014–2026 · **régénéré le 2026-08-25** par `python -m common.quality` — relancer le pipeline régénère ce rapport : si les données changent, chaque chiffre suit (lecture seule des tables FINAL, aucun appel API) · Quiver Quantitative = vérité-terrain externe, **jamais réinjectée**. *Les % sont arrondis à 0,1 pt ; une somme de colonnes peut afficher 100,1.*
 
 ## Résumé exécutif
 
@@ -13,7 +13,7 @@
 | Dates cohérentes / délai médian de divulgation | **99.8 %** / **27 j** |
 | Montants renseignés | **99.4 %** |
 | Combinaisons Quiver retrouvées (déposant, ticker, sens — fenêtre commune) | **93.5 %** House · **92.1 %** Sénat |
-| Table de recherche backtest (§7) | **118 316 lignes × 39 colonnes** |
+| Table de recherche backtest (§7) | **118 316 lignes × 41 colonnes** |
 | Filet de non-régression | golden **230 + 138 fichiers** (SHA256), zéro écart |
 
 - **Périmètre** — 169 000 transactions uniques de membres élus (House 151 989 + Sénat 17 011), 2014–2026, en **4 sous-corpus** (chambre × voie d'acquisition : électronique déterministe / scan OCR).
@@ -205,6 +205,24 @@ Trois questions, de la plus faible à la plus forte : les dates sont-elles **lis
 *n dates valides = transactions dont le délai est CALCULABLE (les deux dates présentes et lisibles ; « valide » = mesurable, pas « juste ») · délai = divulgation − transaction (j) · ≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j*
 
 ![Délai de divulgation](png/quality/delai_divulgation.png)
+
+### Le déclarant savait-il ? (`notification_date`)
+
+Le PTR de la Chambre impose **deux** dates par ligne : celle de l'opération et *Date Notified of Transaction* — la date à laquelle le déclarant dit en avoir été **informé**. Ce second champ existe précisément pour les comptes qu'il ne pilote pas lui-même (gestion déléguée, trust, mandat). L'écart entre les deux mesure donc **directement** le contenu informationnel d'une ligne : à zéro, l'élu savait au moment de l'ordre ; à plusieurs semaines, il l'a appris après coup et n'a rien décidé.
+
+| chambre | n | couverture_% | informé le jour même % | ≤7 j % | 8–30 j % | >30 j % | délai médian (j) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| house | 151091 | 99.4 | 13.0 | 30.2 | 55.0 | 14.3 | 15 |
+
+**Par sous-corpus :**
+
+| sous-corpus | n | couverture_% | informé le jour même % | ≤7 j % | 8–30 j % | >30 j % | délai médian (j) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| House électronique | 58701 | 100.0 | 18.1 | 45.3 | 41.7 | 12.7 | 10 |
+| House OCR | 92390 | 99.1 | 9.7 | 20.6 | 63.5 | 15.4 | 18 |
+*couverture % = part des lignes dont la 2e date est lisible · délai = notification − transaction (j) · le **Sénat est absent** du tableau : son formulaire n'a qu'une colonne de date, ce n'est pas un défaut de collecte*
+
+**Lecture.** Seules **13.0 %** des lignes House sont notifiées le jour de l'opération ; la médiane est de **15 jours**. La majorité des transactions déclarées ne sont donc **pas** des décisions prises par l'élu en connaissance de cause au moment de l'ordre — un point à trancher avant de lire ces lignes comme un signal d'initié. La colonne `notif_lag` de `data/clean/` sépare les deux populations. Le champ est récolté par `common/notification_dates.py` depuis les PDF et les caches OCR **déjà payés** (zéro appel API), dans un référentiel annexe appliqué à la LECTURE : les tables figées ne sont pas touchées.
 
 ### Divulgations les plus tardives (> 365 j)
 
@@ -538,7 +556,7 @@ Listes actionnables complètes (ligne à ligne) → `data/quiver_validation/` (`
 
 ## 7. Du corpus à la table de recherche (nettoyage backtest)
 
-Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : ci-dessous) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**118 316 lignes × 39 colonnes**) par un entonnoir en 6 étapes — depuis le 2026-08-12, la fenêtre (E) et la couverture prix (F, référentiel versionné `data/reference/couverture_prix_*.csv`) vivent dans le pipeline : la table clean est PROPRE au sens plein, plus aucun re-filtrage côté recherche.
+Le corpus validé ci-dessus contient TOUT ce qui est déclaré (y compris obligations, munis, options, lignes sans ticker) — un backtest, lui, exige un **prix**, un **sens** et un **montant**. Le step 7 du pipeline (`common/backtest_clean.py` — les étapes et leur code : ci-dessous) dérive la **table de recherche canonique** `data/clean/transactions_backtest_2014_2026.csv` (**118 316 lignes × 41 colonnes**) par un entonnoir en 6 étapes — depuis le 2026-08-12, la fenêtre (E) et la couverture prix (F, référentiel versionné `data/reference/couverture_prix_*.csv`) vivent dans le pipeline : la table clean est PROPRE au sens plein, plus aucun re-filtrage côté recherche.
 
 **Principe : on ne retire que l'AVÉRÉ inutilisable pour un backtest ; tout le doute est GARDÉ et FLAGUÉ** (le tableau des flags ci-dessous) — aucune ligne n'est écartée en silence. *Les comptes ci-dessous sont REJOUÉS par ce rapport depuis le module (`common.backtest_clean`), puis confrontés au fichier publié à chaque run.*
 
@@ -629,8 +647,8 @@ python tests/regression/test_backtest_clean.py # le contrôle : doit afficher «
 
 | table | dimensions | contenu |
 | --- | --- | --- |
-| `transactions_brut_2014_2026.csv` | 169 000 × 41 | la donnée BRUTE : tout le corpus, avec pour chaque ligne écartée son étape et son motif (`exclusion_etape`, `exclusion_motif`) |
-| `transactions_backtest_2014_2026.csv` | 118 316 × 39 | la donnée CLEAN : celle que la recherche consomme |
+| `transactions_brut_2014_2026.csv` | 169 000 × 43 | la donnée BRUTE : tout le corpus, avec pour chaque ligne écartée son étape et son motif (`exclusion_etape`, `exclusion_motif`) |
+| `transactions_backtest_2014_2026.csv` | 118 316 × 41 | la donnée CLEAN : celle que la recherche consomme |
 | `transactions_gated_2014_2026.csv` | 7 287 × 13 | les transactions des scans manuscrits écartés par la politique OCR (`house/ocr.py`), avec leur motif |
 | `commissions_membre_congres.csv` | 3 707 × 3 | annexe : texte complet des commissions et sous-commissions par élu × Congrès (jointure `bioguide_id` × `congress`) |
 ### Les référentiels du nettoyage (`data/reference/`)

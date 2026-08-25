@@ -96,6 +96,18 @@ python -m common.pipeline --years 2026 --acquire       # --acquire : compléter 
 python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans rien exécuter
 ```
 
+Deux entrées **en direct** complètent le pipeline, hors de son chemin par années (elles n'écrivent
+jamais dans les tables gelées) — le détail : [le README de la partie 0](00_recuperation_donnees/README.md#démarrage-rapide--les-cinq-commandes-qui-servent) :
+
+```bash
+python -m common.first_seen     # horodate ce qui apparaît en ligne (quotidien, GitHub Actions)
+python -m common.live_run       # les dépôts nouveaux → lignes au format de la table p. 31
+```
+
+`first_seen` écrit `first_seen_at`, la date à laquelle **nous** voyons un document en ligne : la
+seule des trois dates dont on soit certain qu'elle est publique, et **la seule qui ne se
+reconstitue pas** a posteriori.
+
 ## Structure
 
 ```
@@ -103,13 +115,16 @@ python -m common.pipeline --years 2024 --dry-run       # voir la séquence sans 
   common/   contrat UNIVERSEL : reference · schema (clé, fixes read-time, canonical_ticker) ·
                    sector_enrich · vision_ocr · crosscheck · backtest_clean (step 7 : brute→clean) ·
                    quality (step 8 : LE rapport, régénérable) · quiver_diagnosis (§6) ·
-                   quiver_scopes · enrich_tenure (ancienneté) · report_pdf · pipeline (orchestrateur)
+                   quiver_scopes · enrich_tenure (ancienneté) · report_pdf · pipeline (orchestrateur) ·
+                   first_seen (horodatage quotidien) · live_run (dépôts nouveaux) ·
+                   notification_dates (2e date du PTR House)
   house/    pipeline Chambre  : digital · acquire (téléchargement index+PDF) · classify_scans ·
                    ocr · identity · amounts · tickers · quiver · echantillon
   senate/   pipeline Sénat    : digital · ocr · ocr_engine · fusion · identity · ticker · quiver ·
                    census_probe · report_types_probe (collecteurs eFD opt-in) ← jumeau de house/
   data/            données  (house/ · senate/ · external/ · reference/ ← renommages tickers, carte
-                   secteurs, snapshots commissions par Congrès · clean/ ← table canonique)
+                   secteurs, snapshots commissions par Congrès · clean/ ← table canonique ·
+                   first_seen/ ← le journal d'horodatage · live/ ← sorties du run en direct)
   (racine)         README.md (la carte du dossier) · SLIDES_DONNEES (le deck, .tex + .pdf) ·
                    RAPPORT_DONNEES (.md + .pdf — régénérable)
   png/             les images : figs_deck/ (le deck) · quality/ (le rapport) · figs_pop/

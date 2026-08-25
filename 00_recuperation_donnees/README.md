@@ -8,6 +8,51 @@ Les déclarations de transactions des élus du Congrès américain (PTR Chambre 
 > recherche n'est **pas** du nettoyage : c'est un choix d'étude (actions seules, prix
 > exploitable), fait dans `../02_recherche_backtest/`.
 
+## Démarrage rapide — les cinq commandes qui servent
+
+Toutes se lancent depuis `00_recuperation_donnees/`.
+
+| je veux… | la commande | réseau ? |
+|---|---|---|
+| **lire la donnée** — rien à lancer | `data/clean/transactions_backtest_2014_2026.csv` (118 316 lignes prêtes) | — |
+| **tout régénérer** depuis un clone | `python -m common.backtest_clean && python -m common.quality` | non |
+| **horodater ce qui apparaît** (quotidien) | `python -m common.first_seen` | oui |
+| **récupérer les dépôts nouveaux** | `python -m common.live_run` | oui |
+| **vérifier que rien n'a bougé** | `python tests/regression/check_golden.py` → « ZÉRO ÉCART » | non |
+
+### Les deux entrées « en direct »
+
+**`common.first_seen` — quand l'information devient publique.** Le corpus porte deux dates, toutes
+deux *inscrites sur le document* : celle de l'opération et celle du dépôt. Aucune ne dit quand le
+document est devenu **accessible**. Ce crawl écrit `first_seen_at` — la date à laquelle nous voyons
+un document en ligne pour la première fois — dans `data/first_seen/first_seen.csv`, en append seul.
+C'est la seule donnée du dépôt qui **ne se reconstitue pas** a posteriori : chaque jour sans passage
+est perdu définitivement. Un job GitHub Actions le lance chaque matin
+([`.github/workflows/first_seen.yml`](../.github/workflows/first_seen.yml)).
+
+```bash
+python -m common.first_seen --dry-run      # voir sans écrire
+python -m common.first_seen --backfill     # amorçage : inscrit tout le connu (hors ligne)
+```
+
+**`common.live_run` — du dépôt nouveau à la ligne de features.** Prend ce que le crawl a vu,
+retient ce qui n'est pas déjà dans le corpus, et le fait passer par tout le chemin
+(téléchargement → parsing → identité → tickers → secteurs → features) pour produire des lignes au
+**format exact de la table de référence** (les 12 champs du deck, p. 31). Sortie dans `data/live/`.
+
+Il n'écrit **jamais** dans `data/*/tables/` : ces tables sont verrouillées à l'octet par le filet
+golden. La voie est parallèle, la réconciliation se fait au run de pipeline complet suivant —
+`tests/regression/test_live_run.py` vérifie cette étanchéité à chaque exécution.
+
+```bash
+python -m common.live_run --dry-run        # ce qui serait produit
+python -m common.live_run --limit 20       # les 20 dépôts les plus récents
+```
+
+*Les scans (PTR House non lisibles, papier Sénat) ne sont pas traités par le run quotidien : ils
+exigent la classification puis l'OCR. Ils sont signalés, jamais perdus — ils restent « nouveaux »
+au passage suivant.*
+
 ## Les deux documents
 
 | document | c'est quoi |
@@ -23,15 +68,17 @@ documenté au §7 du rapport.*
 
 | table | contenu |
 |---|---|
-| `transactions_brut_2014_2026.csv` (169 000 × 41) | **la brute** : tout le corpus, verdict d'entonnoir écrit sur chaque ligne écartée — rien d'écarté en silence |
-| `transactions_backtest_2014_2026.csv` (118 316 × 39) | **la clean** : la table de recherche canonique |
+| `transactions_brut_2014_2026.csv` (169 000 × 43) | **la brute** : tout le corpus, verdict d'entonnoir écrit sur chaque ligne écartée — rien d'écarté en silence |
+| `transactions_backtest_2014_2026.csv` (118 316 × 41) | **la clean** : la table de recherche canonique |
 | `transactions_gated_2014_2026.csv` (7 287 × 13) | les scans manuscrits écartés par la politique OCR, avec leur motif |
 | `commissions_membre_congres.csv` | annexe : commissions et sous-commissions par élu × Congrès |
 
 **Une ligne = une transaction déclarée** : qui (`member_name`, `bioguide_id`, chambre) · quoi
 (`ticker` fidèle à la déclaration + `ticker_yahoo` prêt pour le join prix, classe d'actif,
 secteur GICS) · quand (`transaction_date` **et** `disclosure_date`) · sens (`direction`) ·
-combien (`amount_midpoint`, milieu de la fourchette STOCK Act) · contexte à la date du trade
+combien (`amount_midpoint`, milieu de la fourchette STOCK Act) · **savait-il ?** (`notification_date` et
+`notif_lag` : la 2e date du PTR House — l'élu n'est informé le jour même que dans 13 % des cas,
+médiane 15 j ; vides au Sénat, dont le formulaire n'a qu'une date) · contexte à la date du trade
 (parti, Congrès, commissions clés) · flags (dépôt tardif, délisté, prudence prix, lots
 multi-comptes) · traçabilité (`doc_id`, clé naturelle). Le détail de chaque étape du nettoyage,
 son code (`module :: fonction`) et ses référentiels : **§7 du rapport**.

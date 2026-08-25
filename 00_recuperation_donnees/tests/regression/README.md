@@ -19,7 +19,7 @@ Lancer toute la suite (depuis `00_recuperation_donnees/`) :
 .venv/bin/python tests/regression/check_golden.py         # golden House  (230 fichiers, sha256)
 .venv/bin/python tests/regression/senate_check_golden.py  # golden Sénat  (138 fichiers, sha256)
 .venv/bin/python tests/regression/test_backtest_clean.py  # les 4 tables de data/clean/ (sha256)
-for t in test_schema test_amounts_tickers test_identity test_tenure \
+for t in test_schema test_amounts_tickers test_identity test_tenure test_first_seen test_live_run \
          test_crosscheck test_vision_sha test_incremental test_senate_repro audit_metrics; do
   .venv/bin/python tests/regression/$t.py || echo "ÉCHEC: $t"
 done
@@ -43,6 +43,8 @@ Tout doit dire « ZÉRO ÉCART » / « ✅ ».
 | `test_vision_sha.py` | Le SHA du prompt OCR == celui des caches (déplacer le code n'invalide pas le cache payé). |
 | `test_incremental.py` | 2ᵉ run OCR = 0 appel Vision (cache versionné par `(prompt_sha, model)`). |
 | `test_senate_repro.py` | Le pipeline Sénat re-logé reproduit les colonnes des FINAL gelées — **sur les 18 839 lignes 2014-2026** (natural_key_hash, recover_ticker, identité). |
+| `test_first_seen.py` | Les invariants du journal d'horodatage (`data/first_seen/first_seen.csv`) : append seul, aucun doc_id réobservé, `first_seen_at` qui ne recule pas, doc_id toujours texte, sources dans le contrat. **Sans réseau.** |
+| `test_live_run.py` | Le run en direct produit les 12 champs de la table de référence, et n'écrit **jamais** dans `data/*/tables/` (sha256 des 369 tables, avant/après). Vérifie aussi `signal_date = max(disclosure_date, first_seen_at)`. **Sans réseau.** |
 
 ## Couverture, dite honnêtement
 
