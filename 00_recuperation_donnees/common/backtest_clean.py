@@ -87,7 +87,11 @@ COLS = ["bioguide_id", "member_name", "party", "chamber", "state_district",
         "transaction_date", "disclosure_date", "lag_days", "flag_late_filing", "flag_very_late_filing",
         "doc_id", "provenance", "ticker_source", "natural_key_hash", "asset_description"]
 # Colonnes ajoutées par les corrections (v2) — à la suite, pour ne pas déplacer les 36 de la v1.
-COLS_V2 = ["owner_n", "member_name_canon", "ticker_groupe", "amount_open_bracket"]
+# `notification_date` / `notif_lag` : la 2e date du PTR House (« Date Notified of Transaction »),
+# jointe à la lecture depuis data/reference/notification_dates.csv. Vides côté Sénat — son
+# formulaire n'a qu'une colonne de date, ce n'est pas un trou de collecte.
+COLS_V2 = ["owner_n", "member_name_canon", "ticker_groupe", "amount_open_bracket",
+           "notification_date", "notif_lag"]
 
 
 # ───────────────────────── montants (convention unifiée) ─────────────────────────

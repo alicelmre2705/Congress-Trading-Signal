@@ -140,11 +140,17 @@ def load_final(repo_root: Path) -> pd.DataFrame:
     full = schema.apply_txn_date_fixes(full)   # corrige 3 années-coquilles du PTR (lecture seule du figé)
     full = schema.apply_ticker_recovery(full, repo_root)   # récupère les tickers d'actions faux-négatifs (read-time)
     full = schema.apply_identity_fixes(full)   # 4 déposants mal/non rattachés (Craig, Van Hollen, Udall, Casey)
+    full = schema.apply_notification_dates(full, repo_root)   # 2e date du PTR House (référentiel annexe)
     td = pd.to_datetime(full["transaction_date"], errors="coerce")
     dd = pd.to_datetime(full["disclosure_date"], errors="coerce")
     full["_td"], full["_dd"] = td, dd
     full["txn_year"] = td.dt.year
     full["lag_days"] = (dd - td).dt.days
+    # notif_lag = jours entre l'opération et le moment où le déclarant dit en avoir été informé.
+    # 0 = il savait à l'ordre (décision propre) ; plusieurs semaines = il l'a appris après coup
+    # (gestion déléguée). NA quand le formulaire ne porte pas la date (tout le Sénat).
+    nd = pd.to_datetime(full["notification_date"], errors="coerce")
+    full["notif_lag"] = (nd - td).dt.days
     full["amount_midpoint"] = pd.to_numeric(full["amount_midpoint"], errors="coerce")
     full = schema.apply_amount_range_fixes(full)   # fourchettes tronquées à la borne basse (digital House) — après conversion numérique
     full["op"] = full["operation_type"].map(op_class)
@@ -346,6 +352,35 @@ def delay_outliers(df: pd.DataFrame, threshold: int = 365, top: int = 15) -> pd.
     g["lag_days"] = g["lag_days"].astype(int)   # affichage entier (pas de « 3698.0 » au rendu)
     return g[["declarant_name", "chamber", "transaction_date", "disclosure_date",
               "lag_days", "ticker", "operation_type"]].reset_index(drop=True)
+
+
+def notification_delay(df: pd.DataFrame, dim: str = "chamber") -> pd.DataFrame:
+    """Délai entre l'opération et le moment où le DÉCLARANT dit en avoir été informé.
+
+    Le PTR House porte deux dates par ligne ; la seconde (« Date Notified of Transaction ») existe
+    pour les comptes que l'élu ne pilote pas lui-même. Un délai nul dit qu'il savait à l'ordre ; un
+    délai de plusieurs semaines dit qu'il l'a appris après coup, donc qu'il n'a rien décidé.
+
+    Le Sénat n'a pas ce champ (son formulaire n'a qu'une colonne de date) : ses lignes sont absentes
+    du tableau — ce n'est pas un trou de collecte.
+    """
+    if "notif_lag" not in df.columns:
+        return pd.DataFrame()
+    rows = []
+    for key in _keys(df, dim):
+        g = df[df[dim] == key]
+        v = pd.to_numeric(g["notif_lag"], errors="coerce").dropna()
+        n = len(v)
+        if not n:
+            continue
+        rows.append({dim: key, "n": n,
+                     "couverture_%": _pct(n, len(g)),
+                     "informé le jour même %": _pct(int((v == 0).sum()), n),
+                     "≤7 j %": _pct(int(v.between(0, 7).sum()), n),
+                     "8–30 j %": _pct(int(v.between(8, 30).sum()), n),
+                     ">30 j %": _pct(int((v > 30).sum()), n),
+                     "délai médian (j)": int(v.median())})
+    return pd.DataFrame(rows)
 
 
 # ───────────────────────────── (c) Distribution des montants ─────────────────────────────
@@ -1423,6 +1458,33 @@ def build_report(repo_root: Path) -> Path:
                       "≤45 j = délai légal STOCK Act · 45–75 j = marge tolérée · >75 j = retard · négatif = "
                       "anomalie (divulgation avant transaction), comptée dans n dates valides · délai médian en j"))
     parts.append("\n![Délai de divulgation](png/quality/delai_divulgation.png)\n")
+    # ── Délai de NOTIFICATION (2e date du PTR House). Gardé par `if`, comme §9/§10 : sans le
+    #    référentiel `data/reference/notification_dates.csv`, la section ne s'imprime pas.
+    notif = notification_delay(df, dim="chamber")
+    if len(notif):
+        _v = pd.to_numeric(df["notif_lag"], errors="coerce").dropna()
+        parts.append("\n### Le déclarant savait-il ? (`notification_date`)\n")
+        parts.append("\nLe PTR de la Chambre impose **deux** dates par ligne : celle de l'opération et "
+                     "*Date Notified of Transaction* — la date à laquelle le déclarant dit en avoir été "
+                     "**informé**. Ce second champ existe précisément pour les comptes qu'il ne pilote pas "
+                     "lui-même (gestion déléguée, trust, mandat). L'écart entre les deux mesure donc "
+                     "**directement** le contenu informationnel d'une ligne : à zéro, l'élu savait au moment "
+                     "de l'ordre ; à plusieurs semaines, il l'a appris après coup et n'a rien décidé.\n\n")
+        parts.append(_md_table(notif))
+        parts.append("\n\n**Par sous-corpus :**\n\n")
+        parts.append(_md_table(notification_delay(df, dim="corpus")))
+        parts.append(_leg("couverture % = part des lignes dont la 2e date est lisible · délai = "
+                          "notification − transaction (j) · le **Sénat est absent** du tableau : son "
+                          "formulaire n'a qu'une colonne de date, ce n'est pas un défaut de collecte"))
+        parts.append(f"\n**Lecture.** Seules **{_pct(int((_v == 0).sum()), len(_v))} %** des lignes House "
+                     f"sont notifiées le jour de l'opération ; la médiane est de **{int(_v.median())} jours**. "
+                     f"La majorité des transactions déclarées ne sont donc **pas** des décisions prises par "
+                     f"l'élu en connaissance de cause au moment de l'ordre — un point à trancher avant de "
+                     f"lire ces lignes comme un signal d'initié. La colonne `notif_lag` de `data/clean/` "
+                     f"sépare les deux populations. Le champ est récolté par "
+                     f"`common/notification_dates.py` depuis les PDF et les caches OCR **déjà payés** "
+                     f"(zéro appel API), dans un référentiel annexe appliqué à la LECTURE : les tables "
+                     f"figées ne sont pas touchées.\n")
     if len(outliers):
         parts.append("\n### Divulgations les plus tardives (> 365 j)\n\n")
         parts.append(_md_table(outliers))

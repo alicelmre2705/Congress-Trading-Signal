@@ -274,6 +274,51 @@ def apply_ticker_recovery(df, repo_root):
     return df
 
 
+# ─────────────────────── notification_date (deuxième date du PTR House) ───────────────────────
+# Le formulaire PTR impose DEUX dates par ligne : *Date of Transaction* et *Date Notified of
+# Transaction*. La seconde existe pour les comptes que l'élu ne pilote pas lui-même (gestion
+# déléguée, trust, mandat) : elle dit quand le gérant l'a INFORMÉ. L'écart entre les deux mesure
+# donc directement le contenu informationnel d'une ligne.
+#
+# Elle a toujours été captée (groupe `notif` des deux parseurs) et jetée. La récolter dans les
+# tables figées les réécrirait toutes (golden à l'octet) → elle vit dans un référentiel annexe,
+# `data/reference/notification_dates.csv`, produit par `common.notification_dates` et joint ICI,
+# à la lecture. Même doctrine que les quatre familles de correctifs ci-dessus.
+
+def load_notification_dates(repo_root):
+    """Carte (doc_id, natural_key_hash) → notification_date. {} si le référentiel est absent."""
+    import csv
+    from pathlib import Path
+    p = Path(repo_root) / "data" / "reference" / "notification_dates.csv"
+    if not p.exists():
+        return {}
+    try:
+        with p.open(newline="", encoding="utf-8") as f:
+            return {(r["doc_id"], r["natural_key_hash"]): r["notification_date"]
+                    for r in csv.DictReader(f) if r.get("notification_date")}
+    except (OSError, KeyError):
+        return {}
+
+
+def apply_notification_dates(df, repo_root):
+    """Ajoute `notification_date` À LA LECTURE (colonne vide si le référentiel manque).
+
+    Le Sénat n'a pas cette date : son formulaire n'a qu'une colonne de date. Les lignes Sénat
+    restent donc vides — ce n'est pas un trou de collecte, c'est l'absence du champ à la source.
+    """
+    if not {"doc_id", "natural_key_hash"} <= set(df.columns):
+        return df
+    carte = load_notification_dates(repo_root)
+    df = df.copy()
+    if not carte:
+        df["notification_date"] = ""
+        return df
+    _doc = df["doc_id"].astype(str).str.replace(r"\.0$", "", regex=True)
+    df["notification_date"] = [carte.get((d, h), "")
+                               for d, h in zip(_doc, df["natural_key_hash"].astype(str))]
+    return df
+
+
 def add_occurrence_index(df):
     """occurrence_index = rang du lot répété intra-dépôt (préserve les lots identiques d'un même PTR,
     dédup non destructrice). Exige les colonnes doc_id + natural_key_hash."""

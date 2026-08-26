@@ -47,14 +47,15 @@ PROBE_YEARS = [2019, 2018, 2017, 2016, 2015, 2014]   # tester le format HTML anc
 
 
 # ---------------------------------------------------------------- agrément + recherche
+from senate import efd_session as _efd   # source unique de l'agrément eFD
+
+
 def accept_agreement():
-    r = SESSION.get(EFD_HOME, timeout=60)
-    if r.status_code != 200:
-        raise RuntimeError(f"Accès eFD refusé (HTTP {r.status_code}) — arrêt propre.")
-    token = SESSION.cookies.get("csrftoken", "")
-    SESSION.post(EFD_HOME, data={"prohibition_agreement": "1", "csrfmiddlewaretoken": token},
-                 headers={"Referer": EFD_HOME, "X-CSRFToken": token}, timeout=60)
-    return "sessionid" in SESSION.cookies or "csrftoken" in SESSION.cookies
+    """Agrément eFD — délégué à `senate.efd_session` (source unique des 3 anciennes copies).
+
+    La session reste locale au module : la délégation est une substitution stricte.
+    """
+    return _efd.accept_agreement(SESSION)
 
 
 def fetch_ptr_list(win_start, win_end):

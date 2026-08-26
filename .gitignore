@@ -15,3 +15,8 @@ dist/
 
 # utilitaire perso (garder le Mac éveillé) — hors dépôt
 keepawake
+
+# Instantanés quotidiens de l'index du Clerk (common.first_seen --dry-run / local) :
+# ~420 Ko par jour et par année, purement diagnostiques. Le journal d'horodatage
+# (data/first_seen/) est la seule sortie du crawl qui doit être versionnée.
+00_recuperation_donnees/data/house/index/daily/

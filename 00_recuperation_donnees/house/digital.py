@@ -231,6 +231,13 @@ def parse_ptr(text):
             "asset_description": desc,
             "operation_type": _op_type(m.group("type"), m.group("sub")),
             "transaction_date": m.group("txn"),
+            # Le PTR porte DEUX dates par ligne : celle de l'opération et « Date Notified of
+            # Transaction » — la date à laquelle le déclarant dit avoir été INFORMÉ. La seconde
+            # existe pour les comptes qu'il ne pilote pas lui-même (gestion déléguée, trust) :
+            # c'est la seule mesure directe de l'écart entre l'ordre et sa connaissance par l'élu.
+            # Hors SCHEMA → `finalize` la retire des tables figées (reindex) ; elle est récoltée
+            # par `common.notification_dates` dans un référentiel annexe, appliqué à la LECTURE.
+            "notification_date": m.group("notif"),
             "amount_range": amount_str,
             "amount_midpoint": _amount_midpoint(amount_str),
             "amount_split_flag": bool(_SPLIT_AMOUNT_RE.search(amount_str)),
@@ -294,6 +301,8 @@ def parse_ptr_legacy(text):
             "asset_description": desc,
             "operation_type": _op_type(m.group("type"), m.group("sub")),
             "transaction_date": m.group("txn"),
+            # cf. parse_ptr : deuxième date du formulaire, hors SCHEMA, récoltée à part
+            "notification_date": m.group("notif"),
             "amount_range": amount_str,
             "amount_midpoint": _amount_midpoint(amount_str),
             "amount_split_flag": bool(_SPLIT_AMOUNT_RE.search(amount_str)),
