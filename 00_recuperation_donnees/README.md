@@ -53,20 +53,17 @@ python -m common.live_run --limit 20       # les 20 dépôts les plus récents
 exigent la classification puis l'OCR. Ils sont signalés, jamais perdus — ils restent « nouveaux »
 au passage suivant.*
 
-### Activer le crawl — une seule fois, et c'est fait
+### Le crawl tourne — ce qu'il faut savoir
 
-Le job ne tourne que si la branche est **poussée sur GitHub** : tant qu'elle est locale, rien ne
-s'exécute et chaque jour qui passe est un jour d'horodatage perdu.
+Le job est sur `main` depuis la fusion de `t1-t2-donnees-en-direct` : GitHub exécute les workflows
+`schedule` depuis la branche par défaut, donc le cron quotidien (06:00 UTC) est **actif**, et le job
+commite lui-même le CSV qu'il produit.
 
-```bash
-git push -u origin <votre-branche>
-```
-
-Puis sur GitHub : onglet **Actions** → **first_seen** → **Run workflow**. Ce premier passage manuel
-sert à voir qu'il finit au vert avant de le laisser au cron quotidien (06:00 UTC).
+Pour voir un passage : onglet **Actions** → **first_seen**. Le bouton **Run workflow** déclenche un
+passage manuel à tout moment, sans attendre le cron.
 
 **L'amorçage est déjà fait** (10 530 documents inscrits) — ne relancez pas `--backfill`. Il est sans
-effet (le fichier est en append seul, un document déjà vu n'est jamais réécrit), mais inutile.
+effet, le fichier étant en append seul, mais inutile.
 
 ### Si vous reprenez ce dossier dans quelques mois
 
@@ -88,12 +85,13 @@ python tests/regression/check_golden.py && python tests/regression/test_first_se
 
 Deux « ZÉRO ÉCART » = la donnée et le journal sont intègres.
 
-## Les deux documents
+## Les trois documents
 
 | document | c'est quoi |
 |---|---|
 | [`RAPPORT_DONNEES.md`](RAPPORT_DONNEES.md) (+ [`.pdf`](RAPPORT_DONNEES.pdf)) | **LE rapport — régénérable** : toutes les stats (corpus, couverture officielle, dates, montants, concentration, validation Quiver §6, nettoyage §7, corroboration externe §8, papier Sénat §9, types de dépôts Sénat §10). Relancer le pipeline le régénère : **si la donnée change, chaque chiffre suit.** |
 | [`SLIDES_DONNEES.pdf`](SLIDES_DONNEES.pdf) | le deck de présentation, certifié le 18/07. |
+| [`REPONSES_VERIFICATIONS.md`](REPONSES_VERIFICATIONS.md) | **les réponses** : six vérifications (C1→C6) et deux travaux (T1, T2), chacun avec la question telle qu'elle a été posée, ce qu'on a mesuré, et le chiffre qui tranche. Établi le 26/08 sur la table `data/clean/`. |
 
 *Le deck est un cliché daté : ses figures d'entonnoir portent l'état d'alors de la table
 (134 464 × 36) ; l'écart avec la table courante (−12 tickers faux-positifs corrigés depuis) est
@@ -186,8 +184,11 @@ tests/    golden 230 + 138 fichiers (SHA256) + tests de régression
 ## À savoir avant d'utiliser la table
 
 - **Anti-look-ahead** : on n'entre jamais sur `transaction_date` — l'information n'est publique
-  qu'à `disclosure_date` (délai médian **27 j** côté House, 24 j au Sénat). Tout usage aval doit
-  entrer à la divulgation.
+  qu'une fois le document déposé **et** visible. La règle en vigueur est
+  `signal_date = max(disclosure_date, first_seen_at)` (`common/live_run.py`) : tant que la
+  distribution `first_seen_at − disclosure_date` n'est pas mesurable (C1, lisible vers le
+  2026-10-01), le `max` protège sans rien supposer. Délai médian transaction → divulgation :
+  **27 j** côté House, 24 j au Sénat.
 - **Les manuscrits gated existent** : 7 287 transactions écartées par la politique OCR sont
   livrées à part (`transactions_gated_*`), avec leur motif — rien n'a disparu en silence.
 - **Les titres délistés sont gardés** (et flagués) : les retirer serait un biais de survie caché.

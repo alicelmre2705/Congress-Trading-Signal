@@ -38,6 +38,12 @@ documents officiels des ETF NANC/GOP — version auto-portante `_COMPLET.pdf`, 7
 [`ETAT_DE_L_ART_STRATEGIES.md`](2_noter_les_titres/ETAT_DE_L_ART_STRATEGIES.md) (69 fiches de
 littérature vérifiées en source primaire).
 
+**Le deck** : [`SLIDES_RECHERCHE.pdf`](SLIDES_RECHERCHE.pdf) (25 pages, source `.tex` à côté) —
+la recherche présentée en trois parties : M1 et la construction du signal ; M2, M3, M4 et leurs
+deux épreuves ; la version qui n'achète que des ETF. Ses figures viennent des dossiers `figs/` des
+trois sous-dossiers, plus [`figs_archive/`](figs_archive/README.md) pour celles que produisent des
+notebooks archivés sur la branche `presentation`.
+
 ## Le chemin — trois dossiers, dans l'ordre
 
 | dossier | la question | la réponse |
@@ -73,3 +79,8 @@ témoins — les valeurs gelées que tout re-calcul doit retrouver à l'identiqu
   navigation ; pourquoi les notebooks figés n'importent aucun module ; la passerelle vers la
   table courante du pipeline.
 - Chaque dossier a son README de résultats, avec les graphiques.
+
+*Re-exécuter les notebooks exige des caches de prix locaux non versionnés — ils se reconstruisent
+via yfinance. Les tables gelées de `tables/` et les caches non re-téléchargeables (N-PORT, OCR
+récupéré, prix de tickers disparus) sont, eux, embarqués. Les sorties restent lisibles dans les
+`.ipynb` sans rien exécuter.*

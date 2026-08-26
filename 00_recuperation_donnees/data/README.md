@@ -97,3 +97,15 @@ ne se rejoue pas hors-ligne, donc la mesure est stockée avec sa date.
   rapport) → l'OCR Sénat est source unique, validé en interne.
 - **`house/reference/` et `senate/reference/`** portent les **mêmes 4 YAML congress-legislators
   (copies volontaires, octet-identiques)** : chaque pipeline reste autonome.
+
+Et trois asymétries **de code** — le reste des modules est symétrique :
+
+- **`senate/fusion.py`** (House fusionne *inline* dans `ocr.py`) — affaire de **volume** : le Sénat
+  enrichit tout le corpus en une passe, ce qui mutualise le dictionnaire de tickers ; House fusionne
+  année par année.
+- **`senate/ocr_engine.py`** (House garde son OCR *inline*) — **forme OCR divergente** : House lit
+  des scans PDF à cases A–K, le Sénat des `.gif` à fourchettes $ explicites. Moteur figé pour le
+  golden.
+- **Les montants** : `house/amounts.py` place les midpoints en `.0`, la map Sénat de
+  `senate/ocr_engine.py` en `.5` — divergence **voulue**. La formule `amount_midpoint` (6 lignes)
+  reste propre à chaque chambre : c'est le prix du découplage, et il est petit.
