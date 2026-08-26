@@ -53,6 +53,41 @@ python -m common.live_run --limit 20       # les 20 dépôts les plus récents
 exigent la classification puis l'OCR. Ils sont signalés, jamais perdus — ils restent « nouveaux »
 au passage suivant.*
 
+### Activer le crawl — une seule fois, et c'est fait
+
+Le job ne tourne que si la branche est **poussée sur GitHub** : tant qu'elle est locale, rien ne
+s'exécute et chaque jour qui passe est un jour d'horodatage perdu.
+
+```bash
+git push -u origin <votre-branche>
+```
+
+Puis sur GitHub : onglet **Actions** → **first_seen** → **Run workflow**. Ce premier passage manuel
+sert à voir qu'il finit au vert avant de le laisser au cron quotidien (06:00 UTC).
+
+**L'amorçage est déjà fait** (10 530 documents inscrits) — ne relancez pas `--backfill`. Il est sans
+effet (le fichier est en append seul, un document déjà vu n'est jamais réécrit), mais inutile.
+
+### Si vous reprenez ce dossier dans quelques mois
+
+Vérifiez d'abord que le crawl a bien tourné pendant votre absence :
+
+```bash
+tail -3 data/first_seen/first_seen.csv        # la 3e colonne doit être récente
+```
+
+Si les dates s'arrêtent il y a des semaines, le job s'est arrêté : **les jours manquants sont perdus
+définitivement** (c'est le seul dommage irréversible du dossier), mais rien d'autre n'est cassé —
+relancez le workflow et la collecte reprend.
+
+Le reste se vérifie hors ligne, sans rien télécharger :
+
+```bash
+python tests/regression/check_golden.py && python tests/regression/test_first_seen.py
+```
+
+Deux « ZÉRO ÉCART » = la donnée et le journal sont intègres.
+
 ## Les deux documents
 
 | document | c'est quoi |
