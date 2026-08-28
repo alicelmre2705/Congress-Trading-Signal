@@ -461,26 +461,30 @@
 % ═══════════════════════════════════════════════════════════════════════════
 \partdivider{PARTIE 2}{Copier Quiver}{un produit vend déjà cette stratégie --- ce qu'il annonce, et ce qu'on obtient}
 
-\begin{frame}{Quiver --- la règle qu'ils publient, le chiffre qu'ils affichent}
+\begin{frame}{Quiver --- ce qu'ils écrivent, et ce qu'on en fait}
+  \et{1}{Ce qu'ils écrivent --- quiverquant.com, pages « Congress Trading »}
+  {\scriptsize
+   \textbf{Congress Buys} --- \emph{« The Congress Buys Strategy tracks the performance of stocks
+   that have been purchased by members of U.S. Congress (or their family). This strategy is
+   \textbf{weighted based on the reported size of the purchases}, with weekly rebalancing. »}
+   \par\vspace{1mm}
+   \textbf{Congress Long-Short} --- \emph{« \ldots\ It takes a \textbf{long position in stocks that
+   have been purchased}, and a \textbf{short position in stocks which have been sold}. \ldots\
+   employs leverage with \textbf{130\% long exposure and 30\% short exposure}, with weekly
+   rebalancing. »}}
+  \par\vspace{0.5mm}
+  \et{2}{Ce qu'on en fait}
   \begin{columns}[T]
-    \begin{column}{0.47\textwidth}
-      \et{1}{Ce qu'ils disent faire}
-      {\scriptsize \textbf{Congress Buys} --- long les titres achetés par le Congrès \emph{ou leur
-       famille}, pondérés à « \emph{the reported size of the purchases} », rotation
-       \textbf{hebdo}. \textbf{Long-Short 130/30} --- $+130~\%$ des achats, $-30~\%$ des ventes.}
-      \par\vspace{1mm}
+    \begin{column}{0.45\textwidth}
       {\footnotesize\[ w^{\text{Buys}}_{i,t} = \frac{B_{i,t}}{\sum_j B_{j,t}} \]}
       \vspace{-2mm}
       {\footnotesize\[ r^{\text{LS}}_t = 1{,}3\,r^{\text{long}}_t - 0{,}3\,r^{\text{short}}_t \]}
       \vspace{-1mm}
-      \lire{$B_{i,t}$ est le dollar acheté défini en 1.4 --- leur règle, c'est sa \textbf{part}.}
+      \obs{$B_{i,t}$ est le dollar acheté défini en 1.4 --- leur règle, c'est sa \textbf{part}}
+      \obs{fenêtre \textbf{63 j}, rotation \textbf{mensuelle}, aux \textbf{deux dates} : $\tau$ en
+       borne haute, $\delta$ la seule réplicable}
     \end{column}
-    \begin{column}{0.50\textwidth}
-      \et{2}{Comment on réplique}
-      \obs{fenêtre \textbf{63 j} --- une des quatre balayées en 1.5 --- et rotation
-       \textbf{mensuelle}}
-      \obs{aux \textbf{deux dates} : $\tau$ en borne haute, $\delta$ la seule réplicable}
-      \vspace{1.5mm}
+    \begin{column}{0.52\textwidth}
       {\scriptsize\setlength{\tabcolsep}{4pt}\setlength{\extrarowheight}{2pt}
       \begin{tabular}{@{}l r r r@{}}
         \toprule
@@ -491,11 +495,11 @@
         SPY, même fenêtre & --- & 21,1~\% & 21,1~\%\\
         \bottomrule
       \end{tabular}}
+      \par\vspace{1.5mm}
+      \obs{\textbf{la réplique la plus favorable rend 22,6~\% là où ils annoncent 36,2~\%} --- et
+       le marché, sur la même fenêtre, en fait 21,1}
     \end{column}
   \end{columns}
-  \par\vspace{2mm}
-  \obs{\textbf{la réplique la plus favorable rend 22,6~\% là où ils annoncent 36,2~\%} --- et le
-   marché, sur la même fenêtre, en fait 21,1}
 \end{frame}
 
 \begin{frame}{Quiver --- ce que la réplique donne}
