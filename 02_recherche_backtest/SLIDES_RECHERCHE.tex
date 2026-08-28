@@ -281,7 +281,7 @@
   \vspace{-1mm}
   \lire{$\max_i w_{i,t}$ : poids de la plus grosse ligne, un mois donné (règle : $> 10~\%$ dans
    $\leq 20~\%$ des mois).}
-  \par\vspace{3mm}
+  \par\vspace{1.5mm}
   \centering
   {\footnotesize\setlength{\tabcolsep}{8pt}
   \begin{tabular}{@{}l r r r r@{}}
@@ -294,13 +294,19 @@
     mois $> 10~\%$      & 58~\%   & \textbf{17~\%}   & 9~\%   & 5~\%\\
     \bottomrule
   \end{tabular}}
-  \par\vspace{3mm}
-  \raggedright
-  \lire{colonnes = les 4 fenêtres testées ; $|S_t|$ = titres retenus/mois ; $K_t$ = membres
-   actifs/mois ; $\max w$ = plus grosse ligne ; dernière ligne = fréquence de sur-concentration
-   (le critère).}
   \par\vspace{1.5mm}
-  \sortie{$W = 42$ j retenu.}
+  \raggedright
+  \lire{$|S_t|$ = titres retenus/mois ; $K_t$ = membres actifs/mois ; dernière ligne = la
+   fréquence de sur-concentration, \emph{le critère}.}
+  \par\vspace{1.5mm}
+  \sortie{$W = 42$ j retenu --- critère et constantes fixés \textbf{avant} de regarder la
+   performance ; et cette fenêtre \textbf{ne survit pas} : M2 à M4 tournent sur les 3 ans du
+   prospectus (page 19).}
+  \vspace{0.5mm}
+  \obs{\textbf{ce paramètre sera stress-testé avant toute mise en production} --- rejouer les
+   quatre fenêtres \emph{sur le rendement} et publier le balayage entier, comme celui de $\theta$
+   page 21 ; faire varier les deux constantes du critère et vérifier que $W^\star$ ne bouge pas ;
+   refaire le choix sur la première moitié de l'échantillon pour l'appliquer à la seconde}
 \end{frame}
 
 \begin{frame}{1.6 · Le résultat de la stratégie --- à la transaction ($\tau$)}
