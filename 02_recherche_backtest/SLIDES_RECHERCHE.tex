@@ -456,7 +456,86 @@
    Ce n'est pas un filtre d'information, c'est une \textbf{inclinaison sectorielle}}
 \end{frame}
 
-\partdivider{PARTIE 2}{M2, M3, M4}{une seule chose change à la fois}
+% ═══════════════════════════════════════════════════════════════════════════
+%  PARTIE 2 — le produit qui vend déjà cette stratégie
+% ═══════════════════════════════════════════════════════════════════════════
+\partdivider{PARTIE 2}{Copier Quiver}{un produit vend déjà cette stratégie --- ce qu'il annonce, et ce qu'on obtient}
+
+\begin{frame}{Quiver --- la règle qu'ils publient, le chiffre qu'ils affichent}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      \et{1}{Ce qu'ils disent faire}
+      {\scriptsize \textbf{Congress Buys} --- long les titres achetés par le Congrès \emph{ou leur
+       famille}, pondérés à « \emph{the reported size of the purchases} », rotation
+       \textbf{hebdo}. \textbf{Long-Short 130/30} --- $+130~\%$ des achats, $-30~\%$ des ventes.}
+      \par\vspace{1mm}
+      {\footnotesize\[ w^{\text{Buys}}_{i,t} = \frac{B_{i,t}}{\sum_j B_{j,t}} \]}
+      \vspace{-2mm}
+      {\footnotesize\[ r^{\text{LS}}_t = 1{,}3\,r^{\text{long}}_t - 0{,}3\,r^{\text{short}}_t \]}
+      \vspace{-1mm}
+      \lire{$B_{i,t}$ est le dollar acheté défini en 1.4 --- leur règle, c'est sa \textbf{part}.}
+    \end{column}
+    \begin{column}{0.50\textwidth}
+      \et{2}{Comment on réplique}
+      \obs{fenêtre \textbf{63 j} --- une des quatre balayées en 1.5 --- et rotation
+       \textbf{mensuelle}}
+      \obs{aux \textbf{deux dates} : $\tau$ en borne haute, $\delta$ la seule réplicable}
+      \vspace{1.5mm}
+      {\scriptsize\setlength{\tabcolsep}{4pt}\setlength{\extrarowheight}{2pt}
+      \begin{tabular}{@{}l r r r@{}}
+        \toprule
+        CAGR/an \emph{2020--26} & annoncé & rép.\,$\tau$ & rép.\,$\delta$\\
+        \midrule
+        Congress Buys & 36,2~\% \emph{($\beta$1,14)} & \textbf{22,6~\%} & 21,4~\%\\
+        Long-Short 130/30 & 34,0~\% \emph{($\beta$1,15)} & \textbf{23,5~\%} & 22,3~\%\\
+        SPY, même fenêtre & --- & 21,1~\% & 21,1~\%\\
+        \bottomrule
+      \end{tabular}}
+    \end{column}
+  \end{columns}
+  \par\vspace{2mm}
+  \obs{\textbf{la réplique la plus favorable rend 22,6~\% là où ils annoncent 36,2~\%} --- et le
+   marché, sur la même fenêtre, en fait 21,1}
+\end{frame}
+
+\begin{frame}{Quiver --- ce que la réplique donne}
+  \begin{columns}[T]
+    \begin{column}{0.39\textwidth}
+      {\scriptsize\setlength{\tabcolsep}{2.5pt}\setlength{\extrarowheight}{2pt}
+      \begin{tabular}{@{}l r r r r r@{}}
+        \toprule
+        \emph{2014--26} & excès & $t$ & $\alpha$ & $\beta$ & NAV\\
+        \midrule
+        Buys $\cdot\ \tau$ & $+0{,}84$ & 0,74 & $-0{,}21$ & 1,06 & 565\\
+        Buys $\cdot\ \delta$ & $-0{,}03$ & $-0{,}03$ & $-0{,}69$ & 1,04 & 511\\
+        LS $\cdot\ \tau$ & $+1{,}57$ & 1,13 & $+0{,}32$ & 1,07 & 606\\
+        LS $\cdot\ \delta$ & $+0{,}92$ & 0,60 & $+0{,}07$ & 1,04 & 555\\
+        \bottomrule
+      \end{tabular}}
+      \par\vspace{1.5mm}
+      \lire{excès et $\alpha$ en \%/an, au-dessus du SPY.}
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{quiver.png}
+    \end{column}
+  \end{columns}
+  \par\vspace{2mm}
+  \obs{\textbf{$\beta \approx 1$, aucun $t$ au-dessus de 2} --- et à la divulgation, Congress Buys
+   ne rapporte plus rien ($-0{,}03$~\%/an) pour un $\alpha$ de $-0{,}69$. C'est le marché avec un
+   peu de levier}
+  \obs{\textbf{cinq leviers testés un par un} --- pondération, ETF écartés, couverture, fenêtre
+   $W$, accumulation --- \textbf{ne comblent jamais l'écart} ; leur panneau est incohérent : vol
+   affichée 4,63~\%/an, incompatible avec le $\beta$ 1,14 qu'ils publient eux-mêmes}
+  \obs{\textbf{même exercice sur leur page \emph{House Long-Short}} : \textbf{+628~\%} annoncés
+   depuis 2020, \textbf{+267~\%} répliqués --- on reproduit tout ce qu'ils divulguent, l'écart est
+   entièrement dans ce qu'ils ne divulguent pas}
+\end{frame}
+
+% ═══════════════════════════════════════════════════════════════════════════
+%  PARTIE 3 — les méthodes
+% ═══════════════════════════════════════════════════════════════════════════
+\partdivider{PARTIE 3}{M2, M3, M4}{une seule chose change à la fois}
 
 \begin{frame}{NANC et GOP --- les deux fonds dont vient la règle}
   \begin{columns}[T]
@@ -477,7 +556,7 @@
       \end{tabular}}
     \end{column}
     \begin{column}{0.57\textwidth}
-      \et{2}{Ce que la partie 2 leur emprunte}
+      \et{2}{Ce que la partie 3 leur emprunte}
       {\scriptsize\setlength{\tabcolsep}{2pt}\setlength{\extrarowheight}{1.5pt}
       \begin{tabular}{@{}l l@{}}
         \toprule
@@ -718,9 +797,9 @@
 \end{frame}
 
 % ═════════════════════════════════════════════════════════════════════════════
-%  PARTIE 3 — l'ETF, et le livrable
+%  PARTIE 4 — l'ETF, et le livrable
 % ═════════════════════════════════════════════════════════════════════════════
-\partdivider{PARTIE 3}{Version 2 --- un portefeuille qui n'achète que des ETF}{M3 tourne inchangée ; trois étapes de plus, et elles viennent toutes après}
+\partdivider{PARTIE 4}{Version 2 --- un portefeuille qui n'achète que des ETF}{M3 tourne inchangée ; trois étapes de plus, et elles viennent toutes après}
 
 \begin{frame}{11 · L'instrument --- chaque ligne devient l'ETF de son secteur}
   \begin{columns}[T]
